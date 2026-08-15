@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Google Ads",
+    "file": "public/assets/richmedia-home/logos/accreditations-svg/google-ads.svg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg",
+    "final_url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg",
+    "source": "Wikimedia Commons",
+    "content_type": "image/svg+xml",
+    "bytes": 4344
+  },
+  {
+    "name": "Google Analytics",
+    "file": "public/assets/richmedia-home/logos/accreditations-svg/google-analytics.svg",
+    "url": "https://www.gstatic.com/analytics-suite/header/suite/v2/ic_analytics.svg",
+    "final_url": "https://www.gstatic.com/analytics-suite/header/suite/v2/ic_analytics.svg",
+    "source": "Google gstatic",
+    "content_type": "image/svg+xml",
+    "bytes": 658
+  },
+  {
+    "name": "HubSpot",
+    "file": "public/assets/richmedia-home/logos/accreditations-svg/hubspot.svg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/HubSpot_Logo.svg",
+    "final_url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/HubSpot_Logo.svg",
+    "source": "Wikimedia Commons",
+    "content_type": "image/svg+xml",
+    "bytes": 1826
+  },
+  {
+    "name": "IAB",
+    "file": "public/assets/richmedia-home/logos/accreditations-svg/iab-rich-media.svg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/IAB_logo.svg",
+    "final_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/IAB_logo.svg",
+    "source": "Wikimedia Commons",
+    "content_type": "image/svg+xml",
+    "bytes": 1830
+  },
+  {
+    "name": "Meta",
+    "file": "public/assets/richmedia-home/logos/accreditations-svg/meta-blueprint.svg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg",
+    "final_url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg",
+    "source": "Wikimedia Commons",
+    "content_type": "image/svg+xml",
+    "bytes": 3383
+  },
+  {
+    "name": "Semrush",
+    "file": "public/assets/richmedia-home/logos/accreditations-svg/semrush.svg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Semrush_logo.svg",
+    "final_url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Semrush_logo.svg",
+    "source": "Wikimedia Commons",
+    "content_type": "image/svg+xml",
+    "bytes": 2474
+  }
+]

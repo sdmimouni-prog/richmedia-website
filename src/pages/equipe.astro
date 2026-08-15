@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbs, localBusiness } from '../lib/schema';
+import { SITE } from '../consts';
+
+const schema = [
+  localBusiness(),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Équipe', url: `${SITE.url}/equipe` },
+  ]),
+];
+---
+<BaseLayout
+  title="Équipe — Richmedia"
+  description="Découvrez l'équipe Richmedia : stratégie, media performance, SEO, social media, expérience client et IA depuis Casablanca."
+  schema={schema}
+>
+  <h1>Équipe</h1>
+  <p>Socle de page pour présenter les pôles, les expertises internes et les accréditations de l'agence.</p>
+</BaseLayout>

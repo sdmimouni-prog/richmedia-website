@@ -1,0 +1,318 @@
+@import "tailwindcss";
+
+/* Tokens de marque — brand book Richmedia */
+@theme {
+  --color-navy: #071A35;
+  --color-ink: #05070F;
+  --color-purple: #6C3CF5;
+  --color-light: #E8EDF5;
+  --color-graphite: #1A1D24;
+  --font-display: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #030407;
+  font-family: var(--font-body);
+}
+
+body {
+  margin: 0;
+  background: #030407;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::selection {
+  background: color-mix(in srgb, var(--color-purple) 70%, white);
+  color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.brand-word {
+  font-family: var(--font-display);
+  letter-spacing: 0;
+}
+
+h1 {
+  font-weight: 800;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+}
+
+p,
+li,
+a,
+small,
+address,
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-body);
+}
+
+strong {
+  font-weight: 600;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+main {
+  width: min(100% - 2rem, 1120px);
+  margin-inline: auto;
+  padding-block: 7rem 3rem;
+}
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.25rem max(1.25rem, calc((100vw - 1320px) / 2));
+  background: linear-gradient(180deg, rgba(3, 4, 7, 0.9), rgba(3, 4, 7, 0.35) 74%, transparent);
+}
+
+.brand-lockup {
+  display: inline-grid;
+  gap: 0.12rem;
+  min-width: max-content;
+  text-decoration: none;
+}
+
+.brand-word {
+  position: relative;
+  width: fit-content;
+  font-size: clamp(1.65rem, 2.2vw, 2.15rem);
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: 0;
+}
+
+.brand-word::before {
+  position: absolute;
+  top: -0.28rem;
+  left: 3.05rem;
+  width: 0.46rem;
+  height: 0.46rem;
+  border-radius: 2px;
+  content: "";
+  background: linear-gradient(135deg, #9c6dff, #5f22e9);
+}
+
+.brand-tagline {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.52rem;
+  font-weight: 500;
+  letter-spacing: 0.36em;
+}
+
+.brand-tagline strong {
+  color: var(--color-purple);
+  font-weight: inherit;
+}
+
+.primary-nav,
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+.primary-nav a,
+.lang-switch,
+.header-cta {
+  text-decoration: none;
+}
+
+.primary-nav a,
+.lang-switch {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.93rem;
+  font-weight: 600;
+}
+
+.primary-nav a:hover,
+.primary-nav a:focus-visible,
+.lang-switch:hover,
+.lang-switch:focus-visible {
+  color: #fff;
+}
+
+.header-actions {
+  gap: 1rem;
+}
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.85rem;
+  border-radius: 6px;
+  padding: 0 1rem;
+  background: linear-gradient(135deg, #8c52ff, #6224ec);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 1rem 2.5rem rgba(124, 60, 255, 0.3);
+}
+
+.site-footer {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.1fr) repeat(4, minmax(130px, 0.55fr));
+  gap: 2rem;
+  width: min(100% - 3rem, 1320px);
+  margin: 0 auto;
+  padding: 2rem 0 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.site-footer h2 {
+  margin: 0 0 0.8rem;
+  color: #8f59ff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.site-footer p,
+.site-footer address {
+  margin: 0;
+  font-style: normal;
+}
+
+.footer-brand p {
+  max-width: 280px;
+  margin-top: 1rem;
+  line-height: 1.55;
+}
+
+.site-footer nav,
+.site-footer address,
+.footer-offices {
+  display: grid;
+  align-content: start;
+  gap: 0.52rem;
+}
+
+.site-footer a {
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: #fff;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+  margin-top: 0.55rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.footer-bottom {
+  display: flex;
+  grid-column: 1 / -1;
+  gap: clamp(1rem, 7vw, 8rem);
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+@media (max-width: 1080px) {
+  .site-header {
+    align-items: start;
+  }
+
+  .primary-nav {
+    display: none;
+  }
+
+  .site-footer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  main {
+    width: min(100% - 1.25rem, 1120px);
+  }
+
+  .site-header {
+    padding-inline: 0.75rem;
+  }
+
+  .brand-tagline,
+  .lang-switch {
+    display: none;
+  }
+
+  .header-cta {
+    min-height: 2.55rem;
+    padding-inline: 0.78rem;
+    font-size: 0;
+    white-space: nowrap;
+  }
+
+  .header-cta::before {
+    content: "Call";
+    font-size: 0.82rem;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr;
+    width: min(100% - 1.25rem, 1320px);
+  }
+
+  .footer-bottom {
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+}

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbs } from '../../lib/schema';
+import { SITE } from '../../consts';
+
+const piliers = (await getCollection('expertises', ({ data }) => !data.draft && data.type === 'pilier'))
+  .sort((a, b) => a.data.ordre - b.data.ordre);
+
+const schema = [breadcrumbs([
+  { name: 'Accueil', url: SITE.url },
+  { name: 'Expertises', url: `${SITE.url}/expertises` },
+])];
+---
+<BaseLayout
+  title="Nos expertises — Agence digitale full-service | Richmedia"
+  description="Stratégie & branding, media performance, social media, expérience client & IA. Découvrez les expertises de Richmedia."
+  schema={schema}
+>
+  <h1>Nos expertises</h1>
+  <ul>
+    {piliers.map((p) => (
+      <li>
+        <a href={`/expertises/${p.data.slug ?? p.id}`}>{p.data.title}</a>
+        <p>{p.data.accroche}</p>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

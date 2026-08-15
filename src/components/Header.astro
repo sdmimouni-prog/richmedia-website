@@ -1,0 +1,28 @@
+---
+const navItems = [
+  { href: '/', label: 'Accueil' },
+  { href: '/expertises', label: 'Expertise' },
+  { href: '/realisations', label: 'Réalisations' },
+  { href: '/equipe', label: 'Équipe' },
+  { href: '#references', label: 'Références' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+<header class="site-header" data-site-header>
+  <a href="/" class="brand-lockup" aria-label="Richmedia — Accueil">
+    <span class="brand-word">richmedia</span>
+    <span class="brand-tagline">WE BUILD <strong>DIGITAL</strong> GROWTH</span>
+  </a>
+
+  <nav class="primary-nav" aria-label="Navigation principale">
+    {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+
+  <div class="header-actions">
+    <a class="lang-switch" href="/en" aria-label="English version">FR / EN</a>
+    <a href="/reserver-un-audit" class="header-cta">
+      Book a call
+      <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+    </a>
+  </div>
+</header>

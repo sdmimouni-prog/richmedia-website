@@ -1,0 +1,28 @@
+---
+import { SITE } from '../consts';
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  lang?: 'fr' | 'en';
+}
+const { title, description, canonical, ogImage, lang = 'fr' } = Astro.props;
+const url = canonical ?? new URL(Astro.url.pathname, SITE.url).href;
+const image = ogImage ?? `${SITE.url}/og-default.jpg`;
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={url} />
+
+<!-- hreflang : FR principal, EN en miroir -->
+<link rel="alternate" hreflang="fr" href={url} />
+<link rel="alternate" hreflang="x-default" href={url} />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={url} />
+<meta property="og:image" content={image} />
+<meta property="og:locale" content={lang === 'fr' ? 'fr_MA' : 'en_US'} />
+<meta name="twitter:card" content="summary_large_image" />

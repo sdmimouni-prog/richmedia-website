@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localBusiness, breadcrumbs } from '../lib/schema';
+import { SITE } from '../consts';
+const schema = [localBusiness(), breadcrumbs([
+  { name: 'Accueil', url: SITE.url },
+  { name: 'Agence', url: `${SITE.url}/agence` },
+])];
+---
+<BaseLayout title="Agence digitale à Casablanca — Qui sommes-nous | Richmedia" description="Richmedia, agence de performance digitale à Casablanca : 12 ans d'expertise, Partenaire Google & Meta, présence Casablanca · Dubaï · Montréal · Strasbourg." schema={schema}>
+  <h1>Qui sommes-nous</h1>
+  {/* PROMPT CODEX : histoire, chiffres clés, méthode Scrum, accréditations, références. */}
+</BaseLayout>

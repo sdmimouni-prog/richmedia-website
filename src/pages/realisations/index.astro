@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const cas = await getCollection('cas', ({ data }) => !data.draft);
+---
+<BaseLayout
+  title="Réalisations — Études de cas marketing digital | Richmedia"
+  description="Découvrez comment nous transformons les idées en résultats mesurables : UIR, Amana, Don Simon et plus."
+>
+  <h1>Nos réalisations</h1>
+  <ul>
+    {cas.map((c) => (
+      <li><a href={`/realisations/${c.data.slug ?? c.id}`}>{c.data.title}</a> — {c.data.client}</li>
+    ))}
+  </ul>
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import '../styles/global.css';
+import '@phosphor-icons/web/regular';
+import Seo from '../components/Seo.astro';
+import JsonLd from '../components/JsonLd.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: 'fr' | 'en';
+  ogImage?: string;
+  canonical?: string;
+  schema?: object | (object | null)[]; // JSON-LD de la page
+}
+const { title, description, lang = 'fr', ogImage, canonical, schema } = Astro.props;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <Seo title={title} description={description} canonical={canonical} ogImage={ogImage} lang={lang} />
+    {schema && <JsonLd schema={schema} />}
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

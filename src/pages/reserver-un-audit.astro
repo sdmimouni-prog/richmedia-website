@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { BUSINESS, SITE } from '../consts';
+import { breadcrumbs, localBusiness } from '../lib/schema';
+
+const schema = [
+  localBusiness(),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Réserver un audit', url: `${SITE.url}/reserver-un-audit` },
+  ]),
+];
+---
+<BaseLayout
+  title="Réserver un audit digital — Richmedia"
+  description="Réservez un audit digital avec Richmedia pour cadrer vos objectifs SEO, media performance, social media et croissance."
+  schema={schema}
+>
+  <h1>Réserver un audit</h1>
+  <p>Point d'entrée statique pour qualifier la demande avant d'ajouter une interactivité de formulaire si nécessaire.</p>
+  <p><a href={`mailto:${BUSINESS.email}`}>Contacter {BUSINESS.email}</a></p>
+</BaseLayout>

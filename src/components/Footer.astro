@@ -1,0 +1,56 @@
+---
+import { BUSINESS, SITE } from '../consts';
+
+const expertiseLinks = [
+  'Stratégie & Branding',
+  'Social, Influence & UGC',
+  'Media & Performance',
+  'Tech, AI & Experience',
+];
+const agencyLinks = ['Équipe', 'Références', 'Carrières'];
+---
+<footer class="site-footer">
+  <div class="footer-brand">
+    <a href="/" class="brand-lockup" aria-label="Richmedia — Accueil">
+      <span class="brand-word">richmedia</span>
+      <span class="brand-tagline">WE BUILD <strong>DIGITAL</strong> GROWTH</span>
+    </a>
+    <p>{SITE.description}</p>
+  </div>
+
+  <nav aria-label="Expertises">
+    <h2>Expertise</h2>
+    {expertiseLinks.map((label) => <a href="/expertises">{label}</a>)}
+  </nav>
+
+  <nav aria-label="Agence">
+    <h2>Agence</h2>
+    {agencyLinks.map((label) => <a href={label === 'Équipe' ? '/equipe' : '#references'}>{label}</a>)}
+  </nav>
+
+  <address>
+    <h2>Contact</h2>
+    <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
+    {BUSINESS.tels.map((tel) => <a href={`tel:${tel.replaceAll(' ', '')}`}>{tel}</a>)}
+    <div class="footer-socials" aria-label="Réseaux sociaux">
+      <a href={BUSINESS.sameAs[0]} aria-label="LinkedIn">in</a>
+      <a href={BUSINESS.sameAs[1]} aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
+      <a href="#" aria-label="Behance">Be</a>
+    </div>
+  </address>
+
+  <div class="footer-offices">
+    <h2>Nos bureaux</h2>
+    <p>Casablanca, Maroc</p>
+    <p>Dubai, UAE</p>
+    <p>Montréal, Canada</p>
+    <p>Strasbourg, France</p>
+  </div>
+
+  <div class="footer-bottom">
+    <small>© 2025 {SITE.name}. Tous droits réservés.</small>
+    <a href="#">Mentions légales</a>
+    <a href="#">Confidentialité</a>
+    <a href="#">Cookies</a>
+  </div>
+</footer>

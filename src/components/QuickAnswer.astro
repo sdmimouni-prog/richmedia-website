@@ -1,0 +1,18 @@
+---
+// Bloc de réponse courte au-dessus de la ligne de flottaison.
+// Objectif GEO : donner à l'IA une réponse extractible dans les 1ers tokens.
+interface Props { text: string; }
+const { text } = Astro.props;
+---
+<p class="quick-answer" data-geo="quick-answer">{text}</p>
+<style>
+  .quick-answer {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--color-light, #E8EDF5);
+    border-left: 3px solid var(--color-purple, #6C3CF5);
+    padding-left: 1rem;
+    margin: 1.5rem 0 2rem;
+    max-width: 62ch;
+  }
+</style>
