@@ -1,16 +1,1260 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-const cas = await getCollection('cas', ({ data }) => !data.draft);
+import { breadcrumbs } from '../../lib/schema';
+import { SITE } from '../../consts';
+
+const homeAssets = '/assets/richmedia-home';
+const realizationAssets = '/assets/richmedia-realizations';
+
+const schema = [breadcrumbs([
+  { name: 'Accueil', url: SITE.url },
+  { name: 'Réalisations', url: `${SITE.url}/realisations` },
+])];
+
+const categories = ['Tous', 'Education', 'Retail', 'Immobilier', 'Mobilité', 'Brand content', 'Performance'];
+
+const featuredStats = [
+  { value: '14+', label: 'réalisations sélectionnées' },
+  { value: '8', label: 'secteurs activés' },
+  { value: '360°', label: 'formats média, social, terrain et CRM' },
+];
+
+const caseStudies = [
+  {
+    slug: 'uir-campagnes-digitales',
+    client: 'UIR',
+    title: 'A Historic Collaboration',
+    category: 'Education',
+    type: "Campagne d'acquisition de leads",
+    image: `${homeAssets}/campaign-wide-uir.webp`,
+    format: 'wide',
+    visibility: '+34K diplômés recrutés',
+    engagement: '+20K étudiants touchés',
+    year: 'Partenariat long terme',
+    status: 'Case study disponible',
+    href: '/realisations/uir-campagnes-digitales',
+    accent: 'blue',
+  },
+  {
+    slug: 'amana-tramway-wrapping',
+    client: 'Amana',
+    title: 'Casablanca Tramway Wrapping',
+    category: 'Retail',
+    type: 'Campagne 360°',
+    image: `${homeAssets}/campaign-wide-amana-tram.webp`,
+    format: 'wide',
+    visibility: '20M impressions',
+    engagement: '7,4% engagement',
+    year: 'Novembre 2024',
+    status: 'Case study à venir',
+    accent: 'orange',
+  },
+  {
+    slug: 'amana-20th-anniversary',
+    client: 'Amana',
+    title: '20th Anniversary',
+    category: 'Brand content',
+    type: 'Campagne de proximité',
+    image: `${homeAssets}/campaign-wide-amana-social.webp`,
+    format: 'wide',
+    visibility: '2,1M impressions',
+    engagement: '6,8% engagement',
+    year: 'Anniversaire marque',
+    status: 'Case study à venir',
+    accent: 'orange',
+  },
+  {
+    slug: 'don-simon-product-photoshoot',
+    client: 'Don Simon',
+    title: 'Product Photoshoot',
+    category: 'Social media',
+    type: 'Création KV & contenu social',
+    image: `${homeAssets}/campaign-wide-donsimon.webp`,
+    format: 'wide',
+    visibility: '14M vues',
+    engagement: '8,1% engagement',
+    year: 'Food & beverage',
+    status: 'Case study à venir',
+    accent: 'yellow',
+  },
+  {
+    slug: 'ada-produits-locaux',
+    client: 'ADA',
+    title: 'Promoting Local Products',
+    category: 'Produits locaux',
+    type: 'Campagne digitale',
+    image: `${homeAssets}/campaign-wide-ada.webp`,
+    format: 'wide',
+    visibility: '120K vues',
+    engagement: '5,6% engagement',
+    year: 'Stratégie digitale',
+    status: 'Case study à venir',
+    accent: 'green',
+  },
+  {
+    slug: 'don-simon-multi-context',
+    client: 'Don Simon',
+    title: 'Multi-context Campaign',
+    category: 'Influence',
+    type: 'Campagne influence & UGC',
+    image: `${homeAssets}/case-influence.webp`,
+    format: 'wide',
+    visibility: '3,2M interactions',
+    engagement: 'Résonance audience',
+    year: 'Multi-produit',
+    status: 'Case study à venir',
+    accent: 'yellow',
+  },
+  {
+    slug: 'ryad-al-andalous-rabat',
+    client: 'Ryad Al Andalous',
+    title: 'Le plaisir d’être chez soi',
+    category: 'Immobilier',
+    type: 'Campagne immobilière',
+    image: `${realizationAssets}/ryad-al-andalous-square.jpg`,
+    format: 'square',
+    visibility: 'Lancement premium',
+    engagement: 'Lead generation',
+    year: 'Prestigia',
+    status: 'Case study à venir',
+    accent: 'sand',
+  },
+  {
+    slug: 'tramway-rabat-summer',
+    client: 'Tramway Rabat',
+    title: 'Campagne estivale',
+    category: 'Mobilité',
+    type: 'Création social media',
+    image: `${realizationAssets}/tramway-summer-square.jpg`,
+    format: 'square',
+    visibility: 'Campagne saisonnière',
+    engagement: 'Reach urbain',
+    year: 'Mobilité quotidienne',
+    status: 'Case study à venir',
+    accent: 'cyan',
+  },
+  {
+    slug: 'moul-pounj-world-cup',
+    client: 'Moul Pounj',
+    title: 'Coupe du Monde 2026',
+    category: 'Retail',
+    type: 'Stratégie média & conversion',
+    image: `${realizationAssets}/moul-pounj-world-cup.jpg`,
+    format: 'wide',
+    visibility: '4,8M vues',
+    engagement: '6% engagement',
+    year: 'Juin - Juillet 2026',
+    status: 'Case study à venir',
+    accent: 'orange',
+  },
+  {
+    slug: 'tbs-casablanca-master',
+    client: 'TBS Education',
+    title: 'Masters of Science',
+    category: 'Education',
+    type: 'Campagne formation',
+    image: `${realizationAssets}/tbs-casablanca.jpg`,
+    format: 'wide',
+    visibility: 'Admissions qualifiées',
+    engagement: 'Performance lead',
+    year: 'Casablanca',
+    status: 'Case study à venir',
+    accent: 'red',
+  },
+  {
+    slug: 'cmr-retraite-digitale',
+    client: 'CMR',
+    title: 'Votre retraite, notre engagement',
+    category: 'Institutionnel',
+    type: 'Campagne de service digital',
+    image: `${realizationAssets}/cmr-retirement.jpg`,
+    format: 'wide',
+    visibility: 'Communication publique',
+    engagement: 'Confiance digitale',
+    year: 'Caisse Marocaine des Retraites',
+    status: 'Case study à venir',
+    accent: 'blue',
+  },
+  {
+    slug: 'rabat-riviera-golf-living',
+    client: 'Rabat Riviera',
+    title: 'Investissez là où le futur prend forme',
+    category: 'Immobilier',
+    type: 'Campagne promotionnelle',
+    image: `${realizationAssets}/rabat-riviera-wide.jpg`,
+    format: 'wide',
+    visibility: 'Projet résidentiel',
+    engagement: 'Notoriété premium',
+    year: 'Prestigia',
+    status: 'Case study à venir',
+    accent: 'sand',
+  },
+  {
+    slug: 'beed-brand-identity',
+    client: 'Beed',
+    title: 'Designing comfort, inspiring luxury',
+    category: 'Brand content',
+    type: 'Identité & storytelling',
+    image: `${realizationAssets}/beed-wide.jpg`,
+    format: 'wide',
+    visibility: 'Territoire de marque',
+    engagement: 'Création premium',
+    year: 'Luxury comfort',
+    status: 'Case study à venir',
+    accent: 'green',
+  },
+  {
+    slug: 'tramway-rabat-mobile-app',
+    client: 'Tramway Rabat',
+    title: 'Plus rapide, plus sûr',
+    category: 'Mobilité',
+    type: 'Campagne app & TPE',
+    image: `${realizationAssets}/tramway-mobile-app.jpg`,
+    format: 'wide',
+    visibility: 'Usage quotidien',
+    engagement: 'Conversion app',
+    year: 'Transport urbain',
+    status: 'Case study à venir',
+    accent: 'magenta',
+  },
+];
+
+const heroCases = caseStudies.slice(0, 6);
+const heroSliderCases = caseStudies.slice(0, 4);
+const featuredCase = caseStudies[1];
+const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
 ---
 <BaseLayout
-  title="Réalisations — Études de cas marketing digital | Richmedia"
-  description="Découvrez comment nous transformons les idées en résultats mesurables : UIR, Amana, Don Simon et plus."
+  title="Réalisations Richmedia — Case studies, campagnes et dispositifs digitaux"
+  description="Découvrez les réalisations Richmedia : campagnes 360, acquisition de leads, social media, brand content, média et expériences phygitales."
+  schema={schema}
 >
-  <h1>Nos réalisations</h1>
-  <ul>
-    {cas.map((c) => (
-      <li><a href={`/realisations/${c.data.slug ?? c.id}`}>{c.data.title}</a> — {c.data.client}</li>
-    ))}
-  </ul>
+  <div class="realisations-page">
+    <section class="works-hero" aria-labelledby="works-title">
+      <div class="works-hero-copy">
+        <span class="section-kicker">Portfolio Richmedia</span>
+        <h1 id="works-title">Nos <span>case studies.</span></h1>
+        <p>
+          Une sélection de campagnes, activations terrain et créations de marque conçues pour être
+          mesurés, racontés et réutilisés comme preuves de croissance.
+        </p>
+        <div class="works-actions">
+          <a class="button button-primary" href="#case-board">
+            Explorer les réalisations
+            <i class="ph ph-arrow-down" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/contact">
+            Proposer un projet
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-showcase" data-featured-slider aria-label="Aperçu des réalisations Richmedia">
+        <article class="featured-work">
+          <a data-featured-link href={featuredCase.href ?? `/realisations/${featuredCase.slug}`} aria-label={`Voir le case study ${featuredCase.client} - ${featuredCase.title}`}>
+            <figure>
+              <img data-featured-image src={featuredCase.image} alt={`${featuredCase.client} — ${featuredCase.title}`} loading="eager" decoding="async" />
+            </figure>
+            <div class="featured-work-copy">
+              <span>Featured case</span>
+              <h2 data-featured-title>{featuredCase.title}</h2>
+              <p data-featured-summary>Un format média urbain transformé en présence de marque visible, mémorable et mesurable.</p>
+              <dl>
+                <div>
+                  <dt>Client</dt>
+                  <dd data-featured-client>{featuredCase.client}</dd>
+                </div>
+                <div>
+                  <dt>Visibilité</dt>
+                  <dd data-featured-visibility>{featuredCase.visibility}</dd>
+                </div>
+                <div>
+                  <dt>Engagement</dt>
+                  <dd data-featured-engagement>{featuredCase.engagement}</dd>
+                </div>
+              </dl>
+            </div>
+          </a>
+        </article>
+
+        <div class="hero-mini-grid" aria-label="Changer le case study mis en avant">
+          {heroSliderCases.map((item) => (
+            <button
+              type="button"
+              class:list={['hero-mini-card', item.slug === featuredCase.slug && 'is-active']}
+              data-featured-thumb
+              data-slug={item.slug}
+              data-client={item.client}
+              data-title={item.title}
+              data-summary={`${item.type} pour ${item.client}, pensée pour créer une preuve de croissance visible et mesurable.`}
+              data-image={item.image}
+              data-href={item.href ?? `/realisations/${item.slug}`}
+              data-visibility={item.visibility}
+              data-engagement={item.engagement}
+              aria-pressed={item.slug === featuredCase.slug ? 'true' : 'false'}
+            >
+              <img src={item.image} alt="" loading="eager" decoding="async" />
+              <span class="hero-mini-caption">
+                <strong>{item.client}</strong>
+                <span>{item.category}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="proof-strip" aria-label="Indicateurs du portfolio">
+      {featuredStats.map((stat) => (
+        <article>
+          <strong>{stat.value}</strong>
+          <span>{stat.label}</span>
+        </article>
+      ))}
+    </section>
+
+    <section class="case-board" id="case-board" aria-labelledby="case-board-title">
+      <div class="case-board-head">
+        <div>
+          <span class="section-kicker">Case study board</span>
+          <h2 id="case-board-title">Dernières réalisations</h2>
+        </div>
+        <div class="category-pills" aria-label="Catégories de réalisations">
+          {categories.map((category) => <span>{category}</span>)}
+        </div>
+      </div>
+
+      <div class="work-grid">
+        {caseStudies.map((item) => (
+          <article
+            id={item.slug}
+            class:list={['work-card', `work-card-${item.format}`, `work-accent-${item.accent}`]}
+            data-case-slug={item.slug}
+          >
+            <a href={item.href ?? `/realisations/${item.slug}`} aria-label={`Voir le futur case study ${item.client} - ${item.title}`}>
+              <div class="work-media">
+                <img class="media-blur" src={item.image} alt="" loading="lazy" decoding="async" />
+                <img class="media-main" src={item.image} alt={`${item.client} — ${item.title}`} loading="lazy" decoding="async" />
+              </div>
+              <div class="work-copy">
+                <div class="work-topline">
+                  <span>{item.category}</span>
+                  <small>{item.year}</small>
+                </div>
+                <h3>{item.client}</h3>
+                <p>{item.title}</p>
+                <dl>
+                  <div>
+                    <dt>Type</dt>
+                    <dd>{item.type}</dd>
+                  </div>
+                  <div>
+                    <dt>Visibilité</dt>
+                    <dd>{item.visibility}</dd>
+                  </div>
+                  <div>
+                    <dt>Engagement</dt>
+                    <dd>{item.engagement}</dd>
+                  </div>
+                </dl>
+                <strong class="case-status">{item.status}</strong>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="case-marquee" aria-label="Film des réalisations">
+      <div class="case-marquee-head">
+        <span class="section-kicker">Film des campagnes</span>
+        <p>Un aperçu continu des formats produits pour les marques accompagnées.</p>
+      </div>
+      <div class="case-marquee-window">
+        <div class="case-marquee-track">
+          {caseLoop.map((item) => (
+            <figure class:list={['marquee-frame', `marquee-frame-${item.format}`]}>
+              <img src={item.image} alt="" loading="lazy" decoding="async" />
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="case-method" aria-labelledby="case-method-title">
+      <div>
+        <span class="section-kicker">Format case study</span>
+        <h2 id="case-method-title">Format case study.</h2>
+      </div>
+      <div class="method-grid">
+        <article>
+          <span>01</span>
+          <h3>Contexte & objectif</h3>
+          <p>Le problème business, l’audience, le timing et les contraintes du client.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Dispositif & canaux</h3>
+          <p>Le concept créatif, les formats, les médias, l’activation terrain ou CRM.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Résultats & apprentissages</h3>
+          <p>Les chiffres clés, les enseignements et la suite logique pour scaler.</p>
+        </article>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<script>
+  const initFeaturedCaseSlider = () => {
+    const sliders = document.querySelectorAll('[data-featured-slider]');
+
+    sliders.forEach((slider) => {
+      if (!(slider instanceof HTMLElement) || slider.dataset.sliderReady === 'true') return;
+      slider.dataset.sliderReady = 'true';
+
+      const link = slider.querySelector('[data-featured-link]');
+      const image = slider.querySelector('[data-featured-image]');
+      const title = slider.querySelector('[data-featured-title]');
+      const summary = slider.querySelector('[data-featured-summary]');
+      const client = slider.querySelector('[data-featured-client]');
+      const visibility = slider.querySelector('[data-featured-visibility]');
+      const engagement = slider.querySelector('[data-featured-engagement]');
+      const thumbs = [...slider.querySelectorAll('[data-featured-thumb]')];
+      const featured = slider.querySelector('.featured-work');
+
+      const setActiveCase = (button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+
+        const next = {
+          client: button.dataset.client || '',
+          title: button.dataset.title || '',
+          summary: button.dataset.summary || '',
+          image: button.dataset.image || '',
+          href: button.dataset.href || '#',
+          visibility: button.dataset.visibility || '',
+          engagement: button.dataset.engagement || '',
+        };
+
+        featured?.classList.add('is-switching');
+
+        window.setTimeout(() => {
+          if (link instanceof HTMLAnchorElement) {
+            link.href = next.href;
+            link.setAttribute('aria-label', `Voir le case study ${next.client} - ${next.title}`);
+          }
+
+          if (image instanceof HTMLImageElement) {
+            image.src = next.image;
+            image.alt = `${next.client} — ${next.title}`;
+          }
+
+          if (title) title.textContent = next.title;
+          if (summary) summary.textContent = next.summary;
+          if (client) client.textContent = next.client;
+          if (visibility) visibility.textContent = next.visibility;
+          if (engagement) engagement.textContent = next.engagement;
+
+          thumbs.forEach((thumb) => {
+            const isActive = thumb === button;
+            thumb.classList.toggle('is-active', isActive);
+            thumb.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+          });
+
+          window.setTimeout(() => featured?.classList.remove('is-switching'), 90);
+        }, 120);
+      };
+
+      thumbs.forEach((button) => {
+        button.addEventListener('click', () => setActiveCase(button));
+      });
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFeaturedCaseSlider, { once: true });
+  } else {
+    initFeaturedCaseSlider();
+  }
+</script>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .realisations-page {
+    --container: min(100% - 3rem, 1320px);
+    --purple: #7c3cff;
+    --purple-soft: #a46cff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(255, 255, 255, 0.68);
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 14% 12%, rgba(124, 60, 255, 0.22), transparent 26rem),
+      radial-gradient(circle at 88% 8%, rgba(124, 60, 255, 0.18), transparent 24rem),
+      linear-gradient(180deg, #030407 0%, #050507 56%, #020306 100%);
+    color: #fff;
+  }
+
+  .realisations-page::before {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
+    background-size: 68px 68px;
+    content: "";
+    pointer-events: none;
+  }
+
+  .works-hero,
+  .proof-strip,
+  .case-board,
+  .case-marquee,
+  .case-method {
+    position: relative;
+    z-index: 1;
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--purple-soft);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2.1rem;
+    height: 1px;
+    background: var(--purple);
+    content: "";
+  }
+
+  .works-hero {
+    display: grid;
+    grid-template-columns: minmax(340px, 0.78fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4.8vw, 4.75rem);
+    align-items: center;
+    min-height: 760px;
+    padding: 8.4rem 0 3.5rem;
+  }
+
+  .works-hero-copy {
+    min-width: 0;
+  }
+
+  .works-hero h1 {
+    max-width: 650px;
+    margin: 1.15rem 0 0;
+    --h1-size: clamp(3.2rem, 5.4vw, 5.9rem);
+    font-weight: 850;
+    letter-spacing: 0;
+    line-height: 0.92;
+  }
+
+  .works-hero h1 span {
+    color: var(--purple);
+  }
+
+  .works-hero p {
+    max-width: 560px;
+    margin: 1.35rem 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(1rem, 1.22vw, 1.14rem);
+    line-height: 1.58;
+  }
+
+  .works-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 3.05rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 1.25rem;
+    color: #fff;
+    font-weight: 850;
+    text-decoration: none;
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    box-shadow: 0 1rem 2.5rem rgba(124, 60, 255, 0.32);
+  }
+
+  .button-secondary {
+    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .hero-showcase {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .featured-work {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(124, 60, 255, 0.18), transparent 18rem),
+      rgba(255, 255, 255, 0.035);
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.45);
+    transition: border-color 240ms ease, opacity 180ms ease, transform 180ms ease;
+  }
+
+  .featured-work.is-switching {
+    border-color: rgba(124, 60, 255, 0.48);
+    opacity: 0.82;
+    transform: translateY(2px);
+  }
+
+  .featured-work a {
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.82fr);
+    min-height: 420px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .featured-work figure {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #050507;
+  }
+
+  .featured-work img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 700ms ease;
+  }
+
+  .featured-work:hover img {
+    transform: scale(1.035);
+  }
+
+  .featured-work-copy {
+    display: grid;
+    align-content: end;
+    gap: 0.9rem;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    padding: clamp(1.1rem, 2vw, 1.55rem);
+    background:
+      linear-gradient(145deg, rgba(124, 60, 255, 0.18), transparent 46%),
+      rgba(3, 3, 6, 0.9);
+  }
+
+  .featured-work-copy > span {
+    color: var(--purple-soft);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .featured-work-copy h2 {
+    margin: 0;
+    max-width: 100%;
+    --h2-size: clamp(1.45rem, 2.25vw, 2.25rem);
+    font-size: var(--h2-size);
+    font-weight: 850;
+    line-height: 1.02;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
+
+  .featured-work-copy p {
+    margin: 0;
+    max-width: 34rem;
+    color: var(--muted);
+    font-size: 0.84rem;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+  }
+
+  .featured-work-copy dl {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+    margin: 0.35rem 0 0;
+  }
+
+  .featured-work-copy dl div {
+    border-left: 2px solid var(--purple);
+    padding-left: 0.65rem;
+  }
+
+  .featured-work-copy dt,
+  .work-copy dt {
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .featured-work-copy dd,
+  .work-copy dd {
+    margin: 0.25rem 0 0;
+    color: #fff;
+    font-size: 0.83rem;
+    font-weight: 850;
+    line-height: 1.25;
+  }
+
+  .hero-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
+  }
+
+  .hero-mini-card {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+    transition: border-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
+  }
+
+  .hero-mini-card:hover,
+  .hero-mini-card:focus-visible {
+    border-color: rgba(124, 60, 255, 0.72);
+    box-shadow: 0 0 0 1px rgba(124, 60, 255, 0.2), 0 1rem 2.2rem rgba(0, 0, 0, 0.32);
+    outline: 0;
+    transform: translateY(-3px);
+  }
+
+  .hero-mini-card.is-active {
+    border-color: rgba(124, 60, 255, 0.95);
+    box-shadow: inset 0 0 0 1px rgba(124, 60, 255, 0.32), 0 0 1.3rem rgba(124, 60, 255, 0.22);
+  }
+
+  .hero-mini-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: opacity 240ms ease, transform 360ms ease;
+  }
+
+  .hero-mini-card:hover img,
+  .hero-mini-card.is-active img {
+    opacity: 1;
+    transform: scale(1.035);
+  }
+
+  .hero-mini-caption {
+    position: absolute;
+    inset: auto 0 0;
+    display: grid;
+    gap: 0.1rem;
+    padding: 0.75rem;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.86));
+  }
+
+  .hero-mini-grid strong {
+    font-size: 0.82rem;
+    line-height: 1;
+  }
+
+  .hero-mini-grid span {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.66rem;
+    font-weight: 750;
+  }
+
+  .proof-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .proof-strip article {
+    min-height: 106px;
+    padding: 1.3rem 1.45rem;
+    background: rgba(0, 0, 0, 0.34);
+  }
+
+  .proof-strip article + article {
+    border-left: 1px solid var(--line);
+  }
+
+  .proof-strip strong {
+    display: block;
+    font-size: clamp(1.9rem, 3.8vw, 3.1rem);
+    font-weight: 850;
+    line-height: 0.95;
+  }
+
+  .proof-strip span {
+    display: block;
+    max-width: 260px;
+    margin-top: 0.45rem;
+    color: var(--muted);
+    font-size: 0.84rem;
+    line-height: 1.4;
+  }
+
+  .case-board {
+    padding: clamp(3rem, 6.5vw, 5.2rem) 0 0;
+  }
+
+  .case-board-head {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.56fr) 1fr;
+    gap: 1.4rem;
+    align-items: end;
+    margin-bottom: 1.35rem;
+  }
+
+  .case-board h2 {
+    margin: 0.95rem 0 0;
+    --h2-size: clamp(2.35rem, 4.4vw, 4.7rem);
+    font-size: var(--h2-size);
+    font-weight: 850;
+    line-height: 0.96;
+  }
+
+  .category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .category-pills span {
+    display: inline-flex;
+    min-height: 2.05rem;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    padding: 0 0.78rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.72rem;
+    font-weight: 850;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .work-card {
+    --accent: var(--purple);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.035);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+    transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
+  }
+
+  .work-card:hover {
+    border-color: rgba(124, 60, 255, 0.75);
+    box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.38), 0 0 2.1rem rgba(124, 60, 255, 0.16);
+    transform: translateY(-5px);
+  }
+
+  .work-card a {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .work-media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    min-height: 230px;
+    overflow: hidden;
+    background: #050507;
+  }
+
+  .work-card-poster .work-media,
+  .work-card-phone .work-media {
+    aspect-ratio: 4 / 5;
+  }
+
+  .media-blur,
+  .media-main {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .media-blur {
+    object-fit: cover;
+    filter: blur(26px) saturate(1.08);
+    opacity: 0.42;
+    transform: scale(1.14);
+  }
+
+  .media-main {
+    z-index: 1;
+    padding: 0.58rem;
+    object-fit: contain;
+    transition: transform 500ms ease;
+  }
+
+  .work-card:hover .media-main {
+    transform: scale(1.022);
+  }
+
+  .work-copy {
+    display: grid;
+    gap: 0.72rem;
+    padding: 1rem;
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.1), transparent 44%),
+      rgba(5, 5, 8, 0.95);
+  }
+
+  .work-topline {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .work-topline span,
+  .case-status {
+    display: inline-flex;
+    width: fit-content;
+    min-height: 1.58rem;
+    align-items: center;
+    border-radius: 6px;
+    padding: 0 0.55rem;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .work-topline small {
+    color: rgba(255, 255, 255, 0.56);
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-align: right;
+  }
+
+  .work-copy h3 {
+    margin: 0;
+    font-size: clamp(1.5rem, 2.1vw, 2.12rem);
+    font-weight: 850;
+    line-height: 0.98;
+  }
+
+  .work-copy p {
+    min-height: 2.35em;
+    margin: -0.28rem 0 0;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.86rem;
+    line-height: 1.34;
+  }
+
+  .work-copy dl {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    gap: 0.62rem;
+    margin: 0;
+  }
+
+  .work-copy dl div {
+    border-left: 2px solid var(--accent);
+    padding-left: 0.58rem;
+  }
+
+  .case-status {
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .work-accent-blue { --accent: #246dff; }
+  .work-accent-orange { --accent: #f06423; }
+  .work-accent-yellow { --accent: #d4a514; }
+  .work-accent-green { --accent: #20a66a; }
+  .work-accent-sand { --accent: #c49a5c; }
+  .work-accent-cyan { --accent: #19a7d8; }
+  .work-accent-red { --accent: #e53248; }
+  .work-accent-magenta { --accent: #b347ff; }
+
+  .case-marquee {
+    margin-top: clamp(3rem, 6vw, 5rem);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: clamp(1rem, 2vw, 1.4rem);
+    background:
+      radial-gradient(circle at 0% 0%, rgba(124, 60, 255, 0.18), transparent 24rem),
+      rgba(255, 255, 255, 0.025);
+  }
+
+  .case-marquee-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1rem;
+  }
+
+  .case-marquee-head p {
+    max-width: 390px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.86rem;
+    line-height: 1.45;
+    text-align: right;
+  }
+
+  .case-marquee-window {
+    overflow: hidden;
+  }
+
+  .case-marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 0.9rem;
+    animation: caseMarquee 38s linear infinite;
+  }
+
+  .marquee-frame {
+    position: relative;
+    width: 250px;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #07070a;
+  }
+
+  .marquee-frame img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .marquee-frame-phone {
+    width: 118px;
+  }
+
+  .marquee-frame-phone img {
+    height: 188px;
+  }
+
+  @keyframes caseMarquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .case-method {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.48fr) 1fr;
+    gap: 1.4rem;
+    align-items: stretch;
+    margin-top: clamp(3rem, 6vw, 5rem);
+    margin-bottom: 4.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    padding: clamp(1.2rem, 2.7vw, 1.8rem);
+    background:
+      radial-gradient(circle at 0% 0%, rgba(124, 60, 255, 0.22), transparent 30rem),
+      rgba(255, 255, 255, 0.025);
+  }
+
+  .case-method h2 {
+    max-width: 420px;
+    margin: 1rem 0 0;
+    --h2-size: clamp(1.9rem, 3.2vw, 3rem);
+    font-size: var(--h2-size);
+    font-weight: 850;
+    line-height: 1;
+  }
+
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem;
+  }
+
+  .method-grid article {
+    min-height: 168px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1.05rem;
+    background: rgba(0, 0, 0, 0.38);
+    transition: transform 260ms ease, border-color 260ms ease, background 260ms ease;
+  }
+
+  .method-grid article:hover {
+    border-color: rgba(124, 60, 255, 0.62);
+    background: rgba(124, 60, 255, 0.09);
+    transform: translateY(-4px);
+  }
+
+  .method-grid span {
+    color: var(--purple-soft);
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+  }
+
+  .method-grid h3 {
+    margin: 1.45rem 0 0;
+    font-size: 1.12rem;
+    font-weight: 850;
+    line-height: 1.1;
+  }
+
+  .method-grid p {
+    margin: 0.62rem 0 0;
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 1120px) {
+    .works-hero,
+    .case-board-head,
+    .case-method {
+      grid-template-columns: 1fr;
+    }
+
+    .works-hero {
+      min-height: auto;
+      padding-top: 8rem;
+    }
+
+    .featured-work a {
+      grid-template-columns: 1fr;
+    }
+
+    .featured-work figure {
+      min-height: 360px;
+    }
+
+    .category-pills {
+      justify-content: flex-start;
+    }
+
+    .work-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .method-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .realisations-page {
+      --container: min(100% - 1.25rem, 1320px);
+    }
+
+    .works-hero {
+      padding-top: 6.5rem;
+    }
+
+    .works-hero h1 {
+      --h1-size: clamp(2.5rem, 13vw, 4.05rem);
+    }
+
+    .works-actions {
+      flex-direction: column;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    .featured-work a {
+      min-height: auto;
+    }
+
+    .featured-work figure {
+      min-height: 250px;
+    }
+
+    .featured-work-copy dl,
+    .work-copy dl {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-mini-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .proof-strip,
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-strip article + article {
+      border-top: 1px solid var(--line);
+      border-left: 0;
+    }
+
+    .work-media,
+    .work-card-poster .work-media,
+    .work-card-phone .work-media {
+      aspect-ratio: 4 / 3;
+      min-height: 260px;
+    }
+
+    .case-marquee-head {
+      display: grid;
+    }
+
+    .case-marquee-head p {
+      text-align: left;
+    }
+
+    .case-method {
+      margin-bottom: 3rem;
+    }
+  }
+</style>

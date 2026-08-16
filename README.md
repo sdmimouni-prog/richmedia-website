@@ -6,10 +6,25 @@ Pas de CMS : le contenu vit dans `src/content/**.mdx` et s'édite via prompt sur
 ## Démarrer
 ```bash
 npm install
-npm run dev        # http://localhost:4321
-npm run build      # génère du HTML statique (idéal SEO/GEO)
-npm run check      # vérifie les types + le frontmatter
+npm run dev           # environnement dev : http://localhost:4321
+npm run prod          # build production
+npm run preview       # preview du build prod : http://localhost:4321
+npm run prod:preview  # build + preview prod
+npm run check         # vérifie les types + le frontmatter
 ```
+
+## Environnements
+Les variables locales sont dans `.env.development` et `.env.production` :
+
+```bash
+ASTRO_HOST=127.0.0.1
+ASTRO_PORT=4321
+PUBLIC_SITE_URL=http://localhost:4321 # dev
+PUBLIC_SITE_URL=https://richmedia.ma   # prod
+```
+
+`PUBLIC_SITE_URL` alimente les URLs canoniques, le sitemap et le JSON-LD. `ASTRO_HOST`
+et `ASTRO_PORT` pilotent `astro dev` et `astro preview`.
 
 ## Arborescence
 ```

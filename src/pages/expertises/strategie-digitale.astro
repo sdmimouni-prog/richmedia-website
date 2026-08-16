@@ -1,0 +1,1805 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
+
+const assetBase = '/assets/richmedia-digital-strategy';
+const logoBase = `${assetBase}/logos`;
+
+const seoTitle = 'Stratégie digitale Maroc — SEO/GEO, média, data & automation | Richmedia';
+const seoDescription =
+  'Agence de stratégie digitale à Casablanca : audit, SEO/GEO, média, data, CRM et automation pour transformer vos canaux en croissance mesurable.';
+
+const benchmarkPillars = [
+  {
+    label: '01',
+    title: 'SEO + GEO',
+    text: 'Construire une présence visible dans Google, les moteurs IA et les réponses génératives grâce à des contenus structurés, citables et utiles.',
+  },
+  {
+    label: '02',
+    title: 'Media performance',
+    text: 'Combiner paid social, search, retargeting et créas testées pour réduire le coût d’acquisition et accélérer les cycles de conversion.',
+  },
+  {
+    label: '03',
+    title: 'Data & tracking',
+    text: 'Installer une mesure fiable : plan de taggage, dashboards, événements clés, attribution et lecture business des performances.',
+  },
+  {
+    label: '04',
+    title: 'CRM & automation',
+    text: 'Connecter formulaires, WhatsApp, email, lead scoring et nurturing pour transformer les audiences en opportunités commerciales.',
+  },
+  {
+    label: '05',
+    title: 'Social-first content',
+    text: 'Produire des contenus courts, utiles et réutilisables pour animer la marque, nourrir les campagnes et créer de la preuve sociale.',
+  },
+  {
+    label: '06',
+    title: 'Expérimentation continue',
+    text: 'Prioriser, tester, apprendre et réallouer les budgets à partir de signaux terrain plutôt qu’à partir d’intuitions isolées.',
+  },
+];
+
+const systemModules = [
+  {
+    title: 'Diagnostic',
+    kicker: 'Comprendre',
+    text: 'Audit de marque, concurrence, analytics, SEO, acquisition, parcours et maturité CRM.',
+    items: ['Marché', 'Audience', 'Tracking', 'Concurrence'],
+  },
+  {
+    title: 'Architecture',
+    kicker: 'Structurer',
+    text: 'Définition des segments, messages, offres, canaux et priorités de croissance.',
+    items: ['Personas', 'Funnel', 'Messages', 'Roadmap'],
+  },
+  {
+    title: 'Activation',
+    kicker: 'Déployer',
+    text: 'Plan média, calendrier contenu, landing pages, automatisation et tests créatifs.',
+    items: ['Paid media', 'SEO/GEO', 'Social', 'CRM'],
+  },
+  {
+    title: 'Pilotage',
+    kicker: 'Optimiser',
+    text: 'Lecture hebdomadaire des signaux, arbitrages budgétaires, reporting et amélioration continue.',
+    items: ['Dashboard', 'CRO', 'Insights', 'ROI'],
+  },
+];
+
+const deliverables = [
+  'Audit digital & concurrence',
+  'Positionnement et messages',
+  'Personas et segments prioritaires',
+  'Cartographie du funnel',
+  'Plan SEO/GEO',
+  'Plan média paid',
+  'Calendrier éditorial',
+  'Dashboard de pilotage',
+  'Plan de tracking',
+  'Roadmap CRM & automation',
+  'Guidelines créatives',
+  'Rituels d’optimisation',
+];
+
+const partnerGroups = [
+  {
+    title: 'Data, mesure & acquisition',
+    partners: [
+      { name: 'JavaScript', mark: 'JS', tone: 'yellow' },
+      { name: 'Zapier', mark: 'Zapier', tone: 'orange' },
+      { name: 'Google Trends', mark: 'Trends', tone: 'multi' },
+      { name: 'TrueClicks', mark: 'TrueClicks', tone: 'blue' },
+      { name: 'Microsoft Clarity', mark: 'Clarity', tone: 'blue' },
+      { name: 'Looker Studio', mark: 'Looker', tone: 'blue' },
+      { name: 'Meta', mark: 'Meta', tone: 'blue' },
+      { name: 'Microsoft Ads', mark: 'Ads', tone: 'cyan' },
+      { name: 'Google Ads', mark: 'Google Ads', tone: 'multi' },
+      { name: 'Google Analytics', mark: 'Analytics', tone: 'orange' },
+      { name: 'Ahrefs', mark: 'ahrefs', tone: 'blue' },
+      { name: 'Google Tag Manager', mark: 'GTM', tone: 'blue' },
+    ],
+  },
+  {
+    title: 'Écosystème, visibilité & collaboration',
+    partners: [
+      { name: 'GoDaddy', mark: 'GoDaddy', tone: 'teal' },
+      { name: 'Tech Times', mark: 'TECH TIMES', tone: 'white' },
+      { name: 'Digital Journal', mark: 'Digital Journal', tone: 'white' },
+      { name: 'Cloudways', mark: 'Cloudways', tone: 'blue' },
+      { name: 'Teamwork', mark: 'teamwork.', tone: 'pink' },
+      { name: 'Influencer Marketing Hub', mark: 'Influencer Hub', tone: 'pink' },
+      { name: 'MSN', mark: 'msn', tone: 'white' },
+      { name: 'Yahoo Finance', mark: 'yahoo!', tone: 'purple' },
+      { name: 'Business Insider', mark: 'Business Insider', tone: 'white' },
+    ],
+  },
+  {
+    title: 'Social publishing & community',
+    partners: [
+      { name: 'SocialBee', mark: 'SocialBee', tone: 'yellow' },
+      { name: 'Later', mark: 'Later', tone: 'blue' },
+      { name: 'Zoho Social', mark: 'Zoho Social', tone: 'multi' },
+      { name: 'Sprout Social', mark: 'sprout social', tone: 'green' },
+      { name: 'Hootsuite', mark: 'Hootsuite', tone: 'red' },
+      { name: 'Buffer', mark: 'buffer', tone: 'white' },
+    ],
+  },
+];
+
+const partnerLogos: Record<string, string> = {
+  JavaScript: `${logoBase}/javascript.svg`,
+  Zapier: `${logoBase}/zapier.svg`,
+  'Google Trends': `${logoBase}/google-trends.png`,
+  TrueClicks: `${logoBase}/trueclicks.png`,
+  'Microsoft Clarity': `${logoBase}/microsoft-clarity.png`,
+  'Looker Studio': `${logoBase}/looker-studio.svg`,
+  Meta: `${logoBase}/meta.svg`,
+  'Microsoft Ads': `${logoBase}/microsoft-ads.png`,
+  'Google Ads': `${logoBase}/google-ads.svg`,
+  'Google Analytics': `${logoBase}/google-analytics.svg`,
+  Ahrefs: `${logoBase}/ahrefs.png`,
+  'Google Tag Manager': `${logoBase}/google-tag-manager.svg`,
+  GoDaddy: `${logoBase}/godaddy.svg`,
+  'Tech Times': `${logoBase}/tech-times.png`,
+  'Digital Journal': `${logoBase}/digital-journal.png`,
+  Cloudways: `${logoBase}/cloudways.svg`,
+  Teamwork: `${logoBase}/teamwork.png`,
+  'Influencer Marketing Hub': `${logoBase}/influencer-marketing-hub.png`,
+  MSN: `${logoBase}/msn.png`,
+  'Yahoo Finance': `${logoBase}/yahoo-finance.png`,
+  'Business Insider': `${logoBase}/business-insider.png`,
+  SocialBee: `${logoBase}/socialbee.png`,
+  Later: `${logoBase}/later.png`,
+  'Zoho Social': `${logoBase}/zoho.svg`,
+  'Sprout Social': `${logoBase}/sprout-social.png`,
+  Hootsuite: `${logoBase}/hootsuite.svg`,
+  Buffer: `${logoBase}/buffer.svg`,
+};
+
+const faq = [
+  {
+    question: 'Qu’est-ce qu’une stratégie digitale en 2026 ?',
+    answer:
+      'C’est un système qui relie positionnement, contenus, SEO/GEO, média paid, data, CRM et automation pour transformer l’attention en opportunités mesurables.',
+  },
+  {
+    question: 'Quelle différence entre SEO, GEO et média paid ?',
+    answer:
+      'Le SEO rend vos contenus visibles dans les moteurs de recherche, le GEO les rend compréhensibles et citables par les moteurs IA, tandis que le média paid accélère la diffusion auprès d’audiences ciblées.',
+  },
+  {
+    question: 'Quels livrables reçoit-on avec Richmedia ?',
+    answer:
+      'Vous recevez une roadmap priorisée, un plan de canaux, un plan de tracking, un calendrier de contenus, un plan média, des dashboards et des recommandations d’optimisation.',
+  },
+  {
+    question: 'Combien de temps faut-il pour cadrer une stratégie digitale ?',
+    answer:
+      'Un cadrage initial peut être livré en quelques semaines selon la disponibilité des données, puis la stratégie est optimisée en continu après les premières activations.',
+  },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Stratégie digitale',
+    description: seoDescription,
+    url: `${SITE.url}/expertises/strategie-digitale`,
+  }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Expertises', url: `${SITE.url}/expertises` },
+    { name: 'Stratégie digitale', url: `${SITE.url}/expertises/strategie-digitale` },
+  ]),
+];
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  canonical={`${SITE.url}/expertises/strategie-digitale`}
+  ogImage={`${SITE.url}${assetBase}/strategy-hero.webp`}
+  schema={schema}
+>
+  <div class="strategy-page">
+    <section class="strategy-hero" aria-labelledby="strategy-title">
+      <div class="hero-copy">
+        <span class="eyebrow">Expertise Richmedia</span>
+        <h1 id="strategy-title">Stratégie digitale orientée croissance.</h1>
+        <p class="hero-lead">
+          Richmedia construit des stratégies digitales qui relient marque, audiences, SEO/GEO, média,
+          data et automation pour générer une croissance visible, mesurable et durable.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/contact">
+            Cadrer votre stratégie
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/realisations">
+            Voir nos cas clients
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual" data-strategy-visual aria-label="Atelier de stratégie digitale Richmedia">
+        <img src={`${assetBase}/strategy-hero.webp`} alt="Équipe marketing analysant des tableaux de bord de stratégie digitale" />
+        <div class="signal-card signal-card-top">
+          <span>SEO + GEO</span>
+          <strong>Visibilité IA</strong>
+        </div>
+        <div class="signal-card signal-card-middle">
+          <span>Paid media</span>
+          <strong>Acquisition</strong>
+        </div>
+        <div class="signal-card signal-card-bottom">
+          <span>CRM</span>
+          <strong>Conversion</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-answer" aria-labelledby="quick-answer-title">
+      <div class="quick-copy">
+        <span class="eyebrow">Réponse rapide</span>
+        <h2 id="quick-answer-title">Une stratégie digitale, c’est un système de croissance.</h2>
+        <p>
+          Richmedia relie le positionnement, les contenus, les médias, la data et l’automation pour transformer
+          une présence digitale en résultats mesurables.
+        </p>
+      </div>
+      <div class="quick-flow" aria-label="Étapes d'une stratégie digitale performante">
+        <article data-index="01">
+          <span>01</span>
+          <strong>Comprendre</strong>
+          <small>Marché, audiences, concurrence, données.</small>
+        </article>
+        <article data-index="02">
+          <span>02</span>
+          <strong>Clarifier</strong>
+          <small>Offre, messages, canaux, parcours.</small>
+        </article>
+        <article data-index="03">
+          <span>03</span>
+          <strong>Activer</strong>
+          <small>SEO/GEO, paid media, social, CRM.</small>
+        </article>
+        <article data-index="04">
+          <span>04</span>
+          <strong>Mesurer</strong>
+          <small>Tracking, dashboard, tests, arbitrages.</small>
+        </article>
+      </div>
+    </section>
+
+    <section class="benchmark-section" aria-labelledby="benchmark-title">
+      <div class="section-heading">
+        <span class="eyebrow">Benchmark agences 2026</span>
+        <h2 id="benchmark-title">Les leviers que les meilleures agences combinent.</h2>
+      </div>
+      <div class="benchmark-grid">
+        {benchmarkPillars.map((pillar) => (
+          <article class="benchmark-card">
+            <span>{pillar.label}</span>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="system-title">
+      <div class="system-visual">
+        <img src={`${assetBase}/strategy-workshop.webp`} alt="Atelier de conception d’une stratégie marketing digitale" loading="lazy" decoding="async" />
+      </div>
+      <div class="system-copy">
+        <span class="eyebrow">Le système Richmedia</span>
+        <h2 id="system-title">De l’idée à la performance, sans silos.</h2>
+        <p>
+          Nous classons les priorités par impact business : ce qui clarifie la marque, ce qui attire les bonnes audiences,
+          ce qui convertit et ce qui permet d’apprendre plus vite.
+        </p>
+        <div class="system-modules">
+          {systemModules.map((module) => (
+            <article>
+              <span>{module.kicker}</span>
+              <h3>{module.title}</h3>
+              <p>{module.text}</p>
+              <div>
+                {module.items.map((item) => <small>{item}</small>)}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="deliverables-section" aria-labelledby="deliverables-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">Livrables</span>
+        <h2 id="deliverables-title">Ce que la stratégie doit rendre clair.</h2>
+      </div>
+      <div class="deliverables-grid">
+        {deliverables.map((item) => (
+          <span>{item}</span>
+        ))}
+      </div>
+    </section>
+
+    <section class="partner-stack" aria-labelledby="partners-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">Partenaires & outils</span>
+        <h2 id="partners-title">Un stack pensé pour analyser, diffuser, mesurer et optimiser.</h2>
+      </div>
+      {partnerGroups.map((group) => (
+        <div class="partner-row">
+          <h3>{group.title}</h3>
+          <div class="partner-grid">
+            {group.partners.map((partner) => (
+              <figure class={`partner-card partner-${partner.tone}`}>
+                <img src={partnerLogos[partner.name]} alt={`Logo ${partner.name}`} loading="lazy" decoding="async" />
+                <figcaption>{partner.name}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <section class="roadmap-section" aria-labelledby="roadmap-title">
+      <div class="section-heading">
+        <span class="eyebrow">Méthode</span>
+        <h2 id="roadmap-title">Un plan d’action lisible dès le premier mois.</h2>
+      </div>
+      <div class="roadmap">
+        <article>
+          <span>01</span>
+          <h3>Écouter</h3>
+          <p>Objectifs business, contraintes, offres, données existantes et irritants commerciaux.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Cartographier</h3>
+          <p>Audiences, parcours, contenus, canaux, concurrents et opportunités SEO/GEO.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Prioriser</h3>
+          <p>Choix des actions selon impact, vitesse d’exécution, coût et potentiel de conversion.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Piloter</h3>
+          <p>Tableaux de bord, tests, apprentissages et ajustements continus sur les canaux.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">FAQ SEO/GEO</span>
+        <h2 id="faq-title">Questions fréquentes.</h2>
+      </div>
+      <div class="faq-list">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="strategy-cta" aria-labelledby="cta-title">
+      <div class="cta-copy">
+        <span class="eyebrow">Prêt à cadrer ?</span>
+        <h2 id="cta-title">Transformons votre présence digitale en système de croissance.</h2>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/contact">
+            Démarrer un projet
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="mailto:contact@richmedia.ma">contact@richmedia.ma</a>
+        </div>
+      </div>
+      <div class="cta-particle-panel" aria-hidden="true">
+        <canvas class="cta-particle-slider" data-strategy-cta-particles></canvas>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  const ctaParticleCanvases = document.querySelectorAll('[data-strategy-cta-particles]');
+
+  ctaParticleCanvases.forEach((canvas) => {
+    if (!(canvas instanceof HTMLCanvasElement) || canvas.dataset.ready === 'true') return;
+    canvas.dataset.ready = 'true';
+
+    const context = canvas.getContext('2d');
+    if (!context) return;
+
+    const tau = Math.PI * 2;
+    const particles = [];
+    let width = 1;
+    let height = 1;
+    let ratio = 1;
+    let pose = 1.4;
+    let targetPose = 1.4;
+    let pointerX = 0;
+    let pointerY = 0;
+    let pointerActive = false;
+    let lastInteraction = 0;
+
+    const pointFor = (particle, step) => {
+      const u = particle.u;
+      const band = particle.band;
+      const side = band - 0.5;
+
+      if (step === 0) {
+        const angle = (u * tau) + Math.PI * 0.25;
+        return {
+          x: 0.48 + Math.sin(angle) * (0.2 + band * 0.12),
+          y: 0.5 + Math.sin(angle * 2) * 0.2 + side * 0.15,
+        };
+      }
+
+      if (step === 1) {
+        const spread = (1 - u) * 0.55;
+        return {
+          x: 0.24 + u * 0.54 + Math.sin(u * tau * 2) * spread * side,
+          y: 0.18 + u * 0.66 + side * spread,
+        };
+      }
+
+      if (step === 2) {
+        const angle = u * tau;
+        return {
+          x: 0.5 + Math.cos(angle) * (0.18 + band * 0.22),
+          y: 0.5 + Math.sin(angle) * (0.12 + band * 0.16),
+        };
+      }
+
+      const x = 0.16 + u * 0.68;
+      const y = 0.72 - Math.pow(u, 1.35) * 0.48 + Math.sin(u * tau * 3) * 0.035;
+      return { x: x + side * 0.05, y: y + side * 0.12 };
+    };
+
+    const shapePoint = (particle, currentPose) => {
+      const lower = Math.floor(currentPose);
+      const upper = Math.min(3, lower + 1);
+      const mix = currentPose - lower;
+      const from = pointFor(particle, lower);
+      const to = pointFor(particle, upper);
+
+      return {
+        x: (from.x + (to.x - from.x) * mix) * width,
+        y: (from.y + (to.y - from.y) * mix) * height,
+      };
+    };
+
+    const reset = () => {
+      const bounds = canvas.getBoundingClientRect();
+      ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = Math.max(1, bounds.width);
+      height = Math.max(1, bounds.height);
+      canvas.width = Math.floor(width * ratio);
+      canvas.height = Math.floor(height * ratio);
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      const count = Math.max(360, Math.min(980, Math.floor((width * height) / 520)));
+      particles.length = 0;
+      for (let index = 0; index < count; index += 1) {
+        const particle = {
+          u: (index / count + Math.random() * 0.025) % 1,
+          band: Math.random(),
+          size: Math.random() > 0.78 ? 2 : 1.25,
+          alpha: 0.48 + Math.random() * 0.44,
+          vx: 0,
+          vy: 0,
+          drift: Math.random(),
+          x: 0,
+          y: 0,
+        };
+        const origin = shapePoint(particle, pose);
+        particle.x = origin.x;
+        particle.y = origin.y;
+        particles.push(particle);
+      }
+    };
+
+    const move = (event) => {
+      const bounds = canvas.getBoundingClientRect();
+      pointerX = event.clientX - bounds.left;
+      pointerY = event.clientY - bounds.top;
+      pointerActive = true;
+      lastInteraction = performance.now();
+      targetPose = Math.max(0, Math.min(3, (pointerX / bounds.width) * 3));
+    };
+
+    const leave = () => {
+      pointerActive = false;
+    };
+
+    const draw = (time) => {
+      context.clearRect(0, 0, width, height);
+      pose += (targetPose - pose) * 0.055;
+      const activeMotion = pointerActive || time - lastInteraction < 900;
+
+      const gradient = context.createRadialGradient(width * 0.5, height * 0.5, 0, width * 0.5, height * 0.5, Math.max(width, height) * 0.5);
+      gradient.addColorStop(0, 'rgba(124, 60, 255, 0.18)');
+      gradient.addColorStop(1, 'rgba(124, 60, 255, 0)');
+      context.fillStyle = gradient;
+      context.fillRect(0, 0, width, height);
+
+      for (const particle of particles) {
+        const target = shapePoint(particle, pose);
+        particle.vx = (particle.vx + (target.x - particle.x) * 0.04) * 0.76;
+        particle.vy = (particle.vy + (target.y - particle.y) * 0.04) * 0.76;
+
+        if (pointerActive) {
+          const dx = particle.x - pointerX;
+          const dy = particle.y - pointerY;
+          const distance = Math.hypot(dx, dy) || 1;
+          if (distance < 110) {
+            const force = (1 - distance / 110) * 1.55;
+            particle.vx += (dx / distance) * force;
+            particle.vy += (dy / distance) * force;
+          }
+        }
+
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        const pulse = activeMotion ? 0.75 + Math.sin(time * 0.005 + particle.drift * 8) * 0.25 : 0.88;
+        context.fillStyle = `rgba(150, 91, 255, ${particle.alpha * pulse})`;
+        context.fillRect(particle.x, particle.y, particle.size, particle.size);
+      }
+
+      requestAnimationFrame(draw);
+    };
+
+    reset();
+    new ResizeObserver(reset).observe(canvas);
+    canvas.addEventListener('pointermove', move);
+    canvas.addEventListener('pointerleave', leave);
+    requestAnimationFrame(draw);
+  });
+
+  const strategyVisuals = document.querySelectorAll('[data-strategy-visual]');
+
+  strategyVisuals.forEach((visual) => {
+    if (!(visual instanceof HTMLElement) || visual.dataset.ready === 'true') return;
+    visual.dataset.ready = 'true';
+
+    const move = (event) => {
+      const bounds = visual.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width;
+      const y = (event.clientY - bounds.top) / bounds.height;
+      const rotateX = (0.5 - y) * 5;
+      const rotateY = (x - 0.5) * 6;
+
+      visual.style.setProperty('--mx', `${x * 100}%`);
+      visual.style.setProperty('--my', `${y * 100}%`);
+      visual.style.setProperty('--rx', `${rotateX}deg`);
+      visual.style.setProperty('--ry', `${rotateY}deg`);
+    };
+
+    const leave = () => {
+      visual.style.setProperty('--mx', '62%');
+      visual.style.setProperty('--my', '42%');
+      visual.style.setProperty('--rx', '0deg');
+      visual.style.setProperty('--ry', '0deg');
+    };
+
+    visual.addEventListener('pointermove', move);
+    visual.addEventListener('pointerleave', leave);
+    leave();
+  });
+</script>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .strategy-page {
+    --container: min(100% - 3rem, 1360px);
+    --purple: #7c3cff;
+    --purple-soft: rgba(124, 60, 255, 0.17);
+    --line: rgba(255, 255, 255, 0.13);
+    overflow: hidden;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 82% 8%, rgba(124, 60, 255, 0.2), transparent 28rem),
+      radial-gradient(circle at 8% 30%, rgba(124, 60, 255, 0.14), transparent 25rem),
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      #030407;
+    background-size: auto, auto, 88px 88px, 88px 88px, auto;
+  }
+
+  .strategy-hero,
+  .quick-answer,
+  .benchmark-section,
+  .system-section,
+  .deliverables-section,
+  .partner-stack,
+  .roadmap-section,
+  .faq-section,
+  .strategy-cta {
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .strategy-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(440px, 1.12fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    padding: clamp(8rem, 12vw, 11rem) 0 clamp(3rem, 7vw, 6rem);
+  }
+
+  .hero-copy {
+    min-width: 0;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: #a977ff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    width: 2.6rem;
+    height: 2px;
+    content: "";
+    background: currentColor;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .strategy-hero h1 {
+    max-width: 820px;
+    margin-top: 1.2rem;
+    --h1-size: clamp(3rem, 7.2vw, 6.7rem);
+    line-height: 0.94;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+  .hero-lead,
+  .quick-answer p,
+  .system-copy > p,
+  .roadmap p,
+  .faq-list p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(1rem, 1.25vw, 1.18rem);
+    line-height: 1.7;
+  }
+
+  .hero-lead {
+    max-width: 680px;
+    margin-top: 1.45rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3.1rem;
+    border-radius: 8px;
+    padding: 0.9rem 1.25rem;
+    font-size: 0.98rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #9655ff, #6425f4);
+    box-shadow: 0 1.1rem 2.8rem rgba(124, 60, 255, 0.32);
+  }
+
+  .button-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .hero-visual {
+    position: relative;
+    isolation: isolate;
+    min-height: clamp(360px, 34vw, 520px);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    background: #07080d;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.42);
+    transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transform-style: preserve-3d;
+    transition:
+      transform 260ms ease,
+      border-color 260ms ease,
+      box-shadow 260ms ease;
+    will-change: transform;
+  }
+
+  .hero-visual::before {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    content: "";
+    pointer-events: none;
+    background:
+      radial-gradient(circle at var(--mx, 62%) var(--my, 42%), rgba(150, 91, 255, 0.42), rgba(150, 91, 255, 0.13) 7rem, transparent 18rem),
+      repeating-linear-gradient(0deg, transparent 0 24px, rgba(190, 156, 255, 0.1) 25px 26px),
+      repeating-linear-gradient(90deg, transparent 0 24px, rgba(190, 156, 255, 0.1) 25px 26px);
+    -webkit-mask-image: radial-gradient(circle at var(--mx, 62%) var(--my, 42%), #000 0 14rem, transparent 22rem);
+    mask-image: radial-gradient(circle at var(--mx, 62%) var(--my, 42%), #000 0 14rem, transparent 22rem);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 240ms ease, mask-position 240ms ease;
+  }
+
+  .hero-visual::after,
+  .system-visual::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(3, 4, 7, 0.18), transparent 42%),
+      linear-gradient(180deg, transparent 55%, rgba(3, 4, 7, 0.42));
+  }
+
+  .hero-visual:hover,
+  .hero-visual:focus-within {
+    border-color: rgba(150, 91, 255, 0.48);
+    box-shadow:
+      0 2.2rem 5.5rem rgba(0, 0, 0, 0.46),
+      0 0 3.2rem rgba(124, 60, 255, 0.18);
+  }
+
+  .hero-visual:hover::before,
+  .hero-visual:focus-within::before {
+    opacity: 1;
+    animation: visual-data-pulse 1.8s ease-in-out infinite alternate;
+  }
+
+  .hero-visual img,
+  .system-visual img {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 520ms ease, filter 520ms ease;
+  }
+
+  .hero-visual:hover img,
+  .hero-visual:focus-within img {
+    filter: saturate(1.08) contrast(1.04);
+    transform: scale(1.045);
+  }
+
+  .signal-card {
+    position: absolute;
+    z-index: 3;
+    display: grid;
+    gap: 0.25rem;
+    min-width: 10.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(5, 7, 15, 0.72);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(14px);
+    transform: translateZ(42px);
+    transition:
+      transform 260ms ease,
+      border-color 260ms ease,
+      background 260ms ease,
+      box-shadow 260ms ease;
+  }
+
+  .hero-visual:hover .signal-card,
+  .hero-visual:focus-within .signal-card {
+    border-color: rgba(150, 91, 255, 0.46);
+    background: rgba(5, 7, 15, 0.8);
+    box-shadow:
+      0 1.1rem 3.2rem rgba(0, 0, 0, 0.4),
+      inset 0 0 0 1px rgba(150, 91, 255, 0.12);
+  }
+
+  @keyframes visual-data-pulse {
+    from {
+      opacity: 0.72;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  .signal-card span {
+    color: #a977ff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .signal-card strong {
+    font-size: 1rem;
+  }
+
+  .signal-card-top {
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .hero-visual:hover .signal-card-top,
+  .hero-visual:focus-within .signal-card-top {
+    transform: translate3d(-0.6rem, 0.55rem, 72px);
+  }
+
+  .signal-card-middle {
+    top: 42%;
+    left: 1.25rem;
+  }
+
+  .hero-visual:hover .signal-card-middle,
+  .hero-visual:focus-within .signal-card-middle {
+    transform: translate3d(0.7rem, -0.45rem, 82px);
+  }
+
+  .signal-card-bottom {
+    right: 1.25rem;
+    bottom: 1.25rem;
+  }
+
+  .hero-visual:hover .signal-card-bottom,
+  .hero-visual:focus-within .signal-card-bottom {
+    transform: translate3d(-0.75rem, -0.6rem, 78px);
+  }
+
+  .quick-answer {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(520px, 1.12fr);
+    align-items: stretch;
+    gap: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1rem;
+    background:
+      radial-gradient(circle at 4% 18%, rgba(124, 60, 255, 0.26), transparent 18rem),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+    box-shadow: 0 1.8rem 5rem rgba(0, 0, 0, 0.2);
+  }
+
+  .quick-copy {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+    padding: clamp(1.5rem, 3vw, 2.6rem);
+  }
+
+  .quick-answer h2,
+  .section-heading h2,
+  .system-copy h2,
+  .strategy-cta h2 {
+    --h2-size: clamp(2rem, 4.1vw, 4.6rem);
+    font-size: var(--h2-size);
+    line-height: 0.98;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+  .quick-answer p {
+    max-width: 620px;
+    margin-top: 1.2rem;
+  }
+
+  .quick-answer h2 {
+    --h2-size: clamp(2rem, 3.35vw, 2.8rem);
+    font-size: var(--h2-size);
+    line-height: 1.02;
+  }
+
+  .quick-flow {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .quick-flow article {
+    position: relative;
+    min-height: 12rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    padding: 1.15rem;
+    background:
+      linear-gradient(150deg, rgba(124, 60, 255, 0.13), transparent 44%),
+      rgba(7, 8, 13, 0.82);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .quick-flow article::after {
+    position: absolute;
+    right: -1.1rem;
+    bottom: -1.8rem;
+    color: rgba(255, 255, 255, 0.045);
+    content: attr(data-index);
+    font-size: 7rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .quick-flow article:hover,
+  .quick-flow article:focus-within {
+    border-color: rgba(124, 60, 255, 0.55);
+    background:
+      linear-gradient(150deg, rgba(124, 60, 255, 0.23), transparent 48%),
+      rgba(8, 9, 15, 0.9);
+    transform: translateY(-3px);
+  }
+
+  .quick-flow span {
+    color: #a977ff;
+    font-size: 0.82rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+  }
+
+  .quick-flow strong {
+    display: block;
+    margin-top: 2.4rem;
+    font-size: clamp(1.15rem, 1.7vw, 1.55rem);
+    line-height: 1.05;
+  }
+
+  .quick-flow small {
+    display: block;
+    max-width: 15rem;
+    margin-top: 0.65rem;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+
+  .benchmark-section,
+  .deliverables-section,
+  .partner-stack,
+  .roadmap-section,
+  .faq-section {
+    padding: clamp(3.2rem, 7vw, 6rem) 0 0;
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: end;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-heading.compact {
+    display: block;
+    max-width: 780px;
+  }
+
+  .section-heading.compact h2 {
+    margin-top: 1rem;
+  }
+
+  .benchmark-section .section-heading {
+    display: block;
+    max-width: 760px;
+    margin-bottom: 1.35rem;
+  }
+
+  .benchmark-section .section-heading h2 {
+    max-width: 700px;
+    margin-top: 1rem;
+    --h2-size: clamp(2rem, 3vw, 2.85rem);
+    font-size: var(--h2-size);
+    line-height: 1.04;
+  }
+
+  .benchmark-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .benchmark-card,
+  .system-modules article,
+  .roadmap article,
+  .partner-row,
+  .faq-list details,
+  .strategy-cta {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+  }
+
+  .benchmark-card {
+    min-height: 16rem;
+    padding: 1.25rem;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  }
+
+  .benchmark-card:hover {
+    border-color: rgba(124, 60, 255, 0.55);
+    background: linear-gradient(135deg, rgba(124, 60, 255, 0.16), rgba(255, 255, 255, 0.025));
+    transform: translateY(-4px);
+  }
+
+  .benchmark-card > span,
+  .roadmap article > span {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .benchmark-card h3,
+  .system-modules h3,
+  .roadmap h3 {
+    margin-top: 1.3rem;
+    font-size: clamp(1.25rem, 1.8vw, 1.7rem);
+  }
+
+  .benchmark-card p,
+  .system-modules p {
+    margin-top: 0.85rem;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  .system-section {
+    display: grid;
+    grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1.28fr);
+    align-items: stretch;
+    gap: 0.8rem;
+    padding-top: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .system-visual {
+    position: relative;
+    min-height: clamp(520px, 66vh, 680px);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+
+  .system-copy {
+    min-width: 0;
+    padding: clamp(1.1rem, 2.4vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background:
+      radial-gradient(circle at 0 0, rgba(124, 60, 255, 0.18), transparent 21rem),
+      rgba(255, 255, 255, 0.025);
+  }
+
+  .system-copy > h2 {
+    margin-top: 0.75rem;
+    --h2-size: clamp(2rem, 3.15vw, 3.1rem);
+    font-size: var(--h2-size);
+    line-height: 1.02;
+  }
+
+  .system-copy > p {
+    max-width: 720px;
+    margin-top: 0.8rem;
+    font-size: clamp(0.95rem, 1vw, 1.04rem);
+    line-height: 1.5;
+  }
+
+  .system-modules {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin-top: 1rem;
+  }
+
+  .system-modules article {
+    position: relative;
+    overflow: hidden;
+    padding: 0.8rem;
+    box-shadow: 0 0 0 rgba(124, 60, 255, 0);
+    transition:
+      transform 220ms ease,
+      border-color 220ms ease,
+      background 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .system-modules article::before,
+  .system-modules article::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .system-modules article::before {
+    background: linear-gradient(115deg, transparent 0 28%, rgba(169, 119, 255, 0.28) 46%, transparent 64% 100%);
+    transform: translateX(-120%);
+    transition: transform 580ms ease, opacity 220ms ease;
+  }
+
+  .system-modules article::after {
+    background: radial-gradient(circle at 18% 0, rgba(124, 60, 255, 0.26), transparent 52%);
+    transition: opacity 220ms ease;
+  }
+
+  .system-modules article:hover,
+  .system-modules article:focus-within {
+    border-color: rgba(169, 119, 255, 0.55);
+    background:
+      radial-gradient(circle at 12% 0, rgba(124, 60, 255, 0.18), transparent 15rem),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.022));
+    box-shadow:
+      0 1.1rem 2.6rem rgba(0, 0, 0, 0.28),
+      0 0 2.4rem rgba(124, 60, 255, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .system-modules article:hover::before,
+  .system-modules article:focus-within::before {
+    opacity: 1;
+    transform: translateX(120%);
+  }
+
+  .system-modules article:hover::after,
+  .system-modules article:focus-within::after {
+    opacity: 1;
+  }
+
+  .system-modules article > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .system-modules article > span {
+    color: #a977ff;
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .system-modules h3 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.08rem, 1.35vw, 1.35rem);
+  }
+
+  .system-modules p {
+    margin-top: 0.5rem;
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+
+  .system-modules div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.65rem;
+  }
+
+  .system-modules small,
+  .deliverables-grid span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    padding: 0.32rem 0.5rem;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.7rem;
+    font-weight: 700;
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background 180ms ease,
+      color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .system-modules small::before,
+  .deliverables-grid span::before {
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 999px;
+    background: #a977ff;
+    box-shadow: 0 0 1rem rgba(169, 119, 255, 0.58);
+    content: "";
+    opacity: 0;
+    transform: scale(0.4);
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+
+  .system-modules small:hover,
+  .deliverables-grid span:hover {
+    border-color: rgba(169, 119, 255, 0.52);
+    background: rgba(124, 60, 255, 0.12);
+    box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.22);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  .system-modules small:hover::before,
+  .deliverables-grid span:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .deliverables-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.4rem;
+  }
+
+  .deliverables-grid span {
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .partner-stack {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .partner-row {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .partner-row h3 {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  .partner-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+    gap: 0.55rem;
+    min-width: 0;
+  }
+
+  .partner-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-width: 0;
+    min-height: 6.25rem;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(0, 0, 0, 0.33);
+    text-align: center;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      transform 220ms ease,
+      border-color 220ms ease,
+      background 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .partner-card::before {
+    position: absolute;
+    inset: -45%;
+    z-index: -1;
+    content: "";
+    background: radial-gradient(circle, rgba(124, 60, 255, 0.22), transparent 58%);
+    opacity: 0;
+    transform: translateY(18%) scale(0.74);
+    transition: opacity 220ms ease, transform 260ms ease;
+  }
+
+  .partner-card:hover,
+  .partner-card:focus-within {
+    border-color: rgba(124, 60, 255, 0.62);
+    background: rgba(124, 60, 255, 0.08);
+    box-shadow:
+      0 1.1rem 2.8rem rgba(0, 0, 0, 0.28),
+      0 0 2.2rem rgba(124, 60, 255, 0.2);
+    transform: translateY(-5px);
+  }
+
+  .partner-card:hover::before,
+  .partner-card:focus-within::before {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .partner-card img {
+    width: auto;
+    max-width: 100%;
+    height: clamp(2.15rem, 2.8vw, 3rem);
+    border-radius: 8px;
+    padding: 0.45rem 0.65rem;
+    background: rgba(255, 255, 255, 0.96);
+    object-fit: contain;
+    box-shadow: 0 0.7rem 1.8rem rgba(0, 0, 0, 0.22);
+    transition:
+      transform 220ms ease,
+      filter 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .partner-card:hover img,
+  .partner-card:focus-within img {
+    filter: saturate(1.12) contrast(1.05);
+    box-shadow:
+      0 0.9rem 2.2rem rgba(0, 0, 0, 0.3),
+      0 0 1.5rem rgba(124, 60, 255, 0.22);
+    transform: translateY(-3px) scale(1.08);
+  }
+
+  .partner-card figcaption {
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color 220ms ease, transform 220ms ease;
+  }
+
+  .partner-card:hover figcaption,
+  .partner-card:focus-within figcaption {
+    color: rgba(255, 255, 255, 0.88);
+    transform: translateY(1px);
+  }
+
+  .partner-yellow span {
+    color: #f4d84b;
+  }
+
+  .partner-orange span {
+    color: #ff7a1a;
+  }
+
+  .partner-blue span,
+  .partner-cyan span {
+    color: #59a6ff;
+  }
+
+  .partner-teal span {
+    color: #2ee6d6;
+  }
+
+  .partner-pink span {
+    color: #ff5fad;
+  }
+
+  .partner-green span {
+    color: #67dc76;
+  }
+
+  .partner-red span {
+    color: #ff655d;
+  }
+
+  .partner-purple span {
+    color: #9d68ff;
+  }
+
+  .partner-multi span {
+    background: linear-gradient(90deg, #4b8cff, #6fe18a, #ffd84b, #ff6b6b);
+    background-clip: text;
+    color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-visual,
+    .hero-visual::before,
+    .hero-visual img,
+    .signal-card,
+    .system-modules article,
+    .system-modules article::before,
+    .system-modules article::after,
+    .system-modules small,
+    .system-modules small::before,
+    .deliverables-grid span,
+    .deliverables-grid span::before,
+    .roadmap article,
+    .roadmap article::before,
+    .roadmap article::after,
+    .partner-card,
+    .partner-card::before,
+    .partner-card img,
+    .partner-card figcaption {
+      transition: none;
+    }
+
+    .hero-visual::before {
+      animation: none;
+    }
+
+    .hero-visual,
+    .hero-visual:hover,
+    .hero-visual:focus-within,
+    .hero-visual:hover img,
+    .hero-visual:focus-within img,
+    .hero-visual:hover .signal-card,
+    .hero-visual:focus-within .signal-card,
+    .system-modules article:hover,
+    .system-modules article:focus-within,
+    .system-modules article:hover::before,
+    .system-modules article:focus-within::before,
+    .system-modules small:hover,
+    .deliverables-grid span:hover,
+    .roadmap article:hover,
+    .roadmap article:focus-within,
+    .roadmap article:hover::before,
+    .roadmap article:focus-within::before,
+    .partner-card:hover,
+    .partner-card:focus-within,
+    .partner-card:hover img,
+    .partner-card:focus-within img,
+    .partner-card:hover figcaption,
+    .partner-card:focus-within figcaption {
+      transform: none;
+    }
+  }
+
+  .roadmap {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .roadmap article {
+    position: relative;
+    overflow: hidden;
+    padding: 1.25rem;
+    box-shadow: 0 0 0 rgba(124, 60, 255, 0);
+    transition:
+      transform 220ms ease,
+      border-color 220ms ease,
+      background 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .roadmap article::before,
+  .roadmap article::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .roadmap article::before {
+    background: linear-gradient(115deg, transparent 0 30%, rgba(169, 119, 255, 0.24) 48%, transparent 66% 100%);
+    transform: translateX(-120%);
+    transition: transform 620ms ease, opacity 220ms ease;
+  }
+
+  .roadmap article::after {
+    background: radial-gradient(circle at 16% 10%, rgba(124, 60, 255, 0.26), transparent 54%);
+    transition: opacity 220ms ease;
+  }
+
+  .roadmap article:hover,
+  .roadmap article:focus-within {
+    border-color: rgba(169, 119, 255, 0.55);
+    background:
+      radial-gradient(circle at 12% 0, rgba(124, 60, 255, 0.18), transparent 14rem),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.022));
+    box-shadow:
+      0 1rem 2.4rem rgba(0, 0, 0, 0.26),
+      0 0 2.1rem rgba(124, 60, 255, 0.11);
+    transform: translateY(-4px);
+  }
+
+  .roadmap article:hover::before,
+  .roadmap article:focus-within::before {
+    opacity: 1;
+    transform: translateX(120%);
+  }
+
+  .roadmap article:hover::after,
+  .roadmap article:focus-within::after {
+    opacity: 1;
+  }
+
+  .roadmap article > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .roadmap p {
+    margin-top: 0.75rem;
+    font-size: 0.98rem;
+  }
+
+  .roadmap article:hover > span,
+  .roadmap article:focus-within > span {
+    color: rgba(169, 119, 255, 0.72);
+    text-shadow: 0 0 1.8rem rgba(124, 60, 255, 0.4);
+  }
+
+  .faq-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.4rem;
+  }
+
+  .faq-list details {
+    padding: 1.1rem 1.2rem;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .faq-list p {
+    margin-top: 0.8rem;
+    font-size: 0.96rem;
+  }
+
+  .strategy-cta {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.68fr);
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 3.2rem);
+    overflow: hidden;
+    margin-top: clamp(3.2rem, 7vw, 6rem);
+    margin-bottom: clamp(3rem, 7vw, 5rem);
+    padding: clamp(1.6rem, 4vw, 3.2rem);
+    background:
+      radial-gradient(circle at 0 100%, rgba(124, 60, 255, 0.26), transparent 24rem),
+      linear-gradient(135deg, rgba(124, 60, 255, 0.12), rgba(255, 255, 255, 0.025));
+  }
+
+  .strategy-cta::after {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    content: "";
+    background:
+      radial-gradient(circle at 78% 42%, rgba(124, 60, 255, 0.18), transparent 18rem),
+      linear-gradient(90deg, transparent 0, rgba(255, 255, 255, 0.035) 58%, transparent 100%);
+  }
+
+  .cta-copy,
+  .cta-particle-panel {
+    position: relative;
+    z-index: 1;
+  }
+
+  .strategy-cta h2 {
+    max-width: 760px;
+    margin-top: 1rem;
+  }
+
+  .cta-particle-panel {
+    min-height: clamp(190px, 20vw, 280px);
+    overflow: hidden;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .cta-particle-panel::before {
+    content: none;
+  }
+
+  .cta-particle-slider {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cta-particle-copy {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .cta-particle-copy strong,
+  .cta-particle-copy span {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .cta-particle-copy strong {
+    width: 100%;
+    color: #fff;
+    font-size: 0.88rem;
+    font-weight: 850;
+    text-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.45);
+  }
+
+  .cta-particle-copy span {
+    padding: 0;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.68rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 1180px) {
+    .strategy-hero,
+    .system-section,
+    .strategy-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-visual {
+      min-height: 430px;
+    }
+
+    .benchmark-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .partner-row {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-particle-panel {
+      min-height: 230px;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .strategy-page {
+      --container: min(100% - 1.25rem, 1360px);
+      background-size: auto, auto, 58px 58px, 58px 58px, auto;
+    }
+
+    .strategy-hero {
+      padding-top: 7.2rem;
+    }
+
+    .strategy-hero h1 {
+      --h1-size: clamp(2.65rem, 13vw, 4.75rem);
+    }
+
+    .hero-visual {
+      min-height: 390px;
+    }
+
+    .signal-card {
+      min-width: 9.5rem;
+      padding: 0.82rem;
+    }
+
+    .quick-answer,
+    .section-heading {
+      grid-template-columns: 1fr;
+    }
+
+    .benchmark-grid,
+    .system-modules,
+    .roadmap,
+    .faq-list {
+      grid-template-columns: 1fr;
+    }
+
+    .partner-grid {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(145px, 38vw);
+      overflow-x: auto;
+      padding-bottom: 0.35rem;
+      scroll-snap-type: x proximity;
+    }
+
+    .partner-card {
+      scroll-snap-align: start;
+    }
+
+    .strategy-cta {
+      padding: 1.25rem;
+    }
+
+    .cta-particle-panel {
+      min-height: 210px;
+    }
+
+    .cta-particle-copy {
+      inset-inline: 0.75rem;
+      bottom: 0.75rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero-actions {
+      display: grid;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    .hero-visual {
+      min-height: 330px;
+    }
+
+    .signal-card {
+      position: static;
+      display: inline-grid;
+      margin: 0.5rem;
+    }
+
+    .signal-card-top {
+      margin-top: -10rem;
+    }
+
+    .hero-visual img {
+      height: 100%;
+    }
+
+    .benchmark-card {
+      min-height: auto;
+    }
+  }
+</style>

@@ -1,7 +1,7 @@
 // Source unique de vérité pour la marque : utilisée par le JSON-LD, le SEO et le footer.
 export const SITE = {
   name: 'Richmedia',
-  url: 'https://richmedia.ma',
+  url: import.meta.env.PUBLIC_SITE_URL ?? 'https://richmedia.ma',
   tagline: 'We build digital growth',
   description:
     "Agence de marketing digital et de performance à Casablanca : stratégie, media performance, développement web et IA. Nous générons une croissance mesurable.",

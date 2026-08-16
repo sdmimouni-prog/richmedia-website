@@ -25,7 +25,7 @@ const agencyLinks = ['Équipe', 'Références', 'Carrières'];
 
   <nav aria-label="Agence">
     <h2>Agence</h2>
-    {agencyLinks.map((label) => <a href={label === 'Équipe' ? '/equipe' : '#references'}>{label}</a>)}
+    {agencyLinks.map((label) => <a href={label === 'Équipe' ? '/equipe' : label === 'Références' ? '/references' : '/contact'}>{label}</a>)}
   </nav>
 
   <address>

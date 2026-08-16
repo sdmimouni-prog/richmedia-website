@@ -48,10 +48,12 @@ h6,
 }
 
 h1 {
+  font-size: min(50px, var(--h1-size, 2.5rem)) !important;
   font-weight: 800;
 }
 
 h2 {
+  font-size: min(40px, var(--h2-size, 2rem)) !important;
   font-weight: 600;
 }
 
@@ -85,6 +87,15 @@ a {
 img {
   display: block;
   max-width: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
 button,
@@ -172,6 +183,244 @@ main {
   font-weight: 600;
 }
 
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  min-height: 2.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 0.3rem 0.42rem;
+  background: rgba(255, 255, 255, 0.035);
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.lang-switch:hover,
+.lang-switch:focus-visible {
+  border-color: rgba(124, 60, 255, 0.48);
+  background: rgba(124, 60, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.flag {
+  position: relative;
+  display: inline-block;
+  width: 1.38rem;
+  height: 0.92rem;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 2px;
+  box-shadow: 0 0.45rem 1rem rgba(0, 0, 0, 0.22);
+}
+
+.flag-fr {
+  background: linear-gradient(90deg, #244ba6 0 33.33%, #fff 33.33% 66.66%, #e23b43 66.66% 100%);
+}
+
+.flag-en {
+  background: #173f84;
+}
+
+.flag-en::before,
+.flag-en::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+}
+
+.flag-en::before {
+  background:
+    linear-gradient(34deg, transparent 42%, #fff 42% 48%, #c8102e 48% 52%, #fff 52% 58%, transparent 58%),
+    linear-gradient(-34deg, transparent 42%, #fff 42% 48%, #c8102e 48% 52%, #fff 52% 58%, transparent 58%),
+    linear-gradient(90deg, transparent 41%, #fff 41% 59%, transparent 59%),
+    linear-gradient(0deg, transparent 36%, #fff 36% 64%, transparent 64%);
+}
+
+.flag-en::after {
+  background:
+    linear-gradient(90deg, transparent 45%, #c8102e 45% 55%, transparent 55%),
+    linear-gradient(0deg, transparent 42%, #c8102e 42% 58%, transparent 58%);
+}
+
+.flag-separator {
+  width: 1px;
+  height: 1rem;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.nav-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+}
+
+.nav-dropdown-trigger i {
+  font-size: 0.82rem;
+  transition: transform 220ms ease;
+}
+
+.expertise-submenu {
+  position: absolute;
+  top: calc(100% + 0.95rem);
+  left: 50%;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.72fr) minmax(520px, 1.7fr);
+  width: min(920px, calc(100vw - 2rem));
+  gap: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 0.9rem;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(124, 60, 255, 0.24), transparent 18rem),
+    radial-gradient(circle at 86% 80%, rgba(124, 60, 255, 0.12), transparent 20rem),
+    rgba(3, 4, 7, 0.94);
+  box-shadow: 0 1.6rem 3.5rem rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(0.45rem);
+  transition: opacity 220ms ease, transform 220ms ease;
+  backdrop-filter: blur(18px);
+}
+
+.expertise-submenu::before {
+  position: absolute;
+  top: -1rem;
+  right: 0;
+  left: 0;
+  height: 1rem;
+  content: "";
+}
+
+.expertise-menu-intro {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1.1rem;
+  background:
+    linear-gradient(145deg, rgba(124, 60, 255, 0.2), transparent 56%),
+    rgba(255, 255, 255, 0.035);
+}
+
+.expertise-menu-intro span,
+.expertise-menu-grid h2 {
+  color: #9f72ff;
+  --h2-size: 0.68rem;
+  font-size: var(--h2-size);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.expertise-menu-intro strong {
+  display: block;
+  max-width: 17rem;
+  margin-top: 0.8rem;
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.12;
+}
+
+.expertise-menu-intro a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  border-radius: 6px;
+  padding: 0 0.95rem;
+  background: linear-gradient(135deg, #8c52ff, #6224ec);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.expertise-menu-intro a:hover,
+.expertise-menu-intro a:focus-visible {
+  box-shadow: 0 1rem 2.2rem rgba(124, 60, 255, 0.24);
+  transform: translateY(-2px);
+}
+
+.expertise-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.expertise-menu-grid section {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+  min-width: 0;
+  border-radius: 8px;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.026);
+}
+
+.expertise-menu-grid section > div {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.expertise-menu-grid a {
+  display: grid;
+  gap: 0.25rem;
+  min-height: 5.1rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.72rem;
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.expertise-menu-grid a span {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.expertise-menu-grid a small {
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.32;
+}
+
+.expertise-menu-grid a:hover,
+.expertise-menu-grid a:focus-visible {
+  border-color: rgba(124, 60, 255, 0.48);
+  background: rgba(124, 60, 255, 0.13);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.nav-dropdown:hover .expertise-submenu,
+.nav-dropdown:focus-within .expertise-submenu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown:hover .nav-dropdown-trigger i,
+.nav-dropdown:focus-within .nav-dropdown-trigger i {
+  transform: rotate(180deg);
+}
+
 .primary-nav a:hover,
 .primary-nav a:focus-visible,
 .lang-switch:hover,
@@ -210,7 +459,8 @@ main {
 .site-footer h2 {
   margin: 0 0 0.8rem;
   color: #8f59ff;
-  font-size: 0.82rem;
+  --h2-size: 0.82rem;
+  font-size: var(--h2-size);
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;

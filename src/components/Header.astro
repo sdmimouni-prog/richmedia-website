@@ -1,11 +1,35 @@
 ---
 const navItems = [
-  { href: '/', label: 'Accueil' },
-  { href: '/expertises', label: 'Expertise' },
   { href: '/realisations', label: 'Réalisations' },
   { href: '/equipe', label: 'Équipe' },
-  { href: '#references', label: 'Références' },
+  { href: '/references', label: 'Références' },
   { href: '/contact', label: 'Contact' },
+];
+
+const expertiseColumns = [
+  {
+    title: 'Construire',
+    items: [
+      { href: '/expertises/strategie-digitale', label: 'Stratégie Digitale', text: 'Positionnement, ciblage et plan d’action.' },
+      { href: '/expertises/brand-content', label: 'Brand Content', text: 'Concepts, contenus social-first et storytelling.' },
+      { href: '/expertises#web-si', label: 'Web & SI', text: 'Sites, plateformes, tracking et systèmes connectés.' },
+    ],
+  },
+  {
+    title: 'Amplifier',
+    items: [
+      { href: '/expertises#achat-media', label: 'Achat Média', text: 'Paid social, search, programmatique et DOOH.' },
+      { href: '/expertises#influence', label: 'Influence', text: 'Sélection, activation et suivi des performances.' },
+      { href: '/expertises#phygital', label: 'Phygital', text: 'Activation terrain, retail et expériences connectées.' },
+    ],
+  },
+  {
+    title: 'Convertir',
+    items: [
+      { href: '/expertises#evenementiel', label: 'Événementiel', text: 'Dispositifs de marque, lancement et présence terrain.' },
+      { href: '/expertises#ia-automation', label: 'IA & Automation', text: 'CRM, WhatsApp, agents IA et parcours automatisés.' },
+    ],
+  },
 ];
 ---
 <header class="site-header" data-site-header>
@@ -15,11 +39,48 @@ const navItems = [
   </a>
 
   <nav class="primary-nav" aria-label="Navigation principale">
+    <a href="/">Accueil</a>
+    <div class="nav-dropdown">
+      <a class="nav-dropdown-trigger" href="/expertises" aria-haspopup="true">
+        Expertise
+        <i class="ph ph-caret-down" aria-hidden="true"></i>
+      </a>
+      <div class="expertise-submenu" aria-label="Mega menu expertises">
+        <div class="expertise-menu-intro">
+          <span>Expertises</span>
+          <strong>Un système complet pour créer, amplifier et convertir.</strong>
+          <a href="/expertises">
+            Voir toutes les expertises
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="expertise-menu-grid">
+          {expertiseColumns.map((column) => (
+            <section>
+              <h2>{column.title}</h2>
+              <div>
+                {column.items.map((item) => (
+                  <a href={item.href}>
+                    <span>{item.label}</span>
+                    <small>{item.text}</small>
+                  </a>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
+    </div>
     {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
 
   <div class="header-actions">
-    <a class="lang-switch" href="/en" aria-label="English version">FR / EN</a>
+    <a class="lang-switch" href="/en" aria-label="English version">
+      <span class="flag flag-fr" aria-hidden="true"></span>
+      <span class="flag-separator" aria-hidden="true"></span>
+      <span class="flag flag-en" aria-hidden="true"></span>
+      <span class="sr-only">English version</span>
+    </a>
     <a href="/reserver-un-audit" class="header-cta">
       Book a call
       <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
