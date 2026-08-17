@@ -2,55 +2,54 @@
 - No P0/P1/P2 issues remaining.
 
 **Source Visual Truth**
-- Path: `/Users/salaheddinemimouni/Documents/Codex/2026-08-15/sites-plugin-sites-openai-bundled-create/outputs/richmedia-page-expertise-v2.jpg`
-- Pixels: 1440 x 3152
-- State: validated static mockup for the Richmedia Expertise page.
+- Path: `/var/folders/0c/xkrqjtv17ss72wnz_qd97zd80000gn/T/TemporaryItems/NSIRD_screencaptureui_9e9ET6/Screenshot 2026-08-17 at 19.03.34.png`
+- Pixels: 2946 x 1026
+- State: attached reference block for the Richmedia WhatsApp landing page.
 
 **Implementation Evidence**
-- URL: `http://localhost:4321/expertises`
-- Desktop screenshot: `/Users/salaheddinemimouni/Documents/Codex/2026-08-15/sites-plugin-sites-openai-bundled-create/outputs/richmedia-expertises-final-desktop.png`
-- Desktop viewport: 1440 x 2200 CSS px, deviceScaleFactor 1
-- Desktop screenshot pixels: 1440 x 3475
-- Mobile screenshot: `/Users/salaheddinemimouni/Documents/Codex/2026-08-15/sites-plugin-sites-openai-bundled-create/outputs/richmedia-expertises-final-mobile.png`
-- Mobile viewport: 390 x 2200 CSS px, deviceScaleFactor 1
-- Mobile screenshot pixels: 390 x 8814
+- URL FR: `http://localhost:4321/produits/whatsapp`
+- URL EN: `http://localhost:4321/en/products/whatsapp`
+- Desktop screenshot: `/tmp/whatsapp-story-fr-desktop-final.png`
+- Desktop viewport: 1440 x 1040 CSS px, deviceScaleFactor 1
+- Desktop screenshot pixels: 1440 x 586
+- Mobile screenshot: `/tmp/whatsapp-story-fr-mobile-final-v2.png`
+- Mobile viewport: 390 x 844 CSS px, deviceScaleFactor 1
+- Mobile screenshot pixels: 390 x 638
+- EN desktop screenshot: `/tmp/whatsapp-story-en-desktop-final.png`
+- EN mobile focused screenshot: `/tmp/whatsapp-story-en-mobile-card3-final.png`
 - Console errors checked: 0
-- Primary interactions checked: CTA links, shared header/footer presence, responsive layout, references navigation path.
+- Primary interactions checked: mobile horizontal scroll rail and desktop hover-safe card layout.
 
 **Full-View Comparison Evidence**
-- Comparison image: `/Users/salaheddinemimouni/Documents/Codex/2026-08-15/sites-plugin-sites-openai-bundled-create/outputs/richmedia-expertises-design-qa-comparison.jpg`
-- Result: implementation matches the accepted visual direction. Header and footer intentionally use the production shared components instead of the mock-only header/footer.
+- Comparison image: `/tmp/whatsapp-story-source-vs-implementation.png`
+- Result: implementation preserves the reference structure: six vertical story cards, progress bars, Richmedia avatar row, large numeric markers, purple circular icons, dark image overlay, and white proof panels.
 
 **Focused Region Comparison Evidence**
-- Focused mobile cards inspected:
-  - `/Users/salaheddinemimouni/Documents/Codex/2026-08-15/sites-plugin-sites-openai-bundled-create/outputs/expertise-card-mobile-3.png`
-  - `/Users/salaheddinemimouni/Documents/Codex/2026-08-15/sites-plugin-sites-openai-bundled-create/outputs/expertise-card-mobile-4.png`
-  - `/Users/salaheddinemimouni/Documents/Codex/2026-08-15/sites-plugin-sites-openai-bundled-create/outputs/expertise-card-mobile-6.png`
-  - `/Users/salaheddinemimouni/Documents/Codex/2026-08-15/sites-plugin-sites-openai-bundled-create/outputs/expertise-card-mobile-7.png`
-  - `/Users/salaheddinemimouni/Documents/Codex/2026-08-15/sites-plugin-sites-openai-bundled-create/outputs/expertise-card-mobile-8.png`
+- Desktop block inspected as a full component because all six cards are visible in one viewport.
+- Mobile rail inspected at the first card and mid-rail performance card; scroll behavior is intentional and no horizontal page overflow was detected.
 
 **Required Fidelity Surfaces**
-- Fonts and typography: Manrope is consistent with the current site. Hierarchy, weights, line heights, and wrapping are stable across desktop and mobile.
-- Spacing and layout rhythm: desktop follows the accepted image-led grid; mobile stacks the same sections cleanly with preserved spacing and card rhythm.
-- Colors and visual tokens: black/purple Richmedia palette is preserved; CTA, pills, panels, and borders reuse the home page visual system.
-- Image quality and asset fidelity: existing high-resolution Richmedia assets are used. No visibly pixelated images found in focused checks; no AI regeneration required.
-- Copy and content: all expertise categories from the validated mockup are represented, plus the operational poles extracted from the agency plaquette.
+- Fonts and typography: existing site typography is preserved. Card titles use heavy display weights, tight line height, and non-negative letter spacing. Long EN copy was reduced to prevent cramped wrapping.
+- Spacing and layout rhythm: desktop shows six aligned cards with consistent gaps, radii, shadow, and bottom proof panels. Mobile uses scroll-snap with one dominant card and a small next-card preview.
+- Colors and visual tokens: the reference's white surface, black card overlay, purple icon circles, green WhatsApp proof, and blue CNDP accent are retained while using the site's existing tokens.
+- Image quality and asset fidelity: all backgrounds are local Richmedia assets, cropped with CSS and no placeholder art. Icons use the existing Phosphor icon library.
+- Copy and content: FR and EN variants are implemented for the six story cards: data, reach, performance, conversation, compliance, and interface.
 
 **Comparison History**
-- Earlier issue: Astro dev toolbar appeared in local screenshots and polluted the lower part of some captures.
-  Fix: disabled `devToolbar` in `astro.config.mjs`.
-  Post-fix evidence: final screenshots show no dev toolbar.
-- Earlier issue: references link pointed to `#references`, which is invalid from `/expertises`.
-  Fix: changed shared Header/Footer references links to `/#references`.
-  Post-fix evidence: build passes and header/footer remain visually unchanged.
+- Earlier issue: icon circles overlapped too much with story numbers and titles.
+  Fix: reduced icon size and shifted icons right/up.
+  Post-fix evidence: `/tmp/whatsapp-story-fr-desktop-final.png`.
+- Earlier issue: mobile showed too much of the next card, causing clipped text to dominate.
+  Fix: enlarged mobile card width and maintained a smaller next-card preview.
+  Post-fix evidence: `/tmp/whatsapp-story-fr-mobile-final-v2.png`.
 
 **Implementation Checklist**
-- Implement page at `/expertises` using shared `BaseLayout`, `Header`, and `Footer`.
-- Preserve image-led cards and responsive grid.
-- Verify desktop and mobile screenshots.
-- Verify Astro diagnostics and production build.
+- Add the six-card visual story block to `src/components/WhatsAppLanding.astro`.
+- Localize content for FR and EN.
+- Use local image assets and existing icon library.
+- Verify production build, desktop/mobile screenshots, horizontal overflow, and console errors.
 
 **Follow-up Polish**
-- Optional P3: generate a dedicated event image later if the Événementiel card needs a more literal event/activation scene.
+- Optional P3: replace card backgrounds later with exact campaign photography if the source creative pack becomes available.
 
 final result: passed

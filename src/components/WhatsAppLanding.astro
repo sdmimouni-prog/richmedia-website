@@ -308,6 +308,116 @@ const phoneDemo =
         reply: 'Hello, I want to know more.',
         advisor: 'Sure. An advisor will call you back.',
       };
+const storyCards =
+  lang === 'fr'
+    ? [
+        {
+          image: '/assets/richmedia-achat-media/media-scaling-room.webp',
+          icon: 'ph-users-three',
+          title: 'Data propriétaire',
+          proofValue: '18M+',
+          proofText: 'de profils qualifiés',
+          position: '22% center',
+        },
+        {
+          image: '/assets/richmedia-realizations/whatsapp-moul-pounj.png',
+          icon: 'ph-whatsapp-logo',
+          title: 'Reach maximal',
+          proofValue: 'WhatsApp',
+          proofText: 'directement dans la poche',
+          position: 'center 30%',
+          tone: 'green',
+        },
+        {
+          image: '/assets/richmedia-digital-strategy/strategy-hero.webp',
+          icon: 'ph-chart-bar',
+          title: 'Performance prouvée',
+          proofValue: '+90%',
+          proofText: 'taux d’ouverture',
+          proofSecondValue: '42%',
+          proofSecondText: 'taux de clics',
+          position: '34% center',
+        },
+        {
+          image: '/assets/richmedia-influence/creator-lifestyle.webp',
+          icon: 'ph-chat-circle',
+          title: 'Conversation & Chatbots',
+          proofValue: 'Répondez, qualifiez, convertissez',
+          proofText: '',
+          position: 'center',
+        },
+        {
+          image: '/assets/richmedia-realizations/ryad-al-andalous-wide.jpg',
+          icon: 'ph-shield-check',
+          title: 'Conforme & Sécurisé',
+          proofValue: 'CNDP',
+          proofText: 'Autorisation et respect de la confidentialité',
+          position: '58% center',
+          tone: 'blue',
+        },
+        {
+          image: '/assets/richmedia-ia-automation/agent-workflows.webp',
+          icon: 'ph-rocket-launch',
+          title: 'Simple & Puissant',
+          proofValue: 'Interface intuitive',
+          proofText: 'Résultats en temps réel',
+          position: 'center',
+        },
+      ]
+    : [
+        {
+          image: '/assets/richmedia-achat-media/media-scaling-room.webp',
+          icon: 'ph-users-three',
+          title: 'Owned data',
+          proofValue: '18M+',
+          proofText: 'qualified profiles',
+          position: '22% center',
+        },
+        {
+          image: '/assets/richmedia-realizations/whatsapp-moul-pounj.png',
+          icon: 'ph-whatsapp-logo',
+          title: 'Maximum reach',
+          proofValue: 'WhatsApp',
+          proofText: 'directly in the pocket',
+          position: 'center 30%',
+          tone: 'green',
+        },
+        {
+          image: '/assets/richmedia-digital-strategy/strategy-hero.webp',
+          icon: 'ph-chart-bar',
+          title: 'Proven performance',
+          proofValue: '90%+',
+          proofText: 'open rate',
+          proofSecondValue: '42%',
+          proofSecondText: 'click-through rate',
+          position: '34% center',
+        },
+        {
+          image: '/assets/richmedia-influence/creator-lifestyle.webp',
+          icon: 'ph-chat-circle',
+          title: 'Conversation & Chatbots',
+          proofValue: 'Reply, qualify, convert',
+          proofText: '',
+          position: 'center',
+        },
+        {
+          image: '/assets/richmedia-realizations/ryad-al-andalous-wide.jpg',
+          icon: 'ph-shield-check',
+          title: 'Compliant & Secure',
+          proofValue: 'CNDP',
+          proofText: 'Authorization and privacy compliance',
+          position: '58% center',
+          tone: 'blue',
+        },
+        {
+          image: '/assets/richmedia-ia-automation/agent-workflows.webp',
+          icon: 'ph-rocket-launch',
+          title: 'Simple & Powerful',
+          proofValue: 'Intuitive interface',
+          proofText: 'Real-time results',
+          position: 'center',
+        },
+      ];
 ---
 
 <div class="whatsapp-page">
@@ -439,6 +549,48 @@ const phoneDemo =
         <span>{stat.label}</span>
       </article>
     ))}
+  </section>
+
+  <section class="story-strip-section" aria-label={lang === 'fr' ? 'Avantages WhatsApp en stories' : 'WhatsApp benefits in stories'}>
+    <div class="story-strip" aria-label={lang === 'fr' ? 'Stories Richmedia WhatsApp' : 'Richmedia WhatsApp stories'}>
+      {storyCards.map((card, index) => (
+        <article class:list={['story-card', card.tone ? `tone-${card.tone}` : '']} style={`--story-image: url('${card.image}'); --story-position: ${card.position}; --story-index: ${index};`}>
+          <div class="story-progress" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="story-brand">
+            <span>
+              <img src="/assets/product-logos/richmedia-whatsapp-logo.png" alt="" loading="lazy" decoding="async" />
+            </span>
+            <strong>richmedia</strong>
+            <small>2h</small>
+            <i class="ph ph-dots-three-vertical" aria-hidden="true"></i>
+          </div>
+          <div class="story-icon" aria-hidden="true">
+            <i class:list={['ph', card.icon]}></i>
+          </div>
+          <div class="story-copy">
+            <strong>{String(index + 1).padStart(2, '0')}</strong>
+            <h2>{card.title}</h2>
+            <div class:list={['story-proof', card.proofSecondValue ? 'story-proof-split' : '', !card.proofText && !card.proofSecondValue ? 'story-proof-sentence' : '']}>
+              <p>
+                <span>{card.proofValue}</span>
+                {card.proofText && <small>{card.proofText}</small>}
+              </p>
+              {card.proofSecondValue && (
+                <p>
+                  <span>{card.proofSecondValue}</span>
+                  <small>{card.proofSecondText}</small>
+                </p>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
   </section>
 
   <section class="visual-band" aria-labelledby="visual-title">
@@ -1342,6 +1494,245 @@ const phoneDemo =
     color: var(--muted);
     font-size: 0.9rem;
     line-height: 1.25;
+  }
+
+  .story-strip-section {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2.25rem, 4vw, 3.8rem) 0;
+    background:
+      radial-gradient(circle at 18% 0%, rgba(124, 60, 255, 0.1), transparent 24rem),
+      linear-gradient(180deg, #fbfbfa, #f1f0ed);
+    color: #090a10;
+  }
+
+  .story-strip {
+    display: grid;
+    width: min(100% - 3rem, 1400px);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(0.7rem, 1vw, 1.1rem);
+    margin-inline: auto;
+  }
+
+  .story-card {
+    --story-accent: var(--purple);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 470px;
+    border-radius: 18px;
+    background: #111;
+    box-shadow: 0 1.6rem 3.4rem rgba(6, 8, 16, 0.16);
+    transform: translateY(0);
+    transition:
+      box-shadow 260ms ease,
+      transform 260ms ease;
+  }
+
+  .story-card::before {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    content: '';
+    background-image: var(--story-image);
+    background-position: var(--story-position);
+    background-size: cover;
+    transform: scale(1.02);
+    transition: transform 420ms ease;
+  }
+
+  .story-card::after {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: '';
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.2), transparent 18%),
+      linear-gradient(180deg, transparent 24%, rgba(0, 0, 0, 0.72) 73%, rgba(0, 0, 0, 0.96) 100%);
+  }
+
+  .story-card:hover {
+    box-shadow: 0 2rem 4rem rgba(6, 8, 16, 0.24);
+    transform: translateY(-0.35rem);
+  }
+
+  .story-card:hover::before {
+    transform: scale(1.08);
+  }
+
+  .story-card.tone-green {
+    --story-accent: var(--green);
+  }
+
+  .story-card.tone-blue {
+    --story-accent: #1774b8;
+  }
+
+  .story-progress {
+    position: absolute;
+    top: 1.05rem;
+    right: 1rem;
+    left: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.28rem;
+  }
+
+  .story-progress span {
+    height: 0.18rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.22);
+  }
+
+  .story-brand {
+    position: absolute;
+    top: 2.55rem;
+    right: 1rem;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.42rem;
+    color: #fff;
+    text-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.38);
+  }
+
+  .story-brand span {
+    display: inline-grid;
+    width: 2rem;
+    aspect-ratio: 1;
+    flex: 0 0 auto;
+    place-items: center;
+    overflow: hidden;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  .story-brand img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: scale(1.35);
+  }
+
+  .story-brand strong {
+    min-width: 0;
+    overflow: hidden;
+    font-size: 0.9rem;
+    font-weight: 950;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .story-brand small {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.8rem;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .story-brand i {
+    margin-left: auto;
+    font-size: 1.35rem;
+  }
+
+  .story-icon {
+    position: absolute;
+    left: 64%;
+    bottom: 45%;
+    display: inline-grid;
+    width: clamp(3.9rem, 4.8vw, 4.85rem);
+    aspect-ratio: 1;
+    place-items: center;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 25%, #8d58ff, var(--purple));
+    color: #fff;
+    box-shadow:
+      0 1rem 2rem rgba(50, 24, 145, 0.34),
+      0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+    transform: translateX(-50%);
+  }
+
+  .story-icon i {
+    font-size: clamp(2.1rem, 3vw, 3rem);
+  }
+
+  .story-copy {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    display: grid;
+    gap: 0.45rem;
+    color: #fff;
+  }
+
+  .story-copy > strong {
+    display: block;
+    font-size: clamp(2.9rem, 5vw, 4.1rem);
+    font-weight: 950;
+    line-height: 0.85;
+    letter-spacing: 0;
+    text-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.42);
+  }
+
+  .story-copy h2 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.14rem, 1.38vw, 1.5rem);
+    font-weight: 950;
+    line-height: 0.98;
+    letter-spacing: 0;
+    text-wrap: balance;
+    text-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.48);
+  }
+
+  .story-proof {
+    display: grid;
+    grid-template-columns: repeat(var(--proof-cols, 1), minmax(0, 1fr));
+    gap: 0.5rem;
+    min-height: 5.9rem;
+    align-items: center;
+    margin-top: 0.7rem;
+    border-radius: 14px;
+    padding: 0.85rem 0.6rem;
+    background: #fff;
+    color: #11121a;
+    box-shadow: 0 0.7rem 1.7rem rgba(0, 0, 0, 0.18);
+  }
+
+  .story-proof-split {
+    --proof-cols: 2;
+  }
+
+  .story-proof p {
+    display: grid;
+    gap: 0.18rem;
+    min-width: 0;
+    margin: 0;
+    text-align: center;
+  }
+
+  .story-proof span {
+    overflow-wrap: anywhere;
+    color: var(--story-accent);
+    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-weight: 950;
+    line-height: 0.98;
+  }
+
+  .story-proof small {
+    color: #11121a;
+    font-size: clamp(0.78rem, 0.95vw, 0.96rem);
+    font-weight: 900;
+    line-height: 1.12;
+  }
+
+  .story-proof-sentence span {
+    color: #11121a;
+    font-size: clamp(0.94rem, 1.05vw, 1.08rem);
+    line-height: 1.12;
   }
 
   .visual-band {
@@ -2541,6 +2932,25 @@ const phoneDemo =
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .story-strip {
+      overflow-x: auto;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(238px, 30vw);
+      grid-template-columns: none;
+      scroll-padding-inline: 1.5rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .story-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .story-card {
+      min-height: 520px;
+      scroll-snap-align: start;
+    }
+
     .case-grid,
     .offer-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2660,6 +3070,57 @@ const phoneDemo =
 
     .stats-strip {
       padding-bottom: 2.4rem;
+    }
+
+    .story-strip-section {
+      padding: 1.35rem 0 1.55rem;
+    }
+
+    .story-strip {
+      width: 100%;
+      padding-inline: 0.5rem;
+      grid-auto-columns: clamp(284px, 84vw, 330px);
+      gap: 0.72rem;
+      scroll-padding-inline: 0.5rem;
+    }
+
+    .story-card {
+      min-height: min(590px, 154vw);
+      border-radius: 16px;
+    }
+
+    .story-card:hover {
+      transform: none;
+    }
+
+    .story-brand {
+      top: 2.35rem;
+    }
+
+    .story-icon {
+      bottom: 45%;
+      left: 66%;
+      width: 4.2rem;
+    }
+
+    .story-copy {
+      right: 0.86rem;
+      bottom: 0.86rem;
+      left: 0.86rem;
+    }
+
+    .story-copy > strong {
+      font-size: 3.25rem;
+    }
+
+    .story-copy h2 {
+      font-size: 1.36rem;
+    }
+
+    .story-proof {
+      min-height: 5.5rem;
+      margin-top: 0.55rem;
+      padding: 0.78rem 0.55rem;
     }
 
     .stats-strip article,
@@ -2943,6 +3404,22 @@ const phoneDemo =
     .phone-stage {
       left: 34%;
       width: min(64vw, 218px);
+    }
+
+    .story-strip {
+      grid-auto-columns: clamp(300px, 84vw, 326px);
+    }
+
+    .story-card {
+      min-height: min(590px, 154vw);
+    }
+
+    .story-proof span {
+      font-size: 1.48rem;
+    }
+
+    .story-proof small {
+      font-size: 0.78rem;
     }
 
     .showcase-stage {
