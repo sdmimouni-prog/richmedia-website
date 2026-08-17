@@ -19,6 +19,8 @@ const languageHref = isEnglish
     ? '/contact'
     : normalizedPath === '/en/book-audit'
     ? '/reserver-un-audit'
+    : normalizedPath === '/en/products/whatsapp'
+    ? '/produits/whatsapp'
     : normalizedPath === '/en/expertises/strategie-digitale'
     ? '/expertises/strategie-digitale'
     : normalizedPath === '/en/expertises/brand-content'
@@ -64,6 +66,8 @@ const languageHref = isEnglish
     ? '/en/contact'
     : normalizedPath === '/reserver-un-audit'
     ? '/en/book-audit'
+    : normalizedPath === '/produits/whatsapp'
+    ? '/en/products/whatsapp'
     : '/en';
 
 const labels = isEnglish
@@ -116,24 +120,28 @@ const navItems = [
 
 const productLinks = [
   {
-    href: 'https://richmedia-whatsapp.vercel.app/#offers',
+    href: isEnglish ? '/en/products/whatsapp' : '/produits/whatsapp',
     label: isEnglish ? 'WhatsApp push' : 'Push WhatsApp',
     text: isEnglish ? 'Campaigns and follow-ups' : 'Campagnes et relances',
+    external: false,
   },
   {
     href: 'https://www.carterandblake.ma/expertise-political-marketing.html',
     label: isEnglish ? 'Political marketing' : 'Marketing politique',
     text: isEnglish ? 'Carter & Blake' : 'Carter & Blake',
+    external: true,
   },
   {
     href: 'https://hypeo.ai',
     label: 'Influence',
     text: isEnglish ? 'Creator campaigns' : 'Campagnes créateurs',
+    external: true,
   },
   {
     href: 'https://www.in-talks.ma/',
     label: 'Social listening',
     text: isEnglish ? 'Monitoring and reputation' : 'Veille et réputation',
+    external: true,
   },
 ];
 
@@ -288,7 +296,7 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
         </div>
         <div class="product-menu-grid">
           {productLinks.map((item) => (
-            <a href={item.href} target="_blank" rel="noopener">
+            <a href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener' : undefined}>
               <span>{item.label}</span>
               <small>{item.text}</small>
               <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
@@ -350,7 +358,7 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
       <span>{labels.products}</span>
       <div class="mobile-product-list">
         {productLinks.map((item) => (
-          <a href={item.href} target="_blank" rel="noopener">
+          <a href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener' : undefined}>
             <span>{item.label}</span>
             <small>{item.text}</small>
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>

@@ -1,0 +1,1216 @@
+---
+interface Props {
+  lang?: 'fr' | 'en';
+}
+
+const { lang = 'fr' } = Astro.props;
+
+const platformUrl = 'https://richmedia-whatsapp.vercel.app/#offers';
+const phoneUrl = 'tel:+212661172885';
+
+const content = {
+  fr: {
+    eyebrow: 'Plateforme WhatsApp Marketing',
+    title: ['Touchez.', 'Engagez.', 'Convertissez.'],
+    intro:
+      'La solution Richmedia WhatsApp pour diffuser vos offres, qualifier vos leads et piloter la performance en temps réel.',
+    primaryCta: 'Demander une démo',
+    secondaryCta: 'Voir les cas d’usage',
+    platformCta: 'Visiter la plateforme',
+    highlights: [
+      '+18M de profils qualifiés',
+      '+90% de taux d’ouverture',
+      'Jusqu’à 42% de taux de clics',
+      'Chatbots & conversations',
+      'Conforme CNDP',
+      'Statistiques en temps réel',
+    ],
+    stats: [
+      { value: '+90%', label: 'taux d’ouverture' },
+      { value: '42%', label: 'taux de clics possible' },
+      { value: '18M+', label: 'profils activables' },
+      { value: '250+', label: 'marques accompagnées' },
+    ],
+    visualLabel: 'Campagne WhatsApp',
+    visualTitle: 'Du push à la conversation.',
+    visualText:
+      'Chaque message devient une porte d’entrée vers une offre, un conseiller, un catalogue ou un scénario automatisé.',
+    benefitsTitle: 'Pourquoi WhatsApp performe',
+    benefitsText: 'Un canal direct, mesurable et pensé pour l’action rapide.',
+    benefits: [
+      {
+        icon: 'ph-chart-line-up',
+        title: 'Performance immédiate',
+        text: 'Vos offres arrivent dans un canal consulté plusieurs fois par jour.',
+      },
+      {
+        icon: 'ph-users-three',
+        title: 'Ciblage data',
+        text: 'Segmentation par audience, intérêt, zone et intention commerciale.',
+      },
+      {
+        icon: 'ph-chat-circle-dots',
+        title: 'Conversation utile',
+        text: 'Réponses, boutons, qualification et scénarios chatbot dans le même parcours.',
+      },
+      {
+        icon: 'ph-shield-check',
+        title: 'Cadre maîtrisé',
+        text: 'Activation conforme, suivi des consentements et reporting clair.',
+      },
+    ],
+    offersTitle: 'Trois façons d’activer WhatsApp',
+    offersText: 'Des formats lisibles pour lancer, amplifier ou automatiser.',
+    offers: [
+      {
+        badge: 'Launch',
+        title: 'Campagne push',
+        text: 'Diffusion d’une offre à une audience qualifiée avec tracking complet.',
+        metric: '48h',
+        items: ['Ciblage', 'Créa message', 'Reporting'],
+      },
+      {
+        badge: 'Boost',
+        title: 'Push + relances',
+        text: 'Séquences courtes pour transformer l’intérêt en clic, lead ou visite.',
+        metric: '+ROAS',
+        items: ['Relance', 'A/B test', 'Optimisation'],
+      },
+      {
+        badge: 'Flow',
+        title: 'Conversation & chatbot',
+        text: 'Scénarios automatisés pour qualifier, orienter et réengager.',
+        metric: '24/7',
+        items: ['Bot', 'CRM', 'Conseiller'],
+      },
+    ],
+    casesTitle: 'Cas d’usage prêts à lancer',
+    cases: [
+      'Retail & e-commerce',
+      'Banques & assurance',
+      'Automobile',
+      'Immobilier',
+      'Événementiel',
+      'Tourisme & loisirs',
+    ],
+    dashboardTitle: 'Suivez ce qui compte',
+    dashboardText:
+      'Ouvertures, clics, réponses, audience et coût par action sont visibles dans une lecture simple pour décider vite.',
+    dashboard: [
+      { label: 'Ouvertures', value: '91%', tone: 'green' },
+      { label: 'Clics', value: '38%', tone: 'purple' },
+      { label: 'Réponses', value: '12K', tone: 'cyan' },
+      { label: 'CPA', value: '-24%', tone: 'amber' },
+    ],
+    finalTitle: 'Explorez la plateforme WhatsApp complète.',
+    finalText:
+      'Découvrez les offres, les fonctionnalités et les exemples de campagnes sur la plateforme dédiée Richmedia WhatsApp.',
+  },
+  en: {
+    eyebrow: 'WhatsApp Marketing Platform',
+    title: ['Reach.', 'Engage.', 'Convert.'],
+    intro:
+      'The Richmedia WhatsApp solution to broadcast offers, qualify leads and monitor performance in real time.',
+    primaryCta: 'Request a demo',
+    secondaryCta: 'View use cases',
+    platformCta: 'Visit the platform',
+    highlights: [
+      '18M+ qualified profiles',
+      '90%+ open rate',
+      'Up to 42% click-through rate',
+      'Chatbots & conversations',
+      'CNDP compliant',
+      'Real-time statistics',
+    ],
+    stats: [
+      { value: '90%+', label: 'open rate' },
+      { value: '42%', label: 'possible click rate' },
+      { value: '18M+', label: 'activable profiles' },
+      { value: '250+', label: 'brands supported' },
+    ],
+    visualLabel: 'WhatsApp campaign',
+    visualTitle: 'From push to conversation.',
+    visualText:
+      'Every message becomes an entry point to an offer, advisor, catalogue or automated journey.',
+    benefitsTitle: 'Why WhatsApp performs',
+    benefitsText: 'A direct, measurable channel built for fast action.',
+    benefits: [
+      {
+        icon: 'ph-chart-line-up',
+        title: 'Immediate performance',
+        text: 'Your offers land in a channel people check several times a day.',
+      },
+      {
+        icon: 'ph-users-three',
+        title: 'Data targeting',
+        text: 'Segment by audience, interest, location and commercial intent.',
+      },
+      {
+        icon: 'ph-chat-circle-dots',
+        title: 'Useful conversations',
+        text: 'Replies, buttons, qualification and chatbot journeys in one path.',
+      },
+      {
+        icon: 'ph-shield-check',
+        title: 'Controlled framework',
+        text: 'Compliant activation, consent tracking and clear reporting.',
+      },
+    ],
+    offersTitle: 'Three ways to activate WhatsApp',
+    offersText: 'Clear formats to launch, amplify or automate.',
+    offers: [
+      {
+        badge: 'Launch',
+        title: 'Push campaign',
+        text: 'Broadcast an offer to a qualified audience with complete tracking.',
+        metric: '48h',
+        items: ['Targeting', 'Message creative', 'Reporting'],
+      },
+      {
+        badge: 'Boost',
+        title: 'Push + follow-ups',
+        text: 'Short sequences to turn interest into clicks, leads or visits.',
+        metric: '+ROAS',
+        items: ['Follow-up', 'A/B test', 'Optimization'],
+      },
+      {
+        badge: 'Flow',
+        title: 'Conversation & chatbot',
+        text: 'Automated journeys to qualify, route and re-engage.',
+        metric: '24/7',
+        items: ['Bot', 'CRM', 'Handoff'],
+      },
+    ],
+    casesTitle: 'Ready-to-launch use cases',
+    cases: [
+      'Retail & e-commerce',
+      'Banking & insurance',
+      'Automotive',
+      'Real estate',
+      'Events',
+      'Tourism & leisure',
+    ],
+    dashboardTitle: 'Track what matters',
+    dashboardText:
+      'Opens, clicks, replies, audience and cost per action are shown in a simple view built for quick decisions.',
+    dashboard: [
+      { label: 'Opens', value: '91%', tone: 'green' },
+      { label: 'Clicks', value: '38%', tone: 'purple' },
+      { label: 'Replies', value: '12K', tone: 'cyan' },
+      { label: 'CPA', value: '-24%', tone: 'amber' },
+    ],
+    finalTitle: 'Explore the complete WhatsApp platform.',
+    finalText:
+      'Discover offers, features and campaign examples on the dedicated Richmedia WhatsApp platform.',
+  },
+};
+
+const t = content[lang];
+---
+
+<div class="whatsapp-page">
+  <section class="whatsapp-hero" aria-labelledby="whatsapp-title">
+    <div class="whatsapp-copy">
+      <span class="whatsapp-kicker">{t.eyebrow}</span>
+      <h1 id="whatsapp-title">
+        {t.title.map((line, index) => (
+          <span class={index === 2 ? 'accent-line' : ''}>{line}</span>
+        ))}
+      </h1>
+      <p>{t.intro}</p>
+      <div class="whatsapp-actions">
+        <a class="button button-primary" href={phoneUrl}>
+          {t.primaryCta}
+          <i class="ph ph-phone" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href="#use-cases">
+          {t.secondaryCta}
+          <i class="ph ph-arrow-down" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="hero-highlights" aria-label={lang === 'fr' ? 'Points clés' : 'Highlights'}>
+        {t.highlights.map((item) => (
+          <span>
+            <i class="ph ph-check" aria-hidden="true"></i>
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div class="whatsapp-visual" aria-label={t.visualLabel}>
+      <div class="phone-stage">
+        <img
+          src="/assets/richmedia-realizations/whatsapp-cih-bank.png"
+          alt=""
+          width="1024"
+          height="1536"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+      <div class="floating-metric metric-top">
+        <span>{t.stats[0].label}</span>
+        <strong>{t.stats[0].value}</strong>
+        <i class="ph ph-trend-up" aria-hidden="true"></i>
+      </div>
+      <div class="floating-metric metric-mid">
+        <span>{t.stats[1].label}</span>
+        <strong>{t.stats[1].value}</strong>
+        <i class="ph ph-cursor-click" aria-hidden="true"></i>
+      </div>
+      <div class="floating-metric metric-bottom">
+        <span>{t.stats[2].label}</span>
+        <strong>{t.stats[2].value}</strong>
+        <i class="ph ph-database" aria-hidden="true"></i>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-strip" aria-label={lang === 'fr' ? 'Indicateurs clés' : 'Key metrics'}>
+    {t.stats.map((stat) => (
+      <article>
+        <strong>{stat.value}</strong>
+        <span>{stat.label}</span>
+      </article>
+    ))}
+  </section>
+
+  <section class="visual-band" aria-labelledby="visual-title">
+    <div class="visual-card large">
+      <img src="/assets/richmedia-ia-automation/whatsapp-agent.webp" alt="" loading="lazy" decoding="async" />
+      <div>
+        <span>{t.visualLabel}</span>
+        <h2 id="visual-title">{t.visualTitle}</h2>
+        <p>{t.visualText}</p>
+      </div>
+    </div>
+    <div class="visual-card stack">
+      <img src="/assets/richmedia-realizations/whatsapp-jaguar-maroc.png" alt="" loading="lazy" decoding="async" />
+      <img src="/assets/richmedia-realizations/whatsapp-moul-pounj.png" alt="" loading="lazy" decoding="async" />
+    </div>
+  </section>
+
+  <section class="section-band benefits-band" aria-labelledby="benefits-title">
+    <div class="section-intro">
+      <span class="whatsapp-kicker">{lang === 'fr' ? 'Avantages' : 'Benefits'}</span>
+      <h2 id="benefits-title">{t.benefitsTitle}</h2>
+      <p>{t.benefitsText}</p>
+    </div>
+    <div class="benefit-grid">
+      {t.benefits.map((benefit) => (
+        <article>
+          <i class:list={['ph', benefit.icon]} aria-hidden="true"></i>
+          <h3>{benefit.title}</h3>
+          <p>{benefit.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-band offers-band" aria-labelledby="offers-title">
+    <div class="section-intro compact">
+      <span class="whatsapp-kicker">{lang === 'fr' ? 'Offres' : 'Offers'}</span>
+      <h2 id="offers-title">{t.offersTitle}</h2>
+      <p>{t.offersText}</p>
+    </div>
+    <div class="offer-grid">
+      {t.offers.map((offer) => (
+        <article>
+          <div>
+            <span>{offer.badge}</span>
+            <strong>{offer.metric}</strong>
+          </div>
+          <h3>{offer.title}</h3>
+          <p>{offer.text}</p>
+          <ul>
+            {offer.items.map((item) => (
+              <li>
+                <i class="ph ph-check" aria-hidden="true"></i>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="use-cases" class="use-case-band" aria-labelledby="use-cases-title">
+    <div>
+      <span class="whatsapp-kicker">{lang === 'fr' ? 'Secteurs' : 'Industries'}</span>
+      <h2 id="use-cases-title">{t.casesTitle}</h2>
+    </div>
+    <div class="case-grid">
+      {t.cases.map((item) => (
+        <span>
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          {item}
+        </span>
+      ))}
+    </div>
+  </section>
+
+  <section class="dashboard-band" aria-labelledby="dashboard-title">
+    <div class="dashboard-copy">
+      <span class="whatsapp-kicker">Dashboard</span>
+      <h2 id="dashboard-title">{t.dashboardTitle}</h2>
+      <p>{t.dashboardText}</p>
+    </div>
+    <div class="dashboard-panel">
+      {t.dashboard.map((item) => (
+        <article class:list={['dashboard-tile', item.tone]}>
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+          <i class="ph ph-wave-sine" aria-hidden="true"></i>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="final-cta" aria-labelledby="final-cta-title">
+    <div>
+      <span class="whatsapp-kicker">{lang === 'fr' ? 'Plateforme dédiée' : 'Dedicated platform'}</span>
+      <h2 id="final-cta-title">{t.finalTitle}</h2>
+      <p>{t.finalText}</p>
+    </div>
+    <a class="button button-primary" href={platformUrl} target="_blank" rel="noopener">
+      {t.platformCta}
+      <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+    </a>
+  </section>
+</div>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .whatsapp-page {
+    --purple: #7c3cff;
+    --purple-2: #a985ff;
+    --green: #11c878;
+    --cyan: #39d8ff;
+    --amber: #ffca66;
+    --line: rgba(255, 255, 255, 0.12);
+    --panel: rgba(255, 255, 255, 0.045);
+    --muted: rgba(255, 255, 255, 0.68);
+    overflow-x: clip;
+    color: #fff;
+    background:
+      radial-gradient(circle at 79% 12%, rgba(17, 200, 120, 0.18), transparent 26rem),
+      radial-gradient(circle at 16% 35%, rgba(124, 60, 255, 0.28), transparent 30rem),
+      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      #030407;
+    background-size: auto, auto, 88px 88px, 88px 88px, auto;
+  }
+
+  .whatsapp-hero,
+  .stats-strip,
+  .visual-band,
+  .section-band,
+  .use-case-band,
+  .dashboard-band,
+  .final-cta {
+    width: min(100% - 3rem, 1320px);
+    margin-inline: auto;
+  }
+
+  .whatsapp-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(440px, 0.9fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
+    min-height: 720px;
+    padding: 8.5rem 0 3rem;
+  }
+
+  .whatsapp-copy {
+    display: grid;
+    gap: 1.35rem;
+  }
+
+  .whatsapp-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--purple-2);
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .whatsapp-kicker::before {
+    width: 2rem;
+    height: 2px;
+    content: '';
+    background: var(--purple);
+  }
+
+  .whatsapp-copy h1 {
+    display: grid;
+    gap: 0.08em;
+    max-width: 720px;
+    --h1-size: clamp(3.2rem, 7vw, 6.5rem);
+    color: #fff;
+    font-size: var(--h1-size);
+    line-height: 0.9;
+  }
+
+  .whatsapp-copy h1 span {
+    display: block;
+  }
+
+  .accent-line {
+    color: var(--purple);
+  }
+
+  .whatsapp-copy p {
+    max-width: 620px;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+
+  .whatsapp-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 3.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border-radius: 7px;
+    padding: 0 1.25rem;
+    color: #fff;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    box-shadow: 0 1rem 2.6rem rgba(124, 60, 255, 0.24);
+  }
+
+  .button-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .button-secondary:hover,
+  .button-secondary:focus-visible {
+    border-color: rgba(17, 200, 120, 0.45);
+    background: rgba(17, 200, 120, 0.08);
+  }
+
+  .hero-highlights {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, max-content));
+    gap: 0.7rem 1.1rem;
+    margin-top: 0.35rem;
+  }
+
+  .hero-highlights span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  .hero-highlights i {
+    display: inline-grid;
+    width: 1.35rem;
+    height: 1.35rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--green);
+    color: #06120c;
+    font-size: 0.85rem;
+  }
+
+  .whatsapp-visual {
+    position: relative;
+    min-height: 620px;
+  }
+
+  .phone-stage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(56vw, 390px);
+    max-width: 100%;
+    transform: translate(-50%, -48%);
+  }
+
+  .phone-stage::before {
+    position: absolute;
+    inset: 8% -26%;
+    z-index: 0;
+    content: '';
+    border: 1px solid rgba(124, 60, 255, 0.28);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(17, 200, 120, 0.16), transparent 35%),
+      radial-gradient(circle at 50% 50%, rgba(124, 60, 255, 0.22), transparent 58%);
+    filter: blur(0.2px);
+  }
+
+  .phone-stage img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 2.8rem;
+    filter: drop-shadow(0 2rem 4rem rgba(0, 0, 0, 0.55));
+  }
+
+  .floating-metric {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.25rem 0.7rem;
+    min-width: 12.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    padding: 0.9rem;
+    background: rgba(246, 246, 255, 0.96);
+    color: #07080d;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.25);
+  }
+
+  .floating-metric span {
+    grid-column: 1 / -1;
+    font-size: 0.72rem;
+    font-weight: 900;
+    color: rgba(7, 8, 13, 0.72);
+  }
+
+  .floating-metric strong {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .floating-metric i {
+    align-self: end;
+    color: var(--green);
+    font-size: 1.85rem;
+  }
+
+  .metric-top {
+    top: 20%;
+    right: 1%;
+  }
+
+  .metric-mid {
+    top: 47%;
+    right: -2%;
+  }
+
+  .metric-bottom {
+    right: 8%;
+    bottom: 13%;
+  }
+
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding-bottom: 3rem;
+  }
+
+  .stats-strip article {
+    min-height: 7.2rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .stats-strip strong {
+    display: block;
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .stats-strip span {
+    display: block;
+    margin-top: 0.45rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.25;
+  }
+
+  .visual-band {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+    gap: 0.85rem;
+    padding-block: 3.8rem;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 6rem;
+  }
+
+  .visual-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .visual-card.large {
+    position: relative;
+    min-height: 390px;
+  }
+
+  .visual-card.large img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .visual-card.large::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background:
+      linear-gradient(90deg, rgba(3, 4, 7, 0.92), rgba(3, 4, 7, 0.46) 58%, rgba(3, 4, 7, 0.06)),
+      linear-gradient(0deg, rgba(3, 4, 7, 0.5), transparent 50%);
+  }
+
+  .visual-card.large div {
+    position: absolute;
+    bottom: 1.4rem;
+    left: 1.4rem;
+    z-index: 1;
+    display: grid;
+    gap: 0.55rem;
+    max-width: 430px;
+  }
+
+  .visual-card.large span {
+    color: var(--green);
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .visual-card.large h2 {
+    color: #fff;
+    font-size: clamp(1.85rem, 3vw, 3rem);
+    line-height: 1;
+  }
+
+  .visual-card.large p {
+    color: rgba(255, 255, 255, 0.74);
+    line-height: 1.55;
+  }
+
+  .visual-card.stack {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    border: 0;
+    background: transparent;
+  }
+
+  .visual-card.stack img {
+    width: 100%;
+    height: 390px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: top;
+    background: #efe8df;
+  }
+
+  .section-band {
+    padding-block: 3.8rem;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 6rem;
+  }
+
+  .section-intro {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 720px;
+  }
+
+  .section-intro.compact {
+    max-width: 640px;
+  }
+
+  .section-intro h2,
+  .use-case-band h2,
+  .dashboard-copy h2,
+  .final-cta h2 {
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1.04;
+  }
+
+  .section-intro p,
+  .dashboard-copy p,
+  .final-cta p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .benefit-grid article,
+  .offer-grid article {
+    display: grid;
+    align-content: start;
+    gap: 0.7rem;
+    min-height: 13rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .benefit-grid i {
+    display: inline-grid;
+    width: 2.6rem;
+    height: 2.6rem;
+    place-items: center;
+    border: 1px solid rgba(17, 200, 120, 0.34);
+    border-radius: 8px;
+    background: rgba(17, 200, 120, 0.1);
+    color: var(--green);
+    font-size: 1.25rem;
+  }
+
+  .benefit-grid h3,
+  .offer-grid h3 {
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1.16;
+  }
+
+  .benefit-grid p,
+  .offer-grid p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .offer-grid article {
+    min-height: 17rem;
+    background:
+      linear-gradient(180deg, rgba(124, 60, 255, 0.1), transparent 55%),
+      rgba(255, 255, 255, 0.04);
+  }
+
+  .offer-grid article > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .offer-grid article > div span {
+    border: 1px solid rgba(169, 133, 255, 0.42);
+    border-radius: 999px;
+    padding: 0.32rem 0.55rem;
+    color: var(--purple-2);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .offer-grid article > div strong {
+    color: var(--green);
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .offer-grid ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  .offer-grid li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    padding: 0.38rem 0.58rem;
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+
+  .offer-grid li i {
+    color: var(--green);
+  }
+
+  .use-case-band {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 1rem;
+    align-items: start;
+    padding-block: 3.8rem;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 6rem;
+  }
+
+  .use-case-band > div:first-child {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .case-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .case-grid span {
+    display: flex;
+    min-height: 4.6rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .case-grid i {
+    flex: 0 0 auto;
+    color: var(--purple-2);
+  }
+
+  .dashboard-band {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    gap: 1rem;
+    align-items: stretch;
+    padding-block: 3.8rem;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 6rem;
+  }
+
+  .dashboard-copy {
+    display: grid;
+    align-content: center;
+    gap: 0.8rem;
+  }
+
+  .dashboard-panel {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.65rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.8rem;
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.12), transparent 60%),
+      rgba(255, 255, 255, 0.035);
+  }
+
+  .dashboard-tile {
+    display: grid;
+    align-content: space-between;
+    min-height: 10rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(3, 4, 7, 0.48);
+  }
+
+  .dashboard-tile span {
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+  .dashboard-tile strong {
+    color: #fff;
+    font-size: 2rem;
+  }
+
+  .dashboard-tile i {
+    font-size: 2.2rem;
+  }
+
+  .dashboard-tile.green i {
+    color: var(--green);
+  }
+
+  .dashboard-tile.purple i {
+    color: var(--purple-2);
+  }
+
+  .dashboard-tile.cyan i {
+    color: var(--cyan);
+  }
+
+  .dashboard-tile.amber i {
+    color: var(--amber);
+  }
+
+  .final-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(169, 133, 255, 0.3);
+    border-radius: 8px;
+    padding: clamp(1rem, 3vw, 2rem);
+    background:
+      radial-gradient(circle at 14% 18%, rgba(17, 200, 120, 0.16), transparent 16rem),
+      linear-gradient(135deg, rgba(124, 60, 255, 0.18), rgba(255, 255, 255, 0.035));
+    scroll-margin-top: 6rem;
+  }
+
+  .final-cta > div {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 760px;
+  }
+
+  .final-cta .button {
+    min-width: 13rem;
+  }
+
+  @media (max-width: 1060px) {
+    .whatsapp-hero,
+    .visual-band,
+    .use-case-band,
+    .dashboard-band {
+      grid-template-columns: 1fr;
+    }
+
+    .whatsapp-hero {
+      min-height: 0;
+      padding-top: 7rem;
+    }
+
+    .whatsapp-visual {
+      min-height: 590px;
+    }
+
+    .stats-strip,
+    .benefit-grid,
+    .dashboard-panel {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .case-grid,
+    .offer-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .whatsapp-hero,
+    .stats-strip,
+    .visual-band,
+    .section-band,
+    .use-case-band,
+    .dashboard-band,
+    .final-cta {
+      width: min(100% - 1rem, 1320px);
+    }
+
+    .whatsapp-hero {
+      gap: 1.2rem;
+      padding: 6rem 0 2.2rem;
+    }
+
+    .whatsapp-copy {
+      gap: 1rem;
+    }
+
+    .whatsapp-copy h1 {
+      --h1-size: clamp(3rem, 14vw, 4.2rem);
+      line-height: 0.94;
+    }
+
+    .whatsapp-copy p {
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .whatsapp-actions,
+    .final-cta {
+      display: grid;
+    }
+
+    .button,
+    .final-cta .button {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .hero-highlights {
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
+    }
+
+    .whatsapp-visual {
+      min-height: 520px;
+    }
+
+    .phone-stage {
+      width: min(84vw, 310px);
+    }
+
+    .floating-metric {
+      min-width: 9.8rem;
+      padding: 0.72rem;
+    }
+
+    .floating-metric strong {
+      font-size: 1.5rem;
+    }
+
+    .floating-metric i {
+      font-size: 1.3rem;
+    }
+
+    .metric-top {
+      top: 4%;
+      right: 0;
+    }
+
+    .metric-mid {
+      top: 45%;
+      right: 0;
+    }
+
+    .metric-bottom {
+      right: 4%;
+      bottom: 3%;
+    }
+
+    .stats-strip,
+    .benefit-grid,
+    .case-grid,
+    .offer-grid,
+    .dashboard-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .stats-strip {
+      padding-bottom: 2.4rem;
+    }
+
+    .stats-strip article,
+    .benefit-grid article,
+    .offer-grid article {
+      min-height: 0;
+    }
+
+    .visual-band,
+    .section-band,
+    .use-case-band,
+    .dashboard-band {
+      padding-block: 2.5rem;
+    }
+
+    .visual-card.large {
+      min-height: 360px;
+    }
+
+    .visual-card.large div {
+      right: 1rem;
+      bottom: 1rem;
+      left: 1rem;
+    }
+
+    .visual-card.stack {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .visual-card.stack img {
+      height: 300px;
+    }
+
+    .case-grid span {
+      min-height: 3.7rem;
+    }
+
+    .dashboard-tile {
+      min-height: 7.2rem;
+    }
+
+    .final-cta {
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .visual-card.stack img {
+      height: 230px;
+    }
+
+    .metric-top,
+    .metric-mid {
+      right: -0.1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .button {
+      transition: none;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: none;
+    }
+  }
+</style>

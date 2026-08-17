@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WhatsAppLanding from '../../components/WhatsAppLanding.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, localBusiness, serviceSchema } from '../../lib/schema';
+
+const pageDescription =
+  'Découvrez la solution de push WhatsApp Richmedia : campagnes, relances, ciblage data, chatbots, reporting et activation conforme pour convertir plus vite.';
+
+const schema = [
+  localBusiness(),
+  serviceSchema({
+    name: 'Solution de push WhatsApp',
+    description: pageDescription,
+    url: `${SITE.url}/produits/whatsapp`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Produits', url: `${SITE.url}/produits/whatsapp` },
+    { name: 'Solution de push WhatsApp', url: `${SITE.url}/produits/whatsapp` },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Solution de push WhatsApp - Richmedia"
+  description={pageDescription}
+  canonical={`${SITE.url}/produits/whatsapp`}
+  schema={schema}
+>
+  <WhatsAppLanding lang="fr" />
+</BaseLayout>
