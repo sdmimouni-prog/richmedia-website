@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CarterBlakeLanding from '../../components/CarterBlakeLanding.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, localBusiness, serviceSchema } from '../../lib/schema';
+
+const pageDescription =
+  'Découvrez Carter & Blake, le cabinet de stratégie et marketing politique pour piloter campagnes, opinion, social listening, influence et communication de crise.';
+
+const schema = [
+  localBusiness(),
+  serviceSchema({
+    name: 'Carter & Blake - Marketing politique',
+    description: pageDescription,
+    url: `${SITE.url}/produits/carter-blake`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Produits', url: `${SITE.url}/produits/carter-blake` },
+    { name: 'Carter & Blake', url: `${SITE.url}/produits/carter-blake` },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Carter & Blake - Marketing politique - Richmedia"
+  description={pageDescription}
+  canonical={`${SITE.url}/produits/carter-blake`}
+  schema={schema}
+>
+  <CarterBlakeLanding lang="fr" />
+</BaseLayout>

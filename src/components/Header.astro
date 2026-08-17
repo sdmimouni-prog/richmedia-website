@@ -25,6 +25,8 @@ const languageHref = isEnglish
     ? '/produits/hypeo'
     : normalizedPath === '/en/products/in-talks'
     ? '/produits/in-talks'
+    : normalizedPath === '/en/products/carter-blake'
+    ? '/produits/carter-blake'
     : normalizedPath === '/en/expertises/strategie-digitale'
     ? '/expertises/strategie-digitale'
     : normalizedPath === '/en/expertises/brand-content'
@@ -76,6 +78,8 @@ const languageHref = isEnglish
     ? '/en/products/hypeo'
     : normalizedPath === '/produits/in-talks'
     ? '/en/products/in-talks'
+    : normalizedPath === '/produits/carter-blake'
+    ? '/en/products/carter-blake'
     : '/en';
 
 const labels = isEnglish
@@ -134,10 +138,10 @@ const productLinks = [
     external: false,
   },
   {
-    href: 'https://www.carterandblake.ma/expertise-political-marketing.html',
+    href: isEnglish ? '/en/products/carter-blake' : '/produits/carter-blake',
     label: isEnglish ? 'Political marketing' : 'Marketing politique',
     text: isEnglish ? 'Carter & Blake' : 'Carter & Blake',
-    external: true,
+    external: false,
   },
   {
     href: isEnglish ? '/en/products/hypeo' : '/produits/hypeo',

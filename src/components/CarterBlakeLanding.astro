@@ -1,0 +1,1245 @@
+---
+interface Props {
+  lang?: 'fr' | 'en';
+}
+
+const { lang = 'fr' } = Astro.props;
+
+const platformUrl = 'https://www.carterandblake.ma/';
+const phoneUrl = 'tel:+212661172885';
+
+const content = {
+  fr: {
+    eyebrow: 'Marketing politique',
+    title: ['Convaincre.', 'Mobiliser.', 'Piloter.'],
+    intro:
+      'Carter & Blake structure les campagnes politiques, institutionnelles et d’influence avec stratégie, data, war room digitale et communication de crise.',
+    primaryCta: 'Parler à un expert',
+    secondaryCta: 'Voir la méthode',
+    platformCta: 'Visiter la plateforme',
+    highlights: [
+      'Stratégie électorale',
+      'Positionnement candidat',
+      'War room digitale',
+      'Social listening',
+      'Influence & terrain',
+      'Crise & réputation',
+    ],
+    stats: [
+      { value: '360°', label: 'opinion, média, social et terrain' },
+      { value: '24/7', label: 'veille réputation et signaux sensibles' },
+      { value: 'Data', label: 'segmentation, messages et priorités' },
+      { value: '1', label: 'war room pour arbitrer vite' },
+    ],
+    visualTitle: 'Une campagne se pilote comme un système vivant.',
+    visualText:
+      'Narratif, audiences, terrain, médias, réseaux sociaux, crises et agenda sont connectés dans une même lecture décisionnelle.',
+    benefitsTitle: 'Ce que Carter & Blake apporte aux décideurs',
+    benefitsText: 'Une méthode de campagne qui transforme les signaux d’opinion en actions claires.',
+    benefits: [
+      {
+        icon: 'ph-compass-tool',
+        title: 'Stratégie & narratif',
+        text: 'Clarifiez le positionnement, les messages, les preuves et les angles adverses.',
+      },
+      {
+        icon: 'ph-users-three',
+        title: 'Segmentation électorale',
+        text: 'Priorisez les audiences, territoires, préoccupations et niveaux d’engagement.',
+      },
+      {
+        icon: 'ph-monitor-play',
+        title: 'War room digitale',
+        text: 'Suivez tendances, mentions, médias, contenus et actions terrain en continu.',
+      },
+      {
+        icon: 'ph-shield-check',
+        title: 'Réputation & crise',
+        text: 'Détectez les risques, préparez les réponses et protégez la crédibilité publique.',
+      },
+    ],
+    offersTitle: 'Trois modes d’intervention',
+    offersText: 'Des formats adaptés aux campagnes, aux institutions et aux leaders publics.',
+    offers: [
+      {
+        badge: 'Campaign',
+        title: 'Campagne électorale',
+        text: 'Positionnement, plateforme, messages, social media, terrain et suivi des dynamiques.',
+        metric: 'J-90',
+        items: ['Narratif', 'Audience', 'Terrain'],
+      },
+      {
+        badge: 'Leadership',
+        title: 'Image publique',
+        text: 'Gestion de réputation, prises de parole, contenus, influence et présence média.',
+        metric: 'Always-on',
+        items: ['Réputation', 'Média', 'Influence'],
+      },
+      {
+        badge: 'Advocacy',
+        title: 'Institution & cause',
+        text: 'Pédagogie, mobilisation, lobbying digital, veille et mesure de perception.',
+        metric: '360°',
+        items: ['Opinion', 'Social', 'Rapports'],
+      },
+    ],
+    dashboardTitle: 'Un cockpit pour décider avant le bruit médiatique',
+    dashboardText:
+      'Chaque donnée est traduite en priorité : message à pousser, audience à rassurer, sujet à neutraliser ou territoire à renforcer.',
+    dashboard: [
+      { label: 'Adhésion message', value: '64%', tone: 'cyan', level: 64 },
+      { label: 'Mobilisation terrain', value: '+31%', tone: 'green', level: 76 },
+      { label: 'Risque média', value: 'Modéré', tone: 'amber', level: 52 },
+      { label: 'Part de voix', value: '38%', tone: 'purple', level: 58 },
+    ],
+    signals: ['Emploi & pouvoir d’achat', 'Éducation', 'Santé', 'Mobilité', 'Confiance institutionnelle'],
+    finalTitle: 'Donnez à votre campagne une lecture stratégique, data et terrain.',
+    finalText:
+      'Explorez Carter & Blake pour découvrir les expertises politiques, la méthode et les dispositifs de campagne.',
+  },
+  en: {
+    eyebrow: 'Political marketing',
+    title: ['Persuade.', 'Mobilize.', 'Steer.'],
+    intro:
+      'Carter & Blake structures political, institutional and influence campaigns with strategy, data, digital war rooms and crisis communication.',
+    primaryCta: 'Talk to an expert',
+    secondaryCta: 'View method',
+    platformCta: 'Visit the platform',
+    highlights: [
+      'Electoral strategy',
+      'Candidate positioning',
+      'Digital war room',
+      'Social listening',
+      'Influence & field',
+      'Crisis & reputation',
+    ],
+    stats: [
+      { value: '360°', label: 'opinion, media, social and field' },
+      { value: '24/7', label: 'reputation and sensitive-signal monitoring' },
+      { value: 'Data', label: 'segmentation, messages and priorities' },
+      { value: '1', label: 'war room for fast decisions' },
+    ],
+    visualTitle: 'A campaign is managed like a living system.',
+    visualText:
+      'Narrative, audiences, field, media, social networks, crises and agenda are connected in one decision view.',
+    benefitsTitle: 'What Carter & Blake brings to decision makers',
+    benefitsText: 'A campaign method that turns opinion signals into clear actions.',
+    benefits: [
+      {
+        icon: 'ph-compass-tool',
+        title: 'Strategy & narrative',
+        text: 'Clarify positioning, messages, proof points and opposing angles.',
+      },
+      {
+        icon: 'ph-users-three',
+        title: 'Electoral segmentation',
+        text: 'Prioritize audiences, territories, concerns and levels of engagement.',
+      },
+      {
+        icon: 'ph-monitor-play',
+        title: 'Digital war room',
+        text: 'Track trends, mentions, media, content and field actions continuously.',
+      },
+      {
+        icon: 'ph-shield-check',
+        title: 'Reputation & crisis',
+        text: 'Detect risks, prepare responses and protect public credibility.',
+      },
+    ],
+    offersTitle: 'Three intervention modes',
+    offersText: 'Formats adapted to campaigns, institutions and public leaders.',
+    offers: [
+      {
+        badge: 'Campaign',
+        title: 'Electoral campaign',
+        text: 'Positioning, platform, messages, social media, field activation and trend monitoring.',
+        metric: 'D-90',
+        items: ['Narrative', 'Audience', 'Field'],
+      },
+      {
+        badge: 'Leadership',
+        title: 'Public image',
+        text: 'Reputation management, speeches, content, influence and media presence.',
+        metric: 'Always-on',
+        items: ['Reputation', 'Media', 'Influence'],
+      },
+      {
+        badge: 'Advocacy',
+        title: 'Institution & cause',
+        text: 'Education, mobilization, digital lobbying, monitoring and perception measurement.',
+        metric: '360°',
+        items: ['Opinion', 'Social', 'Reports'],
+      },
+    ],
+    dashboardTitle: 'A cockpit to decide before media noise peaks',
+    dashboardText:
+      'Each data point becomes a priority: message to push, audience to reassure, topic to neutralize or territory to reinforce.',
+    dashboard: [
+      { label: 'Message adherence', value: '64%', tone: 'cyan', level: 64 },
+      { label: 'Field mobilization', value: '+31%', tone: 'green', level: 76 },
+      { label: 'Media risk', value: 'Moderate', tone: 'amber', level: 52 },
+      { label: 'Share of voice', value: '38%', tone: 'purple', level: 58 },
+    ],
+    signals: ['Jobs & purchasing power', 'Education', 'Health', 'Mobility', 'Institutional trust'],
+    finalTitle: 'Give your campaign a strategic, data and field command view.',
+    finalText:
+      'Explore Carter & Blake to discover political expertise, methodology and campaign systems.',
+  },
+};
+
+const t = content[lang];
+---
+
+<div class="carter-page">
+  <section class="carter-hero" aria-labelledby="carter-title">
+    <div class="carter-copy">
+      <span class="carter-kicker">{t.eyebrow}</span>
+      <h1 id="carter-title">
+        {t.title.map((line, index) => (
+          <span class={index === 2 ? 'accent-line' : ''}>{line}</span>
+        ))}
+      </h1>
+      <p>{t.intro}</p>
+      <div class="carter-actions">
+        <a class="button button-primary" href={phoneUrl}>
+          {t.primaryCta}
+          <i class="ph ph-phone" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href="#method">
+          {t.secondaryCta}
+          <i class="ph ph-arrow-down" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="hero-highlights" aria-label={lang === 'fr' ? 'Points clés' : 'Highlights'}>
+        {t.highlights.map((item) => (
+          <span>
+            <i class="ph ph-check" aria-hidden="true"></i>
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div class="war-room" aria-label={lang === 'fr' ? 'Aperçu Carter & Blake' : 'Carter & Blake preview'}>
+      <img class="hero-image" src="/assets/richmedia-achat-media/media-scaling-room.webp" alt="" loading="eager" decoding="async" />
+      <div class="war-orbit"></div>
+      <article class="command-card command-top">
+        <span>{lang === 'fr' ? 'Opinion' : 'Opinion'}</span>
+        <strong>64%</strong>
+        <small>{lang === 'fr' ? 'adhésion' : 'adherence'}</small>
+      </article>
+      <article class="command-card command-right">
+        <span>{lang === 'fr' ? 'Risque média' : 'Media risk'}</span>
+        <strong>{lang === 'fr' ? 'Moyen' : 'Medium'}</strong>
+        <small>{lang === 'fr' ? '3 alertes' : '3 alerts'}</small>
+      </article>
+      <article class="command-card command-bottom">
+        <span>{lang === 'fr' ? 'Mobilisation' : 'Mobilization'}</span>
+        <strong>+31%</strong>
+        <small>{lang === 'fr' ? 'terrain' : 'field'}</small>
+      </article>
+      <div class="agenda-panel">
+        <span>{lang === 'fr' ? 'Priorités du jour' : 'Today priorities'}</span>
+        {t.signals.slice(0, 3).map((signal, index) => (
+          <article>
+            <i class:list={['ph', index === 1 ? 'ph-megaphone' : 'ph-chart-line-up']} aria-hidden="true"></i>
+            <strong>{signal}</strong>
+            <small>{index === 1 ? (lang === 'fr' ? 'à pousser' : 'push') : 'ok'}</small>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-strip" aria-label={lang === 'fr' ? 'Indicateurs clés' : 'Key metrics'}>
+    {t.stats.map((stat) => (
+      <article>
+        <strong>{stat.value}</strong>
+        <span>{stat.label}</span>
+      </article>
+    ))}
+  </section>
+
+  <section id="method" class="visual-band" aria-labelledby="visual-title">
+    <div class="visual-card large">
+      <img src="/assets/richmedia-evenementiel/event-control-room.webp" alt="" loading="lazy" decoding="async" />
+      <div>
+        <span>{lang === 'fr' ? 'Méthode campagne' : 'Campaign method'}</span>
+        <h2 id="visual-title">{t.visualTitle}</h2>
+        <p>{t.visualText}</p>
+      </div>
+    </div>
+    <div class="signal-stack" aria-label={lang === 'fr' ? 'Signaux de campagne' : 'Campaign signals'}>
+      {t.signals.map((signal, index) => (
+        <article>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <strong>{signal}</strong>
+          <div aria-hidden="true">
+            <i style={`--level: ${50 + index * 8}%`}></i>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-band benefits-band" aria-labelledby="benefits-title">
+    <div class="section-intro">
+      <span class="carter-kicker">{lang === 'fr' ? 'Avantages' : 'Benefits'}</span>
+      <h2 id="benefits-title">{t.benefitsTitle}</h2>
+      <p>{t.benefitsText}</p>
+    </div>
+    <div class="benefit-grid">
+      {t.benefits.map((benefit) => (
+        <article>
+          <i class:list={['ph', benefit.icon]} aria-hidden="true"></i>
+          <h3>{benefit.title}</h3>
+          <p>{benefit.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-band offers-band" aria-labelledby="offers-title">
+    <div class="section-intro compact">
+      <span class="carter-kicker">{lang === 'fr' ? 'Interventions' : 'Interventions'}</span>
+      <h2 id="offers-title">{t.offersTitle}</h2>
+      <p>{t.offersText}</p>
+    </div>
+    <div class="offer-grid">
+      {t.offers.map((offer) => (
+        <article>
+          <div>
+            <span>{offer.badge}</span>
+            <strong>{offer.metric}</strong>
+          </div>
+          <h3>{offer.title}</h3>
+          <p>{offer.text}</p>
+          <ul>
+            {offer.items.map((item) => (
+              <li>
+                <i class="ph ph-check" aria-hidden="true"></i>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="dashboard-band" aria-labelledby="dashboard-title">
+    <div class="dashboard-copy">
+      <span class="carter-kicker">Dashboard</span>
+      <h2 id="dashboard-title">{t.dashboardTitle}</h2>
+      <p>{t.dashboardText}</p>
+    </div>
+    <div class="dashboard-panel">
+      {t.dashboard.map((item) => (
+        <article class:list={['dashboard-tile', item.tone]}>
+          <div>
+            <span>{item.label}</span>
+            <strong>{item.value}</strong>
+          </div>
+          <div class="bar" style={`--level: ${item.level}%`} aria-hidden="true">
+            <i></i>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="final-cta" aria-labelledby="final-cta-title">
+    <div>
+      <span class="carter-kicker">Carter & Blake</span>
+      <h2 id="final-cta-title">{t.finalTitle}</h2>
+      <p>{t.finalText}</p>
+    </div>
+    <a class="button button-primary" href={platformUrl} target="_blank" rel="noopener">
+      {t.platformCta}
+      <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+    </a>
+  </section>
+</div>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .carter-page {
+    --purple: #7c3cff;
+    --purple-2: #aa8cff;
+    --cyan: #35d8ff;
+    --green: #39e58f;
+    --amber: #ffd166;
+    --line: rgba(255, 255, 255, 0.12);
+    --muted: rgba(255, 255, 255, 0.68);
+    overflow-x: clip;
+    color: #fff;
+    background:
+      radial-gradient(circle at 78% 11%, rgba(53, 216, 255, 0.15), transparent 28rem),
+      radial-gradient(circle at 14% 38%, rgba(124, 60, 255, 0.24), transparent 32rem),
+      linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+      #030407;
+    background-size: auto, auto, 84px 84px, 84px 84px, auto;
+  }
+
+  .carter-hero,
+  .stats-strip,
+  .visual-band,
+  .section-band,
+  .dashboard-band,
+  .final-cta {
+    width: min(100% - 3rem, 1320px);
+    margin-inline: auto;
+  }
+
+  .carter-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(440px, 1fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
+    min-height: 720px;
+    padding: 8.5rem 0 3rem;
+  }
+
+  .carter-copy {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .carter-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--amber);
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .carter-kicker::before {
+    width: 2rem;
+    height: 2px;
+    content: '';
+    background: var(--amber);
+  }
+
+  .carter-copy h1 {
+    display: grid;
+    gap: 0.08em;
+    max-width: 760px;
+    --h1-size: clamp(3.15rem, 7vw, 6.15rem);
+    color: #fff;
+    font-size: var(--h1-size);
+    line-height: 0.9;
+  }
+
+  .carter-copy h1 span {
+    display: block;
+  }
+
+  .accent-line {
+    color: var(--cyan);
+  }
+
+  .carter-copy p {
+    max-width: 660px;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+
+  .carter-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 3.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border-radius: 7px;
+    padding: 0 1.25rem;
+    color: #fff;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, #7c3cff, #159ac5);
+    box-shadow: 0 1rem 2.6rem rgba(53, 216, 255, 0.16);
+  }
+
+  .button-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .button-secondary:hover,
+  .button-secondary:focus-visible {
+    border-color: rgba(53, 216, 255, 0.42);
+    background: rgba(53, 216, 255, 0.08);
+  }
+
+  .hero-highlights {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, max-content));
+    gap: 0.7rem 1.1rem;
+    margin-top: 0.35rem;
+  }
+
+  .hero-highlights span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  .hero-highlights i {
+    display: inline-grid;
+    width: 1.35rem;
+    height: 1.35rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--amber);
+    color: #111;
+    font-size: 0.85rem;
+  }
+
+  .war-room {
+    position: relative;
+    min-height: 590px;
+  }
+
+  .hero-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(100%, 620px);
+    height: 430px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    filter: saturate(1.02) drop-shadow(0 2rem 4rem rgba(0, 0, 0, 0.48));
+  }
+
+  .war-orbit {
+    position: absolute;
+    inset: 8% 0 8%;
+    border: 1px solid rgba(53, 216, 255, 0.16);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(53, 216, 255, 0.14), transparent 34%),
+      radial-gradient(circle at 50% 50%, rgba(124, 60, 255, 0.2), transparent 64%);
+  }
+
+  .command-card,
+  .agenda-panel {
+    position: absolute;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.28);
+  }
+
+  .command-card {
+    display: grid;
+    gap: 0.25rem;
+    min-width: 10.4rem;
+    padding: 0.85rem;
+    background: rgba(248, 250, 255, 0.97);
+    color: #07080d;
+  }
+
+  .command-card span,
+  .command-card small,
+  .agenda-panel > span,
+  .agenda-panel small {
+    color: rgba(7, 8, 13, 0.68);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .command-card strong {
+    color: #07080d;
+    font-size: 1.78rem;
+    line-height: 1;
+  }
+
+  .command-top {
+    top: 13%;
+    right: 0;
+  }
+
+  .command-top strong,
+  .command-bottom strong {
+    color: #0c88a8;
+  }
+
+  .command-right {
+    right: 7%;
+    bottom: 11%;
+  }
+
+  .command-right small {
+    color: #9b6b00;
+  }
+
+  .command-bottom {
+    bottom: 18%;
+    left: -1%;
+  }
+
+  .agenda-panel {
+    top: 9%;
+    left: 0;
+    display: grid;
+    gap: 0.45rem;
+    width: 17rem;
+    padding: 0.75rem;
+    background: rgba(248, 250, 255, 0.97);
+    color: #07080d;
+  }
+
+  .agenda-panel article {
+    display: grid;
+    grid-template-columns: 1.6rem minmax(0, 1fr) auto;
+    gap: 0.45rem;
+    align-items: center;
+    border-radius: 7px;
+    padding: 0.42rem;
+    background: rgba(7, 8, 13, 0.045);
+  }
+
+  .agenda-panel i {
+    display: grid;
+    width: 1.6rem;
+    height: 1.6rem;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(53, 216, 255, 0.15);
+    color: #0c88a8;
+  }
+
+  .agenda-panel strong {
+    overflow: hidden;
+    color: #07080d;
+    font-size: 0.82rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding-bottom: 3rem;
+  }
+
+  .stats-strip article,
+  .benefit-grid article,
+  .offer-grid article,
+  .dashboard-tile,
+  .signal-stack article {
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .stats-strip article:hover,
+  .benefit-grid article:hover,
+  .offer-grid article:hover,
+  .dashboard-tile:hover,
+  .signal-stack article:hover {
+    transform: translateY(-4px);
+    border-color: rgba(53, 216, 255, 0.32);
+    background: rgba(255, 255, 255, 0.065);
+    box-shadow: 0 1rem 2.6rem rgba(0, 0, 0, 0.18);
+  }
+
+  .stats-strip article {
+    min-height: 7.2rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .stats-strip strong {
+    display: block;
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .stats-strip span {
+    display: block;
+    margin-top: 0.45rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.25;
+  }
+
+  .visual-band,
+  .section-band,
+  .dashboard-band {
+    padding-block: 3.8rem;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 6rem;
+  }
+
+  .visual-band {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+    gap: 0.85rem;
+  }
+
+  .visual-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .visual-card.large {
+    position: relative;
+    min-height: 430px;
+  }
+
+  .visual-card.large img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .visual-card.large::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background:
+      linear-gradient(90deg, rgba(3, 4, 7, 0.94), rgba(3, 4, 7, 0.52) 58%, rgba(3, 4, 7, 0.1)),
+      linear-gradient(0deg, rgba(3, 4, 7, 0.58), transparent 56%);
+  }
+
+  .visual-card.large div {
+    position: absolute;
+    bottom: 1.4rem;
+    left: 1.4rem;
+    z-index: 1;
+    display: grid;
+    gap: 0.55rem;
+    max-width: 520px;
+  }
+
+  .visual-card.large span {
+    color: var(--amber);
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .visual-card.large h2,
+  .section-intro h2,
+  .dashboard-copy h2,
+  .final-cta h2 {
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    line-height: 1.04;
+  }
+
+  .visual-card.large p,
+  .section-intro p,
+  .dashboard-copy p,
+  .final-cta p {
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .signal-stack {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .signal-stack article {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.35rem 0.75rem;
+    align-items: center;
+    min-height: 5.15rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.8rem;
+    background:
+      linear-gradient(135deg, rgba(53, 216, 255, 0.09), transparent 62%),
+      rgba(255, 255, 255, 0.04);
+  }
+
+  .signal-stack span {
+    display: grid;
+    width: 2.35rem;
+    height: 2.35rem;
+    place-items: center;
+    border: 1px solid rgba(255, 209, 102, 0.34);
+    border-radius: 50%;
+    color: var(--amber);
+    font-size: 0.72rem;
+    font-weight: 900;
+  }
+
+  .signal-stack strong {
+    overflow-wrap: anywhere;
+    color: #fff;
+    font-size: 0.98rem;
+    line-height: 1.2;
+  }
+
+  .signal-stack div {
+    grid-column: 2;
+    height: 0.38rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .signal-stack i {
+    display: block;
+    width: var(--level);
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--amber), var(--cyan));
+  }
+
+  .section-intro {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 760px;
+  }
+
+  .section-intro.compact {
+    max-width: 660px;
+  }
+
+  .benefit-grid,
+  .dashboard-panel {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .benefit-grid article,
+  .offer-grid article {
+    display: grid;
+    align-content: start;
+    gap: 0.7rem;
+    min-height: 13rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .benefit-grid i {
+    display: inline-grid;
+    width: 2.6rem;
+    height: 2.6rem;
+    place-items: center;
+    border: 1px solid rgba(53, 216, 255, 0.34);
+    border-radius: 8px;
+    background: rgba(53, 216, 255, 0.1);
+    color: var(--cyan);
+    font-size: 1.25rem;
+  }
+
+  .benefit-grid h3,
+  .offer-grid h3 {
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1.16;
+  }
+
+  .benefit-grid p,
+  .offer-grid p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .offer-grid article {
+    min-height: 17rem;
+    background:
+      linear-gradient(180deg, rgba(255, 209, 102, 0.1), transparent 58%),
+      rgba(255, 255, 255, 0.04);
+  }
+
+  .offer-grid article > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .offer-grid article > div span {
+    border: 1px solid rgba(170, 140, 255, 0.42);
+    border-radius: 999px;
+    padding: 0.32rem 0.55rem;
+    color: var(--purple-2);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .offer-grid article > div strong {
+    color: var(--amber);
+    font-size: 1.45rem;
+    line-height: 1;
+  }
+
+  .offer-grid ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  .offer-grid li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    padding: 0.38rem 0.58rem;
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+
+  .offer-grid li i {
+    color: var(--amber);
+  }
+
+  .dashboard-band {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .dashboard-copy {
+    display: grid;
+    align-content: center;
+    gap: 0.8rem;
+  }
+
+  .dashboard-panel {
+    margin-top: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.8rem;
+    background:
+      linear-gradient(135deg, rgba(53, 216, 255, 0.11), transparent 60%),
+      rgba(255, 255, 255, 0.035);
+  }
+
+  .dashboard-tile {
+    display: grid;
+    align-content: space-between;
+    min-height: 10rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(3, 4, 7, 0.5);
+  }
+
+  .dashboard-tile span {
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+  .dashboard-tile strong {
+    display: block;
+    margin-top: 0.4rem;
+    color: #fff;
+    font-size: clamp(1.45rem, 2vw, 2rem);
+    line-height: 1;
+  }
+
+  .bar {
+    height: 0.45rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .bar i {
+    display: block;
+    width: var(--level);
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  .dashboard-tile.green .bar i {
+    background: var(--green);
+  }
+
+  .dashboard-tile.cyan .bar i {
+    background: var(--cyan);
+  }
+
+  .dashboard-tile.amber .bar i {
+    background: var(--amber);
+  }
+
+  .dashboard-tile.purple .bar i {
+    background: var(--purple-2);
+  }
+
+  .final-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(53, 216, 255, 0.3);
+    border-radius: 8px;
+    padding: clamp(1rem, 3vw, 2rem);
+    background:
+      radial-gradient(circle at 14% 18%, rgba(255, 209, 102, 0.12), transparent 16rem),
+      linear-gradient(135deg, rgba(124, 60, 255, 0.16), rgba(255, 255, 255, 0.035));
+    scroll-margin-top: 6rem;
+  }
+
+  .final-cta > div {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 760px;
+  }
+
+  .final-cta .button {
+    min-width: 13rem;
+  }
+
+  @media (max-width: 1060px) {
+    .carter-hero,
+    .visual-band,
+    .dashboard-band {
+      grid-template-columns: 1fr;
+    }
+
+    .carter-hero {
+      min-height: 0;
+      padding-top: 7rem;
+    }
+
+    .war-room {
+      min-height: 570px;
+    }
+
+    .stats-strip,
+    .benefit-grid,
+    .dashboard-panel {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .offer-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .carter-hero,
+    .stats-strip,
+    .visual-band,
+    .section-band,
+    .dashboard-band,
+    .final-cta {
+      width: min(100% - 1rem, 1320px);
+    }
+
+    .carter-hero {
+      gap: 1.2rem;
+      padding: 6rem 0 2.2rem;
+    }
+
+    .carter-copy {
+      gap: 1rem;
+    }
+
+    .carter-copy h1 {
+      --h1-size: clamp(3rem, 14vw, 4.2rem);
+      line-height: 0.94;
+    }
+
+    .carter-copy p {
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .carter-actions,
+    .final-cta {
+      display: grid;
+    }
+
+    .button,
+    .final-cta .button {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .hero-highlights,
+    .stats-strip,
+    .benefit-grid,
+    .offer-grid,
+    .dashboard-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-highlights {
+      gap: 0.55rem;
+    }
+
+    .war-room {
+      min-height: 520px;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 330px;
+    }
+
+    .agenda-panel {
+      top: 0;
+      left: 0;
+      width: min(100%, 15rem);
+    }
+
+    .command-top {
+      top: 11%;
+      right: 0;
+    }
+
+    .command-bottom {
+      bottom: 5%;
+      left: 0;
+    }
+
+    .command-right {
+      right: 0;
+      bottom: 20%;
+      min-width: 9rem;
+    }
+
+    .command-card {
+      padding: 0.72rem;
+    }
+
+    .command-card strong {
+      font-size: 1.45rem;
+    }
+
+    .stats-strip {
+      padding-bottom: 2.4rem;
+    }
+
+    .stats-strip article,
+    .benefit-grid article,
+    .offer-grid article {
+      min-height: 0;
+    }
+
+    .visual-band,
+    .section-band,
+    .dashboard-band {
+      padding-block: 2.5rem;
+    }
+
+    .visual-card.large {
+      min-height: 380px;
+    }
+
+    .visual-card.large div {
+      right: 1rem;
+      bottom: 1rem;
+      left: 1rem;
+    }
+
+    .dashboard-tile {
+      min-height: 7.2rem;
+    }
+
+    .final-cta {
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .war-room {
+      min-height: 545px;
+    }
+
+    .hero-image {
+      height: 300px;
+    }
+
+    .agenda-panel {
+      width: 13.8rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .button,
+    .stats-strip article,
+    .benefit-grid article,
+    .offer-grid article,
+    .dashboard-tile,
+    .signal-stack article {
+      transition: none;
+    }
+
+    .button:hover,
+    .button:focus-visible,
+    .stats-strip article:hover,
+    .benefit-grid article:hover,
+    .offer-grid article:hover,
+    .dashboard-tile:hover,
+    .signal-stack article:hover {
+      transform: none;
+    }
+  }
+</style>
