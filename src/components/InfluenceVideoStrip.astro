@@ -7,13 +7,9 @@ const { lang = 'fr' } = Astro.props;
 
 const copy = {
   fr: {
-    eyebrow: 'Influence',
-    title: ['Campagnes', "d’influence", 'réussies'],
     aria: "Campagnes d'influence réussies",
   },
   en: {
-    eyebrow: 'Influence',
-    title: ['Successful', 'influence', 'campaigns'],
     aria: 'Successful influence campaigns',
   },
 };
@@ -49,14 +45,7 @@ const reels = [
 ];
 ---
 
-<section class="influence-video-section" aria-labelledby="home-influence-video-title">
-  <div class="influence-video-heading">
-    <span>{t.eyebrow}</span>
-    <h2 id="home-influence-video-title" aria-label={t.aria}>
-      {t.title.map((line) => <span>{line}</span>)}
-    </h2>
-  </div>
-
+<section class="influence-video-section" aria-label={t.aria}>
   <div class="influence-video-strip" aria-label={t.aria}>
     {reels.map((reel) => (
       <article class="influence-video-card">
@@ -116,49 +105,10 @@ const reels = [
     overflow: hidden;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 4.6rem 0 4rem;
+    padding: 0;
     background:
       radial-gradient(circle at 78% 100%, rgba(111, 48, 255, 0.24), transparent 24rem),
       linear-gradient(180deg, #050508 0%, #07060c 68%, #130623 100%);
-  }
-
-  .influence-video-heading {
-    display: grid;
-    gap: 1rem;
-    justify-items: center;
-    width: min(100% - 2rem, 980px);
-    margin: 0 auto 2.4rem;
-    text-align: center;
-  }
-
-  .influence-video-heading > span {
-    display: inline-flex;
-    min-height: 2rem;
-    align-items: center;
-    border-radius: 999px;
-    padding: 0.48rem 0.86rem;
-    background: #7c3cff;
-    color: #fff;
-    font-size: 0.78rem;
-    font-weight: 900;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .influence-video-heading h2 {
-    display: grid;
-    gap: 0.1rem;
-    color: #fff;
-    font-size: 5.8rem;
-    font-weight: 800;
-    letter-spacing: 0;
-    line-height: 0.88;
-    text-wrap: balance;
-  }
-
-  .influence-video-heading h2 span {
-    display: block;
   }
 
   .influence-video-strip {
@@ -213,10 +163,6 @@ const reels = [
   }
 
   @media (max-width: 1060px) {
-    .influence-video-heading h2 {
-      font-size: 4.4rem;
-    }
-
     .influence-video-strip {
       min-height: 31rem;
     }
@@ -227,19 +173,6 @@ const reels = [
   }
 
   @media (max-width: 720px) {
-    .influence-video-section {
-      padding: 3.5rem 0 3rem;
-    }
-
-    .influence-video-heading {
-      margin-bottom: 1.6rem;
-    }
-
-    .influence-video-heading h2 {
-      font-size: 3rem;
-      line-height: 0.94;
-    }
-
     .influence-video-strip {
       display: grid;
       grid-auto-columns: minmax(17rem, 78vw);
@@ -270,10 +203,6 @@ const reels = [
   }
 
   @media (max-width: 380px) {
-    .influence-video-heading h2 {
-      font-size: 2.55rem;
-    }
-
     .influence-video-strip {
       grid-auto-columns: minmax(15.5rem, 82vw);
       min-height: 27rem;
