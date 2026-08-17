@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../components/CaseStudyModel.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/realisations/modele-case-study`;
+const assetBase = '/assets/richmedia-home';
+const realizationBase = '/assets/richmedia-realizations';
+const brandBase = '/assets/richmedia-brand-content/creas-square';
+
+const content = {
+  backHref: '/realisations',
+  backLabel: 'Retour aux cas clients',
+  eyebrow: 'Modèle de cas client / Éducation',
+  client: 'UIR',
+  clientLong: 'Université Internationale de Rabat',
+  category: 'Éducation',
+  period: 'Partenariat long terme',
+  scope: 'Acquisition de leads, média, CRM, contenu',
+  title: 'UIR : transformer une campagne d’admission en moteur de recrutement.',
+  subtitle:
+    'Un modèle plus court, plus visuel et plus premium : il présente le contexte, le dispositif, les preuves créatives, la vidéo et les résultats sans noyer le lecteur.',
+  heroImage: `${assetBase}/campaign-wide-uir.webp`,
+  video: {
+    poster: `${assetBase}/campaign-wide-uir.webp`,
+    title: 'Film de cas client admissions',
+    label: 'Vidéo prévue',
+    meta: 'Reel, témoignage ou parcours de campagne',
+  },
+  metrics: [
+    { value: '+34K', label: 'diplômés recrutés', note: 'pipeline d’admissions' },
+    { value: '+20K', label: 'étudiants touchés', note: 'audiences qualifiées' },
+    { value: '7', label: 'leviers activés', note: 'paid media, social, CRM, search' },
+  ],
+  chapters: [
+    {
+      eyebrow: 'Brief',
+      title: 'Rendre le choix plus simple',
+      text: 'Clarifier les filières, les moments de décision et les messages qui rassurent les futurs étudiants.',
+    },
+    {
+      eyebrow: 'Move',
+      title: 'Créer un système, pas une simple affiche',
+      text: 'Connecter landing page, créas, search, social ads, WhatsApp et tracking pour capter puis relancer.',
+    },
+    {
+      eyebrow: 'Proof',
+      title: 'Prouver la valeur business',
+      text: 'Lire la performance par lead qualifié, qualité CRM, coût d’acquisition et signaux d’inscription.',
+    },
+  ],
+  system: {
+    eyebrow: 'Dispositif',
+    title: 'Une mécanique lisible en quatre temps.',
+    text: 'Le modèle évite les longs pavés. Chaque cas client explique rapidement ce que Richmedia a pensé, produit, diffusé et mesuré.',
+    steps: [
+      { label: 'Insight', text: 'Audience, tension, timing, promesse.' },
+      { label: 'Création', text: 'Key visual, formats sociaux, vidéo.' },
+      { label: 'Média', text: 'Search, paid social, retargeting.' },
+      { label: 'CRM', text: 'Relances, qualification, reporting.' },
+    ],
+  },
+  gallery: {
+    eyebrow: 'Preuves visuelles',
+    title: 'Quelques assets suffisent quand ils sont bien choisis.',
+    items: [
+      { image: `${assetBase}/campaign-wide-uir.webp`, label: 'Visuel admissions', format: 'Display / social', size: 'wide' },
+      { image: `${brandBase}/uir-inscriptions.webp`, label: 'Inscription en ligne', format: 'Carré créatif' },
+      { image: `${assetBase}/campaign-portfolio-uir.webp`, label: 'Adaptations social media', format: 'Portfolio' },
+      { image: `${realizationBase}/whatsapp-uir.png`, label: 'Relance WhatsApp', format: 'CRM' },
+    ],
+  },
+  quote:
+    'Un bon cas client ne doit pas tout montrer. Il doit donner envie de comprendre la méthode, puis de lancer un projet.',
+  ctaLabel: 'Voir la vidéo',
+  ctaHref: '#case-video',
+  secondaryLabel: 'Retour aux cas clients',
+  secondaryHref: '/realisations',
+  ui: {
+    snapshotLabel: 'Résumé du cas client UIR',
+    scopeLabel: 'Périmètre',
+    sectorLabel: 'Secteur',
+    periodLabel: 'Période',
+    resultsLabel: 'Résultats du cas client',
+    storylineKicker: 'Narration',
+    storylineTitle: 'Brief. Action. Preuve.',
+    takeawayLabel: 'Enseignement du cas client',
+  },
+};
+
+const schema = [
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Cas clients', url: `${SITE.url}/realisations` },
+    { name: 'Modèle de cas client', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Modèle de cas client — UIR admissions | Richmedia"
+  description="Modèle de page cas client Richmedia plus visuel, plus court et plus premium, avec vidéo, KPI, dispositif et preuves créatives."
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${content.heroImage}`}
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

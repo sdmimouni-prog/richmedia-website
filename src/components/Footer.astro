@@ -1,56 +1,98 @@
 ---
 import { BUSINESS, SITE } from '../consts';
 
+const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/');
+const homeHref = isEnglish ? '/en' : '/';
+const expertiseBaseHref = isEnglish ? '/en/expertises' : '/expertises';
+
 const expertiseLinks = [
-  'Stratégie & Branding',
+  isEnglish ? 'Strategy & Branding' : 'Stratégie & Branding',
   'Social, Influence & UGC',
   'Media & Performance',
-  'Tech, AI & Experience',
+  isEnglish ? 'Tech, AI & Experience' : 'Tech, IA & Experience',
 ];
-const agencyLinks = ['Équipe', 'Références', 'Carrières'];
+const agencyLinks = isEnglish
+  ? [
+      { label: 'Team', href: '/en/team' },
+      { label: 'Case studies', href: '/en/case-studies' },
+      { label: 'Contact', href: '/en/contact' },
+    ]
+  : [
+      { label: 'Équipe', href: '/equipe' },
+      { label: 'Références', href: '/references' },
+      { label: 'Carrières', href: '/contact' },
+    ];
+
+const footerDescription = isEnglish
+  ? 'Digital marketing and performance agency in Casablanca: strategy, media performance, web development and AI. We generate measurable growth.'
+  : SITE.description;
+
+const labels = isEnglish
+  ? {
+      brandHome: 'Richmedia — Home',
+      agency: 'Agency',
+      contact: 'Contact',
+      socials: 'Social media',
+      offices: 'Our offices',
+      rights: 'All rights reserved.',
+      legal: 'Legal notice',
+      privacy: 'Privacy',
+      cookies: 'Cookies',
+    }
+  : {
+      brandHome: 'Richmedia — Accueil',
+      agency: 'Agence',
+      contact: 'Contact',
+      socials: 'Réseaux sociaux',
+      offices: 'Nos bureaux',
+      rights: 'Tous droits réservés.',
+      legal: 'Mentions légales',
+      privacy: 'Confidentialité',
+      cookies: 'Cookies',
+    };
 ---
 <footer class="site-footer">
   <div class="footer-brand">
-    <a href="/" class="brand-lockup" aria-label="Richmedia — Accueil">
+    <a href={homeHref} class="brand-lockup" aria-label={labels.brandHome}>
       <span class="brand-word">richmedia</span>
       <span class="brand-tagline">WE BUILD <strong>DIGITAL</strong> GROWTH</span>
     </a>
-    <p>{SITE.description}</p>
+    <p>{footerDescription}</p>
   </div>
 
-  <nav aria-label="Expertises">
+  <nav aria-label={isEnglish ? 'Expertise' : 'Expertises'}>
     <h2>Expertise</h2>
-    {expertiseLinks.map((label) => <a href="/expertises">{label}</a>)}
+    {expertiseLinks.map((label) => <a href={expertiseBaseHref}>{label}</a>)}
   </nav>
 
-  <nav aria-label="Agence">
-    <h2>Agence</h2>
-    {agencyLinks.map((label) => <a href={label === 'Équipe' ? '/equipe' : label === 'Références' ? '/references' : '/contact'}>{label}</a>)}
+  <nav aria-label={labels.agency}>
+    <h2>{labels.agency}</h2>
+    {agencyLinks.map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
 
   <address>
-    <h2>Contact</h2>
+    <h2>{labels.contact}</h2>
     <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
     {BUSINESS.tels.map((tel) => <a href={`tel:${tel.replaceAll(' ', '')}`}>{tel}</a>)}
-    <div class="footer-socials" aria-label="Réseaux sociaux">
+    <div class="footer-socials" aria-label={labels.socials}>
       <a href={BUSINESS.sameAs[0]} aria-label="LinkedIn">in</a>
       <a href={BUSINESS.sameAs[1]} aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
-      <a href="#" aria-label="Behance">Be</a>
+      <a href={BUSINESS.sameAs[2]} aria-label="Facebook"><i class="ph ph-facebook-logo" aria-hidden="true"></i></a>
     </div>
   </address>
 
   <div class="footer-offices">
-    <h2>Nos bureaux</h2>
-    <p>Casablanca, Maroc</p>
+    <h2>{labels.offices}</h2>
+    <p>{isEnglish ? 'Casablanca, Morocco' : 'Casablanca, Maroc'}</p>
     <p>Dubai, UAE</p>
-    <p>Montréal, Canada</p>
+    <p>{isEnglish ? 'Montreal, Canada' : 'Montréal, Canada'}</p>
     <p>Strasbourg, France</p>
   </div>
 
   <div class="footer-bottom">
-    <small>© 2025 {SITE.name}. Tous droits réservés.</small>
-    <a href="#">Mentions légales</a>
-    <a href="#">Confidentialité</a>
-    <a href="#">Cookies</a>
+    <small>© 2025 {SITE.name}. {labels.rights}</small>
+    <a href="#">{labels.legal}</a>
+    <a href="#">{labels.privacy}</a>
+    <a href="#">{labels.cookies}</a>
   </div>
 </footer>

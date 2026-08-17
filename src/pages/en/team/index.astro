@@ -1,0 +1,823 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { breadcrumbs, localBusiness } from '../../../lib/schema';
+import { SITE } from '../../../consts';
+
+const assetBase = '/assets/richmedia-home/team-carousel';
+const pageDescription =
+  'Meet the Richmedia team: senior strategy, creative, media, development, project management and production profiles building measurable digital growth.';
+
+const schema = [
+  {
+    ...localBusiness(),
+    url: `${SITE.url}/en/team`,
+    description: pageDescription,
+    inLanguage: 'en',
+  },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Team', url: `${SITE.url}/en/team` },
+  ]),
+];
+
+const founder = {
+  image: `${assetBase}/salah.webp`,
+  name: 'Salah-Eddine Mimouni',
+  role: 'CEO & CTO',
+  intro: 'After years of experience in the digital industry, Richmedia was built around one clear belief: strategy, creativity and technology work better within the same team.',
+  facts: [
+    'PhD in Information Systems',
+    'Over 15 years of experience',
+    'Directed more than 90 digital platforms',
+    'Trained over 1,600 developers',
+    'Certified across more than 20 international platforms',
+    'Co-founder of Richmedia',
+  ],
+};
+
+const team = [
+  { image: 'salah.webp', name: 'Salah-Eddine Mimouni', role: 'CEO & CTO', group: 'Executive' },
+  { image: 'amal.webp', name: 'Amal Amazouz', role: 'CEO & CDO', group: 'Executive' },
+  { image: 'tarik.webp', name: 'Tarik El Abbadi', role: 'Communication & Event Director', group: 'Executive' },
+  { image: 'elhoussine-bw.webp', name: 'Elhoussine Essmami', role: 'Strategic Planner', group: 'Strategy' },
+  { image: 'ikram-bw.webp', name: 'Ikram Dehiri', role: 'Senior Account Manager', group: 'Account Management' },
+  { image: 'zouhair-bw.webp', name: 'Zouhair Lyzouli', role: 'Senior Full Stack Developer', group: 'Development' },
+  { image: 'zakaria.webp', name: 'Zakaria Mouchtati', role: 'Senior Full Stack Developer', group: 'Development' },
+  { image: 'wafaa.webp', name: 'Wafaa Lamsabni', role: 'Project Manager', group: 'Project Management' },
+  { image: 'yassine.webp', name: 'Mohamed Yassine Dargal', role: 'Project Manager', group: 'Project Management' },
+  { image: 'ayoub.webp', name: 'Ayoub Es-Samlali', role: 'Project Manager', group: 'Project Management' },
+  { image: 'yassmine.webp', name: 'Yassmine Boudial', role: 'Project Manager', group: 'Project Management' },
+  { image: 'safwane.webp', name: 'Safwane Moustaine', role: 'Traffic Manager', group: 'Marketing' },
+  { image: 'rachid.webp', name: 'Rachid Hlalma', role: 'Art Director', group: 'Creative' },
+  { image: 'abdelkader.webp', name: 'Abdelkader El Bouhaddouti', role: 'Graphic Final Artist', group: 'Design' },
+  { image: 'youssef.webp', name: 'Youssef Amazouz', role: 'Graphic Final Artist', group: 'Design' },
+  { image: 'wail.webp', name: 'Wail El Asri', role: 'Graphic Final Artist', group: 'Design' },
+  { image: 'marwane.webp', name: 'Marwane Jouay', role: 'Video Director & Editor', group: 'Production' },
+];
+
+const teamLoop = [...team, ...team];
+
+const poles = [
+  { label: '01', title: 'Strategy', text: 'Positioning, planning, campaign architecture and business vision.' },
+  { label: '02', title: 'Creation', text: 'Art direction, design, video, brand content and storytelling.' },
+  { label: '03', title: 'Performance', text: 'Paid media, tracking, CRM, lead generation and continuous optimization.' },
+  { label: '04', title: 'Technology', text: 'Web development, platforms, automation, AI and connected systems.' },
+];
+
+const stats = [
+  { value: '17', label: 'integrated profiles' },
+  { value: '8', label: 'specialist units' },
+  { value: '+156', label: 'completed projects' },
+  { value: '4', label: 'connected offices' },
+];
+---
+<BaseLayout
+  title="Richmedia Team — Strategy, creativity, media and technology"
+  description={pageDescription}
+  canonical={`${SITE.url}/en/team`}
+  lang="en"
+  schema={schema}
+>
+  <div class="team-page">
+    <section class="team-hero" aria-labelledby="team-title">
+      <div class="team-hero-copy">
+        <span class="section-kicker">Dream Team</span>
+        <h1 id="team-title">A senior team built to move brands forward.</h1>
+        <p>
+          Richmedia brings together strategy, creative, media, technology and production profiles to turn ideas
+          into useful, visible and measurable campaigns.
+        </p>
+        <div class="team-actions">
+          <a class="button button-primary" href="#hall-of-fame">
+            Meet the team
+            <i class="ph ph-arrow-down" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/en/contact">
+            Work with us
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="founder-panel" aria-label="Founder Richmedia">
+        <div class="founder-photo">
+          <img src={founder.image} alt={founder.name} loading="eager" decoding="async" />
+        </div>
+        <div class="founder-copy">
+          <span>Meet the Founder</span>
+          <h2>{founder.name}</h2>
+          <strong>{founder.role}</strong>
+          <p>{founder.intro}</p>
+          <div class="founder-facts">
+            {founder.facts.map((fact) => <span>{fact}</span>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="team-stats" aria-label="Team key figures">
+      {stats.map((stat) => (
+        <article>
+          <strong>{stat.value}</strong>
+          <span>{stat.label}</span>
+        </article>
+      ))}
+    </section>
+
+    <section class="team-marquee" aria-label="Richmedia team portraits">
+      <div class="marquee-row marquee-row-forward">
+        {teamLoop.map((member) => (
+          <figure>
+            <img src={`${assetBase}/${member.image}`} alt="" loading="lazy" decoding="async" />
+            <figcaption>
+              <strong>{member.name}</strong>
+              <span>{member.group}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="marquee-row marquee-row-reverse">
+        {[...teamLoop].reverse().map((member) => (
+          <figure>
+            <img src={`${assetBase}/${member.image}`} alt="" loading="lazy" decoding="async" />
+            <figcaption>
+              <strong>{member.name}</strong>
+              <span>{member.group}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section class="team-poles" aria-labelledby="poles-title">
+      <div>
+        <span class="section-kicker">Organization</span>
+        <h2 id="poles-title">Our units.</h2>
+      </div>
+      <div class="poles-grid">
+        {poles.map((pole) => (
+          <article>
+            <span>{pole.label}</span>
+            <h3>{pole.title}</h3>
+            <p>{pole.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="hall-section" id="hall-of-fame" aria-labelledby="hall-title">
+      <div class="hall-head">
+        <span class="section-kicker">Team roster</span>
+        <h2 id="hall-title">All Richmedia profiles</h2>
+      </div>
+
+      <div class="team-grid">
+        {team.map((member, index) => (
+          <article class:list={['member-card', index < 3 && 'member-card-featured']}>
+            <div class="member-image">
+              <img src={`${assetBase}/${member.image}`} alt={member.name} loading="lazy" decoding="async" />
+            </div>
+            <div class="member-info">
+              <span>{member.group}</span>
+              <h3>{member.name}</h3>
+              <p>{member.role}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="team-closing" aria-labelledby="closing-title">
+      <div>
+        <span class="section-kicker">Ready to scale?</span>
+        <h2 id="closing-title">The right team changes how fast a project moves.</h2>
+      </div>
+      <a class="button button-primary" href="/en/contact">
+        Talk to the team
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .team-page {
+    --container: min(100% - 3rem, 1320px);
+    --purple: #7c3cff;
+    --purple-2: #a36bff;
+    --line: rgba(255,255,255,0.14);
+    --muted: rgba(255,255,255,0.68);
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 16% 6%, rgba(124,60,255,0.28), transparent 26rem),
+      radial-gradient(circle at 90% 36%, rgba(124,60,255,0.16), transparent 25rem),
+      linear-gradient(180deg, #030407 0%, #050507 52%, #030407 100%);
+    color: #fff;
+  }
+
+  .team-page::before {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
+    background-size: 64px 64px;
+    content: "";
+    pointer-events: none;
+  }
+
+  .team-hero,
+  .team-stats,
+  .team-marquee,
+  .team-poles,
+  .hall-section,
+  .team-closing {
+    position: relative;
+    z-index: 1;
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .team-hero {
+    display: grid;
+    grid-template-columns: minmax(380px, 0.82fr) minmax(560px, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    min-height: 760px;
+    padding: 9rem 0 4rem;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--purple-2);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2.2rem;
+    height: 1px;
+    background: var(--purple);
+    content: "";
+  }
+
+  .team-hero h1 {
+    max-width: 720px;
+    margin: 1.25rem 0 0;
+    --h1-size: clamp(2rem, 3vw, 3.125rem);
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.02;
+  }
+
+  .team-hero-copy p {
+    max-width: 610px;
+    margin: 1.45rem 0 0;
+    color: rgba(255,255,255,0.74);
+    font-size: clamp(1rem, 1.35vw, 1.18rem);
+    line-height: 1.58;
+  }
+
+  .team-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 3.15rem;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 0 1.25rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    box-shadow: 0 1rem 2.5rem rgba(124, 60, 255, 0.32);
+  }
+
+  .button-secondary {
+    border-color: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.035);
+  }
+
+  .founder-panel {
+    display: grid;
+    grid-template-columns: minmax(210px, 0.58fr) minmax(0, 1fr);
+    gap: clamp(0.75rem, 1.4vw, 1.05rem);
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 0.6rem;
+    background:
+      radial-gradient(circle at 20% 8%, rgba(124,60,255,0.28), transparent 16rem),
+      rgba(255,255,255,0.032);
+    box-shadow: 0 2rem 5rem rgba(0,0,0,0.42);
+  }
+
+  .founder-photo {
+    position: relative;
+    align-self: center;
+    height: clamp(238px, 25.2vw, 329px);
+    overflow: hidden;
+    border-radius: 8px;
+    background: #08080d;
+  }
+
+  .founder-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(1);
+  }
+
+  .founder-photo::after {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(0deg, rgba(0,0,0,0.62), transparent 45%),
+      linear-gradient(135deg, rgba(124,60,255,0.24), transparent 44%);
+    content: "";
+  }
+
+  .founder-copy {
+    align-self: center;
+    padding: clamp(0.55rem, 1.1vw, 0.85rem);
+  }
+
+  .founder-copy > span {
+    color: var(--purple-2);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .founder-copy h2 {
+    margin: 0.5rem 0 0;
+    max-width: 100%;
+    --h2-size: clamp(1.35rem, 1.9vw, 1.95rem);
+    font-size: var(--h2-size);
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .founder-copy strong {
+    display: block;
+    margin-top: 0.4rem;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  .founder-copy p {
+    margin: 0.65rem 0 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.36;
+  }
+
+  .founder-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem;
+    margin-top: 0.65rem;
+  }
+
+  .founder-facts span {
+    display: flex;
+    min-height: 1.9rem;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 0.34rem 0.52rem;
+    background: rgba(0,0,0,0.32);
+    color: rgba(255,255,255,0.82);
+    font-size: 0.64rem;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .team-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.035);
+  }
+
+  .team-stats article {
+    min-height: 120px;
+    padding: 1.4rem;
+    background: rgba(0,0,0,0.34);
+  }
+
+  .team-stats article + article {
+    border-left: 1px solid var(--line);
+  }
+
+  .team-stats strong {
+    display: block;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 800;
+    line-height: 0.95;
+  }
+
+  .team-stats span {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-size: 0.86rem;
+    line-height: 1.35;
+  }
+
+  .team-marquee {
+    display: grid;
+    gap: 1rem;
+    margin-top: clamp(3rem, 6vw, 5rem);
+    overflow: hidden;
+    border-block: 1px solid rgba(255,255,255,0.08);
+    padding-block: 1rem;
+  }
+
+  .marquee-row {
+    display: flex;
+    width: max-content;
+    gap: 1rem;
+  }
+
+  .marquee-row-forward {
+    animation: teamMarquee 46s linear infinite;
+  }
+
+  .marquee-row-reverse {
+    animation: teamMarqueeReverse 54s linear infinite;
+  }
+
+  .marquee-row figure {
+    position: relative;
+    width: 190px;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    background: #07070a;
+  }
+
+  .marquee-row img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(1);
+  }
+
+  .marquee-row figcaption {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    z-index: 2;
+  }
+
+  .marquee-row figure::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.78), transparent 48%);
+    content: "";
+  }
+
+  .marquee-row strong,
+  .marquee-row span {
+    display: block;
+  }
+
+  .marquee-row strong {
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  .marquee-row span {
+    margin-top: 0.18rem;
+    color: var(--purple-2);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  @keyframes teamMarquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes teamMarqueeReverse {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+
+  .team-poles {
+    display: grid;
+    grid-template-columns: minmax(290px, 0.5fr) 1fr;
+    gap: 1.2rem;
+    align-items: stretch;
+    margin-top: clamp(3rem, 6vw, 5rem);
+  }
+
+  .team-poles h2,
+  .hall-section h2,
+  .team-closing h2 {
+    margin: 1rem 0 0;
+    --h2-size: clamp(2rem, 3vw, 2.5rem);
+    font-size: var(--h2-size);
+    font-weight: 800;
+    line-height: 0.96;
+  }
+
+  .poles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
+  }
+
+  .poles-grid article {
+    position: relative;
+    overflow: hidden;
+    min-height: 210px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 1.15rem;
+    background: rgba(0,0,0,0.38);
+    transition: transform 320ms ease, border-color 320ms ease, box-shadow 320ms ease;
+  }
+
+  .poles-grid article::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(124,60,255,0.2), transparent 45%);
+    content: "";
+    opacity: 0;
+    transition: opacity 320ms ease;
+  }
+
+  .poles-grid article:hover {
+    border-color: rgba(124,60,255,0.62);
+    box-shadow: 0 1.4rem 3rem rgba(0,0,0,0.38), 0 0 2rem rgba(124,60,255,0.14);
+    transform: translateY(-7px);
+  }
+
+  .poles-grid article:hover::before {
+    opacity: 1;
+  }
+
+  .poles-grid span,
+  .poles-grid h3,
+  .poles-grid p {
+    position: relative;
+    z-index: 1;
+  }
+
+  .poles-grid span {
+    color: var(--purple-2);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+  }
+
+  .poles-grid h3 {
+    margin: 4.2rem 0 0;
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .poles-grid p {
+    margin: 0.7rem 0 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .hall-section {
+    margin-top: clamp(3rem, 7vw, 5.5rem);
+  }
+
+  .hall-head {
+    margin-bottom: 1.35rem;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+  }
+
+  .member-card {
+    position: relative;
+    grid-column: span 3;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.035);
+    transition: transform 320ms ease, border-color 320ms ease, box-shadow 320ms ease;
+  }
+
+  .member-card-featured {
+    grid-column: span 4;
+  }
+
+  .member-card:hover {
+    border-color: rgba(124,60,255,0.66);
+    box-shadow: 0 1.2rem 3rem rgba(0,0,0,0.38), 0 0 2rem rgba(124,60,255,0.18);
+    transform: translateY(-7px);
+  }
+
+  .member-image {
+    position: relative;
+    overflow: hidden;
+    background: #07070a;
+  }
+
+  .member-image img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(1);
+    transition: filter 320ms ease, transform 520ms ease;
+  }
+
+  .member-card:hover .member-image img {
+    filter: grayscale(1);
+    transform: scale(1.035);
+  }
+
+  .member-info {
+    position: relative;
+    padding: 1rem;
+    background:
+      linear-gradient(135deg, rgba(124,60,255,0.16), transparent 46%),
+      rgba(5,5,8,0.96);
+  }
+
+  .member-info::before {
+    display: block;
+    width: 2.4rem;
+    height: 3px;
+    margin-bottom: 0.9rem;
+    border-radius: 999px;
+    background: var(--purple);
+    content: "";
+  }
+
+  .member-info span {
+    color: var(--purple-2);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .member-info h3 {
+    margin: 0.5rem 0 0;
+    font-size: clamp(1rem, 1.35vw, 1.25rem);
+    font-weight: 800;
+    line-height: 1.05;
+  }
+
+  .member-info p {
+    margin: 0.35rem 0 0;
+    color: rgba(255,255,255,0.62);
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .team-closing {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: clamp(3rem, 6vw, 5rem);
+    margin-bottom: 4.5rem;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 8px;
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+    background:
+      linear-gradient(90deg, rgba(124,60,255,0.24), transparent 46%),
+      rgba(255,255,255,0.028);
+  }
+
+  @media (max-width: 1080px) {
+    .team-hero,
+    .team-poles,
+    .team-closing {
+      grid-template-columns: 1fr;
+    }
+
+    .team-hero {
+      min-height: auto;
+      padding-top: 8rem;
+    }
+
+    .founder-copy h2 {
+      --h2-size: clamp(1.65rem, 4.1vw, 2rem);
+      font-size: var(--h2-size);
+    }
+
+    .poles-grid,
+    .team-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .team-stats article:nth-child(odd) {
+      border-left: 0;
+    }
+
+    .team-stats article:nth-child(n + 3) {
+      border-top: 1px solid var(--line);
+    }
+
+    .member-card,
+    .member-card-featured {
+      grid-column: span 4;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .team-page {
+      --container: min(100% - 1.25rem, 1320px);
+    }
+
+    .team-hero {
+      padding-top: 6.5rem;
+    }
+
+    .team-hero h1 {
+      --h1-size: clamp(2.35rem, 11vw, 3.125rem);
+    }
+
+    .founder-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .founder-photo {
+      height: auto;
+    }
+
+    .founder-photo img {
+      aspect-ratio: 8 / 7;
+      height: auto;
+    }
+
+    .poles-grid,
+    .team-stats,
+    .team-closing {
+      grid-template-columns: 1fr;
+    }
+
+    .team-stats article + article {
+      border-top: 1px solid var(--line);
+      border-left: 0;
+    }
+
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .member-card,
+    .member-card-featured {
+      grid-column: auto;
+    }
+
+    .marquee-row figure {
+      width: 150px;
+    }
+
+    .team-closing .button {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,1873 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { SITE } from '../../../../consts';
+import { breadcrumbs, faqSchema, serviceSchema } from '../../../../lib/schema';
+
+const assetBase = '/assets/richmedia-evenementiel';
+const logoBase = '/assets/richmedia-digital-strategy/logos';
+const pageUrl = `${SITE.url}/en/expertises/evenementiel`;
+
+const seoTitle = 'Event agency in Casablanca - production, experiences & ROI | Richmedia';
+const seoDescription =
+  'Richmedia designs, produces and measures your events in Morocco: launches, conferences, conventions, brand experiences, scenography, logistics, live content and ROI reporting.';
+
+const eventTools = [
+  { name: 'Google Tag Manager', logo: 'google-tag-manager.svg', note: 'Tracking & scans' },
+  { name: 'Google Analytics', logo: 'google-analytics.svg', note: 'Journeys & conversions' },
+  { name: 'Looker Studio', logo: 'looker-studio.svg', note: 'Event dashboard' },
+  { name: 'Microsoft Clarity', logo: 'microsoft-clarity.png', note: 'Page & form UX' },
+  { name: 'Zapier', logo: 'zapier.svg', note: 'Leads to CRM' },
+  { name: 'Meta', logo: 'meta.svg', note: 'Social amplification' },
+  { name: 'Teamwork', logo: 'teamwork.png', note: 'Production & planning' },
+  { name: 'Zoho', logo: 'zoho.svg', note: 'CRM & guests' },
+];
+
+const proofCards = [
+  {
+    metric: 'Concept',
+    title: 'An event designed as a brand experience',
+    text: 'We clarify the goal, audience, story, scenography, key moments and expected proof before production begins.',
+  },
+  {
+    metric: 'Production',
+    title: 'Stage, control room, content and logistics framed',
+    text: 'Planning, vendors, AV, decor, staffing, reception, security, run-of-show and live coordination are managed through precise checkpoints.',
+  },
+  {
+    metric: 'Impact',
+    title: 'Moments designed to be experienced and shared',
+    text: 'Launch, convention, gala, conference, pop-up or roadshow: every format must create presence, emotion, content and useful conversations.',
+  },
+  {
+    metric: 'ROI',
+    title: 'Reporting beyond souvenir photos',
+    text: 'Registrations, check-ins, engagement, leads, content, coverage, satisfaction, cost per contact and post-event actions are tracked to decide what comes next.',
+  },
+];
+
+const commandSignals = proofCards.slice(1);
+
+const trends = [
+  {
+    label: 'AI operational',
+    title: 'AI becomes useful in event operations',
+    text: 'In 2026, the strongest setups use AI to accelerate sourcing, agendas, invitations, personalization, feedback analysis and reporting.',
+  },
+  {
+    label: 'Human connection',
+    title: 'Live experiences become a trust advantage again',
+    text: 'In a world saturated with generated content, physical events create credibility, presence, real conversations and faster decisions.',
+  },
+  {
+    label: 'Personalization',
+    title: 'Personalization happens during the event',
+    text: 'Participants expect relevant journeys: adapted content, networking, exchange zones, demos, smooth check-in and useful follow-ups.',
+  },
+  {
+    label: 'First-party data',
+    title: 'Every event must produce usable data',
+    text: 'Registration, attendance, scans, badges, QR, forms, feedback and sponsor interactions become signals connected to CRM.',
+  },
+  {
+    label: 'Sustainability',
+    title: 'Sustainability becomes a risk and resilience topic',
+    text: 'Venue choice, transport, energy, catering, materials, reuse and impact measurement must be integrated early in design.',
+  },
+  {
+    label: 'SEO / GEO',
+    title: 'Events must also be findable and citable',
+    text: 'Registration pages, FAQs, structured data, post-event content, photos, videos and proof help Google and AI engines understand your setup.',
+  },
+];
+
+const eventFormats = [
+  {
+    image: 'event-conference.webp',
+    type: 'Launch & conference',
+    title: 'Turn an announcement into a memorable moment',
+    text: 'Scenography, run-of-show, speakers, control room, capture, broadcast, press, social content and guest journey.',
+    formats: ['Stage', 'AV', 'Live content'],
+  },
+  {
+    image: 'event-experience.webp',
+    type: 'Brand experience',
+    title: 'Make people experience the brand before telling it',
+    text: 'Premium booth, demo, reception, hospitality, QR, lead capture, social-first content and CRM follow-up.',
+    formats: ['Booth', 'Hospitality', 'Leads'],
+  },
+  {
+    image: 'event-control-room.webp',
+    type: 'Control room & data',
+    title: 'Manage the live moment, then use the signals',
+    text: 'Check-in, flows, planning, vendor coordination, capture, dashboard, feedback and actionable post-event recap.',
+    formats: ['Run-of-show', 'Dashboard', 'ROI'],
+  },
+];
+
+const services = [
+  {
+    kicker: 'Strategy',
+    title: 'Event concept and brand storytelling',
+    text: 'Business goal, target, message, theme, format, guest journey, key moments, KPIs, budget and amplification plan.',
+    items: ['Concept', 'Audience', 'Message', 'KPI'],
+  },
+  {
+    kicker: 'Production',
+    title: 'Scenography, AV, logistics and vendors',
+    text: 'Venue, stage, sound, lighting, video, decor, signage, teams, permits, security, planning and operational management.',
+    items: ['Venue', 'Control room', 'Decor', 'Ops'],
+  },
+  {
+    kicker: 'Experience',
+    title: 'Reception, hospitality and guest journey',
+    text: 'Invitations, RSVP, check-in, badges, flows, exchange areas, demos, animation, catering and quality of presence.',
+    items: ['RSVP', 'Check-in', 'Guests', 'Flow'],
+  },
+  {
+    kicker: 'Amplification',
+    title: 'Live content, social, press and reporting',
+    text: 'Photo/video capture, short-form content, influence, paid social, retargeting, satisfaction survey, dashboard and impact recap.',
+    items: ['Content', 'Social', 'Press', 'ROI'],
+  },
+];
+
+const roadmap = [
+  {
+    step: '01',
+    title: 'Framing',
+    text: 'Goal, target, format, capacity, budget, date, possible venues, constraints, partners and definition of success criteria.',
+  },
+  {
+    step: '02',
+    title: 'Concept',
+    text: 'Story, scenography, guest journey, key moments, engagement mechanics, content plan, KPIs and data architecture.',
+  },
+  {
+    step: '03',
+    title: 'Production',
+    text: 'Vendors, moodboards, plans, control room, run-of-show, invitations, RSVP, check-in, staffing, security and rehearsals.',
+  },
+  {
+    step: '04',
+    title: 'Live',
+    text: 'Field supervision, minute-by-minute coordination, flow management, capture, adjustments, feedback and quality control.',
+  },
+  {
+    step: '05',
+    title: 'Post-event',
+    text: 'Content editing, CRM follow-ups, coverage, feedback, dashboard, ROI recap, recommendations and asset reuse.',
+  },
+];
+
+const deliverables = [
+  'Event concept',
+  'Moodboard & art direction',
+  'Production plan',
+  'Detailed budget',
+  'Venue & vendor sourcing',
+  'Scenography & signage',
+  'Run-of-show',
+  'Invitation & RSVP plan',
+  'Check-in & badge journey',
+  'Photo/video capture plan',
+  'Dashboard post-event',
+  'ROI recap & recommendations',
+];
+
+const sources = [
+  {
+    title: 'Cvent — Event Trends 2026',
+    text: '2026 events are driven by intent: operational AI, trust, relevance, first-party data and proof of value.',
+    href: 'https://www.cvent.com/en/blog/events/top-event-trends',
+  },
+  {
+    title: 'Bizzabo — Event Industry Trends 2026',
+    text: 'Organizers expect more AI, more disciplined growth, in-event personalization and stronger proof of ROI.',
+    href: 'https://www.bizzabo.com/blog/event-industry-trends-2026',
+  },
+  {
+    title: 'Amex GBT — 2026 Global Meetings & Events Forecast',
+    text: 'Meeting and event programs are evolving toward flexibility, productivity, data, human experience, technology, sustainability and inclusion.',
+    href: 'https://www.amexglobalbusinesstravel.com/meetings-events/me-forecast/',
+  },
+  {
+    title: 'Freeman — Learning Report 2026',
+    text: 'Attendees also learn through expo floors, peer exchange, demos and interactions, not only in conference rooms.',
+    href: 'https://www.globenewswire.com/news-release/2026/07/23/3332147/0/en/new-freeman-trends-report-finds-attendees-want-more-event-learning-to-happen-outside-the-session-room.html',
+  },
+  {
+    title: 'Cvent — In-person Meetings 2026',
+    text: 'In-person formats are becoming strategic again to accelerate trust, decisions, engagement signals and commercial follow-up.',
+    href: 'https://www.cvent.com/en/blog/events/complete-guide-to-in-person-meetings',
+  },
+  {
+    title: 'Cvent — Sustainability Event Strategy 2026',
+    text: 'Event sustainability becomes a business-continuity discipline: risks, costs, energy, transport, catering and measurement.',
+    href: 'https://www.cvent.com/en/blog/events/sustainability-event-strategy',
+  },
+];
+
+const faq = [
+  {
+    question: 'What is an event agency in 2026?',
+    answer:
+      'An event agency designs and produces events as measurable experiences: concept, scenography, production, logistics, invitations, live content, data, reporting and amplification before, during and after the event.',
+  },
+  {
+    question: 'What types of events can Richmedia support?',
+    answer:
+      'We support brand launches, conferences, conventions, galas, roadshows, corporate activations, brand experiences, press conferences, partner evenings and hybrid formats.',
+  },
+  {
+    question: 'How do you measure event ROI?',
+    answer:
+      'We track registrations, attendance rate, check-in, engagement, scans, leads, meetings, satisfaction, press/social coverage, produced content, cost per contact and post-event commercial actions.',
+  },
+  {
+    question: 'Does Richmedia manage operational production?',
+    answer:
+      'Yes. We can coordinate concept, venue, scenography, sound, lighting, video, vendors, staffing, run-of-show, rehearsals, live supervision and post-event recap.',
+  },
+  {
+    question: 'Why optimize an event page for SEO/GEO?',
+    answer:
+      'Because your clients search for agencies and formats through Google and AI engines. A clear, structured, sourced and local page increases discoverability and offer credibility.',
+  },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Events',
+    description: seoDescription,
+    url: pageUrl,
+  }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Expertise', url: `${SITE.url}/en/expertises` },
+    { name: 'Events', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${assetBase}/evenementiel-hero.webp`}
+  schema={schema}
+  lang="en"
+>
+  <div class="event-page">
+    <section class="event-hero" aria-labelledby="event-title">
+      <div class="hero-copy">
+        <span class="eyebrow">Richmedia expertise</span>
+        <h1 id="event-title">Events designed to create impact.</h1>
+        <p class="hero-lead">
+          Richmedia designs, produces and amplifies your events: concept, scenography, logistics,
+          live content, guest experience and reporting to turn a moment into a brand asset.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/en/contact">
+            Produce your event
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/en/case-studies">
+            View case studies
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual event-hover-lab" aria-label="Richmedia event production">
+        <img src={`${assetBase}/evenementiel-hero.webp`} alt="Premium corporate event with stage, control room and audience" />
+        <div class="signal-card signal-card-top">
+          <span>Concept</span>
+          <strong>Scenography + story</strong>
+        </div>
+        <div class="signal-card signal-card-middle">
+          <span>Live</span>
+          <strong>Control room + coordination</strong>
+        </div>
+        <div class="signal-card signal-card-bottom">
+          <span>Post-event</span>
+          <strong>Content + ROI</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="event-cockpit" aria-label="Richmedia event promise">
+      <div class="cockpit-main">
+        <div class="cockpit-topline">
+          <span></span>
+          <strong>Event cockpit</strong>
+          <small>controlled production</small>
+        </div>
+        <div class="cockpit-zero">
+          <span>360</span>
+          <div>
+            <p>{proofCards[0].metric}</p>
+            <h2>{proofCards[0].title}</h2>
+          </div>
+        </div>
+        <div class="cockpit-bars" aria-hidden="true">
+          <div style="--value: 94%">
+            <span>Concept & story</span>
+            <i></i>
+          </div>
+          <div style="--value: 88%">
+            <span>Live production</span>
+            <i></i>
+          </div>
+          <div style="--value: 81%">
+            <span>Post-event reporting</span>
+            <i></i>
+          </div>
+        </div>
+      </div>
+      <div class="cockpit-feed">
+        {commandSignals.map((card, index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <div>
+              <strong>{card.metric}</strong>
+              <h2>{card.title}</h2>
+              <p>{card.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="quick-answer" aria-labelledby="quick-answer-title">
+      <span class="eyebrow">Quick answer</span>
+      <div>
+        <h2 id="quick-answer-title">In 2026, an event must be experienced, captured, measured and extended.</h2>
+        <p>
+          Success is no longer limited to a full room. Brands expect a smooth experience,
+          usable content, reliable data, digital amplification and commercial follow-up.
+        </p>
+      </div>
+    </section>
+
+    <section class="trend-section" aria-labelledby="trend-title">
+      <div class="section-head">
+        <span class="eyebrow">Event trends 2026</span>
+        <h2 id="trend-title">What brands must integrate now.</h2>
+        <p>
+          Winning events combine emotion, operational precision, useful technology,
+          first-party data, sustainability and post-event follow-up.
+        </p>
+      </div>
+      <div class="trend-grid">
+        {trends.map((trend) => (
+          <article>
+            <span>{trend.label}</span>
+            <h3>{trend.title}</h3>
+            <p>{trend.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="usecase-section" aria-labelledby="format-title">
+      <div class="section-head section-head-wide">
+        <span class="eyebrow">Event formats</span>
+        <h2 id="format-title">Experiences designed for your guests, content and business goals.</h2>
+        <p>
+          Our priority: turn every touchpoint into brand memory, reusable content
+          and usable signals for your teams.
+        </p>
+      </div>
+      <div class="usecase-grid">
+        {eventFormats.map((event) => (
+          <article>
+            <div class="usecase-photo">
+              <img src={`${assetBase}/${event.image}`} alt={event.title} loading="eager" decoding="async" />
+            </div>
+            <div class="usecase-copy">
+              <span>{event.type}</span>
+              <h3>{event.title}</h3>
+              <p>{event.text}</p>
+              <div>
+                {event.formats.map((format) => <small>{format}</small>)}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="system-title">
+      <div class="system-visual" aria-hidden="true">
+        <div class="screen-frame">
+          <div class="screen-bar">
+            <span></span><span></span><span></span>
+            <strong>richmedia.ma / event-system</strong>
+          </div>
+          <div class="screen-body">
+            <div class="event-node event-node-main">
+              <small>input</small>
+              <strong>Launch / convention / gala</strong>
+            </div>
+            <div class="event-node event-node-mid">
+              <small>run_of_show</small>
+              <strong>Concept + production + live</strong>
+            </div>
+            <div class="flow-row">
+              <span>Invitations</span>
+              <i></i>
+              <span>Check-in</span>
+              <i></i>
+              <span>Content</span>
+              <i></i>
+              <span>CRM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="system-copy">
+        <span class="eyebrow">Our event system</span>
+        <h2 id="system-title">Production that orchestrates emotion, details and measurement.</h2>
+        <p>
+          We do not only sell an evening or a stage. We build a complete setup:
+          pre-event, live, content, data, follow-ups and recap.
+        </p>
+        <div class="service-grid">
+          {services.map((service) => (
+            <article>
+              <span>{service.kicker}</span>
+              <h3>{service.title}</h3>
+              <p>{service.text}</p>
+              <div>
+                {service.items.map((item) => <small>{item}</small>)}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-section" aria-labelledby="tool-title">
+      <div class="section-head section-head-wide">
+        <span class="eyebrow">Tools & integrations</span>
+        <h2 id="tool-title">The stack that turns the event into data, content and decisions.</h2>
+      </div>
+      <div class="logo-marquee" aria-label="Richmedia tools for events">
+        <div class="logo-track">
+          {[...eventTools, ...eventTools].map((tool) => (
+            <figure>
+              <span>
+                <img
+                  src={`${logoBase}/${tool.logo}`}
+                  alt={`Logo ${tool.name}`}
+                  loading="eager"
+                  decoding="async"
+                />
+              </span>
+              <figcaption>{tool.name}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+      <div class="tool-grid">
+        {eventTools.map((tool) => (
+          <article>
+            <img src={`${logoBase}/${tool.logo}`} alt={`Logo ${tool.name}`} loading="lazy" decoding="async" />
+            <div>
+              <strong>{tool.name}</strong>
+              <span>{tool.note}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="roadmap-section" aria-labelledby="roadmap-title">
+      <div class="section-head section-head-wide">
+        <span class="eyebrow">Richmedia method</span>
+        <h2 id="roadmap-title">From concept to recap, every detail must serve the goal.</h2>
+        <p>
+          We frame quickly, produce rigorously, manage the live moment, then turn
+          signals into post-event actions.
+        </p>
+      </div>
+      <div class="roadmap-grid">
+        {roadmap.map((item) => (
+          <article>
+            <span>{item.step}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="deliverables-section" aria-labelledby="deliverables-title">
+      <span class="eyebrow">Deliverables</span>
+      <h2 id="deliverables-title">What production must make manageable.</h2>
+      <div class="deliverables-grid">
+        {deliverables.map((item) => (
+          <div>
+            <span>{item}</span>
+            <i class="ph ph-check-circle" aria-hidden="true"></i>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="sources-section" aria-labelledby="sources-title">
+      <span class="eyebrow">Sources 2026</span>
+      <h2 id="sources-title">The signals that structure our event approach.</h2>
+      <div class="sources-grid">
+        {sources.map((source) => (
+          <a href={source.href} target="_blank" rel="noreferrer">
+            <strong>{source.title}</strong>
+            <span>{source.text}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <span class="eyebrow">FAQ</span>
+      <h2 id="faq-title">Frequently asked questions about events.</h2>
+      <div class="faq-grid">
+        {faq.map((item) => (
+          <article>
+            <h3>{item.question}</h3>
+            <p>{item.answer}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="cta-section" aria-labelledby="cta-title">
+      <div>
+        <span class="eyebrow">Your next event</span>
+        <h2 id="cta-title">Let's turn your moment into a real brand lever.</h2>
+      </div>
+      <a class="button button-primary" href="/en/contact">
+        Event brief
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .event-page {
+    --container: min(100% - 3rem, 1360px);
+    --h1-size: clamp(32px, 4.3vw, 50px);
+    --h2-size: clamp(28px, 3.3vw, 40px);
+    background:
+      radial-gradient(circle at 90% 8%, rgba(128, 68, 255, 0.2), transparent 28rem),
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      #030407;
+    background-size: auto, 120px 120px, 120px 120px, auto;
+    color: #fff;
+    overflow-x: clip;
+  }
+
+  .event-hero,
+  .event-cockpit,
+  .quick-answer,
+  .trend-section,
+  .usecase-section,
+  .system-section,
+  .tool-section,
+  .roadmap-section,
+  .deliverables-section,
+  .sources-section,
+  .faq-section,
+  .cta-section {
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .event-hero {
+    min-height: 760px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(420px, 0.95fr);
+    align-items: center;
+    gap: clamp(46px, 7vw, 104px);
+    padding: 130px 0 70px;
+  }
+
+  .hero-copy {
+    max-width: 720px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    color: #a970ff;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 44px;
+    height: 2px;
+    background: currentColor;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h1 {
+    max-width: 720px;
+    margin-top: 28px;
+    font-size: clamp(32px, 4.3vw, 50px);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  h2 {
+    font-size: clamp(28px, 3.3vw, 40px);
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  h3 {
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.08;
+    letter-spacing: 0;
+  }
+
+  .hero-lead {
+    margin-top: 26px;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: clamp(18px, 1.8vw, 24px);
+    line-height: 1.55;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .button {
+    min-height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 7px;
+    padding: 0 26px;
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #9a5cff, #6b22f5);
+    box-shadow: 0 18px 42px rgba(117, 52, 255, 0.28);
+  }
+
+  .button-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .button-secondary:hover {
+    border-color: rgba(169, 112, 255, 0.62);
+  }
+
+  .hero-visual {
+    position: relative;
+    min-height: 430px;
+    max-width: 610px;
+    justify-self: end;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #07070c;
+    box-shadow: 0 35px 90px rgba(20, 8, 58, 0.48);
+    isolation: isolate;
+    transform-style: preserve-3d;
+    transform: perspective(1100px) rotateX(0deg) rotateY(0deg) translateZ(0);
+    transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.55s ease, border-color 0.55s ease;
+  }
+
+  .hero-visual::before,
+  .hero-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .hero-visual::before {
+    background:
+      linear-gradient(115deg, transparent 8%, rgba(255, 255, 255, 0.2) 20%, transparent 31%),
+      radial-gradient(circle at 72% 16%, rgba(169, 112, 255, 0.34), transparent 22rem);
+    opacity: 0;
+    transform: translateX(-26%);
+    transition: opacity 0.55s ease, transform 0.75s ease;
+  }
+
+  .hero-visual::after {
+    border: 1px solid rgba(169, 112, 255, 0.24);
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+
+  .hero-visual:hover,
+  .hero-visual:focus-within {
+    transform: perspective(1100px) rotateX(2deg) rotateY(-4deg) translateY(-8px);
+    border-color: rgba(169, 112, 255, 0.55);
+    box-shadow: 0 45px 120px rgba(96, 46, 214, 0.42);
+  }
+
+  .hero-visual:hover::before,
+  .hero-visual:focus-within::before {
+    opacity: 1;
+    transform: translateX(18%);
+  }
+
+  .hero-visual img {
+    width: 100%;
+    height: 100%;
+    min-height: 430px;
+    display: block;
+    object-fit: cover;
+    object-position: 54% 50%;
+    transform: scale(1.01);
+    transition: transform 0.7s ease, filter 0.55s ease;
+  }
+
+  .hero-visual:hover img,
+  .hero-visual:focus-within img {
+    transform: scale(1.055);
+    filter: saturate(1.08) contrast(1.06);
+  }
+
+  .signal-card {
+    position: absolute;
+    z-index: 3;
+    width: min(300px, 62%);
+    border: 1px solid rgba(169, 112, 255, 0.52);
+    border-radius: 7px;
+    padding: 18px 20px;
+    background: linear-gradient(115deg, rgba(7, 8, 15, 0.92), rgba(24, 22, 31, 0.76));
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+    transition: transform 0.55s ease, background 0.55s ease;
+  }
+
+  .signal-card span {
+    display: block;
+    color: #a970ff;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .signal-card strong {
+    display: block;
+    margin-top: 8px;
+    font-size: clamp(17px, 1.6vw, 22px);
+    line-height: 1.2;
+  }
+
+  .signal-card-top {
+    top: 44px;
+    left: 40px;
+  }
+
+  .signal-card-middle {
+    right: 34px;
+    bottom: 116px;
+  }
+
+  .signal-card-bottom {
+    left: 48px;
+    bottom: 28px;
+  }
+
+  .hero-visual:hover .signal-card,
+  .hero-visual:focus-within .signal-card {
+    background: linear-gradient(115deg, rgba(10, 10, 18, 0.95), rgba(41, 35, 57, 0.82));
+  }
+
+  .hero-visual:hover .signal-card-top {
+    transform: translate3d(-8px, -8px, 38px);
+  }
+
+  .hero-visual:hover .signal-card-middle {
+    transform: translate3d(12px, 3px, 46px);
+  }
+
+  .hero-visual:hover .signal-card-bottom {
+    transform: translate3d(10px, 10px, 42px);
+  }
+
+  .event-cockpit {
+    position: relative;
+    z-index: 4;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 14px;
+    align-items: stretch;
+    margin-top: -24px;
+    padding: 0 0 84px;
+  }
+
+  .cockpit-main,
+  .cockpit-feed article,
+  .trend-grid article,
+  .usecase-grid article,
+  .service-grid article,
+  .roadmap-grid article,
+  .deliverables-grid div,
+  .sources-grid a,
+  .faq-grid article,
+  .tool-grid article {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
+      rgba(8, 9, 14, 0.84);
+  }
+
+  .cockpit-main,
+  .cockpit-feed article {
+    position: relative;
+    overflow: hidden;
+    background: rgba(6, 7, 13, 0.84);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  }
+
+  .cockpit-main {
+    min-height: 370px;
+    padding: clamp(22px, 3vw, 34px);
+    background:
+      radial-gradient(circle at 18% 12%, rgba(169, 112, 255, 0.3), transparent 16rem),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.012)),
+      rgba(5, 7, 15, 0.9);
+  }
+
+  .cockpit-main::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.052) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.044) 1px, transparent 1px);
+    background-size: 52px 52px;
+    opacity: 0.58;
+    pointer-events: none;
+  }
+
+  .cockpit-main::after {
+    position: absolute;
+    inset: -35% auto -35% 18%;
+    width: 1px;
+    content: '';
+    background: linear-gradient(180deg, transparent, rgba(169, 112, 255, 0.8), transparent);
+    filter: drop-shadow(0 0 1.6rem rgba(169, 112, 255, 0.58));
+    animation: cockpit-scan 5.8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .cockpit-topline,
+  .cockpit-zero,
+  .cockpit-bars {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cockpit-topline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .cockpit-topline span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #a970ff;
+    box-shadow: 0 0 0 0 rgba(169, 112, 255, 0.52);
+    animation: live-pulse 2.4s ease-out infinite;
+  }
+
+  .cockpit-topline small {
+    margin-left: auto;
+    color: rgba(255, 255, 255, 0.44);
+    font-size: 11px;
+  }
+
+  .cockpit-zero {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(18px, 2vw, 28px);
+    align-items: end;
+    margin-top: clamp(34px, 4vw, 56px);
+  }
+
+  .cockpit-zero > span {
+    color: #a970ff;
+    font-size: clamp(78px, 10vw, 128px);
+    font-weight: 950;
+    line-height: 0.78;
+    letter-spacing: 0;
+    text-shadow: 0 16px 48px rgba(124, 60, 255, 0.36);
+  }
+
+  .cockpit-zero p {
+    margin: 0 0 10px;
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 900;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .cockpit-zero h2 {
+    max-width: 560px;
+    font-size: clamp(27px, 3vw, 40px);
+    line-height: 1.02;
+  }
+
+  .cockpit-bars {
+    display: grid;
+    gap: 18px;
+    margin-top: clamp(38px, 5vw, 64px);
+  }
+
+  .cockpit-bars div {
+    display: grid;
+    gap: 8px;
+  }
+
+  .cockpit-bars span {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 15px;
+    font-weight: 850;
+  }
+
+  .cockpit-bars i {
+    position: relative;
+    overflow: hidden;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .cockpit-bars i::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--value);
+    border-radius: inherit;
+    content: '';
+    background: linear-gradient(90deg, #fff, #a970ff 55%, #6b22f5);
+  }
+
+  .cockpit-feed {
+    display: grid;
+    gap: 14px;
+  }
+
+  .cockpit-feed article {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(18px, 2vw, 28px);
+    align-items: start;
+    padding: clamp(22px, 3vw, 34px);
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  }
+
+  .cockpit-feed article::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background: radial-gradient(circle at 12% 22%, rgba(169, 112, 255, 0.2), transparent 18rem);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .cockpit-feed article:hover {
+    transform: translateY(-4px);
+    border-color: rgba(169, 112, 255, 0.5);
+    background: rgba(7, 8, 17, 0.94);
+  }
+
+  .cockpit-feed article:hover::before {
+    opacity: 1;
+  }
+
+  .cockpit-feed article > span {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border: 1px solid rgba(169, 112, 255, 0.42);
+    border-radius: 50%;
+    color: #a970ff;
+    font-weight: 900;
+  }
+
+  .cockpit-feed strong,
+  .cockpit-feed h2,
+  .cockpit-feed p {
+    position: relative;
+  }
+
+  .cockpit-feed strong {
+    display: block;
+    color: #a970ff;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .cockpit-feed h2 {
+    margin-top: 8px;
+    font-size: clamp(24px, 2.8vw, 40px);
+    line-height: 1.02;
+  }
+
+  .trend-grid span,
+  .usecase-copy > span,
+  .service-grid span,
+  .roadmap-grid span {
+    display: inline-block;
+    color: #a970ff;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .cockpit-feed p,
+  .trend-grid p,
+  .usecase-copy p,
+  .service-grid p,
+  .roadmap-grid p,
+  .quick-answer p,
+  .section-head p,
+  .system-copy > p,
+  .faq-grid p,
+  .sources-grid span {
+    color: rgba(255, 255, 255, 0.62);
+    line-height: 1.6;
+  }
+
+  .cockpit-feed p {
+    margin-top: 14px;
+    font-size: 16px;
+  }
+
+  .quick-answer {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 46px;
+    margin-bottom: 84px;
+    padding: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: linear-gradient(120deg, rgba(169, 112, 255, 0.11), rgba(255, 255, 255, 0.025));
+  }
+
+  .quick-answer p {
+    margin-top: 18px;
+    font-size: 18px;
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 0.9fr 1fr;
+    gap: 42px;
+    align-items: end;
+    margin-bottom: 28px;
+  }
+
+  .section-head .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .section-head p {
+    font-size: 17px;
+  }
+
+  .section-head-wide {
+    grid-template-columns: 1fr 0.95fr;
+  }
+
+  .trend-section,
+  .usecase-section,
+  .system-section,
+  .tool-section,
+  .roadmap-section,
+  .deliverables-section,
+  .sources-section,
+  .faq-section {
+    padding-bottom: 92px;
+  }
+
+  .trend-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .trend-grid article {
+    min-height: 208px;
+    padding: 24px;
+  }
+
+  .trend-grid h3 {
+    margin-top: 14px;
+    font-size: 22px;
+  }
+
+  .trend-grid p {
+    margin-top: 14px;
+  }
+
+  .usecase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .usecase-grid article {
+    overflow: hidden;
+    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .usecase-grid article:hover {
+    transform: translateY(-8px);
+    border-color: rgba(169, 112, 255, 0.55);
+    box-shadow: 0 26px 70px rgba(83, 43, 183, 0.24);
+  }
+
+  .usecase-photo {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .usecase-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.65s ease, filter 0.45s ease;
+  }
+
+  .usecase-grid article:hover .usecase-photo img {
+    transform: scale(1.055);
+    filter: saturate(1.08) contrast(1.05);
+  }
+
+  .usecase-copy {
+    padding: 24px;
+  }
+
+  .usecase-copy h3,
+  .service-grid h3,
+  .roadmap-grid h3,
+  .faq-grid h3 {
+    margin-top: 12px;
+  }
+
+  .usecase-copy p,
+  .service-grid p {
+    margin-top: 14px;
+  }
+
+  .usecase-copy div,
+  .service-grid div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .usecase-copy small,
+  .service-grid small {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 6px;
+    padding: 6px 9px;
+    color: rgba(255, 255, 255, 0.76);
+    font-weight: 800;
+  }
+
+  .system-section {
+    display: grid;
+    grid-template-columns: 0.9fr 1.45fr;
+    gap: 14px;
+  }
+
+  .system-visual,
+  .system-copy {
+    min-height: 540px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(169, 112, 255, 0.13), rgba(255, 255, 255, 0.025));
+  }
+
+  .system-visual {
+    display: grid;
+    place-items: center;
+    padding: 26px;
+    overflow: hidden;
+  }
+
+  .screen-frame {
+    width: 100%;
+    min-height: 455px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 7px;
+    overflow: hidden;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      radial-gradient(circle at 54% 18%, rgba(169, 112, 255, 0.35), transparent 18rem),
+      #07080e;
+    background-size: 70px 70px, 70px 70px, auto, auto;
+  }
+
+  .screen-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 58px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0 18px;
+    color: rgba(255, 255, 255, 0.56);
+  }
+
+  .screen-bar span {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.34);
+  }
+
+  .screen-bar strong {
+    margin-left: 8px;
+    font-size: 13px;
+  }
+
+  .screen-body {
+    position: relative;
+    min-height: 395px;
+    padding: 42px;
+  }
+
+  .event-node {
+    position: absolute;
+    border: 1px solid rgba(169, 112, 255, 0.5);
+    border-radius: 7px;
+    padding: 18px;
+    background: rgba(5, 6, 12, 0.9);
+  }
+
+  .event-node small {
+    color: #a970ff;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .event-node strong {
+    display: block;
+    margin-top: 8px;
+    font-size: 19px;
+  }
+
+  .event-node-main {
+    top: 56px;
+    left: 44px;
+    right: 44px;
+  }
+
+  .event-node-mid {
+    left: 70px;
+    bottom: 104px;
+    width: 72%;
+  }
+
+  .flow-row {
+    position: absolute;
+    left: 42px;
+    right: 42px;
+    bottom: 42px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 7px;
+    align-items: center;
+  }
+
+  .flow-row span {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 10px 6px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .flow-row i {
+    display: none;
+  }
+
+  .system-copy {
+    padding: 48px;
+  }
+
+  .system-copy h2 {
+    margin-top: 20px;
+    max-width: 760px;
+  }
+
+  .system-copy > p {
+    max-width: 760px;
+    margin-top: 18px;
+    font-size: 17px;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .service-grid article {
+    padding: 22px;
+  }
+
+  .logo-marquee {
+    margin-top: 28px;
+    overflow: hidden;
+    border-inline: 1px solid rgba(255, 255, 255, 0.12);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .logo-track {
+    display: flex;
+    width: max-content;
+    gap: 14px;
+    animation: event-marquee 25s linear infinite;
+  }
+
+  .logo-track figure {
+    width: 124px;
+    min-height: 138px;
+    display: grid;
+    place-items: center;
+    gap: 10px;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.045);
+  }
+
+  .logo-track span {
+    width: 82px;
+    height: 82px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: #f4f4f7;
+  }
+
+  .logo-track img {
+    max-width: 66px;
+    max-height: 50px;
+    object-fit: contain;
+  }
+
+  .logo-track figcaption {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 13px;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+  }
+
+  .tool-grid article {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+  }
+
+  .tool-grid img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 7px;
+    background: #f4f4f7;
+    padding: 8px;
+  }
+
+  .tool-grid strong,
+  .tool-grid span {
+    display: block;
+  }
+
+  .tool-grid span {
+    margin-top: 3px;
+    color: rgba(255, 255, 255, 0.56);
+    font-size: 13px;
+  }
+
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .roadmap-grid article {
+    min-height: 230px;
+    padding: 24px;
+  }
+
+  .roadmap-grid p {
+    margin-top: 14px;
+  }
+
+  .deliverables-section h2,
+  .sources-section h2,
+  .faq-section h2 {
+    max-width: 620px;
+    margin-top: 20px;
+  }
+
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .deliverables-grid div {
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 0 18px;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 800;
+  }
+
+  .deliverables-grid i {
+    color: #a970ff;
+  }
+
+  .sources-grid,
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .sources-grid a {
+    min-height: 168px;
+    padding: 22px;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .sources-grid a:hover {
+    transform: translateY(-4px);
+    border-color: rgba(169, 112, 255, 0.58);
+  }
+
+  .sources-grid span {
+    display: block;
+    margin-top: 12px;
+  }
+
+  .faq-grid article {
+    padding: 24px;
+  }
+
+  .faq-grid p {
+    margin-top: 12px;
+  }
+
+  .cta-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 90px;
+    padding: 44px;
+    border: 1px solid rgba(169, 112, 255, 0.3);
+    border-radius: 8px;
+    background: radial-gradient(circle at 12% 20%, rgba(169, 112, 255, 0.24), transparent 22rem), rgba(255, 255, 255, 0.035);
+  }
+
+  .cta-section h2 {
+    margin-top: 18px;
+    max-width: 720px;
+  }
+
+  @keyframes cockpit-scan {
+    0%,
+    100% {
+      transform: translateX(0) rotate(8deg);
+      opacity: 0.22;
+    }
+
+    50% {
+      transform: translateX(280px) rotate(8deg);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes live-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(169, 112, 255, 0.5);
+    }
+
+    70% {
+      box-shadow: 0 0 0 13px rgba(169, 112, 255, 0);
+    }
+
+    100% {
+      box-shadow: 0 0 0 0 rgba(169, 112, 255, 0);
+    }
+  }
+
+  @keyframes event-marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    .hero-visual,
+    .hero-visual:hover,
+    .hero-visual:focus-within,
+    .hero-visual img,
+    .hero-visual:hover img,
+    .cockpit-main::after,
+    .logo-track {
+      transform: none;
+      animation: none;
+    }
+  }
+
+  @media (max-width: 1180px) {
+    .event-hero,
+    .event-cockpit,
+    .system-section {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-visual {
+      justify-self: start;
+      width: min(680px, 100%);
+    }
+
+    .trend-grid,
+    .tool-grid,
+    .deliverables-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cockpit-feed {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .usecase-grid,
+    .sources-grid,
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .roadmap-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .event-page {
+      --container: min(100% - 1.25rem, 1360px);
+      --h1-size: 32px;
+      --h2-size: 28px;
+    }
+
+    .event-hero {
+      min-height: auto;
+      gap: 26px;
+      padding: 118px 0 48px;
+    }
+
+    .eyebrow {
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+    }
+
+    .eyebrow::before {
+      width: 38px;
+    }
+
+    h1 {
+      margin-top: 24px;
+      font-size: 32px;
+      line-height: 1.02;
+    }
+
+    h2 {
+      font-size: 28px;
+      line-height: 1.02;
+    }
+
+    .hero-lead {
+      font-size: 17px;
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .button {
+      width: 100%;
+      min-height: 54px;
+      padding-inline: 18px;
+    }
+
+    .hero-visual {
+      width: 100%;
+      min-height: 320px;
+      transform: none;
+    }
+
+    .hero-visual:hover,
+    .hero-visual:focus-within {
+      transform: none;
+    }
+
+    .hero-visual img {
+      min-height: 320px;
+      object-position: 54% 50%;
+    }
+
+    .signal-card {
+      width: min(240px, 72%);
+      padding: 13px 14px;
+    }
+
+    .signal-card strong {
+      font-size: 16px;
+    }
+
+    .signal-card-top {
+      top: 16px;
+      left: 16px;
+    }
+
+    .signal-card-middle {
+      right: 16px;
+      bottom: 96px;
+    }
+
+    .signal-card-bottom {
+      left: 16px;
+      bottom: 16px;
+    }
+
+    .event-cockpit,
+    .cockpit-feed,
+    .trend-grid,
+    .service-grid,
+    .tool-grid,
+    .roadmap-grid,
+    .deliverables-grid,
+    .sources-grid,
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .event-cockpit {
+      gap: 12px;
+      margin-top: 0;
+      padding-bottom: 64px;
+    }
+
+    .cockpit-main,
+    .cockpit-feed article {
+      min-height: auto;
+    }
+
+    .cockpit-main {
+      padding: 24px;
+    }
+
+    .cockpit-zero {
+      grid-template-columns: 1fr;
+      margin-top: 34px;
+    }
+
+    .cockpit-zero > span {
+      font-size: 82px;
+    }
+
+    .cockpit-zero h2,
+    .cockpit-feed h2 {
+      font-size: 27px;
+    }
+
+    .cockpit-bars {
+      margin-top: 34px;
+    }
+
+    .cockpit-feed article {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 24px;
+    }
+
+    .quick-answer,
+    .section-head,
+    .section-head-wide {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .quick-answer {
+      padding: 24px;
+      margin-bottom: 64px;
+    }
+
+    .trend-section,
+    .usecase-section,
+    .system-section,
+    .tool-section,
+    .roadmap-section,
+    .deliverables-section,
+    .sources-section,
+    .faq-section {
+      padding-bottom: 66px;
+    }
+
+    .usecase-photo {
+      aspect-ratio: 1 / 1.12;
+    }
+
+    .system-copy,
+    .system-visual {
+      min-height: auto;
+    }
+
+    .system-copy {
+      padding: 26px;
+    }
+
+    .system-visual {
+      padding: 14px;
+    }
+
+    .screen-frame {
+      min-height: 380px;
+    }
+
+    .screen-body {
+      min-height: 320px;
+      padding: 22px;
+    }
+
+    .event-node-main {
+      left: 20px;
+      right: 20px;
+      top: 42px;
+    }
+
+    .event-node-mid {
+      left: 20px;
+      right: 20px;
+      width: auto;
+      bottom: 110px;
+    }
+
+    .flow-row {
+      left: 20px;
+      right: 20px;
+      bottom: 24px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .flow-row span:nth-of-type(n + 3),
+    .flow-row i:nth-of-type(n + 2) {
+      display: none;
+    }
+
+    .logo-track figure {
+      width: 112px;
+      min-height: 128px;
+    }
+
+    .cta-section {
+      display: grid;
+      padding: 26px;
+      margin-bottom: 64px;
+    }
+  }
+</style>

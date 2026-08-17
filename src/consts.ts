@@ -23,10 +23,10 @@ export const BUSINESS = {
   adresse: `${BUSINESS_ADDRESS.street}, ${BUSINESS_ADDRESS.city} ${BUSINESS_ADDRESS.postalCode}, ${BUSINESS_ADDRESS.country}`,
   address: BUSINESS_ADDRESS,
   areaServed: ['Casablanca', 'Dubaï', 'Montréal', 'Strasbourg'],
-  // À compléter avec les vraies URLs — les LLM recoupent ces profils pour vous citer.
   sameAs: [
-    'https://www.linkedin.com/company/richmedia',
-    'https://www.instagram.com/richmedia.ma',
+    'https://linkedin.com/company/richmediadigitalagency',
+    'http://instagram.com/richmedia.agency/',
+    'https://www.facebook.com/richmedia.ma/?locale=fr_FR',
   ],
   accreditations: ['Google Partner', 'Google Analytics', 'Meta Blueprint', 'HubSpot', 'IAB Rich Media'],
 };

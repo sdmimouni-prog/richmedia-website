@@ -4,107 +4,109 @@ import { SITE } from '../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
 
 const assetBase = '/assets/richmedia-brand-content';
+const homeBase = '/assets/richmedia-home';
+const realizationBase = '/assets/richmedia-realizations';
 const logoBase = '/assets/richmedia-digital-strategy/logos';
 const pageUrl = `${SITE.url}/expertises/brand-content`;
 
-const seoTitle = 'Brand Content Maroc - storytelling, video, UGC & GEO | Richmedia';
+const seoTitle = 'Brand content Maroc — storytelling, vidéo, UGC & GEO | Richmedia';
 const seoDescription =
-  'Agence brand content a Casablanca : storytelling, contenus social-first, videos courtes, UGC, SEO/GEO et production multi-canal pour creer preference, preuve et conversion.';
+  'Agence brand content à Casablanca : storytelling, contenus social-first, vidéos courtes, UGC, SEO/GEO et production multicanale pour créer préférence, preuve et conversion.';
 
 const trendPillars = [
   {
     label: '01',
-    title: 'Contenu citable par l IA',
-    text: 'Des pages, scripts et FAQ structures pour etre compris par Google, les moteurs IA et les assistants conversationnels.',
+    title: 'Contenu citable par l’IA',
+    text: 'Des pages, scripts et FAQ structurés pour être compris par Google, les moteurs IA et les assistants conversationnels.',
   },
   {
     label: '02',
-    title: 'Social-first video',
-    text: 'Des idees pensees d abord pour les formats courts : reels, stories, hooks, carrousels, lives et cutdowns paid.',
+    title: 'Vidéo social-first',
+    text: 'Des idées pensées d’abord pour les formats courts : reels, stories, hooks, carrousels, lives et cutdowns paid.',
   },
   {
     label: '03',
-    title: 'Preuve creatrice',
-    text: 'UGC, createurs, temoignages, coulisses et cas clients pour rendre la marque plus humaine et plus credible.',
+    title: 'Preuve créateur',
+    text: 'UGC, créateurs, témoignages, coulisses et cas clients pour rendre la marque plus humaine et plus crédible.',
   },
   {
     label: '04',
-    title: 'Series editoriales',
-    text: 'Des rendez-vous reutilisables qui donnent un rythme a la marque et transforment une campagne en actif long terme.',
+    title: 'Séries éditoriales',
+    text: 'Des rendez-vous réutilisables qui donnent un rythme à la marque et transforment une campagne en actif long terme.',
   },
   {
     label: '05',
     title: 'Distribution utile',
-    text: 'Chaque contenu est pense pour vivre sur plusieurs canaux : social, SEO, paid media, email, landing page et sales deck.',
+    text: 'Chaque contenu est pensé pour vivre sur plusieurs canaux : social, SEO, paid media, email, landing page et sales deck.',
   },
   {
     label: '06',
-    title: 'Mesure creative',
-    text: 'Les hooks, formats, messages et visuels sont optimises avec les signaux terrain : vues qualifiees, sauvegardes, leads et ventes.',
+    title: 'Mesure créative',
+    text: 'Les hooks, formats, messages et visuels sont optimisés avec les signaux terrain : vues qualifiées, sauvegardes, leads et ventes.',
   },
 ];
 
 const contentSystem = [
   {
     kicker: 'Clarifier',
-    title: 'Brand POV',
-    text: 'Definir le point de vue de marque, les audiences, les tensions culturelles et les angles qui meritent d etre racontes.',
+    title: 'Point de vue de marque',
+    text: 'Définir le point de vue de marque, les audiences, les tensions culturelles et les angles qui méritent d’être racontés.',
     items: ['Insight', 'Ton', 'Promesse', 'Angles'],
   },
   {
-    kicker: 'Creer',
+    kicker: 'Créer',
     title: 'Production agile',
-    text: 'Transformer les idees en assets prets a diffuser : KV, stories, reels, shootings, UGC, carrousels et scripts.',
-    items: ['Video courte', 'Photo', 'UGC', 'Motion'],
+    text: 'Transformer les idées en assets prêts à diffuser : KV, stories, reels, shootings, UGC, carrousels et scripts.',
+    items: ['Vidéo courte', 'Photo', 'UGC', 'Motion'],
   },
   {
     kicker: 'Amplifier',
-    title: 'Editorial engine',
-    text: 'Organiser la diffusion par moments, canaux, objectifs et reutilisations pour augmenter la duree de vie du contenu.',
+    title: 'Moteur éditorial',
+    text: 'Organiser la diffusion par moments, canaux, objectifs et réutilisations pour augmenter la durée de vie du contenu.',
     items: ['Social', 'SEO/GEO', 'Paid', 'Email'],
   },
   {
     kicker: 'Apprendre',
-    title: 'Creative loop',
-    text: 'Lire les signaux, identifier les formats gagnants et decliner plus vite ce qui genere attention et conversion.',
+    title: 'Boucle créative',
+    text: 'Lire les signaux, identifier les formats gagnants et décliner plus vite ce qui génère attention et conversion.',
     items: ['Hooks', 'Saves', 'Watch time', 'Leads'],
   },
 ];
 
 const formats = [
-  'Plateforme editoriale',
-  'Content pillars',
-  'Brand storytelling',
-  'Scripts reels',
+  'Plateforme éditoriale',
+  'Piliers de contenu',
+  'Storytelling de marque',
+  'Scripts Reels',
   'Stories & carrousels',
   'Shooting photo',
   'UGC briefs',
-  'Landing content',
+  'Contenus landing page',
   'FAQ GEO',
   'Calendrier social',
-  'Guidelines ton',
-  'Reporting contenu',
+  'Guidelines de ton',
+  'Reporting de contenu',
 ];
 
 const creativeReel = [
-  { label: 'UIR - Ouverture des inscriptions', image: `${assetBase}/creas-square/uir-inscriptions.webp` },
-  { label: 'Amana - Tramway Casablanca', image: `${assetBase}/creas-square/amana-tramway.webp` },
-  { label: 'Don Simon - Saveurs naturelles', image: `${assetBase}/creas-square/don-simon-saveurs.webp` },
-  { label: 'Amana - Campagne proximite', image: `${assetBase}/creas-square/amana-proximite.webp` },
-  { label: 'ADA - Produits locaux', image: `${assetBase}/creas-square/ada-produits-locaux.webp` },
-  { label: 'Ryad Al Andalous - Cadre de vie', image: `${assetBase}/creas-square/ryad-al-andalous-square.webp` },
-  { label: 'Tramway - Campagne ete', image: `${assetBase}/creas-square/tramway-summer-square.webp` },
-  { label: 'Moul Pounj - Coupe du monde', image: `${assetBase}/creas-square/moul-pounj-world-cup.webp` },
-  { label: 'TBS Casablanca - Masters of Science', image: `${assetBase}/creas-square/tbs-casablanca.webp` },
-  { label: 'CMR - Retraite digitale', image: `${assetBase}/creas-square/cmr-retirement.webp` },
-  { label: 'Moul Pounj - Carousel social', image: `${assetBase}/creas-square/moul-pounj-carousel.webp` },
-  { label: 'Ryad Al Andalous - Format panoramique', image: `${assetBase}/creas-square/ryad-al-andalous-wide.webp` },
-  { label: 'Rabat Riviera - Golf living', image: `${assetBase}/creas-square/rabat-riviera-wide.webp` },
-  { label: 'Beed - Luxury comfort', image: `${assetBase}/creas-square/beed-wide.webp` },
-  { label: 'Tramway - Application mobile', image: `${assetBase}/creas-square/tramway-mobile-app.webp` },
-  { label: 'Amana - Format clean', image: `${assetBase}/creas-square/campaign-amana-clean.webp` },
-  { label: 'Don Simon - Format clean', image: `${assetBase}/creas-square/campaign-donsimon-clean.webp` },
-  { label: 'Moul Pounj - Format clean', image: `${assetBase}/creas-square/campaign-moul-pounj-clean.webp` },
+  { label: 'UIR - Ouverture des inscriptions', image: `${homeBase}/campaign-wide-uir.webp`, shape: 'wide' },
+  { label: 'Amana - Tramway Casablanca', image: `${homeBase}/campaign-wide-amana-tram.webp`, shape: 'wide' },
+  { label: 'Don Simon - Saveurs naturelles', image: `${homeBase}/campaign-wide-donsimon.webp`, shape: 'wide' },
+  { label: 'Amana - Campagne proximité', image: `${homeBase}/campaign-wide-amana-social.webp`, shape: 'wide' },
+  { label: 'ADA - Produits locaux', image: `${homeBase}/campaign-wide-ada.webp`, shape: 'wide' },
+  { label: 'Ryad Al Andalous - Cadre de vie', image: `${realizationBase}/ryad-al-andalous-square.jpg`, shape: 'square' },
+  { label: 'Tramway - Campagne été', image: `${realizationBase}/tramway-summer-square.jpg`, shape: 'portrait' },
+  { label: 'Moul Pounj - Coupe du monde', image: `${realizationBase}/moul-pounj-world-cup.jpg`, shape: 'wide' },
+  { label: 'TBS Casablanca - Masters of Science', image: `${realizationBase}/tbs-casablanca.jpg`, shape: 'photo' },
+  { label: 'CMR - Retraite digitale', image: `${realizationBase}/cmr-retirement.jpg`, shape: 'wide' },
+  { label: 'Moul Pounj - Carousel social', image: `${realizationBase}/moul-pounj-carousel.jpg`, shape: 'wide' },
+  { label: 'Ryad Al Andalous - Format panoramique', image: `${realizationBase}/ryad-al-andalous-wide.jpg`, shape: 'wide' },
+  { label: 'Rabat Riviera - Golf living', image: `${realizationBase}/rabat-riviera-wide.jpg`, shape: 'wide' },
+  { label: 'Beed - Luxury comfort', image: `${realizationBase}/beed-wide.jpg`, shape: 'wide' },
+  { label: 'Tramway - Application mobile', image: `${realizationBase}/tramway-mobile-app.jpg`, shape: 'wide' },
+  { label: 'Amana - Format clean', image: `${homeBase}/campaign-amana-clean.webp`, shape: 'wide' },
+  { label: 'Don Simon - Format clean', image: `${homeBase}/campaign-donsimon-clean.webp`, shape: 'wide' },
+  { label: 'Moul Pounj - Format clean', image: `${homeBase}/campaign-moul-pounj-clean.webp`, shape: 'wide' },
 ];
 
 const storyCampaigns = [
@@ -121,7 +123,7 @@ const creativeReelRight = creativeReel.slice(9);
 
 const partnerGroups = [
   {
-    title: 'Social publishing & community',
+    title: 'Publication sociale & communauté',
     partners: [
       { name: 'Later', logo: `${logoBase}/later.png` },
       { name: 'Hootsuite', logo: `${logoBase}/hootsuite.svg` },
@@ -136,52 +138,52 @@ const partnerGroups = [
 const roadmap = [
   {
     number: '01',
-    title: 'Trouver l angle',
-    text: 'Ce que la marque peut dire avec legitimite, ce que l audience attend et ce que la categorie ne raconte pas encore.',
+    title: 'Trouver l’angle',
+    text: 'Ce que la marque peut dire avec légitimité, ce que l’audience attend et ce que la catégorie ne raconte pas encore.',
   },
   {
     number: '02',
-    title: 'Construire la serie',
+    title: 'Construire la série',
     text: 'Un territoire, des rubriques, des formats et une cadence qui rendent la marque reconnaissable.',
   },
   {
     number: '03',
     title: 'Produire les assets',
-    text: 'Shooting, scripts, stories, reels, carrousels, declinaisons paid et contenus SEO/GEO.',
+    text: 'Shooting, scripts, stories, reels, carrousels, déclinaisons paid et contenus SEO/GEO.',
   },
   {
     number: '04',
     title: 'Mesurer et recycler',
-    text: 'Analyse des signaux, selection des meilleurs contenus et nouvelles variations pour prolonger la performance.',
+    text: 'Analyse des signaux, sélection des meilleurs contenus et nouvelles variations pour prolonger la performance.',
   },
 ];
 
 const faq = [
   {
-    question: 'Qu est-ce que le brand content ?',
+    question: 'Qu’est-ce que le brand content ?',
     answer:
-      'Le brand content designe les contenus crees par une marque pour informer, inspirer, divertir ou rassurer une audience, sans se limiter a une logique publicitaire directe.',
+      'Le brand content désigne les contenus créés par une marque pour informer, inspirer, divertir ou rassurer une audience, sans se limiter à une logique publicitaire directe.',
   },
   {
     question: 'Pourquoi le brand content est important pour le GEO ?',
     answer:
-      'Les moteurs IA privilegient les contenus clairs, utiles, structures et coherents avec une expertise identifiable. Un bon brand content aide une marque a etre comprise, citee et recommandee.',
+      'Les moteurs IA privilégient les contenus clairs, utiles, structurés et cohérents avec une expertise identifiable. Un bon brand content aide une marque à être comprise, citée et recommandée.',
   },
   {
     question: 'Quels formats prioriser en 2026 ?',
     answer:
-      'Les videos courtes, stories, UGC, carrousels, pages FAQ, contenus experts, cas clients et formats reutilisables sont les plus pertinents pour relier attention, preuve et conversion.',
+      'Les vidéos courtes, stories, UGC, carrousels, pages FAQ, contenus experts, cas clients et formats réutilisables sont les plus pertinents pour relier attention, preuve et conversion.',
   },
   {
-    question: 'Comment mesurer une strategie brand content ?',
+    question: 'Comment mesurer une stratégie brand content ?',
     answer:
-      'On mesure la visibilite, la retention, les sauvegardes, les partages, les conversations, les leads assistes, les conversions et la reutilisation des contenus par les equipes marketing et commerciales.',
+      'On mesure la visibilité, la rétention, les sauvegardes, les partages, les conversations, les leads assistés, les conversions et la réutilisation des contenus par les équipes marketing et commerciales.',
   },
 ];
 
 const schema = [
   serviceSchema({
-    name: 'Brand Content',
+    name: 'Brand content',
     description: seoDescription,
     url: pageUrl,
   }),
@@ -189,7 +191,7 @@ const schema = [
   breadcrumbs([
     { name: 'Accueil', url: SITE.url },
     { name: 'Expertises', url: `${SITE.url}/expertises` },
-    { name: 'Brand Content', url: pageUrl },
+    { name: 'Brand content', url: pageUrl },
   ]),
 ];
 ---
@@ -205,10 +207,10 @@ const schema = [
     <section class="brand-hero" aria-labelledby="brand-content-title">
       <div class="hero-copy">
         <span class="eyebrow">Expertise Richmedia</span>
-        <h1 id="brand-content-title">Brand Content social-first et citable.</h1>
+        <h1 id="brand-content-title">Brand content social-first et citable.</h1>
         <p>
-          Richmedia transforme les idees de marque en contenus utiles, memorables et reutilisables :
-          storytelling, video courte, UGC, SEO/GEO et campagnes pretes a diffuser.
+          Richmedia transforme les idées de marque en contenus utiles, mémorables et réutilisables :
+          storytelling, vidéo courte, UGC, SEO/GEO et campagnes prêtes à diffuser.
         </p>
         <div class="hero-actions">
           <a class="button button-primary" href="/contact">
@@ -223,13 +225,13 @@ const schema = [
       </div>
 
       <div class="hero-visual" data-brand-visual aria-label="Atelier de brand content Richmedia">
-        <img src={`${assetBase}/brand-content-hero.png`} alt="Equipe creative preparant des contenus social-first" />
+        <img src={`${assetBase}/brand-content-hero.png`} alt="Équipe créative préparant des contenus social-first" />
         <div class="signal-card signal-card-top">
           <span>Storytelling</span>
           <strong>Angle clair</strong>
         </div>
         <div class="signal-card signal-card-middle">
-          <span>Short video</span>
+          <span>Vidéo courte</span>
           <strong>Social-first</strong>
         </div>
         <div class="signal-card signal-card-bottom">
@@ -241,19 +243,19 @@ const schema = [
 
     <section class="answer-panel" aria-labelledby="answer-title">
       <div>
-        <span class="eyebrow">Reponse rapide</span>
+        <span class="eyebrow">Réponse rapide</span>
         <h2 id="answer-title">Le contenu devient un actif de croissance.</h2>
       </div>
       <p>
-        En 2026, le brand content performant clarifie une idee, se raconte en formats courts,
-        se recycle sur plusieurs canaux et reste assez structure pour etre cite par les moteurs IA.
+        En 2026, le brand content performant clarifie une idée, se raconte en formats courts,
+        se recycle sur plusieurs canaux et reste assez structuré pour être cité par les moteurs IA.
       </p>
     </section>
 
     <section class="trend-section" aria-labelledby="trend-title">
       <div class="section-heading">
         <span class="eyebrow">Tendances brand content 2026</span>
-        <h2 id="trend-title">Les leviers qui creent attention, confiance et citation.</h2>
+        <h2 id="trend-title">Les leviers qui créent attention, confiance et citation.</h2>
       </div>
       <div class="trend-grid">
         {trendPillars.map((pillar) => (
@@ -277,18 +279,18 @@ const schema = [
     </section>
 
     <section class="system-section" aria-labelledby="system-title">
-      <div class="crea-reel" aria-label="Creations Richmedia">
+      <div class="crea-reel" aria-label="Créations Richmedia">
         <div class="crea-lane">
           <div class="crea-stack">
             {creativeReelLeft.map((item) => (
-              <figure class="crea-frame">
+              <figure class:list={['crea-frame', `crea-frame-${item.shape}`]}>
                 <img src={item.image} alt={item.label} loading="lazy" decoding="async" />
               </figure>
             ))}
           </div>
           <div class="crea-stack" aria-hidden="true">
             {creativeReelLeft.map((item) => (
-              <figure class="crea-frame">
+              <figure class:list={['crea-frame', `crea-frame-${item.shape}`]}>
                 <img src={item.image} alt="" loading="lazy" decoding="async" />
               </figure>
             ))}
@@ -297,14 +299,14 @@ const schema = [
         <div class="crea-lane crea-lane-right">
           <div class="crea-stack">
             {creativeReelRight.map((item) => (
-              <figure class="crea-frame">
+              <figure class:list={['crea-frame', `crea-frame-${item.shape}`]}>
                 <img src={item.image} alt={item.label} loading="lazy" decoding="async" />
               </figure>
             ))}
           </div>
           <div class="crea-stack" aria-hidden="true">
             {creativeReelRight.map((item) => (
-              <figure class="crea-frame">
+              <figure class:list={['crea-frame', `crea-frame-${item.shape}`]}>
                 <img src={item.image} alt="" loading="lazy" decoding="async" />
               </figure>
             ))}
@@ -312,11 +314,11 @@ const schema = [
         </div>
       </div>
       <div class="system-copy">
-        <span class="eyebrow">Le systeme Richmedia</span>
-        <h2 id="system-title">De l angle de marque aux formats qui circulent.</h2>
+        <span class="eyebrow">Le système Richmedia</span>
+        <h2 id="system-title">De l’angle de marque aux formats qui circulent.</h2>
         <p>
-          Nous organisons le brand content comme une boucle : clarifier, creer, amplifier, apprendre.
-          Chaque contenu doit pouvoir servir la marque, la conversion et la memoire collective.
+          Nous organisons le brand content comme une boucle : clarifier, créer, amplifier, apprendre.
+          Chaque contenu doit pouvoir servir la marque, la conversion et la mémoire collective.
         </p>
         <div class="system-modules">
           {contentSystem.map((module) => (
@@ -365,8 +367,8 @@ const schema = [
 
     <section class="roadmap-section" aria-labelledby="roadmap-title">
       <div class="section-heading">
-        <span class="eyebrow">Methode</span>
-        <h2 id="roadmap-title">Un moteur editorial simple a piloter.</h2>
+        <span class="eyebrow">Méthode</span>
+        <h2 id="roadmap-title">Un moteur éditorial simple à piloter.</h2>
       </div>
       <div class="roadmap-grid">
         {roadmap.map((step) => (
@@ -382,7 +384,7 @@ const schema = [
     <section class="faq-section" aria-labelledby="faq-title">
       <div class="section-heading compact">
         <span class="eyebrow">FAQ SEO/GEO</span>
-        <h2 id="faq-title">Questions frequentes.</h2>
+        <h2 id="faq-title">Questions fréquentes.</h2>
       </div>
       <div class="faq-list">
         {faq.map((item) => (
@@ -396,11 +398,11 @@ const schema = [
 
     <section class="brand-cta" aria-labelledby="cta-title">
       <div>
-        <span class="eyebrow">Pret a produire ?</span>
-        <h2 id="cta-title">Creons des contenus que vos audiences retiennent.</h2>
+        <span class="eyebrow">Prêt à produire ?</span>
+        <h2 id="cta-title">Créons des contenus que vos audiences retiennent.</h2>
         <div class="hero-actions">
           <a class="button button-primary" href="/contact">
-            Demarrer un projet
+            Démarrer un projet
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
           <a class="button button-secondary" href="mailto:contact@richmedia.ma">contact@richmedia.ma</a>
@@ -1018,8 +1020,6 @@ const schema = [
     position: relative;
     min-width: 0;
     overflow: hidden;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 7%, #000 93%, transparent 100%);
-    mask-image: linear-gradient(180deg, transparent 0, #000 7%, #000 93%, transparent 100%);
   }
 
   .crea-stack {
@@ -1041,13 +1041,13 @@ const schema = [
   }
 
   .crea-frame {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 16 / 9;
     margin: 0;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 9px;
-    background: #050609;
-    box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.34);
+    background: transparent;
+    box-shadow: none;
   }
 
   .crea-frame img {
@@ -1056,6 +1056,18 @@ const schema = [
     height: 100%;
     object-fit: cover;
     filter: saturate(1.02) contrast(1.03);
+  }
+
+  .crea-frame-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .crea-frame-portrait {
+    aspect-ratio: 4 / 5;
+  }
+
+  .crea-frame-photo {
+    aspect-ratio: 3 / 2;
   }
 
   @keyframes crea-roll {

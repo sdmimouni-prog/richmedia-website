@@ -10,14 +10,89 @@ interface Props {
 const { title, description, canonical, ogImage, lang = 'fr' } = Astro.props;
 const url = canonical ?? new URL(Astro.url.pathname, SITE.url).href;
 const image = ogImage ?? `${SITE.url}/og-default.jpg`;
+const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHomeVariant = normalizedPath === '/' || normalizedPath === '/en';
+const isExpertiseVariant = normalizedPath === '/expertises' || normalizedPath === '/en/expertises';
+const isCaseStudiesVariant = normalizedPath === '/realisations' || normalizedPath === '/en/case-studies';
+const isTeamVariant = normalizedPath === '/equipe' || normalizedPath === '/en/team';
+const isContactVariant = normalizedPath === '/contact' || normalizedPath === '/en/contact';
+const isDigitalStrategyVariant =
+  normalizedPath === '/expertises/strategie-digitale' || normalizedPath === '/en/expertises/strategie-digitale';
+const isBrandContentVariant =
+  normalizedPath === '/expertises/brand-content' || normalizedPath === '/en/expertises/brand-content';
+const isWebSiVariant = normalizedPath === '/expertises/web-si' || normalizedPath === '/en/expertises/web-si';
+const isMediaBuyingVariant =
+  normalizedPath === '/expertises/achat-media' || normalizedPath === '/en/expertises/achat-media';
+const isInfluenceVariant =
+  normalizedPath === '/expertises/influence' || normalizedPath === '/en/expertises/influence';
+const isPhygitalVariant =
+  normalizedPath === '/expertises/phygital' || normalizedPath === '/en/expertises/phygital';
+const isEventsVariant =
+  normalizedPath === '/expertises/evenementiel' || normalizedPath === '/en/expertises/evenementiel';
+const isAiAutomationVariant =
+  normalizedPath === '/expertises/ia-automation' || normalizedPath === '/en/expertises/ia-automation';
+const frAlternate = isHomeVariant
+  ? SITE.url
+  : isExpertiseVariant
+    ? `${SITE.url}/expertises`
+    : isDigitalStrategyVariant
+      ? `${SITE.url}/expertises/strategie-digitale`
+      : isBrandContentVariant
+        ? `${SITE.url}/expertises/brand-content`
+        : isWebSiVariant
+          ? `${SITE.url}/expertises/web-si`
+          : isMediaBuyingVariant
+            ? `${SITE.url}/expertises/achat-media`
+            : isInfluenceVariant
+              ? `${SITE.url}/expertises/influence`
+              : isPhygitalVariant
+                ? `${SITE.url}/expertises/phygital`
+                : isEventsVariant
+                  ? `${SITE.url}/expertises/evenementiel`
+                  : isAiAutomationVariant
+                    ? `${SITE.url}/expertises/ia-automation`
+    : isCaseStudiesVariant
+      ? `${SITE.url}/realisations`
+      : isTeamVariant
+        ? `${SITE.url}/equipe`
+        : isContactVariant
+          ? `${SITE.url}/contact`
+          : url;
+const enAlternate = isHomeVariant
+  ? `${SITE.url}/en`
+  : isExpertiseVariant
+    ? `${SITE.url}/en/expertises`
+    : isDigitalStrategyVariant
+      ? `${SITE.url}/en/expertises/strategie-digitale`
+      : isBrandContentVariant
+        ? `${SITE.url}/en/expertises/brand-content`
+        : isWebSiVariant
+          ? `${SITE.url}/en/expertises/web-si`
+          : isMediaBuyingVariant
+            ? `${SITE.url}/en/expertises/achat-media`
+            : isInfluenceVariant
+              ? `${SITE.url}/en/expertises/influence`
+              : isPhygitalVariant
+                ? `${SITE.url}/en/expertises/phygital`
+                : isEventsVariant
+                  ? `${SITE.url}/en/expertises/evenementiel`
+                  : isAiAutomationVariant
+                    ? `${SITE.url}/en/expertises/ia-automation`
+    : isCaseStudiesVariant
+      ? `${SITE.url}/en/case-studies`
+      : isTeamVariant
+        ? `${SITE.url}/en/team`
+        : isContactVariant
+          ? `${SITE.url}/en/contact`
+          : null;
 ---
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={url} />
 
-<!-- hreflang : FR principal, EN en miroir -->
-<link rel="alternate" hreflang="fr" href={url} />
-<link rel="alternate" hreflang="x-default" href={url} />
+<link rel="alternate" hreflang="fr" href={frAlternate} />
+{enAlternate && <link rel="alternate" hreflang="en" href={enAlternate} />}
+<link rel="alternate" hreflang="x-default" href={frAlternate} />
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />

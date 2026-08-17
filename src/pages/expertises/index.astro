@@ -6,12 +6,12 @@ import { SITE } from '../../consts';
 const assetBase = '/assets/richmedia-home';
 
 const accreditationBadges = [
-  { image: 'logos/accreditations-svg/google-ads.svg', name: 'Google Ads', label: 'Certified' },
-  { image: 'logos/accreditations-svg/google-analytics.svg', name: 'Google Analytics', label: 'Certified' },
-  { image: 'logos/accreditations-svg/hubspot.svg', name: 'HubSpot', label: 'Certified' },
-  { image: 'logos/accreditations-svg/iab-rich-media.svg', name: 'IAB Rich Media', label: 'Certified' },
-  { image: 'logos/accreditations-svg/meta-blueprint.svg', name: 'Meta Blueprint', label: 'Certified' },
-  { image: 'logos/accreditations-svg/semrush.svg', name: 'Semrush', label: 'Certified' },
+  { image: 'logos/accreditations-svg/google-ads.svg', name: 'Google Ads', label: 'Certifié' },
+  { image: 'logos/accreditations-svg/google-analytics.svg', name: 'Google Analytics', label: 'Certifié' },
+  { image: 'logos/accreditations-svg/hubspot.svg', name: 'HubSpot', label: 'Certifié' },
+  { image: 'logos/accreditations-svg/iab-rich-media.svg', name: 'IAB Rich Media', label: 'Certifié' },
+  { image: 'logos/accreditations-svg/meta-blueprint.svg', name: 'Meta Blueprint', label: 'Certifié' },
+  { image: 'logos/accreditations-svg/semrush.svg', name: 'Semrush', label: 'Certifié' },
 ];
 
 const schema = [breadcrumbs([
@@ -33,7 +33,7 @@ const journey = [
   {
     step: '03 / Diffuser',
     title: 'Amplification',
-    text: 'Média, influence, performance, data et optimisation continue.',
+    text: 'Média, influence, performance, données et optimisation continue.',
   },
   {
     step: '04 / Convertir',
@@ -48,7 +48,7 @@ const expertises = [
     slug: 'strategie-digitale',
     image: 'expertise-story-branding.webp',
     label: 'Stratégie',
-    title: 'Stratégie Digitale',
+    title: 'Stratégie digitale',
     text: 'Une feuille de route claire pour aligner positionnement, audiences, canaux et objectifs business.',
     tags: ['Segmentation', 'Ciblage', 'Plan d’action', 'Objectifs SMART'],
     outcome: 'Décisions plus rapides',
@@ -59,7 +59,7 @@ const expertises = [
     slug: 'brand-content',
     image: 'expertise-story-social.webp',
     label: 'Création',
-    title: 'Brand Content',
+    title: 'Brand content',
     text: 'Des contenus utiles, mémorables et adaptés à chaque canal.',
     tags: ['Storytelling', 'Photo & vidéo', 'Social-first'],
     size: 'medium',
@@ -79,8 +79,8 @@ const expertises = [
     slug: 'achat-media',
     image: 'expertise-story-media.webp',
     label: 'Performance',
-    title: 'Achat Média',
-    text: 'Des plans média pilotés par la data et optimisés en temps réel.',
+    title: 'Achat média',
+    text: 'Des plans média pilotés par la donnée et optimisés en temps réel.',
     tags: ['Meta', 'TikTok', 'Google', 'YouTube'],
     size: 'medium',
   },
@@ -101,7 +101,7 @@ const expertises = [
     label: 'Expérience',
     title: 'Phygital',
     text: 'Relier terrain et digital grâce à des expériences omnicanales, hybrides et mesurables.',
-    tags: ['Activation', 'Retail', 'AR', 'Apps mobiles'],
+    tags: ['Activation', 'Retail', 'AR', 'Applications mobiles'],
     outcome: 'Impact terrain visible',
     size: 'wide',
   },
@@ -120,9 +120,9 @@ const expertises = [
     slug: 'ia-automation',
     image: 'story-tech.webp',
     label: 'IA',
-    title: 'IA & Automation',
+    title: 'IA & automation',
     text: 'Automatisation marketing, chatbots, social listening et scoring prédictif.',
-    tags: ['CRM', 'Chatbots', 'Lead scoring'],
+    tags: ['CRM', 'Chatbots', 'Scoring des leads'],
     size: 'stack',
   },
 ];
@@ -130,34 +130,34 @@ const expertises = [
 const ops = [
   {
     label: 'Social',
-    title: 'Social Media Management',
+    title: 'Gestion social media',
     text: 'Animation, modération, planning éditorial et engagement.',
   },
   {
     label: 'Design',
-    title: 'Créa & Web Design',
-    text: 'Identité visuelle, UI, KV, déclinaisons et production graphique.',
+    title: 'Création & design web',
+    text: 'Identité visuelle, UI, key visuals, déclinaisons et production graphique.',
   },
   {
     label: 'Média',
-    title: 'Média, Traffic & CRM',
+    title: 'Média, trafic & CRM',
     text: 'Acquisition, campagnes payantes, tracking et optimisation.',
   },
   {
     label: 'Dév',
-    title: 'SI & Web Développement',
+    title: 'SI & développement web',
     text: 'Sites, plateformes, intégrations et infrastructures digitales.',
   },
   {
     label: 'Data',
-    title: 'CRM & Lead Scoring',
+    title: 'CRM & scoring des leads',
     text: 'Automatisation, qualification, nurturing et conversion.',
   },
 ];
 ---
 <BaseLayout
   title="Expertises Richmedia — Stratégie, création, média, IA et croissance"
-  description="Découvrez les expertises Richmedia : stratégie digitale, brand content, développement web, achat média, influence, phygital, événementiel, IA et automation."
+  description="Découvrez les expertises Richmedia : stratégie digitale, brand content, développement web, achat média, influence, phygital, événementiel, IA et automatisation."
   schema={schema}
 >
   <div class="expertise-page">
@@ -200,7 +200,11 @@ const ops = [
 
       <div class="expertise-grid">
         {expertises.map((item) => (
-          <article id={item.slug} class:list={['expertise-card', `expertise-card-${item.size}`]}>
+          <a
+            href={['strategie-digitale', 'brand-content', 'web-si', 'achat-media', 'influence', 'phygital', 'evenementiel', 'ia-automation'].includes(item.slug) ? `/expertises/${item.slug}` : `/expertises#${item.slug}`}
+            id={item.slug}
+            class:list={['expertise-card', `expertise-card-${item.size}`]}
+          >
             <img src={`${assetBase}/${item.image}`} alt="" loading="lazy" decoding="async" />
             <span class="card-number">{item.number}</span>
             <div class="expertise-card-copy">
@@ -210,7 +214,7 @@ const ops = [
                 {item.tags.map((tag) => <span>{tag}</span>)}
               </div>
             </div>
-          </article>
+          </a>
         ))}
       </div>
     </section>
@@ -244,7 +248,7 @@ const ops = [
       <div class="accreditation-copy">
         <span>Certifications</span>
         <h2 id="expertise-accreditations-title">Nos accréditations</h2>
-        <p>Reconnues pour structurer, mesurer et optimiser vos performances.</p>
+        <p>Des certifications reconnues pour structurer, mesurer et optimiser vos performances.</p>
       </div>
       <div class="accreditation-grid" aria-label="Accréditations Richmedia">
         {accreditationBadges.map((badge) => (
@@ -513,9 +517,9 @@ const ops = [
     display: grid;
     grid-template-columns: minmax(430px, 0.88fr) minmax(520px, 1fr);
     gap: clamp(2rem, 4vw, 4rem);
-    align-items: end;
-    min-height: 700px;
-    padding: 9rem 0 4rem;
+    align-items: center;
+    min-height: 610px;
+    padding: 7rem 0 2.4rem;
   }
 
   .section-kicker {
@@ -540,7 +544,7 @@ const ops = [
   .expertise-hero h1 {
     max-width: 670px;
     margin: 0;
-    --h1-size: clamp(2.7rem, 4.25vw, 4.55rem);
+    --h1-size: clamp(2.7rem, 3.2vw, 3.125rem);
     font-weight: 800;
     letter-spacing: 0;
     line-height: 1.02;
@@ -590,7 +594,7 @@ const ops = [
 
   .expertise-hero-board {
     position: relative;
-    min-height: 510px;
+    min-height: 455px;
     overflow: hidden;
     border: 0;
     border-radius: 0;
@@ -692,21 +696,76 @@ const ops = [
   }
 
   .expertise-journey article {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     min-height: 150px;
     padding: 1.55rem;
     background: rgba(5,5,8,0.88);
+    transition:
+      transform 260ms ease,
+      background 260ms ease,
+      box-shadow 260ms ease;
   }
 
   .expertise-journey article + article {
     border-left: 1px solid rgba(255,255,255,0.13);
   }
 
+  .expertise-journey article::before {
+    position: absolute;
+    inset: -35% -22%;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 18% 20%, rgba(124, 60, 255, 0.34), transparent 28%),
+      linear-gradient(115deg, transparent 0 38%, rgba(255, 255, 255, 0.16) 48%, transparent 60% 100%);
+    content: "";
+    opacity: 0;
+    transform: translateX(-30%) rotate(8deg);
+    transition: opacity 260ms ease, transform 520ms ease;
+  }
+
+  .expertise-journey article::after {
+    position: absolute;
+    right: 1.55rem;
+    bottom: 1.25rem;
+    left: 1.55rem;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--purple-2), rgba(124, 60, 255, 0));
+    content: "";
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: opacity 220ms ease, transform 320ms ease;
+  }
+
+  .expertise-journey article:hover {
+    z-index: 2;
+    background: rgba(11, 9, 18, 0.96);
+    box-shadow: inset 0 0 0 1px rgba(169, 119, 255, 0.36), 0 1.4rem 3rem rgba(0, 0, 0, 0.34);
+    transform: translateY(-8px) scale(1.015);
+  }
+
+  .expertise-journey article:hover::before {
+    opacity: 1;
+    transform: translateX(18%) rotate(8deg);
+  }
+
+  .expertise-journey article:hover::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
   .expertise-journey span {
+    position: relative;
+    display: inline-block;
     color: var(--purple-2);
     font-size: 0.74rem;
     font-weight: 800;
     letter-spacing: 0.13em;
     text-transform: uppercase;
+    transition: color 220ms ease, transform 220ms ease;
   }
 
   .expertise-journey h2 {
@@ -716,6 +775,7 @@ const ops = [
     font-size: var(--h2-size);
     font-weight: 700;
     line-height: 1.1;
+    transition: transform 220ms ease, text-shadow 220ms ease;
   }
 
   .expertise-journey p {
@@ -724,6 +784,22 @@ const ops = [
     color: var(--muted);
     font-size: 0.86rem;
     line-height: 1.46;
+    transition: color 220ms ease, transform 220ms ease;
+  }
+
+  .expertise-journey article:hover span {
+    color: #c6a2ff;
+    transform: translateY(-3px);
+  }
+
+  .expertise-journey article:hover h2 {
+    text-shadow: 0 0 1.3rem rgba(124, 60, 255, 0.42);
+    transform: translateX(4px);
+  }
+
+  .expertise-journey article:hover p {
+    color: rgba(255, 255, 255, 0.78);
+    transform: translateX(4px);
   }
 
   .expertise-catalog {
@@ -763,13 +839,16 @@ const ops = [
 
   .expertise-card {
     position: relative;
+    display: block;
     min-height: clamp(220px, 18vw, 265px);
     overflow: hidden;
     border: 1px solid rgba(255,255,255,0.14);
     border-radius: 8px;
     background: #09090d;
+    color: inherit;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
     isolation: isolate;
+    text-decoration: none;
   }
 
   .expertise-card-large {
@@ -1188,11 +1267,11 @@ const ops = [
     .expertise-hero {
       grid-template-columns: 1fr;
       min-height: auto;
-      padding-top: 8rem;
+      padding-top: 7.2rem;
     }
 
     .expertise-hero-board {
-      min-height: 450px;
+      min-height: 390px;
     }
 
     .expertise-journey,
@@ -1241,7 +1320,7 @@ const ops = [
     }
 
     .expertise-hero {
-      padding-top: 6.5rem;
+      padding-top: 6.25rem;
     }
 
     .expertise-hero h1 {
@@ -1249,7 +1328,7 @@ const ops = [
     }
 
     .expertise-hero-board {
-      min-height: 430px;
+      min-height: 340px;
     }
 
     .hero-metrics {

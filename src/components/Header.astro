@@ -1,56 +1,198 @@
 ---
+const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/');
+const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const homeHref = isEnglish ? '/en' : '/';
+const englishDetailExpertiseSlugs = ['strategie-digitale', 'brand-content', 'web-si', 'achat-media', 'influence', 'phygital', 'evenementiel', 'ia-automation'];
+const expertiseHref = (slug?: string) => {
+  if (!slug) return isEnglish ? '/en/expertises' : '/expertises';
+  if (isEnglish && englishDetailExpertiseSlugs.includes(slug)) return `/en/expertises/${slug}`;
+  return isEnglish ? `/en/expertises#${slug}` : `/expertises/${slug}`;
+};
+const languageHref = isEnglish
+  ? normalizedPath === '/en/team'
+    ? '/equipe'
+    : normalizedPath === '/en/case-studies'
+    ? '/realisations'
+    : normalizedPath === '/en/case-studies/model-case-study'
+    ? '/realisations/modele-case-study'
+    : normalizedPath === '/en/contact'
+    ? '/contact'
+    : normalizedPath === '/en/expertises/strategie-digitale'
+    ? '/expertises/strategie-digitale'
+    : normalizedPath === '/en/expertises/brand-content'
+    ? '/expertises/brand-content'
+    : normalizedPath === '/en/expertises/web-si'
+    ? '/expertises/web-si'
+    : normalizedPath === '/en/expertises/achat-media'
+    ? '/expertises/achat-media'
+    : normalizedPath === '/en/expertises/influence'
+    ? '/expertises/influence'
+    : normalizedPath === '/en/expertises/phygital'
+    ? '/expertises/phygital'
+    : normalizedPath === '/en/expertises/evenementiel'
+    ? '/expertises/evenementiel'
+    : normalizedPath === '/en/expertises/ia-automation'
+    ? '/expertises/ia-automation'
+    : Astro.url.pathname.replace(/^\/en(?=\/|$)/, '') || '/'
+  : normalizedPath === '/equipe'
+    ? '/en/team'
+    : normalizedPath === '/realisations/modele-case-study'
+    ? '/en/case-studies/model-case-study'
+    : normalizedPath === '/realisations' || Astro.url.pathname.startsWith('/realisations/')
+    ? '/en/case-studies'
+    : normalizedPath === '/expertises/strategie-digitale'
+    ? '/en/expertises/strategie-digitale'
+    : normalizedPath === '/expertises/brand-content'
+    ? '/en/expertises/brand-content'
+    : normalizedPath === '/expertises/web-si'
+    ? '/en/expertises/web-si'
+    : normalizedPath === '/expertises/achat-media'
+    ? '/en/expertises/achat-media'
+    : normalizedPath === '/expertises/influence'
+    ? '/en/expertises/influence'
+    : normalizedPath === '/expertises/phygital'
+    ? '/en/expertises/phygital'
+    : normalizedPath === '/expertises/evenementiel'
+    ? '/en/expertises/evenementiel'
+    : normalizedPath === '/expertises/ia-automation'
+    ? '/en/expertises/ia-automation'
+    : normalizedPath === '/expertises' || Astro.url.pathname.startsWith('/expertises/')
+    ? '/en/expertises'
+    : normalizedPath === '/contact'
+    ? '/en/contact'
+    : '/en';
+
+const labels = isEnglish
+  ? {
+      home: 'Home',
+      team: 'Team',
+      products: 'Our products',
+      mainNav: 'Primary navigation',
+      brandHome: 'Richmedia — Home',
+      expertiseIntro: 'A complete system to create, amplify and convert.',
+      allExpertise: 'View all expertise',
+      productMenu: 'Our products menu',
+      langLabel: 'Version française',
+      cta: 'Book a call',
+      ctaMobile: 'Call',
+    }
+  : {
+      home: 'Accueil',
+      team: 'Équipe',
+      products: 'Nos produits',
+      mainNav: 'Navigation principale',
+      brandHome: 'Richmedia — Accueil',
+      expertiseIntro: 'Un système complet pour créer, amplifier et convertir.',
+      allExpertise: 'Voir toutes les expertises',
+      productMenu: 'Menu nos produits',
+      langLabel: 'English version',
+      cta: 'Appelez-nous',
+      ctaMobile: 'Appeler',
+    };
+
+const ctaHref = isEnglish ? '/reserver-un-audit' : 'tel:+212661172885';
+
 const navItems = [
-  { href: '/realisations', label: 'Réalisations' },
-  { href: '/equipe', label: 'Équipe' },
-  { href: '/references', label: 'Références' },
-  { href: '/contact', label: 'Contact' },
+  { href: isEnglish ? '/en/case-studies' : '/realisations', label: 'Case studies' },
+  { href: isEnglish ? '/en/team' : '/equipe', label: labels.team },
+  { href: isEnglish ? '/en/contact' : '/contact', label: 'Contact' },
+];
+
+const productLinks = [
+  {
+    href: 'https://richmedia-whatsapp.vercel.app/#offers',
+    label: isEnglish ? 'WhatsApp push solution' : 'Solution de push WhatsApp',
+    text: isEnglish ? 'Campaigns, follow-ups and WhatsApp offers.' : 'Campagnes, relances et offres WhatsApp.',
+  },
+  {
+    href: 'https://www.carterandblake.ma/expertise-political-marketing.html',
+    label: isEnglish ? 'Political marketing' : 'Marketing politique',
+    text: isEnglish ? 'Carter & Blake for political campaigns.' : 'Carter & Blake pour les campagnes politiques.',
+  },
+  {
+    href: 'https://hypeo.ai',
+    label: 'Influence',
+    text: isEnglish ? 'Hypeo.ai to manage creator campaigns.' : 'Hypeo.ai pour gérer les campagnes créateurs.',
+  },
 ];
 
 const expertiseColumns = [
   {
-    title: 'Construire',
+    title: isEnglish ? 'Build' : 'Construire',
     items: [
-      { href: '/expertises/strategie-digitale', label: 'Stratégie Digitale', text: 'Positionnement, ciblage et plan d’action.' },
-      { href: '/expertises/brand-content', label: 'Brand Content', text: 'Concepts, contenus social-first et storytelling.' },
-      { href: '/expertises#web-si', label: 'Web & SI', text: 'Sites, plateformes, tracking et systèmes connectés.' },
+      {
+        href: expertiseHref('strategie-digitale'),
+        label: isEnglish ? 'Digital Strategy' : 'Stratégie digitale',
+        text: isEnglish ? 'Positioning, targeting and action plan.' : 'Positionnement, ciblage et plan d’action.',
+      },
+      {
+        href: expertiseHref('brand-content'),
+        label: isEnglish ? 'Brand Content' : 'Brand content',
+        text: isEnglish ? 'Concepts, social-first content and storytelling.' : 'Concepts, contenus social-first et storytelling.',
+      },
+      {
+        href: expertiseHref('web-si'),
+        label: isEnglish ? 'Web & IS' : 'Web & SI',
+        text: isEnglish ? 'Websites, platforms, tracking and connected systems.' : 'Sites, plateformes, tracking et systèmes connectés.',
+      },
     ],
   },
   {
     title: 'Amplifier',
     items: [
-      { href: '/expertises#achat-media', label: 'Achat Média', text: 'Paid social, search, programmatique et DOOH.' },
-      { href: '/expertises#influence', label: 'Influence', text: 'Sélection, activation et suivi des performances.' },
-      { href: '/expertises#phygital', label: 'Phygital', text: 'Activation terrain, retail et expériences connectées.' },
+      {
+        href: expertiseHref('achat-media'),
+        label: isEnglish ? 'Media Buying' : 'Achat média',
+        text: isEnglish ? 'Paid social, search, programmatic and DOOH.' : 'Paid social, search, programmatique et DOOH.',
+      },
+      {
+        href: expertiseHref('influence'),
+        label: 'Influence',
+        text: isEnglish ? 'Selection, activation and performance tracking.' : 'Sélection, activation et suivi des performances.',
+      },
+      {
+        href: expertiseHref('phygital'),
+        label: 'Phygital',
+        text: isEnglish ? 'Field activation, retail and connected experiences.' : 'Activation terrain, retail et expériences connectées.',
+      },
     ],
   },
   {
-    title: 'Convertir',
+    title: isEnglish ? 'Convert' : 'Convertir',
     items: [
-      { href: '/expertises#evenementiel', label: 'Événementiel', text: 'Dispositifs de marque, lancement et présence terrain.' },
-      { href: '/expertises#ia-automation', label: 'IA & Automation', text: 'CRM, WhatsApp, agents IA et parcours automatisés.' },
+      {
+        href: expertiseHref('evenementiel'),
+        label: isEnglish ? 'Events' : 'Événementiel',
+        text: isEnglish ? 'Brand setups, launches and field presence.' : 'Dispositifs de marque, lancement et présence terrain.',
+      },
+      {
+        href: expertiseHref('ia-automation'),
+        label: isEnglish ? 'AI & Automation' : 'IA & Automation',
+        text: isEnglish ? 'CRM, WhatsApp, AI agents and automated journeys.' : 'CRM, WhatsApp, agents IA et parcours automatisés.',
+      },
     ],
   },
 ];
 ---
 <header class="site-header" data-site-header>
-  <a href="/" class="brand-lockup" aria-label="Richmedia — Accueil">
+  <a href={homeHref} class="brand-lockup" aria-label={labels.brandHome}>
     <span class="brand-word">richmedia</span>
     <span class="brand-tagline">WE BUILD <strong>DIGITAL</strong> GROWTH</span>
   </a>
 
-  <nav class="primary-nav" aria-label="Navigation principale">
-    <a href="/">Accueil</a>
+  <nav class="primary-nav" aria-label={labels.mainNav}>
+    <a href={homeHref}>{labels.home}</a>
     <div class="nav-dropdown">
-      <a class="nav-dropdown-trigger" href="/expertises" aria-haspopup="true">
-        Expertise
+      <a class="nav-dropdown-trigger" href={expertiseHref()} aria-haspopup="true">
+        {isEnglish ? 'Our expertise' : 'Nos expertises'}
         <i class="ph ph-caret-down" aria-hidden="true"></i>
       </a>
       <div class="expertise-submenu" aria-label="Mega menu expertises">
         <div class="expertise-menu-intro">
-          <span>Expertises</span>
-          <strong>Un système complet pour créer, amplifier et convertir.</strong>
-          <a href="/expertises">
-            Voir toutes les expertises
+          <span>{isEnglish ? 'Our expertise' : 'Nos expertises'}</span>
+          <strong>{labels.expertiseIntro}</strong>
+          <a href={expertiseHref()}>
+            {labels.allExpertise}
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
         </div>
@@ -71,19 +213,35 @@ const expertiseColumns = [
         </div>
       </div>
     </div>
-    {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    {navItems.slice(0, 2).map((item) => <a href={item.href}>{item.label}</a>)}
+    <div class="nav-dropdown product-dropdown">
+      <button class="nav-dropdown-trigger" type="button" aria-haspopup="true">
+        {labels.products}
+        <i class="ph ph-caret-down" aria-hidden="true"></i>
+      </button>
+      <div class="products-submenu" aria-label={labels.productMenu}>
+        {productLinks.map((item) => (
+          <a href={item.href} target="_blank" rel="noopener">
+            <span>{item.label}</span>
+            <small>{item.text}</small>
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        ))}
+      </div>
+    </div>
+    {navItems.slice(2).map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
 
   <div class="header-actions">
-    <a class="lang-switch" href="/en" aria-label="English version">
+    <a class="lang-switch" href={languageHref} aria-label={labels.langLabel}>
       <span class="flag flag-fr" aria-hidden="true"></span>
       <span class="flag-separator" aria-hidden="true"></span>
       <span class="flag flag-en" aria-hidden="true"></span>
-      <span class="sr-only">English version</span>
+      <span class="sr-only">{labels.langLabel}</span>
     </a>
-    <a href="/reserver-un-audit" class="header-cta">
-      Book a call
-      <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+    <a href={ctaHref} class="header-cta" data-mobile-label={labels.ctaMobile}>
+      {labels.cta}
+      <i class={isEnglish ? 'ph ph-arrow-up-right' : 'ph ph-phone'} aria-hidden="true"></i>
     </a>
   </div>
 </header>

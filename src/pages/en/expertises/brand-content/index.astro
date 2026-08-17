@@ -1,0 +1,1518 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { SITE } from '../../../../consts';
+import { breadcrumbs, faqSchema, serviceSchema } from '../../../../lib/schema';
+
+const assetBase = '/assets/richmedia-brand-content';
+const homeBase = '/assets/richmedia-home';
+const realizationBase = '/assets/richmedia-realizations';
+const logoBase = '/assets/richmedia-digital-strategy/logos';
+const pageUrl = `${SITE.url}/en/expertises/brand-content`;
+
+const seoTitle = 'Brand content Morocco - storytelling, video, UGC & GEO | Richmedia';
+const seoDescription =
+  'Brand content agency in Casablanca: storytelling, social-first content, short-form video, UGC, SEO/GEO and multi-channel production to create preference, proof and conversion.';
+
+const trendPillars = [
+  {
+    label: '01',
+    title: 'AI-citable content',
+    text: 'Structured pages, scripts and FAQs designed to be understood by Google, AI engines and conversational assistants.',
+  },
+  {
+    label: '02',
+    title: 'Social-first video',
+    text: 'Ideas designed first for short formats: reels, stories, hooks, carousels, live moments and paid cutdowns.',
+  },
+  {
+    label: '03',
+    title: 'Creator proof',
+    text: 'UGC, creators, testimonials, behind-the-scenes content and case stories that make the brand more human and credible.',
+  },
+  {
+    label: '04',
+    title: 'Editorial series',
+    text: 'Reusable content appointments that give the brand rhythm and turn a campaign into a long-term asset.',
+  },
+  {
+    label: '05',
+    title: 'Useful distribution',
+    text: 'Every piece of content is designed to live across several channels: social, SEO, paid media, email, landing pages and sales decks.',
+  },
+  {
+    label: '06',
+    title: 'Creative measurement',
+    text: 'Hooks, formats, messages and visuals are optimized with field signals: qualified views, saves, leads and sales.',
+  },
+];
+
+const contentSystem = [
+  {
+    kicker: 'Clarify',
+    title: 'Brand POV',
+    text: 'Define the brand point of view, audiences, cultural tensions and angles worth telling.',
+    items: ['Insight', 'Tone', 'Promise', 'Angles'],
+  },
+  {
+    kicker: 'Create',
+    title: 'Agile production',
+    text: 'Turn ideas into ready-to-publish assets: key visuals, stories, reels, shoots, UGC, carousels and scripts.',
+    items: ['Short video', 'Photo', 'UGC', 'Motion'],
+  },
+  {
+    kicker: 'Amplify',
+    title: 'Editorial engine',
+    text: 'Organize distribution by moments, channels, goals and reuse cases to extend the lifespan of content.',
+    items: ['Social', 'SEO/GEO', 'Paid', 'Email'],
+  },
+  {
+    kicker: 'Learn',
+    title: 'Creative loop',
+    text: 'Read signals, identify winning formats and adapt faster what generates attention and conversion.',
+    items: ['Hooks', 'Saves', 'Watch time', 'Leads'],
+  },
+];
+
+const formats = [
+  'Editorial platform',
+  'Content pillars',
+  'Brand storytelling',
+  'Reels scripts',
+  'Stories & carousels',
+  'Photo shoot',
+  'UGC briefs',
+  'Landing content',
+  'FAQ GEO',
+  'Social calendar',
+  'Tone guidelines',
+  'Content reporting',
+];
+
+const creativeReel = [
+  { label: 'UIR - Enrollment opening', image: `${homeBase}/campaign-wide-uir.webp`, shape: 'wide' },
+  { label: 'Amana - Tramway Casablanca', image: `${homeBase}/campaign-wide-amana-tram.webp`, shape: 'wide' },
+  { label: 'Don Simon - Natural flavors', image: `${homeBase}/campaign-wide-donsimon.webp`, shape: 'wide' },
+  { label: 'Amana - Proximity campaign', image: `${homeBase}/campaign-wide-amana-social.webp`, shape: 'wide' },
+  { label: 'ADA - Local products', image: `${homeBase}/campaign-wide-ada.webp`, shape: 'wide' },
+  { label: 'Ryad Al Andalous - Living environment', image: `${realizationBase}/ryad-al-andalous-square.jpg`, shape: 'square' },
+  { label: 'Tramway - Summer campaign', image: `${realizationBase}/tramway-summer-square.jpg`, shape: 'portrait' },
+  { label: 'Moul Pounj - World Cup', image: `${realizationBase}/moul-pounj-world-cup.jpg`, shape: 'wide' },
+  { label: 'TBS Casablanca - Masters of Science', image: `${realizationBase}/tbs-casablanca.jpg`, shape: 'photo' },
+  { label: 'CMR - Digital retirement', image: `${realizationBase}/cmr-retirement.jpg`, shape: 'wide' },
+  { label: 'Moul Pounj - Carousel social', image: `${realizationBase}/moul-pounj-carousel.jpg`, shape: 'wide' },
+  { label: 'Ryad Al Andalous - Panoramic format', image: `${realizationBase}/ryad-al-andalous-wide.jpg`, shape: 'wide' },
+  { label: 'Rabat Riviera - Golf living', image: `${realizationBase}/rabat-riviera-wide.jpg`, shape: 'wide' },
+  { label: 'Beed - Luxury comfort', image: `${realizationBase}/beed-wide.jpg`, shape: 'wide' },
+  { label: 'Tramway - Mobile app', image: `${realizationBase}/tramway-mobile-app.jpg`, shape: 'wide' },
+  { label: 'Amana - Clean format', image: `${homeBase}/campaign-amana-clean.webp`, shape: 'wide' },
+  { label: 'Don Simon - Clean format', image: `${homeBase}/campaign-donsimon-clean.webp`, shape: 'wide' },
+  { label: 'Moul Pounj - Clean format', image: `${homeBase}/campaign-moul-pounj-clean.webp`, shape: 'wide' },
+];
+
+const storyCampaigns = [
+  { label: 'SONARGES - Sport & Lifestyle Summer Vibes', image: `${assetBase}/stories/sonarges-sport-lifestyle.jpg` },
+  { label: 'LC Waikiki - Spring Fashion & Trends', image: `${assetBase}/stories/lc-waikiki-mode-tendance.jpg` },
+  { label: 'Bioderma - Photoderm SPF 50+', image: `${assetBase}/stories/bioderma-photoderm-spf.jpg` },
+  { label: 'Mustela - No Knots Happy Hair', image: `${assetBase}/stories/mustela-happy-hair.jpg` },
+  { label: 'Uriage - Uriage Day Experience', image: `${assetBase}/stories/uriage-day-experience.jpg` },
+  { label: 'Filorga - Launch Night', image: `${assetBase}/stories/filorga-launch-night.jpg` },
+];
+
+const creativeReelLeft = creativeReel.slice(0, 9);
+const creativeReelRight = creativeReel.slice(9);
+
+const partnerGroups = [
+  {
+    title: 'Social publishing & community',
+    partners: [
+      { name: 'Later', logo: `${logoBase}/later.png` },
+      { name: 'Hootsuite', logo: `${logoBase}/hootsuite.svg` },
+      { name: 'Buffer', logo: `${logoBase}/buffer.svg` },
+      { name: 'Sprout Social', logo: `${logoBase}/sprout-social.png` },
+      { name: 'SocialBee', logo: `${logoBase}/socialbee.png` },
+      { name: 'Zoho Social', logo: `${logoBase}/zoho.svg` },
+    ],
+  },
+];
+
+const roadmap = [
+  {
+    number: '01',
+    title: 'Find the angle',
+    text: 'What the brand can legitimately say, what the audience expects and what the category is not telling yet.',
+  },
+  {
+    number: '02',
+    title: 'Build the series',
+    text: 'A territory, content pillars, formats and cadence that make the brand recognizable.',
+  },
+  {
+    number: '03',
+    title: 'Produce the assets',
+    text: 'Shoots, scripts, stories, reels, carousels, paid adaptations and SEO/GEO content.',
+  },
+  {
+    number: '04',
+    title: 'Measure and repurpose',
+    text: 'Signal analysis, selection of the best-performing content and new variations to extend performance.',
+  },
+];
+
+const faq = [
+  {
+    question: 'What is brand content?',
+    answer:
+      'Brand content refers to content created by a brand to inform, inspire, entertain or reassure an audience, without being limited to direct advertising logic.',
+  },
+  {
+    question: 'Why is brand content important for GEO?',
+    answer:
+      'AI engines favor content that is clear, useful, structured and consistent with identifiable expertise. Strong brand content helps a brand be understood, cited and recommended.',
+  },
+  {
+    question: 'Which formats should brands prioritize in 2026?',
+    answer:
+      'Short videos, stories, UGC, carousels, FAQ pages, expert content, case studies and reusable formats are the most relevant to connect attention, proof and conversion.',
+  },
+  {
+    question: 'How do you measure a brand content strategy?',
+    answer:
+      'We measure visibility, retention, saves, shares, conversations, assisted leads, conversions and reuse of content by marketing and sales teams.',
+  },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Brand content',
+    description: seoDescription,
+    url: pageUrl,
+  }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Expertise', url: `${SITE.url}/en/expertises` },
+    { name: 'Brand content', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${assetBase}/brand-content-hero.png`}
+  lang="en"
+  schema={schema}
+>
+  <div class="brand-content-page">
+    <section class="brand-hero" aria-labelledby="brand-content-title">
+      <div class="hero-copy">
+        <span class="eyebrow">Richmedia expertise</span>
+        <h1 id="brand-content-title">Social-first, citable brand content.</h1>
+        <p>
+          Richmedia turns brand ideas into useful, memorable and reusable content:
+          storytelling, short-form video, UGC, SEO/GEO and campaigns ready to publish.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/en/contact">
+            Build your content
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/en/case-studies">
+            View campaigns
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual" data-brand-visual aria-label="Richmedia brand content workshop">
+        <img src={`${assetBase}/brand-content-hero.png`} alt="Creative team preparing social-first content" />
+        <div class="signal-card signal-card-top">
+          <span>Storytelling</span>
+          <strong>Clear angle</strong>
+        </div>
+        <div class="signal-card signal-card-middle">
+          <span>Short video</span>
+          <strong>Social-first</strong>
+        </div>
+        <div class="signal-card signal-card-bottom">
+          <span>SEO + GEO</span>
+          <strong>Citable content</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="answer-panel" aria-labelledby="answer-title">
+      <div>
+        <span class="eyebrow">Quick answer</span>
+        <h2 id="answer-title">Content becomes a growth asset.</h2>
+      </div>
+      <p>
+        In 2026, high-performing brand content clarifies an idea, translates into short formats,
+        gets repurposed across channels and stays structured enough to be cited by AI engines.
+      </p>
+    </section>
+
+    <section class="trend-section" aria-labelledby="trend-title">
+      <div class="section-heading">
+        <span class="eyebrow">Brand content trends 2026</span>
+        <h2 id="trend-title">The levers that create attention, trust and citations.</h2>
+      </div>
+      <div class="trend-grid">
+        {trendPillars.map((pillar) => (
+          <article class="trend-card">
+            <span>{pillar.label}</span>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="story-campaigns" aria-label="Brand content campaigns in story format">
+      <div class="story-track">
+        {storyCampaigns.map((campaign) => (
+          <figure class="story-card">
+            <img src={campaign.image} alt={campaign.label} loading="lazy" decoding="async" />
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="system-title">
+      <div class="crea-reel" aria-label="Richmedia creative work">
+        <div class="crea-lane">
+          <div class="crea-stack">
+            {creativeReelLeft.map((item) => (
+              <figure class:list={['crea-frame', `crea-frame-${item.shape}`]}>
+                <img src={item.image} alt={item.label} loading="lazy" decoding="async" />
+              </figure>
+            ))}
+          </div>
+          <div class="crea-stack" aria-hidden="true">
+            {creativeReelLeft.map((item) => (
+              <figure class:list={['crea-frame', `crea-frame-${item.shape}`]}>
+                <img src={item.image} alt="" loading="lazy" decoding="async" />
+              </figure>
+            ))}
+          </div>
+        </div>
+        <div class="crea-lane crea-lane-right">
+          <div class="crea-stack">
+            {creativeReelRight.map((item) => (
+              <figure class:list={['crea-frame', `crea-frame-${item.shape}`]}>
+                <img src={item.image} alt={item.label} loading="lazy" decoding="async" />
+              </figure>
+            ))}
+          </div>
+          <div class="crea-stack" aria-hidden="true">
+            {creativeReelRight.map((item) => (
+              <figure class:list={['crea-frame', `crea-frame-${item.shape}`]}>
+                <img src={item.image} alt="" loading="lazy" decoding="async" />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div class="system-copy">
+        <span class="eyebrow">The Richmedia system</span>
+        <h2 id="system-title">From brand angle to formats that travel.</h2>
+        <p>
+          We organize brand content as a loop: clarify, create, amplify, learn.
+          Every asset must serve the brand, conversion and collective memory.
+        </p>
+        <div class="system-modules">
+          {contentSystem.map((module) => (
+            <article>
+              <span>{module.kicker}</span>
+              <h3>{module.title}</h3>
+              <p>{module.text}</p>
+              <div>
+                {module.items.map((item) => <small>{item}</small>)}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="formats-section" aria-labelledby="formats-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">Formats & deliverables</span>
+        <h2 id="formats-title">What your content must produce.</h2>
+      </div>
+      <div class="formats-grid">
+        {formats.map((item) => <span>{item}</span>)}
+      </div>
+    </section>
+
+    <section class="partner-stack" aria-labelledby="partners-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">Content stack</span>
+        <h2 id="partners-title">Tools to find signals, publish and measure.</h2>
+      </div>
+      {partnerGroups.map((group) => (
+        <div class="partner-row">
+          <h3>{group.title}</h3>
+          <div class="partner-grid">
+            {group.partners.map((partner) => (
+              <figure class="partner-card">
+                <img src={partner.logo} alt={`Logo ${partner.name}`} loading="lazy" decoding="async" />
+                <figcaption>{partner.name}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <section class="roadmap-section" aria-labelledby="roadmap-title">
+      <div class="section-heading">
+        <span class="eyebrow">Method</span>
+        <h2 id="roadmap-title">An editorial engine that is simple to steer.</h2>
+      </div>
+      <div class="roadmap-grid">
+        {roadmap.map((step) => (
+          <article>
+            <span>{step.number}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">FAQ SEO/GEO</span>
+        <h2 id="faq-title">Frequently asked questions.</h2>
+      </div>
+      <div class="faq-list">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="brand-cta" aria-labelledby="cta-title">
+      <div>
+        <span class="eyebrow">Ready to produce?</span>
+        <h2 id="cta-title">Let's create content your audiences remember.</h2>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/en/contact">
+            Start a project
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="mailto:contact@richmedia.ma">contact@richmedia.ma</a>
+        </div>
+      </div>
+      <div class="particle-field" aria-hidden="true">
+        <canvas data-brand-particles></canvas>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  type BrandParticle = {
+    seed: number;
+    band: number;
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    size: number;
+    alpha: number;
+  };
+
+  type BrandPoint = {
+    x: number;
+    y: number;
+  };
+
+  const visuals = document.querySelectorAll('[data-brand-visual]');
+
+  visuals.forEach((visual) => {
+    if (!(visual instanceof HTMLElement) || visual.dataset.ready === 'true') return;
+    visual.dataset.ready = 'true';
+
+    const move = (event: PointerEvent) => {
+      const bounds = visual.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width;
+      const y = (event.clientY - bounds.top) / bounds.height;
+      visual.style.setProperty('--mx', `${x * 100}%`);
+      visual.style.setProperty('--my', `${y * 100}%`);
+      visual.style.setProperty('--rx', `${(0.5 - y) * 5}deg`);
+      visual.style.setProperty('--ry', `${(x - 0.5) * 6}deg`);
+    };
+
+    const leave = () => {
+      visual.style.setProperty('--mx', '62%');
+      visual.style.setProperty('--my', '44%');
+      visual.style.setProperty('--rx', '0deg');
+      visual.style.setProperty('--ry', '0deg');
+    };
+
+    visual.addEventListener('pointermove', move);
+    visual.addEventListener('pointerleave', leave);
+    leave();
+  });
+
+  const particleCanvases = document.querySelectorAll('[data-brand-particles]');
+
+  particleCanvases.forEach((canvas) => {
+    if (!(canvas instanceof HTMLCanvasElement) || canvas.dataset.ready === 'true') return;
+    canvas.dataset.ready = 'true';
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const particles: BrandParticle[] = [];
+    let width = 1;
+    let height = 1;
+    let ratio = 1;
+    let pointerX = 0;
+    let pointerY = 0;
+    let active = false;
+
+    const targetPoint = (particle: BrandParticle): BrandPoint => {
+      const angle = particle.seed * Math.PI * 2;
+      const wave = Math.sin(particle.seed * 12 + performance.now() * 0.001) * 0.035;
+      return {
+        x: width * (0.5 + Math.cos(angle) * (0.18 + particle.band * 0.27)),
+        y: height * (0.52 + Math.sin(angle * 2.1) * (0.18 + wave)),
+      };
+    };
+
+    const reset = () => {
+      const bounds = canvas.getBoundingClientRect();
+      ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = Math.max(1, bounds.width);
+      height = Math.max(1, bounds.height);
+      canvas.width = Math.floor(width * ratio);
+      canvas.height = Math.floor(height * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      particles.length = 0;
+      const count = Math.max(240, Math.min(720, Math.floor((width * height) / 760)));
+      for (let i = 0; i < count; i += 1) {
+        const particle: BrandParticle = {
+          seed: i / count + Math.random() * 0.04,
+          band: Math.random(),
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: 0,
+          vy: 0,
+          size: Math.random() > 0.72 ? 2 : 1.3,
+          alpha: 0.42 + Math.random() * 0.46,
+        };
+        particles.push(particle);
+      }
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (const particle of particles) {
+        const target = targetPoint(particle);
+        particle.vx = (particle.vx + (target.x - particle.x) * 0.035) * 0.76;
+        particle.vy = (particle.vy + (target.y - particle.y) * 0.035) * 0.76;
+
+        if (active) {
+          const dx = particle.x - pointerX;
+          const dy = particle.y - pointerY;
+          const dist = Math.hypot(dx, dy) || 1;
+          if (dist < 120) {
+            const force = (1 - dist / 120) * 1.4;
+            particle.vx += (dx / dist) * force;
+            particle.vy += (dy / dist) * force;
+          }
+        }
+
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        ctx.fillStyle = `rgba(150, 91, 255, ${particle.alpha})`;
+        ctx.fillRect(particle.x, particle.y, particle.size, particle.size);
+      }
+
+      requestAnimationFrame(draw);
+    };
+
+    canvas.addEventListener('pointermove', (event: PointerEvent) => {
+      const bounds = canvas.getBoundingClientRect();
+      pointerX = event.clientX - bounds.left;
+      pointerY = event.clientY - bounds.top;
+      active = true;
+    });
+    canvas.addEventListener('pointerleave', () => {
+      active = false;
+    });
+
+    reset();
+    new ResizeObserver(reset).observe(canvas);
+    requestAnimationFrame(draw);
+  });
+</script>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .brand-content-page {
+    --container: min(100% - 3rem, 1360px);
+    --purple: #7c3cff;
+    --purple-light: #a977ff;
+    --line: rgba(255, 255, 255, 0.13);
+    overflow: hidden;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 82% 8%, rgba(124, 60, 255, 0.2), transparent 28rem),
+      radial-gradient(circle at 8% 30%, rgba(124, 60, 255, 0.14), transparent 25rem),
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      #030407;
+    background-size: auto, auto, 88px 88px, 88px 88px, auto;
+  }
+
+  .brand-hero,
+  .answer-panel,
+  .trend-section,
+  .story-campaigns,
+  .system-section,
+  .formats-section,
+  .partner-stack,
+  .roadmap-section,
+  .faq-section,
+  .brand-cta {
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .brand-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(440px, 1.1fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    padding: clamp(8rem, 12vw, 10.5rem) 0 clamp(3rem, 7vw, 5rem);
+  }
+
+  .hero-copy {
+    width: min(100%, 760px);
+    min-width: 0;
+    justify-self: center;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--purple-light);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    width: 2.6rem;
+    height: 2px;
+    content: "";
+    background: currentColor;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .brand-hero h1 {
+    max-width: 760px;
+    margin-top: 1.2rem;
+    --h1-size: clamp(2.8rem, 6.6vw, 5.4rem);
+    line-height: 0.98;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+  .brand-hero p,
+  .answer-panel p,
+  .system-copy > p,
+  .roadmap-grid p,
+  .faq-list p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(1rem, 1.15vw, 1.12rem);
+    line-height: 1.65;
+  }
+
+  .brand-hero p {
+    max-width: 660px;
+    margin-top: 1.3rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.8rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3rem;
+    border-radius: 8px;
+    padding: 0.85rem 1.2rem;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #9655ff, #6425f4);
+    box-shadow: 0 1.1rem 2.8rem rgba(124, 60, 255, 0.32);
+  }
+
+  .button-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .hero-visual {
+    position: relative;
+    isolation: isolate;
+    min-height: clamp(340px, 32vw, 500px);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    background: #07080d;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.42);
+    transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transform-style: preserve-3d;
+    transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+  }
+
+  .hero-visual::before {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    content: "";
+    pointer-events: none;
+    background:
+      radial-gradient(circle at var(--mx, 62%) var(--my, 44%), rgba(150, 91, 255, 0.38), transparent 17rem),
+      repeating-linear-gradient(0deg, transparent 0 24px, rgba(190, 156, 255, 0.1) 25px 26px),
+      repeating-linear-gradient(90deg, transparent 0 24px, rgba(190, 156, 255, 0.1) 25px 26px);
+    opacity: 0;
+    mix-blend-mode: screen;
+    transition: opacity 240ms ease;
+  }
+
+  .hero-visual::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(3, 4, 7, 0.18), transparent 42%),
+      linear-gradient(180deg, transparent 54%, rgba(3, 4, 7, 0.72));
+  }
+
+  .hero-visual:hover,
+  .hero-visual:focus-within {
+    border-color: rgba(150, 91, 255, 0.48);
+    box-shadow:
+      0 2.2rem 5.5rem rgba(0, 0, 0, 0.46),
+      0 0 3.2rem rgba(124, 60, 255, 0.18);
+  }
+
+  .hero-visual:hover::before,
+  .hero-visual:focus-within::before {
+    opacity: 1;
+  }
+
+  .hero-visual img {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 520ms ease, filter 520ms ease;
+  }
+
+  .hero-visual:hover img,
+  .hero-visual:focus-within img {
+    filter: saturate(1.08) contrast(1.04);
+    transform: scale(1.045);
+  }
+
+  .signal-card {
+    position: absolute;
+    z-index: 3;
+    display: grid;
+    gap: 0.25rem;
+    min-width: 10.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(5, 7, 15, 0.72);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(14px);
+    transform: translateZ(42px);
+    transition: transform 260ms ease, border-color 260ms ease, background 260ms ease;
+  }
+
+  .signal-card span {
+    color: var(--purple-light);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .signal-card strong {
+    font-size: 1rem;
+  }
+
+  .signal-card-top {
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .signal-card-middle {
+    top: 44%;
+    left: 1.25rem;
+  }
+
+  .signal-card-bottom {
+    right: 1.25rem;
+    bottom: 1.25rem;
+  }
+
+  .hero-visual:hover .signal-card-top {
+    transform: translate3d(-0.55rem, 0.5rem, 76px);
+  }
+
+  .hero-visual:hover .signal-card-middle {
+    transform: translate3d(0.7rem, -0.45rem, 82px);
+  }
+
+  .hero-visual:hover .signal-card-bottom {
+    transform: translate3d(-0.7rem, -0.55rem, 78px);
+  }
+
+  .answer-panel,
+  .trend-card,
+  .system-copy,
+  .partner-row,
+  .partner-card,
+  .roadmap-grid article,
+  .faq-list details,
+  .brand-cta {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+  }
+
+  .answer-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: 1.2rem;
+    align-items: end;
+    padding: clamp(1.3rem, 3vw, 2.3rem);
+    background:
+      radial-gradient(circle at 0 20%, rgba(124, 60, 255, 0.25), transparent 18rem),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+  }
+
+  .answer-panel h2,
+  .section-heading h2,
+  .system-copy h2,
+  .brand-cta h2 {
+    --h2-size: clamp(2rem, 3.35vw, 3.15rem);
+    font-size: var(--h2-size);
+    line-height: 1.03;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+  .answer-panel h2,
+  .section-heading h2 {
+    margin-top: 0.95rem;
+  }
+
+  .trend-section,
+  .formats-section,
+  .partner-stack,
+  .roadmap-section,
+  .faq-section {
+    padding: clamp(3rem, 7vw, 5.4rem) 0 0;
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: end;
+    gap: 2rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .section-heading.compact {
+    display: block;
+    max-width: 760px;
+  }
+
+  .trend-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .story-campaigns {
+    min-width: 0;
+    overflow: hidden;
+    padding-top: clamp(2.4rem, 5vw, 4rem);
+  }
+
+  .story-track {
+    display: flex;
+    max-width: 100%;
+    gap: clamp(0.7rem, 1vw, 0.95rem);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.25rem 0 0.55rem;
+    scroll-padding-inline: 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .story-track::-webkit-scrollbar {
+    height: 0.45rem;
+  }
+
+  .story-track::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 999px;
+  }
+
+  .story-track::-webkit-scrollbar-thumb {
+    background: rgba(124, 60, 255, 0.66);
+    border-radius: 999px;
+  }
+
+  .story-card {
+    flex: 0 0 clamp(210px, 15vw, 280px);
+    margin: 0;
+    border-radius: 16px;
+    scroll-snap-align: start;
+    transition: transform 220ms ease, filter 220ms ease;
+  }
+
+  .story-card:hover {
+    filter: saturate(1.04) contrast(1.02);
+    transform: translateY(-6px);
+  }
+
+  .story-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 465 / 965;
+    object-fit: contain;
+    border-radius: inherit;
+    box-shadow: 0 1rem 2.6rem rgba(0, 0, 0, 0.36);
+  }
+
+  .trend-card,
+  .roadmap-grid article {
+    position: relative;
+    overflow: hidden;
+    min-height: 14.5rem;
+    padding: 1.2rem;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  }
+
+  .trend-card::before,
+  .roadmap-grid article::before,
+  .system-modules article::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 0 30%, rgba(169, 119, 255, 0.22) 48%, transparent 66% 100%);
+    opacity: 0;
+    transform: translateX(-120%);
+    transition: transform 620ms ease, opacity 220ms ease;
+  }
+
+  .trend-card:hover,
+  .roadmap-grid article:hover,
+  .system-modules article:hover {
+    border-color: rgba(169, 119, 255, 0.55);
+    background:
+      radial-gradient(circle at 12% 0, rgba(124, 60, 255, 0.18), transparent 14rem),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.022));
+    box-shadow:
+      0 1rem 2.4rem rgba(0, 0, 0, 0.26),
+      0 0 2.1rem rgba(124, 60, 255, 0.11);
+    transform: translateY(-4px);
+  }
+
+  .trend-card:hover::before,
+  .roadmap-grid article:hover::before,
+  .system-modules article:hover::before {
+    opacity: 1;
+    transform: translateX(120%);
+  }
+
+  .trend-card > *,
+  .roadmap-grid article > *,
+  .system-modules article > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .trend-card > span,
+  .roadmap-grid article > span {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .trend-card h3,
+  .roadmap-grid h3,
+  .system-modules h3 {
+    margin-top: 1.15rem;
+    font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+    line-height: 1.08;
+  }
+
+  .trend-card p,
+  .system-modules p {
+    margin-top: 0.8rem;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .system-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(1.2rem, 3vw, 2.6rem);
+    padding-top: clamp(2.2rem, 5vw, 4rem);
+  }
+
+  .crea-reel {
+    --crea-gap: clamp(0.75rem, 1.1vw, 1rem);
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--crea-gap);
+    height: clamp(540px, 52vw, 760px);
+    min-height: 540px;
+    overflow: hidden;
+    padding: var(--crea-gap);
+  }
+
+  .crea-lane {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .crea-stack {
+    display: grid;
+    gap: var(--crea-gap);
+    padding-bottom: var(--crea-gap);
+    animation: crea-roll 28s linear infinite;
+    will-change: transform;
+  }
+
+  .crea-lane-right .crea-stack {
+    animation-duration: 39s;
+    animation-direction: reverse;
+    animation-delay: -12s;
+  }
+
+  .crea-reel:hover .crea-stack {
+    animation-play-state: paused;
+  }
+
+  .crea-frame {
+    aspect-ratio: 16 / 9;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 9px;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .crea-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.02) contrast(1.03);
+  }
+
+  .crea-frame-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .crea-frame-portrait {
+    aspect-ratio: 4 / 5;
+  }
+
+  .crea-frame-photo {
+    aspect-ratio: 3 / 2;
+  }
+
+  @keyframes crea-roll {
+    to {
+      transform: translateY(calc(-100% - var(--crea-gap)));
+    }
+  }
+
+  .system-copy {
+    padding: clamp(1.1rem, 2.4vw, 2rem);
+    background:
+      radial-gradient(circle at 0 0, rgba(124, 60, 255, 0.18), transparent 21rem),
+      rgba(255, 255, 255, 0.025);
+  }
+
+  .system-copy h2 {
+    margin-top: 0.75rem;
+  }
+
+  .system-copy > p {
+    max-width: 760px;
+    margin-top: 0.85rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .system-modules {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .system-modules article {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 0.85rem;
+    background: rgba(255, 255, 255, 0.025);
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  }
+
+  .system-modules article::after {
+    position: absolute;
+    right: -18%;
+    bottom: -36%;
+    z-index: 0;
+    width: 58%;
+    aspect-ratio: 1;
+    content: "";
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(124, 60, 255, 0.42), transparent 68%);
+    opacity: 0;
+    transform: scale(0.7) translate3d(1rem, 1rem, 0);
+    transition: opacity 260ms ease, transform 320ms ease;
+  }
+
+  .system-modules article:hover {
+    transform: translateY(-7px) scale(1.012);
+  }
+
+  .system-modules article:hover::after {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+
+  .system-modules article h3,
+  .system-modules article > span,
+  .system-modules article small {
+    transition: color 220ms ease, transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  }
+
+  .system-modules article:hover h3 {
+    transform: translateX(0.35rem);
+  }
+
+  .system-modules article:hover > span {
+    color: #fff;
+    transform: translateX(0.25rem);
+  }
+
+  .system-modules article > span {
+    color: var(--purple-light);
+    font-size: 0.66rem;
+    font-weight: 850;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .system-modules h3 {
+    margin-top: 0.68rem;
+  }
+
+  .system-modules div,
+  .formats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .system-modules div {
+    margin-top: 0.65rem;
+  }
+
+  .system-modules small,
+  .formats-grid span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    padding: 0.32rem 0.5rem;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.7rem;
+    font-weight: 750;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+  }
+
+  .system-modules small:hover,
+  .formats-grid span:hover {
+    border-color: rgba(169, 119, 255, 0.52);
+    background: rgba(124, 60, 255, 0.12);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  .formats-grid {
+    margin-top: 1.35rem;
+  }
+
+  .formats-grid span {
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .partner-stack {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .partner-row {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .partner-row h3 {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  .partner-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+    gap: 0.55rem;
+    min-width: 0;
+  }
+
+  .partner-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 6.15rem;
+    margin: 0;
+    padding: 0.85rem;
+    background: rgba(0, 0, 0, 0.33);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  }
+
+  .partner-card:hover {
+    border-color: rgba(124, 60, 255, 0.62);
+    background: rgba(124, 60, 255, 0.08);
+    box-shadow: 0 1.1rem 2.8rem rgba(0, 0, 0, 0.28), 0 0 2.2rem rgba(124, 60, 255, 0.2);
+    transform: translateY(-5px);
+  }
+
+  .partner-card img {
+    width: auto;
+    max-width: 100%;
+    height: clamp(2.15rem, 2.8vw, 3rem);
+    border-radius: 8px;
+    padding: 0.45rem 0.65rem;
+    background: rgba(255, 255, 255, 0.96);
+    object-fit: contain;
+    box-shadow: 0 0.7rem 1.8rem rgba(0, 0, 0, 0.22);
+    transition: transform 220ms ease, filter 220ms ease, box-shadow 220ms ease;
+  }
+
+  .partner-card:hover img {
+    filter: saturate(1.12) contrast(1.05);
+    transform: translateY(-3px) scale(1.08);
+  }
+
+  .partner-card figcaption {
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.72rem;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .roadmap-grid p {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .faq-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.35rem;
+  }
+
+  .faq-list details {
+    padding: 1.1rem 1.2rem;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .faq-list p {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .brand-cta {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.68fr);
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 3.2rem);
+    overflow: hidden;
+    margin-top: clamp(3.2rem, 7vw, 6rem);
+    margin-bottom: clamp(3rem, 7vw, 5rem);
+    padding: clamp(1.6rem, 4vw, 3.2rem);
+    background:
+      radial-gradient(circle at 0 100%, rgba(124, 60, 255, 0.26), transparent 24rem),
+      linear-gradient(135deg, rgba(124, 60, 255, 0.12), rgba(255, 255, 255, 0.025));
+  }
+
+  .brand-cta h2 {
+    max-width: 720px;
+    margin-top: 0.95rem;
+  }
+
+  .particle-field {
+    position: relative;
+    min-height: clamp(190px, 20vw, 280px);
+  }
+
+  .particle-field canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .crea-stack {
+      animation: none;
+    }
+
+    .hero-visual,
+    .hero-visual::before,
+    .hero-visual img,
+    .signal-card,
+    .trend-card,
+    .trend-card::before,
+    .roadmap-grid article,
+    .roadmap-grid article::before,
+    .system-modules article,
+    .system-modules article::before,
+    .partner-card,
+    .partner-card img,
+    .crea-stack,
+    .crea-lane,
+    .crea-frame,
+    .crea-frame img,
+    .system-modules small,
+    .formats-grid span {
+      transition: none;
+    }
+
+    .hero-visual,
+    .hero-visual:hover,
+    .hero-visual:hover img,
+    .trend-card:hover,
+    .roadmap-grid article:hover,
+    .system-modules article:hover,
+    .partner-card:hover,
+    .partner-card:hover img,
+    .crea-stack,
+    .crea-lane,
+    .crea-frame,
+    .crea-frame img,
+    .system-modules small:hover,
+    .formats-grid span:hover {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 1180px) {
+    .brand-hero,
+    .system-section,
+    .brand-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-visual {
+      min-height: 430px;
+    }
+
+    .trend-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .partner-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .brand-content-page {
+      --container: min(100% - 1.25rem, 1360px);
+      background-size: auto, auto, 58px 58px, 58px 58px, auto;
+    }
+
+    .brand-hero {
+      padding-top: 7.2rem;
+    }
+
+    .brand-hero h1 {
+      --h1-size: clamp(2.35rem, 12vw, 4.2rem);
+    }
+
+    .hero-visual {
+      min-height: 380px;
+    }
+
+    .answer-panel,
+    .section-heading,
+    .trend-grid,
+    .system-modules,
+    .roadmap-grid,
+    .faq-list {
+      grid-template-columns: 1fr;
+    }
+
+    .story-card {
+      flex-basis: clamp(170px, 36vw, 220px);
+    }
+
+    .crea-reel {
+      --crea-gap: 0.65rem;
+      height: 460px;
+      min-height: 460px;
+      padding: 0.65rem;
+    }
+
+    .partner-grid {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(145px, 38vw);
+      overflow-x: auto;
+      padding-bottom: 0.35rem;
+      scroll-snap-type: x proximity;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero-actions {
+      display: grid;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    .signal-card {
+      min-width: 8.8rem;
+      padding: 0.75rem;
+    }
+
+    .signal-card-middle {
+      top: auto;
+      bottom: 5.8rem;
+    }
+
+    .signal-card-bottom {
+      bottom: 0.9rem;
+    }
+
+    .crea-reel {
+      height: 420px;
+      min-height: 420px;
+    }
+
+    .story-card {
+      flex-basis: min(72vw, 230px);
+    }
+
+    .trend-card,
+    .roadmap-grid article {
+      min-height: 12.5rem;
+    }
+
+    .brand-cta {
+      padding: 1.2rem;
+    }
+  }
+</style>

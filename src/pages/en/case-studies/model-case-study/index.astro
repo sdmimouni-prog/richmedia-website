@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../../../components/CaseStudyModel.astro';
+import { SITE } from '../../../../consts';
+import { breadcrumbs } from '../../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/case-studies/model-case-study`;
+const assetBase = '/assets/richmedia-home';
+const realizationBase = '/assets/richmedia-realizations';
+const brandBase = '/assets/richmedia-brand-content/creas-square';
+
+const content = {
+  backHref: '/en/case-studies',
+  backLabel: 'Case studies',
+  eyebrow: 'Case study model / Education',
+  client: 'UIR',
+  clientLong: 'International University of Rabat',
+  category: 'Education',
+  period: 'Long-term partnership',
+  scope: 'Lead acquisition, media, CRM, content',
+  title: 'UIR: turning an admissions campaign into a recruitment engine.',
+  subtitle:
+    'A shorter, more visual and more premium template: context, setup, creative proof, video and results without overwhelming the reader.',
+  heroImage: `${assetBase}/campaign-wide-uir.webp`,
+  video: {
+    poster: `${assetBase}/campaign-wide-uir.webp`,
+    title: 'Admissions case study film',
+    label: 'Video planned',
+    meta: 'Reel, testimonial or campaign walkthrough',
+  },
+  metrics: [
+    { value: '+34K', label: 'graduates recruited', note: 'admissions pipeline' },
+    { value: '+20K', label: 'students reached', note: 'qualified audiences' },
+    { value: '7', label: 'levers activated', note: 'paid, social, CRM, search' },
+  ],
+  chapters: [
+    {
+      eyebrow: 'Brief',
+      title: 'Make the choice simpler',
+      text: 'Clarify programs, decision moments and the messages that reassure future students.',
+    },
+    {
+      eyebrow: 'Move',
+      title: 'Build a system, not a poster',
+      text: 'Connect the landing page, creative assets, search, social ads, WhatsApp and tracking to capture and follow up.',
+    },
+    {
+      eyebrow: 'Proof',
+      title: 'Prove the business value',
+      text: 'Read performance through useful leads, CRM quality, acquisition cost and enrollment signals.',
+    },
+  ],
+  system: {
+    eyebrow: 'System',
+    title: 'An easy-to-scan four-step mechanism.',
+    text: 'The model avoids heavy copy. Each case study quickly explains what Richmedia thought, produced, distributed and measured.',
+    steps: [
+      { label: 'Insight', text: 'Audience, tension, timing, promise.' },
+      { label: 'Creative', text: 'Key visual, social formats, video.' },
+      { label: 'Media', text: 'Search, paid social, retargeting.' },
+      { label: 'CRM', text: 'Follow-ups, qualification, reporting.' },
+    ],
+  },
+  gallery: {
+    eyebrow: 'Visual proof',
+    title: 'A few assets are enough when they are well selected.',
+    items: [
+      { image: `${assetBase}/campaign-wide-uir.webp`, label: 'Admissions hero', format: 'Display / social', size: 'wide' },
+      { image: `${brandBase}/uir-inscriptions.webp`, label: 'Online enrollment', format: 'Creative square' },
+      { image: `${assetBase}/campaign-portfolio-uir.webp`, label: 'Social adaptations', format: 'Portfolio' },
+      { image: `${realizationBase}/whatsapp-uir.png`, label: 'WhatsApp follow-up', format: 'CRM' },
+    ],
+  },
+  quote:
+    'A strong case study does not need to show everything. It should make people want to understand the method, then start a project.',
+  ctaLabel: 'Watch the video',
+  ctaHref: '#case-video',
+  secondaryLabel: 'Back to case studies',
+  secondaryHref: '/en/case-studies',
+};
+
+const schema = [
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Case studies', url: `${SITE.url}/en/case-studies` },
+    { name: 'Case study model', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Case study model — UIR admissions | Richmedia"
+  description="A more visual, shorter and more premium Richmedia case study page model with video, KPIs, setup and creative proof."
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${content.heroImage}`}
+  lang="en"
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>
