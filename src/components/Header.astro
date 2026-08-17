@@ -76,8 +76,8 @@ const labels = isEnglish
       brandHome: 'Richmedia — Home',
       expertiseIntro: 'A complete system to create, amplify and convert.',
       allExpertise: 'View all expertise',
-      productIntro: 'Productized solutions and partner platforms for focused growth needs.',
-      productCta: 'Book a product demo',
+      productIntro: 'Partner tools ready to activate.',
+      productCta: 'Book a demo',
       productMenu: 'Our products menu',
       langLabel: 'Version française',
       caseStudies: 'Case studies',
@@ -95,7 +95,7 @@ const labels = isEnglish
       brandHome: 'Richmedia — Accueil',
       expertiseIntro: 'Un système complet pour créer, amplifier et convertir.',
       allExpertise: 'Voir toutes les expertises',
-      productIntro: 'Des solutions packagées et plateformes partenaires pour vos besoins de croissance ciblés.',
+      productIntro: 'Des outils partenaires prêts à activer.',
       productCta: 'Demander une démo',
       productMenu: 'Menu nos produits',
       langLabel: 'English version',
@@ -117,38 +117,23 @@ const navItems = [
 const productLinks = [
   {
     href: 'https://richmedia-whatsapp.vercel.app/#offers',
-    label: isEnglish ? 'WhatsApp push solution' : 'Solution de push WhatsApp',
-    text: isEnglish ? 'Campaigns, follow-ups and WhatsApp offers.' : 'Campagnes, relances et offres WhatsApp.',
+    label: isEnglish ? 'WhatsApp push' : 'Push WhatsApp',
+    text: isEnglish ? 'Campaigns and follow-ups' : 'Campagnes et relances',
   },
   {
     href: 'https://www.carterandblake.ma/expertise-political-marketing.html',
     label: isEnglish ? 'Political marketing' : 'Marketing politique',
-    text: isEnglish ? 'Carter & Blake for political campaigns.' : 'Carter & Blake pour les campagnes politiques.',
+    text: isEnglish ? 'Carter & Blake' : 'Carter & Blake',
   },
   {
     href: 'https://hypeo.ai',
     label: 'Influence',
-    text: isEnglish ? 'Hypeo.ai to manage creator campaigns.' : 'Hypeo.ai pour gérer les campagnes créateurs.',
+    text: isEnglish ? 'Creator campaigns' : 'Campagnes créateurs',
   },
   {
     href: 'https://www.in-talks.ma/',
     label: 'Social listening',
-    text: isEnglish ? 'In Talks to monitor conversations and reputation signals.' : 'In Talks pour suivre les conversations et signaux de réputation.',
-  },
-];
-
-const productColumns = [
-  {
-    title: isEnglish ? 'Conversations' : 'Converser',
-    items: [productLinks[0], productLinks[3]],
-  },
-  {
-    title: isEnglish ? 'Creators' : 'Créateurs',
-    items: [productLinks[2]],
-  },
-  {
-    title: isEnglish ? 'Campaigns' : 'Campagnes',
-    items: [productLinks[1]],
+    text: isEnglish ? 'Monitoring and reputation' : 'Veille et réputation',
   },
 ];
 
@@ -291,28 +276,23 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
         <i class="ph ph-caret-down" aria-hidden="true"></i>
       </button>
       <div class="products-submenu" aria-label={labels.productMenu}>
-        <div class="product-menu-intro">
-          <span>{labels.products}</span>
-          <strong>{labels.productIntro}</strong>
+        <div class="product-menu-head">
+          <div>
+            <span>{labels.products}</span>
+            <strong>{labels.productIntro}</strong>
+          </div>
           <a href={isEnglish ? '/en/book-audit' : '/contact'}>
             {labels.productCta}
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
         </div>
         <div class="product-menu-grid">
-          {productColumns.map((column) => (
-            <section>
-              <h2>{column.title}</h2>
-              <div>
-                {column.items.map((item) => (
-                  <a href={item.href} target="_blank" rel="noopener">
-                    <span>{item.label}</span>
-                    <small>{item.text}</small>
-                    <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
-                  </a>
-                ))}
-              </div>
-            </section>
+          {productLinks.map((item) => (
+            <a href={item.href} target="_blank" rel="noopener">
+              <span>{item.label}</span>
+              <small>{item.text}</small>
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
           ))}
         </div>
       </div>
