@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import InTalksLanding from '../../../../components/InTalksLanding.astro';
+import { SITE } from '../../../../consts';
+import { breadcrumbs, localBusiness, serviceSchema } from '../../../../lib/schema';
+
+const pageDescription =
+  'Discover In Talks, the Moroccan social listening platform to monitor mentions, analyze sentiment, track competitors and protect your online reputation.';
+
+const schema = [
+  {
+    ...localBusiness(),
+    url: `${SITE.url}/en/products/in-talks`,
+    description: pageDescription,
+    inLanguage: 'en',
+  },
+  {
+    ...serviceSchema({
+      name: 'In Talks - Social listening platform',
+      description: pageDescription,
+      url: `${SITE.url}/en/products/in-talks`,
+    }),
+    inLanguage: 'en',
+  },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Products', url: `${SITE.url}/en/products/in-talks` },
+    { name: 'In Talks', url: `${SITE.url}/en/products/in-talks` },
+  ]),
+];
+---
+
+<BaseLayout
+  title="In Talks - Social listening platform - Richmedia"
+  description={pageDescription}
+  canonical={`${SITE.url}/en/products/in-talks`}
+  lang="en"
+  schema={schema}
+>
+  <InTalksLanding lang="en" />
+</BaseLayout>

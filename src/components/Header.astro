@@ -23,6 +23,8 @@ const languageHref = isEnglish
     ? '/produits/whatsapp'
     : normalizedPath === '/en/products/hypeo'
     ? '/produits/hypeo'
+    : normalizedPath === '/en/products/in-talks'
+    ? '/produits/in-talks'
     : normalizedPath === '/en/expertises/strategie-digitale'
     ? '/expertises/strategie-digitale'
     : normalizedPath === '/en/expertises/brand-content'
@@ -72,6 +74,8 @@ const languageHref = isEnglish
     ? '/en/products/whatsapp'
     : normalizedPath === '/produits/hypeo'
     ? '/en/products/hypeo'
+    : normalizedPath === '/produits/in-talks'
+    ? '/en/products/in-talks'
     : '/en';
 
 const labels = isEnglish
@@ -142,10 +146,10 @@ const productLinks = [
     external: false,
   },
   {
-    href: 'https://www.in-talks.ma/',
+    href: isEnglish ? '/en/products/in-talks' : '/produits/in-talks',
     label: 'Social listening',
     text: isEnglish ? 'Monitoring and reputation' : 'Veille et réputation',
-    external: true,
+    external: false,
   },
 ];
 
