@@ -1,4 +1,6 @@
 ---
+import ProductLogo from './ProductLogo.astro';
+
 interface Props {
   lang?: 'fr' | 'en';
 }
@@ -283,6 +285,14 @@ const offerCards = t.offers.map((offer, index) => ({
 <div class="whatsapp-page">
   <section class="whatsapp-hero" aria-labelledby="whatsapp-title">
     <div class="whatsapp-copy">
+      <ProductLogo
+        src="/assets/product-logos/richmedia-whatsapp-logo.png"
+        alt="Richmedia WhatsApp"
+        width={240}
+        height={72}
+        logoWidth="10.8rem"
+        logoHeight="2.6rem"
+      />
       <span class="whatsapp-kicker">{t.eyebrow}</span>
       <h1 id="whatsapp-title">
         {t.title.map((line, index) => (

@@ -1,0 +1,86 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  logoWidth?: string;
+  logoHeight?: string;
+  tone?: 'default' | 'mark';
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  logoWidth = '12rem',
+  logoHeight = '3rem',
+  tone = 'default',
+} = Astro.props;
+---
+
+<div class:list={['product-logo', tone === 'mark' && 'is-mark']} style={`--logo-width: ${logoWidth}; --logo-height: ${logoHeight};`}>
+  <img src={src} alt={alt} width={width} height={height} loading="eager" decoding="async" />
+</div>
+
+<style>
+  .product-logo {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    min-height: 4rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    padding: 0.72rem 0.95rem;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(124, 60, 255, 0.16), transparent 9rem),
+      radial-gradient(circle at 100% 100%, rgba(17, 200, 120, 0.1), transparent 9rem),
+      rgba(255, 255, 255, 0.045);
+    box-shadow: 0 1rem 2.8rem rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(18px);
+  }
+
+  .product-logo::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: linear-gradient(120deg, rgba(0, 0, 0, 0.75), transparent);
+    pointer-events: none;
+  }
+
+  .product-logo img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: auto;
+    max-width: min(var(--logo-width), 68vw);
+    max-height: var(--logo-height);
+    object-fit: contain;
+  }
+
+  .product-logo.is-mark {
+    min-width: 5rem;
+    padding: 0.58rem;
+  }
+
+  @media (max-width: 720px) {
+    .product-logo {
+      min-height: 3.45rem;
+      padding: 0.62rem 0.78rem;
+    }
+
+    .product-logo img {
+      max-width: min(var(--logo-width), 62vw);
+      max-height: min(var(--logo-height), 2.65rem);
+    }
+  }
+</style>

@@ -1,4 +1,6 @@
 ---
+import ProductLogo from './ProductLogo.astro';
+
 interface Props {
   lang?: 'fr' | 'en';
 }
@@ -193,6 +195,15 @@ const t = content[lang];
 <div class="carter-page">
   <section class="carter-hero" aria-labelledby="carter-title">
     <div class="carter-copy">
+      <ProductLogo
+        src="/assets/product-logos/carter-blake-logo.png"
+        alt="Carter & Blake"
+        width={250}
+        height={322}
+        logoWidth="4.4rem"
+        logoHeight="4.4rem"
+        tone="mark"
+      />
       <span class="carter-kicker">{t.eyebrow}</span>
       <h1 id="carter-title">
         {t.title.map((line, index) => (

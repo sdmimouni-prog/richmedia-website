@@ -1,4 +1,6 @@
 ---
+import ProductLogo from './ProductLogo.astro';
+
 interface Props {
   lang?: 'fr' | 'en';
 }
@@ -217,6 +219,14 @@ const t = content[lang];
 <div class="hypeo-page">
   <section class="hypeo-hero" aria-labelledby="hypeo-title">
     <div class="hypeo-copy">
+      <ProductLogo
+        src="/assets/product-logos/hypeo-logo.png"
+        alt="Hypeo.ai"
+        width={888}
+        height={164}
+        logoWidth="12.8rem"
+        logoHeight="2.35rem"
+      />
       <span class="hypeo-kicker">{t.eyebrow}</span>
       <h1 id="hypeo-title">
         {t.title.map((line, index) => (

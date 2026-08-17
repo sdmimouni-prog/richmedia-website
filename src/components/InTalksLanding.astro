@@ -1,4 +1,6 @@
 ---
+import ProductLogo from './ProductLogo.astro';
+
 interface Props {
   lang?: 'fr' | 'en';
 }
@@ -193,6 +195,14 @@ const t = content[lang];
 <div class="intalks-page">
   <section class="intalks-hero" aria-labelledby="intalks-title">
     <div class="intalks-copy">
+      <ProductLogo
+        src="/assets/product-logos/intalks-logo.png"
+        alt="In Talks"
+        width={816}
+        height={243}
+        logoWidth="12.6rem"
+        logoHeight="2.8rem"
+      />
       <span class="intalks-kicker">{t.eyebrow}</span>
       <h1 id="intalks-title">
         {t.title.map((line, index) => (
