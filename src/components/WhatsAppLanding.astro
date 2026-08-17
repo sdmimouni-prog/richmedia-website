@@ -277,17 +277,55 @@ const t = content[lang];
   </section>
 
   <section class="visual-band" aria-labelledby="visual-title">
-    <div class="visual-card large">
-      <img src="/assets/richmedia-ia-automation/whatsapp-agent.webp" alt="" loading="lazy" decoding="async" />
-      <div>
-        <span>{t.visualLabel}</span>
-        <h2 id="visual-title">{t.visualTitle}</h2>
-        <p>{t.visualText}</p>
+    <div class="showcase-copy">
+      <span class="whatsapp-kicker">{t.visualLabel}</span>
+      <h2 id="visual-title">{t.visualTitle}</h2>
+      <p>{t.visualText}</p>
+      <div class="flow-track" aria-label={lang === 'fr' ? 'Parcours campagne' : 'Campaign journey'}>
+        {(lang === 'fr' ? ['Push', 'Clic', 'Lead'] : ['Push', 'Click', 'Lead']).map((step, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{step}</strong>
+          </article>
+        ))}
+      </div>
+      <div class="showcase-metrics">
+        {t.stats.slice(0, 3).map((stat) => (
+          <article>
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+          </article>
+        ))}
       </div>
     </div>
-    <div class="visual-card stack">
-      <img src="/assets/richmedia-realizations/whatsapp-jaguar-maroc.png" alt="" loading="lazy" decoding="async" />
-      <img src="/assets/richmedia-realizations/whatsapp-moul-pounj.png" alt="" loading="lazy" decoding="async" />
+
+    <div class="showcase-stage" aria-label={lang === 'fr' ? 'Exemples campagnes WhatsApp' : 'WhatsApp campaign examples'}>
+      <div class="stage-glow" aria-hidden="true"></div>
+      <img class="campaign-phone phone-left" src="/assets/richmedia-realizations/whatsapp-jaguar-maroc.png" alt="" loading="lazy" decoding="async" />
+      <img class="campaign-phone phone-right" src="/assets/richmedia-realizations/whatsapp-moul-pounj.png" alt="" loading="lazy" decoding="async" />
+      <article class="kpi-pill kpi-open">
+        <span>{t.stats[0].label}</span>
+        <strong>{t.stats[0].value}</strong>
+        <i class="ph ph-trend-up" aria-hidden="true"></i>
+      </article>
+      <article class="kpi-pill kpi-click">
+        <span>{t.stats[1].label}</span>
+        <strong>{t.stats[1].value}</strong>
+        <i class="ph ph-cursor-click" aria-hidden="true"></i>
+      </article>
+      <div class="message-orbit">
+        <span>{lang === 'fr' ? 'Scénario actif' : 'Active journey'}</span>
+        <article>
+          <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i>
+          <strong>{lang === 'fr' ? 'Push offre' : 'Offer push'}</strong>
+          <small>Live</small>
+        </article>
+        <article>
+          <i class="ph ph-chat-circle-dots" aria-hidden="true"></i>
+          <strong>{lang === 'fr' ? 'Réponse client' : 'Customer reply'}</strong>
+          <small>+12K</small>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -665,87 +703,288 @@ const t = content[lang];
 
   .visual-band {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
-    gap: 0.85rem;
-    padding-block: 3.8rem;
+    grid-template-columns: minmax(0, 0.82fr) minmax(520px, 1.18fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: stretch;
+    padding-block: 4rem;
     border-top: 1px solid var(--line);
     scroll-margin-top: 6rem;
   }
 
-  .visual-card {
-    overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  .visual-card.large {
+  .showcase-copy {
     position: relative;
-    min-height: 390px;
+    overflow: hidden;
+    display: grid;
+    align-content: center;
+    gap: 1rem;
+    min-height: 520px;
+    border: 1px solid rgba(169, 133, 255, 0.2);
+    border-radius: 8px;
+    padding: clamp(1rem, 3vw, 2rem);
+    background:
+      radial-gradient(circle at 0% 0%, rgba(124, 60, 255, 0.28), transparent 18rem),
+      radial-gradient(circle at 100% 100%, rgba(17, 200, 120, 0.12), transparent 18rem),
+      rgba(255, 255, 255, 0.035);
   }
 
-  .visual-card.large img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .visual-card.large::after {
+  .showcase-copy::before {
     position: absolute;
     inset: 0;
     content: '';
     background:
-      linear-gradient(90deg, rgba(3, 4, 7, 0.92), rgba(3, 4, 7, 0.46) 58%, rgba(3, 4, 7, 0.06)),
-      linear-gradient(0deg, rgba(3, 4, 7, 0.5), transparent 50%);
+      linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7), transparent);
+    pointer-events: none;
   }
 
-  .visual-card.large div {
-    position: absolute;
-    bottom: 1.4rem;
-    left: 1.4rem;
+  .showcase-copy > * {
+    position: relative;
     z-index: 1;
-    display: grid;
-    gap: 0.55rem;
-    max-width: 430px;
   }
 
-  .visual-card.large span {
-    color: var(--green);
-    font-size: 0.75rem;
-    font-weight: 900;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .visual-card.large h2 {
+  .showcase-copy h2 {
+    max-width: 560px;
     color: #fff;
-    font-size: clamp(1.85rem, 3vw, 3rem);
+    font-size: clamp(2.15rem, 4vw, 4.2rem);
+    line-height: 0.98;
+  }
+
+  .showcase-copy p {
+    max-width: 560px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1rem;
+    line-height: 1.62;
+  }
+
+  .flow-track {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-top: 0.25rem;
+  }
+
+  .flow-track::before {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    left: 2rem;
+    height: 1px;
+    content: '';
+    background: linear-gradient(90deg, transparent, rgba(17, 200, 120, 0.58), transparent);
+  }
+
+  .flow-track article {
+    position: relative;
+    display: grid;
+    gap: 0.35rem;
+    min-height: 6rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(3, 4, 7, 0.62);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .flow-track article:hover,
+  .flow-track article:focus-within {
+    transform: translateY(-4px);
+    border-color: rgba(17, 200, 120, 0.38);
+    background: rgba(17, 200, 120, 0.08);
+  }
+
+  .flow-track span {
+    display: inline-grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(17, 200, 120, 0.14);
+    color: var(--green);
+    font-size: 0.72rem;
+    font-weight: 900;
+  }
+
+  .flow-track strong {
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .showcase-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .showcase-metrics article {
+    min-height: 5.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(255, 255, 255, 0.045);
+  }
+
+  .showcase-metrics strong {
+    display: block;
+    color: #fff;
+    font-size: 1.7rem;
     line-height: 1;
   }
 
-  .visual-card.large p {
-    color: rgba(255, 255, 255, 0.74);
-    line-height: 1.55;
+  .showcase-metrics span {
+    display: block;
+    margin-top: 0.45rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.25;
   }
 
-  .visual-card.stack {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.6rem;
-    border: 0;
-    background: transparent;
-  }
-
-  .visual-card.stack img {
-    width: 100%;
-    height: 390px;
-    border: 1px solid var(--line);
+  .showcase-stage {
+    position: relative;
+    overflow: hidden;
+    min-height: 520px;
     border-radius: 8px;
+    background:
+      radial-gradient(circle at 50% 46%, rgba(17, 200, 120, 0.18), transparent 18rem),
+      radial-gradient(circle at 80% 18%, rgba(124, 60, 255, 0.22), transparent 20rem),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+  }
+
+  .stage-glow {
+    position: absolute;
+    inset: 10% 8%;
+    border: 1px solid rgba(124, 60, 255, 0.35);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(17, 200, 120, 0.14), transparent 37%),
+      radial-gradient(circle at 50% 50%, rgba(124, 60, 255, 0.16), transparent 64%);
+  }
+
+  .campaign-phone {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    width: min(42%, 300px);
+    height: auto;
+    border-radius: 2rem;
     object-fit: cover;
     object-position: top;
-    background: #efe8df;
+    filter: drop-shadow(0 2rem 3rem rgba(0, 0, 0, 0.42));
+    transition: transform 220ms ease, filter 220ms ease;
+  }
+
+  .phone-left {
+    top: 7%;
+    left: 13%;
+    transform: rotate(-4deg);
+  }
+
+  .phone-right {
+    top: 4%;
+    right: 9%;
+    transform: rotate(4deg);
+  }
+
+  .showcase-stage:hover .phone-left {
+    transform: translateY(-0.45rem) rotate(-5deg);
+    filter: drop-shadow(0 2.4rem 3.4rem rgba(0, 0, 0, 0.48));
+  }
+
+  .showcase-stage:hover .phone-right {
+    transform: translateY(-0.2rem) rotate(5deg);
+    filter: drop-shadow(0 2.4rem 3.4rem rgba(0, 0, 0, 0.48));
+  }
+
+  .kpi-pill,
+  .message-orbit {
+    position: absolute;
+    z-index: 3;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    background: rgba(3, 4, 7, 0.76);
+    color: #fff;
+    box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(18px);
+  }
+
+  .kpi-pill {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.3rem 0.8rem;
+    min-width: 12rem;
+    padding: 0.85rem;
+  }
+
+  .kpi-pill span,
+  .message-orbit > span,
+  .message-orbit small {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .kpi-pill strong {
+    color: #fff;
+    font-size: 1.85rem;
+    line-height: 1;
+  }
+
+  .kpi-pill i {
+    align-self: end;
+    color: var(--green);
+    font-size: 1.75rem;
+  }
+
+  .kpi-open {
+    top: 18%;
+    right: 1%;
+  }
+
+  .kpi-click {
+    bottom: 18%;
+    left: 2%;
+  }
+
+  .message-orbit {
+    right: 12%;
+    bottom: 7%;
+    display: grid;
+    gap: 0.45rem;
+    width: 17rem;
+    padding: 0.75rem;
+  }
+
+  .message-orbit article {
+    display: grid;
+    grid-template-columns: 1.7rem minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    align-items: center;
+    border-radius: 7px;
+    padding: 0.48rem;
+    background: rgba(255, 255, 255, 0.055);
+  }
+
+  .message-orbit i {
+    display: grid;
+    width: 1.7rem;
+    height: 1.7rem;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(17, 200, 120, 0.14);
+    color: var(--green);
+  }
+
+  .message-orbit strong {
+    overflow: hidden;
+    color: #fff;
+    font-size: 0.86rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .section-band {
@@ -1051,6 +1290,14 @@ const t = content[lang];
     .offer-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .showcase-copy {
+      min-height: 0;
+    }
+
+    .showcase-stage {
+      min-height: 610px;
+    }
   }
 
   @media (max-width: 720px) {
@@ -1160,22 +1407,91 @@ const t = content[lang];
       padding-block: 2.5rem;
     }
 
-    .visual-card.large {
-      min-height: 360px;
+    .showcase-copy {
+      padding: 1rem;
     }
 
-    .visual-card.large div {
-      right: 1rem;
-      bottom: 1rem;
-      left: 1rem;
+    .showcase-copy h2 {
+      font-size: clamp(2rem, 11vw, 3.15rem);
     }
 
-    .visual-card.stack {
-      grid-template-columns: 1fr 1fr;
+    .flow-track::before {
+      right: 1.2rem;
+      left: 1.2rem;
     }
 
-    .visual-card.stack img {
-      height: 300px;
+    .flow-track article {
+      min-height: 4.75rem;
+      padding: 0.65rem;
+    }
+
+    .flow-track strong {
+      font-size: 0.92rem;
+    }
+
+    .showcase-metrics {
+      gap: 0.45rem;
+    }
+
+    .showcase-metrics article {
+      min-height: 5.3rem;
+      padding: 0.65rem;
+    }
+
+    .showcase-metrics strong {
+      font-size: 1.35rem;
+    }
+
+    .showcase-metrics span {
+      font-size: 0.68rem;
+    }
+
+    .showcase-stage {
+      min-height: 525px;
+    }
+
+    .campaign-phone {
+      width: min(56%, 220px);
+      border-radius: 1.45rem;
+    }
+
+    .phone-left {
+      top: 7%;
+      left: 0.2rem;
+    }
+
+    .phone-right {
+      top: 15%;
+      right: 0.4rem;
+    }
+
+    .kpi-pill {
+      min-width: 9.4rem;
+      padding: 0.7rem;
+    }
+
+    .kpi-pill strong {
+      font-size: 1.42rem;
+    }
+
+    .kpi-pill i {
+      font-size: 1.25rem;
+    }
+
+    .kpi-open {
+      top: 1rem;
+      right: 0.35rem;
+    }
+
+    .kpi-click {
+      bottom: 8.8rem;
+      left: 0.35rem;
+    }
+
+    .message-orbit {
+      right: 0.35rem;
+      bottom: 0.75rem;
+      width: min(100% - 0.7rem, 18rem);
     }
 
     .case-grid span {
@@ -1192,23 +1508,33 @@ const t = content[lang];
   }
 
   @media (max-width: 420px) {
-    .visual-card.stack img {
-      height: 230px;
+    .showcase-stage {
+      min-height: 540px;
     }
 
     .metric-top,
     .metric-mid {
       right: -0.1rem;
     }
+
+    .campaign-phone {
+      width: min(56%, 214px);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .button {
+    .button,
+    .flow-track article,
+    .campaign-phone {
       transition: none;
     }
 
     .button:hover,
-    .button:focus-visible {
+    .button:focus-visible,
+    .flow-track article:hover,
+    .flow-track article:focus-within,
+    .showcase-stage:hover .phone-left,
+    .showcase-stage:hover .phone-right {
       transform: none;
     }
   }
