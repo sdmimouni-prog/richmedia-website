@@ -1,0 +1,298 @@
+---
+interface Props {
+  lang?: 'fr' | 'en';
+}
+
+const { lang = 'fr' } = Astro.props;
+
+const copy = {
+  fr: {
+    eyebrow: 'Influence',
+    title: ['Campagnes', "d’influence", 'réussies'],
+    aria: "Campagnes d'influence réussies",
+  },
+  en: {
+    eyebrow: 'Influence',
+    title: ['Successful', 'influence', 'campaigns'],
+    aria: 'Successful influence campaigns',
+  },
+};
+
+const t = copy[lang];
+
+const reels = [
+  {
+    video: '/videos/influence/lc-waikik.mp4',
+    poster: '/assets/richmedia-home/influence-reels/reel-01.png',
+    label: 'LC Waikiki',
+  },
+  {
+    video: '/videos/influence/amana.mp4',
+    poster: '/assets/richmedia-home/influence-reels/reel-02.png',
+    label: 'Amana',
+  },
+  {
+    video: '/videos/influence/6.mp4',
+    poster: '/assets/richmedia-home/influence-reels/reel-03.png',
+    label: 'Lifestyle creator',
+  },
+  {
+    video: '/videos/influence/lc-waikik-3.mp4',
+    poster: '/assets/richmedia-home/influence-reels/reel-04.png',
+    label: 'Beauty content',
+  },
+  {
+    video: '/videos/influence/5.mp4',
+    poster: '/assets/richmedia-home/influence-reels/reel-05.png',
+    label: 'Creator portrait',
+  },
+];
+---
+
+<section class="influence-video-section" aria-labelledby="home-influence-video-title">
+  <div class="influence-video-heading">
+    <span>{t.eyebrow}</span>
+    <h2 id="home-influence-video-title" aria-label={t.aria}>
+      {t.title.map((line) => <span>{line}</span>)}
+    </h2>
+  </div>
+
+  <div class="influence-video-strip" aria-label={t.aria}>
+    {reels.map((reel) => (
+      <article class="influence-video-card">
+        <video
+          data-influence-video
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster={reel.poster}
+          aria-label={reel.label}
+        >
+          <source src={reel.video} type="video/mp4" />
+        </video>
+      </article>
+    ))}
+  </div>
+</section>
+
+<script>
+  const motionIsReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const videos = Array.from(document.querySelectorAll('video[data-influence-video]'));
+
+  if (motionIsReduced) {
+    videos.forEach((video) => video.pause());
+  } else if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target;
+
+          if (!(video instanceof HTMLVideoElement)) {
+            return;
+          }
+
+          if (entry.isIntersecting) {
+            video.play().catch(() => undefined);
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.16 }
+    );
+
+    videos.forEach((video) => observer.observe(video));
+  } else {
+    videos.forEach((video) => video.play().catch(() => undefined));
+  }
+</script>
+
+<style>
+  .influence-video-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 4.6rem 0 4rem;
+    background:
+      radial-gradient(circle at 78% 100%, rgba(111, 48, 255, 0.24), transparent 24rem),
+      linear-gradient(180deg, #050508 0%, #07060c 68%, #130623 100%);
+  }
+
+  .influence-video-heading {
+    display: grid;
+    gap: 1rem;
+    justify-items: center;
+    width: min(100% - 2rem, 980px);
+    margin: 0 auto 2.4rem;
+    text-align: center;
+  }
+
+  .influence-video-heading > span {
+    display: inline-flex;
+    min-height: 2rem;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.48rem 0.86rem;
+    background: #7c3cff;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .influence-video-heading h2 {
+    display: grid;
+    gap: 0.1rem;
+    color: #fff;
+    font-size: 5.8rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 0.88;
+    text-wrap: balance;
+  }
+
+  .influence-video-heading h2 span {
+    display: block;
+  }
+
+  .influence-video-strip {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: 100%;
+    min-height: 35rem;
+    overflow: hidden;
+  }
+
+  .influence-video-card {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    background: #09090d;
+    isolation: isolate;
+  }
+
+  .influence-video-card::after {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    content: '';
+    background:
+      linear-gradient(180deg, rgba(3, 4, 7, 0.04), transparent 42%, rgba(3, 4, 7, 0.22)),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.08), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.08));
+    opacity: 0.9;
+    transition: opacity 220ms ease;
+  }
+
+  .influence-video-card video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 35rem;
+    object-fit: cover;
+    filter: saturate(1.02) contrast(1.03);
+    transform: scale(1.001);
+    transition: transform 420ms ease, filter 420ms ease;
+  }
+
+  .influence-video-card:hover::after,
+  .influence-video-card:focus-within::after {
+    opacity: 0.45;
+  }
+
+  .influence-video-card:hover video,
+  .influence-video-card:focus-within video {
+    filter: saturate(1.14) contrast(1.08);
+    transform: scale(1.045);
+  }
+
+  @media (max-width: 1060px) {
+    .influence-video-heading h2 {
+      font-size: 4.4rem;
+    }
+
+    .influence-video-strip {
+      min-height: 31rem;
+    }
+
+    .influence-video-card video {
+      min-height: 31rem;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .influence-video-section {
+      padding: 3.5rem 0 3rem;
+    }
+
+    .influence-video-heading {
+      margin-bottom: 1.6rem;
+    }
+
+    .influence-video-heading h2 {
+      font-size: 3rem;
+      line-height: 0.94;
+    }
+
+    .influence-video-strip {
+      display: grid;
+      grid-auto-columns: minmax(17rem, 78vw);
+      grid-auto-flow: column;
+      grid-template-columns: none;
+      gap: 0.7rem;
+      min-height: 30rem;
+      overflow-x: auto;
+      padding: 0 0.7rem 0.65rem;
+      scroll-padding-inline: 0.7rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .influence-video-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .influence-video-card {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      scroll-snap-align: center;
+    }
+
+    .influence-video-card video {
+      min-height: 30rem;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .influence-video-heading h2 {
+      font-size: 2.55rem;
+    }
+
+    .influence-video-strip {
+      grid-auto-columns: minmax(15.5rem, 82vw);
+      min-height: 27rem;
+    }
+
+    .influence-video-card video {
+      min-height: 27rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .influence-video-card::after,
+    .influence-video-card video {
+      transition: none;
+    }
+
+    .influence-video-card:hover video,
+    .influence-video-card:focus-within video {
+      transform: none;
+    }
+  }
+</style>
