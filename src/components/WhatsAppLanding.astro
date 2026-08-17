@@ -206,6 +206,36 @@ const content = {
 };
 
 const t = content[lang];
+const cockpitFunnel =
+  lang === 'fr'
+    ? [
+        { label: 'Audience', value: t.stats[2].value },
+        { label: 'Push', value: '48h' },
+        { label: 'Clic', value: t.stats[1].value },
+        { label: 'Lead', value: 'Live' },
+      ]
+    : [
+        { label: 'Audience', value: t.stats[2].value },
+        { label: 'Push', value: '48h' },
+        { label: 'Click', value: t.stats[1].value },
+        { label: 'Lead', value: 'Live' },
+      ];
+const cockpitSignals =
+  lang === 'fr'
+    ? [
+        { icon: 'ph-paper-plane-tilt', label: 'Offre envoyée', value: '+24K' },
+        { icon: 'ph-chat-circle-dots', label: 'Réponse client', value: '+12K' },
+        { icon: 'ph-check-circle', label: 'Lead qualifié', value: '38%' },
+      ]
+    : [
+        { icon: 'ph-paper-plane-tilt', label: 'Offer sent', value: '+24K' },
+        { icon: 'ph-chat-circle-dots', label: 'Customer reply', value: '+12K' },
+        { icon: 'ph-check-circle', label: 'Qualified lead', value: '38%' },
+      ];
+const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
+  ...item,
+  level: `${88 - index * 14}%`,
+}));
 ---
 
 <div class="whatsapp-page">
@@ -330,17 +360,65 @@ const t = content[lang];
   </section>
 
   <section class="section-band benefits-band" aria-labelledby="benefits-title">
-    <div class="section-intro">
-      <span class="whatsapp-kicker">{lang === 'fr' ? 'Avantages' : 'Benefits'}</span>
-      <h2 id="benefits-title">{t.benefitsTitle}</h2>
-      <p>{t.benefitsText}</p>
+    <div class="benefit-impact">
+      <div class="section-intro benefit-copy">
+        <span class="whatsapp-kicker">{lang === 'fr' ? 'Avantages' : 'Benefits'}</span>
+        <h2 id="benefits-title">{t.benefitsTitle}</h2>
+        <p>{t.benefitsText}</p>
+        <div class="benefit-scoreboard" aria-label={lang === 'fr' ? 'Indicateurs WhatsApp' : 'WhatsApp indicators'}>
+          {t.stats.slice(0, 3).map((stat) => (
+            <article>
+              <strong>{stat.value}</strong>
+              <span>{stat.label}</span>
+            </article>
+          ))}
+        </div>
+      </div>
+      <div class="benefit-cockpit" aria-hidden="true">
+        <div class="cockpit-topline">
+          <span>{lang === 'fr' ? 'Campagne active' : 'Active campaign'}</span>
+          <strong>{t.stats[0].value}</strong>
+        </div>
+        <div class="cockpit-funnel">
+          {cockpitFunnel.map((step, index) => (
+            <article style={`--step: ${index}`}>
+              <span>{step.label}</span>
+              <strong>{step.value}</strong>
+            </article>
+          ))}
+        </div>
+        <div class="cockpit-chat">
+          {cockpitSignals.map((signal, index) => (
+            <article class={index === 1 ? 'is-highlight' : ''}>
+              <i class:list={['ph', signal.icon]} aria-hidden="true"></i>
+              <span>{signal.label}</span>
+              <strong>{signal.value}</strong>
+            </article>
+          ))}
+        </div>
+        <div class="cockpit-bars">
+          {cockpitBars.map((metric) => (
+            <article>
+              <span>{metric.label}</span>
+              <i style={`--bar: ${metric.level}`}></i>
+              <strong>{metric.value}</strong>
+            </article>
+          ))}
+        </div>
+      </div>
     </div>
     <div class="benefit-grid">
-      {t.benefits.map((benefit) => (
-        <article>
-          <i class:list={['ph', benefit.icon]} aria-hidden="true"></i>
+      {t.benefits.map((benefit, index) => (
+        <article style={`--index: ${index}; --level: ${92 - index * 11}%`}>
+          <div class="benefit-card-top">
+            <i class:list={['ph', benefit.icon]} aria-hidden="true"></i>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+          </div>
           <h3>{benefit.title}</h3>
           <p>{benefit.text}</p>
+          <div class="benefit-meter" aria-hidden="true">
+            <i></i>
+          </div>
         </article>
       ))}
     </div>
@@ -1020,35 +1098,374 @@ const t = content[lang];
     line-height: 1.65;
   }
 
+  .benefits-band {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .benefits-band::before {
+    position: absolute;
+    inset: 1.4rem 0 auto;
+    height: 17rem;
+    content: '';
+    background:
+      radial-gradient(circle at 14% 28%, rgba(124, 60, 255, 0.24), transparent 18rem),
+      radial-gradient(circle at 78% 18%, rgba(17, 200, 120, 0.18), transparent 16rem);
+    pointer-events: none;
+  }
+
+  .benefit-impact,
+  .benefit-grid {
+    position: relative;
+    z-index: 1;
+  }
+
+  .benefit-impact {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(340px, 1.08fr);
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .benefit-copy {
+    max-width: none;
+    min-height: 22rem;
+    align-content: center;
+    border: 1px solid rgba(169, 133, 255, 0.2);
+    border-radius: 8px;
+    padding: clamp(1rem, 3vw, 2rem);
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.18), transparent 62%),
+      rgba(255, 255, 255, 0.035);
+  }
+
+  .benefit-scoreboard {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+  }
+
+  .benefit-scoreboard article {
+    min-height: 6.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(3, 4, 7, 0.58);
+  }
+
+  .benefit-scoreboard strong {
+    display: block;
+    color: #fff;
+    font-size: clamp(1.45rem, 2.5vw, 2.15rem);
+    line-height: 1;
+  }
+
+  .benefit-scoreboard span {
+    display: block;
+    margin-top: 0.45rem;
+    color: var(--muted);
+    font-size: 0.76rem;
+    line-height: 1.25;
+  }
+
+  .benefit-cockpit {
+    position: relative;
+    min-height: 22rem;
+    overflow: hidden;
+    display: grid;
+    align-content: space-between;
+    gap: 0.9rem;
+    border: 1px solid rgba(17, 200, 120, 0.18);
+    border-radius: 8px;
+    padding: clamp(1rem, 2vw, 1.35rem);
+    background:
+      radial-gradient(circle at 14% 22%, rgba(17, 200, 120, 0.25), transparent 11rem),
+      radial-gradient(circle at 82% 4%, rgba(124, 60, 255, 0.34), transparent 16rem),
+      linear-gradient(145deg, rgba(17, 200, 120, 0.1), rgba(124, 60, 255, 0.08) 52%, transparent),
+      rgba(255, 255, 255, 0.028);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  }
+
+  .benefit-cockpit::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(140deg, rgba(0, 0, 0, 0.78), transparent 82%);
+    pointer-events: none;
+  }
+
+  .benefit-cockpit::after {
+    position: absolute;
+    top: 16%;
+    right: -6rem;
+    width: 18rem;
+    height: 18rem;
+    content: '';
+    border: 1px solid rgba(124, 60, 255, 0.28);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124, 60, 255, 0.13), transparent 64%);
+  }
+
+  .cockpit-topline,
+  .cockpit-funnel,
+  .cockpit-chat,
+  .cockpit-bars {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cockpit-topline {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .cockpit-topline span {
+    color: var(--green);
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .cockpit-topline strong {
+    color: #fff;
+    font-size: clamp(2.35rem, 5vw, 4.4rem);
+    line-height: 0.86;
+    text-shadow: 0 0 2rem rgba(17, 200, 120, 0.18);
+  }
+
+  .cockpit-funnel {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .cockpit-funnel article {
+    display: grid;
+    gap: 0.35rem;
+    min-height: 5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.72rem;
+    background: rgba(3, 4, 7, 0.62);
+    box-shadow: 0 1rem 2.2rem rgba(0, 0, 0, 0.18);
+    transform: translateY(calc(var(--step) * 0.28rem));
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .cockpit-funnel span,
+  .cockpit-chat span,
+  .cockpit-bars span {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .cockpit-funnel strong {
+    color: #fff;
+    font-size: 1.28rem;
+    line-height: 1;
+  }
+
+  .cockpit-chat {
+    display: grid;
+    gap: 0.55rem;
+    max-width: 70%;
+    margin-left: auto;
+  }
+
+  .cockpit-chat article {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.7rem;
+    align-items: center;
+    min-height: 3.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.62rem 0.75rem;
+    background: rgba(3, 4, 7, 0.7);
+    box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(16px);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .cockpit-chat article:nth-child(1) {
+    margin-right: 2.4rem;
+  }
+
+  .cockpit-chat article:nth-child(3) {
+    margin-right: 4.8rem;
+  }
+
+  .cockpit-chat .is-highlight {
+    margin-left: -2.6rem;
+    border-color: rgba(17, 200, 120, 0.34);
+    background: rgba(17, 200, 120, 0.11);
+  }
+
+  .cockpit-chat i {
+    display: inline-grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border-radius: 8px;
+    background: rgba(17, 200, 120, 0.13);
+    color: var(--green);
+    font-size: 1.05rem;
+  }
+
+  .cockpit-chat strong {
+    color: #fff;
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  .cockpit-bars {
+    display: grid;
+    gap: 0.5rem;
+    width: min(100%, 24rem);
+  }
+
+  .cockpit-bars article {
+    display: grid;
+    grid-template-columns: 5.4rem minmax(0, 1fr) 3.2rem;
+    gap: 0.55rem;
+    align-items: center;
+  }
+
+  .cockpit-bars i {
+    display: block;
+    height: 0.42rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .cockpit-bars i::before {
+    display: block;
+    width: var(--bar);
+    height: 100%;
+    content: '';
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--green), var(--purple-2));
+  }
+
+  .cockpit-bars strong {
+    color: #fff;
+    font-size: 0.92rem;
+    line-height: 1;
+    text-align: right;
+  }
+
+  .benefit-cockpit:hover,
+  .benefit-cockpit:focus-within {
+    border-color: rgba(17, 200, 120, 0.34);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.045),
+      0 1.4rem 3rem rgba(0, 0, 0, 0.22);
+    transform: translateY(-0.25rem);
+  }
+
+  .benefit-cockpit:hover .cockpit-funnel article,
+  .benefit-cockpit:focus-within .cockpit-funnel article {
+    border-color: rgba(17, 200, 120, 0.28);
+    background: rgba(17, 200, 120, 0.09);
+    transform: translateY(calc(var(--step) * 0.28rem - 0.24rem));
+  }
+
+  .benefit-cockpit:hover .cockpit-chat article,
+  .benefit-cockpit:focus-within .cockpit-chat article {
+    transform: translateX(-0.25rem);
+  }
+
+  .benefit-cockpit:hover .cockpit-chat .is-highlight,
+  .benefit-cockpit:focus-within .cockpit-chat .is-highlight {
+    transform: translateX(-0.65rem);
+  }
+
   .benefit-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.75rem;
-    margin-top: 1.25rem;
   }
 
-  .benefit-grid article,
-  .offer-grid article {
+  .benefit-grid article {
+    position: relative;
+    overflow: hidden;
     display: grid;
     align-content: start;
-    gap: 0.7rem;
-    min-height: 13rem;
-    border: 1px solid var(--line);
+    gap: 0.75rem;
+    min-height: 15rem;
+    border: 1px solid rgba(255, 255, 255, 0.13);
     border-radius: 8px;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.04);
+    background:
+      linear-gradient(180deg, rgba(17, 200, 120, 0.1), transparent 58%),
+      rgba(255, 255, 255, 0.04);
+    transform: translateY(calc(var(--index) * 0.35rem));
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
   }
 
-  .benefit-grid i {
+  .benefit-grid article::after {
+    position: absolute;
+    right: -2rem;
+    bottom: -2.5rem;
+    width: 9rem;
+    height: 9rem;
+    content: '';
+    border-radius: 50%;
+    background: rgba(124, 60, 255, 0.18);
+    filter: blur(18px);
+  }
+
+  .benefit-grid article:hover,
+  .benefit-grid article:focus-within {
+    transform: translateY(calc(var(--index) * 0.35rem - 0.35rem));
+    border-color: rgba(17, 200, 120, 0.36);
+    background:
+      linear-gradient(180deg, rgba(17, 200, 120, 0.15), transparent 58%),
+      rgba(255, 255, 255, 0.06);
+    box-shadow: 0 1.3rem 3rem rgba(0, 0, 0, 0.24);
+  }
+
+  .benefit-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+
+  .benefit-card-top i {
     display: inline-grid;
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 3rem;
+    height: 3rem;
     place-items: center;
     border: 1px solid rgba(17, 200, 120, 0.34);
     border-radius: 8px;
     background: rgba(17, 200, 120, 0.1);
     color: var(--green);
-    font-size: 1.25rem;
+    font-size: 1.35rem;
+  }
+
+  .benefit-card-top span {
+    color: rgba(255, 255, 255, 0.28);
+    font-size: 2.15rem;
+    font-weight: 900;
+    line-height: 1;
   }
 
   .benefit-grid h3,
@@ -1063,6 +1480,34 @@ const t = content[lang];
     color: var(--muted);
     font-size: 0.92rem;
     line-height: 1.5;
+  }
+
+  .benefit-meter {
+    height: 0.44rem;
+    overflow: hidden;
+    align-self: end;
+    margin-top: auto;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .benefit-meter i {
+    display: block;
+    width: var(--level);
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--green), var(--purple-2));
+  }
+
+  .offer-grid article {
+    display: grid;
+    align-content: start;
+    gap: 0.7rem;
+    min-height: 13rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.04);
   }
 
   .offer-grid {
@@ -1298,6 +1743,14 @@ const t = content[lang];
     .showcase-stage {
       min-height: 610px;
     }
+
+    .benefit-impact {
+      grid-template-columns: 1fr;
+    }
+
+    .benefit-cockpit {
+      min-height: 19rem;
+    }
   }
 
   @media (max-width: 720px) {
@@ -1398,6 +1851,89 @@ const t = content[lang];
     .benefit-grid article,
     .offer-grid article {
       min-height: 0;
+    }
+
+    .benefit-copy {
+      min-height: 0;
+      padding: 1rem;
+    }
+
+    .benefit-scoreboard {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .benefit-scoreboard article {
+      min-height: 5.4rem;
+      padding: 0.68rem;
+    }
+
+    .benefit-scoreboard strong {
+      font-size: 1.35rem;
+    }
+
+    .benefit-scoreboard span {
+      font-size: 0.63rem;
+    }
+
+    .benefit-cockpit {
+      min-height: 0;
+      padding: 0.85rem;
+    }
+
+    .benefit-cockpit:hover,
+    .benefit-cockpit:focus-within {
+      transform: none;
+    }
+
+    .cockpit-topline {
+      align-items: start;
+    }
+
+    .cockpit-topline strong {
+      font-size: 2.2rem;
+    }
+
+    .cockpit-funnel {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cockpit-funnel article {
+      min-height: 4.4rem;
+      transform: none;
+    }
+
+    .benefit-cockpit:hover .cockpit-funnel article,
+    .benefit-cockpit:focus-within .cockpit-funnel article,
+    .benefit-cockpit:hover .cockpit-chat article,
+    .benefit-cockpit:focus-within .cockpit-chat article,
+    .benefit-cockpit:hover .cockpit-chat .is-highlight,
+    .benefit-cockpit:focus-within .cockpit-chat .is-highlight {
+      transform: none;
+    }
+
+    .cockpit-chat,
+    .cockpit-bars {
+      max-width: none;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .cockpit-chat article,
+    .cockpit-chat article:nth-child(1),
+    .cockpit-chat article:nth-child(3),
+    .cockpit-chat .is-highlight {
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    .cockpit-bars article {
+      grid-template-columns: 4.5rem minmax(0, 1fr) 2.8rem;
+    }
+
+    .benefit-grid article,
+    .benefit-grid article:hover,
+    .benefit-grid article:focus-within {
+      transform: none;
     }
 
     .visual-band,
@@ -1525,7 +2061,11 @@ const t = content[lang];
   @media (prefers-reduced-motion: reduce) {
     .button,
     .flow-track article,
-    .campaign-phone {
+    .campaign-phone,
+    .benefit-cockpit,
+    .cockpit-funnel article,
+    .cockpit-chat article,
+    .benefit-grid article {
       transition: none;
     }
 
@@ -1534,7 +2074,17 @@ const t = content[lang];
     .flow-track article:hover,
     .flow-track article:focus-within,
     .showcase-stage:hover .phone-left,
-    .showcase-stage:hover .phone-right {
+    .showcase-stage:hover .phone-right,
+    .benefit-cockpit:hover,
+    .benefit-cockpit:focus-within,
+    .benefit-cockpit:hover .cockpit-funnel article,
+    .benefit-cockpit:focus-within .cockpit-funnel article,
+    .benefit-cockpit:hover .cockpit-chat article,
+    .benefit-cockpit:focus-within .cockpit-chat article,
+    .benefit-cockpit:hover .cockpit-chat .is-highlight,
+    .benefit-cockpit:focus-within .cockpit-chat .is-highlight,
+    .benefit-grid article:hover,
+    .benefit-grid article:focus-within {
       transform: none;
     }
   }
