@@ -280,6 +280,34 @@ const offerCards = t.offers.map((offer, index) => ({
   index,
   level: `${92 - index * 13}%`,
 }));
+const phoneDemo =
+  lang === 'fr'
+    ? {
+        account: 'CIH Bank',
+        subtitle: 'Compte professionnel',
+        intro: 'Bonjour',
+        message: [
+          'Avec CODE 212, transférez vers le Maroc simplement.',
+          'Compte gratuit 100% en ligne depuis CIH Mobile.',
+          'Envie d’ouvrir votre compte ?',
+        ],
+        buttons: ['Ouvrir un compte', 'Télécharger l’app', 'Parler à un conseiller'],
+        reply: 'Bonjour, je veux en savoir plus.',
+        advisor: 'Avec plaisir. Un conseiller vous rappelle.',
+      }
+    : {
+        account: 'CIH Bank',
+        subtitle: 'Business account',
+        intro: 'Hello',
+        message: [
+          'With CODE 212, transfer to Morocco simply.',
+          'Free online account from CIH Mobile.',
+          'Ready to open your account?',
+        ],
+        buttons: ['Open account', 'Download app', 'Talk to advisor'],
+        reply: 'Hello, I want to know more.',
+        advisor: 'Sure. An advisor will call you back.',
+      };
 ---
 
 <div class="whatsapp-page">
@@ -322,14 +350,69 @@ const offerCards = t.offers.map((offer, index) => ({
 
     <div class="whatsapp-visual" aria-label={t.visualLabel}>
       <div class="phone-stage">
-        <img
-          src="/assets/richmedia-realizations/whatsapp-cih-bank-cutout.png"
-          alt=""
-          width="721"
-          height="1476"
-          loading="eager"
-          decoding="async"
-        />
+        <div class="hero-phone" aria-hidden="true">
+          <span class="phone-side side-left top"></span>
+          <span class="phone-side side-left middle"></span>
+          <span class="phone-side side-right"></span>
+          <div class="phone-screen">
+            <div class="phone-status">
+              <span>9:41</span>
+              <span class="status-icons">
+                <i class="ph ph-cell-signal-full" aria-hidden="true"></i>
+                <i class="ph ph-wifi-high" aria-hidden="true"></i>
+                <i class="ph ph-battery-full" aria-hidden="true"></i>
+              </span>
+            </div>
+            <header class="phone-chat-header">
+              <i class="ph ph-arrow-left" aria-hidden="true"></i>
+              <img src="/assets/richmedia-realizations/whatsapp-animation/cih-logo.png" alt="" loading="eager" decoding="async" />
+              <div>
+                <strong>{phoneDemo.account}</strong>
+                <span>{phoneDemo.subtitle}</span>
+              </div>
+              <i class="ph ph-seal-check-fill verified" aria-hidden="true"></i>
+              <i class="ph ph-dots-three-vertical menu" aria-hidden="true"></i>
+            </header>
+            <div class="phone-chat-body">
+              <article class="wa-message wa-card wa-step step-1">
+                <img src="/assets/richmedia-realizations/whatsapp-animation/cih-code-212-card.png" alt="" loading="eager" decoding="async" />
+              </article>
+              <article class="wa-message wa-in wa-text wa-step step-2">
+                <p>{phoneDemo.intro} <span aria-hidden="true">👋</span></p>
+                {phoneDemo.message.map((line) => <p>{line}</p>)}
+                <time>10:30</time>
+              </article>
+              <div class="wa-buttons wa-step step-3">
+                {phoneDemo.buttons.map((button, index) => (
+                  <span>
+                    <i class:list={['ph', index === 0 ? 'ph-user-plus' : index === 1 ? 'ph-download-simple' : 'ph-headset']} aria-hidden="true"></i>
+                    {button}
+                  </span>
+                ))}
+              </div>
+              <article class="wa-message wa-out wa-step step-4">
+                <p>{phoneDemo.reply}</p>
+                <time>10:31 <span aria-hidden="true">✓✓</span></time>
+              </article>
+              <article class="wa-typing wa-step step-5" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </article>
+              <article class="wa-message wa-in wa-step step-6">
+                <p>{phoneDemo.advisor}</p>
+                <time>10:32</time>
+              </article>
+            </div>
+            <div class="phone-composer">
+              <i class="ph ph-smiley" aria-hidden="true"></i>
+              <span>Message</span>
+              <i class="ph ph-paperclip" aria-hidden="true"></i>
+              <i class="ph ph-camera" aria-hidden="true"></i>
+              <strong><i class="ph ph-microphone" aria-hidden="true"></i></strong>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="floating-metric metric-top">
         <span>{t.stats[0].label}</span>
@@ -753,21 +836,21 @@ const offerCards = t.offers.map((offer, index) => ({
 
   .whatsapp-visual {
     position: relative;
-    min-height: 430px;
+    min-height: 560px;
   }
 
   .phone-stage {
     position: absolute;
     top: 50%;
-    left: 50%;
-    width: min(31vw, 219px);
+    left: 43%;
+    width: min(37vw, 263px);
     max-width: 100%;
-    transform: translate(-50%, -48%);
+    transform: translate(-50%, -49%);
   }
 
   .phone-stage::before {
     position: absolute;
-    inset: 8% -26%;
+    inset: 9% -42%;
     z-index: 0;
     content: '';
     border: 1px solid rgba(124, 60, 255, 0.28);
@@ -778,13 +861,365 @@ const offerCards = t.offers.map((offer, index) => ({
     filter: blur(0.2px);
   }
 
-  .phone-stage img {
+  .hero-phone {
     position: relative;
     z-index: 1;
+    aspect-ratio: 721 / 1476;
+    width: 100%;
+    border: 0.32rem solid #141414;
+    border-radius: 2.4rem;
+    padding: 0.28rem;
+    background: #050505;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+      0 2rem 4.5rem rgba(0, 0, 0, 0.58);
+    color: #111217;
+    font-size: clamp(0.44rem, 0.6vw, 0.5rem);
+  }
+
+  .phone-side {
+    position: absolute;
+    z-index: -1;
+    width: 0.22rem;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #2b2b2b, #090909);
+  }
+
+  .side-left {
+    left: -0.48rem;
+  }
+
+  .side-left.top {
+    top: 18%;
+    height: 6%;
+  }
+
+  .side-left.middle {
+    top: 27%;
+    height: 10%;
+  }
+
+  .side-right {
+    top: 31%;
+    right: -0.48rem;
+    height: 13%;
+  }
+
+  .phone-screen {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 2rem;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.42), transparent 24%),
+      #f6efe7;
+  }
+
+  .phone-screen::before {
+    position: absolute;
+    top: 0.55em;
+    left: 50%;
+    z-index: 4;
+    width: 5.2em;
+    height: 1.32em;
+    border-radius: 999px;
+    content: '';
+    background: #030303;
+    transform: translateX(-50%);
+  }
+
+  .phone-status,
+  .phone-chat-header {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.96);
+  }
+
+  .phone-status {
+    display: flex;
+    min-height: 3.4em;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7em 1.3em 0.24em;
+    font-size: 1.12em;
+    font-weight: 900;
+  }
+
+  .status-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.22em;
+    font-size: 1.04em;
+  }
+
+  .phone-chat-header {
+    display: grid;
+    grid-template-columns: auto 2.45em minmax(0, 1fr) auto auto;
+    gap: 0.55em;
+    align-items: center;
+    min-height: 4.9em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.42em 0.95em;
+  }
+
+  .phone-chat-header > i:first-child {
+    color: #1b1d21;
+    font-size: 1.35em;
+  }
+
+  .phone-chat-header img {
+    width: 2.45em;
+    aspect-ratio: 1;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .phone-chat-header strong,
+  .phone-chat-header span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .phone-chat-header strong {
+    color: #17191d;
+    font-size: 1.16em;
+    line-height: 1.1;
+  }
+
+  .phone-chat-header span {
+    margin-top: 0.16em;
+    color: rgba(23, 25, 29, 0.56);
+    font-size: 0.82em;
+    font-weight: 700;
+  }
+
+  .phone-chat-header .verified {
+    color: #15c66a;
+    font-size: 1em;
+  }
+
+  .phone-chat-header .menu {
+    color: #202226;
+    font-size: 1.35em;
+  }
+
+  .phone-chat-body {
+    position: relative;
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    gap: 0.42em;
+    overflow: hidden;
+    padding: 0.68em 0.74em 0.5em;
+    background:
+      radial-gradient(circle at 18% 18%, rgba(134, 112, 82, 0.16) 0 0.08em, transparent 0.12em),
+      radial-gradient(circle at 72% 34%, rgba(134, 112, 82, 0.12) 0 0.08em, transparent 0.12em),
+      linear-gradient(135deg, #f7f0e7, #efe6da);
+    background-size: 3.2em 3.2em, 3.8em 3.8em, auto;
+  }
+
+  .phone-chat-body::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background:
+      linear-gradient(45deg, transparent 0 47%, rgba(134, 112, 82, 0.06) 48% 52%, transparent 53% 100%),
+      linear-gradient(-45deg, transparent 0 47%, rgba(134, 112, 82, 0.045) 48% 52%, transparent 53% 100%);
+    background-size: 4.2em 4.2em;
+    opacity: 0.46;
+    backdrop-filter: blur(0.2px);
+  }
+
+  .wa-step,
+  .wa-buttons {
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(0.9em) scale(0.985);
+    animation: whatsappMessageIn 620ms cubic-bezier(0.2, 0.78, 0.25, 1) forwards;
+  }
+
+  .step-1 {
+    animation-delay: 260ms;
+  }
+
+  .step-2 {
+    animation-delay: 920ms;
+  }
+
+  .step-3 {
+    animation-delay: 1540ms;
+  }
+
+  .step-4 {
+    animation-delay: 2180ms;
+  }
+
+  .step-5 {
+    animation: whatsappTyping 1280ms ease forwards;
+    animation-delay: 2860ms;
+  }
+
+  .step-6 {
+    animation-delay: 3720ms;
+  }
+
+  .wa-message {
+    width: fit-content;
+    max-width: 88%;
+    border-radius: 0.78rem;
+    box-shadow: 0 0.24rem 0.8rem rgba(0, 0, 0, 0.08);
+  }
+
+  .wa-card {
+    width: 100%;
+    max-width: 100%;
+    min-height: 12.6em;
+    overflow: hidden;
+    border-radius: 0.78rem;
+    background: #fff;
+  }
+
+  .wa-card img {
     display: block;
     width: 100%;
-    height: auto;
-    filter: drop-shadow(0 2rem 4rem rgba(0, 0, 0, 0.55));
+    height: 12.6em;
+    object-fit: cover;
+  }
+
+  .wa-in,
+  .wa-out {
+    display: grid;
+    gap: 0.2em;
+    padding: 0.48em 0.58em 0.38em;
+    color: #111217;
+    font-size: 1.24em;
+    line-height: 1.15;
+  }
+
+  .wa-in {
+    align-self: flex-start;
+    background: #fff;
+  }
+
+  .wa-text {
+    max-width: 86%;
+  }
+
+  .wa-out {
+    align-self: flex-end;
+    background: #dcffd2;
+  }
+
+  .wa-in p,
+  .wa-out p {
+    margin: 0;
+  }
+
+  .wa-message time {
+    justify-self: end;
+    color: rgba(17, 18, 23, 0.48);
+    font-size: 0.72em;
+    font-weight: 700;
+  }
+
+  .wa-out time span {
+    color: #168cff;
+  }
+
+  .wa-buttons {
+    display: grid;
+    gap: 0.28em;
+    width: 84%;
+    margin-inline: auto;
+  }
+
+  .wa-buttons span {
+    display: inline-flex;
+    min-height: 2em;
+    align-items: center;
+    justify-content: center;
+    gap: 0.42em;
+    border-radius: 0.58em;
+    background: #fff;
+    color: #0878ff;
+    font-size: 1.18em;
+    font-weight: 900;
+    box-shadow: 0 0.18rem 0.42rem rgba(0, 0, 0, 0.08);
+  }
+
+  .wa-buttons i {
+    font-size: 1em;
+  }
+
+  .wa-typing {
+    display: inline-flex;
+    gap: 0.25em;
+    align-items: center;
+    align-self: flex-start;
+    width: fit-content;
+    border-radius: 0.82em;
+    padding: 0.55em 0.72em;
+    background: #fff;
+    box-shadow: 0 0.24rem 0.8rem rgba(0, 0, 0, 0.08);
+  }
+
+  .wa-typing span {
+    width: 0.34em;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgba(17, 18, 23, 0.42);
+    animation: typingDot 760ms ease-in-out infinite;
+  }
+
+  .wa-typing span:nth-child(2) {
+    animation-delay: 120ms;
+  }
+
+  .wa-typing span:nth-child(3) {
+    animation-delay: 240ms;
+  }
+
+  .phone-composer {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+    gap: 0.5em;
+    align-items: center;
+    min-height: 5.4em;
+    padding: 0.55em 0.74em 0.82em;
+    background: rgba(246, 238, 228, 0.92);
+  }
+
+  .phone-composer > i,
+  .phone-composer span {
+    color: rgba(17, 18, 23, 0.48);
+    font-size: 1.12em;
+  }
+
+  .phone-composer span {
+    display: flex;
+    min-height: 2.55em;
+    align-items: center;
+    border-radius: 999px;
+    background: #fff;
+    padding: 0 0.85em;
+    font-weight: 700;
+  }
+
+  .phone-composer strong {
+    display: inline-grid;
+    width: 2.78em;
+    aspect-ratio: 1;
+    place-items: center;
+    border-radius: 50%;
+    background: #0aa677;
+    color: #fff;
+    font-size: 1.25em;
   }
 
   .floating-metric {
@@ -799,7 +1234,7 @@ const offerCards = t.offers.map((offer, index) => ({
     padding: 0.55rem;
     background: rgba(246, 246, 255, 0.96);
     color: #07080d;
-    box-shadow: 0 0.65rem 1.8rem rgba(0, 0, 0, 0.23);
+    box-shadow: 0 0.95rem 2.2rem rgba(0, 0, 0, 0.26);
   }
 
   .floating-metric span {
@@ -821,18 +1256,62 @@ const offerCards = t.offers.map((offer, index) => ({
   }
 
   .metric-top {
-    top: 20%;
-    right: 1%;
+    top: 18%;
+    right: 0;
   }
 
   .metric-mid {
     top: 47%;
-    right: -2%;
+    right: -4%;
   }
 
   .metric-bottom {
-    right: 8%;
-    bottom: 13%;
+    right: 1%;
+    bottom: 12%;
+  }
+
+  @keyframes whatsappMessageIn {
+    0% {
+      opacity: 0;
+      transform: translateY(0.9em) scale(0.985);
+    }
+
+    78% {
+      opacity: 1;
+      transform: translateY(-0.05em) scale(1);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes whatsappTyping {
+    0%,
+    100% {
+      opacity: 0;
+      transform: translateY(0.5em) scale(0.98);
+    }
+
+    18%,
+    78% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes typingDot {
+    0%,
+    100% {
+      opacity: 0.34;
+      transform: translateY(0);
+    }
+
+    50% {
+      opacity: 1;
+      transform: translateY(-0.12em);
+    }
   }
 
   .stats-strip {
@@ -2053,7 +2532,7 @@ const offerCards = t.offers.map((offer, index) => ({
     }
 
     .whatsapp-visual {
-      min-height: 420px;
+      min-height: 590px;
     }
 
     .stats-strip,
@@ -2135,11 +2614,12 @@ const offerCards = t.offers.map((offer, index) => ({
     }
 
     .whatsapp-visual {
-      min-height: 330px;
+      min-height: 520px;
     }
 
     .phone-stage {
-      width: min(50vw, 186px);
+      left: 36%;
+      width: min(62vw, 223px);
     }
 
     .floating-metric {
@@ -2156,18 +2636,18 @@ const offerCards = t.offers.map((offer, index) => ({
     }
 
     .metric-top {
-      top: 5%;
-      right: 2%;
+      top: 10%;
+      right: 0;
     }
 
     .metric-mid {
-      top: 45%;
-      right: 1%;
+      top: 43%;
+      right: 0;
     }
 
     .metric-bottom {
-      right: 5%;
-      bottom: 4%;
+      right: 0;
+      bottom: 8%;
     }
 
     .stats-strip,
@@ -2456,13 +2936,37 @@ const offerCards = t.offers.map((offer, index) => ({
   }
 
   @media (max-width: 420px) {
+    .whatsapp-visual {
+      min-height: 500px;
+    }
+
+    .phone-stage {
+      left: 34%;
+      width: min(64vw, 218px);
+    }
+
     .showcase-stage {
       min-height: 540px;
     }
 
-    .metric-top,
+    .floating-metric {
+      min-width: 6.85rem;
+      padding: 0.48rem;
+    }
+
+    .metric-top {
+      top: 8%;
+      right: 0;
+    }
+
     .metric-mid {
-      right: 0.5rem;
+      top: 42%;
+      right: 0;
+    }
+
+    .metric-bottom {
+      right: 0;
+      bottom: 7%;
     }
 
     .campaign-phone {
@@ -2478,8 +2982,20 @@ const offerCards = t.offers.map((offer, index) => ({
     .cockpit-funnel article,
     .cockpit-chat article,
     .offer-card,
-    .benefit-grid article {
+    .benefit-grid article,
+    .wa-step,
+    .wa-typing span {
       transition: none;
+      animation: none;
+    }
+
+    .wa-step {
+      opacity: 1;
+      transform: none;
+    }
+
+    .wa-typing {
+      display: none;
     }
 
     .button:hover,
