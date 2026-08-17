@@ -236,6 +236,48 @@ const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
   ...item,
   level: `${88 - index * 14}%`,
 }));
+const offerVisuals =
+  lang === 'fr'
+    ? [
+        {
+          icon: 'ph-paper-plane-tilt',
+          caption: 'Activation rapide',
+          stages: ['Ciblage', 'Push', 'Reporting'],
+        },
+        {
+          icon: 'ph-arrows-clockwise',
+          caption: 'Optimisation continue',
+          stages: ['Relance', 'Test', 'ROAS'],
+        },
+        {
+          icon: 'ph-robot',
+          caption: 'Parcours automatisé',
+          stages: ['Bot', 'CRM', 'Conseiller'],
+        },
+      ]
+    : [
+        {
+          icon: 'ph-paper-plane-tilt',
+          caption: 'Fast activation',
+          stages: ['Target', 'Push', 'Report'],
+        },
+        {
+          icon: 'ph-arrows-clockwise',
+          caption: 'Always optimizing',
+          stages: ['Follow-up', 'Test', 'ROAS'],
+        },
+        {
+          icon: 'ph-robot',
+          caption: 'Automated journey',
+          stages: ['Bot', 'CRM', 'Advisor'],
+        },
+      ];
+const offerCards = t.offers.map((offer, index) => ({
+  ...offer,
+  ...offerVisuals[index],
+  index,
+  level: `${92 - index * 13}%`,
+}));
 ---
 
 <div class="whatsapp-page">
@@ -425,20 +467,51 @@ const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
   </section>
 
   <section class="section-band offers-band" aria-labelledby="offers-title">
-    <div class="section-intro compact">
-      <span class="whatsapp-kicker">{lang === 'fr' ? 'Offres' : 'Offers'}</span>
-      <h2 id="offers-title">{t.offersTitle}</h2>
-      <p>{t.offersText}</p>
+    <div class="offers-head">
+      <div class="section-intro compact">
+        <span class="whatsapp-kicker">{lang === 'fr' ? 'Offres' : 'Offers'}</span>
+        <h2 id="offers-title">{t.offersTitle}</h2>
+        <p>{t.offersText}</p>
+      </div>
+      <div class="offers-route" aria-hidden="true">
+        {offerCards.map((offer) => (
+          <article>
+            <span>{String(offer.index + 1).padStart(2, '0')}</span>
+            <strong>{offer.badge}</strong>
+            <em>{offer.metric}</em>
+          </article>
+        ))}
+      </div>
     </div>
     <div class="offer-grid">
-      {t.offers.map((offer) => (
-        <article>
-          <div>
-            <span>{offer.badge}</span>
-            <strong>{offer.metric}</strong>
+      {offerCards.map((offer) => (
+        <article class="offer-card" style={`--offer-level: ${offer.level}; --offer-index: ${offer.index}`}>
+          <span class="offer-index">{String(offer.index + 1).padStart(2, '0')}</span>
+          <div class="offer-card-top">
+            <span class="offer-badge">{offer.badge}</span>
+            <strong>
+              {offer.metric}
+              <small>{offer.caption}</small>
+            </strong>
+          </div>
+          <div class="offer-visual" aria-hidden="true">
+            <i class:list={['ph', offer.icon]}></i>
+            <div>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
           <h3>{offer.title}</h3>
           <p>{offer.text}</p>
+          <div class="offer-sequence" aria-hidden="true">
+            {offer.stages.map((stage, stageIndex) => (
+              <span>
+                <small>{String(stageIndex + 1).padStart(2, '0')}</small>
+                {stage}
+              </span>
+            ))}
+          </div>
           <ul>
             {offer.items.map((item) => (
               <li>
@@ -447,6 +520,9 @@ const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
               </li>
             ))}
           </ul>
+          <div class="offer-progress" aria-hidden="true">
+            <i></i>
+          </div>
         </article>
       ))}
     </div>
@@ -1499,15 +1575,94 @@ const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
     background: linear-gradient(90deg, var(--green), var(--purple-2));
   }
 
-  .offer-grid article {
+  .offers-band {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+  }
+
+  .offers-band::before {
+    position: absolute;
+    top: 4rem;
+    right: -12rem;
+    width: 32rem;
+    height: 32rem;
+    content: '';
+    border-radius: 50%;
+    background:
+      radial-gradient(circle, rgba(17, 200, 120, 0.16), transparent 58%),
+      radial-gradient(circle, rgba(124, 60, 255, 0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .offers-head,
+  .offer-grid {
+    position: relative;
+    z-index: 1;
+  }
+
+  .offers-head {
     display: grid;
-    align-content: start;
-    gap: 0.7rem;
-    min-height: 13rem;
-    border: 1px solid var(--line);
+    grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1.18fr);
+    gap: 1rem;
+    align-items: end;
+  }
+
+  .offers-route {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.04);
+    padding: 0.55rem;
+    background:
+      linear-gradient(135deg, rgba(17, 200, 120, 0.09), rgba(124, 60, 255, 0.08)),
+      rgba(255, 255, 255, 0.032);
+  }
+
+  .offers-route article {
+    position: relative;
+    display: grid;
+    gap: 0.3rem;
+    min-height: 5.6rem;
+    align-content: space-between;
+    border-radius: 8px;
+    padding: 0.8rem;
+    background: rgba(3, 4, 7, 0.62);
+  }
+
+  .offers-route article:not(:last-child)::after {
+    position: absolute;
+    top: 50%;
+    right: -0.72rem;
+    z-index: 2;
+    width: 0.9rem;
+    height: 1px;
+    content: '';
+    background: var(--green);
+  }
+
+  .offers-route span,
+  .offer-index {
+    color: rgba(255, 255, 255, 0.32);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+  }
+
+  .offers-route strong {
+    color: #fff;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .offers-route em {
+    color: var(--green);
+    font-size: 1.35rem;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1;
   }
 
   .offer-grid {
@@ -1517,21 +1672,66 @@ const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
     margin-top: 1.25rem;
   }
 
-  .offer-grid article {
-    min-height: 17rem;
+  .offer-card {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+    min-height: 22rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1rem;
     background:
-      linear-gradient(180deg, rgba(124, 60, 255, 0.1), transparent 55%),
-      rgba(255, 255, 255, 0.04);
+      radial-gradient(circle at 18% 18%, rgba(17, 200, 120, 0.16), transparent 12rem),
+      radial-gradient(circle at 100% 0%, rgba(124, 60, 255, 0.2), transparent 13rem),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
+    transform: translateY(calc(var(--offer-index) * 0.45rem));
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
   }
 
-  .offer-grid article > div {
+  .offer-card::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px);
+    background-size: 46px 46px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.86), transparent 78%);
+    pointer-events: none;
+  }
+
+  .offer-card:hover,
+  .offer-card:focus-within {
+    border-color: rgba(17, 200, 120, 0.34);
+    box-shadow: 0 1.3rem 3rem rgba(0, 0, 0, 0.24);
+    transform: translateY(calc(var(--offer-index) * 0.45rem - 0.35rem));
+  }
+
+  .offer-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .offer-index {
+    position: absolute;
+    top: 0.7rem;
+    left: 0.85rem;
+    z-index: 0;
+    color: rgba(255, 255, 255, 0.055);
+    font-size: 7.4rem;
+    line-height: 1;
+  }
+
+  .offer-card-top {
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
     gap: 1rem;
   }
 
-  .offer-grid article > div span {
+  .offer-badge {
     border: 1px solid rgba(169, 133, 255, 0.42);
     border-radius: 999px;
     padding: 0.32rem 0.55rem;
@@ -1542,10 +1742,114 @@ const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
     text-transform: uppercase;
   }
 
-  .offer-grid article > div strong {
+  .offer-card-top strong {
+    display: grid;
+    gap: 0.24rem;
     color: var(--green);
-    font-size: 1.5rem;
+    font-size: 1.65rem;
     line-height: 1;
+    text-align: right;
+  }
+
+  .offer-card-top small {
+    max-width: 9rem;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .offer-visual {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.9rem;
+    align-items: center;
+    min-height: 5.1rem;
+  }
+
+  .offer-visual > i {
+    display: inline-grid;
+    width: 4rem;
+    height: 4rem;
+    place-items: center;
+    border: 1px solid rgba(17, 200, 120, 0.34);
+    border-radius: 8px;
+    background: rgba(17, 200, 120, 0.12);
+    color: var(--green);
+    font-size: 1.65rem;
+    box-shadow: 0 0 2rem rgba(17, 200, 120, 0.12);
+  }
+
+  .offer-visual div {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .offer-visual span {
+    display: block;
+    height: 0.52rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .offer-visual span::before {
+    display: block;
+    width: var(--offer-level);
+    height: 100%;
+    content: '';
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--green), var(--purple-2));
+  }
+
+  .offer-visual span:nth-child(2)::before {
+    width: calc(var(--offer-level) - 14%);
+  }
+
+  .offer-visual span:nth-child(3)::before {
+    width: calc(var(--offer-level) - 26%);
+  }
+
+  .offer-card h3 {
+    color: #fff;
+    font-size: clamp(1.18rem, 2vw, 1.55rem);
+    line-height: 1.08;
+  }
+
+  .offer-card p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .offer-sequence {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .offer-sequence span {
+    display: grid;
+    gap: 0.3rem;
+    min-height: 4.2rem;
+    align-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.62rem;
+    background: rgba(3, 4, 7, 0.42);
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 0.72rem;
+    font-weight: 850;
+    line-height: 1.15;
+  }
+
+  .offer-sequence small {
+    color: var(--green);
+    font-size: 0.64rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
   }
 
   .offer-grid ul {
@@ -1571,6 +1875,23 @@ const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
 
   .offer-grid li i {
     color: var(--green);
+  }
+
+  .offer-progress {
+    height: 0.48rem;
+    overflow: hidden;
+    align-self: end;
+    margin-top: auto;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .offer-progress i {
+    display: block;
+    width: var(--offer-level);
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--green), var(--purple-2));
   }
 
   .use-case-band {
@@ -1744,6 +2065,10 @@ const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
       min-height: 610px;
     }
 
+    .offers-head {
+      grid-template-columns: 1fr;
+    }
+
     .benefit-impact {
       grid-template-columns: 1fr;
     }
@@ -1851,6 +2176,83 @@ const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
     .benefit-grid article,
     .offer-grid article {
       min-height: 0;
+    }
+
+    .offers-route {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .offers-route article {
+      min-height: 4.8rem;
+      padding: 0.68rem;
+    }
+
+    .offers-route strong {
+      font-size: 0.72rem;
+    }
+
+    .offers-route em {
+      font-size: 1rem;
+    }
+
+    .offer-card,
+    .offer-card:hover,
+    .offer-card:focus-within {
+      transform: none;
+    }
+
+    .offer-card {
+      gap: 0.62rem;
+      padding: 0.82rem;
+    }
+
+    .offer-index {
+      top: 0.6rem;
+      left: 0.68rem;
+      font-size: 5.8rem;
+    }
+
+    .offer-card-top strong {
+      font-size: 1.35rem;
+    }
+
+    .offer-card-top small {
+      max-width: 7.2rem;
+      font-size: 0.58rem;
+    }
+
+    .offer-visual {
+      min-height: 3.85rem;
+    }
+
+    .offer-visual > i {
+      width: 2.95rem;
+      height: 2.95rem;
+      font-size: 1.35rem;
+    }
+
+    .offer-card h3 {
+      font-size: 1.18rem;
+    }
+
+    .offer-card p {
+      font-size: 0.84rem;
+      line-height: 1.42;
+    }
+
+    .offer-sequence span {
+      min-height: 3.1rem;
+      padding: 0.44rem;
+      font-size: 0.6rem;
+    }
+
+    .offer-grid li {
+      padding: 0.32rem 0.48rem;
+      font-size: 0.68rem;
+    }
+
+    .offer-progress {
+      height: 0.38rem;
     }
 
     .benefit-copy {
@@ -2065,6 +2467,7 @@ const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
     .benefit-cockpit,
     .cockpit-funnel article,
     .cockpit-chat article,
+    .offer-card,
     .benefit-grid article {
       transition: none;
     }
@@ -2083,6 +2486,8 @@ const cockpitBars = t.dashboard.slice(0, 3).map((item, index) => ({
     .benefit-cockpit:focus-within .cockpit-chat article,
     .benefit-cockpit:hover .cockpit-chat .is-highlight,
     .benefit-cockpit:focus-within .cockpit-chat .is-highlight,
+    .offer-card:hover,
+    .offer-card:focus-within,
     .benefit-grid article:hover,
     .benefit-grid article:focus-within {
       transform: none;
