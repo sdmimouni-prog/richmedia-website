@@ -70,6 +70,13 @@ const stats = [
   { value: '+156', label: 'completed projects' },
   { value: '4', label: 'connected offices' },
 ];
+
+const quickLinks = [
+  { href: '#team-proof', label: 'Proof', value: '17 profiles' },
+  { href: '#team-poles', label: 'Units', value: '4 axes' },
+  { href: '#hall-of-fame', label: 'Team', value: String(team.length) },
+  { href: '#team-contact', label: 'Contact', value: 'Brief' },
+];
 ---
 <BaseLayout
   title="Richmedia Team — Strategy, creativity, media and technology"
@@ -115,7 +122,16 @@ const stats = [
       </div>
     </section>
 
-    <section class="team-stats" aria-label="Team key figures">
+    <nav class="mobile-page-nav" aria-label="Team page navigation">
+      {quickLinks.map((link) => (
+        <a href={link.href}>
+          <span>{link.label}</span>
+          <strong>{link.value}</strong>
+        </a>
+      ))}
+    </nav>
+
+    <section class="team-stats" id="team-proof" aria-label="Team key figures">
       {stats.map((stat) => (
         <article>
           <strong>{stat.value}</strong>
@@ -124,7 +140,7 @@ const stats = [
       ))}
     </section>
 
-    <section class="team-marquee" aria-label="Richmedia team portraits">
+    <section class="team-marquee" id="team-portraits" aria-label="Richmedia team portraits">
       <div class="marquee-row marquee-row-forward">
         {teamLoop.map((member) => (
           <figure>
@@ -149,7 +165,7 @@ const stats = [
       </div>
     </section>
 
-    <section class="team-poles" aria-labelledby="poles-title">
+    <section class="team-poles" id="team-poles" aria-labelledby="poles-title">
       <div>
         <span class="section-kicker">Organization</span>
         <h2 id="poles-title">Our units.</h2>
@@ -187,7 +203,7 @@ const stats = [
       </div>
     </section>
 
-    <section class="team-closing" aria-labelledby="closing-title">
+    <section class="team-closing" id="team-contact" aria-labelledby="closing-title">
       <div>
         <span class="section-kicker">Ready to scale?</span>
         <h2 id="closing-title">The right team changes how fast a project moves.</h2>
@@ -244,6 +260,18 @@ const stats = [
     z-index: 1;
     width: var(--container);
     margin-inline: auto;
+  }
+
+  .team-stats,
+  .team-marquee,
+  .team-poles,
+  .hall-section,
+  .team-closing {
+    scroll-margin-top: 6rem;
+  }
+
+  .mobile-page-nav {
+    display: none;
   }
 
   .team-hero {
@@ -769,18 +797,46 @@ const stats = [
   @media (max-width: 720px) {
     .team-page {
       --container: min(100% - 1.25rem, 1320px);
+      background:
+        radial-gradient(circle at 18% 4%, rgba(124,60,255,0.2), transparent 18rem),
+        linear-gradient(180deg, #030407 0%, #06070c 54%, #020306 100%);
     }
 
     .team-hero {
-      padding-top: 6.5rem;
+      gap: 1.15rem;
+      padding-top: 5.8rem;
+      padding-bottom: 1.15rem;
     }
 
     .team-hero h1 {
-      --h1-size: clamp(2.35rem, 11vw, 3.125rem);
+      --h1-size: clamp(2rem, 9.6vw, 2.72rem);
+      margin-top: 0.82rem;
+      line-height: 1.03;
+    }
+
+    .team-hero-copy p {
+      margin-top: 1rem;
+      font-size: 0.96rem;
+      line-height: 1.54;
+    }
+
+    .team-actions {
+      flex-direction: column;
+      gap: 0.62rem;
+      margin-top: 1.25rem;
+    }
+
+    .button {
+      width: 100%;
+      min-height: 3.12rem;
+      padding-inline: 1rem;
     }
 
     .founder-panel {
       grid-template-columns: 1fr;
+      gap: 0;
+      border-radius: 8px;
+      padding: 0.48rem;
     }
 
     .founder-photo {
@@ -788,32 +844,267 @@ const stats = [
     }
 
     .founder-photo img {
-      aspect-ratio: 8 / 7;
+      aspect-ratio: 16 / 11;
       height: auto;
     }
 
+    .founder-copy {
+      padding: 0.9rem 0.68rem 0.68rem;
+    }
+
+    .founder-copy h2 {
+      --h2-size: clamp(1.52rem, 7.2vw, 2rem);
+      line-height: 1.04;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .founder-copy p {
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+
+    .founder-facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.38rem;
+      margin-top: 0.78rem;
+    }
+
+    .founder-facts span {
+      min-height: 2.25rem;
+      padding: 0.42rem 0.48rem;
+      font-size: 0.62rem;
+    }
+
+    .mobile-page-nav {
+      position: sticky;
+      top: 4.35rem;
+      z-index: 12;
+      display: flex;
+      gap: 0.48rem;
+      overflow-x: auto;
+      width: var(--container);
+      margin: 0.75rem auto 1rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 0.42rem;
+      background: rgba(5,7,15,0.86);
+      box-shadow: 0 0.9rem 2rem rgba(0,0,0,0.28);
+      backdrop-filter: blur(16px);
+    }
+
+    .mobile-page-nav a {
+      display: grid;
+      min-width: 5.9rem;
+      min-height: 3rem;
+      align-content: center;
+      gap: 0.12rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 7px;
+      padding: 0.45rem 0.62rem;
+      background: rgba(255,255,255,0.045);
+      color: #fff;
+      text-decoration: none;
+      scroll-snap-align: start;
+    }
+
+    .mobile-page-nav span {
+      color: rgba(255,255,255,0.62);
+      font-size: 0.62rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .mobile-page-nav strong {
+      font-size: 0.9rem;
+      font-weight: 900;
+      line-height: 1.05;
+    }
+
+    .team-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-radius: 8px;
+    }
+
+    .team-stats article {
+      min-height: 5.9rem;
+      padding: 0.9rem 0.78rem;
+    }
+
+    .team-stats article + article,
+    .team-stats article:nth-child(odd) {
+      border-left: 0;
+    }
+
+    .team-stats article:nth-child(even) {
+      border-left: 1px solid var(--line);
+    }
+
+    .team-stats article:nth-child(n + 3) {
+      border-top: 1px solid var(--line);
+    }
+
+    .team-stats strong {
+      font-size: clamp(1.62rem, 8.6vw, 2.2rem);
+    }
+
+    .team-stats span {
+      margin-top: 0.34rem;
+      font-size: 0.72rem;
+      line-height: 1.24;
+    }
+
+    .team-marquee {
+      gap: 0;
+      margin-top: 2.2rem;
+      overflow-x: auto;
+      padding-block: 0.78rem;
+      scroll-snap-type: x proximity;
+    }
+
+    .marquee-row {
+      gap: 0.62rem;
+      animation: none;
+    }
+
+    .marquee-row-reverse {
+      display: none;
+    }
+
+    .marquee-row figure {
+      width: 7.6rem;
+      scroll-snap-align: start;
+    }
+
+    .marquee-row figcaption {
+      right: 0.58rem;
+      bottom: 0.58rem;
+      left: 0.58rem;
+    }
+
+    .marquee-row strong {
+      font-size: 0.68rem;
+    }
+
+    .marquee-row span {
+      font-size: 0.54rem;
+    }
+
+    .team-poles {
+      gap: 0.92rem;
+      margin-top: 2.3rem;
+    }
+
+    .team-poles h2,
+    .hall-section h2,
+    .team-closing h2 {
+      --h2-size: clamp(1.72rem, 8.4vw, 2.18rem);
+      margin-top: 0.72rem;
+      line-height: 1;
+    }
+
     .poles-grid,
-    .team-stats,
     .team-closing {
       grid-template-columns: 1fr;
     }
 
-    .team-stats article + article {
-      border-top: 1px solid var(--line);
-      border-left: 0;
+    .poles-grid {
+      gap: 0.62rem;
+    }
+
+    .poles-grid article {
+      min-height: 0;
+      padding: 0.9rem;
+    }
+
+    .poles-grid article:hover {
+      transform: none;
+    }
+
+    .poles-grid h3 {
+      margin-top: 0.82rem;
+      font-size: 1.05rem;
+    }
+
+    .poles-grid p {
+      font-size: 0.78rem;
+      line-height: 1.42;
+    }
+
+    .hall-section {
+      margin-top: 2.4rem;
+    }
+
+    .hall-head {
+      margin-bottom: 0.95rem;
     }
 
     .team-grid {
       grid-template-columns: 1fr;
+      gap: 0.7rem;
     }
 
     .member-card,
     .member-card-featured {
+      display: grid;
       grid-column: auto;
+      grid-template-columns: 6.5rem minmax(0, 1fr);
+      min-height: 7.1rem;
+      border-radius: 8px;
     }
 
-    .marquee-row figure {
-      width: 150px;
+    .member-card:hover {
+      transform: none;
+    }
+
+    .member-image {
+      min-height: 100%;
+    }
+
+    .member-image img {
+      height: 100%;
+      aspect-ratio: auto;
+      object-fit: cover;
+    }
+
+    .member-info {
+      display: grid;
+      align-content: center;
+      min-width: 0;
+      padding: 0.78rem;
+    }
+
+    .member-info::before {
+      width: 1.7rem;
+      height: 2px;
+      margin-bottom: 0.52rem;
+    }
+
+    .member-info span {
+      font-size: 0.54rem;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+    }
+
+    .member-info h3 {
+      margin-top: 0.36rem;
+      font-size: 1rem;
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+    }
+
+    .member-info p {
+      font-size: 0.72rem;
+      line-height: 1.28;
+    }
+
+    .team-closing {
+      gap: 1rem;
+      margin-top: 2.35rem;
+      margin-bottom: 3rem;
+      padding: 1rem;
     }
 
     .team-closing .button {

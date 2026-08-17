@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuditLanding from '../../components/AuditLanding.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, localBusiness, serviceSchema } from '../../lib/schema';
+
+const pageDescription =
+  'Book a 360 digital audit with Richmedia: social media, website, SEO, campaigns, conversion, data and online reputation.';
+
+const schema = [
+  {
+    ...localBusiness(),
+    url: `${SITE.url}/en/book-audit`,
+    description: pageDescription,
+    inLanguage: 'en',
+  },
+  {
+    ...serviceSchema({
+      name: '360 digital audit',
+      description: pageDescription,
+      url: `${SITE.url}/en/book-audit`,
+    }),
+    inLanguage: 'en',
+  },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Book your audit', url: `${SITE.url}/en/book-audit` },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Book your 360 digital audit - Richmedia"
+  description={pageDescription}
+  canonical={`${SITE.url}/en/book-audit`}
+  lang="en"
+  schema={schema}
+>
+  <AuditLanding lang="en" />
+</BaseLayout>

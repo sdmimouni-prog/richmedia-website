@@ -247,6 +247,13 @@ const schema = [
     { name: 'Influence', url: pageUrl },
   ]),
 ];
+
+const mobileQuickLinks = [
+  { href: '#cockpit', label: 'Cockpit', value: 'Fit' },
+  { href: '#trends', label: 'Trends', value: '2026' },
+  { href: '#creators', label: 'Talent', value: 'Profiles' },
+  { href: '#influence-cta', label: 'Project', value: 'Activate' },
+];
 ---
 
 <BaseLayout
@@ -295,7 +302,16 @@ const schema = [
       </div>
     </section>
 
-    <section class="influence-cockpit" aria-label="Richmedia influence promises">
+    <nav class="mobile-influence-nav" aria-label="Influence page navigation">
+      {mobileQuickLinks.map((link) => (
+        <a href={link.href}>
+          <span>{link.label}</span>
+          <strong>{link.value}</strong>
+        </a>
+      ))}
+    </nav>
+
+    <section id="cockpit" class="influence-cockpit" aria-label="Richmedia influence promises">
       <div class="cockpit-main">
         <div class="cockpit-topline">
           <span></span>
@@ -338,7 +354,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="quick-answer" aria-labelledby="quick-answer-title">
+    <section id="answer" class="quick-answer" aria-labelledby="quick-answer-title">
       <div>
         <span class="eyebrow">Quick answer</span>
         <h2 id="quick-answer-title">In 2026, influence performs when it is managed like media.</h2>
@@ -350,7 +366,7 @@ const schema = [
       </p>
     </section>
 
-    <section class="trend-section" aria-labelledby="trend-title">
+    <section id="trends" class="trend-section" aria-labelledby="trend-title">
       <div class="section-heading">
         <div>
           <span class="eyebrow">Influence trends 2026</span>
@@ -377,7 +393,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="creator-section" aria-labelledby="creator-title">
+    <section id="creators" class="creator-section" aria-labelledby="creator-title">
       <div class="section-heading">
         <div>
           <span class="eyebrow">Creator network</span>
@@ -407,7 +423,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="influence-system" aria-labelledby="system-title">
+    <section id="system" class="influence-system" aria-labelledby="system-title">
       <div class="system-visual" aria-hidden="true">
         <div class="screen-frame">
           <div class="screen-top">
@@ -458,7 +474,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="tool-stack" aria-labelledby="tool-title">
+    <section id="tools" class="tool-stack" aria-labelledby="tool-title">
       <div class="section-heading compact">
         <span class="eyebrow">Partners & tools</span>
         <h2 id="tool-title">The stack used to manage influence, UGC, tracking and amplification.</h2>
@@ -499,7 +515,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="roadmap-section" aria-labelledby="roadmap-title">
+    <section id="roadmap" class="roadmap-section" aria-labelledby="roadmap-title">
       <div class="section-heading">
         <div>
           <span class="eyebrow">Richmedia method</span>
@@ -521,7 +537,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="deliverables-section" aria-labelledby="deliverables-title">
+    <section id="deliverables" class="deliverables-section" aria-labelledby="deliverables-title">
       <div class="section-heading compact">
         <span class="eyebrow">Deliverables</span>
         <h2 id="deliverables-title">What you receive to manage without blind spots.</h2>
@@ -531,7 +547,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="sources-section" aria-labelledby="sources-title">
+    <section id="sources" class="sources-section" aria-labelledby="sources-title">
       <div class="section-heading compact">
         <span class="eyebrow">2026 watch</span>
         <h2 id="sources-title">Market signals integrated into our approach.</h2>
@@ -547,7 +563,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="faq-section" aria-labelledby="faq-title">
+    <section id="faq" class="faq-section" aria-labelledby="faq-title">
       <div class="section-heading compact">
         <span class="eyebrow">FAQ SEO/GEO</span>
         <h2 id="faq-title">Frequently asked questions.</h2>
@@ -562,7 +578,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="influence-cta" aria-labelledby="cta-title">
+    <section id="influence-cta" class="influence-cta" aria-labelledby="cta-title">
       <div>
         <span class="eyebrow">Ready to activate?</span>
         <h2 id="cta-title">Launch an influence campaign with credible creators and clear measurement.</h2>
@@ -604,6 +620,7 @@ const schema = [
   }
 
   .influence-hero,
+  .mobile-influence-nav,
   .influence-cockpit,
   .quick-answer,
   .trend-section,
@@ -617,6 +634,24 @@ const schema = [
   .influence-cta {
     width: var(--container);
     margin-inline: auto;
+  }
+
+  .influence-cockpit,
+  .quick-answer,
+  .trend-section,
+  .creator-section,
+  .influence-system,
+  .tool-stack,
+  .roadmap-section,
+  .deliverables-section,
+  .sources-section,
+  .faq-section,
+  .influence-cta {
+    scroll-margin-top: 6rem;
+  }
+
+  .mobile-influence-nav {
+    display: none;
   }
 
   .influence-hero {
@@ -2134,6 +2169,713 @@ const schema = [
     .button,
     .influence-cta .hero-actions {
       width: 100%;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .influence-page {
+      --container: min(100% - 1.25rem, 1360px);
+      overflow: visible;
+      overflow-x: clip;
+      background-size: auto, auto, 58px 58px, 58px 58px, auto;
+    }
+
+    .influence-hero,
+    .mobile-influence-nav,
+    .influence-cockpit,
+    .quick-answer,
+    .trend-section,
+    .creator-section,
+    .influence-system,
+    .tool-stack,
+    .roadmap-section,
+    .deliverables-section,
+    .sources-section,
+    .faq-section,
+    .influence-cta {
+      width: var(--container);
+      max-width: var(--container);
+      margin-inline: auto;
+    }
+
+    .influence-cockpit,
+    .quick-answer,
+    .trend-section,
+    .creator-section,
+    .influence-system,
+    .tool-stack,
+    .roadmap-section,
+    .deliverables-section,
+    .sources-section,
+    .faq-section,
+    .influence-cta {
+      scroll-margin-top: 13.25rem;
+    }
+
+    .influence-hero {
+      gap: 1rem;
+      min-height: auto;
+      padding: 5.85rem 0 1rem;
+    }
+
+    .eyebrow {
+      gap: 0.55rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+    }
+
+    .eyebrow::before {
+      width: 2.25rem;
+    }
+
+    .hero-copy h1 {
+      --h1-size: clamp(2.08rem, 10.1vw, 2.85rem);
+      margin-top: 0.95rem;
+      line-height: 0.98;
+    }
+
+    .hero-copy p,
+    .section-heading p,
+    .quick-answer p,
+    .system-copy > p,
+    .influence-cta p {
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .hero-lead {
+      margin-top: 1.05rem;
+    }
+
+    .hero-actions,
+    .influence-cta .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      margin-top: 1.3rem;
+    }
+
+    .button {
+      width: 100%;
+      min-height: 3.05rem;
+      padding: 0.78rem 0.95rem;
+      font-size: clamp(0.94rem, 4vw, 1.02rem);
+      line-height: 1.15;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: none;
+    }
+
+    .hero-visual {
+      width: 100%;
+      min-height: 20.5rem;
+      transform: none;
+    }
+
+    .hero-visual:hover,
+    .hero-visual:focus-within {
+      transform: none;
+    }
+
+    .hero-visual::before,
+    .hero-visual::after {
+      display: none;
+    }
+
+    .hero-visual img {
+      min-height: 20.5rem;
+      object-position: 54% 50%;
+      transform: none;
+    }
+
+    .signal-card {
+      width: auto;
+      gap: 0.2rem;
+      padding: 0.72rem 0.78rem;
+    }
+
+    .signal-card span {
+      font-size: 0.58rem;
+    }
+
+    .signal-card strong {
+      font-size: 0.86rem;
+      line-height: 1.14;
+    }
+
+    .signal-card-top {
+      top: 0.85rem;
+      right: calc(50% + 0.28rem);
+      left: 0.85rem;
+    }
+
+    .signal-card-middle {
+      top: 0.85rem;
+      right: 0.85rem;
+      bottom: auto;
+      left: calc(50% + 0.28rem);
+    }
+
+    .signal-card-bottom {
+      right: 0.85rem;
+      bottom: 0.85rem;
+      left: 0.85rem;
+    }
+
+    .mobile-influence-nav {
+      position: sticky;
+      top: 4.35rem;
+      z-index: 25;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin: 0 auto 1.15rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 0.52rem;
+      background: rgba(8, 9, 15, 0.82);
+      box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(18px);
+    }
+
+    .mobile-influence-nav a {
+      display: grid;
+      align-content: center;
+      gap: 0.2rem;
+      min-width: 0;
+      min-height: 3.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 0.58rem 0.38rem;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .mobile-influence-nav span {
+      overflow: hidden;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 0.56rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .mobile-influence-nav strong {
+      overflow: hidden;
+      color: var(--purple-2);
+      font-size: clamp(0.72rem, 3.4vw, 0.86rem);
+      line-height: 1.05;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .influence-cockpit {
+      gap: 0.68rem;
+    }
+
+    .cockpit-main {
+      min-height: 0;
+      padding: 1rem;
+    }
+
+    .cockpit-main::before {
+      background-size: 42px 42px;
+    }
+
+    .cockpit-main::after {
+      display: none;
+    }
+
+    .cockpit-topline {
+      flex-wrap: wrap;
+    }
+
+    .cockpit-topline small {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .cockpit-zero {
+      grid-template-columns: 4.3rem minmax(0, 1fr);
+      gap: 0.8rem;
+      align-items: center;
+      margin-top: 1.45rem;
+    }
+
+    .cockpit-zero > span {
+      font-size: clamp(2.7rem, 15vw, 4.2rem);
+    }
+
+    .cockpit-zero p {
+      margin-bottom: 0.4rem;
+      font-size: 0.64rem;
+    }
+
+    .cockpit-zero h2 {
+      --h2-size: clamp(1.12rem, 5.7vw, 1.48rem);
+      line-height: 1.06;
+    }
+
+    .cockpit-bars {
+      gap: 0.62rem;
+      margin-top: 1.25rem;
+    }
+
+    .cockpit-feed {
+      gap: 0.58rem;
+    }
+
+    .cockpit-feed article {
+      grid-template-columns: 2.75rem minmax(0, 1fr);
+      gap: 0.72rem;
+      min-height: 0;
+      padding: 0.82rem;
+    }
+
+    .cockpit-feed article > span {
+      width: 2.3rem;
+      height: 2.3rem;
+      font-size: 0.68rem;
+    }
+
+    .cockpit-feed strong {
+      font-size: 1.08rem;
+    }
+
+    .cockpit-feed h2 {
+      margin-top: 0.35rem;
+      font-size: 0.92rem;
+    }
+
+    .cockpit-feed p {
+      margin-top: 0.45rem;
+      font-size: 0.84rem;
+      line-height: 1.42;
+    }
+
+    .quick-answer {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      margin-top: 2.15rem;
+      padding: 1rem;
+    }
+
+    .quick-answer h2,
+    .section-heading h2,
+    .system-copy h2,
+    .influence-cta h2 {
+      --h2-size: clamp(1.48rem, 7.5vw, 2.08rem);
+      line-height: 1.04;
+    }
+
+    .trend-section,
+    .creator-section,
+    .influence-system,
+    .tool-stack,
+    .roadmap-section,
+    .deliverables-section,
+    .sources-section,
+    .faq-section {
+      padding-top: 2.25rem;
+    }
+
+    .section-heading,
+    .trend-grid,
+    .service-grid,
+    .roadmap,
+    .source-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+      gap: 0.72rem;
+      margin-bottom: 1rem;
+    }
+
+    .trend-grid {
+      display: flex;
+      gap: 0.72rem;
+      overflow-x: auto;
+      padding: 0 0 0.3rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .trend-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .trend-grid article {
+      flex: 0 0 min(78vw, 20rem);
+      grid-template-columns: 1fr;
+      min-height: 0;
+      scroll-snap-align: start;
+    }
+
+    .trend-media {
+      min-height: 0;
+      aspect-ratio: 16 / 10;
+    }
+
+    .trend-media::after {
+      background: linear-gradient(180deg, transparent 58%, rgba(3, 4, 7, 0.48));
+    }
+
+    .trend-copy {
+      padding: 0.92rem;
+    }
+
+    .trend-grid h3,
+    .service-grid h3,
+    .roadmap h3,
+    .creator-copy h3 {
+      margin-top: 0.55rem;
+      font-size: 1.05rem;
+    }
+
+    .trend-grid p,
+    .creator-copy p,
+    .service-grid p,
+    .roadmap p,
+    .source-grid span,
+    .faq-list p {
+      margin-top: 0.5rem;
+      font-size: 0.88rem;
+      line-height: 1.48;
+    }
+
+    .creator-grid {
+      display: flex;
+      gap: 0.72rem;
+      overflow-x: auto;
+      padding: 0 0 0.3rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .creator-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .creator-grid article {
+      flex: 0 0 min(82vw, 20.5rem);
+      scroll-snap-align: start;
+    }
+
+    .creator-photo {
+      aspect-ratio: 4 / 4.7;
+    }
+
+    .creator-copy {
+      padding: 0.92rem;
+    }
+
+    .creator-copy div,
+    .service-grid div {
+      gap: 0.32rem;
+      margin-top: 0.72rem;
+    }
+
+    .creator-copy small,
+    .service-grid small {
+      min-height: 1.45rem;
+      font-size: 0.68rem;
+    }
+
+    .influence-system {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    .system-copy {
+      order: 1;
+      padding: 1rem;
+    }
+
+    .system-visual {
+      order: 2;
+      min-height: 19.5rem;
+    }
+
+    .screen-frame {
+      position: relative;
+      min-height: 19.5rem;
+    }
+
+    .screen-top {
+      min-height: 2.65rem;
+      padding: 0 0.75rem;
+    }
+
+    .screen-top span {
+      width: 0.55rem;
+      height: 0.55rem;
+    }
+
+    .screen-top strong {
+      min-width: 0;
+      overflow: hidden;
+      font-size: 0.68rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .creator-card {
+      gap: 0.38rem;
+      padding: 0.85rem;
+    }
+
+    .creator-card-a {
+      top: 3.55rem;
+      right: 0.75rem;
+      left: 0.75rem;
+    }
+
+    .creator-card-b {
+      right: 0.75rem;
+      bottom: 4.85rem;
+      left: 0.75rem;
+    }
+
+    .creator-card span {
+      font-size: 0.68rem;
+    }
+
+    .creator-card strong {
+      font-size: clamp(1.05rem, 5.1vw, 1.34rem);
+    }
+
+    .creator-card small {
+      font-size: 0.72rem;
+    }
+
+    .influence-flow {
+      right: 0.75rem;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 0.32rem;
+    }
+
+    .influence-flow span {
+      min-height: 2.2rem;
+      font-size: 0.68rem;
+    }
+
+    .influence-flow i {
+      width: 0.65rem;
+      height: 1px;
+      margin: 0;
+      background: linear-gradient(90deg, rgba(169, 119, 255, 0.2), rgba(169, 119, 255, 0.9));
+    }
+
+    .service-grid {
+      gap: 0.65rem;
+      margin-top: 0.9rem;
+    }
+
+    .service-grid article,
+    .roadmap article {
+      min-height: 0;
+      padding: 1rem;
+    }
+
+    .logo-marquee {
+      margin-top: 0.95rem;
+      mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+    }
+
+    .logo-track {
+      animation-duration: 24s;
+    }
+
+    .logo-track-segment {
+      gap: 0.52rem;
+      padding-right: 0.52rem;
+    }
+
+    .logo-marquee figure {
+      flex-basis: 6.1rem;
+      min-height: 4.75rem;
+      padding: 0.45rem;
+    }
+
+    .logo-marquee span {
+      height: 2.48rem;
+    }
+
+    .logo-marquee img {
+      height: 1.7rem;
+    }
+
+    .logo-marquee figcaption {
+      margin-top: 0.34rem;
+      font-size: 0.55rem;
+    }
+
+    .tool-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.9rem;
+    }
+
+    .tool-grid figure {
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 0.48rem;
+      min-height: 7.1rem;
+      padding: 0.55rem;
+      text-align: center;
+    }
+
+    .tool-grid span {
+      height: 3.05rem;
+      padding: 0.45rem;
+    }
+
+    .tool-grid img {
+      max-height: 2.05rem;
+    }
+
+    .tool-grid figcaption {
+      gap: 0.14rem;
+    }
+
+    .tool-grid strong {
+      font-size: 0.78rem;
+      line-height: 1.14;
+    }
+
+    .tool-grid small {
+      font-size: 0.64rem;
+      line-height: 1.22;
+    }
+
+    .roadmap {
+      gap: 0.65rem;
+    }
+
+    .roadmap article {
+      display: grid;
+      grid-template-columns: 3.2rem minmax(0, 1fr);
+      gap: 0.12rem 0.72rem;
+    }
+
+    .roadmap article > span {
+      grid-row: 1 / 3;
+      font-size: 1.65rem;
+      line-height: 1;
+    }
+
+    .deliverables-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.95rem;
+    }
+
+    .deliverables-grid span {
+      min-height: 3.75rem;
+      padding: 0.62rem 0.55rem 0.62rem 2.2rem;
+      font-size: 0.75rem;
+      line-height: 1.22;
+    }
+
+    .deliverables-grid span::after {
+      right: auto;
+      left: 0.55rem;
+      width: 1.32rem;
+      height: 1.32rem;
+      font-size: 0.46rem;
+    }
+
+    .deliverables-grid:hover span:not(:hover) {
+      opacity: 1;
+    }
+
+    .source-grid a {
+      min-height: 0;
+      gap: 0.46rem;
+      padding: 0.95rem;
+    }
+
+    .source-grid strong {
+      font-size: 0.96rem;
+    }
+
+    .source-grid small {
+      margin-top: 0.35rem;
+    }
+
+    .faq-list {
+      gap: 0.65rem;
+      margin-top: 0.95rem;
+    }
+
+    .faq-list details {
+      padding: 0.95rem;
+    }
+
+    .faq-list summary {
+      font-size: 0.95rem;
+      line-height: 1.3;
+    }
+
+    .influence-cta {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 2.25rem;
+      margin-bottom: 2.5rem;
+      padding: 1.15rem;
+    }
+
+    .influence-cta .hero-actions {
+      margin-top: 0;
+    }
+
+    .trend-grid article:hover,
+    .roadmap article:hover,
+    .service-grid article:hover,
+    .creator-grid article:hover,
+    .tool-grid figure:hover,
+    .source-grid a:hover,
+    .deliverables-grid span:hover {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 340px) {
+    .hero-copy h1 {
+      --h1-size: clamp(1.95rem, 9.8vw, 2.25rem);
+    }
+
+    .mobile-influence-nav {
+      gap: 0.38rem;
+      padding: 0.45rem;
+    }
+
+    .mobile-influence-nav a {
+      min-height: 3.58rem;
+      padding: 0.52rem 0.32rem;
+    }
+
+    .mobile-influence-nav strong {
+      font-size: 0.74rem;
+    }
+
+    .signal-card strong {
+      font-size: 0.78rem;
+    }
+
+    .deliverables-grid,
+    .tool-grid {
+      gap: 0.45rem;
     }
   }
 </style>

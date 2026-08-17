@@ -2223,6 +2223,284 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
   }
 
+  @media (max-width: 720px) {
+    .home-page {
+      --container: min(100% - 1rem, 1320px);
+      padding-bottom: 0.5rem;
+    }
+
+    .hero-section {
+      gap: 1.35rem;
+      padding-top: 5.9rem;
+    }
+
+    .hero-copy h1 {
+      max-width: 9ch;
+      --h1-size: clamp(2.55rem, 13vw, 3.95rem);
+      line-height: 0.98;
+    }
+
+    .hero-copy p {
+      max-width: 32ch;
+      margin-top: 1rem;
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      margin-top: 1.35rem;
+    }
+
+    .hero-actions .button,
+    .contact-actions .button,
+    .work-more .button {
+      width: 100%;
+      min-height: 3.35rem;
+      border-radius: 8px;
+    }
+
+    .hero-visual {
+      height: 292px;
+      min-height: 292px;
+      gap: 0.45rem;
+      padding: 0.45rem;
+      box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.28);
+    }
+
+    .film-stack {
+      gap: 0.45rem;
+      padding-bottom: 0.45rem;
+    }
+
+    .stats-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.62rem;
+      border: 0;
+      background: transparent;
+    }
+
+    .stat-item,
+    .stat-item:nth-child(2),
+    .stat-item:nth-child(-n + 2),
+    .stat-item:last-child {
+      min-height: 7.1rem;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.65rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.92rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.018));
+    }
+
+    .stat-item i {
+      font-size: 1.65rem;
+    }
+
+    .stat-item strong {
+      font-size: clamp(1.35rem, 8vw, 1.85rem);
+      line-height: 1;
+    }
+
+    .stat-item span {
+      font-size: 0.78rem;
+      line-height: 1.25;
+    }
+
+    .expertise-stories,
+    .work-section,
+    .team-section,
+    .contact-band,
+    .proof-zone {
+      margin-top: 3.1rem;
+    }
+
+    .section-heading {
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .story-heading h2 {
+      --h2-size: clamp(1.72rem, 8.4vw, 2.35rem);
+      line-height: 1.06;
+    }
+
+    .text-link {
+      min-height: 2.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 0 0.95rem;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .story-controls {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .stories-rail {
+      grid-auto-columns: min(84vw, 320px);
+      margin-inline: -0.5rem;
+      padding-inline: 0.5rem;
+      scroll-padding-inline: 0.5rem;
+    }
+
+    .phone-shell {
+      border-radius: 1.35rem;
+    }
+
+    .story-screen {
+      border-radius: 1rem;
+    }
+
+    .case-grid {
+      display: flex;
+      gap: 0.75rem;
+      margin-inline: -0.5rem;
+      overflow-x: auto;
+      padding-inline: 0.5rem;
+      padding-bottom: 0.55rem;
+      scroll-padding-inline: 0.5rem;
+      scroll-snap-type: x mandatory;
+    }
+
+    .case-grid::-webkit-scrollbar,
+    .stories-rail::-webkit-scrollbar {
+      display: none;
+    }
+
+    .case-card,
+    .case-card-large {
+      flex: 0 0 min(86vw, 348px);
+      min-height: 420px;
+      scroll-snap-align: start;
+    }
+
+    .case-card-large {
+      min-height: 430px;
+    }
+
+    .case-panel {
+      --case-panel-height: 10.25rem;
+      padding: 0.82rem;
+    }
+
+    .case-panel h3 {
+      font-size: 1.05rem;
+      line-height: 1.1;
+    }
+
+    .case-panel p {
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+
+    .case-metrics {
+      gap: 0.45rem;
+    }
+
+    .team-carousel::before,
+    .team-carousel::after {
+      width: 1.25rem;
+    }
+
+    .team-track {
+      gap: 0.55rem;
+    }
+
+    .team-card {
+      flex-basis: min(42vw, 154px);
+    }
+
+    .contact-band {
+      gap: 1.2rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      padding: 2.2rem 0;
+    }
+
+    .contact-band h2 {
+      max-width: 10ch;
+      --h2-size: clamp(1.9rem, 8.5vw, 2.55rem);
+      line-height: 1.04;
+    }
+
+    .contact-copy p {
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .contact-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+
+    .contact-card {
+      gap: 0.62rem;
+    }
+
+    .contact-line {
+      min-height: 4.35rem;
+      padding: 0.75rem 0.82rem;
+    }
+
+    .contact-line strong {
+      font-size: 0.88rem;
+    }
+
+    .contact-map-panel {
+      min-height: 226px;
+    }
+
+    .map-stage {
+      inset: 3rem 0.58rem 3.4rem;
+    }
+
+    .office-label {
+      display: none;
+    }
+
+    .office-pills {
+      gap: 0.38rem;
+    }
+
+    .office-pills span {
+      min-height: 1.9rem;
+      padding-inline: 0.56rem;
+      font-size: 0.7rem;
+    }
+
+    .proof-zone {
+      gap: 0.85rem;
+      padding-block: 1.65rem;
+    }
+
+    .proof-intro p {
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .proof-panel {
+      gap: 0.72rem;
+      border-radius: 8px;
+      padding: 0.68rem;
+    }
+
+    .proof-panel-media {
+      min-height: 11.5rem;
+    }
+
+    .proof-panel-copy {
+      padding: 0.15rem 0.1rem 0.25rem;
+    }
+  }
+
   @media (max-width: 380px) {
     .story-heading h2 {
       --h2-size: 1.12rem;

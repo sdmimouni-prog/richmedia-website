@@ -170,9 +170,9 @@ const ops = [
           l’attention en résultats mesurables.
         </p>
         <div class="expertise-actions">
-          <a class="button button-primary" href="/contact">
-            Voir nos expertises
-            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          <a class="button button-primary" href="#expertise-catalog">
+            Explorer les expertises
+            <i class="ph ph-arrow-down" aria-hidden="true"></i>
           </a>
           <a class="button button-secondary" href="/realisations">Explorer les cas clients</a>
         </div>
@@ -182,6 +182,10 @@ const ops = [
         <canvas class="particle-slider" data-particle-slider aria-hidden="true"></canvas>
       </div>
     </section>
+
+    <nav class="expertise-quick-nav" aria-label="Accès rapide aux expertises">
+      {expertises.map((item) => <a href={`#${item.slug}`}>{item.title}</a>)}
+    </nav>
 
     <section class="expertise-journey" aria-label="Méthode Richmedia">
       {journey.map((item) => (
@@ -193,7 +197,7 @@ const ops = [
       ))}
     </section>
 
-    <section class="expertise-catalog" aria-labelledby="expertise-catalog-title">
+    <section class="expertise-catalog" id="expertise-catalog" aria-labelledby="expertise-catalog-title">
       <div class="expertise-section-head">
         <h2 id="expertise-catalog-title">Toutes nos expertises</h2>
       </div>
@@ -210,6 +214,7 @@ const ops = [
             <div class="expertise-card-copy">
               <span class="expertise-pill">{item.label}</span>
               <h3>{item.title}</h3>
+              <p>{item.text}</p>
               <div class="expertise-tags">
                 {item.tags.map((tag) => <span>{tag}</span>)}
               </div>
@@ -282,11 +287,29 @@ const ops = [
       let width = 0;
       let height = 0;
       let dpr = 1;
-      let particles = [];
+      type Particle = {
+        u: number;
+        band: number;
+        lane: number;
+        drift: number;
+        x: number;
+        y: number;
+        vx: number;
+        vy: number;
+        size: number;
+        alpha: number;
+      };
+
+      type Point = {
+        x: number;
+        y: number;
+      };
+
+      let particles: Particle[] = [];
       let animationFrame = 0;
       let renderUntil = 0;
 
-      const random = (seed) => {
+      const random = (seed: number) => {
         const value = Math.sin(seed * 12.9898) * 43758.5453;
         return value - Math.floor(value);
       };
@@ -323,11 +346,11 @@ const ops = [
         });
       };
 
-      const ease = (value) => value * value * (3 - 2 * value);
+      const ease = (value: number) => value * value * (3 - 2 * value);
 
-      const lerp = (from, to, amount) => from + (to - from) * amount;
+      const lerp = (from: number, to: number, amount: number) => from + (to - from) * amount;
 
-      const particleShapePoint = (particle, time, pose) => {
+      const particleShapePoint = (particle: Particle, _time: number, pose: number): Point => {
         const posePhase = pose * 0.72;
         const flow = (particle.u + pose * 0.042) % 1;
         const ribbon = particle.band;
@@ -804,6 +827,15 @@ const ops = [
 
   .expertise-catalog {
     margin-top: clamp(2.4rem, 4vw, 3.4rem);
+    scroll-margin-top: 6rem;
+  }
+
+  .expertise-card {
+    scroll-margin-top: 6rem;
+  }
+
+  .expertise-quick-nav {
+    display: none;
   }
 
   .expertise-section-head {
@@ -1421,6 +1453,291 @@ const ops = [
 
     .accreditation-card {
       min-height: 116px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .expertise-page {
+      --container: min(100% - 1rem, 1320px);
+      overflow: clip;
+    }
+
+    .expertise-hero {
+      gap: 1.2rem;
+      padding: 5.9rem 0 1rem;
+    }
+
+    .section-kicker {
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+    }
+
+    .section-kicker::before {
+      width: 1.85rem;
+    }
+
+    .expertise-hero h1 {
+      max-width: 9ch;
+      --h1-size: clamp(2.55rem, 13vw, 3.6rem);
+      line-height: 0.96;
+    }
+
+    .expertise-hero-copy p {
+      margin-top: 1rem;
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .expertise-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+      margin-top: 1.35rem;
+    }
+
+    .expertise-actions .button {
+      width: 100%;
+      min-height: 3.35rem;
+      border-radius: 8px;
+    }
+
+    .expertise-hero-board {
+      min-height: 220px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .particle-slider {
+      opacity: 0.86;
+    }
+
+    .expertise-quick-nav {
+      position: sticky;
+      top: 4.6rem;
+      z-index: 12;
+      display: flex;
+      width: var(--container);
+      gap: 0.45rem;
+      overflow-x: auto;
+      margin: 0.2rem auto 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 0.45rem;
+      background: rgba(3, 4, 7, 0.88);
+      backdrop-filter: blur(16px);
+      scroll-padding-inline: 0.45rem;
+      scrollbar-width: none;
+    }
+
+    .expertise-quick-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .expertise-quick-nav a {
+      display: inline-flex;
+      flex: 0 0 auto;
+      min-height: 2.55rem;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      padding: 0 0.82rem;
+      background: rgba(255, 255, 255, 0.055);
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .expertise-journey {
+      gap: 0.6rem;
+      overflow: visible;
+      border: 0;
+      background: transparent;
+    }
+
+    .expertise-journey article,
+    .expertise-journey article + article,
+    .expertise-journey article:nth-child(n + 3) {
+      min-height: auto;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .expertise-journey article:hover,
+    .ops-grid article:hover,
+    .accreditation-card:hover {
+      transform: none;
+    }
+
+    .expertise-journey h2 {
+      margin-top: 0.72rem;
+      --h2-size: 1.18rem;
+    }
+
+    .expertise-journey p {
+      max-width: none;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .expertise-catalog {
+      margin-top: 2.4rem;
+    }
+
+    .expertise-section-head h2,
+    .expertise-ops-head h2 {
+      --h2-size: clamp(1.85rem, 8vw, 2.4rem);
+      line-height: 1.05;
+    }
+
+    .expertise-grid {
+      gap: 0.65rem;
+    }
+
+    .expertise-card,
+    .expertise-card-large,
+    .expertise-card-medium,
+    .expertise-card-small,
+    .expertise-card-wide,
+    .expertise-card-stack {
+      display: grid;
+      grid-template-columns: 104px minmax(0, 1fr);
+      gap: 0.75rem;
+      min-height: 0;
+      border-color: rgba(255, 255, 255, 0.12);
+      padding: 0.65rem;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .expertise-card-large {
+      min-height: 0;
+    }
+
+    .expertise-card img {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: 132px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .expertise-card::after {
+      display: none;
+    }
+
+    .card-number {
+      top: 0.65rem;
+      right: 0.75rem;
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    .expertise-card-copy {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      left: auto;
+      align-self: center;
+      padding-right: 1.4rem;
+    }
+
+    .expertise-pill {
+      min-height: 1.4rem;
+      font-size: 0.55rem;
+    }
+
+    .expertise-card h3,
+    .expertise-card-large h3 {
+      max-width: none;
+      margin-top: 0.42rem;
+      font-size: clamp(1.05rem, 5.6vw, 1.28rem);
+      line-height: 1.05;
+    }
+
+    .expertise-card p {
+      max-width: 100%;
+      margin-top: 0.42rem;
+      font-size: 0.72rem;
+      line-height: 1.35;
+      -webkit-line-clamp: 2;
+    }
+
+    .expertise-tags {
+      gap: 0.25rem;
+      margin-top: 0.52rem;
+    }
+
+    .expertise-tags span {
+      min-height: 1.35rem;
+      font-size: 0.56rem;
+    }
+
+    .expertise-tags span:nth-child(n + 4) {
+      display: none;
+    }
+
+    .ops-grid {
+      gap: 0.65rem;
+    }
+
+    .ops-grid article {
+      min-height: auto;
+      padding: 1rem;
+    }
+
+    .expertise-closing {
+      gap: 1rem;
+      margin-top: 2.5rem;
+      margin-bottom: 2.2rem;
+      padding: 1.2rem;
+    }
+
+    .expertise-closing h2 {
+      --h2-size: clamp(1.85rem, 8.5vw, 2.45rem);
+      line-height: 1.04;
+    }
+
+    .expertise-accreditations {
+      margin-top: 0;
+      margin-bottom: 2.2rem;
+      padding: 0.8rem;
+    }
+
+    .accreditation-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .accreditation-card {
+      min-height: 104px;
+      padding: 0.7rem 0.45rem;
+    }
+
+    .accreditation-card img {
+      width: min(116px, 76%);
+      height: 34px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .expertise-card,
+    .expertise-card-large,
+    .expertise-card-medium,
+    .expertise-card-small,
+    .expertise-card-wide,
+    .expertise-card-stack {
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 0.62rem;
+    }
+
+    .expertise-card img {
+      height: 124px;
     }
   }
 </style>

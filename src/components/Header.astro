@@ -17,6 +17,8 @@ const languageHref = isEnglish
     ? '/realisations/modele-case-study'
     : normalizedPath === '/en/contact'
     ? '/contact'
+    : normalizedPath === '/en/book-audit'
+    ? '/reserver-un-audit'
     : normalizedPath === '/en/expertises/strategie-digitale'
     ? '/expertises/strategie-digitale'
     : normalizedPath === '/en/expertises/brand-content'
@@ -60,6 +62,8 @@ const languageHref = isEnglish
     ? '/en/expertises'
     : normalizedPath === '/contact'
     ? '/en/contact'
+    : normalizedPath === '/reserver-un-audit'
+    ? '/en/book-audit'
     : '/en';
 
 const labels = isEnglish
@@ -68,11 +72,17 @@ const labels = isEnglish
       team: 'Team',
       products: 'Our products',
       mainNav: 'Primary navigation',
+      mobileNav: 'Mobile navigation',
       brandHome: 'Richmedia — Home',
       expertiseIntro: 'A complete system to create, amplify and convert.',
       allExpertise: 'View all expertise',
+      productIntro: 'Productized solutions and partner platforms for focused growth needs.',
+      productCta: 'Book a product demo',
       productMenu: 'Our products menu',
       langLabel: 'Version française',
+      caseStudies: 'Case studies',
+      menu: 'Open menu',
+      closeMenu: 'Close menu',
       cta: 'Book a call',
       ctaMobile: 'Call',
     }
@@ -81,19 +91,25 @@ const labels = isEnglish
       team: 'Équipe',
       products: 'Nos produits',
       mainNav: 'Navigation principale',
+      mobileNav: 'Navigation mobile',
       brandHome: 'Richmedia — Accueil',
       expertiseIntro: 'Un système complet pour créer, amplifier et convertir.',
       allExpertise: 'Voir toutes les expertises',
+      productIntro: 'Des solutions packagées et plateformes partenaires pour vos besoins de croissance ciblés.',
+      productCta: 'Demander une démo',
       productMenu: 'Menu nos produits',
       langLabel: 'English version',
+      caseStudies: 'Réalisations',
+      menu: 'Ouvrir le menu',
+      closeMenu: 'Fermer le menu',
       cta: 'Appelez-nous',
       ctaMobile: 'Appeler',
     };
 
-const ctaHref = isEnglish ? '/reserver-un-audit' : 'tel:+212661172885';
+const ctaHref = isEnglish ? '/en/book-audit' : 'tel:+212661172885';
 
 const navItems = [
-  { href: isEnglish ? '/en/case-studies' : '/realisations', label: 'Case studies' },
+  { href: isEnglish ? '/en/case-studies' : '/realisations', label: labels.caseStudies },
   { href: isEnglish ? '/en/team' : '/equipe', label: labels.team },
   { href: isEnglish ? '/en/contact' : '/contact', label: 'Contact' },
 ];
@@ -113,6 +129,26 @@ const productLinks = [
     href: 'https://hypeo.ai',
     label: 'Influence',
     text: isEnglish ? 'Hypeo.ai to manage creator campaigns.' : 'Hypeo.ai pour gérer les campagnes créateurs.',
+  },
+  {
+    href: 'https://www.in-talks.ma/',
+    label: 'Social listening',
+    text: isEnglish ? 'In Talks to monitor conversations and reputation signals.' : 'In Talks pour suivre les conversations et signaux de réputation.',
+  },
+];
+
+const productColumns = [
+  {
+    title: isEnglish ? 'Conversations' : 'Converser',
+    items: [productLinks[0], productLinks[3]],
+  },
+  {
+    title: isEnglish ? 'Creators' : 'Créateurs',
+    items: [productLinks[2]],
+  },
+  {
+    title: isEnglish ? 'Campaigns' : 'Campagnes',
+    items: [productLinks[1]],
   },
 ];
 
@@ -173,6 +209,41 @@ const expertiseColumns = [
     ],
   },
 ];
+
+const mobileNavItems = [
+  {
+    href: homeHref,
+    label: labels.home,
+    kicker: isEnglish ? 'Start' : 'Départ',
+    icon: 'ph ph-house-line',
+  },
+  {
+    href: expertiseHref(),
+    label: isEnglish ? 'Expertise' : 'Expertises',
+    kicker: 'Services',
+    icon: 'ph ph-sparkle',
+  },
+  {
+    href: isEnglish ? '/en/case-studies' : '/realisations',
+    label: labels.caseStudies,
+    kicker: isEnglish ? 'Proof' : 'Preuves',
+    icon: 'ph ph-images-square',
+  },
+  {
+    href: isEnglish ? '/en/team' : '/equipe',
+    label: labels.team,
+    kicker: isEnglish ? 'People' : 'Talents',
+    icon: 'ph ph-users-three',
+  },
+  {
+    href: isEnglish ? '/en/contact' : '/contact',
+    label: 'Contact',
+    kicker: isEnglish ? 'Brief' : 'Brief',
+    icon: 'ph ph-chat-circle-text',
+  },
+];
+
+const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
 ---
 <header class="site-header" data-site-header>
   <a href={homeHref} class="brand-lockup" aria-label={labels.brandHome}>
@@ -220,13 +291,30 @@ const expertiseColumns = [
         <i class="ph ph-caret-down" aria-hidden="true"></i>
       </button>
       <div class="products-submenu" aria-label={labels.productMenu}>
-        {productLinks.map((item) => (
-          <a href={item.href} target="_blank" rel="noopener">
-            <span>{item.label}</span>
-            <small>{item.text}</small>
+        <div class="product-menu-intro">
+          <span>{labels.products}</span>
+          <strong>{labels.productIntro}</strong>
+          <a href={isEnglish ? '/en/book-audit' : '/contact'}>
+            {labels.productCta}
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
-        ))}
+        </div>
+        <div class="product-menu-grid">
+          {productColumns.map((column) => (
+            <section>
+              <h2>{column.title}</h2>
+              <div>
+                {column.items.map((item) => (
+                  <a href={item.href} target="_blank" rel="noopener">
+                    <span>{item.label}</span>
+                    <small>{item.text}</small>
+                    <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+                  </a>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
     </div>
     {navItems.slice(2).map((item) => <a href={item.href}>{item.label}</a>)}
@@ -243,5 +331,129 @@ const expertiseColumns = [
       {labels.cta}
       <i class={isEnglish ? 'ph ph-arrow-up-right' : 'ph ph-phone'} aria-hidden="true"></i>
     </a>
+    <button class="mobile-menu-toggle" type="button" aria-label={labels.menu} aria-expanded="false" aria-controls="mobile-menu" data-mobile-menu-toggle>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
   </div>
+
+  <div class="mobile-menu-backdrop" data-mobile-menu-backdrop></div>
+  <nav id="mobile-menu" class="mobile-menu" aria-label={labels.mobileNav} aria-hidden="true" data-mobile-menu inert>
+    <div class="mobile-menu-top">
+      <span>{labels.mobileNav}</span>
+      <button class="mobile-menu-close" type="button" aria-label={labels.closeMenu} data-mobile-menu-close>
+        <i class="ph ph-x" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="mobile-menu-links">
+      {mobileNavItems.map((item) => (
+        <a class="mobile-menu-link" href={item.href}>
+          <small>{item.kicker}</small>
+          <span>{item.label}</span>
+          <i class={item.icon} aria-hidden="true"></i>
+        </a>
+      ))}
+    </div>
+
+    <section class="mobile-menu-section">
+      <span>{isEnglish ? 'Expertise' : 'Expertises'}</span>
+      <div class="mobile-menu-chip-grid">
+        {mobileExpertiseLinks.map((item) => (
+          <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
+        ))}
+      </div>
+    </section>
+
+    <section class="mobile-menu-section">
+      <span>{labels.products}</span>
+      <div class="mobile-product-list">
+        {productLinks.map((item) => (
+          <a href={item.href} target="_blank" rel="noopener">
+            <span>{item.label}</span>
+            <small>{item.text}</small>
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <div class="mobile-menu-actions">
+      <a href={languageHref}>{labels.langLabel}</a>
+      <a href={ctaHref}>{labels.cta}</a>
+    </div>
+  </nav>
 </header>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector('[data-site-header]');
+    const toggle = header?.querySelector('[data-mobile-menu-toggle]');
+    const closeButton = header?.querySelector('[data-mobile-menu-close]');
+    const menu = header?.querySelector('[data-mobile-menu]');
+    const backdrop = header?.querySelector('[data-mobile-menu-backdrop]');
+    const focusableSelector = 'a[href], button:not([disabled])';
+
+    if (!header || !toggle || !menu || !backdrop) return;
+
+    const setMenuState = (open, restoreFocus = true) => {
+      header.classList.toggle('is-menu-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      menu.setAttribute('aria-hidden', String(!open));
+      menu.toggleAttribute('inert', !open);
+      document.documentElement.classList.toggle('mobile-menu-lock', open);
+
+      if (open) {
+        window.requestAnimationFrame(() => {
+          menu.querySelector(focusableSelector)?.focus();
+        });
+      } else if (restoreFocus) {
+        toggle.focus();
+      }
+    };
+
+    toggle.addEventListener('click', () => {
+      setMenuState(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    closeButton?.addEventListener('click', () => setMenuState(false));
+    backdrop.addEventListener('click', () => setMenuState(false));
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setMenuState(false, false));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!header.classList.contains('is-menu-open')) return;
+
+      if (event.key === 'Escape') {
+        setMenuState(false);
+        return;
+      }
+
+      if (event.key === 'Tab') {
+        const focusableItems = [...menu.querySelectorAll(focusableSelector)].filter(
+          (item) => item instanceof HTMLElement && item.offsetParent !== null
+        );
+        const firstItem = focusableItems[0];
+        const lastItem = focusableItems[focusableItems.length - 1];
+
+        if (!firstItem || !lastItem) return;
+
+        if (event.shiftKey && document.activeElement === firstItem) {
+          event.preventDefault();
+          lastItem.focus();
+        } else if (!event.shiftKey && document.activeElement === lastItem) {
+          event.preventDefault();
+          firstItem.focus();
+        }
+      }
+    });
+
+    const desktopQuery = window.matchMedia('(min-width: 1081px)');
+    desktopQuery.addEventListener?.('change', (event) => {
+      if (event.matches) setMenuState(false, false);
+    });
+  })();
+</script>

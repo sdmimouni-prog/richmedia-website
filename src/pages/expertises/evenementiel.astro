@@ -248,6 +248,13 @@ const schema = [
     { name: 'Événementiel', url: pageUrl },
   ]),
 ];
+
+const mobileQuickLinks = [
+  { href: '#cockpit', label: 'Cockpit', value: '360' },
+  { href: '#trends', label: 'Signaux', value: '2026' },
+  { href: '#formats', label: 'Formats', value: 'Live' },
+  { href: '#event-cta', label: 'Projet', value: 'Brief' },
+];
 ---
 
 <BaseLayout
@@ -295,7 +302,16 @@ const schema = [
       </div>
     </section>
 
-    <section class="event-cockpit" aria-label="Promesse événementielle Richmedia">
+    <nav class="mobile-event-nav" aria-label="Navigation de la page événementiel">
+      {mobileQuickLinks.map((link) => (
+        <a href={link.href}>
+          <span>{link.label}</span>
+          <strong>{link.value}</strong>
+        </a>
+      ))}
+    </nav>
+
+    <section id="cockpit" class="event-cockpit" aria-label="Promesse événementielle Richmedia">
       <div class="cockpit-main">
         <div class="cockpit-topline">
           <span></span>
@@ -338,7 +354,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="quick-answer" aria-labelledby="quick-answer-title">
+    <section id="answer" class="quick-answer" aria-labelledby="quick-answer-title">
       <span class="eyebrow">Réponse rapide</span>
       <div>
         <h2 id="quick-answer-title">En 2026, un événement doit être vécu, capté, mesuré et prolongé.</h2>
@@ -349,7 +365,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="trend-section" aria-labelledby="trend-title">
+    <section id="trends" class="trend-section" aria-labelledby="trend-title">
       <div class="section-head">
         <span class="eyebrow">Tendances événementiel 2026</span>
         <h2 id="trend-title">Ce que les marques doivent intégrer maintenant.</h2>
@@ -369,7 +385,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="usecase-section" aria-labelledby="format-title">
+    <section id="formats" class="usecase-section" aria-labelledby="format-title">
       <div class="section-head section-head-wide">
         <span class="eyebrow">Formats événementiels</span>
         <h2 id="format-title">Des expériences conçues pour vos invités, vos contenus et vos objectifs business.</h2>
@@ -397,7 +413,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="system-section" aria-labelledby="system-title">
+    <section id="system" class="system-section" aria-labelledby="system-title">
       <div class="system-visual" aria-hidden="true">
         <div class="screen-frame">
           <div class="screen-bar">
@@ -447,7 +463,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="tool-section" aria-labelledby="tool-title">
+    <section id="tools" class="tool-section" aria-labelledby="tool-title">
       <div class="section-head section-head-wide">
         <span class="eyebrow">Outils & intégrations</span>
         <h2 id="tool-title">La stack qui transforme l’événement en données, contenus et décisions.</h2>
@@ -482,7 +498,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="roadmap-section" aria-labelledby="roadmap-title">
+    <section id="roadmap" class="roadmap-section" aria-labelledby="roadmap-title">
       <div class="section-head section-head-wide">
         <span class="eyebrow">Méthode Richmedia</span>
         <h2 id="roadmap-title">Du concept au bilan, chaque détail doit servir l’objectif.</h2>
@@ -502,7 +518,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="deliverables-section" aria-labelledby="deliverables-title">
+    <section id="deliverables" class="deliverables-section" aria-labelledby="deliverables-title">
       <span class="eyebrow">Livrables</span>
       <h2 id="deliverables-title">Ce que la production doit rendre maîtrisable.</h2>
       <div class="deliverables-grid">
@@ -515,7 +531,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="sources-section" aria-labelledby="sources-title">
+    <section id="sources" class="sources-section" aria-labelledby="sources-title">
       <span class="eyebrow">Sources 2026</span>
       <h2 id="sources-title">Les signaux qui structurent notre approche événementielle.</h2>
       <div class="sources-grid">
@@ -528,7 +544,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="faq-section" aria-labelledby="faq-title">
+    <section id="faq" class="faq-section" aria-labelledby="faq-title">
       <span class="eyebrow">FAQ</span>
       <h2 id="faq-title">Questions fréquentes sur l’événementiel.</h2>
       <div class="faq-grid">
@@ -541,7 +557,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="cta-section" aria-labelledby="cta-title">
+    <section id="event-cta" class="cta-section" aria-labelledby="cta-title">
       <div>
         <span class="eyebrow">Votre prochain événement</span>
         <h2 id="cta-title">Faisons de votre moment un vrai levier de marque.</h2>
@@ -574,9 +590,12 @@ const schema = [
     background-size: auto, 120px 120px, 120px 120px, auto;
     color: #fff;
     overflow-x: clip;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
 
   .event-hero,
+  .mobile-event-nav,
   .event-cockpit,
   .quick-answer,
   .trend-section,
@@ -590,6 +609,24 @@ const schema = [
   .cta-section {
     width: var(--container);
     margin-inline: auto;
+  }
+
+  .event-cockpit,
+  .quick-answer,
+  .trend-section,
+  .usecase-section,
+  .system-section,
+  .tool-section,
+  .roadmap-section,
+  .deliverables-section,
+  .sources-section,
+  .faq-section,
+  .cta-section {
+    scroll-margin-top: 96px;
+  }
+
+  .mobile-event-nav {
+    display: none;
   }
 
   .event-hero {
@@ -1867,6 +1904,684 @@ const schema = [
       display: grid;
       padding: 26px;
       margin-bottom: 64px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .event-page {
+      --container: min(100% - 1.25rem, 1360px);
+      --h1-size: clamp(2.08rem, 10vw, 2.82rem);
+      --h2-size: clamp(1.48rem, 7.45vw, 2.08rem);
+      overflow: visible;
+      overflow-x: clip;
+      background-size: auto, 58px 58px, 58px 58px, auto;
+    }
+
+    .event-hero,
+    .mobile-event-nav,
+    .event-cockpit,
+    .quick-answer,
+    .trend-section,
+    .usecase-section,
+    .system-section,
+    .tool-section,
+    .roadmap-section,
+    .deliverables-section,
+    .sources-section,
+    .faq-section,
+    .cta-section {
+      width: var(--container);
+      max-width: var(--container);
+      margin-inline: auto;
+    }
+
+    .event-cockpit,
+    .quick-answer,
+    .trend-section,
+    .usecase-section,
+    .system-section,
+    .tool-section,
+    .roadmap-section,
+    .deliverables-section,
+    .sources-section,
+    .faq-section,
+    .cta-section {
+      scroll-margin-top: 212px;
+    }
+
+    .event-hero {
+      gap: 1rem;
+      min-height: auto;
+      padding: 5.85rem 0 1rem;
+    }
+
+    .eyebrow {
+      gap: 0.55rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+    }
+
+    .eyebrow::before {
+      width: 2.25rem;
+    }
+
+    h1 {
+      margin-top: 0.95rem;
+      font-size: var(--h1-size);
+      line-height: 0.98;
+    }
+
+    h2 {
+      font-size: var(--h2-size);
+      line-height: 1.04;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      line-height: 1.12;
+    }
+
+    .hero-lead,
+    .quick-answer p,
+    .section-head p,
+    .system-copy > p {
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .hero-lead {
+      margin-top: 1.05rem;
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      margin-top: 1.3rem;
+    }
+
+    .button {
+      width: 100%;
+      min-height: 3.05rem;
+      padding: 0.78rem 0.95rem;
+      font-size: clamp(0.94rem, 4vw, 1.02rem);
+      line-height: 1.15;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: none;
+    }
+
+    .hero-visual {
+      width: 100%;
+      min-height: 20.5rem;
+      max-width: none;
+      transform: none;
+    }
+
+    .hero-visual:hover,
+    .hero-visual:focus-within {
+      transform: none;
+    }
+
+    .hero-visual::before {
+      display: none;
+    }
+
+    .hero-visual img {
+      min-height: 20.5rem;
+      object-position: 54% 50%;
+      transform: none;
+    }
+
+    .signal-card {
+      width: auto;
+      gap: 0.2rem;
+      padding: 0.72rem 0.78rem;
+    }
+
+    .signal-card span {
+      font-size: 0.58rem;
+    }
+
+    .signal-card strong {
+      margin-top: 0.2rem;
+      font-size: 0.86rem;
+      line-height: 1.14;
+    }
+
+    .signal-card-top {
+      top: 0.85rem;
+      right: calc(50% + 0.28rem);
+      left: 0.85rem;
+    }
+
+    .signal-card-middle {
+      top: 0.85rem;
+      right: 0.85rem;
+      bottom: auto;
+      left: calc(50% + 0.28rem);
+    }
+
+    .signal-card-bottom {
+      right: 0.85rem;
+      bottom: 0.85rem;
+      left: 0.85rem;
+    }
+
+    .mobile-event-nav {
+      position: sticky;
+      top: 4.35rem;
+      z-index: 25;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin: 0 auto 1.15rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 0.52rem;
+      background: rgba(8, 9, 15, 0.82);
+      box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(18px);
+    }
+
+    .mobile-event-nav a {
+      display: grid;
+      align-content: center;
+      gap: 0.2rem;
+      min-width: 0;
+      min-height: 3.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 0.58rem 0.38rem;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .mobile-event-nav span {
+      overflow: hidden;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 0.56rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .mobile-event-nav strong {
+      overflow: hidden;
+      color: #a970ff;
+      font-size: clamp(0.72rem, 3.4vw, 0.86rem);
+      line-height: 1.05;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .event-cockpit {
+      gap: 0.68rem;
+      padding-bottom: 2.15rem;
+    }
+
+    .cockpit-main {
+      min-height: 0;
+      padding: 1rem;
+    }
+
+    .cockpit-main::before {
+      background-size: 42px 42px;
+    }
+
+    .cockpit-main::after {
+      display: none;
+    }
+
+    .cockpit-topline {
+      flex-wrap: wrap;
+    }
+
+    .cockpit-topline small {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .cockpit-zero {
+      grid-template-columns: 1fr;
+      gap: 0.72rem;
+      align-items: start;
+      margin-top: 1.45rem;
+    }
+
+    .cockpit-zero > span {
+      font-size: clamp(3.25rem, 18vw, 4.7rem);
+    }
+
+    .cockpit-zero p {
+      margin-bottom: 0.4rem;
+      font-size: 0.64rem;
+      line-height: 1.2;
+    }
+
+    .event-cockpit .cockpit-zero h2 {
+      font-size: clamp(1.08rem, 5.4vw, 1.44rem) !important;
+      line-height: 1.06;
+    }
+
+    .cockpit-bars {
+      gap: 0.62rem;
+      margin-top: 1.25rem;
+    }
+
+    .cockpit-bars span {
+      font-size: 0.82rem;
+    }
+
+    .cockpit-feed {
+      gap: 0.58rem;
+    }
+
+    .cockpit-feed article {
+      grid-template-columns: 2.75rem minmax(0, 1fr);
+      gap: 0.72rem;
+      min-height: 0;
+      padding: 0.82rem;
+    }
+
+    .cockpit-feed article > span {
+      width: 2.3rem;
+      height: 2.3rem;
+      font-size: 0.68rem;
+    }
+
+    .cockpit-feed strong {
+      font-size: 0.68rem;
+    }
+
+    .event-cockpit .cockpit-feed h2 {
+      margin-top: 0.35rem;
+      font-size: 17px !important;
+      line-height: 1.12;
+    }
+
+    .cockpit-feed p,
+    .trend-grid p,
+    .usecase-copy p,
+    .service-grid p,
+    .roadmap-grid p,
+    .faq-grid p,
+    .sources-grid span {
+      margin-top: 0.5rem;
+      font-size: 0.88rem;
+      line-height: 1.48;
+    }
+
+    .quick-answer {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      margin-bottom: 2.25rem;
+      padding: 1rem;
+    }
+
+    .section-head,
+    .section-head-wide {
+      grid-template-columns: 1fr;
+      gap: 0.72rem;
+      margin-bottom: 1rem;
+    }
+
+    .trend-section,
+    .usecase-section,
+    .system-section,
+    .tool-section,
+    .roadmap-section,
+    .deliverables-section,
+    .sources-section,
+    .faq-section {
+      padding-bottom: 2.25rem;
+    }
+
+    .trend-grid {
+      display: flex;
+      gap: 0.72rem;
+      overflow-x: auto;
+      padding: 0 0 0.3rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .trend-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .trend-grid article {
+      flex: 0 0 min(78vw, 20rem);
+      min-height: 12.8rem;
+      padding: 1rem;
+      scroll-snap-align: start;
+    }
+
+    .trend-grid h3,
+    .usecase-copy h3,
+    .service-grid h3,
+    .roadmap-grid h3,
+    .faq-grid h3 {
+      margin-top: 0.55rem;
+      font-size: 1.05rem;
+    }
+
+    .usecase-grid {
+      display: flex;
+      gap: 0.72rem;
+      overflow-x: auto;
+      padding: 0 0 0.3rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .usecase-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .usecase-grid article {
+      flex: 0 0 min(82vw, 20.5rem);
+      scroll-snap-align: start;
+    }
+
+    .usecase-photo {
+      aspect-ratio: 4 / 4.55;
+    }
+
+    .usecase-copy {
+      padding: 0.92rem;
+    }
+
+    .usecase-copy div,
+    .service-grid div {
+      gap: 0.32rem;
+      margin-top: 0.72rem;
+    }
+
+    .usecase-copy small,
+    .service-grid small {
+      min-height: 1.45rem;
+      padding: 0.28rem 0.48rem;
+      font-size: 0.68rem;
+    }
+
+    .system-section {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    .system-copy {
+      order: 1;
+      min-height: 0;
+      padding: 1rem;
+    }
+
+    .system-visual {
+      order: 2;
+      min-height: 19.5rem;
+      padding: 0;
+    }
+
+    .screen-frame {
+      min-height: 19.5rem;
+    }
+
+    .screen-bar {
+      height: 2.65rem;
+      padding: 0 0.75rem;
+    }
+
+    .screen-bar span {
+      width: 0.55rem;
+      height: 0.55rem;
+    }
+
+    .screen-bar strong {
+      min-width: 0;
+      overflow: hidden;
+      font-size: 0.68rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .screen-body {
+      min-height: 16.85rem;
+      padding: 0;
+    }
+
+    .event-node {
+      padding: 0.85rem;
+    }
+
+    .event-node small {
+      font-size: 0.68rem;
+    }
+
+    .event-node strong {
+      margin-top: 0.35rem;
+      font-size: clamp(1.05rem, 5.1vw, 1.34rem);
+      line-height: 1.08;
+    }
+
+    .event-node-main {
+      top: 1rem;
+      right: 0.75rem;
+      left: 0.75rem;
+    }
+
+    .event-node-mid {
+      right: 0.75rem;
+      bottom: 4.9rem;
+      left: 0.75rem;
+      width: auto;
+    }
+
+    .flow-row {
+      right: 0.75rem;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.32rem;
+    }
+
+    .flow-row span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.2rem;
+      padding: 0.35rem 0.2rem;
+      font-size: 0.62rem;
+    }
+
+    .flow-row span:nth-of-type(n + 3) {
+      display: inline-flex;
+    }
+
+    .service-grid,
+    .roadmap-grid,
+    .sources-grid,
+    .faq-grid {
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+
+    .service-grid {
+      margin-top: 0.9rem;
+    }
+
+    .service-grid article,
+    .roadmap-grid article,
+    .faq-grid article {
+      min-height: 0;
+      padding: 1rem;
+    }
+
+    .logo-marquee {
+      margin-top: 0.95rem;
+      mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+    }
+
+    .logo-track {
+      gap: 0.52rem;
+      animation-duration: 24s;
+    }
+
+    .logo-track figure {
+      width: 6.1rem;
+      min-height: 4.75rem;
+      gap: 0.34rem;
+      padding: 0.45rem;
+    }
+
+    .logo-track span {
+      width: 100%;
+      height: 2.48rem;
+    }
+
+    .logo-track img {
+      max-width: 72%;
+      max-height: 1.7rem;
+    }
+
+    .logo-track figcaption {
+      font-size: 0.55rem;
+      line-height: 1.12;
+    }
+
+    .tool-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.9rem;
+    }
+
+    .tool-grid article {
+      display: grid;
+      justify-items: center;
+      gap: 0.48rem;
+      min-height: 7.1rem;
+      padding: 0.55rem;
+      text-align: center;
+    }
+
+    .tool-grid img {
+      width: 100%;
+      height: 3.05rem;
+      max-width: none;
+      padding: 0.45rem;
+    }
+
+    .tool-grid strong {
+      font-size: 0.78rem;
+      line-height: 1.14;
+    }
+
+    .tool-grid span {
+      margin-top: 0.14rem;
+      font-size: 0.64rem;
+      line-height: 1.22;
+    }
+
+    .roadmap-grid article {
+      display: grid;
+      grid-template-columns: 3.2rem minmax(0, 1fr);
+      gap: 0.12rem 0.72rem;
+    }
+
+    .roadmap-grid article > span {
+      grid-row: 1 / 3;
+      font-size: 1.65rem;
+      line-height: 1;
+    }
+
+    .deliverables-section h2,
+    .sources-section h2,
+    .faq-section h2 {
+      margin-top: 0.78rem;
+    }
+
+    .deliverables-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.95rem;
+    }
+
+    .deliverables-grid div {
+      min-height: 3.75rem;
+      gap: 0.5rem;
+      padding: 0.62rem 0.58rem;
+      font-size: 0.75rem;
+      line-height: 1.22;
+    }
+
+    .deliverables-grid i {
+      flex: 0 0 auto;
+      font-size: 1rem;
+    }
+
+    .sources-grid,
+    .faq-grid {
+      margin-top: 0.95rem;
+    }
+
+    .sources-grid a {
+      min-height: 0;
+      padding: 0.95rem;
+    }
+
+    .sources-grid strong {
+      font-size: 0.96rem;
+      line-height: 1.22;
+    }
+
+    .cta-section {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      padding: 1.15rem;
+    }
+
+    .trend-grid article:hover,
+    .usecase-grid article:hover,
+    .roadmap-grid article:hover,
+    .service-grid article:hover,
+    .tool-grid article:hover,
+    .sources-grid a:hover {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 340px) {
+    .event-page {
+      --h1-size: clamp(1.94rem, 9.6vw, 2.24rem);
+    }
+
+    .mobile-event-nav {
+      gap: 0.38rem;
+      padding: 0.45rem;
+    }
+
+    .mobile-event-nav a {
+      min-height: 3.58rem;
+      padding: 0.52rem 0.32rem;
+    }
+
+    .mobile-event-nav strong {
+      font-size: 0.72rem;
+    }
+
+    .signal-card strong {
+      font-size: 0.78rem;
+    }
+
+    .deliverables-grid,
+    .tool-grid {
+      gap: 0.45rem;
     }
   }
 </style>

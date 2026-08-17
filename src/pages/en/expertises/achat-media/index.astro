@@ -260,6 +260,13 @@ const schema = [
     { name: 'Media Buying', url: pageUrl },
   ]),
 ];
+
+const mobileQuickLinks = [
+  { href: '#cockpit', label: 'Cockpit', value: '0 block' },
+  { href: '#trends', label: 'Trends', value: '2026' },
+  { href: '#system', label: 'System', value: 'Media' },
+  { href: '#media-cta', label: 'Project', value: 'Scale' },
+];
 ---
 
 <BaseLayout
@@ -308,7 +315,16 @@ const schema = [
       </div>
     </section>
 
-    <section class="performance-cockpit" aria-label="Richmedia media buying promises">
+    <nav class="mobile-media-nav" aria-label="Media buying page navigation">
+      {mobileQuickLinks.map((link) => (
+        <a href={link.href}>
+          <span>{link.label}</span>
+          <strong>{link.value}</strong>
+        </a>
+      ))}
+    </nav>
+
+    <section class="performance-cockpit" id="cockpit" aria-label="Richmedia media buying promises">
       <div class="cockpit-main">
         <div class="cockpit-topline">
           <span></span>
@@ -350,7 +366,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="quick-answer" aria-labelledby="quick-answer-title">
+    <section class="quick-answer" id="answer" aria-labelledby="quick-answer-title">
       <div>
         <span class="eyebrow">Quick answer</span>
         <h2 id="quick-answer-title">In 2026, buying media is not enough: you need to manage a system.</h2>
@@ -361,7 +377,7 @@ const schema = [
       </p>
     </section>
 
-    <section class="visual-section" aria-labelledby="visual-title">
+    <section class="visual-section" id="visuals" aria-labelledby="visual-title">
       <div class="section-heading">
         <div>
           <span class="eyebrow">In images</span>
@@ -390,7 +406,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="trend-section" aria-labelledby="trend-title">
+    <section class="trend-section" id="trends" aria-labelledby="trend-title">
       <div class="section-heading">
         <div>
           <span class="eyebrow">Media buying trends 2026</span>
@@ -412,7 +428,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="media-system" aria-labelledby="system-title">
+    <section class="media-system" id="system" aria-labelledby="system-title">
       <div class="system-visual" aria-hidden="true">
         <div class="screen-frame">
           <div class="screen-top">
@@ -457,7 +473,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="budget-section" aria-labelledby="budget-title">
+    <section class="budget-section" id="budget" aria-labelledby="budget-title">
       <div class="budget-copy">
         <span class="eyebrow">Funding & scaling</span>
         <h2 id="budget-title">Your campaigns should not stop because of a payment issue.</h2>
@@ -477,7 +493,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="tool-stack" aria-labelledby="tool-title">
+    <section class="tool-stack" id="tools" aria-labelledby="tool-title">
       <div class="section-heading compact">
         <span class="eyebrow">Partners & tools</span>
         <h2 id="tool-title">The media, tracking and reporting stack used to manage your campaigns.</h2>
@@ -518,7 +534,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="roadmap-section" aria-labelledby="roadmap-title">
+    <section class="roadmap-section" id="roadmap" aria-labelledby="roadmap-title">
       <div class="section-heading">
         <div>
           <span class="eyebrow">Richmedia method</span>
@@ -540,7 +556,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="deliverables-section" aria-labelledby="deliverables-title">
+    <section class="deliverables-section" id="deliverables" aria-labelledby="deliverables-title">
       <div class="section-heading compact">
         <span class="eyebrow">Deliverables</span>
         <h2 id="deliverables-title">What you receive to manage without blind spots.</h2>
@@ -550,7 +566,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="sources-section" aria-labelledby="sources-title">
+    <section class="sources-section" id="sources" aria-labelledby="sources-title">
       <div class="section-heading compact">
         <span class="eyebrow">2026 watch</span>
         <h2 id="sources-title">Market signals integrated into our approach.</h2>
@@ -566,7 +582,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="faq-section" aria-labelledby="faq-title">
+    <section class="faq-section" id="faq" aria-labelledby="faq-title">
       <div class="section-heading compact">
         <span class="eyebrow">FAQ SEO/GEO</span>
         <h2 id="faq-title">Frequently asked questions.</h2>
@@ -581,7 +597,7 @@ const schema = [
       </div>
     </section>
 
-    <section class="media-cta" aria-labelledby="cta-title">
+    <section class="media-cta" id="media-cta" aria-labelledby="cta-title">
       <div>
         <span class="eyebrow">Ready to scale?</span>
         <h2 id="cta-title">Entrust your budgets to a team that knows how to buy, measure and optimize.</h2>
@@ -624,6 +640,7 @@ const schema = [
   }
 
   .media-hero,
+  .mobile-media-nav,
   .performance-cockpit,
   .quick-answer,
   .visual-section,
@@ -638,6 +655,25 @@ const schema = [
   .media-cta {
     width: var(--container);
     margin-inline: auto;
+  }
+
+  .performance-cockpit,
+  .quick-answer,
+  .visual-section,
+  .trend-section,
+  .media-system,
+  .budget-section,
+  .tool-stack,
+  .roadmap-section,
+  .deliverables-section,
+  .sources-section,
+  .faq-section,
+  .media-cta {
+    scroll-margin-top: 6rem;
+  }
+
+  .mobile-media-nav {
+    display: none;
   }
 
   .media-hero {
@@ -2162,6 +2198,678 @@ const schema = [
     .button,
     .media-cta .hero-actions {
       width: 100%;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .media-page {
+      --container: min(100% - 1.25rem, 1360px);
+      overflow-x: clip;
+      background-size: auto, auto, 58px 58px, 58px 58px, auto;
+    }
+
+    .media-hero,
+    .mobile-media-nav,
+    .performance-cockpit,
+    .quick-answer,
+    .visual-section,
+    .trend-section,
+    .media-system,
+    .budget-section,
+    .tool-stack,
+    .roadmap-section,
+    .deliverables-section,
+    .sources-section,
+    .faq-section,
+    .media-cta {
+      width: var(--container);
+      max-width: var(--container);
+      margin-inline: auto;
+    }
+
+    .performance-cockpit,
+    .quick-answer,
+    .visual-section,
+    .trend-section,
+    .media-system,
+    .budget-section,
+    .tool-stack,
+    .roadmap-section,
+    .deliverables-section,
+    .sources-section,
+    .faq-section,
+    .media-cta {
+      scroll-margin-top: 13.25rem;
+    }
+
+    .media-hero {
+      gap: 1rem;
+      min-height: auto;
+      padding: 5.85rem 0 1rem;
+    }
+
+    .eyebrow {
+      gap: 0.55rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+    }
+
+    .eyebrow::before {
+      width: 2.25rem;
+    }
+
+    .hero-copy h1 {
+      --h1-size: clamp(2.08rem, 10.1vw, 2.85rem);
+      margin-top: 0.95rem;
+      line-height: 0.98;
+    }
+
+    .hero-copy p,
+    .section-heading p,
+    .quick-answer p,
+    .budget-copy p,
+    .system-copy > p,
+    .media-cta p {
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .hero-lead {
+      margin-top: 1.05rem;
+    }
+
+    .hero-actions,
+    .media-cta .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      margin-top: 1.3rem;
+    }
+
+    .button {
+      width: 100%;
+      min-height: 3.05rem;
+      padding: 0.78rem 0.95rem;
+      font-size: clamp(0.94rem, 4vw, 1.02rem);
+      line-height: 1.15;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: none;
+    }
+
+    .hero-visual {
+      width: 100%;
+      min-height: 20.5rem;
+      transform: none;
+    }
+
+    .hero-visual:hover,
+    .hero-visual:focus-within {
+      transform: none;
+    }
+
+    .hero-visual::before {
+      display: none;
+    }
+
+    .hero-visual img {
+      min-height: 20.5rem;
+      object-position: 56% 50%;
+      transform: none;
+    }
+
+    .signal-card {
+      width: auto;
+      gap: 0.2rem;
+      padding: 0.72rem 0.78rem;
+    }
+
+    .signal-card span {
+      font-size: 0.58rem;
+    }
+
+    .signal-card strong {
+      font-size: 0.86rem;
+      line-height: 1.14;
+    }
+
+    .signal-card-top {
+      top: 0.85rem;
+      right: calc(50% + 0.28rem);
+      left: 0.85rem;
+    }
+
+    .signal-card-middle {
+      top: 0.85rem;
+      right: 0.85rem;
+      bottom: auto;
+      left: calc(50% + 0.28rem);
+    }
+
+    .signal-card-bottom {
+      right: 0.85rem;
+      bottom: 0.85rem;
+      left: 0.85rem;
+    }
+
+    .mobile-media-nav {
+      position: sticky;
+      top: 4.35rem;
+      z-index: 25;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin: 0 auto 1.15rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 0.52rem;
+      background: rgba(8, 9, 15, 0.82);
+      box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(18px);
+    }
+
+    .mobile-media-nav a {
+      display: grid;
+      align-content: center;
+      gap: 0.16rem;
+      min-width: 0;
+      min-height: 3.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 8px;
+      padding: 0.58rem 0.42rem;
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .mobile-media-nav span {
+      overflow: hidden;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: clamp(0.5rem, 2.4vw, 0.62rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .mobile-media-nav strong {
+      overflow: hidden;
+      font-size: clamp(0.74rem, 3.2vw, 0.94rem);
+      line-height: 1.06;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .performance-cockpit {
+      gap: 0.68rem;
+    }
+
+    .cockpit-main {
+      min-height: 0;
+      padding: 1rem;
+    }
+
+    .cockpit-main::before {
+      background-size: 42px 42px;
+    }
+
+    .cockpit-zero {
+      grid-template-columns: 4.3rem minmax(0, 1fr);
+      gap: 0.8rem;
+      align-items: center;
+      margin-top: 1.45rem;
+    }
+
+    .cockpit-zero > span {
+      font-size: clamp(4.2rem, 19vw, 5.4rem);
+    }
+
+    .cockpit-zero p {
+      margin-bottom: 0.4rem;
+      font-size: 0.64rem;
+    }
+
+    .cockpit-zero h2 {
+      --h2-size: clamp(1.12rem, 5.7vw, 1.48rem);
+      line-height: 1.06;
+    }
+
+    .cockpit-bars {
+      gap: 0.62rem;
+      margin-top: 1.25rem;
+    }
+
+    .cockpit-feed {
+      gap: 0.58rem;
+    }
+
+    .cockpit-feed article {
+      grid-template-columns: 2.75rem minmax(0, 1fr);
+      gap: 0.72rem;
+      min-height: 0;
+      padding: 0.82rem;
+    }
+
+    .cockpit-feed article > span {
+      width: 2.3rem;
+      height: 2.3rem;
+      font-size: 0.68rem;
+    }
+
+    .cockpit-feed strong {
+      font-size: 1.08rem;
+    }
+
+    .cockpit-feed h2 {
+      margin-top: 0.35rem;
+      font-size: 0.92rem;
+    }
+
+    .quick-answer {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      margin-top: 2.15rem;
+      padding: 1rem;
+    }
+
+    .quick-answer h2,
+    .section-heading h2,
+    .budget-copy h2,
+    .system-copy h2,
+    .media-cta h2 {
+      --h2-size: clamp(1.48rem, 7.5vw, 2.08rem);
+      line-height: 1.04;
+    }
+
+    .trend-section,
+    .visual-section,
+    .media-system,
+    .budget-section,
+    .tool-stack,
+    .roadmap-section,
+    .deliverables-section,
+    .sources-section,
+    .faq-section {
+      padding-top: 2.25rem;
+    }
+
+    .section-heading,
+    .trend-grid,
+    .service-grid,
+    .budget-steps,
+    .roadmap,
+    .source-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+      gap: 0.72rem;
+      margin-bottom: 1rem;
+    }
+
+    .visual-grid {
+      display: flex;
+      gap: 0.72rem;
+      overflow-x: auto;
+      padding: 0 0 0.3rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .visual-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .visual-grid article {
+      flex: 0 0 min(82vw, 20.5rem);
+      scroll-snap-align: start;
+    }
+
+    .visual-photo {
+      aspect-ratio: 4 / 3;
+    }
+
+    .visual-copy {
+      padding: 0.92rem;
+    }
+
+    .visual-copy h3,
+    .trend-grid h3,
+    .service-grid h3,
+    .budget-steps h3,
+    .roadmap h3 {
+      margin-top: 0.55rem;
+      font-size: 1.05rem;
+    }
+
+    .visual-copy p,
+    .trend-grid p,
+    .service-grid p,
+    .budget-steps p,
+    .roadmap p,
+    .source-grid span,
+    .faq-list p {
+      margin-top: 0.5rem;
+      font-size: 0.88rem;
+      line-height: 1.48;
+    }
+
+    .trend-grid,
+    .service-grid,
+    .budget-steps,
+    .roadmap,
+    .source-grid {
+      gap: 0.65rem;
+    }
+
+    .trend-grid article,
+    .service-grid article,
+    .budget-steps article,
+    .roadmap article {
+      min-height: 0;
+      padding: 1rem;
+    }
+
+    .trend-grid article:hover,
+    .roadmap article:hover,
+    .service-grid article:hover,
+    .budget-steps article:hover,
+    .visual-grid article:hover,
+    .tool-grid figure:hover,
+    .source-grid a:hover,
+    .deliverables-grid span:hover {
+      transform: none;
+    }
+
+    .media-system {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    .system-copy {
+      order: 1;
+      padding: 1rem;
+    }
+
+    .system-visual {
+      order: 2;
+      min-height: 19.5rem;
+    }
+
+    .screen-frame {
+      position: relative;
+      min-height: 19.5rem;
+    }
+
+    .screen-top {
+      min-height: 2.65rem;
+      padding: 0 0.75rem;
+    }
+
+    .screen-top span {
+      width: 0.55rem;
+      height: 0.55rem;
+    }
+
+    .screen-top strong {
+      min-width: 0;
+      overflow: hidden;
+      font-size: 0.68rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .curve-card {
+      top: 3.55rem;
+      right: 0.75rem;
+      left: 0.75rem;
+      gap: 0.55rem;
+      padding: 0.85rem;
+    }
+
+    .curve-card span {
+      font-size: 0.68rem;
+    }
+
+    .curve-card strong {
+      font-size: clamp(1.05rem, 5.1vw, 1.34rem);
+    }
+
+    .curve-card i {
+      height: 4.7rem;
+      background-size: auto, auto, 34px 34px, 28px 28px, auto;
+    }
+
+    .media-flow {
+      top: 13.05rem;
+      right: 0.75rem;
+      bottom: auto;
+      left: 0.75rem;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 0.32rem;
+    }
+
+    .media-flow span {
+      min-height: 2.2rem;
+      font-size: 0.68rem;
+    }
+
+    .media-flow i {
+      width: 0.65rem;
+      height: 1px;
+      margin: 0;
+      background: linear-gradient(90deg, rgba(169, 119, 255, 0.2), rgba(169, 119, 255, 0.9));
+    }
+
+    .service-grid div,
+    .visual-copy div {
+      gap: 0.32rem;
+      margin-top: 0.72rem;
+    }
+
+    .service-grid small,
+    .visual-copy small {
+      min-height: 1.45rem;
+      font-size: 0.68rem;
+    }
+
+    .budget-section {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      padding: 1rem;
+    }
+
+    .budget-steps article {
+      display: grid;
+      grid-template-columns: 2.6rem minmax(0, 1fr);
+      gap: 0.1rem 0.65rem;
+    }
+
+    .budget-steps span {
+      grid-row: 1 / 3;
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+
+    .logo-marquee {
+      margin-top: 0.95rem;
+      mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+    }
+
+    .logo-track {
+      animation-duration: 26s;
+    }
+
+    .logo-track-segment {
+      gap: 0.52rem;
+      padding-right: 0.52rem;
+    }
+
+    .logo-marquee figure {
+      flex-basis: 6.1rem;
+      min-height: 4.75rem;
+      padding: 0.45rem;
+    }
+
+    .logo-marquee span {
+      height: 2.48rem;
+    }
+
+    .logo-marquee img {
+      height: 1.7rem;
+    }
+
+    .logo-marquee figcaption {
+      margin-top: 0.34rem;
+      font-size: 0.55rem;
+    }
+
+    .tool-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.9rem;
+    }
+
+    .tool-grid figure {
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 0.48rem;
+      min-height: 7.1rem;
+      padding: 0.55rem;
+      text-align: center;
+    }
+
+    .tool-grid span {
+      height: 3.05rem;
+      padding: 0.45rem;
+    }
+
+    .tool-grid img {
+      max-height: 2.05rem;
+    }
+
+    .tool-grid figcaption {
+      gap: 0.14rem;
+    }
+
+    .tool-grid strong {
+      font-size: 0.78rem;
+      line-height: 1.14;
+    }
+
+    .tool-grid small {
+      font-size: 0.64rem;
+      line-height: 1.22;
+    }
+
+    .roadmap article {
+      display: grid;
+      grid-template-columns: 3.2rem minmax(0, 1fr);
+      gap: 0.12rem 0.72rem;
+    }
+
+    .roadmap article > span {
+      grid-row: 1 / 3;
+      font-size: 1.65rem;
+      line-height: 1;
+    }
+
+    .deliverables-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.95rem;
+    }
+
+    .deliverables-grid span {
+      min-height: 3.75rem;
+      padding: 0.62rem 0.55rem 0.62rem 2.2rem;
+      font-size: 0.75rem;
+      line-height: 1.22;
+    }
+
+    .deliverables-grid span::after {
+      right: auto;
+      left: 0.55rem;
+      width: 1.32rem;
+      height: 1.32rem;
+      font-size: 0.46rem;
+    }
+
+    .deliverables-grid:hover span:not(:hover) {
+      opacity: 1;
+    }
+
+    .source-grid a {
+      min-height: 0;
+      gap: 0.46rem;
+      padding: 0.95rem;
+    }
+
+    .source-grid strong {
+      font-size: 0.96rem;
+    }
+
+    .source-grid small {
+      margin-top: 0.35rem;
+    }
+
+    .faq-list {
+      gap: 0.65rem;
+      margin-top: 0.95rem;
+    }
+
+    .faq-list details {
+      padding: 0.95rem;
+    }
+
+    .faq-list summary {
+      font-size: 0.95rem;
+      line-height: 1.3;
+    }
+
+    .media-cta {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 2.25rem;
+      margin-bottom: 2.5rem;
+      padding: 1.15rem;
+    }
+
+    .media-cta .hero-actions {
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 340px) {
+    .hero-copy h1 {
+      --h1-size: clamp(1.95rem, 9.8vw, 2.25rem);
+    }
+
+    .mobile-media-nav {
+      gap: 0.38rem;
+      padding: 0.45rem;
+    }
+
+    .mobile-media-nav a {
+      min-height: 3.58rem;
+      padding: 0.52rem 0.32rem;
+    }
+
+    .mobile-media-nav strong {
+      font-size: 0.74rem;
+    }
+
+    .signal-card strong {
+      font-size: 0.78rem;
+    }
+
+    .deliverables-grid,
+    .tool-grid {
+      gap: 0.45rem;
     }
   }
 </style>

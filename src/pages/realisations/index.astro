@@ -11,7 +11,18 @@ const schema = [breadcrumbs([
   { name: 'Réalisations', url: `${SITE.url}/realisations` },
 ])];
 
-const categories = ['Tous', 'Éducation', 'Retail', 'Immobilier', 'Mobilité', 'Brand content', 'Performance'];
+const categories = [
+  'Tous',
+  'Éducation',
+  'Retail',
+  'Brand content',
+  'Réseaux sociaux',
+  'Produits locaux',
+  'Influence',
+  'Immobilier',
+  'Mobilité',
+  'Institutionnel',
+];
 
 const featuredStats = [
   { value: '14+', label: 'réalisations sélectionnées' },
@@ -219,10 +230,15 @@ const caseStudies = [
   },
 ];
 
-const heroCases = caseStudies.slice(0, 6);
 const heroSliderCases = caseStudies.slice(0, 4);
 const featuredCase = caseStudies[1];
 const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
+const quickLinks = [
+  { href: '#case-proof', label: 'Preuves', value: '14+' },
+  { href: '#case-board', label: 'Cas clients', value: String(caseStudies.length) },
+  { href: '#case-film', label: 'Film', value: '360°' },
+  { href: '#case-method', label: 'Méthode', value: '3 étapes' },
+];
 ---
 <BaseLayout
   title="Réalisations Richmedia — Cas clients, campagnes et dispositifs digitaux"
@@ -305,7 +321,16 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
       </div>
     </section>
 
-    <section class="proof-strip" aria-label="Indicateurs du portfolio">
+    <nav class="mobile-page-nav" aria-label="Navigation de la page Réalisations">
+      {quickLinks.map((link) => (
+        <a href={link.href}>
+          <span>{link.label}</span>
+          <strong>{link.value}</strong>
+        </a>
+      ))}
+    </nav>
+
+    <section class="proof-strip" id="case-proof" aria-label="Indicateurs du portfolio">
       {featuredStats.map((stat) => (
         <article>
           <strong>{stat.value}</strong>
@@ -314,14 +339,24 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
       ))}
     </section>
 
-    <section class="case-board" id="case-board" aria-labelledby="case-board-title">
+    <section class="case-board" id="case-board" aria-labelledby="case-board-title" data-case-board>
       <div class="case-board-head">
         <div>
           <span class="section-kicker">Tableau des cas clients</span>
           <h2 id="case-board-title">Dernières réalisations</h2>
         </div>
-        <div class="category-pills" aria-label="Catégories de réalisations">
-          {categories.map((category) => <span>{category}</span>)}
+        <div class="category-pills" aria-label="Filtrer les réalisations">
+          {categories.map((category, index) => (
+            <button
+              type="button"
+              class:list={[index === 0 && 'is-active']}
+              data-case-filter={category}
+              data-case-filter-all={index === 0 ? 'true' : 'false'}
+              aria-pressed={index === 0 ? 'true' : 'false'}
+            >
+              {category}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -331,6 +366,7 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
             id={item.slug}
             class:list={['work-card', `work-card-${item.format}`, `work-accent-${item.accent}`]}
             data-case-slug={item.slug}
+            data-case-category={item.category}
           >
             <a href={item.href ?? `/realisations/${item.slug}`} aria-label={`Voir le cas client ${item.client} - ${item.title}`}>
               <div class="work-media">
@@ -365,7 +401,7 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
       </div>
     </section>
 
-    <section class="case-marquee" aria-label="Film des réalisations">
+    <section class="case-marquee" id="case-film" aria-label="Film des réalisations">
       <div class="case-marquee-head">
         <span class="section-kicker">Film des campagnes</span>
       </div>
@@ -380,7 +416,7 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
       </div>
     </section>
 
-    <section class="case-method" aria-labelledby="case-method-title">
+    <section class="case-method" id="case-method" aria-labelledby="case-method-title">
       <div>
         <span class="section-kicker">Format cas client</span>
         <h2 id="case-method-title">Format cas client.</h2>
@@ -407,6 +443,16 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
 </BaseLayout>
 
 <script>
+  type FeaturedCasePayload = {
+    client: string;
+    title: string;
+    summary: string;
+    image: string;
+    href: string;
+    visibility: string;
+    engagement: string;
+  };
+
   const initFeaturedCaseSlider = () => {
     const sliders = document.querySelectorAll('[data-featured-slider]');
 
@@ -424,10 +470,10 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
       const thumbs = [...slider.querySelectorAll('[data-featured-thumb]')];
       const featured = slider.querySelector('.featured-work');
 
-      const setActiveCase = (button) => {
+      const setActiveCase = (button: Element) => {
         if (!(button instanceof HTMLButtonElement)) return;
 
-        const next = {
+        const next: FeaturedCasePayload = {
           client: button.dataset.client || '',
           title: button.dataset.title || '',
           summary: button.dataset.summary || '',
@@ -459,7 +505,9 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
           thumbs.forEach((thumb) => {
             const isActive = thumb === button;
             thumb.classList.toggle('is-active', isActive);
-            thumb.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            if (thumb instanceof HTMLElement) {
+              thumb.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            }
           });
 
           window.setTimeout(() => featured?.classList.remove('is-switching'), 90);
@@ -472,10 +520,51 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
     });
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initFeaturedCaseSlider, { once: true });
-  } else {
+  const initCaseFilters = () => {
+    const boards = document.querySelectorAll('[data-case-board]');
+
+    boards.forEach((board) => {
+      if (!(board instanceof HTMLElement) || board.dataset.filtersReady === 'true') return;
+      board.dataset.filtersReady = 'true';
+
+      const buttons = [...board.querySelectorAll('[data-case-filter]')];
+      const cards = [...board.querySelectorAll('[data-case-category]')];
+
+      const setActiveFilter = (button: Element) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+
+        const selectedCategory = button.dataset.caseFilter || '';
+        const showAll = button.dataset.caseFilterAll === 'true';
+
+        buttons.forEach((item) => {
+          const isActive = item === button;
+          item.classList.toggle('is-active', isActive);
+          if (item instanceof HTMLElement) {
+            item.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+          }
+        });
+
+        cards.forEach((card) => {
+          if (!(card instanceof HTMLElement)) return;
+          card.hidden = !showAll && card.dataset.caseCategory !== selectedCategory;
+        });
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => setActiveFilter(button));
+      });
+    });
+  };
+
+  const initRealisationsInteractions = () => {
     initFeaturedCaseSlider();
+    initCaseFilters();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRealisationsInteractions, { once: true });
+  } else {
+    initRealisationsInteractions();
   }
 </script>
 
@@ -522,6 +611,13 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
     z-index: 1;
     width: var(--container);
     margin-inline: auto;
+  }
+
+  .proof-strip,
+  .case-board,
+  .case-marquee,
+  .case-method {
+    scroll-margin-top: 6rem;
   }
 
   .section-kicker {
@@ -611,6 +707,10 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
     display: grid;
     gap: 1rem;
     min-width: 0;
+  }
+
+  .mobile-page-nav {
+    display: none;
   }
 
   .featured-work {
@@ -858,7 +958,7 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
     gap: 0.5rem;
   }
 
-  .category-pills span {
+  .category-pills button {
     display: inline-flex;
     min-height: 2.05rem;
     align-items: center;
@@ -869,6 +969,25 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
     color: rgba(255, 255, 255, 0.74);
     font-size: 0.72rem;
     font-weight: 850;
+    cursor: pointer;
+    transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+  }
+
+  .category-pills button:hover,
+  .category-pills button:focus-visible,
+  .category-pills button.is-active {
+    border-color: rgba(164, 108, 255, 0.72);
+    background: rgba(124, 60, 255, 0.18);
+    color: #fff;
+    outline: 0;
+  }
+
+  .category-pills button:focus-visible {
+    box-shadow: 0 0 0 3px rgba(124, 60, 255, 0.25);
+  }
+
+  .category-pills button:hover {
+    transform: translateY(-1px);
   }
 
   .work-grid {
@@ -885,6 +1004,10 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
     background: rgba(255, 255, 255, 0.035);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
     transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
+  }
+
+  .work-card[hidden] {
+    display: none;
   }
 
   .work-card:hover {
@@ -1189,22 +1312,40 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
   @media (max-width: 720px) {
     .realisations-page {
       --container: min(100% - 1.25rem, 1320px);
+      background:
+        radial-gradient(circle at 18% 4%, rgba(124, 60, 255, 0.18), transparent 18rem),
+        linear-gradient(180deg, #030407 0%, #06070c 54%, #020306 100%);
     }
 
     .works-hero {
-      padding-top: 6.5rem;
+      gap: 1.15rem;
+      padding-top: 5.8rem;
+      padding-bottom: 1.1rem;
     }
 
     .works-hero h1 {
-      --h1-size: clamp(2.5rem, 13vw, 4.05rem);
+      --h1-size: clamp(2.42rem, 12.4vw, 3.35rem);
+      max-width: 10ch;
+      margin-top: 0.82rem;
+      line-height: 0.96;
+    }
+
+    .works-hero p {
+      margin-top: 1rem;
+      font-size: 0.96rem;
+      line-height: 1.55;
     }
 
     .works-actions {
       flex-direction: column;
+      gap: 0.62rem;
+      margin-top: 1.25rem;
     }
 
     .button {
       width: 100%;
+      min-height: 3.15rem;
+      padding-inline: 1rem;
     }
 
     .featured-work a {
@@ -1212,40 +1353,223 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
     }
 
     .featured-work figure {
-      min-height: 250px;
+      min-height: 214px;
     }
 
-    .featured-work-copy dl,
+    .featured-work-copy {
+      gap: 0.68rem;
+      padding: 0.9rem;
+    }
+
+    .featured-work-copy > span {
+      font-size: 0.62rem;
+    }
+
+    .featured-work-copy h2 {
+      --h2-size: clamp(1.28rem, 7vw, 1.7rem);
+      line-height: 1.05;
+    }
+
+    .featured-work-copy p {
+      font-size: 0.78rem;
+    }
+
+    .featured-work-copy dl {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+
+    .featured-work-copy dl div,
+    .work-copy dl div {
+      padding-left: 0.48rem;
+    }
+
     .work-copy dl {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
     }
 
     .hero-mini-grid {
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      gap: 0.65rem;
+      overflow-x: auto;
+      margin-inline: -0.625rem;
+      padding: 0 0.625rem 0.28rem;
+      scroll-padding-inline: 0.625rem;
+      scroll-snap-type: x mandatory;
     }
 
-    .proof-strip,
-    .work-grid {
-      grid-template-columns: 1fr;
+    .hero-mini-card {
+      flex: 0 0 10.4rem;
+      aspect-ratio: 5 / 3;
+      scroll-snap-align: start;
+    }
+
+    .hero-mini-caption {
+      padding: 0.62rem;
+    }
+
+    .mobile-page-nav {
+      position: sticky;
+      top: 4.35rem;
+      z-index: 12;
+      display: flex;
+      gap: 0.48rem;
+      overflow-x: auto;
+      width: var(--container);
+      margin: 0.75rem auto 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 0.42rem;
+      background: rgba(5, 7, 15, 0.86);
+      box-shadow: 0 0.9rem 2rem rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(16px);
+    }
+
+    .mobile-page-nav a {
+      display: grid;
+      min-width: 5.9rem;
+      min-height: 3rem;
+      align-content: center;
+      gap: 0.12rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 7px;
+      padding: 0.45rem 0.62rem;
+      background: rgba(255, 255, 255, 0.045);
+      color: #fff;
+      text-decoration: none;
+      scroll-snap-align: start;
+    }
+
+    .mobile-page-nav span {
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.62rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .mobile-page-nav strong {
+      font-size: 0.92rem;
+      font-weight: 900;
+      line-height: 1.05;
+    }
+
+    .proof-strip {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-radius: 8px;
+    }
+
+    .proof-strip article {
+      min-height: 0;
+      padding: 0.82rem 0.58rem;
     }
 
     .proof-strip article + article {
-      border-top: 1px solid var(--line);
-      border-left: 0;
+      border-top: 0;
+      border-left: 1px solid var(--line);
     }
 
-    .work-media {
-      aspect-ratio: 16 / 9;
+    .proof-strip strong {
+      font-size: clamp(1.38rem, 8vw, 2rem);
+    }
+
+    .proof-strip span {
+      margin-top: 0.35rem;
+      font-size: 0.66rem;
+      line-height: 1.22;
+    }
+
+    .case-board {
+      padding-top: 2.1rem;
+    }
+
+    .case-board-head {
+      gap: 0.8rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .case-board h2 {
+      --h2-size: clamp(2rem, 10vw, 2.7rem);
+      margin-top: 0.7rem;
+      line-height: 1;
+    }
+
+    .category-pills {
+      flex-wrap: nowrap;
+      gap: 0.46rem;
+      justify-content: flex-start;
+      overflow-x: auto;
+      margin-inline: -0.625rem;
+      padding: 0 0.625rem 0.4rem;
+      scroll-padding-inline: 0.625rem;
+      scroll-snap-type: x proximity;
+    }
+
+    .category-pills button {
+      flex: 0 0 auto;
+      min-height: 2.55rem;
+      padding-inline: 0.92rem;
+      font-size: 0.7rem;
+      scroll-snap-align: start;
+    }
+
+    .work-grid {
+      grid-template-columns: 1fr;
+      gap: 0.82rem;
+    }
+
+    .work-card {
+      border-radius: 8px;
+    }
+
+    .work-card:hover {
+      transform: none;
+    }
+
+    .work-media,
+    .work-card-square .work-media,
+    .work-card-poster .work-media,
+    .work-card-phone .work-media {
+      aspect-ratio: 16 / 10;
       min-height: 0;
     }
 
-    .work-card-square .work-media {
-      aspect-ratio: 1 / 1;
+    .work-copy {
+      gap: 0.62rem;
+      padding: 0.9rem;
     }
 
-    .work-card-poster .work-media,
-    .work-card-phone .work-media {
-      aspect-ratio: 4 / 5;
+    .work-copy h3 {
+      font-size: 1.34rem;
+      line-height: 1.02;
+    }
+
+    .work-copy p {
+      min-height: 0;
+      margin-top: -0.16rem;
+      font-size: 0.8rem;
+      line-height: 1.38;
+    }
+
+    .featured-work-copy dt,
+    .work-copy dt {
+      font-size: 0.55rem;
+    }
+
+    .featured-work-copy dd,
+    .work-copy dd {
+      font-size: 0.72rem;
+      line-height: 1.22;
+      overflow-wrap: anywhere;
+    }
+
+    .case-status {
+      min-height: 2.1rem;
+      justify-content: center;
+      border-color: rgba(124, 60, 255, 0.32);
+      background: rgba(124, 60, 255, 0.1);
     }
 
     .case-marquee-head {
@@ -1256,8 +1580,72 @@ const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
       text-align: left;
     }
 
+    .case-marquee {
+      margin-top: 2.2rem;
+      border-radius: 8px;
+      padding: 0.82rem;
+    }
+
+    .case-marquee-window {
+      overflow-x: auto;
+    }
+
+    .case-marquee-track {
+      gap: 0.58rem;
+      animation: none;
+      scroll-snap-type: x proximity;
+    }
+
+    .marquee-frame {
+      width: 158px;
+      scroll-snap-align: start;
+    }
+
+    .marquee-frame img {
+      height: 98px;
+    }
+
+    .marquee-frame-phone {
+      width: 86px;
+    }
+
+    .marquee-frame-phone img {
+      height: 138px;
+    }
+
     .case-method {
+      gap: 0.95rem;
+      margin-top: 2.2rem;
       margin-bottom: 3rem;
+      border-radius: 8px;
+      padding: 0.95rem;
+    }
+
+    .case-method h2 {
+      --h2-size: clamp(1.58rem, 8vw, 2.05rem);
+      margin-top: 0.72rem;
+    }
+
+    .method-grid {
+      gap: 0.62rem;
+    }
+
+    .method-grid article {
+      min-height: 0;
+      padding: 0.9rem;
+    }
+
+    .method-grid article:hover {
+      transform: none;
+    }
+
+    .method-grid h3 {
+      margin-top: 0.72rem;
+      font-size: 1rem;
+    }
+
+    .method-grid p {
+      font-size: 0.78rem;
     }
   }
 </style>

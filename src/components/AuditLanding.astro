@@ -1,0 +1,1975 @@
+---
+import { BUSINESS } from '../consts';
+
+interface Props {
+  lang?: 'fr' | 'en';
+}
+
+const { lang = 'fr' } = Astro.props;
+const phone = BUSINESS.tels[0];
+const phoneDisplay = phone.replace(/(\+212)(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4');
+
+const content = {
+  fr: {
+    pageLabel: 'Audit digital 360',
+    title: 'Votre audit digital, en dashboard.',
+    intro:
+      'En 48h, nous transformons votre présence digitale en score, benchmark visuel et plan d’action 30/60/90.',
+    primaryCta: 'Demander un audit',
+    secondaryCta: 'Appeler maintenant',
+    heroBullets: ['Score par canal', 'Priorités business', 'Call de restitution'],
+    dashboardLabel: 'Aperçu dashboard audit',
+    maturity: 'Score de maturité',
+    sample: 'Exemple de lecture',
+    score: '72',
+    scoreLabel: 'potentiel activable',
+    pulse: 'Priorité haute',
+    dashboardNote: 'Lecture consolidée : visibilité, confiance, conversion, data.',
+    channels: [
+      { label: 'Social', value: 82, tone: 'purple' },
+      { label: 'Site web', value: 64, tone: 'cyan' },
+      { label: 'SEO/GEO', value: 51, tone: 'amber' },
+      { label: 'E-réputation', value: 74, tone: 'green' },
+    ],
+    kpis: [
+      { value: '48h', label: 'pour cadrer les premiers signaux' },
+      { value: '6', label: 'canaux audités ensemble' },
+      { value: '30/60/90', label: 'roadmap d’actions' },
+    ],
+    visualTitle: 'On audite les points qui bougent vraiment la croissance.',
+    visualCards: [
+      {
+        image: '/assets/richmedia-home/campaign-portfolio-uir.webp',
+        label: 'Social media',
+        title: 'Contenus, formats, engagement',
+      },
+      {
+        image: '/assets/richmedia-ia-automation/ia-automation-hero.webp',
+        label: 'Data & CRM',
+        title: 'Tracking, leads, relances',
+      },
+      {
+        image: '/assets/richmedia-home/contact-map.webp',
+        label: 'E-réputation',
+        title: 'Avis, recherche locale, confiance',
+      },
+    ],
+    offersLabel: 'Formats d’audit',
+    offersTitle: 'Trois formats, une lecture actionnable.',
+    offers: [
+      {
+        badge: 'Starter',
+        title: 'Audit express',
+        value: '48h',
+        text: 'Un scan rapide pour prioriser social, site et premières conversions.',
+        image: '/assets/richmedia-home/campaign-wide-uir.webp',
+        bullets: ['Score rapide', 'Quick wins', 'Call 30 min'],
+      },
+      {
+        badge: '360',
+        title: 'Audit complet',
+        value: '30/60/90',
+        text: 'Benchmark complet : social, site, SEO/GEO, campagnes et réputation.',
+        image: '/assets/richmedia-ia-automation/ia-automation-hero.webp',
+        bullets: ['Dashboard', 'Benchmark', 'Roadmap'],
+      },
+      {
+        badge: 'War room',
+        title: 'Sprint croissance',
+        value: 'Sprint',
+        text: 'Atelier de priorisation avec actions, owners et premiers tests.',
+        image: '/assets/richmedia-ia-automation/agent-workflows.webp',
+        bullets: ['Atelier', 'Média', 'CRM'],
+      },
+    ],
+    coverageTitle: 'Ce que nous auditons',
+    coverageText:
+      'Chaque canal est noté, comparé et relié à une action concrète.',
+    coverage: [
+      {
+        icon: 'ph-share-network',
+        title: 'Réseaux sociaux',
+        text: 'Formats, fréquence, engagement, UGC, influence et qualité des communautés.',
+        metrics: ['Engagement', 'Formats', 'Communauté'],
+      },
+      {
+        icon: 'ph-browser',
+        title: 'Site web & UX',
+        text: 'Parcours, vitesse, clarté de l’offre, conversion mobile et tracking.',
+        metrics: ['UX mobile', 'Conversion', 'Tracking'],
+      },
+      {
+        icon: 'ph-magnifying-glass',
+        title: 'SEO & visibilité IA',
+        text: 'Structure, requêtes business, contenus, FAQ et présence dans les réponses IA.',
+        metrics: ['SEO', 'GEO', 'Contenu'],
+      },
+      {
+        icon: 'ph-star',
+        title: 'E-réputation',
+        text: 'Avis, mentions, commentaires, profils et signaux de confiance.',
+        metrics: ['Avis', 'Mentions', 'Confiance'],
+      },
+      {
+        icon: 'ph-chart-line-up',
+        title: 'Media performance',
+        text: 'Budgets, ciblages, landing pages, CPA, ROAS et reporting.',
+        metrics: ['CPA', 'ROAS', 'Attribution'],
+      },
+      {
+        icon: 'ph-database',
+        title: 'Data, CRM & relance',
+        text: 'Collecte lead, CRM, WhatsApp, automatisations et dashboards.',
+        metrics: ['CRM', 'WhatsApp', 'Dashboards'],
+      },
+    ],
+    benchmarkTitle: 'Benchmark : ce qui se fait chez les marques performantes',
+    benchmarkText:
+      'Une lecture courte : score, risque, action prioritaire.',
+    rows: [
+      {
+        channel: 'Instagram, TikTok, LinkedIn',
+        score: '82',
+        risk: 'Bonne visibilité, conversion encore faible.',
+        impact: 'Élevé',
+        action: 'Piliers éditoriaux + CTA.',
+      },
+      {
+        channel: 'Site web mobile',
+        score: '64',
+        risk: 'Message clair, tracking incomplet.',
+        impact: 'Très élevé',
+        action: 'Simplifier CTA + formulaires.',
+      },
+      {
+        channel: 'SEO & réponses IA',
+        score: '51',
+        risk: 'Requêtes business sous-exploitées.',
+        impact: 'Élevé',
+        action: 'Pages services + FAQ.',
+      },
+      {
+        channel: 'Avis, mentions, réputation',
+        score: '74',
+        risk: 'Preuves positives peu visibles.',
+        impact: 'Moyen',
+        action: 'Remonter avis + références.',
+      },
+      {
+        channel: 'Media & acquisition',
+        score: '69',
+        risk: 'Budgets actifs, arbitrage flou.',
+        impact: 'Très élevé',
+        action: 'Comparer CPA + qualité lead.',
+      },
+    ],
+    deliverablesTitle: 'Vous repartez avec un plan clair',
+    deliverables: [
+      'Scorecard de maturité digitale',
+      'Benchmark concurrentiel et sectoriel',
+      'Dashboard des priorités par canal',
+      'Quick wins actionnables en 7 jours',
+      'Roadmap 30/60/90 jours',
+      'Call de restitution avec recommandations',
+    ],
+    processTitle: 'Notre méthode',
+    process: [
+      { step: '01', title: 'Cadrer', text: 'Objectifs, audience, canaux, pays, concurrents et priorités business.' },
+      { step: '02', title: 'Mesurer', text: 'Analyse des données disponibles, contenus, pages, campagnes et avis.' },
+      { step: '03', title: 'Benchmarker', text: 'Comparaison avec le marché et les standards de performance par canal.' },
+      { step: '04', title: 'Prioriser', text: 'Plan d’action court, concret et classé par impact, effort et urgence.' },
+    ],
+    formLabel: 'Réserver votre audit',
+    formTitle: 'Parlez-nous de votre présence digitale.',
+    formText: 'Laissez vos informations et nous revenons vers vous avec les premières questions de cadrage.',
+    fields: {
+      name: 'Nom complet',
+      email: 'Email professionnel',
+      phone: 'Téléphone',
+      company: 'Entreprise',
+      website: 'Site web ou lien principal',
+      objective: 'Priorité actuelle',
+      select: 'Choisir',
+      objectives: ['Plus de leads', 'Meilleure visibilité', 'Améliorer le site', 'Auditer les réseaux sociaux', 'E-réputation', 'Tout le dispositif digital'],
+      message: 'Message',
+      placeholder: 'Vos réseaux sociaux, concurrents, objectifs, timing...',
+      submit: 'Envoyer la demande',
+      callPrefix: 'Besoin d’aller vite ?',
+      call: `Appeler ${phoneDisplay}`,
+    },
+  },
+  en: {
+    pageLabel: '360 digital audit',
+    title: 'Your digital audit, as a dashboard.',
+    intro:
+      'In 48 hours, we turn your digital presence into a score, visual benchmark and 30/60/90 action plan.',
+    primaryCta: 'Request an audit',
+    secondaryCta: 'Call now',
+    heroBullets: ['Score by channel', 'Business priorities', 'Readout call'],
+    dashboardLabel: 'Audit dashboard preview',
+    maturity: 'Maturity score',
+    sample: 'Sample view',
+    score: '72',
+    scoreLabel: 'activation potential',
+    pulse: 'High priority',
+    dashboardNote: 'Consolidated view: visibility, trust, conversion, data.',
+    channels: [
+      { label: 'Social', value: 82, tone: 'purple' },
+      { label: 'Website', value: 64, tone: 'cyan' },
+      { label: 'SEO/GEO', value: 51, tone: 'amber' },
+      { label: 'Reputation', value: 74, tone: 'green' },
+    ],
+    kpis: [
+      { value: '48h', label: 'to frame the first signals' },
+      { value: '6', label: 'channels reviewed together' },
+      { value: '30/60/90', label: 'action roadmap' },
+    ],
+    visualTitle: 'We audit the points that actually move growth.',
+    visualCards: [
+      {
+        image: '/assets/richmedia-home/campaign-portfolio-uir.webp',
+        label: 'Social media',
+        title: 'Content, formats, engagement',
+      },
+      {
+        image: '/assets/richmedia-ia-automation/ia-automation-hero.webp',
+        label: 'Data & CRM',
+        title: 'Tracking, leads, follow-up',
+      },
+      {
+        image: '/assets/richmedia-home/contact-map.webp',
+        label: 'Reputation',
+        title: 'Reviews, local search, trust',
+      },
+    ],
+    offersLabel: 'Audit formats',
+    offersTitle: 'Three formats, one actionable view.',
+    offers: [
+      {
+        badge: 'Starter',
+        title: 'Express audit',
+        value: '48h',
+        text: 'A fast scan to prioritize social, website and first conversions.',
+        image: '/assets/richmedia-home/campaign-wide-uir.webp',
+        bullets: ['Fast score', 'Quick wins', '30-min call'],
+      },
+      {
+        badge: '360',
+        title: 'Full audit',
+        value: '30/60/90',
+        text: 'Complete benchmark: social, website, SEO/GEO, campaigns and reputation.',
+        image: '/assets/richmedia-ia-automation/ia-automation-hero.webp',
+        bullets: ['Dashboard', 'Benchmark', 'Roadmap'],
+      },
+      {
+        badge: 'War room',
+        title: 'Growth sprint',
+        value: 'Sprint',
+        text: 'Prioritization workshop with actions, owners and first tests.',
+        image: '/assets/richmedia-ia-automation/agent-workflows.webp',
+        bullets: ['Workshop', 'Media', 'CRM'],
+      },
+    ],
+    coverageTitle: 'What we audit',
+    coverageText:
+      'Each channel is scored, benchmarked and linked to a concrete action.',
+    coverage: [
+      {
+        icon: 'ph-share-network',
+        title: 'Social media',
+        text: 'Formats, cadence, engagement, UGC, influence and community quality.',
+        metrics: ['Engagement', 'Formats', 'Community'],
+      },
+      {
+        icon: 'ph-browser',
+        title: 'Website & UX',
+        text: 'Journeys, speed, offer clarity, mobile conversion and tracking.',
+        metrics: ['Mobile UX', 'Conversion', 'Tracking'],
+      },
+      {
+        icon: 'ph-magnifying-glass',
+        title: 'SEO & AI visibility',
+        text: 'Structure, business queries, content, FAQs and AI answer presence.',
+        metrics: ['SEO', 'GEO', 'Content'],
+      },
+      {
+        icon: 'ph-star',
+        title: 'Online reputation',
+        text: 'Reviews, mentions, comments, profiles and trust signals.',
+        metrics: ['Reviews', 'Mentions', 'Trust'],
+      },
+      {
+        icon: 'ph-chart-line-up',
+        title: 'Media performance',
+        text: 'Budgets, targeting, landing pages, CPA, ROAS and reporting.',
+        metrics: ['CPA', 'ROAS', 'Attribution'],
+      },
+      {
+        icon: 'ph-database',
+        title: 'Data, CRM & follow-up',
+        text: 'Lead capture, CRM, WhatsApp, automations and dashboards.',
+        metrics: ['CRM', 'WhatsApp', 'Dashboards'],
+      },
+    ],
+    benchmarkTitle: 'Benchmark: what high-performing brands measure',
+    benchmarkText:
+      'A short view: score, risk, priority action.',
+    rows: [
+      {
+        channel: 'Instagram, TikTok, LinkedIn',
+        score: '82',
+        risk: 'Strong visibility, conversion still weak.',
+        impact: 'High',
+        action: 'Editorial pillars + CTAs.',
+      },
+      {
+        channel: 'Mobile website',
+        score: '64',
+        risk: 'Clear message, incomplete tracking.',
+        impact: 'Very high',
+        action: 'Simplify CTAs + forms.',
+      },
+      {
+        channel: 'SEO & AI answers',
+        score: '51',
+        risk: 'Business queries underused.',
+        impact: 'High',
+        action: 'Service pages + FAQ.',
+      },
+      {
+        channel: 'Reviews, mentions, reputation',
+        score: '74',
+        risk: 'Positive proof not visible enough.',
+        impact: 'Medium',
+        action: 'Surface reviews + references.',
+      },
+      {
+        channel: 'Media & acquisition',
+        score: '69',
+        risk: 'Active budgets, unclear arbitration.',
+        impact: 'Very high',
+        action: 'Compare CPA + lead quality.',
+      },
+    ],
+    deliverablesTitle: 'You leave with a clear plan',
+    deliverables: [
+      'Digital maturity scorecard',
+      'Competitive and market benchmark',
+      'Priority dashboard by channel',
+      'Actionable quick wins in 7 days',
+      '30/60/90-day roadmap',
+      'Readout call with recommendations',
+    ],
+    processTitle: 'Our method',
+    process: [
+      { step: '01', title: 'Frame', text: 'Goals, audience, channels, markets, competitors and business priorities.' },
+      { step: '02', title: 'Measure', text: 'Review available data, content, pages, campaigns and reviews.' },
+      { step: '03', title: 'Benchmark', text: 'Compare with market and performance standards by channel.' },
+      { step: '04', title: 'Prioritize', text: 'A concrete action plan ranked by impact, effort and urgency.' },
+    ],
+    formLabel: 'Book your audit',
+    formTitle: 'Tell us about your digital presence.',
+    formText: 'Leave your details and we will come back with the first scoping questions.',
+    fields: {
+      name: 'Full name',
+      email: 'Work email',
+      phone: 'Phone',
+      company: 'Company',
+      website: 'Website or main link',
+      objective: 'Current priority',
+      select: 'Select',
+      objectives: ['More leads', 'Better visibility', 'Improve the website', 'Audit social media', 'Online reputation', 'Full digital system'],
+      message: 'Message',
+      placeholder: 'Your social channels, competitors, goals, timing...',
+      submit: 'Send request',
+      callPrefix: 'Need to move fast?',
+      call: `Call ${phoneDisplay}`,
+    },
+  },
+} as const;
+
+const t = content[lang];
+---
+
+<div class="audit-page">
+  <section class="audit-hero" aria-labelledby="audit-title">
+    <div class="hero-shell">
+      <div class="hero-copy">
+        <span class="section-kicker">{t.pageLabel}</span>
+        <h1 id="audit-title">{t.title}</h1>
+        <p>{t.intro}</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#audit-form">
+            {t.primaryCta}
+            <i class="ph ph-arrow-down" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href={`tel:${phone}`}>
+            {t.secondaryCta}
+            <i class="ph ph-phone" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="hero-pills" aria-label={lang === 'fr' ? 'Points clés de l’audit' : 'Audit highlights'}>
+          {t.heroBullets.map((item) => (
+            <span>
+              <i class="ph ph-check-circle" aria-hidden="true"></i>
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <aside class="audit-console" aria-label={t.dashboardLabel}>
+        <div class="console-top">
+          <div>
+            <span>{t.maturity}</span>
+            <strong>{t.sample}</strong>
+          </div>
+          <span class="priority-pill">{t.pulse}</span>
+        </div>
+
+        <div class="score-layout">
+          <div class="score-ring" style={`--score: ${t.score};`}>
+            <span>{t.score}</span>
+            <small>/100</small>
+          </div>
+          <div class="score-copy">
+            <strong>{t.scoreLabel}</strong>
+            <p>{t.dashboardNote}</p>
+          </div>
+        </div>
+
+        <div class="channel-bars">
+          {t.channels.map((item) => (
+            <div class:list={['channel-row', `tone-${item.tone}`]} style={`--value: ${item.value}%;`}>
+              <span>{item.label}</span>
+              <div aria-hidden="true"><span></span></div>
+              <strong>{item.value}</strong>
+            </div>
+          ))}
+        </div>
+
+        <div class="mini-chart" aria-hidden="true">
+          <span style="--height: 42%;"></span>
+          <span style="--height: 58%;"></span>
+          <span style="--height: 46%;"></span>
+          <span style="--height: 78%;"></span>
+          <span style="--height: 64%;"></span>
+          <span style="--height: 88%;"></span>
+          <span style="--height: 70%;"></span>
+        </div>
+        <div class="floating-card floating-card-top" aria-hidden="true">
+          <i class="ph ph-trend-up"></i>
+          <strong>+34%</strong>
+          <span>{lang === 'fr' ? 'signaux à activer' : 'signals to activate'}</span>
+        </div>
+        <div class="floating-card floating-card-bottom" aria-hidden="true">
+          <i class="ph ph-star"></i>
+          <strong>4.6/5</strong>
+          <span>{lang === 'fr' ? 'confiance & réputation' : 'trust & reputation'}</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="audit-kpis" aria-label={lang === 'fr' ? 'Chiffres clés de l’audit' : 'Audit key figures'}>
+    {t.kpis.map((item) => (
+      <article>
+        <strong>{item.value}</strong>
+        <span>{item.label}</span>
+      </article>
+    ))}
+  </section>
+
+  <section class="visual-strip" aria-labelledby="visual-title">
+    <div class="visual-strip-head">
+      <span class="section-kicker">{lang === 'fr' ? 'Scan visuel' : 'Visual scan'}</span>
+      <h2 id="visual-title">{t.visualTitle}</h2>
+    </div>
+    <div class="visual-cards">
+      {t.visualCards.map((item) => (
+        <article>
+          <img src={item.image} alt="" loading="lazy" decoding="async" />
+          <div>
+            <span>{item.label}</span>
+            <strong>{item.title}</strong>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="offers-band" aria-labelledby="offers-title">
+    <div class="section-intro">
+      <span class="section-kicker">{t.offersLabel}</span>
+      <h2 id="offers-title">{t.offersTitle}</h2>
+    </div>
+    <div class="offer-grid">
+      {t.offers.map((offer) => (
+        <article class="offer-card">
+          <div class="offer-media">
+            <img src={offer.image} alt="" loading="lazy" decoding="async" />
+            <span>{offer.badge}</span>
+          </div>
+          <div class="offer-copy">
+            <div>
+              <h3>{offer.title}</h3>
+              <strong>{offer.value}</strong>
+            </div>
+            <p>{offer.text}</p>
+            <ul>
+              {offer.bullets.map((item) => (
+                <li>
+                  <i class="ph ph-check" aria-hidden="true"></i>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-band coverage-band" aria-labelledby="coverage-title">
+    <div class="section-intro">
+      <span class="section-kicker">{t.pageLabel}</span>
+      <h2 id="coverage-title">{t.coverageTitle}</h2>
+      <p>{t.coverageText}</p>
+    </div>
+
+    <div class="coverage-grid">
+      {t.coverage.map((item) => (
+        <article class="coverage-card">
+          <i class:list={['ph', item.icon]} aria-hidden="true"></i>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+          <div>
+            {item.metrics.map((metric) => <span>{metric}</span>)}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-band benchmark-band" aria-labelledby="benchmark-title">
+    <div class="section-intro compact">
+      <span class="section-kicker">Benchmark</span>
+      <h2 id="benchmark-title">{t.benchmarkTitle}</h2>
+      <p>{t.benchmarkText}</p>
+    </div>
+
+    <div class="benchmark-dashboard">
+      {t.rows.map((row) => (
+        <article class="benchmark-card" style={`--score: ${row.score};`}>
+          <div class="benchmark-score">
+            <strong>{row.score}</strong>
+            <span>/100</span>
+          </div>
+          <div>
+            <span>{row.channel}</span>
+            <h3>{row.risk}</h3>
+            <p>{row.action}</p>
+          </div>
+          <small>{row.impact}</small>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="split-band" aria-labelledby="deliverables-title">
+    <div class="deliverable-panel">
+      <span class="section-kicker">{lang === 'fr' ? 'Livrables' : 'Deliverables'}</span>
+      <h2 id="deliverables-title">{t.deliverablesTitle}</h2>
+      <div class="deliverable-grid">
+        {t.deliverables.map((item) => (
+          <span>
+            <i class="ph ph-check-circle" aria-hidden="true"></i>
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div class="process-panel">
+      <span class="section-kicker">{lang === 'fr' ? 'Méthode' : 'Method'}</span>
+      <h2>{t.processTitle}</h2>
+      <div class="process-list">
+        {t.process.map((item) => (
+          <article>
+            <span>{item.step}</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="audit-form-section" id="audit-form" aria-labelledby="audit-form-title">
+    <div class="form-copy">
+      <span class="section-kicker">{t.formLabel}</span>
+      <h2 id="audit-form-title">{t.formTitle}</h2>
+      <p>{t.formText}</p>
+      <a class="phone-cta" href={`tel:${phone}`}>
+        <small>{t.fields.callPrefix}</small>
+        <strong>{t.fields.call}</strong>
+        <i class="ph ph-phone-call" aria-hidden="true"></i>
+      </a>
+    </div>
+
+    <form class="audit-form" action={`mailto:${BUSINESS.email}`} method="post" enctype="text/plain">
+      <label>
+        <span>{t.fields.name}</span>
+        <input type="text" name={t.fields.name} autocomplete="name" required />
+      </label>
+      <label>
+        <span>{t.fields.email}</span>
+        <input type="email" name={t.fields.email} autocomplete="email" required />
+      </label>
+      <label>
+        <span>{t.fields.phone}</span>
+        <input type="tel" name={t.fields.phone} autocomplete="tel" />
+      </label>
+      <label>
+        <span>{t.fields.company}</span>
+        <input type="text" name={t.fields.company} autocomplete="organization" />
+      </label>
+      <label>
+        <span>{t.fields.website}</span>
+        <input type="url" name={t.fields.website} inputmode="url" placeholder="https://" />
+      </label>
+      <label>
+        <span>{t.fields.objective}</span>
+        <select name={t.fields.objective} required>
+          <option value="">{t.fields.select}</option>
+          {t.fields.objectives.map((objective) => <option value={objective}>{objective}</option>)}
+        </select>
+      </label>
+      <label class="field-wide">
+        <span>{t.fields.message}</span>
+        <textarea name={t.fields.message} rows="4" placeholder={t.fields.placeholder}></textarea>
+      </label>
+      <button class="button button-primary field-wide" type="submit">
+        {t.fields.submit}
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </button>
+    </form>
+  </section>
+</div>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .audit-page {
+    --purple: #7c3cff;
+    --purple-2: #a985ff;
+    --cyan: #40d9ff;
+    --green: #62e6a7;
+    --amber: #ffca66;
+    --line: rgba(255, 255, 255, 0.13);
+    --panel: rgba(255, 255, 255, 0.045);
+    --muted: rgba(255, 255, 255, 0.68);
+    overflow-x: clip;
+    color: #fff;
+    background:
+      radial-gradient(circle at 76% 8%, rgba(124, 60, 255, 0.24), transparent 30rem),
+      radial-gradient(circle at 8% 36%, rgba(64, 217, 255, 0.1), transparent 28rem),
+      linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+      #030407;
+    background-size: auto, auto, 88px 88px, 88px 88px, auto;
+  }
+
+  .audit-hero,
+  .visual-strip,
+  .offers-band,
+  .section-band,
+  .split-band,
+  .audit-form-section,
+  .audit-kpis {
+    width: min(100% - 3rem, 1320px);
+    margin-inline: auto;
+  }
+
+  .audit-hero {
+    padding: 8rem 0 2rem;
+  }
+
+  .hero-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(440px, 0.9fr);
+    gap: clamp(1.2rem, 3vw, 3rem);
+    align-items: stretch;
+  }
+
+  .hero-copy {
+    display: grid;
+    align-content: center;
+    min-height: 600px;
+    padding: 1rem 0;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--purple-2);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2rem;
+    height: 2px;
+    background: var(--purple);
+    content: '';
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h1 {
+    max-width: 760px;
+    margin-top: 1.1rem;
+    --h1-size: clamp(3.4rem, 6vw, 5.9rem);
+    line-height: 0.98;
+  }
+
+  h2 {
+    --h2-size: 2.45rem;
+    line-height: 1.05;
+  }
+
+  h3 {
+    line-height: 1.1;
+  }
+
+  .hero-copy p,
+  .section-intro p,
+  .form-copy p {
+    max-width: 650px;
+    color: var(--muted);
+    font-size: 1.08rem;
+    line-height: 1.6;
+  }
+
+  .hero-copy p {
+    margin-top: 1.25rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.78rem;
+    margin-top: 1.65rem;
+  }
+
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1.4rem;
+  }
+
+  .hero-pills span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.42rem 0.72rem;
+    background: rgba(255, 255, 255, 0.045);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.86rem;
+    font-weight: 800;
+  }
+
+  .hero-pills i {
+    color: var(--green);
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 3.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0 1.25rem;
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform 190ms ease, border-color 190ms ease, background 190ms ease, box-shadow 190ms ease;
+    cursor: pointer;
+  }
+
+  .button:hover,
+  .button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    box-shadow: 0 1rem 2.5rem rgba(124, 60, 255, 0.28);
+  }
+
+  .button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .audit-console {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    min-height: 600px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 1rem;
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.18), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.02)),
+      rgba(4, 6, 13, 0.88);
+    box-shadow: 0 1.6rem 4rem rgba(0, 0, 0, 0.34);
+  }
+
+  .console-top,
+  .score-layout,
+  .channel-row,
+  .audit-kpis article,
+  .phone-cta {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .console-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem;
+  }
+
+  .console-top span {
+    display: block;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .console-top strong {
+    display: block;
+    margin-top: 0.14rem;
+    font-size: 1.05rem;
+  }
+
+  .priority-pill {
+    min-height: 2rem;
+    border: 1px solid rgba(98, 230, 167, 0.32);
+    border-radius: 999px;
+    padding: 0.42rem 0.65rem;
+    background: rgba(98, 230, 167, 0.1);
+    color: var(--green) !important;
+  }
+
+  .score-layout {
+    display: grid;
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .score-ring {
+    position: relative;
+    display: grid;
+    width: 12rem;
+    height: 12rem;
+    place-content: center;
+    gap: 0.1rem;
+    border-radius: 999px;
+    background: conic-gradient(var(--purple) calc(var(--score) * 1%), rgba(255, 255, 255, 0.1) 0);
+  }
+
+  .score-ring::after {
+    position: absolute;
+    inset: 0.75rem;
+    border-radius: inherit;
+    background: #080a12;
+    content: '';
+  }
+
+  .score-ring span,
+  .score-ring small {
+    position: relative;
+    z-index: 1;
+  }
+
+  .score-ring span {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .score-ring small {
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  .score-copy strong {
+    display: block;
+    font-size: 1.4rem;
+    line-height: 1.08;
+  }
+
+  .score-copy p {
+    margin-top: 0.6rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .channel-bars {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .channel-row {
+    display: grid;
+    grid-template-columns: 6.3rem minmax(0, 1fr) 2.5rem;
+    gap: 0.72rem;
+    align-items: center;
+    min-height: 3.05rem;
+    padding: 0.62rem 0.72rem;
+  }
+
+  .channel-row span,
+  .channel-row strong {
+    font-size: 0.86rem;
+    font-weight: 800;
+  }
+
+  .channel-row > div {
+    height: 0.55rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .channel-row > div span {
+    display: block;
+    width: var(--value);
+    height: 100%;
+    border-radius: inherit;
+    background: var(--bar, var(--purple));
+  }
+
+  .tone-purple {
+    --bar: var(--purple);
+  }
+
+  .tone-cyan {
+    --bar: var(--cyan);
+  }
+
+  .tone-amber {
+    --bar: var(--amber);
+  }
+
+  .tone-green {
+    --bar: var(--green);
+  }
+
+  .mini-chart {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.65rem;
+    align-items: end;
+    min-height: 190px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      rgba(255, 255, 255, 0.03);
+    background-size: 100% 25%;
+  }
+
+  .mini-chart span {
+    min-height: 1.8rem;
+    height: var(--height);
+    border-radius: 999px 999px 6px 6px;
+    background: linear-gradient(180deg, var(--purple-2), var(--purple));
+  }
+
+  .floating-card {
+    position: absolute;
+    right: -1rem;
+    z-index: 2;
+    display: grid;
+    min-width: 10.5rem;
+    gap: 0.16rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    padding: 0.9rem;
+    background: rgba(247, 247, 251, 0.96);
+    color: #06070d;
+    box-shadow: 0 1.25rem 2.8rem rgba(0, 0, 0, 0.28);
+  }
+
+  .floating-card i {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 8px;
+    background: #6c3cf5;
+    color: #fff;
+  }
+
+  .floating-card strong {
+    margin-top: 0.3rem;
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .floating-card span {
+    color: rgba(6, 7, 13, 0.64);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .floating-card-top {
+    top: 6.2rem;
+  }
+
+  .floating-card-bottom {
+    bottom: 5.5rem;
+  }
+
+  .audit-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding-bottom: 2rem;
+  }
+
+  .audit-kpis article {
+    display: grid;
+    gap: 0.35rem;
+    min-height: 7.3rem;
+    align-content: center;
+    padding: 1.05rem;
+  }
+
+  .audit-kpis strong {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .audit-kpis span {
+    color: var(--muted);
+    line-height: 1.3;
+  }
+
+  .visual-strip,
+  .offers-band {
+    padding-block: 2rem 4rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .visual-strip {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.55fr) minmax(0, 1.45fr);
+    gap: 0.9rem;
+    align-items: stretch;
+  }
+
+  .visual-strip-head {
+    display: grid;
+    align-content: center;
+    gap: 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1.2rem;
+    background:
+      linear-gradient(145deg, rgba(124, 60, 255, 0.18), transparent 58%),
+      rgba(255, 255, 255, 0.035);
+  }
+
+  .visual-strip-head h2 {
+    max-width: 28rem;
+  }
+
+  .visual-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .visual-cards article,
+  .offer-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .visual-cards article {
+    position: relative;
+    min-height: 18rem;
+  }
+
+  .visual-cards img {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    object-fit: cover;
+    filter: saturate(1.05) contrast(1.03);
+  }
+
+  .visual-cards article::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background: linear-gradient(180deg, transparent 20%, rgba(3, 4, 7, 0.84));
+  }
+
+  .visual-cards article div {
+    position: absolute;
+    right: 0.9rem;
+    bottom: 0.9rem;
+    left: 0.9rem;
+    z-index: 1;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .visual-cards span,
+  .offer-media span,
+  .benchmark-card > small {
+    width: fit-content;
+    border: 1px solid rgba(169, 133, 255, 0.38);
+    border-radius: 999px;
+    padding: 0.35rem 0.55rem;
+    background: rgba(124, 60, 255, 0.18);
+    color: #c3a8ff;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .visual-cards strong {
+    font-size: 1.28rem;
+    line-height: 1.08;
+  }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin-top: 1.4rem;
+  }
+
+  .offer-card {
+    display: grid;
+    grid-template-rows: 13rem minmax(0, 1fr);
+    transition: transform 190ms ease, border-color 190ms ease, background 190ms ease;
+  }
+
+  .offer-card:hover,
+  .offer-card:focus-within {
+    border-color: rgba(124, 60, 255, 0.52);
+    background: rgba(124, 60, 255, 0.08);
+    transform: translateY(-4px);
+  }
+
+  .offer-media {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .offer-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .offer-media::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background: linear-gradient(180deg, rgba(3, 4, 7, 0.1), rgba(3, 4, 7, 0.72));
+  }
+
+  .offer-media span {
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    z-index: 1;
+  }
+
+  .offer-copy {
+    display: grid;
+    gap: 0.85rem;
+    padding: 1rem;
+  }
+
+  .offer-copy > div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .offer-copy h3 {
+    font-size: 1.25rem;
+  }
+
+  .offer-copy > div strong {
+    color: var(--purple-2);
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+
+  .offer-copy p {
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  .offer-copy ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.42rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .offer-copy li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-height: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 999px;
+    padding: 0.35rem 0.52rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .offer-copy li i {
+    color: var(--green);
+  }
+
+  .visual-strip,
+  .offers-band,
+  .section-band,
+  .split-band,
+  .audit-form-section {
+    padding-block: 4rem;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 6rem;
+  }
+
+  .section-intro {
+    display: grid;
+    gap: 0.8rem;
+    max-width: 760px;
+  }
+
+  .section-intro.compact {
+    max-width: 850px;
+  }
+
+  .coverage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
+
+  .coverage-card {
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+    min-height: 15rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1.1rem;
+    background: var(--panel);
+  }
+
+  .coverage-card > i {
+    display: inline-grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid rgba(124, 60, 255, 0.36);
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.12);
+    color: var(--purple-2);
+    font-size: 1.35rem;
+  }
+
+  .coverage-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .coverage-card p {
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .coverage-card div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: auto;
+  }
+
+  .coverage-card div span {
+    min-height: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    padding: 0.42rem 0.62rem;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .benchmark-dashboard {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.45rem;
+  }
+
+  .benchmark-card {
+    position: relative;
+    display: grid;
+    gap: 0.85rem;
+    min-height: 16rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
+      rgba(255, 255, 255, 0.03);
+    transform: translateY(0) scale(1);
+    transition:
+      transform 260ms ease,
+      border-color 260ms ease,
+      background 260ms ease,
+      box-shadow 260ms ease;
+    will-change: transform;
+  }
+
+  .benchmark-card::before {
+    position: absolute;
+    inset: auto 0 0;
+    height: calc(var(--score) * 1%);
+    content: '';
+    background: linear-gradient(180deg, rgba(124, 60, 255, 0.04), rgba(124, 60, 255, 0.26));
+    pointer-events: none;
+    transition:
+      height 320ms ease,
+      background 260ms ease,
+      opacity 260ms ease;
+  }
+
+  .benchmark-card::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background:
+      radial-gradient(circle at 22% 18%, rgba(169, 133, 255, 0.24), transparent 10rem),
+      linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.1) 45%, transparent 62%);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-24%) skewX(-10deg);
+    transition:
+      opacity 260ms ease,
+      transform 540ms ease;
+  }
+
+  .benchmark-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .benchmark-score {
+    display: grid;
+    width: 4.35rem;
+    height: 4.35rem;
+    place-items: center;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at center, #080a12 58%, transparent 60%),
+      conic-gradient(var(--purple) calc(var(--score) * 1%), rgba(255, 255, 255, 0.11) 0);
+    box-shadow: 0 0 0 rgba(124, 60, 255, 0);
+    transform: rotate(0deg) scale(1);
+    transition:
+      transform 260ms ease,
+      box-shadow 260ms ease,
+      filter 260ms ease;
+  }
+
+  .benchmark-score strong {
+    align-self: end;
+    font-size: 1.35rem;
+    line-height: 1;
+    transition:
+      color 260ms ease,
+      text-shadow 260ms ease;
+  }
+
+  .benchmark-score span {
+    align-self: start;
+    color: var(--muted);
+    font-size: 0.64rem;
+    font-weight: 800;
+  }
+
+  .benchmark-card div:nth-of-type(2) {
+    display: grid;
+    gap: 0.42rem;
+  }
+
+  .benchmark-card div:nth-of-type(2) > span {
+    color: var(--purple-2);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    line-height: 1.25;
+    text-transform: uppercase;
+    transition: color 260ms ease;
+  }
+
+  .benchmark-card h3 {
+    font-size: 1.02rem;
+  }
+
+  .benchmark-card p {
+    color: var(--muted);
+    line-height: 1.38;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .benchmark-card:hover {
+      border-color: rgba(169, 133, 255, 0.58);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(124, 60, 255, 0.055)),
+        rgba(255, 255, 255, 0.045);
+      box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.32),
+        0 0 42px rgba(124, 60, 255, 0.18);
+      transform: translateY(-0.55rem) scale(1.012);
+    }
+
+    .benchmark-card:hover::before {
+      background: linear-gradient(180deg, rgba(124, 60, 255, 0.08), rgba(124, 60, 255, 0.38));
+      opacity: 0.95;
+    }
+
+    .benchmark-card:hover::after {
+      opacity: 1;
+      transform: translateX(34%) skewX(-10deg);
+    }
+
+    .benchmark-card:hover .benchmark-score {
+      box-shadow:
+        0 0 0 0.45rem rgba(124, 60, 255, 0.08),
+        0 0 2.2rem rgba(124, 60, 255, 0.28);
+      filter: saturate(1.18);
+      transform: rotate(-5deg) scale(1.08);
+    }
+
+    .benchmark-card:hover .benchmark-score strong {
+      color: #ffffff;
+      text-shadow: 0 0 1.35rem rgba(169, 133, 255, 0.54);
+    }
+
+    .benchmark-card:hover div:nth-of-type(2) > span {
+      color: #d7c4ff;
+    }
+
+    .benchmark-card:hover > small {
+      border-color: rgba(169, 133, 255, 0.68);
+      background: rgba(124, 60, 255, 0.28);
+      color: #efe8ff;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .benchmark-card,
+    .benchmark-card::before,
+    .benchmark-card::after,
+    .benchmark-score,
+    .benchmark-score strong,
+    .benchmark-card div:nth-of-type(2) > span {
+      transition: none;
+    }
+
+    .benchmark-card,
+    .benchmark-card:hover,
+    .benchmark-card:hover .benchmark-score {
+      transform: none;
+    }
+  }
+
+  .split-band {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 1rem;
+  }
+
+  .deliverable-panel,
+  .process-panel,
+  .audit-form-section {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .deliverable-panel,
+  .process-panel {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    padding: 1.2rem;
+  }
+
+  .deliverable-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.62rem;
+  }
+
+  .deliverable-grid span {
+    display: flex;
+    min-height: 3.6rem;
+    align-items: center;
+    gap: 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.72rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: rgba(255, 255, 255, 0.84);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .deliverable-grid i {
+    color: var(--green);
+    font-size: 1.1rem;
+  }
+
+  .process-list {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .process-list article {
+    display: grid;
+    grid-template-columns: 3.2rem minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: start;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .process-list article > span {
+    display: inline-grid;
+    width: 2.65rem;
+    height: 2.65rem;
+    place-items: center;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    font-weight: 800;
+  }
+
+  .process-list p {
+    margin-top: 0.25rem;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  .audit-form-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(460px, 1fr);
+    gap: 1.1rem;
+    align-items: start;
+    margin-bottom: 4rem;
+    padding: 1.2rem;
+  }
+
+  .form-copy {
+    display: grid;
+    gap: 0.9rem;
+    align-content: start;
+    padding: 0.8rem;
+  }
+
+  .phone-cta {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.25rem 0.7rem;
+    align-items: center;
+    margin-top: 0.55rem;
+    padding: 0.92rem;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .phone-cta small {
+    grid-column: 2;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .phone-cta strong {
+    grid-column: 2;
+    font-size: 1.2rem;
+  }
+
+  .phone-cta i {
+    grid-row: 1 / span 2;
+    grid-column: 1;
+    color: var(--purple-2);
+    font-size: 1.45rem;
+  }
+
+  .audit-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.82rem;
+  }
+
+  label {
+    display: grid;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  label span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    min-height: 3.05rem;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    padding: 0.86rem 0.92rem;
+    background: rgba(0, 0, 0, 0.28);
+    color: #fff;
+    outline: none;
+    transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  select {
+    color-scheme: dark;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: rgba(124, 60, 255, 0.7);
+    background: rgba(0, 0, 0, 0.42);
+    box-shadow: 0 0 0 4px rgba(124, 60, 255, 0.12);
+  }
+
+  .field-wide {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 1060px) {
+    .hero-shell,
+    .visual-strip,
+    .split-band,
+    .audit-form-section {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-copy,
+    .audit-console {
+      min-height: auto;
+    }
+
+    .coverage-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .visual-cards,
+    .offer-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .benchmark-dashboard {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .audit-form-section {
+      margin-bottom: 3rem;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .audit-hero,
+    .visual-strip,
+    .offers-band,
+    .section-band,
+    .split-band,
+    .audit-form-section,
+    .audit-kpis {
+      width: min(100% - 1rem, 1320px);
+    }
+
+    .audit-hero {
+      padding-top: 6rem;
+    }
+
+    .hero-copy {
+      padding-top: 1rem;
+    }
+
+    h1 {
+      --h1-size: 2.65rem;
+      max-width: 100%;
+    }
+
+    h2 {
+      --h2-size: 2rem;
+    }
+
+    .hero-copy p,
+    .section-intro p,
+    .form-copy p {
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .hero-actions,
+    .audit-form {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-actions {
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 1.35rem;
+    }
+
+    .button {
+      width: 100%;
+      min-height: 3.35rem;
+    }
+
+    .hero-pills {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .audit-console {
+      gap: 0.7rem;
+      padding: 0.68rem;
+      overflow: hidden;
+    }
+
+    .floating-card {
+      position: static;
+      min-width: 0;
+      background: rgba(255, 255, 255, 0.055);
+      color: #fff;
+      box-shadow: none;
+    }
+
+    .floating-card span {
+      color: var(--muted);
+    }
+
+    .console-top,
+    .score-layout {
+      padding: 0.72rem;
+    }
+
+    .score-layout {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .score-ring {
+      width: 10.4rem;
+      height: 10.4rem;
+    }
+
+    .score-ring small {
+      margin-top: 0;
+    }
+
+    .channel-row {
+      grid-template-columns: 5.3rem minmax(0, 1fr) 2.2rem;
+      gap: 0.55rem;
+    }
+
+    .mini-chart {
+      min-height: 135px;
+      gap: 0.45rem;
+      padding: 0.78rem;
+    }
+
+    .audit-kpis {
+      grid-template-columns: 1fr;
+      padding-bottom: 1.3rem;
+    }
+
+    .audit-kpis article {
+      min-height: 5.2rem;
+    }
+
+    .section-band,
+    .visual-strip,
+    .offers-band,
+    .split-band,
+    .audit-form-section {
+      padding-block: 2.6rem;
+      scroll-margin-top: 5.2rem;
+    }
+
+    .visual-strip {
+      gap: 0.65rem;
+    }
+
+    .visual-strip-head {
+      padding: 1rem;
+    }
+
+    .visual-cards,
+    .offer-grid,
+    .benchmark-dashboard {
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+
+    .visual-cards article {
+      min-height: 15rem;
+    }
+
+    .offer-card {
+      grid-template-rows: 11.5rem minmax(0, 1fr);
+    }
+
+    .offer-card:hover,
+    .offer-card:focus-within {
+      transform: none;
+    }
+
+    .coverage-grid {
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+
+    .coverage-card {
+      min-height: auto;
+      padding: 0.95rem;
+    }
+
+    .benchmark-card {
+      min-height: 0;
+      grid-template-columns: 4.35rem minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .benchmark-card > small {
+      grid-column: 2;
+    }
+
+    .deliverable-panel,
+    .process-panel,
+    .audit-form-section {
+      padding: 0.85rem;
+    }
+
+    .deliverable-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .process-list article {
+      grid-template-columns: 2.85rem minmax(0, 1fr);
+      padding: 0.75rem;
+    }
+
+    .audit-form-section {
+      gap: 1rem;
+      margin-bottom: 2.2rem;
+      scroll-margin-top: 5.2rem;
+    }
+
+    .form-copy {
+      padding: 0;
+    }
+
+    .audit-form {
+      display: grid;
+    }
+
+    .phone-cta strong {
+      font-size: 1.05rem;
+      line-height: 1.2;
+    }
+
+    .field-wide {
+      grid-column: auto;
+    }
+  }
+
+  @media (max-width: 380px) {
+    h1 {
+      --h1-size: 2.45rem;
+    }
+
+    .channel-row {
+      grid-template-columns: 1fr;
+    }
+
+    .channel-row strong {
+      justify-self: start;
+    }
+  }
+</style>
