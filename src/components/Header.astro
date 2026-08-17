@@ -21,6 +21,8 @@ const languageHref = isEnglish
     ? '/reserver-un-audit'
     : normalizedPath === '/en/products/whatsapp'
     ? '/produits/whatsapp'
+    : normalizedPath === '/en/products/hypeo'
+    ? '/produits/hypeo'
     : normalizedPath === '/en/expertises/strategie-digitale'
     ? '/expertises/strategie-digitale'
     : normalizedPath === '/en/expertises/brand-content'
@@ -68,6 +70,8 @@ const languageHref = isEnglish
     ? '/en/book-audit'
     : normalizedPath === '/produits/whatsapp'
     ? '/en/products/whatsapp'
+    : normalizedPath === '/produits/hypeo'
+    ? '/en/products/hypeo'
     : '/en';
 
 const labels = isEnglish
@@ -132,10 +136,10 @@ const productLinks = [
     external: true,
   },
   {
-    href: 'https://hypeo.ai',
+    href: isEnglish ? '/en/products/hypeo' : '/produits/hypeo',
     label: 'Influence',
     text: isEnglish ? 'Creator campaigns' : 'Campagnes créateurs',
-    external: true,
+    external: false,
   },
   {
     href: 'https://www.in-talks.ma/',

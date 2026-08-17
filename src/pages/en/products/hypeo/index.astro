@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import HypeoLanding from '../../../../components/HypeoLanding.astro';
+import { SITE } from '../../../../consts';
+import { breadcrumbs, localBusiness, serviceSchema } from '../../../../lib/schema';
+
+const pageDescription =
+  'Discover Hypeo.ai, the AI influencer platform to match the right creators, generate briefs, manage campaigns and measure performance.';
+
+const schema = [
+  {
+    ...localBusiness(),
+    url: `${SITE.url}/en/products/hypeo`,
+    description: pageDescription,
+    inLanguage: 'en',
+  },
+  {
+    ...serviceSchema({
+      name: 'Hypeo.ai - AI influencer platform',
+      description: pageDescription,
+      url: `${SITE.url}/en/products/hypeo`,
+    }),
+    inLanguage: 'en',
+  },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Products', url: `${SITE.url}/en/products/hypeo` },
+    { name: 'Hypeo.ai', url: `${SITE.url}/en/products/hypeo` },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Hypeo.ai - AI influencer platform - Richmedia"
+  description={pageDescription}
+  canonical={`${SITE.url}/en/products/hypeo`}
+  lang="en"
+  schema={schema}
+>
+  <HypeoLanding lang="en" />
+</BaseLayout>

@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HypeoLanding from '../../components/HypeoLanding.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, localBusiness, serviceSchema } from '../../lib/schema';
+
+const pageDescription =
+  'Découvrez Hypeo.ai, la plateforme influence IA pour matcher les bons créateurs, générer des briefs, piloter les campagnes et mesurer la performance.';
+
+const schema = [
+  localBusiness(),
+  serviceSchema({
+    name: 'Hypeo.ai - Plateforme influence IA',
+    description: pageDescription,
+    url: `${SITE.url}/produits/hypeo`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Produits', url: `${SITE.url}/produits/hypeo` },
+    { name: 'Hypeo.ai', url: `${SITE.url}/produits/hypeo` },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Hypeo.ai - Plateforme influence IA - Richmedia"
+  description={pageDescription}
+  canonical={`${SITE.url}/produits/hypeo`}
+  schema={schema}
+>
+  <HypeoLanding lang="fr" />
+</BaseLayout>
