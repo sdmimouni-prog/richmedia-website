@@ -187,10 +187,18 @@ jobs:
           systemctl daemon-reload
           systemctl enable richmedia-contact-api.service
           systemctl restart richmedia-contact-api.service
-          sleep 1
-          systemctl is-active --quiet richmedia-contact-api.service
 
-          health_status="$(curl -sS -o /tmp/richmedia-contact-health.json -w '%{http_code}' "http://127.0.0.1:${CONTACT_API_PORT}/healthz")"
+          health_status=""
+          for attempt in $(seq 1 20); do
+            if systemctl is-active --quiet richmedia-contact-api.service; then
+              health_status="$(curl -sS -o /tmp/richmedia-contact-health.json -w '%{http_code}' "http://127.0.0.1:${CONTACT_API_PORT}/healthz" || true)"
+              if [ "$health_status" = "200" ]; then
+                break
+              fi
+            fi
+            sleep 1
+          done
+
           if [ "$health_status" != "200" ]; then
             cat /tmp/richmedia-contact-health.json || true
             journalctl -u richmedia-contact-api.service --no-pager -n 80
