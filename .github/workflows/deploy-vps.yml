@@ -74,6 +74,7 @@ jobs:
           echo "RICHMEDIA_RELEASE_PATH=$release_path" >> "$GITHUB_ENV"
 
       - name: Configure contact API
+        continue-on-error: true
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_PORT: ${{ secrets.VPS_PORT }}
