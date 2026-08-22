@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ArticleDetailPage from '../../../components/ArticleDetailPage.astro';
 import { articleSchema, breadcrumbs } from '../../../lib/schema';
-import { SITE } from '../../../consts';
+import { EDITORIAL_AUTHOR, SITE } from '../../../consts';
 
 const categoryLabels: Record<string, string> = {
   Growth: 'Strategy',
@@ -61,12 +61,15 @@ const relatedArticles = otherEntries
 const fallbackRelated = relatedArticles.length > 0 ? relatedArticles : recentArticles.slice(0, 4);
 const categoryLabel = categoryLabels[entry.data.categorie] ?? entry.data.categorie;
 const schemaImage = image.startsWith('/') ? `${SITE.url}${image}` : image;
+const authorImage = EDITORIAL_AUTHOR.image.startsWith('/') ? `${SITE.url}${EDITORIAL_AUTHOR.image}` : EDITORIAL_AUTHOR.image;
 const schema = [
   articleSchema({
     title: entry.data.title,
     description: entry.data.metaDescription,
     url,
-    author: entry.data.auteur,
+    author: EDITORIAL_AUTHOR.name,
+    authorType: 'Person',
+    authorImage,
     datePublished: entry.data.datePublication,
     dateModified: entry.data.dateModification,
     image: schemaImage,
@@ -94,9 +97,10 @@ const schema = [
     categoryLabel={categoryLabel}
     title={entry.data.title}
     description={entry.data.metaDescription}
-    author={entry.data.auteur}
-    authorRole="Richmedia strategy team"
-    authorBio="Richmedia supports brands in Morocco and internationally across digital strategy, media, SEO/GEO, content, WhatsApp, CRM and automation."
+    author={EDITORIAL_AUTHOR.name}
+    authorRole={EDITORIAL_AUTHOR.role.en}
+    authorBio={EDITORIAL_AUTHOR.bio.en}
+    authorImage={EDITORIAL_AUTHOR.image}
     date={entry.data.datePublication}
     readingTime={entry.data.tempsLecture ?? 6}
     image={image}

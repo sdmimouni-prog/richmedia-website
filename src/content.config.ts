@@ -79,7 +79,7 @@ const articles = defineCollection({
   schema: ({ image }) =>
     seo.extend({
       categorie: z.enum(['SEO', 'Media', 'Social', 'Growth', 'Secteur']),
-      auteur: z.string().default('Richmedia'),
+      auteur: z.string().default('Salah Eddine MIMOUNI'),
       expertiseLiee: reference('expertises').optional(), // article -> page commerciale
       tempsLecture: z.number().optional(),
       couverture: image().optional(),

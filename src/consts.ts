@@ -30,3 +30,18 @@ export const BUSINESS = {
   ],
   accreditations: ['Google Partner', 'Google Analytics', 'Meta Blueprint', 'HubSpot', 'IAB Rich Media'],
 };
+
+export const EDITORIAL_AUTHOR = {
+  name: 'Salah Eddine MIMOUNI',
+  image: '/assets/richmedia-home/team-carousel/salah.webp',
+  role: {
+    fr: 'Fondateur & CEO de Richmedia',
+    en: 'Founder & CEO of Richmedia',
+  },
+  bio: {
+    fr:
+      'Salah Eddine MIMOUNI, fondateur et CEO de Richmedia, accompagne les marques au Maroc et à l’international sur la stratégie digitale, le média, le SEO/GEO, les contenus, WhatsApp, CRM et l’automatisation.',
+    en:
+      'Salah Eddine MIMOUNI, founder and CEO of Richmedia, supports brands in Morocco and internationally across digital strategy, media, SEO/GEO, content, WhatsApp, CRM and automation.',
+  },
+} as const;

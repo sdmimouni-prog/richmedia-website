@@ -24,6 +24,7 @@ interface Props {
   author: string;
   authorRole: string;
   authorBio: string;
+  authorImage?: string;
   date: Date | string;
   readingTime: number;
   image: string;
@@ -55,6 +56,7 @@ const {
   author,
   authorRole,
   authorBio,
+  authorImage,
   date,
   readingTime,
   image,
@@ -100,7 +102,13 @@ const formatDate = (value: Date | string) =>
       <p>{description}</p>
       <div class="article-meta">
         <span class="author-chip">
-          <span class="author-avatar" aria-hidden="true">{author.slice(0, 1)}</span>
+          <span class="author-avatar" aria-hidden="true">
+            {authorImage ? (
+              <img src={authorImage} alt="" width="64" height="64" loading="eager" decoding="async" />
+            ) : (
+              author.slice(0, 1)
+            )}
+          </span>
           <span>
             <strong>{author}</strong>
             <small>{authorRole}</small>
@@ -173,7 +181,13 @@ const formatDate = (value: Date | string) =>
       <section class="sidebar-card author-card">
         <h2>{authorTitle}</h2>
         <div class="author-line">
-          <span class="author-photo" aria-hidden="true">{author.slice(0, 1)}</span>
+          <span class="author-photo">
+            {authorImage ? (
+              <img src={authorImage} alt={author} width="160" height="160" loading="lazy" decoding="async" />
+            ) : (
+              author.slice(0, 1)
+            )}
+          </span>
           <div>
             <strong>{author}</strong>
             <small>{authorRole}</small>
@@ -336,6 +350,8 @@ const formatDate = (value: Date | string) =>
   .author-photo {
     display: grid;
     place-items: center;
+    overflow: hidden;
+    flex: 0 0 auto;
     border: 1px solid rgba(168, 108, 255, 0.45);
     border-radius: 999px;
     background: radial-gradient(circle at 35% 25%, rgba(185, 119, 255, 0.72), rgba(87, 39, 221, 0.95));
@@ -352,6 +368,15 @@ const formatDate = (value: Date | string) =>
     width: 5rem;
     height: 5rem;
     font-size: 2rem;
+  }
+
+  .author-avatar img,
+  .author-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
   }
 
   .article-hero-media {

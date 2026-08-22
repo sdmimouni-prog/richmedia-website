@@ -47,17 +47,28 @@ export function articleSchema(opts: {
   description: string;
   url: string;
   author: string;
+  authorType?: 'Person' | 'Organization';
+  authorImage?: string;
   datePublished: Date;
   dateModified: Date;
   image?: string;
 }) {
+  const author =
+    opts.authorType === 'Person'
+      ? {
+          '@type': 'Person',
+          name: opts.author,
+          ...(opts.authorImage ? { image: opts.authorImage } : {}),
+        }
+      : { '@type': 'Organization', name: opts.author };
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: opts.title,
     description: opts.description,
     url: opts.url,
-    author: { '@type': 'Organization', name: opts.author },
+    author,
     publisher: { '@id': `${SITE.url}/#organization` },
     datePublished: opts.datePublished.toISOString(),
     dateModified: opts.dateModified.toISOString(),
