@@ -155,22 +155,30 @@ function buildEmail(fields, req) {
   };
 }
 
+async function saveLeadToFile({ subject, text, replyTo, reason }) {
+  const leadsFile = process.env.CONTACT_LEADS_FILE;
+  if (!leadsFile) return false;
+
+  await appendFile(
+    leadsFile,
+    `${JSON.stringify({
+      createdAt: new Date().toISOString(),
+      subject,
+      replyTo,
+      reason,
+      text,
+    })}\n`,
+    { mode: 0o600 },
+  );
+
+  console.warn(`[contact-form] lead saved to CONTACT_LEADS_FILE: ${reason}`);
+  return true;
+}
+
 async function sendEmail({ subject, html, text, replyTo }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    const leadsFile = process.env.CONTACT_LEADS_FILE;
-    if (leadsFile) {
-      await appendFile(
-        leadsFile,
-        `${JSON.stringify({
-          createdAt: new Date().toISOString(),
-          subject,
-          replyTo,
-          text,
-        })}\n`,
-        { mode: 0o600 },
-      );
-      console.warn('[contact-form] RESEND_API_KEY missing; lead saved to CONTACT_LEADS_FILE.');
+    if (await saveLeadToFile({ subject, text, replyTo, reason: 'RESEND_API_KEY_MISSING' })) {
       return;
     }
 
@@ -203,6 +211,10 @@ async function sendEmail({ subject, html, text, replyTo }) {
 
   if (!response.ok) {
     const detail = await response.text();
+    if (await saveLeadToFile({ subject, text, replyTo, reason: `RESEND_ERROR: ${detail}` })) {
+      return;
+    }
+
     throw new Error(`RESEND_ERROR: ${detail}`);
   }
 }

@@ -1,5 +1,6 @@
-const endpoint = process.argv[2] || 'https://richmedia.ma/api/contact';
-const sendSmoke = process.argv.includes('--send-smoke');
+const args = process.argv.slice(2);
+const endpoint = args.find((arg) => !arg.startsWith('--')) || 'https://richmedia.ma/api/contact';
+const sendSmoke = args.includes('--send-smoke');
 const body = sendSmoke
   ? new URLSearchParams({
       _form: 'Endpoint smoke test',

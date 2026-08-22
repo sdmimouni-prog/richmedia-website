@@ -108,7 +108,7 @@ jobs:
             printf 'CONTACT_LEADS_FILE=%s/shared/contact-leads.ndjson\n' "$VPS_WEBROOT"
           } > "$env_file"
 
-          ssh $ssh_opts "$VPS_USER@$VPS_HOST" "install -d -m 750 '$VPS_WEBROOT/shared'"
+          ssh $ssh_opts "$VPS_USER@$VPS_HOST" "install -d -m 750 '$VPS_WEBROOT/shared' && chown root:www-data '$VPS_WEBROOT/shared' && chmod 750 '$VPS_WEBROOT/shared'"
           ssh $ssh_opts "$VPS_USER@$VPS_HOST" "cat > '$VPS_WEBROOT/shared/contact-api.env.tmp'" < "$env_file"
 
           ssh $ssh_opts "$VPS_USER@$VPS_HOST" \
