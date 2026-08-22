@@ -141,6 +141,11 @@ if (!redirectTo) {
     description={pageEntry.data.metaDescription}
     canonical={url}
     ogImage={schemaImage}
+    ogType="article"
+    articlePublishedTime={pageEntry.data.datePublication}
+    articleModifiedTime={pageEntry.data.dateModification}
+    articleAuthor={EDITORIAL_AUTHOR.name}
+    articleSection={pageEntry.data.categorie}
     schema={schema}
   >
     <ArticleDetailPage

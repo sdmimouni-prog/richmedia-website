@@ -1,5 +1,7 @@
 ---
 import { SITE } from '../consts';
+type OgType = 'website' | 'article';
+
 interface Props {
   title: string;
   description: string;
@@ -7,11 +9,36 @@ interface Props {
   ogImage?: string;
   lang?: 'fr' | 'en';
   noindex?: boolean;
+  ogType?: OgType;
+  articlePublishedTime?: Date | string;
+  articleModifiedTime?: Date | string;
+  articleAuthor?: string;
+  articleSection?: string;
 }
-const { title, description, canonical, ogImage, lang = 'fr', noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  lang = 'fr',
+  noindex = false,
+  ogType = 'website',
+  articlePublishedTime,
+  articleModifiedTime,
+  articleAuthor,
+  articleSection,
+} = Astro.props;
 const url = canonical ?? new URL(Astro.url.pathname, SITE.url).href;
 const defaultImage = import.meta.env.PUBLIC_OG_IMAGE_URL ?? `${SITE.url}/og-default.jpg`;
 const image = ogImage ?? defaultImage;
+const toIsoString = (value?: Date | string) => {
+  if (!value) return null;
+  if (value instanceof Date) return value.toISOString();
+  const parsedDate = new Date(value);
+  return Number.isNaN(parsedDate.getTime()) ? value : parsedDate.toISOString();
+};
+const articlePublishedTimeIso = toIsoString(articlePublishedTime);
+const articleModifiedTimeIso = toIsoString(articleModifiedTime);
 const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const bilingualRoutes = [
   ['/', '/en'],
@@ -80,10 +107,14 @@ const defaultAlternate = routePair ? absoluteUrl(routePair[0]) : frAlternate ?? 
 {enAlternate && <link rel="alternate" hreflang="en" href={enAlternate} />}
 <link rel="alternate" hreflang="x-default" href={defaultAlternate} />
 
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={url} />
 <meta property="og:image" content={image} />
 <meta property="og:locale" content={lang === 'fr' ? 'fr_MA' : 'en_US'} />
+{ogType === 'article' && articlePublishedTimeIso && <meta property="article:published_time" content={articlePublishedTimeIso} />}
+{ogType === 'article' && articleModifiedTimeIso && <meta property="article:modified_time" content={articleModifiedTimeIso} />}
+{ogType === 'article' && articleAuthor && <meta property="article:author" content={articleAuthor} />}
+{ogType === 'article' && articleSection && <meta property="article:section" content={articleSection} />}
 <meta name="twitter:card" content="summary_large_image" />

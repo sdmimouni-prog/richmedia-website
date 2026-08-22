@@ -88,6 +88,11 @@ const schema = [
   canonical={url}
   ogImage={schemaImage}
   lang="en"
+  ogType="article"
+  articlePublishedTime={entry.data.datePublication}
+  articleModifiedTime={entry.data.dateModification}
+  articleAuthor={EDITORIAL_AUTHOR.name}
+  articleSection={entry.data.categorie}
   schema={schema}
 >
   <ArticleDetailPage

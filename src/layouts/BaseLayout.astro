@@ -8,6 +8,8 @@ import Footer from '../components/Footer.astro';
 import ContactFormHandler from '../components/ContactFormHandler.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 
+type OgType = 'website' | 'article';
+
 interface Props {
   title: string;
   description: string;
@@ -15,9 +17,27 @@ interface Props {
   ogImage?: string;
   canonical?: string;
   noindex?: boolean;
+  ogType?: OgType;
+  articlePublishedTime?: Date | string;
+  articleModifiedTime?: Date | string;
+  articleAuthor?: string;
+  articleSection?: string;
   schema?: object | (object | null)[]; // JSON-LD de la page
 }
-const { title, description, lang = 'fr', ogImage, canonical, noindex = false, schema } = Astro.props;
+const {
+  title,
+  description,
+  lang = 'fr',
+  ogImage,
+  canonical,
+  noindex = false,
+  ogType = 'website',
+  articlePublishedTime,
+  articleModifiedTime,
+  articleAuthor,
+  articleSection,
+  schema,
+} = Astro.props;
 const fontStylesheet = 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap';
 ---
 <!doctype html>
@@ -55,7 +75,19 @@ const fontStylesheet = 'https://fonts.googleapis.com/css2?family=Manrope:wght@40
       })();
     </script>
     <noscript><link href={fontStylesheet} rel="stylesheet" /></noscript>
-    <Seo title={title} description={description} canonical={canonical} ogImage={ogImage} lang={lang} noindex={noindex} />
+    <Seo
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      lang={lang}
+      noindex={noindex}
+      ogType={ogType}
+      articlePublishedTime={articlePublishedTime}
+      articleModifiedTime={articleModifiedTime}
+      articleAuthor={articleAuthor}
+      articleSection={articleSection}
+    />
     {schema && <JsonLd schema={schema} />}
   </head>
   <body>
