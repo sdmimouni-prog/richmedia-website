@@ -319,6 +319,7 @@ const schema = [
   .outline-link,
   .filter-button {
     display: inline-flex;
+    max-width: 100%;
     min-height: 3.1rem;
     align-items: center;
     justify-content: center;
@@ -326,9 +327,20 @@ const schema = [
     border-radius: 8px;
     padding: 0 1.15rem;
     color: #fff;
+    font-size: clamp(0.82rem, 0.95vw, 0.94rem);
     font-weight: 850;
+    line-height: 1;
     text-decoration: none;
+    white-space: nowrap;
     transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .primary-btn i,
+  .ghost-btn i,
+  .outline-link i,
+  .filter-button i {
+    flex: 0 0 auto;
+    font-size: 1.08em;
   }
 
   .primary-btn {
@@ -485,6 +497,7 @@ const schema = [
     font: inherit;
     font-size: 0.86rem;
     font-weight: 800;
+    white-space: nowrap;
     transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
   }
 
@@ -751,6 +764,7 @@ const schema = [
     background: linear-gradient(135deg, #8b4cff, #6426f4);
     color: #fff;
     font-weight: 850;
+    white-space: nowrap;
   }
 
   .newsletter small {
@@ -769,6 +783,15 @@ const schema = [
     background:
       radial-gradient(circle at 88% 58%, rgba(137, 74, 255, 0.44), transparent 16rem),
       linear-gradient(135deg, rgba(90, 35, 176, 0.42), rgba(13, 14, 22, 0.92));
+  }
+
+  .insights-cta > div:first-child {
+    min-width: 0;
+  }
+
+  .insights-cta .cta-actions {
+    flex: 0 0 auto;
+    justify-content: flex-end;
   }
 
   .insights-cta h2 {
@@ -859,6 +882,26 @@ const schema = [
     .section-heading {
       align-items: flex-start;
       flex-direction: column;
+    }
+
+    .hero-actions,
+    .cta-actions,
+    .insights-cta .cta-actions {
+      width: 100%;
+    }
+
+    .primary-btn,
+    .ghost-btn,
+    .outline-link,
+    .filter-button {
+      min-height: 2.9rem;
+      padding-inline: 0.85rem;
+      font-size: clamp(0.72rem, 3.2vw, 0.86rem);
+    }
+
+    .insights-cta .primary-btn,
+    .insights-cta .ghost-btn {
+      width: 100%;
     }
   }
 </style>

@@ -728,6 +728,7 @@ const formatDate = (value: Date | string) =>
     min-height: 2.8rem;
     padding: 0 1rem;
     text-decoration: none;
+    white-space: nowrap;
   }
 
   .related-articles {
@@ -783,6 +784,10 @@ const formatDate = (value: Date | string) =>
       linear-gradient(135deg, rgba(73, 26, 138, 0.84), rgba(18, 19, 30, 0.92));
   }
 
+  .article-cta > div:first-child {
+    min-width: 0;
+  }
+
   .article-cta h2 {
     margin-top: 0.45rem;
     color: #fff;
@@ -792,18 +797,30 @@ const formatDate = (value: Date | string) =>
 
   .cta-actions {
     display: flex;
+    flex: 0 0 auto;
     flex-wrap: wrap;
     gap: 0.75rem;
+    justify-content: flex-end;
   }
 
   .primary-btn,
   .ghost-btn {
     display: inline-flex;
+    max-width: 100%;
     min-height: 3rem;
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
+    font-size: clamp(0.82rem, 0.9vw, 0.94rem);
+    line-height: 1;
+    white-space: nowrap;
     transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .primary-btn i,
+  .ghost-btn i {
+    flex: 0 0 auto;
+    font-size: 1.08em;
   }
 
   .ghost-btn {
@@ -836,6 +853,16 @@ const formatDate = (value: Date | string) =>
     .article-hero,
     .article-layout {
       grid-template-columns: 1fr;
+    }
+
+    .article-cta {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .article-cta .cta-actions {
+      width: 100%;
+      justify-content: flex-start;
     }
 
     .article-sidebar {
@@ -873,6 +900,19 @@ const formatDate = (value: Date | string) =>
 
     .article-cta {
       display: grid;
+    }
+
+    .article-cta .cta-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .article-cta .primary-btn,
+    .article-cta .ghost-btn {
+      width: 100%;
+      min-height: 2.9rem;
+      padding-inline: 0.85rem;
+      font-size: clamp(0.72rem, 3.2vw, 0.86rem);
     }
   }
 </style>
