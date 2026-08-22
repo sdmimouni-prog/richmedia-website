@@ -20,13 +20,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const slug = entry.data.slug ?? entry.id;
 const url = `${SITE.url}/expertises/${slug}`;
-const siloConfig = slug === 'social-ads'
-  ? {
-      title: 'Relier Social Ads, search et secteurs',
-      intro: 'Les Social Ads performent mieux avec une stratégie média, des pages secteurs, du tracking et des preuves adaptées au marché.',
-      links: frSiloLinks.socialAds,
-    }
-  : slug === 'media-performance'
+const siloConfig = slug === 'media-performance'
   ? {
       title: 'Relier performance, média et conversion',
       intro: 'La performance digitale relie acquisition paid, SEO/GEO, Social Ads, CRM et pages secteurs pour transformer le trafic en résultats.',

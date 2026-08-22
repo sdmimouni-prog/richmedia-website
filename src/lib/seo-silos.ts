@@ -16,7 +16,6 @@ export const frSiloLinks = {
   expertisesHub: [
     { href: "/expertises/strategie-digitale", label: "Stratégie digitale", text: "Structurer l’audit, la data, le média, le CRM et les priorités business." },
     { href: "/expertises/achat-media", label: "Achat média", text: "Piloter Google Ads, Meta Ads, tracking et campagnes de performance." },
-    { href: "/expertises/social-ads", label: "Social Ads Maroc", text: "Activer Meta, Instagram, TikTok et LinkedIn avec une logique business." },
     { href: "/expertises/referencement-seo", label: "SEO / GEO", text: "Renforcer la visibilité Google et les réponses des moteurs IA." },
     { href: "/expertises/ia-automation", label: "IA & automation", text: "Relier CRM, WhatsApp, scoring et workflows commerciaux." },
     { href: "/secteurs", label: "Secteurs accompagnés", text: "Adapter les leviers aux enjeux éducation, retail, FMCG, auto et tourisme." },
@@ -30,7 +29,7 @@ export const frSiloLinks = {
   ],
   media: [
     { href: "/expertises/strategie-digitale", label: "Stratégie digitale", text: "Cadrer les objectifs, audiences, budgets et indicateurs." },
-    { href: "/expertises/social-ads", label: "Social Ads Maroc", text: "Transformer Meta, TikTok et LinkedIn en leviers de leads et de ventes." },
+    { href: "/expertises/achat-media", label: "Paid social & achat média", text: "Transformer Meta, TikTok et LinkedIn en leviers de leads et de ventes." },
     { href: "/insights/cout-campagne-google-ads-maroc", label: "Prix campagne Google Ads Maroc", text: "Comprendre budget média, honoraires, tracking et coûts par secteur." },
     { href: "/expertises/referencement-seo", label: "SEO / GEO", text: "Compléter le média paid par un socle organique." },
     { href: "/expertises/ia-automation", label: "IA & automation", text: "Relier leads, scoring, WhatsApp et reporting." },
@@ -117,7 +116,7 @@ export const frSiloLinks = {
     { href: "/expertises/ia-automation", label: "Automation IA", text: "Relier CRM marketing, lead nurturing et conversion." },
     { href: "/produits/whatsapp", label: "WhatsApp Business Maroc", text: "Activer la conversion WhatsApp et les relances." },
     { href: "/expertises/brand-content", label: "Brand content Maroc", text: "Transformer l’insight en contenu social-first activable." },
-    { href: "/expertises/social-ads", label: "Social Ads Maroc", text: "Amplifier les contenus et convertir les audiences sociales." },
+    { href: "/expertises/achat-media", label: "Paid social & achat média", text: "Amplifier les contenus et convertir les audiences sociales." },
     { href: "/expertises/referencement-seo", label: "SEO / GEO", text: "Structurer la visibilité organique." },
     { href: "/contact", label: "Parler à un expert", text: "Relier le sujet à votre contexte business." },
   ],
@@ -127,7 +126,6 @@ export const enSiloLinks = {
   expertisesHub: [
     { href: "/en/expertises/strategie-digitale", label: "Digital strategy", text: "Structure audit, data, media, CRM and business priorities." },
     { href: "/en/expertises/achat-media", label: "Media buying", text: "Manage Google Ads, Meta Ads, tracking and performance campaigns." },
-    { href: "/en/expertises/social-ads", label: "Social Ads Morocco", text: "Activate Meta, Instagram, TikTok and LinkedIn with business logic." },
     { href: "/en/expertises/seo-geo", label: "SEO / GEO", text: "Improve visibility on Google and AI answer engines." },
     { href: "/en/expertises/ia-automation", label: "AI & automation", text: "Connect CRM, WhatsApp, scoring and commercial workflows." },
     { href: "/en/sectors", label: "Industries", text: "Adapt levers to education, retail, FMCG, automotive and tourism." },
@@ -141,7 +139,7 @@ export const enSiloLinks = {
   ],
   media: [
     { href: "/en/expertises/strategie-digitale", label: "Digital strategy", text: "Frame objectives, audiences, budgets and KPIs." },
-    { href: "/en/expertises/social-ads", label: "Social Ads Morocco", text: "Turn Meta, TikTok and LinkedIn into lead and sales levers." },
+    { href: "/en/expertises/achat-media", label: "Paid social & media buying", text: "Turn Meta, TikTok and LinkedIn into lead and sales levers." },
     { href: "/en/insights/google-ads-campaign-cost-morocco", label: "Google Ads campaign cost in Morocco", text: "Understand media budget, fees, tracking and sector cost factors." },
     { href: "/en/expertises/seo-geo", label: "SEO / GEO", text: "Support paid media with a strong organic base." },
     { href: "/en/expertises/ia-automation", label: "AI & automation", text: "Connect leads, scoring, WhatsApp and reporting." },
@@ -228,7 +226,7 @@ export const enSiloLinks = {
     { href: "/en/expertises/ia-automation", label: "AI automation", text: "Connect marketing CRM, lead nurturing and conversion." },
     { href: "/en/products/whatsapp", label: "WhatsApp Business Morocco", text: "Activate WhatsApp conversion and follow-ups." },
     { href: "/en/expertises/brand-content", label: "Brand content in Morocco", text: "Turn the insight into social-first content." },
-    { href: "/en/expertises/social-ads", label: "Social Ads Morocco", text: "Amplify content and convert social audiences." },
+    { href: "/en/expertises/achat-media", label: "Paid social & media buying", text: "Amplify content and convert social audiences." },
     { href: "/en/expertises/seo-geo", label: "SEO / GEO", text: "Structure organic visibility." },
     { href: "/en/case-studies", label: "Richmedia case studies", text: "Move from article to proof and business results." },
     { href: "/en/contact", label: "Talk to an expert", text: "Connect the topic to your business context." },
