@@ -73,6 +73,53 @@ jobs:
           "
           echo "RICHMEDIA_RELEASE_PATH=$release_path" >> "$GITHUB_ENV"
 
+      - name: Configure SEO cache headers
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          set -euo pipefail
+          ssh_opts="-i $HOME/.ssh/vps_deploy_key -p $VPS_PORT -o IdentitiesOnly=yes"
+
+          ssh $ssh_opts "$VPS_USER@$VPS_HOST" "bash -s" <<'REMOTE'
+          set -euo pipefail
+
+          install -d -m 755 /etc/nginx/snippets
+          cat > /etc/nginx/snippets/richmedia-seo-cache-headers.conf <<'EOF'
+          location = /robots.txt {
+            expires off;
+            add_header Cache-Control "public, max-age=300, s-maxage=300, must-revalidate" always;
+          }
+
+          location = /sitemap-index.xml {
+            expires off;
+            add_header Cache-Control "public, max-age=300, s-maxage=300, must-revalidate" always;
+          }
+
+          location ~ ^/sitemap-[0-9]+\.xml$ {
+            expires off;
+            add_header Cache-Control "public, max-age=300, s-maxage=300, must-revalidate" always;
+          }
+          EOF
+
+          mapfile -t nginx_files < <(grep -RslE 'server_name[^;]*richmedia\.ma' /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null || true)
+          if [ "${#nginx_files[@]}" -eq 0 ]; then
+            echo "Could not find the active Nginx server block for richmedia.ma." >&2
+            exit 1
+          fi
+
+          for nginx_file in "${nginx_files[@]}"; do
+            if ! grep -q 'richmedia-seo-cache-headers.conf' "$nginx_file"; then
+              cp "$nginx_file" "$nginx_file.bak.$(date -u +%Y%m%d%H%M%S)"
+              perl -0pi -e 's/(server_name\s+[^;]*richmedia\.ma[^;]*;\s*)/$1\n  include \/etc\/nginx\/snippets\/richmedia-seo-cache-headers.conf;\n/gs' "$nginx_file"
+            fi
+          done
+
+          nginx -t
+          systemctl reload nginx
+          REMOTE
+
       - name: Configure contact API
         continue-on-error: true
         env:
