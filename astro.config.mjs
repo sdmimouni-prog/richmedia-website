@@ -3,6 +3,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { loadEnv } from 'vite';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 const modeFlagIndex = process.argv.indexOf('--mode');
 const modeFlag = process.argv.find((arg) => arg.startsWith('--mode='));
@@ -37,6 +39,92 @@ const redirectedEnglishInsightSlugs = [
 const redirectedEnglishInsightUrls = new Set(
   redirectedEnglishInsightSlugs.map((slug) => `${site}/insights/${slug}/`)
 );
+const collectionRouteTranslations = {
+  expertises: {
+    'media-performance': 'media-performance',
+    'referencement-seo': 'seo-geo',
+  },
+  secteurs: {
+    automobile: 'automotive',
+    education: 'education',
+    fmcg: 'fmcg',
+    gms: 'grocery-retail',
+    immobilier: 'real-estate',
+    institutionnel: 'institutional',
+    'retail-ecommerce': 'retail-ecommerce',
+    'tourisme-hotellerie': 'tourism-hospitality',
+  },
+  cas: {
+    'uir-campagnes-digitales': 'uir-digital-campaigns',
+  },
+};
+
+const stripYamlQuotes = (value) => value.replace(/^["']|["']$/g, '');
+const readFrontmatter = (filePath) => {
+  const source = readFileSync(filePath, 'utf8');
+  const match = source.match(/^---\s*\n([\s\S]*?)\n---/);
+  return match?.[1] ?? '';
+};
+const readFrontmatterValue = (frontmatter, key) => {
+  const match = frontmatter.match(new RegExp(`^${key}:\\s*(.+?)\\s*$`, 'm'));
+  return match ? stripYamlQuotes(match[1].trim()) : undefined;
+};
+const listMdxFiles = (dir) => {
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const entryPath = join(dir, entry.name);
+    if (entry.isDirectory()) return listMdxFiles(entryPath);
+    return entry.isFile() && entry.name.endsWith('.mdx') ? [entryPath] : [];
+  });
+};
+const toSitemapLastmod = (value) => {
+  const date = value ? new Date(value) : null;
+  return date && !Number.isNaN(date.getTime()) ? date.toISOString() : undefined;
+};
+const toAbsoluteUrl = (pathname) => new URL(pathname, site).toString();
+const addLastmodUrl = (map, pathname, lastmod) => {
+  if (!lastmod) return;
+  const url = toAbsoluteUrl(pathname);
+  map.set(url, lastmod);
+  map.set(url.endsWith('/') ? url.slice(0, -1) : `${url}/`, lastmod);
+};
+const getCollectionLastmodMap = () => {
+  const map = new Map();
+  const contentRoot = join(process.cwd(), 'src/content');
+  const addCollection = (collection, routeForEntry) => {
+    for (const filePath of listMdxFiles(join(contentRoot, collection))) {
+      const frontmatter = readFrontmatter(filePath);
+      if (readFrontmatterValue(frontmatter, 'draft') === 'true') continue;
+
+      const fileSlug = filePath.split('/').pop()?.replace(/\.mdx$/, '');
+      const slug = readFrontmatterValue(frontmatter, 'slug') ?? fileSlug;
+      const lastmod = toSitemapLastmod(readFrontmatterValue(frontmatter, 'dateModification'));
+      if (!slug || !lastmod) continue;
+
+      const routes = routeForEntry(slug, frontmatter);
+      routes.forEach((route) => addLastmodUrl(map, route, lastmod));
+    }
+  };
+
+  addCollection('articles', (slug, frontmatter) => [
+    `${readFrontmatterValue(frontmatter, 'lang') === 'en' ? '/en' : ''}/insights/${slug}/`,
+  ]);
+  addCollection('expertises', (slug) => [
+    `/expertises/${slug}/`,
+    ...(collectionRouteTranslations.expertises[slug] ? [`/en/expertises/${collectionRouteTranslations.expertises[slug]}/`] : []),
+  ]);
+  addCollection('secteurs', (slug) => [
+    `/secteurs/${slug}/`,
+    ...(collectionRouteTranslations.secteurs[slug] ? [`/en/sectors/${collectionRouteTranslations.secteurs[slug]}/`] : []),
+  ]);
+  addCollection('cas', (slug) => [
+    `/realisations/${slug}/`,
+    ...(collectionRouteTranslations.cas[slug] ? [`/en/case-studies/${collectionRouteTranslations.cas[slug]}/`] : []),
+  ]);
+
+  return map;
+};
+const collectionLastmodByUrl = getCollectionLastmodMap();
 
 const contactApiDevPlugin = () => ({
   name: 'richmedia-contact-api-dev',
@@ -71,6 +159,15 @@ export default defineConfig({
     locales: ['fr', 'en'],
     routing: { prefixDefaultLocale: false },
   },
-  integrations: [mdx(), sitemap({ filter: (page) => !redirectedEnglishInsightUrls.has(page) })],
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) => !redirectedEnglishInsightUrls.has(page),
+      serialize: (item) => ({
+        ...item,
+        lastmod: collectionLastmodByUrl.get(item.url) ?? item.lastmod,
+      }),
+    }),
+  ],
   vite: { plugins: [tailwindcss(), contactApiDevPlugin()] },
 });
