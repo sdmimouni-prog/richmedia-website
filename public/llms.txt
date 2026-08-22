@@ -1,16 +1,123 @@
-# Richmedia — We build digital growth
+# Richmedia — Agence digitale, média, SEO/GEO et automation
 
-> Agence de marketing digital et de performance basée à Casablanca (Maroc), présente à Dubaï, Montréal et Strasbourg. Partenaire Google & Meta.
+> Richmedia accompagne les marques au Maroc et à l’international sur la stratégie digitale, l’achat média, le SEO/GEO, le brand content, l’influence, le phygital, les plateformes web, WhatsApp, le CRM et l’automation IA.
+
+## Données de référence
+- [Sitemap XML](https://richmedia.ma/sitemap-index.xml)
+- [Robots.txt](https://richmedia.ma/robots.txt)
+- [Page sitemap HTML](https://richmedia.ma/sitemap/)
+
+## Pages principales
+- [Accueil](https://richmedia.ma/)
+- [Agence](https://richmedia.ma/agence/)
+- [Expertises](https://richmedia.ma/expertises/)
+- [Secteurs](https://richmedia.ma/secteurs/)
+- [Réalisations](https://richmedia.ma/realisations/)
+- [Références](https://richmedia.ma/references/)
+- [Équipe](https://richmedia.ma/equipe/)
+- [Insights](https://richmedia.ma/insights/)
+- [Réserver un audit](https://richmedia.ma/reserver-un-audit/)
+- [Contact](https://richmedia.ma/contact/)
 
 ## Expertises
-- [Stratégie & Branding](https://richmedia.ma/expertises/strategie-branding)
-- [Media & Performance](https://richmedia.ma/expertises/media-performance)
-- [Social Media](https://richmedia.ma/expertises/social-media)
-- [Expérience client & IA](https://richmedia.ma/expertises/experience-client-ia)
+- [Stratégie digitale](https://richmedia.ma/expertises/strategie-digitale/)
+- [Achat média](https://richmedia.ma/expertises/achat-media/)
+- [Média & performance](https://richmedia.ma/expertises/media-performance/)
+- [SEO / GEO](https://richmedia.ma/expertises/referencement-seo/)
+- [Brand content](https://richmedia.ma/expertises/brand-content/)
+- [Influence](https://richmedia.ma/expertises/influence/)
+- [Phygital](https://richmedia.ma/expertises/phygital/)
+- [Événementiel](https://richmedia.ma/expertises/evenementiel/)
+- [IA & automation](https://richmedia.ma/expertises/ia-automation/)
+- [Web & SI](https://richmedia.ma/expertises/web-si/)
+
+## Secteurs
+- [Automobile](https://richmedia.ma/secteurs/automobile/)
+- [Éducation](https://richmedia.ma/secteurs/education/)
+- [FMCG](https://richmedia.ma/secteurs/fmcg/)
+- [GMS](https://richmedia.ma/secteurs/gms/)
+- [Immobilier](https://richmedia.ma/secteurs/immobilier/)
+- [Institutionnel](https://richmedia.ma/secteurs/institutionnel/)
+- [Retail & e-commerce](https://richmedia.ma/secteurs/retail-ecommerce/)
+- [Tourisme & hôtellerie](https://richmedia.ma/secteurs/tourisme-hotellerie/)
+
+## Produits
+- [Carter Blake](https://richmedia.ma/produits/carter-blake/)
+- [Hypeo](https://richmedia.ma/produits/hypeo/)
+- [In Talks](https://richmedia.ma/produits/in-talks/)
+- [Richmedia WhatsApp](https://richmedia.ma/produits/whatsapp/)
 
 ## Réalisations
-- [Études de cas](https://richmedia.ma/realisations)
+- [Réalisations](https://richmedia.ma/realisations/)
+- [UIR — campagnes digitales](https://richmedia.ma/realisations/uir-campagnes-digitales/)
+- [Modèle de case study](https://richmedia.ma/realisations/modele-case-study/)
+
+## Insights en français
+- [Priorités digitales 2026 pour une croissance rentable](https://richmedia.ma/insights/priorites-digitales-2026-croissance-rentable/)
+- [Plan d’acquisition digital 2026](https://richmedia.ma/insights/plan-acquisition-digital-2026/)
+- [Coût d’une campagne Google Ads au Maroc](https://richmedia.ma/insights/cout-campagne-google-ads-maroc/)
+- [Campagnes Meta 2026 : bonnes pratiques](https://richmedia.ma/insights/campagnes-meta-2026-bonnes-pratiques/)
+- [SEO vs GEO : enjeux 2026](https://richmedia.ma/insights/seo-vs-geo-enjeux-2026/)
+- [Contenu de qualité et SEO pérenne](https://richmedia.ma/insights/contenu-qualite-seo-perenne/)
+- [WhatsApp Business comme canal de conversion](https://richmedia.ma/insights/whatsapp-business-canal-conversion/)
+- [CRM automation : aligner marketing et sales](https://richmedia.ma/insights/crm-automation-aligner-marketing-sales/)
+- [Data, décision et stratégie de performance](https://richmedia.ma/insights/data-decision-strategie-performance/)
+- [Créateurs et marques : collaborations durables](https://richmedia.ma/insights/createurs-marques-collaborations-durables/)
+- [Marque employeur et attractivité digitale](https://richmedia.ma/insights/marque-employeur-attractivite-digitale/)
+
+## English pages
+- [Home](https://richmedia.ma/en/)
+- [Agency](https://richmedia.ma/en/agency/)
+- [Expertises](https://richmedia.ma/en/expertises/)
+- [Sectors](https://richmedia.ma/en/sectors/)
+- [Case studies](https://richmedia.ma/en/case-studies/)
+- [References](https://richmedia.ma/en/references/)
+- [Team](https://richmedia.ma/en/team/)
+- [Insights](https://richmedia.ma/en/insights/)
+- [Book an audit](https://richmedia.ma/en/book-audit/)
+- [Contact](https://richmedia.ma/en/contact/)
+
+## English expertises
+- [Digital strategy](https://richmedia.ma/en/expertises/strategie-digitale/)
+- [Media buying](https://richmedia.ma/en/expertises/achat-media/)
+- [Media & performance](https://richmedia.ma/en/expertises/media-performance/)
+- [SEO / GEO](https://richmedia.ma/en/expertises/seo-geo/)
+- [Brand content](https://richmedia.ma/en/expertises/brand-content/)
+- [Influence](https://richmedia.ma/en/expertises/influence/)
+- [Phygital](https://richmedia.ma/en/expertises/phygital/)
+- [Events](https://richmedia.ma/en/expertises/evenementiel/)
+- [AI & automation](https://richmedia.ma/en/expertises/ia-automation/)
+- [Web & systems](https://richmedia.ma/en/expertises/web-si/)
+
+## English sectors
+- [Automotive](https://richmedia.ma/en/sectors/automotive/)
+- [Education](https://richmedia.ma/en/sectors/education/)
+- [FMCG](https://richmedia.ma/en/sectors/fmcg/)
+- [Grocery retail](https://richmedia.ma/en/sectors/grocery-retail/)
+- [Institutional](https://richmedia.ma/en/sectors/institutional/)
+- [Real estate](https://richmedia.ma/en/sectors/real-estate/)
+- [Retail & e-commerce](https://richmedia.ma/en/sectors/retail-ecommerce/)
+- [Tourism & hospitality](https://richmedia.ma/en/sectors/tourism-hospitality/)
+
+## English products
+- [Carter Blake](https://richmedia.ma/en/products/carter-blake/)
+- [Hypeo](https://richmedia.ma/en/products/hypeo/)
+- [In Talks](https://richmedia.ma/en/products/in-talks/)
+- [Richmedia WhatsApp](https://richmedia.ma/en/products/whatsapp/)
+
+## English insights
+- [Digital priorities 2026 for profitable growth](https://richmedia.ma/en/insights/digital-priorities-2026-profitable-growth/)
+- [Digital acquisition plan 2026](https://richmedia.ma/en/insights/digital-acquisition-plan-2026/)
+- [Google Ads campaign cost in Morocco](https://richmedia.ma/en/insights/google-ads-campaign-cost-morocco/)
+- [Meta campaigns 2026 best practices](https://richmedia.ma/en/insights/meta-campaigns-2026-best-practices/)
+- [SEO vs GEO in 2026](https://richmedia.ma/en/insights/seo-vs-geo-2026/)
+- [Quality content and durable SEO](https://richmedia.ma/en/insights/quality-content-durable-seo/)
+- [WhatsApp Business conversion channel](https://richmedia.ma/en/insights/whatsapp-business-conversion-channel/)
+- [CRM automation and marketing-sales alignment](https://richmedia.ma/en/insights/crm-automation-marketing-sales-alignment/)
+- [Data for decisions and performance strategy](https://richmedia.ma/en/insights/data-for-decisions-performance-strategy/)
+- [Creators and brands durable collaborations](https://richmedia.ma/en/insights/creators-brands-durable-collaborations/)
+- [Employer brand and digital attractiveness](https://richmedia.ma/en/insights/employer-brand-digital-attractiveness/)
 
 ## Contact
-- [Nous contacter](https://richmedia.ma/contact)
+- [Contact Richmedia](https://richmedia.ma/contact/)
 - Email : contact@richmedia.ma
