@@ -197,7 +197,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
           <div class="film-stack">
             {heroFilmLeft.map((item) => (
               <figure class="film-frame">
-                <img src={`${assetBase}/${item.image}`} alt="" loading="eager" decoding="async" />
+                <img src={`${assetBase}/${item.image}`} alt="" loading="lazy" decoding="async" />
               </figure>
             ))}
           </div>
@@ -213,7 +213,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
           <div class="film-stack">
             {heroFilmRight.map((item) => (
               <figure class="film-frame">
-                <img src={`${assetBase}/${item.image}`} alt="" loading="eager" decoding="async" />
+                <img src={`${assetBase}/${item.image}`} alt="" loading="lazy" decoding="async" />
               </figure>
             ))}
           </div>
