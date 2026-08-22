@@ -158,6 +158,13 @@
 .ph.ph-facebook-logo:before {
   content: "\e226";
 }
+.ph.ph-linkedin-logo:before {
+  content: "in";
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 0.82em;
+  font-weight: 900;
+  letter-spacing: -0.08em;
+}
 .ph.ph-graduation-cap:before {
   content: "\e62c";
 }
