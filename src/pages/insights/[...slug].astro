@@ -65,6 +65,7 @@ export async function getStaticPaths() {
 }
 
 const { entry, redirectTo } = Astro.props;
+const pageEntry = entry!;
 const redirectUrl = redirectTo ? `${SITE.url}${redirectTo}` : undefined;
 
 let Content: any;
@@ -78,40 +79,40 @@ let schemaImage = '';
 let schema: object[] = [];
 
 if (!redirectTo) {
-  if (!entry) throw new Error('Missing article entry');
-  const rendered = await render(entry);
+  if (!pageEntry) throw new Error('Missing article entry');
+  const rendered = await render(pageEntry);
   Content = rendered.Content;
-  slug = entry.data.slug ?? entry.id;
+  slug = pageEntry.data.slug ?? pageEntry.id;
   url = `${SITE.url}/insights/${slug}`;
-  image = articleImages[slug] ?? entry.data.ogImage ?? '/og-default.jpg';
+  image = articleImages[slug] ?? pageEntry.data.ogImage ?? '/og-default.jpg';
   const allEntries = (await getCollection('articles', ({ data }) => !data.draft && data.lang === 'fr'))
     .sort((a, b) => b.data.datePublication.getTime() - a.data.datePublication.getTime());
   const otherEntries = allEntries.filter((article) => (article.data.slug ?? article.id) !== slug);
   recentArticles = otherEntries.slice(0, 4).map(toArticleCard);
   const relatedArticles = otherEntries
-    .filter((article) => article.data.categorie === entry.data.categorie)
+    .filter((article) => article.data.categorie === pageEntry.data.categorie)
     .slice(0, 4)
     .map(toArticleCard);
   fallbackRelated = relatedArticles.length > 0 ? relatedArticles : recentArticles.slice(0, 4);
-  categoryLabel = categoryLabels[entry.data.categorie] ?? entry.data.categorie;
+  categoryLabel = categoryLabels[pageEntry.data.categorie] ?? pageEntry.data.categorie;
   schemaImage = image.startsWith('/') ? `${SITE.url}${image}` : image;
   const authorImage = EDITORIAL_AUTHOR.image.startsWith('/') ? `${SITE.url}${EDITORIAL_AUTHOR.image}` : EDITORIAL_AUTHOR.image;
   schema = [
     articleSchema({
-      title: entry.data.title,
-      description: entry.data.metaDescription,
+      title: pageEntry.data.title,
+      description: pageEntry.data.metaDescription,
       url,
       author: EDITORIAL_AUTHOR.name,
       authorType: 'Person',
       authorImage,
-      datePublished: entry.data.datePublication,
-      dateModified: entry.data.dateModification,
+      datePublished: pageEntry.data.datePublication,
+      dateModified: pageEntry.data.dateModification,
       image: schemaImage,
     }),
     breadcrumbs([
       { name: 'Accueil', url: SITE.url },
       { name: 'Insights', url: `${SITE.url}/insights` },
-      { name: entry.data.title, url },
+      { name: pageEntry.data.title, url },
     ]),
   ];
 }
@@ -136,8 +137,8 @@ if (!redirectTo) {
   </html>
 ) : (
   <BaseLayout
-    title={entry.data.metaTitle ?? entry.data.title}
-    description={entry.data.metaDescription}
+    title={pageEntry.data.metaTitle ?? pageEntry.data.title}
+    description={pageEntry.data.metaDescription}
     canonical={url}
     ogImage={schemaImage}
     schema={schema}
@@ -146,20 +147,20 @@ if (!redirectTo) {
       breadcrumbLabel="Insights"
       breadcrumbHref="/insights"
       categoryLabel={categoryLabel}
-      title={entry.data.title}
-      description={entry.data.metaDescription}
+      title={pageEntry.data.title}
+      description={pageEntry.data.metaDescription}
       author={EDITORIAL_AUTHOR.name}
       authorRole={EDITORIAL_AUTHOR.role.fr}
       authorBio={EDITORIAL_AUTHOR.bio.fr}
       authorImage={EDITORIAL_AUTHOR.image}
-      date={entry.data.datePublication}
-      readingTime={entry.data.tempsLecture ?? 6}
+      date={pageEntry.data.datePublication}
+      readingTime={pageEntry.data.tempsLecture ?? 6}
       image={image}
-      quickAnswer={entry.data.quickAnswer}
-      tags={[entry.data.keywordPrincipal, ...entry.data.keywordsSecondaires].slice(0, 4)}
+      quickAnswer={pageEntry.data.quickAnswer}
+      tags={[pageEntry.data.keywordPrincipal, ...pageEntry.data.keywordsSecondaires].slice(0, 4)}
       recentArticles={recentArticles}
       relatedArticles={fallbackRelated}
-      faq={entry.data.faq}
+      faq={pageEntry.data.faq}
       ctaTitle="Des questions sur votre stratégie digitale ? Échangeons avec nos experts."
       ctaPrimary="Discuter d'un projet"
       ctaPrimaryHref="/contact"

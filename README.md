@@ -40,6 +40,7 @@ Pour les formulaires et tags marketing, garder en local :
 CONTACT_TO_EMAIL=sd.mimouni@richmedia.ma
 CONTACT_FROM_EMAIL="Richmedia <noreply@richmedia.ma>"
 RESEND_API_KEY=
+CONTACT_LEADS_FILE=
 PUBLIC_GTM_ID=
 PUBLIC_GA4_ID=
 PUBLIC_META_PIXEL_ID=
@@ -59,6 +60,17 @@ npm exec vercel -- env add RESEND_API_KEY production --sensitive
 
 `npm run env:check:prod` reste strict : il échoue tant que `RESEND_API_KEY` est vide,
 car le formulaire de contact serveur en dépend.
+
+Sur le VPS, le workflow GitHub Actions déploie aussi `/api/contact` comme service Node
+`richmedia-contact-api.service`, proxifié par Nginx sur `location = /api/contact`.
+La clé `RESEND_API_KEY` doit être ajoutée dans les secrets GitHub pour envoyer les leads
+par email. Si elle est absente, le service reste actif et enregistre les demandes dans
+`$VPS_WEBROOT/shared/contact-leads.ndjson` afin de ne pas perdre les conversions.
+
+```bash
+npm run contact:check              # vérifie que /api/contact ne redirige plus
+npm run contact:check -- --send-smoke # envoie une soumission test
+```
 
 ## Production
 ```bash

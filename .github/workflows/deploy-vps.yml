@@ -62,6 +62,8 @@ jobs:
 
           ssh $ssh_opts "$VPS_USER@$VPS_HOST" "install -d -m 755 '$release_path'"
           rsync -az --delete -e "ssh $ssh_opts" dist/ "$VPS_USER@$VPS_HOST:$release_path/"
+          rsync -az --delete -e "ssh $ssh_opts" api/ "$VPS_USER@$VPS_HOST:$release_path/api/"
+          rsync -az --delete -e "ssh $ssh_opts" server/ "$VPS_USER@$VPS_HOST:$release_path/server/"
 
           ssh $ssh_opts "$VPS_USER@$VPS_HOST" "
             set -e
@@ -69,3 +71,135 @@ jobs:
             ln -sfn '$release_path' '$VPS_WEBROOT/current'
             nginx -t
           "
+          echo "RICHMEDIA_RELEASE_PATH=$release_path" >> "$GITHUB_ENV"
+
+      - name: Configure contact API
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_WEBROOT: ${{ secrets.VPS_WEBROOT }}
+          CONTACT_API_PORT: ${{ vars.CONTACT_API_PORT || '8787' }}
+          CONTACT_TO_EMAIL: ${{ vars.CONTACT_TO_EMAIL || 'sd.mimouni@richmedia.ma' }}
+          CONTACT_FROM_EMAIL: ${{ vars.CONTACT_FROM_EMAIL || 'Richmedia <noreply@richmedia.ma>' }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          set -euo pipefail
+          ssh_opts="-i $HOME/.ssh/vps_deploy_key -p $VPS_PORT -o IdentitiesOnly=yes"
+
+          if [ -z "$RESEND_API_KEY" ]; then
+            echo "::warning::RESEND_API_KEY is empty. /api/contact will save leads to CONTACT_LEADS_FILE until the secret is configured."
+          fi
+
+          env_file="$(mktemp)"
+          quote_env() {
+            local value="$1"
+            value="${value//\\/\\\\}"
+            value="${value//\"/\\\"}"
+            printf '"%s"' "$value"
+          }
+
+          {
+            printf 'CONTACT_API_HOST=127.0.0.1\n'
+            printf 'CONTACT_API_PORT=%s\n' "$CONTACT_API_PORT"
+            printf 'CONTACT_TO_EMAIL=%s\n' "$(quote_env "$CONTACT_TO_EMAIL")"
+            printf 'CONTACT_FROM_EMAIL=%s\n' "$(quote_env "$CONTACT_FROM_EMAIL")"
+            printf 'RESEND_API_KEY=%s\n' "$(quote_env "$RESEND_API_KEY")"
+            printf 'CONTACT_LEADS_FILE=%s/shared/contact-leads.ndjson\n' "$VPS_WEBROOT"
+          } > "$env_file"
+
+          ssh $ssh_opts "$VPS_USER@$VPS_HOST" "install -d -m 750 '$VPS_WEBROOT/shared'"
+          ssh $ssh_opts "$VPS_USER@$VPS_HOST" "cat > '$VPS_WEBROOT/shared/contact-api.env.tmp'" < "$env_file"
+
+          ssh $ssh_opts "$VPS_USER@$VPS_HOST" \
+            "set -euo pipefail
+             touch '$VPS_WEBROOT/shared/contact-leads.ndjson'
+             chown www-data:www-data '$VPS_WEBROOT/shared/contact-leads.ndjson'
+             chmod 640 '$VPS_WEBROOT/shared/contact-leads.ndjson'
+             chown root:www-data '$VPS_WEBROOT/shared/contact-api.env.tmp'
+             chmod 640 '$VPS_WEBROOT/shared/contact-api.env.tmp'
+             mv '$VPS_WEBROOT/shared/contact-api.env.tmp' '$VPS_WEBROOT/shared/contact-api.env'"
+
+          ssh $ssh_opts "$VPS_USER@$VPS_HOST" \
+            "CONTACT_API_PORT='$CONTACT_API_PORT' VPS_WEBROOT='$VPS_WEBROOT' bash -s" <<'REMOTE'
+          set -euo pipefail
+
+          if ! command -v node >/dev/null 2>&1; then
+            echo "Node.js is required on the VPS for /api/contact." >&2
+            exit 1
+          fi
+
+          node_major="$(node -p "Number(process.versions.node.split('.')[0])")"
+          if [ "$node_major" -lt 18 ]; then
+            echo "Node.js >= 18 is required on the VPS for /api/contact." >&2
+            exit 1
+          fi
+
+          install -d -m 755 /etc/nginx/snippets
+          cat > /etc/nginx/snippets/richmedia-contact-api.conf <<EOF
+          location = /api/contact {
+            proxy_http_version 1.1;
+            proxy_set_header Host \$host;
+            proxy_set_header X-Real-IP \$remote_addr;
+            proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto \$scheme;
+            proxy_read_timeout 20s;
+            proxy_connect_timeout 5s;
+            proxy_pass http://127.0.0.1:${CONTACT_API_PORT}/api/contact;
+          }
+          EOF
+
+          mapfile -t nginx_files < <(grep -RslE 'server_name[^;]*richmedia\.ma' /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null || true)
+          if [ "${#nginx_files[@]}" -eq 0 ]; then
+            echo "Could not find the active Nginx server block for richmedia.ma." >&2
+            exit 1
+          fi
+
+          for nginx_file in "${nginx_files[@]}"; do
+            if ! grep -q 'richmedia-contact-api.conf' "$nginx_file"; then
+              cp "$nginx_file" "$nginx_file.bak.$(date -u +%Y%m%d%H%M%S)"
+              perl -0pi -e 's/(server_name\s+[^;]*richmedia\.ma[^;]*;\s*)/$1\n  include \/etc\/nginx\/snippets\/richmedia-contact-api.conf;\n/gs' "$nginx_file"
+            fi
+          done
+
+          cat > /etc/systemd/system/richmedia-contact-api.service <<EOF
+          [Unit]
+          Description=Richmedia contact API
+          After=network-online.target
+          Wants=network-online.target
+
+          [Service]
+          Type=simple
+          User=www-data
+          Group=www-data
+          WorkingDirectory=${VPS_WEBROOT}/current
+          EnvironmentFile=${VPS_WEBROOT}/shared/contact-api.env
+          ExecStart=/usr/bin/env node ${VPS_WEBROOT}/current/server/contact-api.mjs
+          Restart=always
+          RestartSec=3
+          NoNewPrivileges=true
+          PrivateTmp=true
+
+          [Install]
+          WantedBy=multi-user.target
+          EOF
+
+          systemctl daemon-reload
+          systemctl enable richmedia-contact-api.service
+          systemctl restart richmedia-contact-api.service
+          sleep 1
+          systemctl is-active --quiet richmedia-contact-api.service
+
+          health_status="$(curl -sS -o /tmp/richmedia-contact-health.json -w '%{http_code}' "http://127.0.0.1:${CONTACT_API_PORT}/healthz")"
+          if [ "$health_status" != "200" ]; then
+            cat /tmp/richmedia-contact-health.json || true
+            journalctl -u richmedia-contact-api.service --no-pager -n 80
+            exit 1
+          fi
+
+          nginx -t
+          systemctl reload nginx
+          REMOTE
+
+      - name: Check contact endpoint
+        run: npm run contact:check -- --send-smoke

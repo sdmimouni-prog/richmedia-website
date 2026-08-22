@@ -21,6 +21,7 @@
     "preview:prod": "astro preview --host 127.0.0.1 --port 4322",
     "prod": "npm run build",
     "prod:preview": "npm run prod && npm run preview:prod",
+    "contact:check": "node scripts/check-contact-endpoint.mjs",
     "seo:check-cache": "node scripts/check-seo-cache-headers.mjs",
     "check": "astro check",
     "verify": "npm run check && npm run build",

@@ -1,3 +1,5 @@
+import { appendFile } from 'node:fs/promises';
+
 const DEFAULT_TO_EMAIL = 'sd.mimouni@richmedia.ma';
 const DEFAULT_FROM_EMAIL = 'Richmedia <noreply@richmedia.ma>';
 const MAX_BODY_BYTES = 64 * 1024;
@@ -61,6 +63,8 @@ function wantsJson(req) {
 }
 
 function sendResponse(req, res, statusCode, payload) {
+  res.setHeader('Cache-Control', 'no-store');
+
   if (wantsJson(req)) {
     res.statusCode = statusCode;
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -154,6 +158,22 @@ function buildEmail(fields, req) {
 async function sendEmail({ subject, html, text, replyTo }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
+    const leadsFile = process.env.CONTACT_LEADS_FILE;
+    if (leadsFile) {
+      await appendFile(
+        leadsFile,
+        `${JSON.stringify({
+          createdAt: new Date().toISOString(),
+          subject,
+          replyTo,
+          text,
+        })}\n`,
+        { mode: 0o600 },
+      );
+      console.warn('[contact-form] RESEND_API_KEY missing; lead saved to CONTACT_LEADS_FILE.');
+      return;
+    }
+
     throw new Error('RESEND_API_KEY_MISSING');
   }
 
@@ -188,8 +208,16 @@ async function sendEmail({ subject, html, text, replyTo }) {
 }
 
 export default async function handler(req, res) {
+  if (req.method === 'OPTIONS') {
+    res.statusCode = 204;
+    res.setHeader('Allow', 'POST, OPTIONS');
+    res.setHeader('Cache-Control', 'no-store');
+    res.end();
+    return;
+  }
+
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
+    res.setHeader('Allow', 'POST, OPTIONS');
     sendResponse(req, res, 405, { ok: false, message: 'Méthode non autorisée.' });
     return;
   }

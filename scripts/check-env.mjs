@@ -13,6 +13,7 @@ const profiles = {
       'CONTACT_FROM_EMAIL',
     ],
     optional: [
+      'CONTACT_LEADS_FILE',
       'RESEND_API_KEY',
       'PUBLIC_GTM_ID',
       'PUBLIC_GA4_ID',
@@ -36,6 +37,7 @@ const profiles = {
     optional: [
       'ASTRO_HOST',
       'ASTRO_PORT',
+      'CONTACT_LEADS_FILE',
       'PUBLIC_GTM_ID',
       'PUBLIC_GA4_ID',
       'PUBLIC_META_PIXEL_ID',
