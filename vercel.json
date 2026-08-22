@@ -28,6 +28,61 @@
       "source": "/ressources/:path*",
       "destination": "/insights/:path*",
       "permanent": true
+    },
+    {
+      "source": "/insights/creators-brands-durable-collaborations",
+      "destination": "/en/insights/creators-brands-durable-collaborations",
+      "permanent": true
+    },
+    {
+      "source": "/insights/crm-automation-marketing-sales-alignment",
+      "destination": "/en/insights/crm-automation-marketing-sales-alignment",
+      "permanent": true
+    },
+    {
+      "source": "/insights/data-for-decisions-performance-strategy",
+      "destination": "/en/insights/data-for-decisions-performance-strategy",
+      "permanent": true
+    },
+    {
+      "source": "/insights/digital-acquisition-plan-2026",
+      "destination": "/en/insights/digital-acquisition-plan-2026",
+      "permanent": true
+    },
+    {
+      "source": "/insights/digital-priorities-2026-profitable-growth",
+      "destination": "/en/insights/digital-priorities-2026-profitable-growth",
+      "permanent": true
+    },
+    {
+      "source": "/insights/employer-brand-digital-attractiveness",
+      "destination": "/en/insights/employer-brand-digital-attractiveness",
+      "permanent": true
+    },
+    {
+      "source": "/insights/google-ads-campaign-cost-morocco",
+      "destination": "/en/insights/google-ads-campaign-cost-morocco",
+      "permanent": true
+    },
+    {
+      "source": "/insights/meta-campaigns-2026-best-practices",
+      "destination": "/en/insights/meta-campaigns-2026-best-practices",
+      "permanent": true
+    },
+    {
+      "source": "/insights/quality-content-durable-seo",
+      "destination": "/en/insights/quality-content-durable-seo",
+      "permanent": true
+    },
+    {
+      "source": "/insights/seo-vs-geo-2026",
+      "destination": "/en/insights/seo-vs-geo-2026",
+      "permanent": true
+    },
+    {
+      "source": "/insights/whatsapp-business-conversion-channel",
+      "destination": "/en/insights/whatsapp-business-conversion-channel",
+      "permanent": true
     }
   ]
 }

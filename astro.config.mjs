@@ -21,6 +21,22 @@ const host = env('ASTRO_HOST', '127.0.0.1');
 const parsedPort = Number.parseInt(env('ASTRO_PORT', '4321'), 10);
 const port = Number.isFinite(parsedPort) ? parsedPort : 4321;
 const contactApiUrl = new URL('./api/contact.js', import.meta.url);
+const redirectedEnglishInsightSlugs = [
+  'creators-brands-durable-collaborations',
+  'crm-automation-marketing-sales-alignment',
+  'data-for-decisions-performance-strategy',
+  'digital-acquisition-plan-2026',
+  'digital-priorities-2026-profitable-growth',
+  'employer-brand-digital-attractiveness',
+  'google-ads-campaign-cost-morocco',
+  'meta-campaigns-2026-best-practices',
+  'quality-content-durable-seo',
+  'seo-vs-geo-2026',
+  'whatsapp-business-conversion-channel',
+];
+const redirectedEnglishInsightUrls = new Set(
+  redirectedEnglishInsightSlugs.map((slug) => `${site}/insights/${slug}/`)
+);
 
 const contactApiDevPlugin = () => ({
   name: 'richmedia-contact-api-dev',
@@ -55,6 +71,6 @@ export default defineConfig({
     locales: ['fr', 'en'],
     routing: { prefixDefaultLocale: false },
   },
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap({ filter: (page) => !redirectedEnglishInsightUrls.has(page) })],
   vite: { plugins: [tailwindcss(), contactApiDevPlugin()] },
 });
