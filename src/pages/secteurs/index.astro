@@ -9,7 +9,7 @@ import { SITE } from '../../consts';
 const pageUrl = `${SITE.url}/secteurs`;
 const pageTitle = 'Secteurs accompagnés par Richmedia';
 const pageDescription =
-  'Découvrez les secteurs accompagnés par Richmedia : éducation, immobilier, retail, GMS, institutionnel, tourisme, automobile et FMCG.';
+  'Secteurs accompagnés par Richmedia : cas clients, chiffres, preuves et FAQ pour éducation, immobilier, retail, GMS, tourisme, automobile et FMCG.';
 const sectorOrder = [
   'education',
   'immobilier',
@@ -80,14 +80,14 @@ const schema = [
       <h1 id="sectors-title">Des dispositifs digitaux adaptés à chaque marché.</h1>
       <p>
         Richmedia relie stratégie, création, média, web, data et IA pour répondre aux logiques propres à chaque
-        secteur : cycle de décision, preuve, saisonnalité, acquisition et conversion.
+        secteur avec des cas clients, chiffres, preuves, FAQ, cycles de décision, saisonnalité, acquisition et conversion.
       </p>
     </section>
 
     <section class="sectors-grid" aria-label="Liste des secteurs Richmedia">
       {sectors.map((sector) => (
         <a href={`/secteurs/${sector.slug}`} class="sector-card" aria-label={`Voir le secteur ${sector.title}`}>
-          <img src={sector.image} alt="" loading="lazy" decoding="async" />
+          <img src={sector.image} alt={`${sector.title} - marketing digital sectoriel Richmedia`} loading="lazy" decoding="async" />
           <h2>{sector.title}</h2>
         </a>
       ))}

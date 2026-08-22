@@ -93,6 +93,17 @@ const expertises = [
   },
   {
     number: '05',
+    slug: 'social-ads',
+    image: 'expertise-story-media.webp',
+    label: 'Paid social',
+    title: 'Social Ads',
+    alt: 'Social Ads Richmedia pour campagnes Meta, Instagram, TikTok et LinkedIn au Maroc',
+    text: 'Des campagnes Meta, Instagram, TikTok et LinkedIn reliées aux leads, ventes et audiences utiles.',
+    tags: ['Meta Ads', 'TikTok Ads', 'LinkedIn', 'Retargeting'],
+    size: 'small',
+  },
+  {
+    number: '06',
     slug: 'influence',
     image: 'expertise-card-influence-ai.webp',
     label: 'Influence',
@@ -103,7 +114,7 @@ const expertises = [
     size: 'small',
   },
   {
-    number: '06',
+    number: '07',
     slug: 'phygital',
     image: 'expertise-story-phygital.webp',
     label: 'Expérience',
@@ -115,7 +126,7 @@ const expertises = [
     size: 'wide',
   },
   {
-    number: '07',
+    number: '08',
     slug: 'evenementiel',
     image: 'hero-film-04.webp',
     label: 'Activation',
@@ -126,7 +137,7 @@ const expertises = [
     size: 'stack',
   },
   {
-    number: '08',
+    number: '09',
     slug: 'ia-automation',
     image: 'story-tech.webp',
     label: 'IA',
@@ -168,7 +179,7 @@ const ops = [
 ---
 <BaseLayout
   title="Expertises Richmedia — Stratégie, création, média, IA et croissance"
-  description="Découvrez les expertises Richmedia : stratégie digitale, brand content, développement web, achat média, influence, phygital, événementiel, IA et automatisation."
+  description="Découvrez les expertises Richmedia : stratégie digitale, brand content, développement web, achat média, social ads, influence, phygital, événementiel, IA et automatisation."
   schema={schema}
 >
   <div class="expertise-page">
@@ -216,7 +227,7 @@ const ops = [
       <div class="expertise-grid">
         {expertises.map((item) => (
           <a
-            href={['strategie-digitale', 'brand-content', 'web-si', 'achat-media', 'influence', 'phygital', 'evenementiel', 'ia-automation'].includes(item.slug) ? `/expertises/${item.slug}` : `/expertises#${item.slug}`}
+            href={['strategie-digitale', 'brand-content', 'web-si', 'achat-media', 'social-ads', 'influence', 'phygital', 'evenementiel', 'ia-automation'].includes(item.slug) ? `/expertises/${item.slug}` : `/expertises#${item.slug}`}
             id={item.slug}
             class:list={['expertise-card', `expertise-card-${item.size}`]}
           >

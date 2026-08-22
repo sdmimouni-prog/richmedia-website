@@ -8,7 +8,7 @@ import { SITE } from '../../../consts';
 const pageUrl = `${SITE.url}/en/sectors`;
 const pageTitle = 'Digital marketing sectors supported by Richmedia';
 const pageDescription =
-  'Explore the sectors supported by Richmedia: education, real estate, retail, grocery retail, institutional, tourism, automotive and FMCG.';
+  'Sectors supported by Richmedia: client cases, figures, proof and FAQs for education, real estate, retail, tourism, automotive and FMCG.';
 const sectors = [
   {
     slug: 'education',
@@ -83,14 +83,14 @@ const schema = [
       <h1 id="sectors-title">Digital systems adapted to each market.</h1>
       <p>
         Richmedia connects strategy, creative, media, web, data and AI to each sector's realities:
-        decision cycle, proof, seasonality, acquisition, trust and conversion.
+        client cases, figures, proof, FAQs, decision cycles, seasonality, acquisition, trust and conversion.
       </p>
     </section>
 
     <section class="sectors-grid" aria-label="Richmedia sectors">
       {sectors.map((sector) => (
         <a href={`/en/sectors/${sector.slug}`} class="sector-card" aria-label={`View the ${sector.title} sector`}>
-          <img src={sector.image} alt="" loading="lazy" decoding="async" />
+          <img src={sector.image} alt={`${sector.title} - Richmedia sector digital marketing`} loading="lazy" decoding="async" />
           <h2>{sector.title}</h2>
         </a>
       ))}

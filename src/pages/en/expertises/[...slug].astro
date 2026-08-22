@@ -78,6 +78,57 @@ export function getStaticPaths() {
       ],
     },
     {
+      slug: 'social-ads',
+      fr: '/expertises/social-ads',
+      title: 'Social Ads Morocco',
+      metaTitle: 'Social Ads agency in Morocco - Meta, TikTok & LinkedIn | Richmedia',
+      h1: 'Social Ads for measurable demand, leads and sales.',
+      description: 'Social Ads agency in Morocco: Meta, Instagram, TikTok and LinkedIn campaigns connected to social-first creative, tracking, qualified leads, sales and ROI.',
+      quick: 'A Social Ads agency in Morocco plans, launches and optimizes paid campaigns across Meta, Instagram, TikTok, LinkedIn and social platforms. Richmedia connects targeting, creative, budget, tracking and reporting to turn attention into qualified leads, sales or traffic.',
+      services: ['Meta Ads', 'Instagram Ads', 'TikTok Ads', 'LinkedIn Ads', 'Social-first creative', 'Tracking & reporting'],
+      sections: [
+        {
+          title: 'When to use Social Ads',
+          paragraphs: [
+            'Social Ads are useful when a brand needs to create demand, amplify a commercial moment, retarget audiences or generate qualified leads before users actively search for the offer.',
+            'Performance depends on the connection between creative, targeting, landing pages and measurement. The message must fit the platform and the conversion path must be easy to read.',
+          ],
+        },
+        {
+          title: 'Our method',
+          paragraphs: [
+            'Richmedia structures campaigns around business goals, audience strategy, creative testing and reporting. Every campaign is launched with tracking conventions and a clear reading of reach, engagement, leads, sales and lead quality.',
+          ],
+          bullets: [
+            'Meta and Instagram Ads for reach, retargeting, lead generation and social commerce.',
+            'TikTok Ads for short-form creative, discovery and fast angle testing.',
+            'LinkedIn Ads for B2B audiences, expert content and qualified lead generation.',
+            'Dashboards to monitor budget, CPA, ROAS, lead quality and creative learnings.',
+          ],
+        },
+        {
+          title: 'How Social Ads connect to search and sectors',
+          paragraphs: [
+            'Social Ads build demand, Google Ads captures active intent and SEO/GEO creates durable visibility. Sector pages then turn the promise into proof with client cases, figures, FAQs and business context.',
+          ],
+        },
+      ],
+      faq: [
+        {
+          question: 'What does a Social Ads agency do?',
+          answer: 'A Social Ads agency manages paid campaigns on social platforms: strategy, audiences, creative, budget, tracking, testing, optimization and business reporting.',
+        },
+        {
+          question: 'Which social platforms should brands use in Morocco?',
+          answer: 'Meta and Instagram are central for reach and retargeting, TikTok supports short-form discovery, and LinkedIn targets B2B audiences. The right mix depends on the offer, audience, budget and conversion journey.',
+        },
+        {
+          question: 'How do you measure Social Ads performance?',
+          answer: 'We track impressions, reach, CPM, CPC, CTR, cost per qualified lead, sales, ROAS, audience quality and creative performance.',
+        },
+      ],
+    },
+    {
       slug: 'seo-geo',
       fr: '/expertises/referencement-seo',
       title: 'Search engine optimization (SEO)',
@@ -131,6 +182,23 @@ export function getStaticPaths() {
 const { page } = Astro.props;
 const slug = Astro.params.slug;
 const pageUrl = `${SITE.url}/en/expertises/${slug}`;
+const siloConfig = slug === 'social-ads'
+  ? {
+      title: 'Connect Social Ads, search and sectors',
+      intro: 'Social Ads perform better with a media strategy, sector pages, tracking and proof adapted to each market.',
+      links: enSiloLinks.socialAds,
+    }
+  : slug === 'media-performance'
+  ? {
+      title: 'Connect performance, media and conversion',
+      intro: 'Digital performance connects paid acquisition, SEO/GEO, Social Ads, CRM and sector pages to turn traffic into results.',
+      links: enSiloLinks.media,
+    }
+  : {
+      title: 'Connect SEO, content and performance',
+      intro: 'Search visibility works better with a strong web foundation, clear strategy and content built around real intent.',
+      links: enSiloLinks.seo,
+    };
 const schema = [
   serviceSchema({ name: page.title, description: page.description, url: pageUrl }),
   breadcrumbs([
@@ -169,9 +237,9 @@ const schema = [
   </section>
   <Faq faq={page.faq} lang="en" />
   <SeoSiloLinks
-    title="Connect SEO, content and performance"
-    intro="Search visibility works better with a strong web foundation, clear strategy and content built around real intent."
-    links={enSiloLinks.seo}
+    title={siloConfig.title}
+    intro={siloConfig.intro}
+    links={siloConfig.links}
     variant="compact"
   />
 </BaseLayout>

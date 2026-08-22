@@ -49,6 +49,39 @@ const milestones = [
   { year: '2024', title: 'Data, IA & automatisation', text: 'Les parcours WhatsApp, CRM, SEO/GEO et IA renforcent la mesure et l’efficacité des campagnes.' },
 ];
 
+const businessLinks = [
+  {
+    href: '/expertises/media-performance',
+    label: 'Performance digitale',
+    title: 'Agence performance digitale Maroc',
+    text: 'Acquisition, tracking, CRM, Social Ads, Google Ads et reporting pour relier budgets et croissance.',
+  },
+  {
+    href: '/insights/cout-campagne-google-ads-maroc',
+    label: 'Budget Google Ads',
+    title: 'Prix campagne Google Ads Maroc',
+    text: 'Comprendre budget média, honoraires, concurrence, landing page et coût par lead.',
+  },
+  {
+    href: '/expertises/referencement-seo',
+    label: 'SEO / GEO',
+    title: 'Agence SEO Maroc',
+    text: 'Audit technique, contenus, maillage, SEO local, preuves et visibilité dans les moteurs IA.',
+  },
+  {
+    href: '/expertises/social-ads',
+    label: 'Paid social',
+    title: 'Agence Social Ads Maroc',
+    text: 'Campagnes Meta, Instagram, TikTok et LinkedIn pilotées par la donnée et la création social-first.',
+  },
+  {
+    href: '/secteurs',
+    label: 'Secteurs',
+    title: 'Cas clients, chiffres, preuves et FAQ',
+    text: 'Des pages sectorielles pour relier les leviers digitaux aux enjeux éducation, retail, auto, FMCG et plus.',
+  },
+];
+
 const references = [
   { name: 'UIR', src: '/assets/richmedia-home/logos/references/uir.jpg' },
   { name: 'Amana', src: '/assets/richmedia-home/logos/references/amana.jpg' },
@@ -75,7 +108,7 @@ const referenceLoop = [...references, ...references];
 
 <BaseLayout
   title="Agence digitale à Casablanca et au Maroc — Richmedia"
-  description="Richmedia est une agence digitale à Casablanca spécialisée en stratégie digitale, création, média, SEO/GEO, web, WhatsApp, CRM et automatisation IA pour les marques au Maroc et à l’international."
+  description="Agence digitale à Casablanca : stratégie, média, SEO/GEO, social ads, web, WhatsApp, CRM et IA pour les marques au Maroc et à l’international."
   canonical={`${SITE.url}/agence`}
   schema={schema}
 >
@@ -156,6 +189,27 @@ const referenceLoop = [...references, ...references];
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="agency-business" aria-labelledby="agency-business-title">
+      <div class="section-intro">
+        <span class="section-kicker">Agence digitale Casablanca</span>
+        <h2 id="agency-business-title">Les sujets business que nous relions.</h2>
+        <p>
+          Richmedia structure la visibilité et la conversion autour des requêtes qui portent une vraie intention :
+          performance, SEO, social ads, budget média et preuves par secteur.
+        </p>
+      </div>
+      <div class="business-grid">
+        {businessLinks.map((item) => (
+          <a href={item.href}>
+            <span>{item.label}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
         ))}
       </div>
     </section>
@@ -621,6 +675,7 @@ const referenceLoop = [...references, ...references];
   .pin-strasbourg { left: 50%; top: 37%; }
 
   .agency-approach,
+  .agency-business,
   .agency-studio,
   .agency-history,
   .agency-references,
@@ -631,6 +686,13 @@ const referenceLoop = [...references, ...references];
   .agency-approach {
     display: grid;
     grid-template-columns: minmax(15rem, 0.72fr) minmax(0, 1.28fr);
+    gap: 2.2rem;
+    align-items: start;
+  }
+
+  .agency-business {
+    display: grid;
+    grid-template-columns: minmax(15rem, 0.58fr) minmax(0, 1.42fr);
     gap: 2.2rem;
     align-items: start;
   }
@@ -686,10 +748,67 @@ const referenceLoop = [...references, ...references];
   }
 
   .approach-grid p,
+  .business-grid p,
   .value-grid p,
   .history-timeline p {
     color: rgba(232, 237, 245, 0.68);
     line-height: 1.65;
+  }
+
+  .business-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .business-grid a {
+    position: relative;
+    min-height: 17rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1.35rem;
+    background:
+      radial-gradient(circle at 80% 8%, rgba(124, 60, 255, 0.22), transparent 45%),
+      rgba(255, 255, 255, 0.035);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .business-grid a:hover {
+    border-color: rgba(185, 133, 255, 0.42);
+    background:
+      radial-gradient(circle at 78% 8%, rgba(124, 60, 255, 0.3), transparent 47%),
+      rgba(255, 255, 255, 0.055);
+    transform: translateY(-4px);
+  }
+
+  .business-grid span {
+    color: var(--purple-soft);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .business-grid h3 {
+    margin: 1.25rem 0 0.7rem;
+    color: #fff;
+    font-size: 1.18rem;
+    line-height: 1.15;
+  }
+
+  .business-grid p {
+    margin: 0;
+    font-size: 0.82rem;
+  }
+
+  .business-grid i {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    color: rgba(255, 255, 255, 0.82);
   }
 
   .agency-studio {
@@ -1089,9 +1208,14 @@ const referenceLoop = [...references, ...references];
     .agency-hero,
     .agency-studio,
     .agency-approach,
+    .agency-business,
     .agency-history,
     .agency-cta {
       grid-template-columns: 1fr;
+    }
+
+    .business-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .agency-hero-visual,
@@ -1159,6 +1283,7 @@ const referenceLoop = [...references, ...references];
 
     .metrics-grid,
     .approach-grid,
+    .business-grid,
     .value-grid,
     .history-timeline {
       grid-template-columns: 1fr;
@@ -1176,6 +1301,10 @@ const referenceLoop = [...references, ...references];
 
     .approach-grid article {
       min-height: auto;
+    }
+
+    .business-grid a {
+      min-height: 13rem;
     }
 
     .studio-main {

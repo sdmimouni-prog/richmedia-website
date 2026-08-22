@@ -4,7 +4,7 @@ export const SITE = {
   url: import.meta.env.PUBLIC_SITE_URL ?? 'https://richmedia.ma',
   tagline: 'We build digital growth',
   description:
-    "Agence de marketing digital et de performance à Casablanca : stratégie, media performance, développement web et IA. Nous générons une croissance mesurable.",
+    "Agence de performance digitale au Maroc basée à Casablanca : stratégie, média, SEO/GEO, social ads, web, CRM et IA pour générer une croissance mesurable.",
   defaultLocale: 'fr' as const,
   locales: ['fr', 'en'] as const,
 };

@@ -2,7 +2,7 @@
 const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/');
 const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const homeHref = isEnglish ? '/en' : '/';
-const englishDetailExpertiseSlugs = ['strategie-digitale', 'brand-content', 'web-si', 'achat-media', 'influence', 'phygital', 'evenementiel', 'ia-automation'];
+const englishDetailExpertiseSlugs = ['strategie-digitale', 'brand-content', 'web-si', 'achat-media', 'social-ads', 'influence', 'phygital', 'evenementiel', 'ia-automation', 'media-performance', 'seo-geo'];
 const languagePairs: Record<string, string> = {
   '/agence': '/en/agency',
   '/carrieres': '/en/careers',
@@ -26,6 +26,7 @@ const languagePairs: Record<string, string> = {
   '/realisations/uir-campagnes-digitales': '/en/case-studies/uir-digital-campaigns',
   '/expertises/media-performance': '/en/expertises/media-performance',
   '/expertises/referencement-seo': '/en/expertises/seo-geo',
+  '/expertises/social-ads': '/en/expertises/social-ads',
   '/secteurs': '/en/sectors',
   '/secteurs/education': '/en/sectors/education',
   '/secteurs/immobilier': '/en/sectors/real-estate',
@@ -286,6 +287,11 @@ const expertiseColumns = [
         href: expertiseHref('achat-media'),
         label: isEnglish ? 'Media Buying' : 'Achat média',
         text: isEnglish ? 'Paid social, search, programmatic and DOOH.' : 'Paid social, search, programmatique et DOOH.',
+      },
+      {
+        href: expertiseHref('social-ads'),
+        label: 'Social Ads',
+        text: isEnglish ? 'Meta, TikTok, LinkedIn and retargeting.' : 'Meta, TikTok, LinkedIn et retargeting.',
       },
       {
         href: expertiseHref('influence'),
