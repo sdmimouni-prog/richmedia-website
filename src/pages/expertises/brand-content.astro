@@ -315,7 +315,7 @@ const mobileQuickLinks = [
           <div class="crea-stack" aria-hidden="true">
             {creativeReelLeft.map((item) => (
               <figure class:list={['crea-frame', `crea-frame-${item.shape}`]}>
-                <img src={item.image} alt="" loading="lazy" decoding="async" />
+                <img src={item.image} alt={item.label} loading="lazy" decoding="async" />
               </figure>
             ))}
           </div>
@@ -331,7 +331,7 @@ const mobileQuickLinks = [
           <div class="crea-stack" aria-hidden="true">
             {creativeReelRight.map((item) => (
               <figure class:list={['crea-frame', `crea-frame-${item.shape}`]}>
-                <img src={item.image} alt="" loading="lazy" decoding="async" />
+                <img src={item.image} alt={item.label} loading="lazy" decoding="async" />
               </figure>
             ))}
           </div>

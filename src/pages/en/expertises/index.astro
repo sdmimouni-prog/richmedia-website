@@ -54,6 +54,7 @@ const expertises = [
     image: 'expertise-story-branding.webp',
     label: 'Strategy',
     title: 'Digital Strategy',
+    alt: 'Richmedia digital strategy to align brand positioning, audiences, channels and business goals',
     text: 'A clear roadmap to align positioning, audiences, channels and business goals.',
     tags: ['Segmentation', 'Targeting', 'Action plan', 'SMART goals'],
     outcome: 'Faster decisions',
@@ -65,6 +66,7 @@ const expertises = [
     image: 'expertise-story-social.webp',
     label: 'Creation',
     title: 'Brand content',
+    alt: 'Richmedia social-first brand content for storytelling, video and useful content',
     text: 'Useful, memorable content adapted to every channel and audience.',
     tags: ['Storytelling', 'Photo & video', 'Social-first'],
     size: 'medium',
@@ -75,6 +77,7 @@ const expertises = [
     image: 'expertise-story-tech.webp',
     label: 'Tech',
     title: 'Web & IS',
+    alt: 'Richmedia web and information systems expertise for fast platforms, tracking and SEO',
     text: 'UX/UI, web platforms, tracking, SEO/GEO and connected systems.',
     tags: ['UX/UI', 'CMS', 'E-commerce'],
     size: 'small',
@@ -85,6 +88,7 @@ const expertises = [
     image: 'expertise-story-media.webp',
     label: 'Performance',
     title: 'Media Buying',
+    alt: 'Richmedia media buying for data-led Google, Meta, TikTok and YouTube campaigns',
     text: 'Data-led media plans optimized in real time for business performance.',
     tags: ['Meta', 'TikTok', 'Google', 'YouTube'],
     size: 'medium',
@@ -95,6 +99,7 @@ const expertises = [
     image: 'expertise-card-influence-ai.webp',
     label: 'Influence',
     title: 'Influence',
+    alt: 'Richmedia influencer marketing with creators, UGC and performance reporting',
     text: 'Creator selection, activation, negotiation and performance tracking.',
     tags: ['UGC', 'Creators', 'Reporting'],
     size: 'small',
@@ -105,6 +110,7 @@ const expertises = [
     image: 'expertise-story-phygital.webp',
     label: 'Experience',
     title: 'Phygital',
+    alt: 'Richmedia phygital activation connecting field, retail, mobile and data',
     text: 'Connecting field and digital through omnichannel, hybrid and measurable experiences.',
     tags: ['Activation', 'Retail', 'AR', 'Mobile apps'],
     outcome: 'Visible field impact',
@@ -116,6 +122,7 @@ const expertises = [
     image: 'hero-film-04.webp',
     label: 'Activation',
     title: 'Events',
+    alt: 'Richmedia events expertise for production, logistics and live content',
     text: 'Concept, production, logistics and communication before, during and after the event.',
     tags: ['Production', 'Logistics', 'Live content'],
     size: 'stack',
@@ -126,6 +133,7 @@ const expertises = [
     image: 'story-tech.webp',
     label: 'AI',
     title: 'AI & Automation',
+    alt: 'Richmedia AI and automation for CRM, chatbots and lead scoring',
     text: 'Marketing automation, chatbots, social listening and predictive scoring.',
     tags: ['CRM', 'Chatbots', 'Lead scoring'],
     size: 'stack',
@@ -216,7 +224,7 @@ const ops = [
             id={item.slug}
             class:list={['expertise-card', `expertise-card-${item.size}`]}
           >
-            <img src={`${assetBase}/${item.image}`} alt="" loading="lazy" decoding="async" />
+            <img src={`${assetBase}/${item.image}`} alt={item.alt} loading="lazy" decoding="async" />
             <span class="card-number">{item.number}</span>
             <div class="expertise-card-copy">
               <span class="expertise-pill">{item.label}</span>

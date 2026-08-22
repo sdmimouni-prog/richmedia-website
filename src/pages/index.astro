@@ -220,7 +220,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
               <figure class="film-frame">
                 <img
                   src={resolveAsset(item.image)}
-                  alt=""
+                  alt={item.label}
                   width={item.width}
                   height={item.height}
                   loading={index === 0 ? 'eager' : 'lazy'}
@@ -236,7 +236,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
               <figure class="film-frame">
                 <img
                   src={resolveAsset(item.image)}
-                  alt=""
+                  alt={item.label}
                   width={item.width}
                   height={item.height}
                   loading="lazy"
@@ -254,7 +254,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
               <figure class="film-frame">
                 <img
                   src={resolveAsset(item.image)}
-                  alt=""
+                  alt={item.label}
                   width={item.width}
                   height={item.height}
                   loading={index === 0 ? 'eager' : 'lazy'}
@@ -270,7 +270,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
               <figure class="film-frame">
                 <img
                   src={resolveAsset(item.image)}
-                  alt=""
+                  alt={item.label}
                   width={item.width}
                   height={item.height}
                   loading="lazy"
@@ -407,7 +407,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
             <article class="team-card" aria-hidden={index >= team.length ? 'true' : 'false'}>
               <img
                 src={`${assetBase}/${member.image}`}
-                alt={index >= team.length ? '' : `Portrait de ${member.name}`}
+                alt={`Portrait de ${member.name}`}
                 width={member.width}
                 height={member.height}
                 loading="lazy"
@@ -462,7 +462,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
           <img
             class="world-map-img"
             src={`${assetBase}/optimized/world-map-natural-earth.webp`}
-            alt=""
+            alt="Carte du monde des implantations Richmedia : Casablanca, Dubaï, Montréal et Strasbourg"
             width="1000"
             height="520"
             loading="lazy"
@@ -503,7 +503,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
               <figure class="reference-logo-card" aria-hidden={index >= referenceLogos.length ? 'true' : 'false'}>
                 <img
                   src={`${assetBase}/${logo.image}`}
-                  alt={index >= referenceLogos.length ? '' : logo.name}
+                  alt={`Logo ${logo.name}`}
                   width={logo.width}
                   height={logo.height}
                   loading="lazy"
