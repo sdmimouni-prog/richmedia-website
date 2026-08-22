@@ -5,8 +5,14 @@ interface Props {
   faq: { question: string; answer: string }[];
   lang?: 'fr' | 'en';
   title?: string;
+  emitSchema?: boolean;
 }
-const { faq, lang = 'fr', title = lang === 'en' ? 'Frequently asked questions' : 'Questions fréquentes' } = Astro.props;
+const {
+  faq,
+  lang = 'fr',
+  title = lang === 'en' ? 'Frequently asked questions' : 'Questions fréquentes',
+  emitSchema = true,
+} = Astro.props;
 const schema = faqSchema(faq);
 ---
 {faq.length > 0 && (
@@ -27,7 +33,7 @@ const schema = faqSchema(faq);
         </details>
       ))}
     </div>
-    <JsonLd schema={[schema]} />
+    {emitSchema && <JsonLd schema={[schema]} />}
   </section>
 )}
 

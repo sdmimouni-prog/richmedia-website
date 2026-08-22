@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import SeoSiloLinks from '../../../components/SeoSiloLinks.astro';
 import QuickAnswer from '../../../components/QuickAnswer.astro';
 import Faq from '../../../components/Faq.astro';
-import { breadcrumbs, serviceSchema } from '../../../lib/schema';
+import { breadcrumbs, faqSchema, serviceSchema } from '../../../lib/schema';
 import { enSiloLinks, sectorSiloLinksEn } from '../../../lib/seo-silos';
 import { SITE } from '../../../consts';
 
@@ -427,7 +427,15 @@ const slug = Astro.params.slug;
 const pageUrl = `${SITE.url}/en/sectors/${slug}`;
 const sectorSiloLinks = sectorSiloLinksEn[page.slug as keyof typeof sectorSiloLinksEn] ?? enSiloLinks.sectorsHub;
 const schema = [
-  serviceSchema({ name: page.title, description: page.description, url: pageUrl }),
+  {
+    ...serviceSchema({ name: page.title, description: page.quick || page.description, url: pageUrl }),
+    '@id': `${pageUrl}#service`,
+    inLanguage: 'en',
+    serviceType: page.label,
+    category: 'Sector digital marketing',
+    keywords: page.levers,
+  },
+  faqSchema(page.faq),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
     { name: 'Sectors', url: `${SITE.url}/en/sectors` },
@@ -547,7 +555,7 @@ const schema = [
       </a>
     </section>
 
-    <Faq faq={page.faq} lang="en" />
+    <Faq faq={page.faq} lang="en" emitSchema={false} />
   </article>
   <SeoSiloLinks
     title="Connect this sector to the right levers"

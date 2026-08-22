@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
 import QuickAnswer from '../../components/QuickAnswer.astro';
 import Faq from '../../components/Faq.astro';
-import { breadcrumbs } from '../../lib/schema';
+import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
 import { frSiloLinks, sectorSiloLinksFr } from '../../lib/seo-silos';
 import { SITE } from '../../consts';
 
@@ -25,11 +25,26 @@ const isGms = slug === 'gms';
 const isFmcg = slug === 'fmcg';
 const isTourismeHotellerie = slug === 'tourisme-hotellerie';
 const sectorSiloLinks = sectorSiloLinksFr[slug as keyof typeof sectorSiloLinksFr] ?? frSiloLinks.sectorsHub;
-const schema = [breadcrumbs([
-  { name: 'Accueil', url: SITE.url },
-  { name: 'Secteurs', url: `${SITE.url}/secteurs` },
-  { name: entry.data.title, url },
-])];
+const schema = [
+  {
+    ...serviceSchema({
+      name: entry.data.title,
+      description: entry.data.quickAnswer || entry.data.metaDescription,
+      url,
+    }),
+    '@id': `${url}#service`,
+    inLanguage: 'fr-MA',
+    serviceType: entry.data.keywordPrincipal,
+    category: 'Marketing digital sectoriel',
+    keywords: [entry.data.keywordPrincipal, ...entry.data.keywordsSecondaires],
+  },
+  faqSchema(entry.data.faq),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Secteurs', url: `${SITE.url}/secteurs` },
+    { name: entry.data.title, url },
+  ]),
+];
 
 const trustBrands = [
   {
@@ -2816,7 +2831,7 @@ const hotellerieCampaigns = [
         </a>
       </nav>
 
-      <Faq faq={entry.data.faq} />
+      <Faq faq={entry.data.faq} emitSchema={false} />
     </article>
   )}
 

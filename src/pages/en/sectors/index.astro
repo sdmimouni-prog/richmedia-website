@@ -1,11 +1,14 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import SeoSiloLinks from '../../../components/SeoSiloLinks.astro';
-import { breadcrumbs } from '../../../lib/schema';
+import { breadcrumbs, collectionPageSchema } from '../../../lib/schema';
 import { enSiloLinks } from '../../../lib/seo-silos';
 import { SITE } from '../../../consts';
 
 const pageUrl = `${SITE.url}/en/sectors`;
+const pageTitle = 'Digital marketing sectors supported by Richmedia';
+const pageDescription =
+  'Explore the sectors supported by Richmedia: education, real estate, retail, grocery retail, institutional, tourism, automotive and FMCG.';
 const sectors = [
   {
     slug: 'education',
@@ -50,6 +53,16 @@ const sectors = [
 ];
 
 const schema = [
+  collectionPageSchema({
+    name: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    inLanguage: 'en',
+    items: sectors.map((sector) => ({
+      name: sector.title,
+      url: `${SITE.url}/en/sectors/${sector.slug}`,
+    })),
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
     { name: 'Sectors', url: pageUrl },
@@ -58,8 +71,8 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Digital marketing sectors supported by Richmedia"
-  description="Explore the sectors supported by Richmedia: education, real estate, retail, grocery retail, institutional, tourism, automotive and FMCG."
+  title={pageTitle}
+  description={pageDescription}
   canonical={pageUrl}
   lang="en"
   schema={schema}

@@ -42,6 +42,33 @@ export function serviceSchema(opts: { name: string; description: string; url: st
   };
 }
 
+export function collectionPageSchema(opts: {
+  name: string;
+  description: string;
+  url: string;
+  items: { name: string; url: string }[];
+  inLanguage?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: opts.name,
+    description: opts.description,
+    url: opts.url,
+    publisher: { '@id': `${SITE.url}/#organization` },
+    ...(opts.inLanguage ? { inLanguage: opts.inLanguage } : {}),
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: opts.items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        url: item.url,
+      })),
+    },
+  };
+}
+
 export function articleSchema(opts: {
   title: string;
   description: string;

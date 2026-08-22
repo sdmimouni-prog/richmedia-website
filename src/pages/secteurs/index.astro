@@ -2,11 +2,14 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
-import { breadcrumbs } from '../../lib/schema';
+import { breadcrumbs, collectionPageSchema } from '../../lib/schema';
 import { frSiloLinks } from '../../lib/seo-silos';
 import { SITE } from '../../consts';
 
 const pageUrl = `${SITE.url}/secteurs`;
+const pageTitle = 'Secteurs accompagnés par Richmedia';
+const pageDescription =
+  'Découvrez les secteurs accompagnés par Richmedia : éducation, immobilier, retail, GMS, institutionnel, tourisme, automobile et FMCG.';
 const sectorOrder = [
   'education',
   'immobilier',
@@ -48,6 +51,16 @@ const sectors = (await getCollection('secteurs', ({ data }) => !data.draft))
   .sort((a, b) => sectorOrder.indexOf(a.slug) - sectorOrder.indexOf(b.slug));
 
 const schema = [
+  collectionPageSchema({
+    name: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    inLanguage: 'fr-MA',
+    items: sectors.map((sector) => ({
+      name: sector.title,
+      url: `${SITE.url}/secteurs/${sector.slug}`,
+    })),
+  }),
   breadcrumbs([
     { name: 'Accueil', url: SITE.url },
     { name: 'Secteurs', url: pageUrl },
@@ -56,8 +69,8 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Secteurs accompagnés par Richmedia"
-  description="Découvrez les secteurs accompagnés par Richmedia : éducation, immobilier, retail, GMS, institutionnel, tourisme, automobile et FMCG."
+  title={pageTitle}
+  description={pageDescription}
   canonical={pageUrl}
   schema={schema}
 >
