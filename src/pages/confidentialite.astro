@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalPage from '../components/LegalPage.astro';
+import { BUSINESS, SITE } from '../consts';
+import { breadcrumbs, localBusiness } from '../lib/schema';
+
+const pageUrl = `${SITE.url}/confidentialite`;
+const schema = [
+  localBusiness(),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Confidentialité', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Politique de confidentialité - Richmedia"
+  description="Politique de confidentialité Richmedia : données collectées, finalités, durées de conservation, destinataires, droits et contact."
+  canonical={pageUrl}
+  schema={schema}
+>
+  <LegalPage
+    eyebrow="Données personnelles"
+    title="Politique de confidentialité"
+    intro="Cette politique explique comment Richmedia collecte, utilise et protège les données personnelles transmises via le site et ses formulaires."
+  >
+    <article>
+      <h2>Responsable du traitement</h2>
+      <p>
+        Le responsable du traitement des données collectées via ce site est {BUSINESS.legalName}, joignable à
+        <a href={`mailto:${BUSINESS.email}`}> {BUSINESS.email}</a>.
+      </p>
+      <p>
+        Richmedia s'inscrit dans le cadre de la loi marocaine n° 09-08 relative à la protection des personnes
+        physiques à l'égard du traitement des données à caractère personnel.
+      </p>
+    </article>
+
+    <article>
+      <h2>Données collectées</h2>
+      <p>Selon votre usage du site, nous pouvons collecter les catégories suivantes :</p>
+      <ul>
+        <li>données d'identification : nom, prénom, société, fonction le cas échéant ;</li>
+        <li>coordonnées : email, téléphone, site web ou lien professionnel ;</li>
+        <li>informations de projet : type de besoin, priorité, message libre, timing, marché ;</li>
+        <li>données techniques : adresse IP, page source, navigateur, date et heure de soumission ;</li>
+        <li>données de navigation et de mesure d'audience lorsque les outils concernés sont activés.</li>
+      </ul>
+    </article>
+
+    <article>
+      <h2>Finalités</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Finalité</th>
+            <th>Exemples d'utilisation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Répondre aux demandes</td>
+            <td>Traitement des formulaires contact, audit, produit ou demande commerciale.</td>
+          </tr>
+          <tr>
+            <td>Préparer un échange commercial</td>
+            <td>Qualification du besoin, prise de rendez-vous, suivi de la relation.</td>
+          </tr>
+          <tr>
+            <td>Améliorer le site</td>
+            <td>Analyse de l'audience, compréhension des parcours, correction d'erreurs.</td>
+          </tr>
+          <tr>
+            <td>Sécuriser le service</td>
+            <td>Détection d'abus, protection contre le spam, journalisation technique.</td>
+          </tr>
+          <tr>
+            <td>Respecter nos obligations</td>
+            <td>Gestion des demandes de droits, conservation de preuves et obligations légales.</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article>
+      <h2>Destinataires et prestataires</h2>
+      <p>
+        Les données sont destinées aux équipes habilitées de Richmedia. Elles peuvent être traitées par des
+        prestataires techniques strictement nécessaires au fonctionnement du site, notamment l'hébergeur, les outils
+        d'emailing, les services de sécurité, les solutions CRM et, sous réserve de votre consentement, les outils de
+        mesure ou de marketing tels que Google Tag Manager, Google Analytics 4, Meta Pixel et LinkedIn Insight Tag.
+      </p>
+      <p>
+        Certains prestataires peuvent être situés hors du Maroc. Richmedia veille à encadrer ces traitements selon les
+        exigences applicables et à limiter les données transmises à ce qui est nécessaire.
+      </p>
+    </article>
+
+    <article>
+      <h2>Durées de conservation</h2>
+      <ul>
+        <li>Demandes de contact et d'audit : jusqu'à 36 mois après le dernier échange utile.</li>
+        <li>Données de prospection : jusqu'à 36 mois après le dernier contact actif.</li>
+        <li>Données techniques de sécurité : durée limitée aux besoins de diagnostic et de protection du service.</li>
+        <li>Données nécessaires à une obligation légale : durée prévue par la réglementation applicable.</li>
+      </ul>
+    </article>
+
+    <article>
+      <h2>Vos droits</h2>
+      <p>
+        Vous pouvez demander l'accès, la rectification, l'actualisation, l'effacement ou le verrouillage de vos données,
+        ainsi que vous opposer à certains traitements lorsque les conditions applicables sont réunies.
+      </p>
+      <p>
+        Pour exercer vos droits, écrivez à <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a> en précisant votre
+        demande. Une vérification d'identité peut être demandée si nécessaire.
+      </p>
+      <p>
+        Vous pouvez également consulter les informations publiées par la Commission Nationale de contrôle de la
+        protection des Données à caractère Personnel (CNDP) sur <a href="https://www.cndp.ma" target="_blank" rel="noopener">cndp.ma</a>.
+      </p>
+    </article>
+
+    <article>
+      <h2>Sécurité</h2>
+      <p>
+        Richmedia met en œuvre des mesures techniques et organisationnelles raisonnables pour protéger les données
+        contre l'accès non autorisé, la perte, l'altération ou la divulgation. Aucune transmission sur Internet ne peut
+        toutefois être garantie comme absolument sécurisée.
+      </p>
+    </article>
+  </LegalPage>
+</BaseLayout>

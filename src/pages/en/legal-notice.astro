@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPage from '../../components/LegalPage.astro';
+import { BUSINESS, SITE } from '../../consts';
+import { breadcrumbs, localBusiness } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/legal-notice`;
+const schema = [
+  { ...localBusiness(), url: pageUrl, inLanguage: 'en' },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Legal notice', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Legal notice - Richmedia"
+  description="Legal notice for the Richmedia website: publisher, hosting, intellectual property, liability and contact information."
+  canonical={pageUrl}
+  lang="en"
+  schema={schema}
+>
+  <LegalPage
+    eyebrow="Legal framework"
+    title="Legal notice"
+    intro="This page presents information about the website publisher, hosting provider, intellectual property rules and general use of Richmedia content."
+  >
+    <article>
+      <h2>Website publisher</h2>
+      <dl>
+        <div><dt>Commercial name</dt><dd>{BUSINESS.legalName}</dd></div>
+        <div><dt>Address</dt><dd>{BUSINESS.adresse}</dd></div>
+        <div><dt>Email</dt><dd><a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></dd></div>
+        <div><dt>Phone</dt><dd>{BUSINESS.tels.join(' / ')}</dd></div>
+        <div><dt>Publication director</dt><dd>Richmedia management.</dd></div>
+      </dl>
+      <p class="legal-note">
+        Additional administrative information such as legal form, commercial register, tax identifier, ICE and share
+        capital must be completed after internal validation.
+      </p>
+    </article>
+
+    <article>
+      <h2>Hosting</h2>
+      <p>The website is hosted by Vercel Inc., a cloud hosting and web deployment platform.</p>
+      <dl>
+        <div><dt>Provider</dt><dd>Vercel Inc.</dd></div>
+        <div><dt>Address stated by Vercel</dt><dd>440 N Barranca Ave #4133, Covina, CA 91723, United States.</dd></div>
+        <div><dt>Website</dt><dd><a href="https://vercel.com" rel="nofollow noopener" target="_blank">vercel.com</a></dd></div>
+      </dl>
+    </article>
+
+    <article>
+      <h2>Purpose of the website</h2>
+      <p>
+        The website presents Richmedia, its expertise, products, references, editorial content and contact channels.
+        Published information is provided for guidance and may be updated at any time.
+      </p>
+    </article>
+
+    <article>
+      <h2>Intellectual property</h2>
+      <p>
+        Texts, interfaces, layouts, visuals, videos, logos, brands, databases and graphic elements on the website are
+        protected by applicable intellectual property rights. Unauthorized reproduction, adaptation, distribution or
+        reuse is prohibited.
+      </p>
+      <p>Third-party brands, logos and visuals remain the property of their respective owners.</p>
+    </article>
+
+    <article>
+      <h2>Contact</h2>
+      <p>For any question about the website or its content, write to <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>.</p>
+    </article>
+  </LegalPage>
+</BaseLayout>

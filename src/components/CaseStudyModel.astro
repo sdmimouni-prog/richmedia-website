@@ -2,25 +2,28 @@
 interface Metric {
   value: string;
   label: string;
-  note: string;
+  note?: string;
+  icon?: string;
 }
 
-interface Chapter {
+interface MetaItem {
+  label: string;
+  value: string;
+}
+
+interface WorkItem {
   eyebrow: string;
   title: string;
   text: string;
+  icon?: string;
+  bullets?: string[];
 }
 
-interface SystemStep {
-  label: string;
-  text: string;
-}
-
-interface GalleryItem {
+interface ProofItem {
   image: string;
   label: string;
   format: string;
-  size?: 'wide';
+  size?: 'feed' | 'story' | 'banner' | 'dashboard' | 'event' | 'engineering' | 'parcours' | 'ready' | 'landing' | 'quote' | 'keys';
 }
 
 interface CaseStudyContent {
@@ -35,25 +38,15 @@ interface CaseStudyContent {
   title: string;
   subtitle: string;
   heroImage: string;
-  video: {
-    poster: string;
-    title: string;
-    label: string;
-    meta: string;
-    src?: string;
-  };
   metrics: Metric[];
-  chapters: Chapter[];
-  system: {
+  metaItems?: MetaItem[];
+  deliverables?: string[];
+  work: WorkItem[];
+  proof: {
     eyebrow: string;
     title: string;
-    text: string;
-    steps: SystemStep[];
-  };
-  gallery: {
-    eyebrow: string;
-    title: string;
-    items: GalleryItem[];
+    intro: string;
+    items: ProofItem[];
   };
   quote: string;
   ctaLabel: string;
@@ -61,14 +54,12 @@ interface CaseStudyContent {
   secondaryLabel: string;
   secondaryHref: string;
   ui?: {
-    snapshotLabel?: string;
-    scopeLabel?: string;
-    sectorLabel?: string;
-    periodLabel?: string;
-    resultsLabel?: string;
-    storylineKicker?: string;
-    storylineTitle?: string;
-    takeawayLabel?: string;
+    resultLabel?: string;
+    metaLabel?: string;
+    workLabel?: string;
+    workTitle?: string;
+    proofLabel?: string;
+    quoteLabel?: string;
   };
 }
 
@@ -77,146 +68,214 @@ interface Props {
 }
 
 const { content } = Astro.props;
+
+const assetBase = '/assets/richmedia-case-study';
+const metaItems =
+  content.metaItems ??
+  [
+    { label: 'Client', value: content.client },
+    { label: 'Secteur', value: content.category },
+    { label: 'Période', value: content.period },
+    { label: 'Canal', value: content.scope },
+  ];
+const deliverables =
+  content.deliverables ??
+  ['Stratégie & plan média', 'Identité créative', 'Kits formats (15+)', 'Landing page', 'Tracking & dashboards', 'Rapport de performance'];
+
+const parseCounter = (raw: string, mustStartWithNumber = false) => {
+  const value = raw.trim();
+
+  if (mustStartWithNumber && !/^[+-]?\d/.test(value)) {
+    return undefined;
+  }
+
+  const match = value.match(/^([^0-9]*?)(-?\d+(?:[.,]\d+)?)(.*)$/);
+
+  if (!match) {
+    return {
+      prefix: '',
+      target: 0,
+      suffix: raw,
+      decimals: 0,
+    };
+  }
+
+  const [, prefix, numeric, suffix] = match;
+  const normalized = numeric.replace(',', '.');
+  const decimals = normalized.includes('.') ? normalized.split('.')[1]?.length ?? 0 : 0;
+
+  return {
+    prefix,
+    target: Number(normalized),
+    suffix,
+    decimals,
+  };
+};
+
+const animatedMetrics = content.metrics.map((metric, index) => ({
+  ...metric,
+  count: parseCounter(metric.value) ?? {
+    prefix: '',
+    target: 0,
+    suffix: metric.value,
+    decimals: 0,
+  },
+  noteCount: metric.note ? parseCounter(metric.note, true) : undefined,
+  delay: index * 105,
+  duration: 1120 + index * 95,
+}));
 ---
 
 <article class="case-study-model">
-  <section class="case-hero" aria-labelledby="case-title">
-    <div class="case-copy">
-      <a class="back-link" href={content.backHref}>
-        <i class="ph ph-arrow-left" aria-hidden="true"></i>
-        {content.backLabel}
-      </a>
+  <section class="case-section case-result-block" aria-labelledby="case-title">
+    <div class="section-rail" aria-hidden="true">
+      <strong>01</strong>
+      <span></span>
+    </div>
 
-      <p class="case-eyebrow">{content.eyebrow}</p>
-      <h1 id="case-title">{content.title}</h1>
-      <p class="case-lead">{content.subtitle}</p>
+    <div class="result-grid">
+      <div class="result-copy">
+        <span class="block-kicker">Bloc 1</span>
+        <h1 id="case-title">{content.title}</h1>
+        <img class="heading-stroke" src={`${assetBase}/purple-underline.png`} alt="" loading="eager" decoding="async" />
+        <p>{content.subtitle}</p>
 
-      <div class="case-actions">
-        <a class="button button-primary" href={content.ctaHref}>
-          {content.ctaLabel}
-          <i class="ph ph-play" aria-hidden="true"></i>
-        </a>
-        <a class="button button-secondary" href={content.secondaryHref}>
-          {content.secondaryLabel}
-          <i class="ph ph-arrow-right" aria-hidden="true"></i>
-        </a>
+        <dl class="case-meta" aria-label={content.ui?.metaLabel ?? 'Résumé du cas client'}>
+          {metaItems.map((item) => (
+            <div>
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <figure class="result-visual">
+        <img src={content.heroImage} alt={`${content.client} - campagne inscriptions 2024`} loading="eager" decoding="async" />
+        <div class="result-metrics" data-result-metrics aria-label={content.ui?.resultLabel ?? 'Résultats du cas client'}>
+          {animatedMetrics.map((metric) => (
+            <article class="result-metric-card" data-result-metric-card style={`--metric-delay: ${metric.delay}ms;`}>
+              <i class:list={['result-metric-icon', metric.icon ?? 'ph ph-chart-line-up']} aria-hidden="true"></i>
+              <div class="result-metric-copy">
+                <strong
+                  class="result-metric-value"
+                  data-counter
+                  data-case-counter
+                  data-target={metric.count.target}
+                  data-prefix={metric.count.prefix}
+                  data-suffix={metric.count.suffix}
+                  data-decimals={metric.count.decimals}
+                  data-duration={metric.duration}
+                >
+                  {metric.value}
+                </strong>
+                <span class="result-metric-label">{metric.label}</span>
+                {metric.note && (
+                  <small class="result-metric-note">
+                    <span class="trend-arrow" aria-hidden="true">▲</span>
+                    {metric.noteCount ? (
+                      <span
+                        data-counter
+                        data-case-counter
+                        data-target={metric.noteCount.target}
+                        data-prefix={metric.noteCount.prefix}
+                        data-suffix={metric.noteCount.suffix}
+                        data-decimals={metric.noteCount.decimals}
+                        data-duration={metric.duration + 180}
+                      >
+                        {metric.note}
+                      </span>
+                    ) : (
+                      <span>{metric.note}</span>
+                    )}
+                  </small>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+        <figcaption class="sr-only">
+          {content.metrics.map((metric) => `${metric.value} ${metric.label} ${metric.note ?? ''}`).join(', ')}
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="case-section case-work-block" aria-labelledby="work-title">
+    <div class="section-rail" aria-hidden="true">
+      <strong>02</strong>
+      <span></span>
+    </div>
+
+    <div class="work-shell">
+      <div class="work-head">
+        <span class="block-kicker">{content.ui?.workLabel ?? 'Bloc 2'}</span>
+        <h2 id="work-title">{content.ui?.workTitle ?? 'Ce Qu’on A Fait'}</h2>
+        <img class="heading-stroke heading-stroke-small" src={`${assetBase}/purple-underline-large.png`} alt="" loading="lazy" decoding="async" />
+        <p>{content.eyebrow}</p>
+      </div>
+
+      <div class="process-area">
+        <div class="process-track" aria-hidden="true">
+          {content.work.map((_, index) => (
+            <span>{String(index + 1).padStart(2, '0')}</span>
+          ))}
+          <i class="ph ph-arrow-right"></i>
+        </div>
+
+        <div class="process-grid">
+          {content.work.map((item) => (
+            <article class="process-card">
+              <i class={item.icon ?? 'ph ph-arrow-up-right'} aria-hidden="true"></i>
+              <h3>{item.title}</h3>
+              <span class="card-rule" aria-hidden="true"></span>
+              <ul>
+                {(item.bullets ?? [item.text]).map((bullet) => <li>{bullet}</li>)}
+              </ul>
+            </article>
+          ))}
+
+          <aside class="deliverables-card">
+            <header>
+              <i class="ph ph-briefcase" aria-hidden="true"></i>
+              <h3>Livrables</h3>
+            </header>
+            <ul>
+              {deliverables.map((item) => (
+                <li>
+                  <i class="ph ph-check-circle" aria-hidden="true"></i>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
       </div>
     </div>
-
-    <aside class="case-snapshot" aria-label={content.ui?.snapshotLabel ?? `${content.client} snapshot`}>
-      <span>Client</span>
-      <strong>{content.client}</strong>
-      <p>{content.clientLong}</p>
-      <dl>
-        <div>
-          <dt>{content.ui?.scopeLabel ?? 'Scope'}</dt>
-          <dd>{content.scope}</dd>
-        </div>
-        <div>
-          <dt>{content.ui?.sectorLabel ?? 'Sector'}</dt>
-          <dd>{content.category}</dd>
-        </div>
-        <div>
-          <dt>{content.ui?.periodLabel ?? 'Period'}</dt>
-          <dd>{content.period}</dd>
-        </div>
-      </dl>
-    </aside>
   </section>
 
-  <section class="case-video-layout" id="case-video" aria-label={content.video.title}>
-    <div class="video-panel">
-      {content.video.src ? (
-        <video poster={content.video.poster} controls preload="metadata">
-          <source src={content.video.src} type="video/mp4" />
-        </video>
-      ) : (
-        <figure>
-          <img src={content.video.poster} alt="" loading="eager" decoding="async" />
-          <span class="play-mark" aria-hidden="true">
-            <i class="ph ph-play" aria-hidden="true"></i>
-          </span>
-          <figcaption>
-            <small>{content.video.label}</small>
-            <strong>{content.video.title}</strong>
-            <span>{content.video.meta}</span>
-          </figcaption>
-        </figure>
-      )}
+  <section class="case-section case-proof-block" aria-labelledby="proof-title">
+    <div class="section-rail" aria-hidden="true">
+      <strong>03</strong>
+      <span></span>
     </div>
 
-    <div class="metric-rail" aria-label={content.ui?.resultsLabel ?? 'Case study results'}>
-      {content.metrics.map((metric) => (
-        <article>
-          <strong>{metric.value}</strong>
-          <span>{metric.label}</span>
-          <small>{metric.note}</small>
-        </article>
-      ))}
-    </div>
-  </section>
+    <div class="proof-shell">
+      <header class="proof-head">
+        <span class="block-kicker">{content.proof.eyebrow}</span>
+        <h2 id="proof-title">{content.proof.title}</h2>
+        <img class="heading-stroke heading-stroke-proof" src={`${assetBase}/purple-underline-large.png`} alt="" loading="lazy" decoding="async" />
+        <p class="sr-only">{content.proof.intro}</p>
+      </header>
 
-  <section class="case-story" aria-labelledby="story-title">
-    <div class="section-heading">
-      <span class="section-kicker">{content.ui?.storylineKicker ?? 'Storyline'}</span>
-      <h2 id="story-title">{content.ui?.storylineTitle ?? 'Brief. Move. Proof.'}</h2>
+      <div class="proof-stage" aria-label={content.ui?.proofLabel ?? 'Preuves visuelles'}>
+        {content.proof.items.map((item) => (
+          <article class:list={['proof-asset', item.size && `proof-${item.size}`]}>
+            <img src={item.image} alt={`${item.label} - ${item.format}`} loading="lazy" decoding="async" />
+          </article>
+        ))}
+      </div>
     </div>
-
-    <div class="story-line">
-      {content.chapters.map((chapter, index) => (
-        <article>
-          <span>{String(index + 1).padStart(2, '0')}</span>
-          <small>{chapter.eyebrow}</small>
-          <h3>{chapter.title}</h3>
-          <p>{chapter.text}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="case-system" aria-labelledby="system-title">
-    <div class="system-copy">
-      <span class="section-kicker">{content.system.eyebrow}</span>
-      <h2 id="system-title">{content.system.title}</h2>
-      <p>{content.system.text}</p>
-    </div>
-
-    <div class="system-board">
-      {content.system.steps.map((step, index) => (
-        <article>
-          <span>{String(index + 1).padStart(2, '0')}</span>
-          <strong>{step.label}</strong>
-          <p>{step.text}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="asset-gallery" aria-labelledby="gallery-title">
-    <div class="gallery-head">
-      <span class="section-kicker">{content.gallery.eyebrow}</span>
-      <h2 id="gallery-title">{content.gallery.title}</h2>
-    </div>
-
-    <div class="gallery-grid">
-      {content.gallery.items.map((item) => (
-        <article class:list={['asset-card', item.size === 'wide' && 'asset-card-wide']}>
-          <img src={item.image} alt={`${item.label} — ${content.client}`} loading="lazy" decoding="async" />
-          <div>
-            <span>{item.format}</span>
-            <strong>{item.label}</strong>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="case-close" aria-label={content.ui?.takeawayLabel ?? 'Case study takeaway'}>
-    <p>{content.quote}</p>
-    <a href={content.secondaryHref}>
-      {content.secondaryLabel}
-      <i class="ph ph-arrow-right" aria-hidden="true"></i>
-    </a>
   </section>
 </article>
 
@@ -228,599 +287,1273 @@ const { content } = Astro.props;
     padding: 0;
   }
 
+  :global(body:has(.case-study-model) .primary-nav > a[href="/realisations"]) {
+    position: relative;
+    color: #fff;
+  }
+
+  :global(body:has(.case-study-model) .primary-nav > a[href="/realisations"]::after) {
+    position: absolute;
+    right: 0;
+    bottom: -1.05rem;
+    left: 0;
+    height: 2px;
+    border-radius: 999px;
+    content: "";
+    background: #a85cff;
+    box-shadow: 0 0 1.2rem rgba(168, 92, 255, 0.6);
+  }
+
+  :global(body:has(.case-study-model) .site-footer) {
+    position: relative;
+    width: min(100% - 10rem, 1500px);
+    padding-top: 2.55rem;
+    background: transparent;
+  }
+
+  :global(body:has(.case-study-model) .site-header) {
+    padding-inline: clamp(5.4rem, 5.35vw, 5.6rem);
+  }
+
   .case-study-model {
-    --container: min(100% - 3rem, 1240px);
-    --purple: #7c3cff;
-    --purple-soft: #a977ff;
-    --blue: #2f6bff;
-    --yellow: #d8e21a;
-    --line: rgba(255, 255, 255, 0.14);
-    --muted: rgba(255, 255, 255, 0.68);
+    --bg: #02050d;
+    --panel: rgba(11, 9, 23, 0.78);
+    --purple: #a65cff;
+    --line: rgba(168, 92, 255, 0.34);
+    --muted: rgba(255, 255, 255, 0.72);
+    --left-pad: clamp(4.7rem, 5.25vw, 5.6rem);
     min-height: 100vh;
     overflow: hidden;
     background:
-      linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px),
-      linear-gradient(135deg, rgba(124, 60, 255, 0.14), transparent 32rem),
-      #030407;
-    background-size: 78px 78px, 78px 78px, auto, auto;
+      radial-gradient(circle at 2% 77%, rgba(111, 40, 255, 0.22), transparent 16rem),
+      radial-gradient(circle at 92% 2%, rgba(106, 47, 255, 0.14), transparent 18rem),
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      var(--bg);
+    background-size: auto, auto, 48px 48px, 48px 48px, auto;
     color: #fff;
   }
 
-  .case-hero,
-  .case-video-layout,
-  .case-story,
-  .case-system,
-  .asset-gallery,
-  .case-close {
+  .case-section {
     position: relative;
-    z-index: 1;
-    width: var(--container);
-    margin-inline: auto;
   }
 
-  .case-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
-    gap: 2rem;
-    align-items: center;
-    min-height: 640px;
-    padding: 7.2rem 0 2.2rem;
-  }
-
-  .back-link,
-  .button,
-  .case-close a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.48rem;
-    text-decoration: none;
-  }
-
-  .back-link {
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 0.86rem;
-    font-weight: 850;
-  }
-
-  .back-link:hover {
-    color: #fff;
-  }
-
-  .case-eyebrow,
-  .section-kicker,
-  .case-snapshot > span,
-  .story-line small,
-  .asset-card span,
-  .video-panel small {
-    color: var(--purple-soft);
-    font-size: 0.72rem;
-    font-weight: 950;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-
-  .case-eyebrow {
-    margin: 2.3rem 0 1rem;
-  }
-
-  .case-copy h1 {
-    max-width: 850px;
-    margin: 0;
-    font-size: 3.125rem;
-    font-weight: 900;
-    line-height: 0.98;
-    text-wrap: balance;
-  }
-
-  .case-lead {
-    max-width: 650px;
-    margin: 1.2rem 0 0;
-    color: var(--muted);
-    font-size: 1.08rem;
-    line-height: 1.7;
-  }
-
-  .case-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-    margin-top: 1.75rem;
-  }
-
-  .button {
-    min-height: 3rem;
-    border: 1px solid transparent;
-    border-radius: 7px;
-    padding: 0 1rem;
-    color: #fff;
-    font-weight: 900;
-  }
-
-  .button-primary {
-    background: linear-gradient(135deg, #8e54ff, #6324f0);
-    box-shadow: 0 1rem 2.2rem rgba(124, 60, 255, 0.28);
-  }
-
-  .button-secondary {
-    border-color: rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.035);
-  }
-
-  .case-snapshot {
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 1.15rem;
-    background:
-      linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.018)),
-      rgba(4, 5, 9, 0.9);
-  }
-
-  .case-snapshot strong {
-    display: block;
-    margin-top: 0.5rem;
-    color: var(--yellow);
-    font-size: 4rem;
-    font-weight: 950;
-    line-height: 0.85;
-  }
-
-  .case-snapshot p {
-    margin: 0.9rem 0 1.2rem;
-    color: rgba(255, 255, 255, 0.78);
-    font-weight: 850;
-    line-height: 1.35;
-  }
-
-  .case-snapshot dl {
-    display: grid;
-    gap: 0.8rem;
-    margin: 0;
-  }
-
-  .case-snapshot div {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 0.75rem;
-  }
-
-  .case-snapshot dt {
-    color: rgba(255, 255, 255, 0.48);
-    font-size: 0.68rem;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .case-snapshot dd {
-    margin: 0.25rem 0 0;
-    color: #fff;
-    font-weight: 850;
-    line-height: 1.25;
-  }
-
-  .case-video-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 280px;
-    gap: 1rem;
-    align-items: stretch;
-  }
-
-  .video-panel figure,
-  .video-panel video {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
-    min-height: 510px;
-    margin: 0;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 8px;
-    background: #06132d;
-  }
-
-  .video-panel img,
-  .video-panel video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .video-panel figure::after {
+  .section-rail {
     position: absolute;
-    inset: 0;
-    content: "";
-    background: linear-gradient(180deg, transparent 46%, rgba(3, 4, 7, 0.82));
+    top: 6.2rem;
+    left: clamp(1.35rem, 2.15vw, 3.2rem);
+    z-index: 5;
+    display: grid;
+    justify-items: center;
+    width: 3rem;
+    color: var(--purple);
     pointer-events: none;
   }
 
-  .play-mark {
+  .section-rail strong {
+    font-family: var(--font-numeric);
+    font-size: clamp(1.75rem, 2.4vw, 2.3rem);
+    font-weight: 800;
+    line-height: 0.92;
+  }
+
+  .section-rail strong::after {
+    display: block;
+    width: 2.45rem;
+    height: 1px;
+    margin: 0.72rem auto 0;
+    content: "";
+    background: var(--line);
+  }
+
+  .section-rail span {
+    position: relative;
+    display: block;
+    width: 1px;
+    height: calc(100vh - 10rem);
+    margin-top: 0.58rem;
+    background: linear-gradient(180deg, rgba(166, 92, 255, 0.85), rgba(255, 255, 255, 0.18));
+  }
+
+  .section-rail span::before {
+    position: absolute;
+    top: -0.23rem;
+    left: 50%;
+    width: 0.46rem;
+    height: 0.46rem;
+    border-radius: 999px;
+    content: "";
+    background: var(--purple);
+    box-shadow: 0 0 1.1rem rgba(166, 92, 255, 0.9);
+    transform: translateX(-50%);
+  }
+
+  .block-kicker {
+    display: inline-block;
+    color: var(--purple);
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: 0.32em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .heading-stroke {
+    width: 16.9rem;
+    height: auto;
+    margin-top: 1.15rem;
+    margin-left: -0.35rem;
+  }
+
+  .case-result-block {
+    min-height: 54.7rem;
+    padding-top: 7.85rem;
+  }
+
+  .case-result-block .section-rail {
+    top: 6.05rem;
+  }
+
+  .result-grid {
+    display: grid;
+    grid-template-columns: minmax(23rem, 26.8rem) minmax(0, 1fr);
+    gap: clamp(3.5rem, 4.7vw, 5rem);
+    align-items: start;
+    padding-left: var(--left-pad);
+  }
+
+  .result-copy {
+    max-width: 27.3rem;
+    padding-top: 3.55rem;
+  }
+
+  .result-copy h1,
+  .work-head h2,
+  .proof-head h2 {
+    margin: 0;
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 900;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+  .result-copy h1 {
+    margin-top: 1.6rem;
+    font-size: clamp(3.85rem, 4.55vw, 4.75rem) !important;
+    line-height: 0.95;
+    white-space: nowrap;
+  }
+
+  .result-copy p {
+    max-width: 26.8rem;
+    margin: 2.05rem 0 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: clamp(1.02rem, 1.12vw, 1.18rem);
+    font-weight: 400;
+    line-height: 1.72;
+  }
+
+  .case-meta {
+    display: grid;
+    gap: 0;
+    max-width: 26.2rem;
+    margin: 4.55rem 0 0;
+  }
+
+  .case-meta div {
+    display: grid;
+    grid-template-columns: 8.8rem minmax(0, 1fr);
+    gap: 1.1rem;
+    min-height: 2.55rem;
+    align-items: start;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.28rem 0 0.62rem;
+  }
+
+  .case-meta dt,
+  .case-meta dd {
+    margin: 0;
+  }
+
+  .case-meta dt {
+    color: var(--purple);
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .case-meta dd {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.28;
+    letter-spacing: 0.02em;
+  }
+
+  .result-visual {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    margin: 0;
+    filter: drop-shadow(0 2.2rem 4.2rem rgba(0, 0, 0, 0.46));
+  }
+
+  .result-visual::before {
+    position: absolute;
+    top: 0.15rem;
+    bottom: 1.2rem;
+    left: -2.45rem;
+    width: 1px;
+    content: "";
+    background: linear-gradient(180deg, rgba(167, 91, 255, 0.55), rgba(255, 255, 255, 0.12));
+    transform: skewX(-5deg);
+    transform-origin: top;
+  }
+
+  .result-visual img {
+    width: 100%;
+    min-height: 41.8rem;
+    object-fit: cover;
+  }
+
+  .result-metrics {
+    position: absolute;
+    top: 2.38%;
+    right: 6.4%;
+    z-index: 3;
+    display: grid;
+    width: min(28.05%, 18.45rem);
+    gap: clamp(0.58rem, 0.78vw, 0.82rem);
+    perspective: 980px;
+  }
+
+  .result-metric-card {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(3.15rem, 4.35rem) minmax(0, 1fr);
+    gap: clamp(0.6rem, 1vw, 1.05rem);
+    align-items: center;
+    min-height: clamp(5.85rem, 7.62vw, 8.68rem);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 15px;
+    padding: clamp(0.82rem, 1.16vw, 1.14rem) clamp(0.85rem, 1.36vw, 1.38rem);
+    background:
+      radial-gradient(circle at var(--mouse-x, 12%) var(--mouse-y, 20%), rgba(124, 54, 255, 0.22), transparent 34%),
+      linear-gradient(145deg, rgba(29, 16, 61, 0.95), rgba(3, 6, 16, 0.985) 62%),
+      rgba(5, 6, 17, 0.98);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 1.2rem 2.4rem rgba(0, 0, 0, 0.42);
+    opacity: 0.995;
+    transform: translate3d(0, 0, 0);
+    transform-style: preserve-3d;
+    transition:
+      transform 420ms cubic-bezier(0.18, 1, 0.24, 1),
+      border-color 280ms ease,
+      box-shadow 280ms ease,
+      background 280ms ease;
+  }
+
+  .result-metrics.is-counting .result-metric-card {
+    animation: resultMetricIn 720ms cubic-bezier(0.18, 1, 0.24, 1) backwards;
+    animation-delay: var(--metric-delay);
+  }
+
+  .result-metric-card::before,
+  .result-metric-card::after {
+    position: absolute;
+    content: "";
+    pointer-events: none;
+  }
+
+  .result-metric-card::before {
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at var(--mouse-x, 20%) var(--mouse-y, 20%), rgba(176, 99, 255, 0.46), transparent 31%),
+      linear-gradient(135deg, rgba(166, 92, 255, 0.68), transparent 36%, rgba(87, 255, 147, 0.26));
+    opacity: 0;
+    transition: opacity 280ms ease;
+  }
+
+  .result-metric-card::after {
+    top: -42%;
+    bottom: -42%;
+    left: -58%;
+    width: 38%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    filter: blur(1px);
+    transform: rotate(18deg) translateX(0);
+  }
+
+  .result-metric-card:hover {
+    border-color: rgba(181, 105, 255, 0.82);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.13),
+      0 1.2rem 2.7rem rgba(0, 0, 0, 0.48),
+      0 0 2.2rem rgba(153, 82, 255, 0.38);
+    transform: translate3d(-0.55rem, -0.1rem, 1.5rem) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) scale(1.025);
+  }
+
+  .result-metric-card:hover::before {
+    opacity: 1;
+  }
+
+  .result-metric-card:hover::after {
+    animation: resultMetricSweep 760ms ease both;
+  }
+
+  .result-metric-card:hover .result-metric-icon {
+    animation: resultMetricIcon 1120ms ease-in-out infinite;
+  }
+
+  .result-metric-icon {
+    color: var(--purple);
+    font-size: clamp(2rem, 2.92vw, 2.92rem);
+    line-height: 1;
+    text-shadow: 0 0 1rem rgba(166, 92, 255, 0.68);
+    transform: translateZ(2.2rem);
+  }
+
+  .result-metric-copy {
+    min-width: 0;
+    transform: translateZ(2.8rem);
+  }
+
+  .result-metric-value {
+    display: block;
+    color: #fff;
+    font-family: var(--font-numeric);
+    font-size: clamp(2.08rem, 3.3vw, 3.48rem);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 0.92;
+    text-shadow: 0 0 1.45rem rgba(255, 255, 255, 0.14);
+  }
+
+  .result-metric-label {
+    display: block;
+    margin-top: 0.48rem;
+    color: rgba(255, 255, 255, 0.93);
+    font-size: clamp(0.78rem, 0.86vw, 0.94rem);
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.16;
+  }
+
+  .result-metric-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.28rem;
+    margin-top: 0.5rem;
+    color: #51f18a;
+    font-family: var(--font-numeric);
+    font-size: clamp(0.73rem, 0.8vw, 0.84rem);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-weight: 850;
+    letter-spacing: 0;
+    line-height: 1;
+    text-shadow: 0 0 0.9rem rgba(81, 241, 138, 0.28);
+  }
+
+  .trend-arrow {
+    font-size: 0.72em;
+    transform: translateY(-0.03rem);
+  }
+
+  @keyframes resultMetricIn {
+    0% {
+      opacity: 0;
+      transform: translate3d(1.6rem, 0.8rem, 0) scale(0.94);
+    }
+
+    58% {
+      opacity: 1;
+      transform: translate3d(-0.25rem, -0.05rem, 0) scale(1.025);
+    }
+
+    100% {
+      opacity: 0.995;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes resultMetricSweep {
+    from {
+      transform: rotate(18deg) translateX(0);
+    }
+
+    to {
+      transform: rotate(18deg) translateX(520%);
+    }
+  }
+
+  @keyframes resultMetricIcon {
+    0%,
+    100% {
+      transform: translateZ(2.2rem) scale(1) rotate(0deg);
+      filter: drop-shadow(0 0 0.45rem rgba(166, 92, 255, 0.35));
+    }
+
+    45% {
+      transform: translateZ(2.2rem) scale(1.1) rotate(-4deg);
+      filter: drop-shadow(0 0 1rem rgba(166, 92, 255, 0.78));
+    }
+  }
+
+  @keyframes processCardSweep {
+    0% {
+      opacity: 0;
+      transform: rotate(18deg) translateX(0);
+    }
+
+    18% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: rotate(18deg) translateX(520%);
+    }
+  }
+
+  @keyframes processIconHover {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+      filter: drop-shadow(0 0 0.45rem rgba(166, 92, 255, 0.28));
+    }
+
+    48% {
+      transform: translateY(-0.28rem) scale(1.08);
+      filter: drop-shadow(0 0 1rem rgba(166, 92, 255, 0.72));
+    }
+  }
+
+  @keyframes proofAssetSweep {
+    0% {
+      opacity: 0;
+      transform: rotate(18deg) translateX(0);
+    }
+
+    18% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: rotate(18deg) translateX(580%);
+    }
+  }
+
+  .case-work-block {
+    margin-top: -2.05rem;
+    min-height: 0;
+    padding: 3.8rem var(--left-pad) 4.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.11);
+  }
+
+  .case-work-block .section-rail {
+    top: 3.65rem;
+  }
+
+  .work-shell {
+    width: min(100%, 1370px);
+    margin-inline: auto;
+  }
+
+  .work-head {
+    width: min(100%, 33rem);
+  }
+
+  .work-head h2 {
+    margin-top: 1.1rem;
+    font-size: clamp(2.65rem, 3.45vw, 3.65rem) !important;
+    line-height: 0.96;
+  }
+
+  .heading-stroke-small {
+    width: 11.4rem;
+    margin-top: 0.78rem;
+  }
+
+  .work-head p {
+    max-width: 26rem;
+    margin: 1.15rem 0 0;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .process-area {
+    margin-top: 3.25rem;
+  }
+
+  .process-track {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 15.2rem;
+    gap: 1.35rem;
+    align-items: center;
+    margin-bottom: 0.12rem;
+    padding-inline: 0.15rem;
+  }
+
+  .process-track::before {
     position: absolute;
     top: 50%;
-    left: 50%;
-    z-index: 2;
-    display: grid;
+    right: calc(15.2rem + 1.35rem);
+    left: 1.8rem;
+    height: 3px;
+    content: "";
+    background: linear-gradient(90deg, var(--purple), rgba(166, 92, 255, 0.95));
+    box-shadow: 0 0 1.1rem rgba(166, 92, 255, 0.45);
+    transform: translateY(-50%);
+  }
+
+  .process-track span {
+    position: relative;
+    z-index: 1;
+    display: inline-grid;
     place-items: center;
-    width: 4.7rem;
-    height: 4.7rem;
-    border: 1px solid rgba(255, 255, 255, 0.34);
-    border-radius: 50%;
-    background: rgba(124, 60, 255, 0.92);
+    width: 3.2rem;
+    height: 3.2rem;
+    border: 1px solid rgba(177, 103, 255, 0.92);
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at 50% 28%, rgba(153, 82, 255, 0.36), transparent 62%),
+      rgba(29, 15, 60, 0.84);
     color: #fff;
-    font-size: 1.45rem;
-    transform: translate(-50%, -50%);
-  }
-
-  .video-panel figcaption {
-    position: absolute;
-    right: 1.1rem;
-    bottom: 1.1rem;
-    left: 1.1rem;
-    z-index: 2;
-    display: grid;
-    gap: 0.32rem;
-  }
-
-  .video-panel figcaption strong {
-    font-size: 1.75rem;
-    line-height: 1.05;
-  }
-
-  .video-panel figcaption span {
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 0.86rem;
+    font-family: var(--font-numeric);
+    font-size: 1.25rem;
     font-weight: 800;
+    box-shadow: 0 0 2rem rgba(139, 65, 255, 0.48);
   }
 
-  .metric-rail {
+  .process-track i {
+    position: relative;
+    z-index: 1;
+    justify-self: start;
+    margin-left: -1.75rem;
+    color: var(--purple);
+    font-size: 1.45rem;
+  }
+
+  .process-grid {
     display: grid;
-    gap: 0.75rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 15.2rem;
+    gap: 1.35rem;
+    align-items: start;
   }
 
-  .metric-rail article {
-    display: grid;
-    align-content: end;
-    min-height: 9rem;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.035);
+  .process-card,
+  .deliverables-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 13px;
+    background:
+      linear-gradient(145deg, rgba(37, 23, 64, 0.36), rgba(4, 8, 18, 0.76)),
+      rgba(6, 8, 18, 0.72);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 1.2rem 2.5rem rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(16px);
+    transform: translate3d(0, 0, 0);
+    transition:
+      transform 360ms cubic-bezier(0.18, 1, 0.24, 1),
+      border-color 260ms ease,
+      box-shadow 260ms ease,
+      background 260ms ease;
   }
 
-  .metric-rail strong {
+  .process-card::before,
+  .process-card::after,
+  .deliverables-card::before,
+  .deliverables-card::after {
+    position: absolute;
+    content: "";
+    pointer-events: none;
+  }
+
+  .process-card::before,
+  .deliverables-card::before {
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 24% 18%, rgba(166, 92, 255, 0.28), transparent 30%),
+      radial-gradient(circle at 88% 82%, rgba(87, 255, 147, 0.08), transparent 33%);
+    opacity: 0;
+    transition: opacity 260ms ease;
+  }
+
+  .process-card::after,
+  .deliverables-card::after {
+    top: -45%;
+    bottom: -45%;
+    left: -55%;
+    z-index: 0;
+    width: 34%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+    filter: blur(1px);
+    opacity: 0;
+    transform: rotate(18deg) translateX(0);
+  }
+
+  .process-card > *,
+  .deliverables-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .process-card:hover,
+  .deliverables-card:hover {
+    border-color: rgba(177, 103, 255, 0.72);
+    background:
+      linear-gradient(145deg, rgba(52, 27, 92, 0.6), rgba(5, 8, 19, 0.88)),
+      rgba(7, 8, 19, 0.86);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.11),
+      0 1.5rem 2.8rem rgba(0, 0, 0, 0.36),
+      0 0 2rem rgba(154, 82, 255, 0.32);
+    transform: translate3d(0, -0.55rem, 0) scale(1.015);
+  }
+
+  .process-card:hover::before,
+  .deliverables-card:hover::before {
+    opacity: 1;
+  }
+
+  .process-card:hover::after,
+  .deliverables-card:hover::after {
+    animation: processCardSweep 720ms ease both;
+  }
+
+  .process-card:hover > i,
+  .deliverables-card:hover header i {
+    animation: processIconHover 880ms cubic-bezier(0.18, 1, 0.24, 1) both;
+  }
+
+  .process-card:hover .card-rule {
+    width: 4rem;
+    box-shadow: 0 0 1.1rem rgba(166, 92, 255, 0.58);
+  }
+
+  .process-card {
+    height: 19.65rem;
+    padding: 1.55rem 1.2rem 1.2rem;
+  }
+
+  .process-card > i {
+    display: block;
+    color: var(--purple);
+    font-size: 2.35rem;
+    line-height: 1;
+  }
+
+  .process-card h3 {
+    margin: 1.45rem 0 0;
     color: #fff;
-    font-size: 2.55rem;
-    font-weight: 950;
-    line-height: 0.9;
-  }
-
-  .metric-rail span {
-    margin-top: 0.55rem;
-    color: #fff;
+    font-size: clamp(1.05rem, 1.25vw, 1.23rem);
     font-weight: 900;
     line-height: 1.15;
   }
 
-  .metric-rail small {
-    margin-top: 0.42rem;
-    color: rgba(255, 255, 255, 0.52);
-    font-size: 0.78rem;
-  }
-
-  .case-story,
-  .case-system,
-  .asset-gallery,
-  .case-close {
-    margin-top: 4.7rem;
-  }
-
-  .section-heading,
-  .gallery-head {
-    max-width: 660px;
-  }
-
-  .section-heading h2,
-  .system-copy h2,
-  .gallery-head h2 {
-    margin: 0.8rem 0 0;
-    font-size: 2.5rem;
-    line-height: 1;
-    text-wrap: balance;
-  }
-
-  .story-line {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.16);
-  }
-
-  .story-line article {
-    position: relative;
-    padding-top: 1.3rem;
-  }
-
-  .story-line article::before {
-    position: absolute;
-    top: -0.28rem;
-    left: 0;
-    width: 0.56rem;
-    height: 0.56rem;
-    border-radius: 999px;
-    background: var(--purple-soft);
-    content: "";
-    box-shadow: 0 0 1rem rgba(124, 60, 255, 0.55);
-  }
-
-  .story-line article > span {
-    color: rgba(255, 255, 255, 0.28);
-    font-size: 2.1rem;
-    font-weight: 950;
-    line-height: 1;
-  }
-
-  .story-line h3 {
-    margin: 0.75rem 0 0;
-    font-size: 1.4rem;
-    line-height: 1.05;
-  }
-
-  .story-line p,
-  .system-copy p,
-  .system-board p {
-    color: var(--muted);
-    font-size: 0.96rem;
-    line-height: 1.62;
-  }
-
-  .story-line p {
-    margin: 0.65rem 0 0;
-  }
-
-  .case-system {
-    display: grid;
-    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
-    gap: 1rem;
-    align-items: stretch;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 1.25rem;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
-  }
-
-  .system-copy {
-    display: grid;
-    align-content: center;
-    min-width: 0;
-  }
-
-  .system-copy p {
-    max-width: 32rem;
-    margin: 1rem 0 0;
-  }
-
-  .system-board {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.65rem;
-  }
-
-  .system-board article {
-    border-left: 1px solid rgba(169, 119, 255, 0.45);
-    padding: 0.2rem 0 0.2rem 0.85rem;
-  }
-
-  .system-board span {
-    color: var(--purple-soft);
-    font-size: 0.82rem;
-    font-weight: 950;
-  }
-
-  .system-board strong {
+  .card-rule {
     display: block;
-    margin-top: 0.9rem;
-    font-size: 1.05rem;
-    line-height: 1.12;
+    width: 2.55rem;
+    height: 3px;
+    margin-top: 1.05rem;
+    border-radius: 999px;
+    background: var(--purple);
+    transition: width 300ms cubic-bezier(0.18, 1, 0.24, 1), box-shadow 260ms ease;
   }
 
-  .system-board p {
-    margin: 0.55rem 0 0;
-    font-size: 0.82rem;
-  }
-
-  .gallery-grid {
+  .process-card ul,
+  .deliverables-card ul {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr 0.85fr;
-    gap: 0.85rem;
-    margin-top: 1.4rem;
+    gap: 0.75rem;
+    margin: 1.15rem 0 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .asset-card {
+  .process-card li {
     position: relative;
-    min-height: 17rem;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 8px;
-    background: #050507;
+    padding-left: 0.9rem;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.52;
   }
 
-  .asset-card-wide {
-    grid-row: span 2;
-    min-height: 35rem;
-  }
-
-  .asset-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 420ms ease;
-  }
-
-  .asset-card:hover img {
-    transform: scale(1.035);
-  }
-
-  .asset-card div {
+  .process-card li::before {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    top: 0.7em;
     left: 0;
-    display: grid;
-    gap: 0.26rem;
-    padding: 0.95rem;
-    background: linear-gradient(180deg, transparent, rgba(3, 4, 7, 0.9));
+    width: 0.22rem;
+    height: 0.22rem;
+    border-radius: 999px;
+    content: "";
+    background: #fff;
   }
 
-  .asset-card strong {
-    font-size: 1.08rem;
-    line-height: 1.1;
+  .deliverables-card {
+    min-height: 24rem;
+    padding: 1.65rem 1.35rem;
   }
 
-  .case-close {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 1.2rem;
-    align-items: end;
-    margin-bottom: 4.7rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.16);
-    padding-top: 1.4rem;
+  .deliverables-card header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
-  .case-close p {
-    max-width: 820px;
+  .deliverables-card header i {
+    color: var(--purple);
+    font-size: 1.85rem;
+  }
+
+  .deliverables-card h3 {
     margin: 0;
-    font-size: 1.7rem;
-    font-weight: 850;
-    line-height: 1.18;
-    text-wrap: balance;
-  }
-
-  .case-close a {
-    min-height: 3rem;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 7px;
-    padding: 0 1rem;
     color: #fff;
+    font-size: 1.22rem;
     font-weight: 900;
   }
 
+  .deliverables-card ul {
+    gap: 0;
+    margin-top: 1.45rem;
+  }
+
+  .deliverables-card li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-height: 2.38rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .deliverables-card li i {
+    flex: 0 0 auto;
+    color: var(--purple);
+    font-size: 1.18rem;
+  }
+
+  .case-proof-block {
+    min-height: 0;
+    padding: 3rem clamp(3.1rem, 3.2vw, 3.45rem) 0.75rem var(--left-pad);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .case-proof-block .section-rail {
+    top: 2.25rem;
+  }
+
+  .proof-shell {
+    width: min(100%, 1320px);
+    margin-inline: auto;
+    transform: translateX(0.35rem);
+  }
+
+  .proof-head {
+    position: relative;
+    z-index: 2;
+    margin-left: 1rem;
+  }
+
+  .proof-head h2 {
+    margin-top: 0.78rem;
+    font-size: clamp(2.75rem, 3.65vw, 3.85rem) !important;
+    line-height: 0.94;
+  }
+
+  .heading-stroke-proof {
+    width: 10.8rem;
+    margin-top: 0.76rem;
+  }
+
+  .proof-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1498 / 824;
+    margin-top: -1.05rem;
+  }
+
+  .proof-asset {
+    position: absolute;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 10px;
+    filter: drop-shadow(0 0.9rem 1.35rem rgba(0, 0, 0, 0.2));
+    transform: translate3d(0, 0, 0);
+    transition:
+      transform 380ms cubic-bezier(0.18, 1, 0.24, 1),
+      filter 280ms ease;
+    will-change: transform, filter;
+  }
+
+  .proof-asset::before,
+  .proof-asset::after {
+    position: absolute;
+    content: "";
+    pointer-events: none;
+  }
+
+  .proof-asset::before {
+    inset: 0;
+    z-index: 2;
+    border: 1px solid rgba(177, 103, 255, 0);
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at 22% 18%, rgba(166, 92, 255, 0.26), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 34%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0),
+      inset 0 0 0 1px rgba(255, 255, 255, 0);
+    opacity: 0;
+    transition:
+      opacity 260ms ease,
+      border-color 260ms ease,
+      box-shadow 260ms ease;
+  }
+
+  .proof-asset::after {
+    top: -62%;
+    bottom: -62%;
+    left: -52%;
+    z-index: 3;
+    width: 28%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    filter: blur(1px);
+    opacity: 0;
+    transform: rotate(18deg) translateX(0);
+  }
+
+  .proof-asset:hover {
+    z-index: 8;
+    filter:
+      drop-shadow(0 1.15rem 1.8rem rgba(0, 0, 0, 0.3))
+      drop-shadow(0 0 1.4rem rgba(166, 92, 255, 0.34));
+    transform: translate3d(0, -0.42rem, 0) scale(1.018);
+  }
+
+  .proof-banner:hover,
+  .proof-dashboard:hover,
+  .proof-landing:hover {
+    transform: translate3d(0, -0.34rem, 0) scale(1.012);
+  }
+
+  .proof-asset:hover::before {
+    border-color: rgba(177, 103, 255, 0.64);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.13),
+      inset 0 0 0 1px rgba(166, 92, 255, 0.12);
+    opacity: 1;
+  }
+
+  .proof-asset:hover::after {
+    animation: proofAssetSweep 760ms ease both;
+  }
+
+  .proof-asset img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform 520ms cubic-bezier(0.18, 1, 0.24, 1), filter 320ms ease;
+    will-change: transform;
+  }
+
+  .proof-asset:hover img {
+    filter: saturate(1.08) contrast(1.05) brightness(1.04);
+    transform: scale(1.045);
+  }
+
+  .proof-feed {
+    top: 6.92%;
+    left: 0;
+    width: 24.63%;
+    height: 53.88%;
+  }
+
+  .proof-story {
+    top: 7.04%;
+    left: 25.83%;
+    width: 16.08%;
+    height: 53.76%;
+  }
+
+  .proof-banner {
+    top: 0;
+    left: 43.66%;
+    width: 56.34%;
+    height: 27.31%;
+  }
+
+  .proof-dashboard {
+    top: 29.13%;
+    left: 43.59%;
+    width: 30.77%;
+    height: 31.92%;
+  }
+
+  .proof-event {
+    top: 29.25%;
+    left: 75.43%;
+    width: 24.57%;
+    height: 31.8%;
+  }
+
+  .proof-engineering {
+    top: 62.86%;
+    left: 0;
+    width: 13.62%;
+    height: 34.22%;
+  }
+
+  .proof-parcours {
+    top: 62.86%;
+    left: 14.62%;
+    width: 13.48%;
+    height: 34.22%;
+  }
+
+  .proof-ready {
+    top: 62.86%;
+    left: 29.17%;
+    width: 13.55%;
+    height: 34.22%;
+  }
+
+  .proof-landing {
+    top: 62.74%;
+    left: 43.66%;
+    width: 30.64%;
+    height: 34.34%;
+  }
+
+  .proof-quote {
+    top: 62.62%;
+    left: 75.3%;
+    width: 24.7%;
+    height: 23.3%;
+  }
+
+  .proof-keys {
+    top: 86.89%;
+    left: 75.3%;
+    width: 24.7%;
+    height: 13.11%;
+  }
+
   @media (max-width: 1080px) {
-    .case-hero,
-    .case-video-layout,
-    .case-system,
-    .case-close {
-      grid-template-columns: 1fr;
+    .case-study-model {
+      --left-pad: clamp(4.6rem, 6vw, 5.4rem);
     }
 
-    .case-snapshot {
-      align-self: stretch;
+    .result-grid {
+      grid-template-columns: minmax(20rem, 24rem) minmax(0, 1fr);
+      gap: 2.5rem;
     }
 
-    .metric-rail {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .system-board {
+    .process-grid,
+    .process-track {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .gallery-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .process-track {
+      display: none;
     }
 
-    .asset-card-wide {
-      grid-row: auto;
+    .deliverables-card {
       grid-column: span 2;
-      min-height: 28rem;
+      min-height: auto;
+    }
+
+    .proof-stage {
+      aspect-ratio: auto;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 1rem;
+      height: auto;
+      margin-top: 1.25rem;
+    }
+
+    .proof-asset {
+      position: relative;
+      inset: auto;
+      width: auto;
+      height: auto;
+      min-height: 12rem;
+    }
+
+    .proof-feed,
+    .proof-story {
+      grid-column: span 2;
+    }
+
+    .proof-banner {
+      grid-column: span 4;
+    }
+
+    .proof-dashboard,
+    .proof-event,
+    .proof-landing,
+    .proof-quote,
+    .proof-keys {
+      grid-column: span 3;
+    }
+
+    .proof-engineering,
+    .proof-parcours,
+    .proof-ready {
+      grid-column: span 2;
     }
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 900px) {
+    :global(body:has(.case-study-model) .site-footer) {
+      width: min(100% - 1.25rem, 1320px);
+    }
+
     .case-study-model {
-      --container: min(100% - 1.25rem, 420px);
-      width: 100vw;
-      max-width: 100vw;
+      --left-pad: 1rem;
       overflow-x: hidden;
     }
 
-    .case-hero {
-      min-height: auto;
-      padding-top: 7rem;
+    .section-rail {
+      display: none;
     }
 
-    .case-eyebrow {
-      margin-top: 2.25rem;
-    }
-
-    .case-copy h1 {
-      font-size: 2.2rem;
-      line-height: 1.02;
-    }
-
-    .case-lead {
-      font-size: 1rem;
-    }
-
-    .case-snapshot strong {
-      font-size: 3.2rem;
-    }
-
-    .video-panel figure,
-    .video-panel video {
+    .case-result-block,
+    .case-work-block,
+    .case-proof-block {
       min-height: 0;
-      aspect-ratio: 4 / 3;
+      padding-inline: 1rem;
     }
 
-    .video-panel figcaption strong {
-      font-size: 1.25rem;
+    .case-result-block {
+      padding-top: 6.8rem;
+      padding-bottom: 2.5rem;
     }
 
-    .metric-rail,
-    .story-line,
-    .system-board,
-    .gallery-grid {
+    .result-grid {
       grid-template-columns: 1fr;
+      gap: 2rem;
+      padding-left: 0;
     }
 
-    .section-heading h2,
-    .system-copy h2,
-    .gallery-head h2 {
-      font-size: 1.9rem;
+    .result-copy,
+    .result-copy p,
+    .case-meta {
+      max-width: none;
     }
 
-    .story-line {
-      gap: 1.4rem;
-      border-top: 0;
-      border-left: 1px solid rgba(255, 255, 255, 0.16);
-      padding-left: 1rem;
-    }
-
-    .story-line article {
+    .result-copy {
       padding-top: 0;
     }
 
-    .story-line article::before {
-      top: 0.2rem;
-      left: -1.3rem;
+    .result-copy h1 {
+      font-size: clamp(3rem, 15vw, 4.2rem) !important;
+      white-space: normal;
     }
 
-    .case-system {
-      padding: 1rem;
+    .case-meta {
+      margin-top: 2.4rem;
     }
 
-    .asset-card,
-    .asset-card-wide {
+    .case-meta div {
+      grid-template-columns: 7.4rem minmax(0, 1fr);
+    }
+
+    .result-visual::before {
+      display: none;
+    }
+
+    .result-visual img {
+      min-height: 0;
+      border-radius: 16px;
+    }
+
+    .result-metrics {
+      display: none;
+    }
+
+    .case-work-block {
+      margin-top: 0;
+      padding-block: 4rem;
+    }
+
+    .work-head h2,
+    .proof-head h2 {
+      font-size: clamp(2.7rem, 13vw, 3.4rem) !important;
+    }
+
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .deliverables-card {
       grid-column: auto;
-      min-height: 16rem;
     }
 
-    .case-close p {
-      font-size: 1.28rem;
+    .process-card {
+      min-height: 0;
     }
 
-    .case-close a {
-      width: fit-content;
+    .proof-head {
+      margin-left: 0;
+    }
+
+    .proof-stage {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-shell {
+      transform: none;
+    }
+
+    .proof-asset {
+      grid-column: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .result-metrics.is-counting .result-metric-card,
+    .result-metric-card:hover::after,
+    .result-metric-card:hover .result-metric-icon,
+    .process-card:hover::after,
+    .deliverables-card:hover::after,
+    .proof-asset:hover::after,
+    .process-card:hover > i,
+    .deliverables-card:hover header i {
+      animation: none;
+    }
+
+    .result-metric-card,
+    .result-metric-card:hover,
+    .process-card,
+    .process-card:hover,
+    .deliverables-card,
+    .deliverables-card:hover,
+    .proof-asset,
+    .proof-asset:hover,
+    .proof-asset img,
+    .proof-asset:hover img {
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+      transform: none;
     }
   }
 </style>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector('[data-result-metrics]');
+
+    if (!root) {
+      return;
+    }
+
+    const counters = [...root.querySelectorAll('[data-case-counter]')];
+    const cards = [...root.querySelectorAll('[data-result-metric-card]')];
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const formatCounter = (counter, value) => {
+      const prefix = counter.dataset.prefix || '';
+      const suffix = counter.dataset.suffix || '';
+      const decimals = Number(counter.dataset.decimals || 0);
+      const formatted = decimals > 0 ? value.toFixed(decimals) : String(Math.round(value));
+      counter.textContent = `${prefix}${formatted}${suffix}`;
+    };
+
+    const animateCounter = (counter) => {
+      const target = Number(counter.dataset.target || 0);
+      const duration = Number(counter.dataset.duration || 1250);
+      const startTime = performance.now();
+
+      formatCounter(counter, 0);
+
+      const tick = (now) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        formatCounter(counter, target * eased);
+
+        if (progress < 1) {
+          window.requestAnimationFrame(tick);
+          return;
+        }
+
+        formatCounter(counter, target);
+      };
+
+      window.requestAnimationFrame(tick);
+    };
+
+    const revealCounters = () => {
+      root.classList.add('is-counting');
+
+      counters.forEach((counter) => {
+        if (counter.dataset.counted === 'true') {
+          return;
+        }
+
+        counter.dataset.counted = 'true';
+
+        if (prefersReducedMotion) {
+          formatCounter(counter, Number(counter.dataset.target || 0));
+          return;
+        }
+
+        animateCounter(counter);
+      });
+    };
+
+    cards.forEach((card) => {
+      card.addEventListener('pointermove', (event) => {
+        const bounds = card.getBoundingClientRect();
+        const x = event.clientX - bounds.left;
+        const y = event.clientY - bounds.top;
+        const tiltY = ((x / bounds.width) - 0.5) * 7;
+        const tiltX = ((0.5 - y / bounds.height) * 5).toFixed(2);
+
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+        card.style.setProperty('--tilt-x', `${tiltX}deg`);
+        card.style.setProperty('--tilt-y', `${tiltY.toFixed(2)}deg`);
+      });
+
+      card.addEventListener('pointerleave', () => {
+        card.style.removeProperty('--tilt-x');
+        card.style.removeProperty('--tilt-y');
+      });
+    });
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      revealCounters();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          revealCounters();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.34 },
+    );
+
+    observer.observe(root);
+  })();
+</script>

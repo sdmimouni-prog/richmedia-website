@@ -3,19 +3,38 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.12.0 <27"
+  },
   "scripts": {
-    "dev": "astro dev --mode development",
+    "dev": "astro dev --mode development --host 127.0.0.1 --port 4321",
+    "dev:network": "astro dev --mode development --host 0.0.0.0 --port 4321",
+    "env:check": "node scripts/check-env.mjs development && node scripts/check-env.mjs production",
+    "env:check:dev": "node scripts/check-env.mjs development",
+    "env:check:prod": "node scripts/check-env.mjs production",
+    "env:sync:vercel": "node scripts/sync-vercel-env.mjs all",
+    "env:sync:vercel:dev": "node scripts/sync-vercel-env.mjs development",
+    "env:sync:vercel:preview": "node scripts/sync-vercel-env.mjs preview",
+    "env:sync:vercel:prod": "node scripts/sync-vercel-env.mjs production",
     "build": "astro build --mode production",
-    "preview": "astro preview",
+    "preview": "astro preview --host 127.0.0.1 --port 4321",
+    "preview:prod": "astro preview --host 127.0.0.1 --port 4322",
     "prod": "npm run build",
-    "prod:preview": "npm run prod && npm run preview",
-    "check": "astro check"
+    "prod:preview": "npm run prod && npm run preview:prod",
+    "check": "astro check",
+    "verify": "npm run check && npm run build",
+    "vercel:pull": "npm exec vercel -- pull --yes --environment=preview",
+    "vercel:pull:prod": "npm exec vercel -- pull --yes --environment=production",
+    "vercel:build": "npm exec vercel -- build",
+    "vercel:build:prod": "npm exec vercel -- build --prod",
+    "vercel:env": "npm exec vercel -- env ls",
+    "deploy:preview": "npm exec vercel",
+    "deploy:prod": "npm exec vercel -- --prod"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/mdx": "^7.0.6",
     "@astrojs/sitemap": "^3.2.0",
-    "@phosphor-icons/web": "^2.1.2",
-    "astro": "^5.0.0"
+    "astro": "^7.2.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.0",

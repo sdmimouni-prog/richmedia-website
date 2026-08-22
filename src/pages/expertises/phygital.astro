@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
 import { SITE } from '../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
+import { frSiloLinks } from '../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-phygital';
 const logoBase = '/assets/richmedia-digital-strategy/logos';
@@ -360,12 +362,10 @@ const mobileQuickLinks = [
     <section id="answer" class="quick-answer" aria-labelledby="quick-answer-title">
       <div>
         <span class="eyebrow">Réponse rapide</span>
-        <h2 id="quick-answer-title">En 2026, une activation terrain doit générer de l’attention et de la donnée.</h2>
+        <h2 id="quick-answer-title">En 2026, une activation terrain doit créer de l’attention utile.</h2>
       </div>
       <p>
-        Le phygital n’est pas un stand avec un QR posé dessus. C’est un parcours complet : arrêter la bonne
-        audience, créer une interaction utile, collecter un signal consenti, relancer intelligemment et mesurer
-        ce qui a réellement créé de la valeur.
+        Le phygital relie terrain, mobile, CRM et mesure pour transformer une interaction réelle en signal exploitable.
       </p>
     </section>
 
@@ -373,12 +373,8 @@ const mobileQuickLinks = [
       <div class="section-heading">
         <div>
           <span class="eyebrow">Tendances phygital 2026</span>
-          <h2 id="trend-title">Ce que les marques doivent maîtriser maintenant.</h2>
+          <h2 id="trend-title">Ce que les marques doivent<br />maîtriser maintenant.</h2>
         </div>
-        <p>
-          Les activations gagnantes combinent impact physique, expérience participative, donnée first-party,
-          commerce unifié, contenus sociaux et optimisation en temps réel.
-        </p>
       </div>
       <div class="trend-grid">
         {trends.map((trend) => (
@@ -395,12 +391,8 @@ const mobileQuickLinks = [
       <div class="section-heading">
         <div>
           <span class="eyebrow">Formats terrain</span>
-          <h2 id="activation-title">Des activations street marketing conçues pour être vécues, scannées et partagées.</h2>
+          <h2 id="activation-title">Des activations terrain conçues<br />pour être vécues et partagées.</h2>
         </div>
-        <p>
-          Chaque format est pensé pour créer un moment réel, puis prolonger ce moment dans les canaux digitaux :
-          landing page, WhatsApp, CRM, contenus sociaux et retargeting.
-        </p>
       </div>
       <div class="activation-grid">
         {activationFormats.map((activation) => (
@@ -590,6 +582,13 @@ const mobileQuickLinks = [
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Connecter terrain, média et CRM"
+    intro="Les activations phygitales performent lorsqu’elles relient trafic, points de vente, QR, WhatsApp et mesure."
+    links={frSiloLinks.phygital}
+    variant="compact"
+  />
 </BaseLayout>
 
 <style>

@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../../../components/SeoSiloLinks.astro';
 import { SITE } from '../../../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../../../lib/schema';
+import { enSiloLinks } from '../../../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-influence';
 const logoBase = '/assets/richmedia-digital-strategy/logos';
@@ -399,10 +401,6 @@ const mobileQuickLinks = [
           <span class="eyebrow">Creator network</span>
           <h2 id="creator-title">Moroccan profiles matched to the message, not only to reach.</h2>
         </div>
-        <p>
-          Every activation combines influence, content production, social proof and media reuse.
-          The right profile is the one that makes your offer credible to the right community.
-        </p>
       </div>
       <div class="creator-grid">
         {creatorProfiles.map((creator) => (
@@ -521,10 +519,6 @@ const mobileQuickLinks = [
           <span class="eyebrow">Richmedia method</span>
           <h2 id="roadmap-title">From casting to reporting, every decision is managed.</h2>
         </div>
-        <p>
-          The process protects the brand, respects creator tone and gives teams a clear reading
-          of what truly generated attention, traffic and conversion.
-        </p>
       </div>
       <div class="roadmap">
         {roadmap.map((item) => (
@@ -592,6 +586,13 @@ const mobileQuickLinks = [
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Connect influence, content and amplification"
+    intro="An influence campaign is stronger when it connects to brand content, paid media and sector objectives."
+    links={enSiloLinks.influence}
+    variant="compact"
+  />
 </BaseLayout>
 
 <style>

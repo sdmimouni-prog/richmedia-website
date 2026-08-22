@@ -1,0 +1,120 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleDetailPage from '../../components/ArticleDetailPage.astro';
+import { articleSchema, breadcrumbs } from '../../lib/schema';
+import { SITE } from '../../consts';
+
+const categoryLabels: Record<string, string> = {
+  Growth: 'Stratégie',
+  Media: 'Média & performance',
+  SEO: 'SEO / GEO',
+  Social: 'Influence & social media',
+  Secteur: 'Secteurs',
+};
+
+const articleImages: Record<string, string> = {
+  'priorites-digitales-2026-croissance-rentable': '/assets/richmedia-digital-strategy/strategy-workshop.webp',
+  'data-decision-strategie-performance': '/assets/richmedia-achat-media/media-traffic-manager.webp',
+  'seo-vs-geo-enjeux-2026': '/assets/richmedia-digital-strategy/strategy-hero.webp',
+  'campagnes-meta-2026-bonnes-pratiques': '/assets/richmedia-achat-media/media-creative-tests.webp',
+  'whatsapp-business-canal-conversion': '/assets/richmedia-ia-automation/whatsapp-agent.webp',
+  'createurs-marques-collaborations-durables': '/assets/richmedia-influence/creator-lifestyle.webp',
+  'plan-acquisition-digital-2026': '/assets/richmedia-digital-strategy/strategy-hero.webp',
+  'marque-employeur-attractivite-digitale': '/assets/richmedia-agence/agence-collaboration.webp',
+  'cout-campagne-google-ads-maroc': '/assets/richmedia-achat-media/achat-media-hero.webp',
+  'contenu-qualite-seo-perenne': '/assets/richmedia-brand-content/brand-content-hero.webp',
+  'crm-automation-aligner-marketing-sales': '/assets/richmedia-ia-automation/crm-automation.webp',
+};
+
+const toArticleCard = (entry: any) => {
+  const slug = entry.data.slug ?? entry.id;
+  return {
+    href: `/insights/${slug}`,
+    title: entry.data.title,
+    description: entry.data.metaDescription,
+    category: categoryLabels[entry.data.categorie] ?? entry.data.categorie,
+    image: articleImages[slug] ?? entry.data.ogImage ?? '/og-default.jpg',
+    readingTime: entry.data.tempsLecture ?? 6,
+    date: entry.data.datePublication,
+  };
+};
+
+export async function getStaticPaths() {
+  const entries = await getCollection('articles', ({ data }) => !data.draft && data.lang === 'fr');
+  return entries.map((entry) => ({ params: { slug: entry.data.slug ?? entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const slug = entry.data.slug ?? entry.id;
+const url = `${SITE.url}/insights/${slug}`;
+const image = articleImages[slug] ?? entry.data.ogImage ?? '/og-default.jpg';
+const allEntries = (await getCollection('articles', ({ data }) => !data.draft && data.lang === 'fr'))
+  .sort((a, b) => b.data.datePublication.getTime() - a.data.datePublication.getTime());
+const otherEntries = allEntries.filter((article) => (article.data.slug ?? article.id) !== slug);
+const recentArticles = otherEntries.slice(0, 4).map(toArticleCard);
+const relatedArticles = otherEntries
+  .filter((article) => article.data.categorie === entry.data.categorie)
+  .slice(0, 4)
+  .map(toArticleCard);
+const fallbackRelated = relatedArticles.length > 0 ? relatedArticles : recentArticles.slice(0, 4);
+const categoryLabel = categoryLabels[entry.data.categorie] ?? entry.data.categorie;
+const schemaImage = image.startsWith('/') ? `${SITE.url}${image}` : image;
+const schema = [
+  articleSchema({
+    title: entry.data.title,
+    description: entry.data.metaDescription,
+    url,
+    author: entry.data.auteur,
+    datePublished: entry.data.datePublication,
+    dateModified: entry.data.dateModification,
+    image: schemaImage,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Insights', url: `${SITE.url}/insights` },
+    { name: entry.data.title, url },
+  ]),
+];
+---
+
+<BaseLayout
+  title={entry.data.metaTitle ?? entry.data.title}
+  description={entry.data.metaDescription}
+  canonical={url}
+  ogImage={schemaImage}
+  schema={schema}
+>
+  <ArticleDetailPage
+    breadcrumbLabel="Insights"
+    breadcrumbHref="/insights"
+    categoryLabel={categoryLabel}
+    title={entry.data.title}
+    description={entry.data.metaDescription}
+    author={entry.data.auteur}
+    authorRole="Équipe stratégie Richmedia"
+    authorBio="Richmedia accompagne les marques au Maroc et à l’international sur la stratégie digitale, le média, le SEO/GEO, les contenus, WhatsApp, CRM et l’automatisation."
+    date={entry.data.datePublication}
+    readingTime={entry.data.tempsLecture ?? 6}
+    image={image}
+    quickAnswer={entry.data.quickAnswer}
+    tags={[entry.data.keywordPrincipal, ...entry.data.keywordsSecondaires].slice(0, 4)}
+    recentArticles={recentArticles}
+    relatedArticles={fallbackRelated}
+    faq={entry.data.faq}
+    ctaTitle="Des questions sur votre stratégie digitale ? Échangeons avec nos experts."
+    ctaPrimary="Discuter d'un projet"
+    ctaPrimaryHref="/contact"
+    ctaSecondary="Découvrir nos expertises"
+    ctaSecondaryHref="/expertises"
+    newsletterTitle="Restez à la page"
+    newsletterDescription="Recevez nos derniers insights, tendances et études de cas."
+    newsletterButton="S’abonner"
+    relatedTitle="Articles associés"
+    recentTitle="Articles récents"
+    authorTitle="À propos de l’auteur"
+  >
+    <Content />
+  </ArticleDetailPage>
+</BaseLayout>

@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
 import { SITE } from '../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
+import { frSiloLinks } from '../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-ia-automation';
 const logoBase = '/assets/richmedia-digital-strategy/logos';
@@ -357,11 +359,11 @@ const mobileQuickLinks = [
     <section id="answer" class="quick-answer" aria-labelledby="quick-answer-title">
       <div>
         <span class="eyebrow">Réponse rapide</span>
-        <h2 id="quick-answer-title">En 2026, l’automation performe quand elle est connectée au CRM et encadrée par l’humain.</h2>
+        <h2 id="quick-answer-title">En 2026, l’automation performe quand elle relie CRM, IA et humain.</h2>
       </div>
       <p>
-        Les outils IA sont partout, mais la valeur vient d’un système concret : données propres, scénarios utiles,
-        agents reliés aux bons outils, permissions maîtrisées, handoff humain, tracking et amélioration continue.
+        La valeur vient de scénarios utiles, de données propres, d’agents connectés aux bons outils
+        et d’un suivi humain clair.
       </p>
     </section>
 
@@ -369,12 +371,8 @@ const mobileQuickLinks = [
       <div class="section-heading">
         <div>
           <span class="eyebrow">Tendances IA & automation 2026</span>
-          <h2 id="trend-title">Ce que les marques doivent maîtriser maintenant.</h2>
+          <h2 id="trend-title">Ce que les marques doivent<br />maîtriser maintenant.</h2>
         </div>
-        <p>
-          Les entreprises passent des chatbots isolés aux agents connectés au CRM, aux conversations WhatsApp,
-          aux workflows métier et aux tableaux de bord de décision.
-        </p>
       </div>
       <div class="trend-grid">
         {trends.map((trend) => (
@@ -391,11 +389,8 @@ const mobileQuickLinks = [
       <div class="section-heading">
         <div>
           <span class="eyebrow">Cas d’usage</span>
-          <h2 id="usecase-title">Des automatisations visibles par vos clients et utiles pour vos équipes.</h2>
+          <h2 id="usecase-title">Des automatisations visibles par vos clients<br />et utiles pour vos équipes.</h2>
         </div>
-        <p>
-          Notre priorité : automatiser les moments où vous perdez du temps, des leads ou de la qualité de réponse.
-        </p>
       </div>
       <div class="usecase-grid">
         {useCases.map((item) => (
@@ -511,12 +506,8 @@ const mobileQuickLinks = [
       <div class="section-heading">
         <div>
           <span class="eyebrow">Méthode Richmedia</span>
-          <h2 id="roadmap-title">Du diagnostic au scaling, chaque automatisation est testée.</h2>
+          <h2 id="roadmap-title">Du diagnostic au scaling,<br />chaque automatisation est testée.</h2>
         </div>
-        <p>
-          Nous commençons petit, nous prouvons la valeur, puis nous étendons les agents et workflows là où
-          l’impact est le plus visible.
-        </p>
       </div>
       <div class="roadmap">
         {roadmap.map((item) => (
@@ -587,6 +578,13 @@ const mobileQuickLinks = [
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Automatiser l’acquisition et la conversion"
+    intro="L’automation devient utile lorsqu’elle s’alimente en média, formulaires, WhatsApp, tracking et signaux CRM."
+    links={frSiloLinks.conversion}
+    variant="compact"
+  />
 </BaseLayout>
 
 <style>

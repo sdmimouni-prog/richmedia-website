@@ -1,0 +1,853 @@
+---
+import QuickAnswer from './QuickAnswer.astro';
+import Faq from './Faq.astro';
+import SeoSiloLinks from './SeoSiloLinks.astro';
+import { enSiloLinks, frSiloLinks } from '../lib/seo-silos';
+
+type ArticleCard = {
+  href: string;
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  readingTime: number;
+  date: Date | string;
+};
+
+interface Props {
+  lang?: 'fr' | 'en';
+  breadcrumbLabel: string;
+  breadcrumbHref: string;
+  categoryLabel: string;
+  title: string;
+  description: string;
+  author: string;
+  authorRole: string;
+  authorBio: string;
+  date: Date | string;
+  readingTime: number;
+  image: string;
+  quickAnswer: string;
+  tags: string[];
+  recentArticles: ArticleCard[];
+  relatedArticles: ArticleCard[];
+  faq: { question: string; answer: string }[];
+  ctaTitle: string;
+  ctaPrimary: string;
+  ctaPrimaryHref: string;
+  ctaSecondary: string;
+  ctaSecondaryHref: string;
+  newsletterTitle: string;
+  newsletterDescription: string;
+  newsletterButton: string;
+  relatedTitle: string;
+  recentTitle: string;
+  authorTitle: string;
+}
+
+const {
+  lang = 'fr',
+  breadcrumbLabel,
+  breadcrumbHref,
+  categoryLabel,
+  title,
+  description,
+  author,
+  authorRole,
+  authorBio,
+  date,
+  readingTime,
+  image,
+  quickAnswer,
+  tags,
+  recentArticles,
+  relatedArticles,
+  faq,
+  ctaTitle,
+  ctaPrimary,
+  ctaPrimaryHref,
+  ctaSecondary,
+  ctaSecondaryHref,
+  newsletterTitle,
+  newsletterDescription,
+  newsletterButton,
+  relatedTitle,
+  recentTitle,
+  authorTitle,
+} = Astro.props;
+
+const locale = lang === 'en' ? 'en-US' : 'fr-FR';
+const readLabel = lang === 'en' ? 'min read' : 'min de lecture';
+const emailPlaceholder = lang === 'en' ? 'your@email.com' : 'votre@email.com';
+const noSpam = lang === 'en' ? 'No spam. Unsubscribe in one click.' : 'Pas de spam. Désabonnement en 1 clic.';
+const linkedInLabel = lang === 'en' ? 'LinkedIn profile' : 'Profil LinkedIn';
+const articleSiloLinks = lang === 'en' ? enSiloLinks.articleBusiness : frSiloLinks.articleBusiness;
+const formatDate = (value: Date | string) =>
+  new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(value));
+---
+
+<div class="article-detail-page" lang={lang}>
+  <nav class="article-breadcrumb" aria-label={lang === 'en' ? 'Breadcrumb' : 'Fil d’Ariane'}>
+    <a href={breadcrumbHref}>{breadcrumbLabel}</a>
+    <span>/</span>
+    <span>{categoryLabel}</span>
+  </nav>
+
+  <header class="article-hero">
+    <div class="article-hero-copy">
+      <span class="section-kicker">{categoryLabel}</span>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <div class="article-meta">
+        <span class="author-chip">
+          <span class="author-avatar" aria-hidden="true">{author.slice(0, 1)}</span>
+          <span>
+            <strong>{author}</strong>
+            <small>{authorRole}</small>
+          </span>
+        </span>
+        <span><i class="ph ph-calendar-blank" aria-hidden="true"></i>{formatDate(date)}</span>
+        <span><i class="ph ph-clock" aria-hidden="true"></i>{readingTime} {readLabel}</span>
+      </div>
+    </div>
+    <figure class="article-hero-media">
+      <img src={image} alt="" width="720" height="430" loading="eager" decoding="async" />
+    </figure>
+  </header>
+
+  <div class="article-layout">
+    <main class="article-main">
+      <section class="article-body-card">
+        <QuickAnswer text={quickAnswer} />
+        <div class="article-body">
+          <slot />
+        </div>
+        {tags.length > 0 && (
+          <div class="tag-row" aria-label={lang === 'en' ? 'Tags' : 'Mots-clés'}>
+            {tags.map((tag) => <span>{tag}</span>)}
+          </div>
+        )}
+      </section>
+
+      {relatedArticles.length > 0 && (
+        <section class="related-articles" aria-labelledby="related-articles-title">
+          <h2 id="related-articles-title">{relatedTitle}</h2>
+          <div class="related-grid">
+            {relatedArticles.map((article) => (
+              <a class="mini-card" href={article.href}>
+                <img src={article.image} alt="" width="280" height="160" loading="lazy" decoding="async" />
+                <div>
+                  <span>{article.category}</span>
+                  <strong>{article.title}</strong>
+                  <small><i class="ph ph-clock" aria-hidden="true"></i>{article.readingTime} {lang === 'en' ? 'min' : 'min'}</small>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <SeoSiloLinks
+        eyebrow={lang === 'en' ? 'SEO pathway' : 'Parcours SEO'}
+        title={lang === 'en' ? 'Go deeper with Richmedia expertises' : 'Prolonger avec les expertises Richmedia'}
+        intro={lang === 'en'
+          ? 'Connect this insight to concrete growth levers: SEO, strategy, media and business activation.'
+          : 'Relier cet insight aux leviers concrets de croissance : SEO, stratégie, média et activation business.'}
+        links={articleSiloLinks}
+        variant="compact"
+      />
+
+      <section class="article-cta">
+        <div>
+          <span class="section-kicker">{lang === 'en' ? 'Let’s grow' : 'Parlons de votre croissance'}</span>
+          <h2>{ctaTitle}</h2>
+        </div>
+        <div class="cta-actions">
+          <a class="primary-btn" href={ctaPrimaryHref}>{ctaPrimary} <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          <a class="ghost-btn" href={ctaSecondaryHref}>{ctaSecondary} <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </section>
+    </main>
+
+    <aside class="article-sidebar" aria-label={lang === 'en' ? 'Article sidebar' : 'Compléments de l’article'}>
+      <section class="sidebar-card author-card">
+        <h2>{authorTitle}</h2>
+        <div class="author-line">
+          <span class="author-photo" aria-hidden="true">{author.slice(0, 1)}</span>
+          <div>
+            <strong>{author}</strong>
+            <small>{authorRole}</small>
+          </div>
+        </div>
+        <p>{authorBio}</p>
+        <a href="https://www.linkedin.com/company/richmedia-ma/" target="_blank" rel="noreferrer" aria-label={linkedInLabel}>
+          <i class="ph ph-linkedin-logo" aria-hidden="true"></i>
+        </a>
+      </section>
+
+      {recentArticles.length > 0 && (
+        <section class="sidebar-card recent-card">
+          <h2>{recentTitle}</h2>
+          {recentArticles.map((article) => (
+            <a class="recent-row" href={article.href}>
+              <img src={article.image} alt="" width="96" height="74" loading="lazy" decoding="async" />
+              <span>
+                <em>{article.category}</em>
+                <strong>{article.title}</strong>
+                <small><i class="ph ph-clock" aria-hidden="true"></i>{article.readingTime} {lang === 'en' ? 'min' : 'min'}</small>
+              </span>
+            </a>
+          ))}
+        </section>
+      )}
+
+      <section class="sidebar-card newsletter-card">
+        <h2>{newsletterTitle}</h2>
+        <p>{newsletterDescription}</p>
+        <form action="/api/contact" method="post" data-contact-form>
+          <input type="hidden" name="form" value={lang === 'en' ? 'newsletter article en' : 'newsletter article'} />
+          <input type="email" name="email" placeholder={emailPlaceholder} required />
+          <button type="submit">{newsletterButton}</button>
+        </form>
+        <small>{noSpam}</small>
+      </section>
+    </aside>
+  </div>
+
+  <div class="article-faq">
+    <Faq faq={faq} lang={lang} />
+  </div>
+</div>
+
+<style>
+  :global(main) {
+    width: min(100% - 3rem, 1320px);
+    max-width: 1320px;
+  }
+
+  .article-detail-page {
+    --panel: rgba(13, 14, 22, 0.82);
+    --panel-strong: rgba(17, 18, 28, 0.94);
+    --line: rgba(255, 255, 255, 0.12);
+    --muted: rgba(255, 255, 255, 0.68);
+    display: grid;
+    gap: clamp(1.8rem, 3vw, 3rem);
+    padding-top: clamp(1rem, 3vw, 2.4rem);
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  figure {
+    margin: 0;
+  }
+
+  .article-breadcrumb {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 1.1rem;
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 750;
+  }
+
+  .article-breadcrumb a {
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+  }
+
+  .article-breadcrumb span:last-child {
+    color: #a985ff;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #a985ff;
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    content: "";
+    width: 3.4rem;
+    height: 2px;
+    background: linear-gradient(90deg, #8a4dff, #b864ff);
+  }
+
+  .article-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(460px, 1.05fr);
+    gap: clamp(2rem, 5vw, 6rem);
+    align-items: center;
+  }
+
+  .article-hero-copy {
+    display: grid;
+    gap: 1.1rem;
+    max-width: 620px;
+  }
+
+  .article-hero h1 {
+    color: #fff;
+    font-size: clamp(3rem, 5.2vw, 5.8rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 0.98;
+  }
+
+  .article-hero-copy > p,
+  .sidebar-card p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.95rem 1.4rem;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.62);
+    font-weight: 750;
+  }
+
+  .article-meta > span,
+  .author-chip {
+    display: inline-flex;
+    gap: 0.55rem;
+    align-items: center;
+  }
+
+  .author-chip small,
+  .author-line small {
+    display: block;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .author-avatar,
+  .author-photo {
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(168, 108, 255, 0.45);
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 25%, rgba(185, 119, 255, 0.72), rgba(87, 39, 221, 0.95));
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .author-avatar {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .author-photo {
+    width: 5rem;
+    height: 5rem;
+    font-size: 2rem;
+  }
+
+  .article-hero-media {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.28);
+  }
+
+  .article-hero-media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .article-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.36fr);
+    gap: clamp(1.2rem, 3vw, 2.2rem);
+    align-items: start;
+  }
+
+  .article-main {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .article-body-card,
+  .sidebar-card,
+  .article-cta {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 85% 12%, rgba(137, 76, 255, 0.12), transparent 18rem),
+      var(--panel);
+  }
+
+  .article-body-card {
+    padding: clamp(1.3rem, 3vw, 2rem);
+  }
+
+  .article-body-card :global(.quick-answer) {
+    margin: 0 0 1.8rem;
+    border-left-color: #a985ff;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.04rem;
+  }
+
+  .article-body {
+    display: grid;
+    gap: 1.05rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1rem;
+    line-height: 1.78;
+  }
+
+  .article-body :global(h2) {
+    margin-top: 0.9rem;
+    color: #fff;
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    line-height: 1.12;
+  }
+
+  .article-body :global(h3) {
+    margin-top: 0.4rem;
+    color: #fff;
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+
+  .article-body :global(p),
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    margin: 0;
+  }
+
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    padding-left: 1.2rem;
+  }
+
+  .article-body :global(a) {
+    color: #a985ff;
+    font-weight: 850;
+  }
+
+  .article-body :global(figure.article-visual) {
+    overflow: hidden;
+    margin: 0.9rem 0;
+    border: 1px solid rgba(168, 108, 255, 0.22);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .article-body :global(figure.article-visual img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .article-body :global(figure.article-visual figcaption) {
+    padding: 0.8rem 1rem;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.86rem;
+    font-weight: 750;
+    line-height: 1.5;
+  }
+
+  .article-body :global(.insight-chart) {
+    display: grid;
+    gap: 0.85rem;
+    margin: 0.9rem 0;
+    border: 1px solid rgba(168, 108, 255, 0.24);
+    border-radius: 8px;
+    padding: clamp(1rem, 2vw, 1.4rem);
+    background:
+      radial-gradient(circle at 82% 12%, rgba(137, 76, 255, 0.18), transparent 16rem),
+      rgba(255, 255, 255, 0.035);
+  }
+
+  .article-body :global(.insight-chart strong) {
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .article-body :global(.chart-row) {
+    display: grid;
+    grid-template-columns: minmax(8.5rem, 0.34fr) minmax(0, 1fr) auto;
+    gap: 0.85rem;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.74);
+    font-weight: 750;
+  }
+
+  .article-body :global(.chart-row i) {
+    display: block;
+    height: 0.72rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #8b4cff, #b968ff);
+    box-shadow: 0 0 24px rgba(139, 76, 255, 0.32);
+  }
+
+  .article-body :global(.article-table) {
+    overflow-x: auto;
+    margin: 0.9rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+  }
+
+  .article-body :global(.article-table table) {
+    width: 100%;
+    min-width: 680px;
+    border-collapse: collapse;
+  }
+
+  .article-body :global(.article-table th),
+  .article-body :global(.article-table td) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    padding: 0.9rem 1rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .article-body :global(.article-table th) {
+    color: #fff;
+    background: rgba(139, 76, 255, 0.11);
+    font-size: 0.84rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .article-body :global(.article-table tr:last-child td) {
+    border-bottom: 0;
+  }
+
+  .article-body :global(blockquote) {
+    margin: 0.8rem 0;
+    border: 1px solid rgba(168, 108, 255, 0.22);
+    border-radius: 8px;
+    padding: clamp(1.2rem, 2.5vw, 1.8rem);
+    background:
+      linear-gradient(135deg, rgba(129, 73, 255, 0.17), rgba(255, 255, 255, 0.035)),
+      rgba(255, 255, 255, 0.035);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1.55;
+  }
+
+  .article-body :global(blockquote p::before) {
+    content: "“";
+    margin-right: 0.45rem;
+    color: #a985ff;
+    font-size: 2rem;
+    line-height: 0;
+  }
+
+  .article-body :global(blockquote p::after) {
+    content: "”";
+    margin-left: 0.45rem;
+    color: #a985ff;
+    font-size: 2rem;
+    line-height: 0;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.8rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.3rem;
+  }
+
+  .tag-row span {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.65rem 0.95rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.82rem;
+    font-weight: 850;
+  }
+
+  .article-sidebar {
+    position: sticky;
+    top: 6rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .sidebar-card {
+    display: grid;
+    gap: 1rem;
+    padding: 1.3rem;
+  }
+
+  .sidebar-card h2,
+  .related-articles h2 {
+    color: #fff;
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    line-height: 1.1;
+  }
+
+  .author-line {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .author-card > a {
+    display: grid;
+    width: 2.4rem;
+    height: 2.4rem;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .recent-card {
+    gap: 0.85rem;
+  }
+
+  .recent-row {
+    display: grid;
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 0.85rem;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 180ms ease;
+  }
+
+  .recent-row:hover,
+  .recent-row:focus-visible {
+    transform: translateX(4px);
+  }
+
+  .recent-row img {
+    width: 100%;
+    aspect-ratio: 1.22 / 1;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+
+  .recent-row span {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .recent-row em,
+  .mini-card span {
+    color: #a985ff;
+    font-size: 0.62rem;
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .recent-row strong,
+  .mini-card strong {
+    line-height: 1.16;
+  }
+
+  .recent-row small,
+  .mini-card small,
+  .newsletter-card small {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .newsletter-card form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.55rem;
+  }
+
+  .newsletter-card input {
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0 0.85rem;
+    background: rgba(0, 0, 0, 0.22);
+    color: #fff;
+    font: inherit;
+  }
+
+  .newsletter-card button,
+  .primary-btn {
+    border: 1px solid rgba(168, 108, 255, 0.7);
+    border-radius: 8px;
+    background: linear-gradient(135deg, #8b4cff, #6426f4);
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 850;
+    min-height: 2.8rem;
+    padding: 0 1rem;
+    text-decoration: none;
+  }
+
+  .related-articles {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  .mini-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: #fff;
+    text-decoration: none;
+    transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  }
+
+  .mini-card:hover,
+  .mini-card:focus-visible,
+  .sidebar-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(168, 108, 255, 0.48);
+    box-shadow: 0 22px 60px rgba(105, 55, 255, 0.16);
+  }
+
+  .mini-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.65 / 1;
+    object-fit: cover;
+  }
+
+  .mini-card div {
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.85rem;
+  }
+
+  .article-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: clamp(1.3rem, 3vw, 2rem);
+    background:
+      radial-gradient(circle at 80% 50%, rgba(162, 95, 255, 0.34), transparent 22rem),
+      linear-gradient(135deg, rgba(73, 26, 138, 0.84), rgba(18, 19, 30, 0.92));
+  }
+
+  .article-cta h2 {
+    margin-top: 0.45rem;
+    color: #fff;
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    line-height: 1.06;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .primary-btn,
+  .ghost-btn {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .ghost-btn {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: #fff;
+    font-weight: 850;
+    text-decoration: none;
+  }
+
+  .primary-btn:hover,
+  .ghost-btn:hover,
+  .newsletter-card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 44px rgba(117, 62, 255, 0.25);
+  }
+
+  .article-faq :global(.faq) {
+    max-width: none;
+    margin: 0;
+  }
+
+  .article-faq :global(.faq h2) {
+    color: #fff;
+  }
+
+  @media (max-width: 1040px) {
+    .article-hero,
+    .article-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .article-sidebar {
+      position: static;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .author-card {
+      grid-column: 1 / -1;
+    }
+
+    .related-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    :global(main) {
+      width: min(100% - 1.2rem, 1320px);
+    }
+
+    .article-hero h1 {
+      font-size: clamp(2.35rem, 14vw, 3.6rem);
+    }
+
+    .article-sidebar,
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .newsletter-card form,
+    .article-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .article-cta {
+      display: grid;
+    }
+  }
+</style>

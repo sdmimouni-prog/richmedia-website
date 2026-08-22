@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, localBusiness } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/references`;
+const pageDescription =
+  'Explore Richmedia references across education, retail, real estate, FMCG, institutions and mobility in Morocco and international markets.';
+
+const references = [
+  { name: 'UIR', sector: 'Education', proof: 'Admissions and lead generation' },
+  { name: 'HEM', sector: 'Education', proof: 'Admissions campaigns' },
+  { name: 'TBS Education', sector: 'Education', proof: 'Acquisition' },
+  { name: 'Euromed', sector: 'Education', proof: 'Awareness and programmes' },
+  { name: 'UPM', sector: 'Education', proof: 'Lead generation' },
+  { name: 'Amana', sector: 'Mobility and retail', proof: '360 campaign and DOOH' },
+  { name: 'Don Simon', sector: 'Food and beverage', proof: 'Social media and influence' },
+  { name: 'Terroir du Maroc', sector: 'Local products', proof: 'Digital strategy' },
+  { name: 'Electroplanet', sector: 'Retail', proof: 'Commercial activation' },
+  { name: 'KITEA', sector: 'Home retail', proof: 'Digital communication' },
+  { name: 'Carrefour Market', sector: 'Grocery retail', proof: 'Retail campaigns' },
+  { name: 'Carrefour', sector: 'Grocery retail', proof: 'Local activation' },
+  { name: 'Marjane', sector: 'Grocery retail', proof: 'Promotions and drive-to-store' },
+  { name: 'Kazyon', sector: 'Grocery retail', proof: 'Discount retail' },
+  { name: 'Asswak Assalam', sector: 'Grocery retail', proof: 'Proximity campaigns' },
+  { name: 'Lesieur Cristal', sector: 'FMCG', proof: 'Brand content' },
+  { name: 'SANGO', sector: 'FMCG', proof: 'Consumer goods' },
+  { name: 'Lesaffre', sector: 'FMCG', proof: 'Brand content' },
+  { name: 'Yara', sector: 'FMCG', proof: 'Agricultural communication' },
+  { name: 'Maroc Telecom', sector: 'Telecom', proof: 'Digital communication' },
+  { name: 'Prestigia', sector: 'Real estate', proof: 'Creation and performance' },
+  { name: 'ADDOHA', sector: 'Real estate', proof: 'Real estate promotion' },
+  { name: 'Excelia', sector: 'Real estate', proof: 'Project launch' },
+  { name: 'Lazrek Immobilier', sector: 'Real estate', proof: 'Lead generation' },
+  { name: 'Al Omrane', sector: 'Real estate', proof: 'Housing and development' },
+  { name: 'Tramway Rabat', sector: 'Mobility', proof: 'User campaigns' },
+  { name: 'ADA', sector: 'Institutional', proof: 'Public communication' },
+  { name: 'SONARGES', sector: 'Institutional', proof: 'Institutional communication' },
+  { name: 'DGI', sector: 'Institutional', proof: 'Public information' },
+  { name: 'CMR', sector: 'Institutional', proof: 'Digital public service campaign' },
+  { name: 'Moul Pounj', sector: 'Home retail', proof: 'Media and conversion' },
+  { name: 'Massinart', sector: 'Retail and marketplace', proof: 'Connected commerce' },
+  { name: 'Glovo', sector: 'Quick commerce', proof: 'Local acquisition' },
+  { name: 'Bringo', sector: 'Connected commerce', proof: 'Quick commerce' },
+  { name: 'Maserati', sector: 'Automotive', proof: 'Premium automotive' },
+  { name: 'Range Rover', sector: 'Automotive', proof: 'Premium SUV' },
+  { name: 'Jaguar', sector: 'Automotive', proof: 'Leads and showrooms' },
+  { name: 'Barceló', sector: 'Tourism and hospitality', proof: 'Booking and awareness' },
+  { name: 'Banyan Tree', sector: 'Tourism and hospitality', proof: 'Luxury hospitality' },
+  { name: 'Ryad Al Andalous', sector: 'Real estate', proof: 'Brand campaign' },
+  { name: 'Rabat Riviera', sector: 'Real estate', proof: 'Project launch' },
+  { name: 'BED', sector: 'Bedding', proof: 'Identity and content' },
+];
+
+const sectors = [
+  { label: 'Education', count: '5', text: 'Admissions, reputation and qualified acquisition.' },
+  { label: 'Retail and grocery', count: '12', text: 'Drive-to-store, activation, conversion and content.' },
+  { label: 'Real estate', count: '7', text: 'Launches, storytelling and performance campaigns.' },
+  { label: 'Institutions', count: '4', text: 'Useful information, public communication and impact.' },
+  { label: 'FMCG', count: '5', text: 'Brand content, influence, retail activation and reporting.' },
+  { label: 'Auto and tourism', count: '5', text: 'Leads, booking, awareness and local journeys.' },
+];
+
+const schema = [
+  { ...localBusiness(), url: pageUrl, description: pageDescription, inLanguage: 'en' },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'References', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout title="Richmedia References — Brands, institutions and sectors" description={pageDescription} canonical={pageUrl} lang="en" schema={schema}>
+  <section class="refs-hero">
+    <span class="section-kicker">Richmedia references</span>
+    <h1>Brands and institutions trust us to build growth.</h1>
+    <p>A selection of clients, institutions and platforms supported in Morocco and internationally.</p>
+    <a class="button button-primary" href="/en/case-studies">View case studies <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+  </section>
+
+  <section class="refs-sectors">
+    {sectors.map((sector) => (
+      <article>
+        <strong>{sector.count}</strong>
+        <h2>{sector.label}</h2>
+        <p>{sector.text}</p>
+      </article>
+    ))}
+  </section>
+
+  <section class="refs-wall" aria-labelledby="refs-wall-title">
+    <h2 id="refs-wall-title">Selected clients and campaigns.</h2>
+    <div>
+      {references.map((item) => (
+        <article>
+          <span>{item.sector}</span>
+          <h3>{item.name}</h3>
+          <p>{item.proof}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  :global(main) { max-width: 1280px; }
+  .refs-hero, .refs-wall { display: grid; gap: 1rem; padding-block: clamp(2rem, 6vw, 5rem); }
+  .refs-hero { max-width: 860px; }
+  h1, h2, h3, p { margin: 0; }
+  h1 { color: #fff; font-size: clamp(3rem, 7vw, 6.4rem); font-weight: 900; line-height: .94; }
+  h2 { color: #fff; font-size: clamp(2rem, 4vw, 3.8rem); font-weight: 900; line-height: 1; }
+  h3 { color: #fff; font-size: 1.35rem; }
+  p { color: rgba(255,255,255,.7); line-height: 1.7; }
+  .refs-sectors, .refs-wall > div { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .9rem; }
+  article { border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 1.2rem; background: linear-gradient(145deg, rgba(124,60,255,.14), rgba(255,255,255,.025)); }
+  article strong { display: block; color: #fff; font-size: 3rem; }
+  article span { color: #a985ff; font-size: .75rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+  @media (max-width: 980px) { .refs-sectors, .refs-wall > div { grid-template-columns: 1fr; } }
+</style>

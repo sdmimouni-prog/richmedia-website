@@ -1,19 +1,209 @@
 ---
 import JsonLd from './JsonLd.astro';
 import { faqSchema } from '../lib/schema';
-interface Props { faq: { question: string; answer: string }[]; }
-const { faq } = Astro.props;
+interface Props {
+  faq: { question: string; answer: string }[];
+  lang?: 'fr' | 'en';
+  title?: string;
+}
+const { faq, lang = 'fr', title = lang === 'en' ? 'Frequently asked questions' : 'Questions fréquentes' } = Astro.props;
 const schema = faqSchema(faq);
 ---
 {faq.length > 0 && (
-  <section class="faq" aria-label="Questions fréquentes">
-    <h2>Questions fréquentes</h2>
-    {faq.map((f) => (
-      <details>
-        <summary>{f.question}</summary>
-        <p>{f.answer}</p>
-      </details>
-    ))}
+  <section class="faq" aria-label={title}>
+    <div class="faq-heading">
+      <span class="faq-kicker">{lang === 'en' ? 'FAQ' : 'FAQ'}</span>
+      <h2>{title}</h2>
+    </div>
+    <div class="faq-list">
+      {faq.map((f, index) => (
+        <details class="faq-item">
+          <summary>
+            <span class="faq-number">{String(index + 1).padStart(2, '0')}</span>
+            <strong>{f.question}</strong>
+            <i class="ph ph-plus" aria-hidden="true"></i>
+          </summary>
+          <p>{f.answer}</p>
+        </details>
+      ))}
+    </div>
     <JsonLd schema={[schema]} />
   </section>
 )}
+
+<style>
+  .faq {
+    display: grid;
+    gap: clamp(1.2rem, 3vw, 1.8rem);
+    width: 100%;
+  }
+
+  .faq-heading {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .faq-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #a985ff;
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .faq-kicker::before {
+    content: "";
+    width: 3.4rem;
+    height: 2px;
+    background: linear-gradient(90deg, #8a4dff, #b864ff);
+  }
+
+  .faq h2 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2rem, 4.5vw, 4.5rem);
+    font-weight: 850;
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .faq-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  .faq-item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 12% 0%, rgba(138, 77, 255, 0.2), transparent 18rem),
+      linear-gradient(145deg, rgba(18, 19, 29, 0.92), rgba(8, 9, 14, 0.9));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition:
+      transform 220ms ease,
+      border-color 220ms ease,
+      background 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .faq-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 0 38%, rgba(168, 108, 255, 0.18) 48%, transparent 58% 100%);
+    opacity: 0;
+    transform: translateX(-28%);
+    transition: opacity 220ms ease, transform 520ms ease;
+    pointer-events: none;
+  }
+
+  .faq-item:hover {
+    transform: translateY(-4px);
+    border-color: rgba(168, 108, 255, 0.55);
+    box-shadow: 0 24px 70px rgba(105, 55, 255, 0.16);
+  }
+
+  .faq-item:hover::before {
+    opacity: 1;
+    transform: translateX(28%);
+  }
+
+  .faq-item[open] {
+    border-color: rgba(168, 108, 255, 0.52);
+    background:
+      radial-gradient(circle at 18% 0%, rgba(138, 77, 255, 0.24), transparent 18rem),
+      linear-gradient(145deg, rgba(23, 20, 36, 0.96), rgba(8, 9, 14, 0.94));
+  }
+
+  .faq-item summary {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.95rem;
+    align-items: center;
+    min-height: 5rem;
+    padding: 1.15rem 1.2rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-number {
+    display: inline-grid;
+    width: 2.4rem;
+    height: 2.4rem;
+    place-items: center;
+    border: 1px solid rgba(168, 108, 255, 0.46);
+    border-radius: 999px;
+    background: rgba(116, 53, 255, 0.16);
+    color: #b892ff;
+    font-size: 0.82rem;
+    font-weight: 900;
+    box-shadow: 0 0 22px rgba(138, 77, 255, 0.22);
+  }
+
+  .faq-item strong {
+    color: #fff;
+    font-size: clamp(1rem, 1.45vw, 1.18rem);
+    font-weight: 850;
+    line-height: 1.25;
+  }
+
+  .faq-item i {
+    display: inline-grid;
+    width: 2.2rem;
+    height: 2.2rem;
+    place-items: center;
+    border-radius: 999px;
+    color: #b892ff;
+    font-size: 1.1rem;
+    transition: transform 220ms ease, background 220ms ease;
+  }
+
+  .faq-item[open] i {
+    background: rgba(168, 108, 255, 0.12);
+    transform: rotate(45deg);
+  }
+
+  .faq-item p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    padding: 0 1.2rem 1.2rem 4.55rem;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 860px) {
+    .faq-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .faq-item summary {
+      gap: 0.75rem;
+      padding: 1rem;
+    }
+
+    .faq-number {
+      width: 2.1rem;
+      height: 2.1rem;
+    }
+
+    .faq-item p {
+      padding: 0 1rem 1rem;
+    }
+  }
+</style>

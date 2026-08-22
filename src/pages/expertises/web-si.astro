@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
 import { SITE } from '../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
+import { frSiloLinks } from '../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-web-si';
 const logoBase = `${assetBase}/logos`;
@@ -215,7 +217,7 @@ const mobileQuickLinks = [
   title={seoTitle}
   description={seoDescription}
   canonical={pageUrl}
-  ogImage={`${SITE.url}${logoBase}/contact-sheet.png`}
+  ogImage={`${SITE.url}${logoBase}/contact-sheet.webp`}
   schema={schema}
 >
   <div class="web-si-page">
@@ -453,6 +455,13 @@ const mobileQuickLinks = [
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Connecter le socle web au SEO et CRM"
+    intro="Un site performant devient plus utile lorsqu’il relie visibilité, tracking, contenus et automatisation commerciale."
+    links={frSiloLinks.web}
+    variant="compact"
+  />
 </BaseLayout>
 
 <script>
@@ -1192,6 +1201,18 @@ const mobileQuickLinks = [
 
   .section-heading.compact h2 {
     margin-top: 1rem;
+  }
+
+  .roadmap-section .section-heading {
+    display: block;
+    max-width: 780px;
+  }
+
+  .roadmap-section .section-heading h2 {
+    margin-top: 1rem;
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    line-height: 1.04;
+    text-wrap: balance;
   }
 
   .trend-grid,

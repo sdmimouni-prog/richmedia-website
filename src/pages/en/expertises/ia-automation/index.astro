@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../../../components/SeoSiloLinks.astro';
 import { SITE } from '../../../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../../../lib/schema';
+import { enSiloLinks } from '../../../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-ia-automation';
 const logoBase = '/assets/richmedia-digital-strategy/logos';
@@ -587,6 +589,13 @@ const mobileQuickLinks = [
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Automate acquisition and conversion"
+    intro="Automation becomes useful when it is fed by media, forms, WhatsApp, tracking and CRM signals."
+    links={enSiloLinks.conversion}
+    variant="compact"
+  />
 </BaseLayout>
 
 <style>

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import WhatsAppLanding from '../../components/WhatsAppLanding.astro';
+import WhatsAppLegacyLanding from '../../components/WhatsAppLegacyLanding.astro';
 import { SITE } from '../../consts';
 import { breadcrumbs, localBusiness, serviceSchema } from '../../lib/schema';
 
@@ -28,5 +28,5 @@ const schema = [
   canonical={`${SITE.url}/produits/whatsapp`}
   schema={schema}
 >
-  <WhatsAppLanding lang="fr" />
+  <WhatsAppLegacyLanding />
 </BaseLayout>

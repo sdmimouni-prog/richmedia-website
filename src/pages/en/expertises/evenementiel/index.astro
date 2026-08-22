@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../../../components/SeoSiloLinks.astro';
 import { SITE } from '../../../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../../../lib/schema';
+import { enSiloLinks } from '../../../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-evenementiel';
 const logoBase = '/assets/richmedia-digital-strategy/logos';
@@ -569,6 +571,13 @@ const mobileQuickLinks = [
       </a>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Turn events into an acquisition system"
+    intro="A brand moment becomes more valuable when it feeds content, influence, media and long-term visibility."
+    links={enSiloLinks.event}
+    variant="compact"
+  />
 </BaseLayout>
 
 <style>
@@ -691,8 +700,8 @@ const mobileQuickLinks = [
   .hero-lead {
     margin-top: 26px;
     color: rgba(255, 255, 255, 0.68);
-    font-size: clamp(18px, 1.8vw, 24px);
-    line-height: 1.55;
+    font-size: clamp(16px, 1.35vw, 19px);
+    line-height: 1.6;
   }
 
   .hero-actions {

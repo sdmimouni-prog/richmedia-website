@@ -1,10 +1,12 @@
 ---
 import '../styles/global.css';
-import '@phosphor-icons/web/regular';
+import '../styles/phosphor-subset.css';
 import Seo from '../components/Seo.astro';
 import JsonLd from '../components/JsonLd.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ContactFormHandler from '../components/ContactFormHandler.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 
 interface Props {
   title: string;
@@ -12,9 +14,11 @@ interface Props {
   lang?: 'fr' | 'en';
   ogImage?: string;
   canonical?: string;
+  noindex?: boolean;
   schema?: object | (object | null)[]; // JSON-LD de la page
 }
-const { title, description, lang = 'fr', ogImage, canonical, schema } = Astro.props;
+const { title, description, lang = 'fr', ogImage, canonical, noindex = false, schema } = Astro.props;
+const fontStylesheet = 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap';
 ---
 <!doctype html>
 <html lang={lang}>
@@ -24,8 +28,34 @@ const { title, description, lang = 'fr', ogImage, canonical, schema } = Astro.pr
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <Seo title={title} description={description} canonical={canonical} ogImage={ogImage} lang={lang} />
+    <script is:inline define:vars={{ fontStylesheet }}>
+      (() => {
+        const loadFonts = () => {
+          if (document.querySelector('link[data-richmedia-fonts]')) return;
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = fontStylesheet;
+          link.dataset.richmediaFonts = 'true';
+          document.head.appendChild(link);
+        };
+
+        const scheduleFontLoad = () => {
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadFonts, { timeout: 1800 });
+          } else {
+            setTimeout(loadFonts, 900);
+          }
+        };
+
+        if (document.readyState === 'complete') {
+          scheduleFontLoad();
+        } else {
+          window.addEventListener('load', scheduleFontLoad, { once: true });
+        }
+      })();
+    </script>
+    <noscript><link href={fontStylesheet} rel="stylesheet" /></noscript>
+    <Seo title={title} description={description} canonical={canonical} ogImage={ogImage} lang={lang} noindex={noindex} />
     {schema && <JsonLd schema={schema} />}
   </head>
   <body>
@@ -34,5 +64,7 @@ const { title, description, lang = 'fr', ogImage, canonical, schema } = Astro.pr
       <slot />
     </main>
     <Footer />
+    <ContactFormHandler />
+    <CookieConsent lang={lang} />
   </body>
 </html>

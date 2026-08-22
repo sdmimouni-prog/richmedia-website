@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import QuickAnswer from '../../../components/QuickAnswer.astro';
+import { articleSchema, breadcrumbs } from '../../../lib/schema';
+import { SITE } from '../../../consts';
+
+const pageUrl = `${SITE.url}/en/case-studies/uir-digital-campaigns`;
+const title = 'UIR - a historic collaboration';
+const metaTitle = 'UIR case study - Education digital campaigns | Richmedia';
+const description =
+  'Partner of the International University of Rabat for more than 6 years on its digital student recruitment campaigns.';
+const quickAnswer =
+  'Richmedia has supported the International University of Rabat (UIR) for more than 6 years across its digital campaigns, contributing to the recruitment of more than 34,000 high-school graduates per year.';
+const kpis = [
+  { value: '+34,000', label: 'high-school graduates recruited each year' },
+  { value: '+20,000', label: 'students in higher cycles' },
+];
+const schema = [
+  articleSchema({
+    title,
+    description,
+    url: pageUrl,
+    author: 'Richmedia',
+    datePublished: new Date('2026-01-10'),
+    dateModified: new Date('2026-08-15'),
+  }),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Case studies', url: `${SITE.url}/en/case-studies` },
+    { name: title, url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout title={metaTitle} description={description} canonical={pageUrl} lang="en" schema={schema}>
+  <article class="case-page">
+    <span class="section-kicker">Case study</span>
+    <h1>{title}</h1>
+    <QuickAnswer text={quickAnswer} />
+    <dl>
+      {kpis.map((kpi) => (
+        <div><dt>{kpi.value}</dt><dd>{kpi.label}</dd></div>
+      ))}
+    </dl>
+    <section>
+      <h2>Context</h2>
+      <p>
+        The International University of Rabat operates in a competitive environment where visibility, clarity of the
+        offer and speed of response play a central role in student recruitment. Campaigns must speak to future
+        high-school graduates, students continuing their studies and families comparing several options.
+      </p>
+    </section>
+    <section>
+      <h2>Objectives</h2>
+      <p>
+        The partnership aims to support UIR awareness, generate qualified requests and accompany key admissions
+        moments. The challenge is not only to capture volume, but to build a coherent journey between media exposure,
+        the landing page, the form, follow-up and enrollment.
+      </p>
+    </section>
+    <section>
+      <h2>System</h2>
+      <p>
+        Richmedia works on campaign strategy, content production, media buying, landing pages, tracking and continuous
+        optimization. Messages are adapted to programs, audiences and decision periods, with particular attention paid
+        to the quality of leads sent back to the teams.
+      </p>
+    </section>
+    <section>
+      <h2>Results</h2>
+      <p>
+        This long-term collaboration contributes to the recruitment of more than 34,000 high-school graduates per year
+        and to UIR's influence among more than 20,000 students in higher cycles. The system is based on continuous
+        improvement: analyzing journeys, adjusting investments and strengthening the formats that create the most
+        engagement.
+      </p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .case-page { display: grid; gap: 1.2rem; max-width: 980px; padding-block: clamp(2rem, 6vw, 5rem); }
+  h1, h2, p, dl { margin: 0; }
+  h1 { color: #fff; font-size: clamp(3rem, 7vw, 6rem); font-weight: 900; line-height: .94; }
+  h2 { color: #fff; font-size: 1.8rem; }
+  p { color: rgba(255,255,255,.72); line-height: 1.75; }
+  dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; }
+  dl div { border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 1.2rem; background: rgba(255,255,255,.04); }
+  dt { color: #fff; font-size: 2.6rem; font-weight: 900; }
+  dd { margin: 0; color: #a985ff; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+  @media (max-width: 780px) { dl { grid-template-columns: 1fr; } }
+</style>

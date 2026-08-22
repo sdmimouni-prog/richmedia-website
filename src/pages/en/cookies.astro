@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPage from '../../components/LegalPage.astro';
+import { BUSINESS, SITE } from '../../consts';
+import { breadcrumbs, localBusiness } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/cookies`;
+const schema = [
+  { ...localBusiness(), url: pageUrl, inLanguage: 'en' },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Cookie policy', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Cookie policy - Richmedia"
+  description="Richmedia cookie policy: cookie categories, purposes, retention, consent management and browser settings."
+  canonical={pageUrl}
+  lang="en"
+  schema={schema}
+>
+  <LegalPage
+    eyebrow="Trackers"
+    title="Cookie policy"
+    intro="This page explains how cookies and similar technologies may be used on the Richmedia website and how you can manage them."
+  >
+    <article>
+      <h2>What is a cookie?</h2>
+      <p>
+        A cookie is a small file or tracker stored on your device when you visit a website. It may support technical
+        operation, audience measurement, personalization or marketing tracking depending on its purpose.
+      </p>
+    </article>
+
+    <article>
+      <h2>Cookie categories</h2>
+      <ul>
+        <li>Strictly necessary cookies for website operation, security and form protection.</li>
+        <li>Audience measurement cookies to understand pages, journeys, performance and errors.</li>
+        <li>Marketing cookies to measure campaigns, create audiences and attribute conversions.</li>
+        <li>Third-party service cookies for embedded content, maps, videos or external tools.</li>
+      </ul>
+    </article>
+
+    <article>
+      <h2>Current website setup</h2>
+      <p>
+        The Richmedia website includes a consent module. Analytics tools such as Google Tag Manager and Google
+        Analytics 4 are triggered only after analytics consent. Marketing pixels such as Meta Pixel and LinkedIn Insight
+        Tag are triggered only after marketing consent.
+      </p>
+    </article>
+
+    <article>
+      <h2>Manage your preferences</h2>
+      <p>You can accept, reject or customize non-essential cookies. Your choices are stored locally in your browser.</p>
+      <button class="legal-cookie-action" type="button" data-cookie-manage>Manage cookie preferences</button>
+    </article>
+
+    <article>
+      <h2>Contact</h2>
+      <p>For questions about cookies or personal data, contact Richmedia at <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>.</p>
+    </article>
+  </LegalPage>
+</BaseLayout>
+
+<style>
+  .legal-cookie-action {
+    min-height: 46px;
+    margin-top: 1rem;
+    border: 1px solid rgba(184, 120, 255, 0.46);
+    border-radius: 8px;
+    padding: 0 1rem;
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    color: #fff;
+    font: inherit;
+    font-weight: 900;
+    cursor: pointer;
+  }
+</style>

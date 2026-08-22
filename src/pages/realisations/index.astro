@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ParticleLogoSlide from '../../components/ParticleLogoSlide.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
+import CaseProofLinks from '../../components/CaseProofLinks.astro';
 import { breadcrumbs } from '../../lib/schema';
+import { frSiloLinks, proofCaseLinksFr } from '../../lib/seo-silos';
 import { SITE } from '../../consts';
 
 const homeAssets = '/assets/richmedia-home';
@@ -15,22 +19,95 @@ const categories = [
   'Tous',
   'Éducation',
   'Retail',
+  'FMCG',
+  'Packaging',
   'Brand content',
   'Réseaux sociaux',
   'Produits locaux',
   'Influence',
   'Immobilier',
+  'Automobile',
   'Mobilité',
   'Institutionnel',
 ];
 
 const featuredStats = [
-  { value: '14+', label: 'réalisations sélectionnées' },
-  { value: '8', label: 'secteurs activés' },
-  { value: '360°', label: 'formats média, social, terrain et CRM' },
+  { value: '19+', label: 'réalisations sélectionnées' },
+  { value: '9', label: 'secteurs activés' },
+  { value: '360°', label: 'formats média, social, WhatsApp, terrain et CRM' },
 ];
 
 const caseStudies = [
+  {
+    slug: 'maserati-levante-push-whatsapp',
+    client: 'Maserati',
+    title: 'Push WhatsApp - essai privé Levante',
+    category: 'Automobile',
+    type: 'Push WhatsApp',
+    image: `${realizationAssets}/maserati-levante-push-whatsapp.webp`,
+    format: 'poster',
+    visibility: '100 000 envois',
+    engagement: '80% taux d’ouverture',
+    year: 'Maserati Levante',
+    status: '',
+    accent: 'sand',
+  },
+  {
+    slug: 'chergui-conception-emballage',
+    client: 'Chergui',
+    title: 'Conception et emballage',
+    category: 'Packaging',
+    type: 'Conception & emballage',
+    image: `${realizationAssets}/chergui-conception-emballage.webp`,
+    format: 'creative',
+    visibility: '18,6M impressions',
+    engagement: '4,9% engagement',
+    year: 'Food & beverage',
+    status: '',
+    accent: 'cyan',
+  },
+  {
+    slug: 'oreo-back-to-school-kv',
+    client: 'Oreo',
+    title: 'KV Campagne Back to School',
+    category: 'FMCG',
+    type: 'Key visual & campagne social media',
+    image: `${realizationAssets}/oreo-back-to-school-kv.webp`,
+    format: 'creative',
+    visibility: '22,4M impressions',
+    engagement: '6,7% engagement',
+    year: 'Back to School',
+    status: '',
+    accent: 'blue',
+  },
+  {
+    slug: 'nescafe-nadi-nescafe',
+    client: 'Nescafé',
+    title: 'Campagne Nadi Nescafé',
+    category: 'Brand content',
+    type: 'Campagne digitale & activation personnalisée',
+    image: `${realizationAssets}/nescafe-nadi-nescafe.webp`,
+    format: 'creative',
+    visibility: '19,8M impressions',
+    engagement: '5,8% engagement',
+    year: 'Activation marque',
+    status: '',
+    accent: 'red',
+  },
+  {
+    slug: 'milka-back-to-school',
+    client: 'Milka',
+    title: 'KV et lancement de campagne Back to School',
+    category: 'FMCG',
+    type: 'Key visual & lancement de campagne',
+    image: `${realizationAssets}/milka-back-to-school.webp`,
+    format: 'creative',
+    visibility: '24,2M impressions',
+    engagement: '7,2% engagement',
+    year: 'Back to School',
+    status: '',
+    accent: 'magenta',
+  },
   {
     slug: 'uir-campagnes-digitales',
     client: 'UIR',
@@ -57,7 +134,7 @@ const caseStudies = [
     visibility: '20M impressions',
     engagement: '7,4% engagement',
     year: 'Novembre 2024',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'orange',
   },
   {
@@ -71,7 +148,7 @@ const caseStudies = [
     visibility: '2,1M impressions',
     engagement: '6,8% engagement',
     year: 'Anniversaire marque',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'orange',
   },
   {
@@ -85,7 +162,7 @@ const caseStudies = [
     visibility: '14M vues',
     engagement: '8,1% engagement',
     year: 'Food & beverage',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'yellow',
   },
   {
@@ -99,7 +176,7 @@ const caseStudies = [
     visibility: '120K vues',
     engagement: '5,6% engagement',
     year: 'Stratégie digitale',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'green',
   },
   {
@@ -113,7 +190,7 @@ const caseStudies = [
     visibility: '3,2M interactions',
     engagement: 'Résonance audience',
     year: 'Multi-produit',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'yellow',
   },
   {
@@ -122,12 +199,12 @@ const caseStudies = [
     title: 'Le plaisir d’être chez soi',
     category: 'Immobilier',
     type: 'Campagne immobilière',
-    image: `${realizationAssets}/ryad-al-andalous-square.jpg`,
+    image: `${realizationAssets}/ryad-al-andalous-square.webp`,
     format: 'square',
     visibility: 'Lancement premium',
     engagement: 'Génération de leads',
     year: 'Prestigia',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'sand',
   },
   {
@@ -136,12 +213,12 @@ const caseStudies = [
     title: 'Campagne estivale',
     category: 'Mobilité',
     type: 'Création social media',
-    image: `${realizationAssets}/tramway-summer-square.jpg`,
+    image: `${realizationAssets}/tramway-summer-square.webp`,
     format: 'square',
     visibility: 'Campagne saisonnière',
     engagement: 'Reach urbain',
     year: 'Mobilité quotidienne',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'cyan',
   },
   {
@@ -150,12 +227,12 @@ const caseStudies = [
     title: 'Coupe du Monde 2026',
     category: 'Retail',
     type: 'Stratégie média & conversion',
-    image: `${realizationAssets}/moul-pounj-world-cup.jpg`,
+    image: `${realizationAssets}/moul-pounj-world-cup.webp`,
     format: 'wide',
     visibility: '4,8M vues',
     engagement: '6% engagement',
     year: 'Juin - juillet 2026',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'orange',
   },
   {
@@ -164,12 +241,12 @@ const caseStudies = [
     title: 'Masters of Science',
     category: 'Éducation',
     type: 'Campagne formation',
-    image: `${realizationAssets}/tbs-casablanca.jpg`,
+    image: `${realizationAssets}/tbs-casablanca.webp`,
     format: 'wide',
     visibility: 'Admissions qualifiées',
     engagement: 'Performance leads',
     year: 'Casablanca',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'red',
   },
   {
@@ -178,12 +255,12 @@ const caseStudies = [
     title: 'Votre retraite, notre engagement',
     category: 'Institutionnel',
     type: 'Campagne de service digital',
-    image: `${realizationAssets}/cmr-retirement.jpg`,
+    image: `${realizationAssets}/cmr-retirement.webp`,
     format: 'wide',
     visibility: 'Communication publique',
     engagement: 'Confiance digitale',
     year: 'Caisse Marocaine des Retraites',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'blue',
   },
   {
@@ -192,26 +269,26 @@ const caseStudies = [
     title: 'Investissez là où le futur prend forme',
     category: 'Immobilier',
     type: 'Campagne promotionnelle',
-    image: `${realizationAssets}/rabat-riviera-wide.jpg`,
+    image: `${realizationAssets}/rabat-riviera-wide.webp`,
     format: 'wide',
     visibility: 'Projet résidentiel',
     engagement: 'Notoriété premium',
     year: 'Prestigia',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'sand',
   },
   {
     slug: 'beed-brand-identity',
-    client: 'Beed',
+    client: 'BED',
     title: 'Créer le confort, inspirer le luxe',
     category: 'Brand content',
     type: 'Identité & storytelling',
-    image: `${realizationAssets}/beed-wide.jpg`,
+    image: `${realizationAssets}/beed-wide.webp`,
     format: 'wide',
     visibility: 'Territoire de marque',
     engagement: 'Création premium',
     year: 'Luxury comfort',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'green',
   },
   {
@@ -220,24 +297,24 @@ const caseStudies = [
     title: 'Plus rapide, plus sûr',
     category: 'Mobilité',
     type: 'Campagne app & TPE',
-    image: `${realizationAssets}/tramway-mobile-app.jpg`,
+    image: `${realizationAssets}/tramway-mobile-app.webp`,
     format: 'wide',
     visibility: 'Usage quotidien',
     engagement: 'Conversion app',
     year: 'Transport urbain',
-    status: 'Cas client à venir',
+    status: '',
     accent: 'magenta',
   },
 ];
 
 const heroSliderCases = caseStudies.slice(0, 4);
-const featuredCase = caseStudies[1];
+const featuredCase = caseStudies[0];
 const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
 const quickLinks = [
-  { href: '#case-proof', label: 'Preuves', value: '14+' },
+  { href: '#case-proof', label: 'Preuves', value: '18+' },
   { href: '#case-board', label: 'Cas clients', value: String(caseStudies.length) },
   { href: '#case-film', label: 'Film', value: '360°' },
-  { href: '#case-method', label: 'Méthode', value: '3 étapes' },
+  { href: '#case-cta', label: 'Contact', value: 'Brief' },
 ];
 ---
 <BaseLayout
@@ -268,7 +345,7 @@ const quickLinks = [
 
       <div class="hero-showcase" data-featured-slider aria-label="Aperçu des réalisations Richmedia">
         <article class="featured-work">
-          <a data-featured-link href={featuredCase.href ?? `/realisations/${featuredCase.slug}`} aria-label={`Voir le cas client ${featuredCase.client} - ${featuredCase.title}`}>
+          <div class="featured-work-frame" aria-label={`${featuredCase.client} - ${featuredCase.title}`}>
             <figure>
               <img data-featured-image src={featuredCase.image} alt={`${featuredCase.client} — ${featuredCase.title}`} loading="eager" decoding="async" />
             </figure>
@@ -291,31 +368,20 @@ const quickLinks = [
                 </div>
               </dl>
             </div>
-          </a>
+          </div>
         </article>
 
-        <div class="hero-mini-grid" aria-label="Changer le cas client mis en avant">
+        <div class="hero-mini-grid" aria-label="Aperçu des cas clients mis en avant">
           {heroSliderCases.map((item) => (
-            <button
-              type="button"
+            <article
               class:list={['hero-mini-card', item.slug === featuredCase.slug && 'is-active']}
-              data-featured-thumb
-              data-slug={item.slug}
-              data-client={item.client}
-              data-title={item.title}
-              data-summary={`${item.type} pour ${item.client}, pensée pour créer une preuve de croissance visible et mesurable.`}
-              data-image={item.image}
-              data-href={item.href ?? `/realisations/${item.slug}`}
-              data-visibility={item.visibility}
-              data-engagement={item.engagement}
-              aria-pressed={item.slug === featuredCase.slug ? 'true' : 'false'}
             >
               <img src={item.image} alt="" loading="eager" decoding="async" />
               <span class="hero-mini-caption">
                 <strong>{item.client}</strong>
                 <span>{item.category}</span>
               </span>
-            </button>
+            </article>
           ))}
         </div>
       </div>
@@ -368,7 +434,7 @@ const quickLinks = [
             data-case-slug={item.slug}
             data-case-category={item.category}
           >
-            <a href={item.href ?? `/realisations/${item.slug}`} aria-label={`Voir le cas client ${item.client} - ${item.title}`}>
+            <div class="work-card-body">
               <div class="work-media">
                 <img class="media-main" src={item.image} alt={`${item.client} — ${item.title}`} loading="lazy" decoding="async" />
               </div>
@@ -393,13 +459,25 @@ const quickLinks = [
                     <dd>{item.engagement}</dd>
                   </div>
                 </dl>
-                <strong class="case-status">{item.status}</strong>
+                {item.status && <strong class="case-status">{item.status}</strong>}
               </div>
-            </a>
+            </div>
           </article>
         ))}
       </div>
     </section>
+
+    <SeoSiloLinks
+      title="Relier les réalisations aux expertises"
+      intro="Les campagnes présentées ici s’appuient sur des leviers complémentaires : contenu, média, automation, secteurs et mesure."
+      links={frSiloLinks.casesHub}
+    />
+
+    <CaseProofLinks
+      title="Chaque preuve mène vers le bon silo"
+      intro="Chaque réalisation Richmedia renvoie vers son secteur, son expertise principale et le contact pour transformer la preuve en prochain dispositif de croissance."
+      cases={proofCaseLinksFr}
+    />
 
     <section class="case-marquee" id="case-film" aria-label="Film des réalisations">
       <div class="case-marquee-head">
@@ -416,110 +494,26 @@ const quickLinks = [
       </div>
     </section>
 
-    <section class="case-method" id="case-method" aria-labelledby="case-method-title">
-      <div>
-        <span class="section-kicker">Format cas client</span>
-        <h2 id="case-method-title">Format cas client.</h2>
+    <section class="case-cta" id="case-cta" aria-labelledby="case-cta-title">
+      <div class="case-cta-copy">
+        <span class="section-kicker">Prêt à cadrer ?</span>
+        <h2 id="case-cta-title">Transformons votre présence digitale en système de croissance.</h2>
+        <div class="works-actions case-cta-actions">
+          <a class="button button-primary" href="/contact">
+            Démarrer un projet
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="mailto:contact@richmedia.ma">contact@richmedia.ma</a>
+        </div>
       </div>
-      <div class="method-grid">
-        <article>
-          <span>01</span>
-          <h3>Contexte & objectif</h3>
-          <p>Le problème business, l’audience, le timing et les contraintes du client.</p>
-        </article>
-        <article>
-          <span>02</span>
-          <h3>Dispositif & canaux</h3>
-          <p>Le concept créatif, les formats, les médias, l’activation terrain ou CRM.</p>
-        </article>
-        <article>
-          <span>03</span>
-          <h3>Résultats & apprentissages</h3>
-          <p>Les chiffres clés, les enseignements et la suite logique pour scaler.</p>
-        </article>
+      <div class="case-cta-visual" aria-hidden="true">
+        <ParticleLogoSlide />
       </div>
     </section>
   </div>
 </BaseLayout>
 
 <script>
-  type FeaturedCasePayload = {
-    client: string;
-    title: string;
-    summary: string;
-    image: string;
-    href: string;
-    visibility: string;
-    engagement: string;
-  };
-
-  const initFeaturedCaseSlider = () => {
-    const sliders = document.querySelectorAll('[data-featured-slider]');
-
-    sliders.forEach((slider) => {
-      if (!(slider instanceof HTMLElement) || slider.dataset.sliderReady === 'true') return;
-      slider.dataset.sliderReady = 'true';
-
-      const link = slider.querySelector('[data-featured-link]');
-      const image = slider.querySelector('[data-featured-image]');
-      const title = slider.querySelector('[data-featured-title]');
-      const summary = slider.querySelector('[data-featured-summary]');
-      const client = slider.querySelector('[data-featured-client]');
-      const visibility = slider.querySelector('[data-featured-visibility]');
-      const engagement = slider.querySelector('[data-featured-engagement]');
-      const thumbs = [...slider.querySelectorAll('[data-featured-thumb]')];
-      const featured = slider.querySelector('.featured-work');
-
-      const setActiveCase = (button: Element) => {
-        if (!(button instanceof HTMLButtonElement)) return;
-
-        const next: FeaturedCasePayload = {
-          client: button.dataset.client || '',
-          title: button.dataset.title || '',
-          summary: button.dataset.summary || '',
-          image: button.dataset.image || '',
-          href: button.dataset.href || '#',
-          visibility: button.dataset.visibility || '',
-          engagement: button.dataset.engagement || '',
-        };
-
-        featured?.classList.add('is-switching');
-
-        window.setTimeout(() => {
-          if (link instanceof HTMLAnchorElement) {
-            link.href = next.href;
-            link.setAttribute('aria-label', `Voir le cas client ${next.client} - ${next.title}`);
-          }
-
-          if (image instanceof HTMLImageElement) {
-            image.src = next.image;
-            image.alt = `${next.client} — ${next.title}`;
-          }
-
-          if (title) title.textContent = next.title;
-          if (summary) summary.textContent = next.summary;
-          if (client) client.textContent = next.client;
-          if (visibility) visibility.textContent = next.visibility;
-          if (engagement) engagement.textContent = next.engagement;
-
-          thumbs.forEach((thumb) => {
-            const isActive = thumb === button;
-            thumb.classList.toggle('is-active', isActive);
-            if (thumb instanceof HTMLElement) {
-              thumb.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-            }
-          });
-
-          window.setTimeout(() => featured?.classList.remove('is-switching'), 90);
-        }, 120);
-      };
-
-      thumbs.forEach((button) => {
-        button.addEventListener('click', () => setActiveCase(button));
-      });
-    });
-  };
-
   const initCaseFilters = () => {
     const boards = document.querySelectorAll('[data-case-board]');
 
@@ -557,7 +551,6 @@ const quickLinks = [
   };
 
   const initRealisationsInteractions = () => {
-    initFeaturedCaseSlider();
     initCaseFilters();
   };
 
@@ -606,7 +599,7 @@ const quickLinks = [
   .proof-strip,
   .case-board,
   .case-marquee,
-  .case-method {
+  .case-cta {
     position: relative;
     z-index: 1;
     width: var(--container);
@@ -616,7 +609,7 @@ const quickLinks = [
   .proof-strip,
   .case-board,
   .case-marquee,
-  .case-method {
+  .case-cta {
     scroll-margin-top: 6rem;
   }
 
@@ -714,6 +707,7 @@ const quickLinks = [
   }
 
   .featured-work {
+    position: relative;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 10px;
@@ -724,18 +718,17 @@ const quickLinks = [
     transition: border-color 240ms ease, opacity 180ms ease, transform 180ms ease;
   }
 
-  .featured-work.is-switching {
-    border-color: rgba(124, 60, 255, 0.48);
-    opacity: 0.82;
-    transform: translateY(2px);
+  .featured-work:hover {
+    border-color: rgba(164, 108, 255, 0.72);
+    box-shadow: 0 2.4rem 5.4rem rgba(0, 0, 0, 0.48), 0 0 2.4rem rgba(124, 60, 255, 0.16);
+    transform: translateY(-4px);
   }
 
-  .featured-work a {
+  .featured-work-frame {
     display: grid;
     grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.82fr);
     min-height: 420px;
     color: inherit;
-    text-decoration: none;
   }
 
   .featured-work figure {
@@ -749,12 +742,13 @@ const quickLinks = [
   .featured-work img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    background: #050507;
+    object-fit: contain;
     transition: transform 700ms ease;
   }
 
   .featured-work:hover img {
-    transform: scale(1.035);
+    transform: scale(1.025);
   }
 
   .featured-work-copy {
@@ -821,11 +815,13 @@ const quickLinks = [
 
   .featured-work-copy dd,
   .work-copy dd {
+    min-width: 0;
     margin: 0.25rem 0 0;
     color: #fff;
     font-size: 0.83rem;
     font-weight: 850;
     line-height: 1.25;
+    overflow-wrap: break-word;
   }
 
   .hero-mini-grid {
@@ -843,17 +839,15 @@ const quickLinks = [
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.035);
     color: inherit;
-    cursor: pointer;
+    cursor: default;
     font: inherit;
     text-align: left;
     transition: border-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
   }
 
-  .hero-mini-card:hover,
-  .hero-mini-card:focus-visible {
+  .hero-mini-card:hover {
     border-color: rgba(124, 60, 255, 0.72);
     box-shadow: 0 0 0 1px rgba(124, 60, 255, 0.2), 0 1rem 2.2rem rgba(0, 0, 0, 0.32);
-    outline: 0;
     transform: translateY(-3px);
   }
 
@@ -998,49 +992,71 @@ const quickLinks = [
 
   .work-card {
     --accent: var(--purple);
+    position: relative;
+    isolation: isolate;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.13);
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.035);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
-    transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
+    transition: transform 320ms ease, border-color 320ms ease, box-shadow 320ms ease, background 320ms ease;
+  }
+
+  .work-card::before {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    content: "";
+    background:
+      linear-gradient(115deg, transparent 0 38%, rgba(255, 255, 255, 0.14) 48%, transparent 58% 100%),
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 18rem);
+    opacity: 0;
+    transform: translateX(-28%);
+    transition: opacity 320ms ease, transform 650ms ease;
+  }
+
+  .work-card:hover {
+    border-color: color-mix(in srgb, var(--accent) 72%, rgba(255, 255, 255, 0.18));
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.09),
+      0 1.25rem 3.2rem rgba(0, 0, 0, 0.42),
+      0 0 2.4rem color-mix(in srgb, var(--accent) 28%, transparent);
+    transform: translateY(-7px) scale(1.01);
+  }
+
+  .work-card:hover::before {
+    opacity: 1;
+    transform: translateX(22%);
   }
 
   .work-card[hidden] {
     display: none;
   }
 
-  .work-card:hover {
-    border-color: rgba(124, 60, 255, 0.75);
-    box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.38), 0 0 2.1rem rgba(124, 60, 255, 0.16);
-    transform: translateY(-5px);
-  }
-
-  .work-card a {
+  .work-card-body {
+    position: relative;
+    z-index: 2;
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto;
     height: 100%;
     color: inherit;
-    text-decoration: none;
   }
 
   .work-media {
     position: relative;
-    aspect-ratio: 16 / 9;
-    min-height: 220px;
+    height: clamp(210px, 18vw, 285px);
+    min-height: 0;
     overflow: hidden;
     background: #050507;
   }
 
   .work-card-square .work-media,
+  .work-card-creative .work-media,
   .work-card-poster .work-media,
   .work-card-phone .work-media {
-    aspect-ratio: 1 / 1;
-  }
-
-  .work-card-poster .work-media,
-  .work-card-phone .work-media {
-    aspect-ratio: 4 / 5;
+    height: clamp(210px, 18vw, 285px);
   }
 
   .media-main {
@@ -1054,17 +1070,19 @@ const quickLinks = [
 
   .media-main {
     z-index: 1;
-    transition: transform 500ms ease;
+    transition: transform 650ms ease, filter 650ms ease;
   }
 
   .work-card:hover .media-main {
-    transform: scale(1.022);
+    filter: saturate(1.08) contrast(1.04);
+    transform: scale(1.045);
   }
 
   .work-copy {
     display: grid;
-    gap: 0.72rem;
-    padding: 1rem;
+    align-content: start;
+    gap: 0.58rem;
+    padding: 0.9rem;
     background:
       linear-gradient(135deg, rgba(124, 60, 255, 0.1), transparent 44%),
       rgba(5, 5, 8, 0.95);
@@ -1102,14 +1120,14 @@ const quickLinks = [
 
   .work-copy h3 {
     margin: 0;
-    font-size: clamp(1.5rem, 2.1vw, 2.12rem);
+    font-size: clamp(1.42rem, 1.86vw, 1.9rem);
     font-weight: 850;
     line-height: 0.98;
   }
 
   .work-copy p {
-    min-height: 2.35em;
-    margin: -0.28rem 0 0;
+    min-height: 0;
+    margin: -0.12rem 0 0.12rem;
     color: rgba(255, 255, 255, 0.68);
     font-size: 0.86rem;
     line-height: 1.34;
@@ -1117,12 +1135,13 @@ const quickLinks = [
 
   .work-copy dl {
     display: grid;
-    grid-template-columns: 1.1fr 1fr 1fr;
+    grid-template-columns: minmax(0, 1.04fr) minmax(0, 1.08fr) minmax(0, 0.98fr);
     gap: 0.62rem;
-    margin: 0;
+    margin: 0.18rem 0 0;
   }
 
   .work-copy dl div {
+    min-width: 0;
     border-left: 2px solid var(--accent);
     padding-left: 0.58rem;
   }
@@ -1131,6 +1150,14 @@ const quickLinks = [
     border: 1px solid rgba(255, 255, 255, 0.13);
     background: rgba(255, 255, 255, 0.04);
     color: rgba(255, 255, 255, 0.78);
+    transition: border-color 260ms ease, background 260ms ease, color 260ms ease, transform 260ms ease;
+  }
+
+  .work-card:hover .case-status {
+    border-color: color-mix(in srgb, var(--accent) 64%, rgba(255, 255, 255, 0.18));
+    background: color-mix(in srgb, var(--accent) 18%, rgba(255, 255, 255, 0.04));
+    color: #fff;
+    transform: translateY(-1px);
   }
 
   .work-accent-blue { --accent: #246dff; }
@@ -1210,76 +1237,80 @@ const quickLinks = [
     to { transform: translateX(-50%); }
   }
 
-  .case-method {
+  .case-cta {
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(260px, 0.48fr) 1fr;
-    gap: 1.4rem;
-    align-items: stretch;
+    grid-template-columns: minmax(0, 0.58fr) minmax(360px, 0.42fr);
+    gap: clamp(1.3rem, 3vw, 2.6rem);
+    align-items: center;
+    min-height: clamp(290px, 25vw, 380px);
+    overflow: hidden;
     margin-top: clamp(3rem, 6vw, 5rem);
     margin-bottom: 4.5rem;
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 10px;
-    padding: clamp(1.2rem, 2.7vw, 1.8rem);
+    padding: clamp(1.35rem, 3vw, 2.5rem);
     background:
-      radial-gradient(circle at 0% 0%, rgba(124, 60, 255, 0.22), transparent 30rem),
-      rgba(255, 255, 255, 0.025);
+      radial-gradient(circle at 0 100%, rgba(124, 60, 255, 0.34), transparent 28rem),
+      radial-gradient(circle at 78% 46%, rgba(124, 60, 255, 0.16), transparent 22rem),
+      linear-gradient(rgba(255, 255, 255, 0.036) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.036) 1px, transparent 1px),
+      linear-gradient(135deg, rgba(124, 60, 255, 0.14), rgba(255, 255, 255, 0.025));
+    background-size: auto, auto, 84px 84px, 84px 84px, auto;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
   }
 
-  .case-method h2 {
-    max-width: 420px;
-    margin: 1rem 0 0;
-    --h2-size: clamp(1.9rem, 3.2vw, 3rem);
+  .case-cta::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background:
+      linear-gradient(90deg, rgba(124, 60, 255, 0.14), transparent 55%),
+      radial-gradient(circle at 12% 88%, rgba(124, 60, 255, 0.22), transparent 18rem);
+    pointer-events: none;
+  }
+
+  .case-cta-copy,
+  .case-cta-visual {
+    position: relative;
+    z-index: 1;
+  }
+
+  .case-cta h2 {
+    max-width: 680px;
+    margin: 0.8rem 0 0;
+    --h2-size: clamp(2.05rem, 4vw, 3.65rem);
     font-size: var(--h2-size);
     font-weight: 850;
-    line-height: 1;
+    line-height: 1.02;
+    text-wrap: balance;
   }
 
-  .method-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.85rem;
+  .case-cta-actions {
+    margin-top: clamp(1.05rem, 2.1vw, 1.55rem);
   }
 
-  .method-grid article {
-    min-height: 168px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 8px;
-    padding: 1.05rem;
-    background: rgba(0, 0, 0, 0.38);
-    transition: transform 260ms ease, border-color 260ms ease, background 260ms ease;
+  .case-cta-visual {
+    min-height: clamp(180px, 18vw, 280px);
+    overflow: hidden;
+    background: #000;
   }
 
-  .method-grid article:hover {
-    border-color: rgba(124, 60, 255, 0.62);
-    background: rgba(124, 60, 255, 0.09);
-    transform: translateY(-4px);
+  .case-cta-visual :global(.particle-logo-slide) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
   }
 
-  .method-grid span {
-    color: var(--purple-soft);
-    font-size: 0.76rem;
-    font-weight: 900;
-    letter-spacing: 0.14em;
-  }
-
-  .method-grid h3 {
-    margin: 1.45rem 0 0;
-    font-size: 1.12rem;
-    font-weight: 850;
-    line-height: 1.1;
-  }
-
-  .method-grid p {
-    margin: 0.62rem 0 0;
-    color: var(--muted);
-    font-size: 0.8rem;
-    line-height: 1.45;
+  .case-cta-visual :global(.particle-logo-slide__hint) {
+    display: none;
   }
 
   @media (max-width: 1120px) {
     .works-hero,
     .case-board-head,
-    .case-method {
+    .case-cta {
       grid-template-columns: 1fr;
     }
 
@@ -1288,7 +1319,7 @@ const quickLinks = [
       padding-top: 8rem;
     }
 
-    .featured-work a {
+    .featured-work-frame {
       grid-template-columns: 1fr;
     }
 
@@ -1304,8 +1335,8 @@ const quickLinks = [
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .method-grid {
-      grid-template-columns: 1fr;
+    .case-cta-visual {
+      min-height: 18rem;
     }
   }
 
@@ -1348,7 +1379,7 @@ const quickLinks = [
       padding-inline: 1rem;
     }
 
-    .featured-work a {
+    .featured-work-frame {
       min-height: auto;
     }
 
@@ -1524,15 +1555,22 @@ const quickLinks = [
       border-radius: 8px;
     }
 
+    .featured-work:hover,
+    .hero-mini-card:hover,
     .work-card:hover {
       transform: none;
     }
 
+    .work-card:hover::before {
+      opacity: 0;
+    }
+
     .work-media,
     .work-card-square .work-media,
+    .work-card-creative .work-media,
     .work-card-poster .work-media,
     .work-card-phone .work-media {
-      aspect-ratio: 16 / 10;
+      height: clamp(190px, 58vw, 230px);
       min-height: 0;
     }
 
@@ -1613,39 +1651,50 @@ const quickLinks = [
       height: 138px;
     }
 
-    .case-method {
+    .case-cta {
       gap: 0.95rem;
       margin-top: 2.2rem;
       margin-bottom: 3rem;
       border-radius: 8px;
       padding: 0.95rem;
-    }
-
-    .case-method h2 {
-      --h2-size: clamp(1.58rem, 8vw, 2.05rem);
-      margin-top: 0.72rem;
-    }
-
-    .method-grid {
-      gap: 0.62rem;
-    }
-
-    .method-grid article {
       min-height: 0;
-      padding: 0.9rem;
     }
 
-    .method-grid article:hover {
+    .case-cta h2 {
+      --h2-size: clamp(1.72rem, 8.5vw, 2.35rem);
+      margin-top: 0.72rem;
+      line-height: 1.06;
+    }
+
+    .case-cta-visual {
+      min-height: 10.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .featured-work,
+    .featured-work img,
+    .hero-mini-card,
+    .hero-mini-grid img,
+    .work-card,
+    .work-card::before,
+    .media-main,
+    .case-status {
+      transition: none;
+    }
+
+    .featured-work:hover,
+    .hero-mini-card:hover,
+    .work-card:hover,
+    .work-card:hover .case-status,
+    .featured-work:hover img,
+    .hero-mini-card:hover img,
+    .work-card:hover .media-main {
       transform: none;
     }
 
-    .method-grid h3 {
-      margin-top: 0.72rem;
-      font-size: 1rem;
-    }
-
-    .method-grid p {
-      font-size: 0.78rem;
+    .work-card:hover::before {
+      opacity: 0;
     }
   }
 </style>

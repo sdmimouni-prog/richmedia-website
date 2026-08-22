@@ -1,0 +1,33 @@
+{
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "redirects": [
+    {
+      "source": "/carriere",
+      "destination": "/carrieres",
+      "permanent": true
+    },
+    {
+      "source": "/carriere/",
+      "destination": "/carrieres",
+      "permanent": true
+    },
+    {
+      "source": "/ressources",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/ressources/",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/ressources/:path*",
+      "destination": "/insights/:path*",
+      "permanent": true
+    }
+  ]
+}

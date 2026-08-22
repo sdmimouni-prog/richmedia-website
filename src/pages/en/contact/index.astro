@@ -5,239 +5,392 @@ import { breadcrumbs, localBusiness } from '../../../lib/schema';
 
 const assetBase = '/assets/richmedia-home';
 const pageDescription =
-  'Contact Richmedia to scope a campaign, media plan, website, AI automation project or measurable digital growth system from Casablanca, Dubai, Montreal or Strasbourg.';
+  'Contact Richmedia to scope a campaign, digital system, media, web or AI project. Casablanca, Dubai, Montreal and Strasbourg.';
+
+const pageUrl = `${SITE.url}/en/contact`;
 
 const schema = [
   {
     ...localBusiness(),
-    url: `${SITE.url}/en/contact`,
+    url: pageUrl,
     description: pageDescription,
     inLanguage: 'en',
   },
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
-    { name: 'Contact', url: `${SITE.url}/en/contact` },
+    { name: 'Contact', url: pageUrl },
   ]),
 ];
 
 const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4');
 
-const contactMethods = [
+const subjectOptions = [
+  'Digital strategy',
+  'Media buying',
+  'Social, influence & UGC',
+  'Web & IS',
+  'WhatsApp & AI',
+  'Events / Phygital',
+  'Audit request',
+  'Other project',
+];
+
+const contactHighlights = [
   {
     icon: 'ph-envelope-simple',
-    label: 'Direct email',
-    value: BUSINESS.email,
+    title: 'Email',
+    lines: [BUSINESS.email],
     href: `mailto:${BUSINESS.email}`,
   },
   {
-    icon: 'ph-phone',
-    label: 'Phone',
-    value: formatPhone(BUSINESS.tels[0]),
+    icon: 'ph-phone-call',
+    title: 'Phone',
+    lines: [formatPhone(BUSINESS.tels[0]), formatPhone(BUSINESS.tels[1])],
     href: `tel:${BUSINESS.tels[0]}`,
   },
   {
-    icon: 'ph-phone-call',
-    label: 'Direct line',
-    value: formatPhone(BUSINESS.tels[1]),
-    href: `tel:${BUSINESS.tels[1]}`,
+    icon: 'ph-map-pin',
+    title: 'Our offices',
+    lines: ['Casablanca, Morocco', 'Dubai, UAE', 'Montreal, Canada', 'Strasbourg, France'],
+    href: '#contact-map',
   },
   {
     icon: 'ph-clock',
-    label: 'Office hours',
-    value: 'Mon - Fri: 9:00 AM - 6:00 PM',
-    note: 'Sat - Sun: Closed',
+    title: 'Office hours',
+    lines: ['Mon. - Fri.', '9:00 AM - 6:00 PM'],
+    href: '#contact-form',
   },
 ];
 
-const projectTypes = [
-  '360 campaign',
-  'Lead acquisition',
-  'Social media & UGC',
-  'Media buying',
-  'Website / IS',
-  'WhatsApp & AI',
-  'Field activation',
-  'Brand content',
-];
-
-const quickSteps = [
+const heroCards = [
   {
-    step: '01',
-    title: 'Frame',
-    text: 'Goals, audience, constraints and business priorities.',
+    icon: 'ph-envelope-simple',
+    title: 'Email',
+    lines: [BUSINESS.email],
   },
   {
-    step: '02',
-    title: 'Build',
-    text: 'Strategy, channels, timeline and required resources.',
+    icon: 'ph-phone-call',
+    title: 'Phone',
+    lines: [formatPhone(BUSINESS.tels[0]), formatPhone(BUSINESS.tels[1])],
   },
   {
-    step: '03',
-    title: 'Activate',
-    text: 'Campaign launch, tracking, reporting and optimization.',
+    icon: 'ph-clock',
+    title: 'Reply within 24h',
+    lines: ['business days'],
   },
-];
-
-const quickLinks = [
-  { href: '#contact-form', label: 'Form', value: '1 min' },
-  { href: `tel:${BUSINESS.tels[0]}`, label: 'Call', value: 'Direct' },
-  { href: '#contact-methods', label: 'Details', value: '4 ways' },
-  { href: '#contact-offices', label: 'Offices', value: '4 cities' },
+  {
+    icon: 'ph-map-pin',
+    title: 'Casablanca',
+    lines: ['Dubai / Montreal', 'Strasbourg'],
+  },
 ];
 
 const officeMarkers = [
-  { city: 'Montreal', x: 33.79, y: 24.44, className: 'office-marker-montreal' },
-  { city: 'Strasbourg', x: 51.68, y: 22.8, className: 'office-marker-strasbourg' },
-  { city: 'Casablanca', x: 48.24, y: 30.94, className: 'office-marker-casablanca' },
-  { city: 'Dubai', x: 63.15, y: 35.54, className: 'office-marker-dubai' },
+  { city: 'Montreal', country: 'Canada', x: 33.79, y: 24.44, className: 'office-montreal' },
+  { city: 'Strasbourg', country: 'France', x: 51.68, y: 22.8, className: 'office-strasbourg' },
+  { city: 'Casablanca', country: 'Morocco', x: 48.24, y: 30.94, className: 'office-casablanca' },
+  { city: 'Dubai', country: 'UAE', x: 63.15, y: 35.54, className: 'office-dubai' },
 ];
 
-const offices = ['Casablanca, Morocco', 'Dubai, UAE', 'Montreal, Canada', 'Strasbourg, France'];
+const processSteps = [
+  {
+    number: '1',
+    icon: 'ph-briefcase',
+    title: '1. Brief intake',
+    text: 'We understand your needs, challenges and goals.',
+  },
+  {
+    number: '2',
+    icon: 'ph-lightbulb',
+    title: '2. Recommendation',
+    text: 'We propose a clear, realistic and relevant system.',
+  },
+  {
+    number: '3',
+    icon: 'ph-target',
+    title: '3. Action plan',
+    text: 'We define channels, deliverables and timing.',
+  },
+  {
+    number: '4',
+    icon: 'ph-rocket-launch',
+    title: '4. Launch',
+    text: 'We activate, track and optimize your campaigns.',
+  },
+];
+
+const faqs = [
+  {
+    icon: 'ph-clock',
+    question: 'How quickly do you get back to us?',
+    answer: 'Fast reply within 24 business hours, with a clear first framing.',
+  },
+  {
+    icon: 'ph-briefcase',
+    question: 'Can you manage strategy, creative and media?',
+    answer: 'Yes, our approach is integrated: strategy, production, media buying, tracking and optimization.',
+  },
+  {
+    icon: 'ph-map-pin',
+    question: 'Do you only work in Morocco?',
+    answer: 'No, we also support international projects from our offices and partners.',
+  },
+  {
+    icon: 'ph-chat-circle-dots',
+    question: 'Can we contact you for an audit or recommendation?',
+    answer: 'Yes, we can start with a framing conversation before any proposal.',
+  },
+];
 ---
 
 <BaseLayout
-  title="Contact Richmedia — Let's talk about your project"
+  title="Contact Richmedia - Let's talk about your project"
   description={pageDescription}
-  canonical={`${SITE.url}/en/contact`}
+  canonical={pageUrl}
   lang="en"
   schema={schema}
 >
   <div class="contact-page">
     <section class="contact-hero" aria-labelledby="contact-title">
-      <div class="contact-copy">
-        <span class="section-kicker">Contact Richmedia</span>
-        <h1 id="contact-title">Let's talk about your next project.</h1>
+      <div class="hero-copy">
+        <span class="section-kicker">Contact us</span>
+        <h1 id="contact-title">Let's talk about your <span>next project.</span></h1>
         <p>
-          A brief, a campaign, a platform or an idea to turn into measurable growth.
+          Whether you want to generate more leads, launch a campaign, improve your digital performance
+          or imagine a new brand experience, our team is ready to support you.
         </p>
-        <div class="contact-actions">
-          <a class="button button-primary" href={`mailto:${BUSINESS.email}`}>
-            Write to us
-            <i class="ph ph-envelope-simple" aria-hidden="true"></i>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#contact-form">
+            Start a project
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
-          <a class="button button-secondary" href={`tel:${BUSINESS.tels[0]}`}>
-            Call
-            <i class="ph ph-phone" aria-hidden="true"></i>
+          <a class="button button-secondary" href="/en/case-studies">
+            View our work
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
         </div>
       </div>
 
-      <aside class="contact-form-card" id="contact-form" aria-label="Contact form">
-        <span class="form-label">Start now</span>
-        <h2>Send us a few details.</h2>
-        <form action={`mailto:${BUSINESS.email}`} method="post" enctype="text/plain">
-          <label>
-            <span>Full name</span>
-            <input type="text" name="Full name" autocomplete="name" required />
-          </label>
-          <label>
-            <span>Email</span>
-            <input type="email" name="Email" autocomplete="email" required />
-          </label>
-          <label>
-            <span>Phone</span>
-            <input type="tel" name="Phone" autocomplete="tel" />
-          </label>
-          <label>
-            <span>Project type</span>
-            <select name="Project type" required>
-              <option value="">Select</option>
-              {projectTypes.map((type) => <option value={type}>{type}</option>)}
-            </select>
-          </label>
-          <label class="field-wide">
-            <span>Message</span>
-            <textarea name="Message" rows="4" placeholder="Your goal, timing, market..."></textarea>
-          </label>
-          <button class="button button-primary field-wide" type="submit">
-            Send request
-            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
-          </button>
-        </form>
-      </aside>
-    </section>
-
-    <nav class="mobile-page-nav" aria-label="Contact page navigation">
-      {quickLinks.map((link) => (
-        <a href={link.href}>
-          <span>{link.label}</span>
-          <strong>{link.value}</strong>
-        </a>
-      ))}
-    </nav>
-
-    <section class="contact-methods" id="contact-methods" aria-label="Richmedia contact details">
-      {contactMethods.map((method) => {
-        const content = (
-          <>
-            <span class="method-icon"><i class:list={['ph', method.icon]} aria-hidden="true"></i></span>
-            <span>
-              <small>{method.label}</small>
-              <strong>{method.value}</strong>
-              {method.note && <em>{method.note}</em>}
+      <div class="hero-visual" aria-label="World map and Richmedia contact details">
+        <div class="hero-map-stage">
+          <img
+            src={`${assetBase}/optimized/world-map-natural-earth.webp`}
+            alt=""
+            width="1000"
+            height="520"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <span class="hero-glow hero-glow-core"></span>
+          <span class="hero-route hero-route-1"></span>
+          <span class="hero-route hero-route-2"></span>
+          <span class="hero-route hero-route-3"></span>
+          {officeMarkers.map((office) => (
+            <span class:list={['hero-pin', office.className]} style={`--x:${office.x}%; --y:${office.y}%;`}>
+              <span></span>
             </span>
-          </>
-        );
-
-        return method.href ? (
-          <a class="method-card" href={method.href}>{content}</a>
-        ) : (
-          <div class="method-card">{content}</div>
-        );
-      })}
-    </section>
-
-    <section class="contact-workflow" id="contact-brief" aria-labelledby="workflow-title">
-      <article class="project-card">
-        <span class="section-kicker">Project brief</span>
-        <h2 id="workflow-title">What we can frame together.</h2>
-        <div class="type-cloud" aria-label="Project types">
-          {projectTypes.map((type) => <span>{type}</span>)}
+          ))}
+          <div class="holo-card holo-card-performance">
+            <i class="ph ph-target" aria-hidden="true"></i>
+            <span>Performance</span>
+            <strong>72%</strong>
+          </div>
+          <div class="holo-card holo-card-brief">
+            <i class="ph ph-chat-circle-dots" aria-hidden="true"></i>
+            <span>Project brief</span>
+            <strong>In progress</strong>
+          </div>
+          <div class="hero-platform"></div>
         </div>
-        <div class="steps-list">
-          {quickSteps.map((item) => (
-            <div class="step-row">
-              <span>{item.step}</span>
+
+        <div class="hero-contact-cards">
+          {heroCards.map((card) => (
+            <article class="hero-contact-card">
+              <span class="icon-box">
+                <i class:list={['ph', card.icon]} aria-hidden="true"></i>
+              </span>
               <div>
-                <strong>{item.title}</strong>
-                <p>{item.text}</p>
+                <strong>{card.title}</strong>
+                {card.lines.map((line) => <span>{line}</span>)}
               </div>
-            </div>
+            </article>
           ))}
         </div>
+      </div>
+    </section>
+
+    <section class="contact-strip" aria-label="Quick contact details">
+      {contactHighlights.map((item) => (
+        <a class="contact-strip-card hover-card" href={item.href}>
+          <span class="icon-box">
+            <i class:list={['ph', item.icon]} aria-hidden="true"></i>
+          </span>
+          <span class="strip-content">
+            <strong>{item.title}</strong>
+            {item.lines.map((line) => <span>{line}</span>)}
+          </span>
+          <i class="ph ph-arrow-right strip-arrow" aria-hidden="true"></i>
+        </a>
+      ))}
+    </section>
+
+    <section class="contact-main-grid" aria-label="Form and office map">
+      <article class="contact-form-panel hover-card" id="contact-form">
+        <h2>Send us your request</h2>
+        <form
+          action="/api/contact"
+          method="post"
+          data-contact-form
+          data-sending-message="Sending your request..."
+          data-success-message="Your request has been sent. We will get back to you shortly."
+          data-error-message="The request could not be sent. Please call us or write to us directly."
+        >
+          <input type="hidden" name="_form" value="Contact EN" />
+          <label class="form-honeypot" aria-hidden="true">
+            <span>Website</span>
+            <input type="text" name="company_url" tabindex="-1" autocomplete="off" />
+          </label>
+
+          <label class="field">
+            <span class="sr-only">Full name</span>
+            <span class="field-shell">
+              <i class="ph ph-users" aria-hidden="true"></i>
+              <input type="text" name="Full name" autocomplete="name" placeholder="Full name" required />
+            </span>
+          </label>
+          <label class="field">
+            <span class="sr-only">Company</span>
+            <span class="field-shell">
+              <i class="ph ph-briefcase" aria-hidden="true"></i>
+              <input type="text" name="Company" autocomplete="organization" placeholder="Company" />
+            </span>
+          </label>
+          <label class="field">
+            <span class="sr-only">Email</span>
+            <span class="field-shell">
+              <i class="ph ph-envelope-simple" aria-hidden="true"></i>
+              <input type="email" name="Email" autocomplete="email" placeholder="Email" required />
+            </span>
+          </label>
+          <label class="field">
+            <span class="sr-only">Phone</span>
+            <span class="field-shell">
+              <i class="ph ph-phone-call" aria-hidden="true"></i>
+              <input type="tel" name="Phone" autocomplete="tel" placeholder="Phone" />
+            </span>
+          </label>
+          <label class="field field-wide">
+            <span class="sr-only">Subject</span>
+            <span class="field-shell">
+              <i class="ph ph-cursor-click" aria-hidden="true"></i>
+              <select name="Subject" required>
+                <option value="">Subject</option>
+                {subjectOptions.map((subject) => <option value={subject}>{subject}</option>)}
+              </select>
+            </span>
+          </label>
+          <label class="field field-wide">
+            <span class="sr-only">Message</span>
+            <span class="field-shell field-shell-textarea">
+              <textarea name="Message" rows="5" placeholder="Message" required></textarea>
+            </span>
+          </label>
+          <label class="consent field-wide">
+            <input type="checkbox" name="Consent" value="Yes" required />
+            <span>I agree to be contacted by Richmedia.</span>
+          </label>
+          <button class="button button-primary field-wide" type="submit">
+            Send my request
+            <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i>
+          </button>
+          <p class="form-status field-wide" data-form-status role="status" aria-live="polite"></p>
+        </form>
       </article>
 
-      <article class="map-card" aria-labelledby="map-title">
-        <span class="map-label">International presence</span>
-        <h2 id="map-title">4 offices to support your projects.</h2>
-        <div class="map-stage" aria-label="World map with Richmedia offices">
+      <article class="office-map-panel hover-card" id="contact-map">
+        <h2>An international presence <span>to support your projects in Morocco and internationally.</span></h2>
+        <div class="office-map-stage" aria-label="Luminous map of Richmedia offices">
           <img
-            class="world-map-img"
-            src={`${assetBase}/world-map-natural-earth.svg`}
+            src={`${assetBase}/optimized/world-map-natural-earth.webp`}
             alt=""
+            width="1000"
+            height="520"
             loading="lazy"
             decoding="async"
           />
+          <span class="map-route map-route-1"></span>
+          <span class="map-route map-route-2"></span>
+          <span class="map-route map-route-3"></span>
+          <span class="map-route map-route-4"></span>
           {officeMarkers.map((office) => (
-            <span class:list={['office-marker', office.className]} style={`--x: ${office.x}%; --y: ${office.y}%`}>
-              <span class="office-dot"></span>
-              <span class="office-label">{office.city}</span>
+            <span
+              class:list={['office-pin', office.className]}
+              style={`--x:${office.x}%; --y:${office.y}%;`}
+            >
+              <span class="pin-pulse"></span>
+              <span class="pin-core"></span>
+              <span class="pin-label">
+                <strong>{office.city}</strong>
+                <small>{office.country}</small>
+              </span>
             </span>
           ))}
-        </div>
-        <div class="office-pills" aria-label="Richmedia offices">
-          {offices.map((office) => <span>{office}</span>)}
         </div>
       </article>
     </section>
 
-    <section class="office-strip" id="contact-offices" aria-label="Our offices">
-      {offices.map((office) => (
-        <article>
-          <span>{office}</span>
-          <p>{office.startsWith('Casablanca') ? BUSINESS.adresse : 'Richmedia office'}</p>
-        </article>
-      ))}
+    <section class="next-section" aria-labelledby="next-title">
+      <div class="section-heading">
+        <span></span>
+        <h2 id="next-title">What happens next?</h2>
+        <span></span>
+      </div>
+      <div class="process-grid">
+        {processSteps.map((step, index) => (
+          <article class="process-card hover-card">
+            <span class="step-badge">{step.number}</span>
+            <i class:list={['ph', step.icon]} aria-hidden="true"></i>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+            {index < processSteps.length - 1 && (
+              <span class="process-arrow" aria-hidden="true">
+                <i class="ph ph-arrow-right"></i>
+              </span>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <h2 id="faq-title">Your questions, our answers</h2>
+      <div class="faq-grid">
+        {faqs.map((item) => (
+          <details class="faq-item hover-card">
+            <summary>
+              <span class="icon-box">
+                <i class:list={['ph', item.icon]} aria-hidden="true"></i>
+              </span>
+              <span>
+                <strong>{item.question}</strong>
+                <em>{item.answer}</em>
+              </span>
+              <b aria-hidden="true">+</b>
+            </summary>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="contact-cta hover-card" aria-label="Call to action">
+      <div>
+        <h2>Ready to grow your brand?</h2>
+        <p>Let's discuss your goals and build an effective system together.</p>
+      </div>
+      <a class="button button-light" href={`tel:${BUSINESS.tels[0]}`}>
+        Talk to an expert
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
     </section>
   </div>
 </BaseLayout>
@@ -250,202 +403,602 @@ const offices = ['Casablanca, Morocco', 'Dubai, UAE', 'Montreal, Canada', 'Stras
   }
 
   .contact-page {
-    --purple: #7c3cff;
-    --purple-soft: #a46cff;
-    --line: rgba(255, 255, 255, 0.13);
-    --muted: rgba(255, 255, 255, 0.66);
-    width: min(100% - 3rem, 1320px);
-    margin: 0 auto;
-    padding: clamp(8.5rem, 11vw, 10.5rem) 0 clamp(3rem, 6vw, 5.5rem);
-    background:
-      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-    background-size: 84px 84px;
-  }
-
-  .contact-form-card,
-  .contact-methods,
-  .contact-workflow,
-  .office-strip {
-    scroll-margin-top: 6rem;
-  }
-
-  .mobile-page-nav {
-    display: none;
-  }
-
-  .contact-hero {
+    --bg: #02040a;
+    --panel: rgba(14, 15, 28, 0.78);
+    --line: rgba(255, 255, 255, 0.14);
+    --muted: rgba(255, 255, 255, 0.68);
+    --soft: rgba(255, 255, 255, 0.82);
+    --purple: #8a4dff;
+    --purple-2: #6c24ff;
+    --purple-soft: #b084ff;
     position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 0.88fr) minmax(420px, 0.72fr);
-    gap: clamp(1.5rem, 4vw, 4rem);
-    align-items: stretch;
+    box-sizing: border-box;
     overflow: hidden;
-    min-height: 620px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: clamp(2rem, 5vw, 4.5rem);
+    width: 100%;
+    color: #fff;
     background:
-      radial-gradient(circle at 8% 38%, rgba(124, 60, 255, 0.22), transparent 26rem),
-      radial-gradient(circle at 86% 8%, rgba(124, 60, 255, 0.12), transparent 20rem),
-      linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012));
+      radial-gradient(circle at 76% 4%, rgba(105, 50, 255, 0.18), transparent 24rem),
+      radial-gradient(circle at 4% 18%, rgba(126, 68, 255, 0.15), transparent 18rem),
+      linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+      var(--bg);
+    background-size: auto, auto, 78px 78px, 78px 78px, auto;
+    padding: clamp(7.5rem, 8.4vw, 9rem) max(1.2rem, calc((100vw - 1500px) / 2)) clamp(3.6rem, 6vw, 5.5rem);
   }
 
-  .contact-hero::before {
+  .contact-page *,
+  .contact-page *::before,
+  .contact-page *::after {
+    box-sizing: border-box;
+  }
+
+  .contact-page::before {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(124, 60, 255, 0.08), transparent 46%);
+    background:
+      radial-gradient(circle at 50% 0%, rgba(138, 77, 255, 0.1), transparent 32rem),
+      linear-gradient(180deg, rgba(2, 4, 10, 0), rgba(2, 4, 10, 0.86) 44%, #02040a 100%);
     content: '';
     pointer-events: none;
   }
 
-  .contact-copy,
-  .contact-form-card {
+  .contact-page > * {
     position: relative;
     z-index: 1;
-  }
-
-  .contact-copy {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 0;
-  }
-
-  .section-kicker,
-  .form-label,
-  .map-label {
-    display: inline-flex;
-    width: fit-content;
-    align-items: center;
-    gap: 0.65rem;
-    color: var(--purple-soft);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-
-  .section-kicker::before {
-    width: 2rem;
-    height: 2px;
-    background: var(--purple);
-    content: '';
+    width: min(100% - 6rem, 1500px);
+    margin-inline: auto;
   }
 
   h1,
   h2,
+  h3,
   p {
     margin: 0;
   }
 
-  h1 {
-    max-width: 760px;
-    margin-top: 1.1rem;
-    --h1-size: clamp(3rem, 6vw, 5.8rem);
-    line-height: 0.98;
-    letter-spacing: 0;
+  a {
+    color: inherit;
   }
 
-  .contact-copy p {
-    max-width: 560px;
-    margin-top: 1.3rem;
-    color: rgba(255, 255, 255, 0.72);
-    font-size: clamp(1rem, 1.45vw, 1.22rem);
-    line-height: 1.58;
+  .sr-only {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 
-  .contact-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-    margin-top: 2rem;
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--purple-soft);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::after {
+    width: 3rem;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--purple), transparent);
+    content: '';
   }
 
   .button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    min-height: 3.2rem;
+    gap: 0.6rem;
+    min-height: 3.55rem;
     border: 1px solid transparent;
-    border-radius: 7px;
-    padding: 0 1.25rem;
-    color: #fff;
-    font-weight: 800;
+    border-radius: 8px;
+    padding: 0 1.45rem;
+    font-size: 1rem;
+    font-weight: 850;
     text-decoration: none;
-    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
     cursor: pointer;
+  }
+
+  .button i {
+    font-size: 1.05em;
+    transition: transform 220ms ease;
   }
 
   .button:hover,
   .button:focus-visible {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+  }
+
+  .button:hover i,
+  .button:focus-visible i {
+    transform: translate(3px, -3px);
   }
 
   .button-primary {
-    background: linear-gradient(135deg, #8c52ff, #6224ec);
-    box-shadow: 0 1rem 2.5rem rgba(124, 60, 255, 0.28);
+    background: linear-gradient(135deg, #9b5cff 0%, #6e29ff 100%);
+    box-shadow: 0 1.1rem 2.6rem rgba(108, 36, 255, 0.35);
   }
 
   .button-secondary {
-    border-color: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.24);
     background: rgba(255, 255, 255, 0.035);
   }
 
-  .contact-form-card {
-    display: grid;
-    align-content: start;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 8px;
-    padding: clamp(1.25rem, 2.4vw, 2rem);
-    background:
-      linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.026)),
-      rgba(3, 4, 7, 0.72);
-    box-shadow: 0 1.6rem 4rem rgba(0, 0, 0, 0.34);
-    backdrop-filter: blur(16px);
+  .button-light {
+    min-width: 260px;
+    color: #6c24ff;
+    background: #fff;
+    box-shadow: 0 1rem 2.4rem rgba(10, 2, 30, 0.2);
   }
 
-  .contact-form-card h2 {
-    margin-top: 0.85rem;
-    --h2-size: clamp(1.6rem, 2.4vw, 2.5rem);
-    font-size: var(--h2-size);
-    line-height: 1.07;
+  .hover-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 260ms ease, border-color 260ms ease, background 260ms ease, box-shadow 260ms ease;
+  }
+
+  .hover-card::before {
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    opacity: 0;
+    background:
+      radial-gradient(circle at 22% 0%, rgba(138, 77, 255, 0.25), transparent 16rem),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0));
+    content: '';
+    transition: opacity 260ms ease;
+  }
+
+  .hover-card:hover,
+  .hover-card:focus-within {
+    transform: translateY(-5px);
+    border-color: rgba(176, 132, 255, 0.58);
+    box-shadow: 0 1.4rem 3.6rem rgba(0, 0, 0, 0.28), 0 0 2.4rem rgba(138, 77, 255, 0.12);
+  }
+
+  .hover-card:hover::before,
+  .hover-card:focus-within::before {
+    opacity: 1;
+  }
+
+  .icon-box {
+    display: inline-grid;
+    width: 3.9rem;
+    height: 3.9rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid rgba(138, 77, 255, 0.3);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 45% 25%, rgba(185, 137, 255, 0.28), transparent 52%),
+      rgba(110, 41, 255, 0.12);
+    color: var(--purple-soft);
+    font-size: 1.78rem;
+    box-shadow: 0 0 1.5rem rgba(138, 77, 255, 0.16);
+    transition: transform 260ms ease, box-shadow 260ms ease;
+  }
+
+  .hover-card:hover .icon-box {
+    transform: rotate(-5deg) scale(1.05);
+    box-shadow: 0 0 2.2rem rgba(138, 77, 255, 0.35);
+  }
+
+  .contact-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(620px, 1.05fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    min-height: clamp(660px, 47vw, 790px);
+    padding-block: clamp(1rem, 2vw, 2rem);
+  }
+
+  .hero-copy {
+    max-width: 660px;
+  }
+
+  .hero-copy h1 {
+    margin-top: 1.25rem;
+    font-size: clamp(4rem, 5.4vw, 6.65rem);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .hero-copy h1 span {
+    display: block;
+    color: transparent;
+    background: linear-gradient(110deg, #9e64ff 0%, #6f2bff 55%, #b992ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 2.4rem rgba(138, 77, 255, 0.24);
+  }
+
+  .hero-copy p {
+    max-width: 640px;
+    margin-top: 1.6rem;
+    color: var(--muted);
+    font-size: clamp(1.08rem, 1.45vw, 1.32rem);
+    line-height: 1.62;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.25rem;
+  }
+
+  .hero-visual {
+    position: relative;
+    min-height: clamp(540px, 38vw, 680px);
+  }
+
+  .hero-map-stage {
+    position: absolute;
+    inset: 0 6rem 0 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 50% 72%, rgba(138, 77, 255, 0.3), transparent 14rem),
+      rgba(5, 6, 15, 0.36);
+    isolation: isolate;
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.72), #000 18%, #000 82%, rgba(0, 0, 0, 0.6));
+  }
+
+  .hero-map-stage img {
+    position: absolute;
+    inset: 2rem 2rem 5rem;
+    width: calc(100% - 4rem);
+    height: calc(100% - 7rem);
+    object-fit: contain;
+    opacity: 0.78;
+    filter: saturate(1.35) contrast(1.18) drop-shadow(0 0 1.6rem rgba(138, 77, 255, 0.25));
+    mix-blend-mode: screen;
+  }
+
+  .hero-glow-core {
+    position: absolute;
+    left: 51%;
+    bottom: 15%;
+    width: 12rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(170, 114, 255, 0.66) 24%, transparent 72%);
+    filter: blur(2px);
+    transform: translateX(-50%);
+    animation: heroGlow 2.6s ease-in-out infinite alternate;
+  }
+
+  .hero-platform {
+    position: absolute;
+    left: 51%;
+    bottom: 5%;
+    width: min(44%, 430px);
+    height: 8rem;
+    border: 1px solid rgba(138, 77, 255, 0.28);
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse at center, rgba(144, 86, 255, 0.3), rgba(30, 14, 78, 0.2) 45%, transparent 68%),
+      repeating-radial-gradient(ellipse at center, rgba(138, 77, 255, 0.26) 0 1px, transparent 1px 24px);
+    transform: translateX(-50%) rotateX(66deg);
+    box-shadow: 0 0 5rem rgba(138, 77, 255, 0.18);
+  }
+
+  .hero-route,
+  .map-route {
+    position: absolute;
+    pointer-events: none;
+    border-top: 1px solid rgba(176, 132, 255, 0.52);
+    border-radius: 50%;
+    filter: drop-shadow(0 0 0.8rem rgba(138, 77, 255, 0.55));
+    animation: routePulse 3.6s ease-in-out infinite;
+  }
+
+  .hero-route-1 {
+    left: 24%;
+    top: 34%;
+    width: 42%;
+    height: 25%;
+    transform: rotate(18deg);
+  }
+
+  .hero-route-2 {
+    left: 41%;
+    top: 30%;
+    width: 35%;
+    height: 31%;
+    transform: rotate(-20deg);
+    animation-delay: 0.4s;
+  }
+
+  .hero-route-3 {
+    left: 40%;
+    top: 48%;
+    width: 25%;
+    height: 18%;
+    transform: rotate(10deg);
+    animation-delay: 0.8s;
+  }
+
+  .hero-pin {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    z-index: 3;
+    width: 1rem;
+    height: 1rem;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-pin span {
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgba(255, 255, 255, 0.92);
+    border-radius: 999px;
+    background: var(--purple);
+    box-shadow: 0 0 1.3rem rgba(138, 77, 255, 0.95), 0 0 0 0.8rem rgba(138, 77, 255, 0.12);
+    animation: pinBreath 2.2s ease-in-out infinite;
+  }
+
+  .holo-card {
+    position: absolute;
+    z-index: 4;
+    display: grid;
+    gap: 0.25rem;
+    min-width: 152px;
+    border: 1px solid rgba(180, 138, 255, 0.24);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(26, 18, 55, 0.52);
+    box-shadow: 0 1.2rem 2.6rem rgba(0, 0, 0, 0.32), inset 0 0 1.6rem rgba(138, 77, 255, 0.1);
+    backdrop-filter: blur(12px);
+    animation: floatCard 5s ease-in-out infinite;
+  }
+
+  .holo-card i {
+    color: var(--purple-soft);
+    font-size: 1.35rem;
+  }
+
+  .holo-card span {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.76rem;
+    font-weight: 750;
+  }
+
+  .holo-card strong {
+    font-size: 1.05rem;
+  }
+
+  .holo-card-performance {
+    left: 16%;
+    top: 38%;
+    transform: rotate(-5deg);
+  }
+
+  .holo-card-brief {
+    left: 26%;
+    bottom: 20%;
+    min-width: 200px;
+    animation-delay: 1s;
+  }
+
+  .hero-contact-cards {
+    position: absolute;
+    top: 5%;
+    right: 0;
+    bottom: 8%;
+    z-index: 5;
+    display: grid;
+    width: min(300px, 32%);
+    gap: 1.05rem;
+    align-content: center;
+  }
+
+  .hero-contact-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 116px;
+    border: 1px solid rgba(255, 255, 255, 0.17);
+    border-radius: 8px;
+    padding: 1.1rem;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.02)),
+      rgba(14, 13, 29, 0.84);
+    box-shadow: 0 1.1rem 2.4rem rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(18px);
+    transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+  }
+
+  .hero-contact-card:hover {
+    transform: translateX(-8px);
+    border-color: rgba(176, 132, 255, 0.58);
+    box-shadow: 0 1.4rem 3rem rgba(0, 0, 0, 0.34), 0 0 2.2rem rgba(138, 77, 255, 0.16);
+  }
+
+  .hero-contact-card .icon-box {
+    width: 3.2rem;
+    height: 3.2rem;
+    font-size: 1.45rem;
+  }
+
+  .hero-contact-card strong,
+  .hero-contact-card span {
+    display: block;
+  }
+
+  .hero-contact-card strong {
+    font-size: 0.98rem;
+  }
+
+  .hero-contact-card span {
+    margin-top: 0.25rem;
+    color: var(--soft);
+    font-size: 0.92rem;
+    line-height: 1.36;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.02)),
+      rgba(9, 10, 20, 0.78);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(18px);
+  }
+
+  .contact-strip-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 1.2rem;
+    align-items: center;
+    min-height: 176px;
+    border-right: 1px dashed rgba(255, 255, 255, 0.2);
+    padding: 1.8rem 2rem;
+    text-decoration: none;
+  }
+
+  .contact-strip-card:last-child {
+    border-right: 0;
+  }
+
+  .strip-content strong,
+  .strip-content span {
+    display: block;
+  }
+
+  .strip-content strong {
+    margin-bottom: 0.55rem;
+    font-size: 1.28rem;
+    font-weight: 900;
+  }
+
+  .strip-content span {
+    color: var(--soft);
+    font-size: 1.02rem;
+    line-height: 1.42;
+  }
+
+  .strip-arrow {
+    color: var(--purple-soft);
+    font-size: 1.35rem;
+    transition: transform 240ms ease;
+  }
+
+  .contact-strip-card:hover .strip-arrow {
+    transform: translateX(6px);
+  }
+
+  .contact-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .contact-form-panel,
+  .office-map-panel,
+  .process-card,
+  .faq-item,
+  .contact-cta {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 18% 0%, rgba(138, 77, 255, 0.13), transparent 18rem),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
+      rgba(7, 8, 17, 0.84);
+  }
+
+  .contact-form-panel {
+    padding: clamp(1.5rem, 2.5vw, 2.45rem);
+  }
+
+  .contact-form-panel h2,
+  .office-map-panel h2,
+  .next-section h2,
+  .faq-section h2,
+  .contact-cta h2 {
+    font-size: clamp(2rem, 2.35vw, 3.05rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 1.05;
   }
 
   form {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.85rem;
-    margin-top: 1.5rem;
+    gap: 1rem;
+    margin-top: 1.8rem;
   }
 
-  label {
-    display: grid;
-    gap: 0.45rem;
+  .field {
+    display: block;
     min-width: 0;
   }
 
-  label span {
+  .field-wide {
+    grid-column: 1 / -1;
+  }
+
+  .field-shell {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    min-height: 58px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    background: rgba(2, 4, 10, 0.5);
+    transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease;
+  }
+
+  .field-shell i {
+    padding-left: 1.05rem;
     color: rgba(255, 255, 255, 0.72);
-    font-size: 0.78rem;
-    font-weight: 700;
+    font-size: 1.15rem;
+  }
+
+  .field-shell:focus-within {
+    border-color: rgba(176, 132, 255, 0.62);
+    background: rgba(2, 4, 10, 0.72);
+    box-shadow: 0 0 0 4px rgba(138, 77, 255, 0.12);
   }
 
   input,
   select,
   textarea {
     width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.13);
-    border-radius: 7px;
-    padding: 0.9rem 0.95rem;
-    background: rgba(0, 0, 0, 0.28);
+    min-width: 0;
+    border: 0;
+    background: transparent;
     color: #fff;
+    font: inherit;
     outline: none;
-    transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  }
+
+  input,
+  select {
+    min-height: 56px;
+    padding: 0 1rem;
   }
 
   textarea {
+    min-height: 154px;
+    padding: 1rem;
     resize: vertical;
   }
 
@@ -453,683 +1006,809 @@ const offices = ['Casablanca, Morocco', 'Dubai, UAE', 'Montreal, Canada', 'Stras
     color-scheme: dark;
   }
 
-  input:focus,
-  select:focus,
-  textarea:focus {
-    border-color: rgba(124, 60, 255, 0.7);
-    background: rgba(0, 0, 0, 0.42);
-    box-shadow: 0 0 0 4px rgba(124, 60, 255, 0.12);
+  ::placeholder {
+    color: rgba(255, 255, 255, 0.56);
   }
 
-  .field-wide {
-    grid-column: 1 / -1;
-  }
-
-  .contact-methods {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0;
-    overflow: hidden;
-    margin-top: 1.2rem;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.018);
-  }
-
-  .method-card {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 1rem;
-    align-items: center;
-    min-height: 8rem;
-    border-right: 1px solid var(--line);
-    padding: 1.2rem;
-    color: rgba(255, 255, 255, 0.86);
-    text-decoration: none;
-    transition: background 190ms ease, transform 190ms ease;
-  }
-
-  .method-card:last-child {
-    border-right: 0;
-  }
-
-  a.method-card:hover,
-  a.method-card:focus-visible {
-    background: rgba(124, 60, 255, 0.08);
-  }
-
-  .method-icon {
-    display: inline-grid;
-    width: 3rem;
-    height: 3rem;
-    place-items: center;
-    border: 1px solid rgba(124, 60, 255, 0.4);
-    border-radius: 8px;
-    background: rgba(124, 60, 255, 0.12);
-    color: var(--purple-soft);
-    font-size: 1.35rem;
-  }
-
-  .method-card small {
+  .field-shell-textarea {
     display: block;
-    color: var(--muted);
-    font-size: 0.74rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    min-height: 154px;
   }
 
-  .method-card strong {
-    display: block;
-    margin-top: 0.18rem;
-    color: #fff;
-    font-size: clamp(0.95rem, 1.2vw, 1.12rem);
-    line-height: 1.3;
-    overflow-wrap: anywhere;
-  }
-
-  .method-card em {
-    display: block;
-    margin-top: 0.15rem;
-    color: rgba(255, 255, 255, 0.62);
-    font-style: normal;
-    font-size: 0.9rem;
-  }
-
-  .contact-workflow {
-    display: grid;
-    grid-template-columns: minmax(360px, 0.72fr) minmax(420px, 1fr);
-    gap: 1.2rem;
-    margin-top: 1.2rem;
-  }
-
-  .project-card,
-  .map-card {
-    overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background:
-      radial-gradient(circle at 14% 0%, rgba(124, 60, 255, 0.16), transparent 18rem),
-      rgba(255, 255, 255, 0.018);
-  }
-
-  .project-card {
-    padding: clamp(1.4rem, 3vw, 2.2rem);
-  }
-
-  .project-card h2,
-  .map-card h2 {
-    margin-top: 0.85rem;
-    --h2-size: clamp(1.65rem, 2.7vw, 2.8rem);
-    font-size: var(--h2-size);
-    line-height: 1.08;
-  }
-
-  .type-cloud {
+  .consent {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-    margin-top: 1.4rem;
+    align-items: center;
+    gap: 0.78rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
   }
 
-  .type-cloud span {
-    border: 1px solid rgba(255, 255, 255, 0.13);
-    border-radius: 999px;
-    padding: 0.55rem 0.72rem;
-    background: rgba(255, 255, 255, 0.035);
-    color: rgba(255, 255, 255, 0.84);
-    font-size: 0.82rem;
-    font-weight: 700;
+  .consent input {
+    width: 1.3rem;
+    height: 1.3rem;
+    accent-color: var(--purple);
   }
 
-  .steps-list {
-    display: grid;
-    gap: 0.7rem;
-    margin-top: 1.6rem;
+  .form-status {
+    min-height: 1.2rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.9rem;
+    text-align: center;
   }
 
-  .step-row {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 0.95rem;
-    align-items: start;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 0.85rem;
+  .form-status[data-state='success'] {
+    color: #5df793;
   }
 
-  .step-row > span {
-    color: var(--purple-soft);
-    font-size: 1.25rem;
-    font-weight: 800;
+  .form-status[data-state='error'] {
+    color: #ff8a9a;
   }
 
-  .step-row strong {
-    color: #fff;
-    font-size: 1rem;
-  }
-
-  .step-row p {
-    margin-top: 0.18rem;
-    color: var(--muted);
-    font-size: 0.92rem;
-    line-height: 1.45;
-  }
-
-  .map-card {
-    position: relative;
-    min-height: 480px;
-    padding: clamp(1.1rem, 2.2vw, 1.6rem);
-  }
-
-  .map-label {
-    position: relative;
-    z-index: 6;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 999px;
-    padding: 0.5rem 0.72rem;
-    background: rgba(3, 4, 7, 0.72);
-    backdrop-filter: blur(12px);
-  }
-
-  .map-card h2 {
-    position: relative;
-    z-index: 6;
-    max-width: 420px;
-    --h2-size: clamp(1.45rem, 2.15vw, 2.2rem);
-    font-size: var(--h2-size);
-  }
-
-  .map-stage {
+  .form-honeypot {
     position: absolute;
-    inset: 9.4rem 1rem 4.6rem;
-    overflow: hidden;
-    border-radius: 8px;
-    background:
-      radial-gradient(circle at 50% 45%, rgba(124, 60, 255, 0.11), transparent 17rem),
-      #030407;
-  }
-
-  .map-stage::before {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background:
-      linear-gradient(90deg, rgba(3, 4, 7, 0.28), transparent 18%, transparent 82%, rgba(3, 4, 7, 0.28)),
-      linear-gradient(180deg, rgba(3, 4, 7, 0.12), transparent 35%, rgba(3, 4, 7, 0.22));
-    content: '';
+    left: -9999px;
+    opacity: 0;
     pointer-events: none;
   }
 
-  .world-map-img {
+  .office-map-panel {
+    display: grid;
+    overflow: hidden;
+    min-height: 620px;
+    padding: clamp(1.5rem, 2.5vw, 2.45rem);
+  }
+
+  .office-map-panel h2 {
+    position: relative;
+    z-index: 3;
+    max-width: 620px;
+  }
+
+  .office-map-panel h2 span {
+    display: block;
+    color: var(--soft);
+    font-weight: 500;
+  }
+
+  .office-map-stage {
+    position: relative;
+    align-self: end;
+    overflow: hidden;
+    min-height: 430px;
+    margin: 1.5rem -2.45rem -2.45rem;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(138, 77, 255, 0.18), transparent 20rem),
+      linear-gradient(180deg, rgba(2, 4, 10, 0), rgba(2, 4, 10, 0.4));
+    isolation: isolate;
+  }
+
+  .office-map-stage img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: fill;
-    opacity: 0.96;
-    filter: saturate(1.12) contrast(1.06) drop-shadow(0 0 1.8rem rgba(124, 60, 255, 0.18));
+    object-fit: cover;
+    opacity: 0.78;
+    filter: saturate(1.35) contrast(1.15) drop-shadow(0 0 2rem rgba(138, 77, 255, 0.2));
+    mix-blend-mode: screen;
+    transition:
+      opacity 260ms ease,
+      filter 260ms ease,
+      transform 420ms ease;
+    will-change: opacity, filter, transform;
   }
 
-  .office-marker {
+  .office-map-stage:hover img {
+    opacity: 0.9;
+    filter: saturate(1.5) contrast(1.22) drop-shadow(0 0 2.4rem rgba(174, 124, 255, 0.32));
+    transform: scale(1.015);
+  }
+
+  .office-map-stage::after {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(7, 8, 17, 0.5), transparent 18%, transparent 82%, rgba(7, 8, 17, 0.58)),
+      linear-gradient(180deg, rgba(7, 8, 17, 0.08), transparent 48%, rgba(7, 8, 17, 0.45));
+    content: '';
+    pointer-events: none;
+  }
+
+  .map-route-1 {
+    left: 26%;
+    top: 38%;
+    width: 30%;
+    height: 25%;
+    transform: rotate(12deg);
+  }
+
+  .map-route-2 {
+    left: 47%;
+    top: 36%;
+    width: 22%;
+    height: 17%;
+    transform: rotate(-13deg);
+    animation-delay: 0.3s;
+  }
+
+  .map-route-3 {
+    left: 46%;
+    top: 48%;
+    width: 21%;
+    height: 15%;
+    transform: rotate(18deg);
+    animation-delay: 0.7s;
+  }
+
+  .map-route-4 {
+    left: 50%;
+    top: 34%;
+    width: 15%;
+    height: 18%;
+    transform: rotate(-8deg);
+    animation-delay: 1s;
+  }
+
+  .office-pin {
     position: absolute;
     left: var(--x);
     top: var(--y);
-    z-index: 5;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    transform: translate(-0.5rem, -50%);
-    white-space: nowrap;
+    z-index: 4;
+    transform: translate(-50%, -50%);
   }
 
-  .office-dot {
-    display: block;
-    width: 0.68rem;
-    height: 0.68rem;
-    border: 2px solid rgba(255, 255, 255, 0.82);
-    border-radius: 999px;
-    background: var(--purple);
-    box-shadow: 0 0 0 0.38rem rgba(124, 60, 255, 0.16), 0 0 1.25rem rgba(124, 60, 255, 0.95);
+  .office-pin:hover {
+    z-index: 8;
   }
 
-  .office-label {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 999px;
-    padding: 0.28rem 0.52rem;
-    background: rgba(3, 4, 7, 0.76);
-    color: #fff;
-    font-size: 0.76rem;
-    font-weight: 700;
-    line-height: 1;
-    backdrop-filter: blur(12px);
-  }
-
-  .office-marker-montreal .office-label,
-  .office-marker-strasbourg .office-label {
-    transform: translateY(-0.75rem);
-  }
-
-  .office-marker-casablanca .office-label {
-    transform: translate(-5.85rem, 1.25rem);
-  }
-
-  .office-marker-dubai .office-label {
-    transform: translateY(0.9rem);
-  }
-
-  .office-pills {
+  .pin-core {
     position: absolute;
-    right: 1rem;
-    bottom: 1rem;
-    left: 1rem;
-    z-index: 6;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    left: 0;
+    top: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    border: 2px solid rgba(255, 255, 255, 0.86);
+    border-radius: 999px;
+    background: linear-gradient(135deg, #b68cff, #7a34ff);
+    box-shadow: 0 0 1.4rem rgba(138, 77, 255, 1), 0 0 3rem rgba(138, 77, 255, 0.46);
+    transform: translate(-50%, -50%);
+    transition:
+      border-color 220ms ease,
+      background 220ms ease,
+      box-shadow 220ms ease,
+      transform 220ms ease;
+    will-change: transform;
   }
 
-  .office-pills span {
-    display: inline-flex;
-    gap: 0.4rem;
-    align-items: center;
-    min-height: 2.15rem;
-    border: 1px solid rgba(255, 255, 255, 0.13);
+  .pin-pulse {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4.2rem;
+    height: 4.2rem;
+    border: 1px solid rgba(174, 124, 255, 0.7);
     border-radius: 999px;
-    padding: 0 0.75rem;
-    background: rgba(3, 4, 7, 0.72);
-    color: rgba(255, 255, 255, 0.9);
+    transform: translate(-50%, -50%);
+    animation: pinPulse 2.4s ease-out infinite;
+    transition: border-color 220ms ease, opacity 220ms ease;
+  }
+
+  .pin-label {
+    position: absolute;
+    left: 0.9rem;
+    top: -3.6rem;
+    display: grid;
+    gap: 0.12rem;
+    min-width: 132px;
+    border: 1px solid rgba(176, 132, 255, 0.45);
+    border-radius: 8px;
+    padding: 0.65rem 0.78rem;
+    background: rgba(8, 8, 18, 0.84);
+    box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.25), 0 0 1.8rem rgba(138, 77, 255, 0.13);
+    backdrop-filter: blur(14px);
+    transform-origin: left bottom;
+    transition:
+      border-color 220ms ease,
+      background 220ms ease,
+      box-shadow 220ms ease,
+      transform 220ms ease;
+    will-change: transform;
+  }
+
+  .office-pin:hover .pin-core {
+    border-color: #fff;
+    background: linear-gradient(135deg, #fff 0%, #cdb4ff 38%, #7a34ff 100%);
+    box-shadow:
+      0 0 1.8rem rgba(255, 255, 255, 0.72),
+      0 0 3.8rem rgba(138, 77, 255, 0.9),
+      0 0 0 0.65rem rgba(138, 77, 255, 0.18);
+    transform: translate(-50%, -50%) scale(1.32);
+  }
+
+  .office-pin:hover .pin-pulse {
+    border-color: rgba(255, 255, 255, 0.9);
+    opacity: 0.95;
+    animation-duration: 1.2s;
+  }
+
+  .office-pin:hover .pin-label {
+    border-color: rgba(207, 178, 255, 0.82);
+    background: rgba(12, 10, 26, 0.94);
+    box-shadow:
+      0 1.2rem 2.7rem rgba(0, 0, 0, 0.34),
+      0 0 2.8rem rgba(138, 77, 255, 0.42),
+      inset 0 0 1.4rem rgba(176, 132, 255, 0.12);
+    transform: translate3d(0, -0.55rem, 0) scale(1.04);
+  }
+
+  .pin-label strong {
+    font-size: 1.02rem;
+    line-height: 1;
+  }
+
+  .pin-label small {
+    color: var(--purple-soft);
     font-size: 0.78rem;
-    font-weight: 700;
-    backdrop-filter: blur(12px);
   }
 
-  .office-pills span::before {
-    width: 0.42rem;
-    height: 0.42rem;
-    border-radius: 999px;
-    background: var(--purple);
-    box-shadow: 0 0 0.8rem rgba(124, 60, 255, 0.75);
-    content: '';
+  .office-casablanca .pin-label {
+    top: 1.1rem;
+    left: -7.4rem;
   }
 
-  .office-strip {
+  .office-dubai .pin-label {
+    top: 1rem;
+  }
+
+  .next-section {
+    margin-top: clamp(2.5rem, 5vw, 4.8rem);
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 1.1rem;
+    align-items: center;
+    margin-bottom: 1.6rem;
+  }
+
+  .section-heading span {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.24));
+  }
+
+  .section-heading span:last-child {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.24), transparent);
+  }
+
+  .next-section h2 {
+    font-size: clamp(1.35rem, 2vw, 2rem);
+    text-align: center;
+  }
+
+  .process-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.8rem;
-    margin-top: 1.2rem;
+    gap: 1.55rem;
   }
 
-  .office-strip article {
-    min-height: 8rem;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 1.1rem;
-    background: rgba(255, 255, 255, 0.022);
-    transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+  .process-card {
+    min-height: 212px;
+    padding: 1.5rem;
+    text-align: center;
   }
 
-  .office-strip article:hover {
-    border-color: rgba(124, 60, 255, 0.44);
-    background: rgba(124, 60, 255, 0.055);
-    transform: translateY(-3px);
+  .step-badge {
+    position: absolute;
+    top: 1.18rem;
+    left: 1.18rem;
+    display: inline-grid;
+    width: 2.6rem;
+    height: 2.6rem;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #9b5cff, #6c24ff);
+    font-weight: 900;
+    box-shadow: 0 0 1.8rem rgba(138, 77, 255, 0.34);
   }
 
-  .office-strip span {
-    color: #fff;
-    font-size: 1.12rem;
-    font-weight: 800;
+  .process-card > i {
+    display: block;
+    margin: 0 auto 1.1rem;
+    color: var(--purple-soft);
+    font-size: 2.7rem;
+    transition: transform 260ms ease, filter 260ms ease;
   }
 
-  .office-strip p {
-    margin-top: 0.55rem;
+  .process-card:hover > i {
+    transform: translateY(-4px) scale(1.08);
+    filter: drop-shadow(0 0 1rem rgba(138, 77, 255, 0.5));
+  }
+
+  .process-card h3 {
+    font-size: 1.08rem;
+    font-weight: 900;
+  }
+
+  .process-card p {
+    margin-top: 0.65rem;
     color: var(--muted);
-    font-size: 0.92rem;
+    font-size: 0.93rem;
     line-height: 1.45;
   }
 
-  @media (max-width: 1080px) {
-    .contact-hero,
-    .contact-workflow {
-      grid-template-columns: 1fr;
-    }
+  .process-arrow {
+    position: absolute;
+    right: -1.02rem;
+    top: 50%;
+    z-index: 4;
+    display: inline-grid;
+    width: 2.8rem;
+    height: 2.8rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50%;
+    background: rgba(6, 7, 16, 0.92);
+    color: rgba(255, 255, 255, 0.86);
+    transform: translateY(-50%);
+  }
 
-    .contact-form-card {
-      max-width: 680px;
-    }
+  .faq-section {
+    margin-top: clamp(2.4rem, 4vw, 3.8rem);
+  }
 
-    .contact-methods,
-    .office-strip {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .faq-section h2 {
+    margin-bottom: 1.25rem;
+    font-size: clamp(1.45rem, 2vw, 2rem);
+  }
 
-    .method-card:nth-child(2) {
-      border-right: 0;
-    }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
 
-    .method-card:nth-child(-n + 2) {
-      border-bottom: 1px solid var(--line);
+  .faq-item {
+    padding: 0;
+  }
+
+  .faq-item summary {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    min-height: 105px;
+    padding: 1.25rem 1.35rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item strong,
+  .faq-item em {
+    display: block;
+  }
+
+  .faq-item strong {
+    font-size: 1rem;
+  }
+
+  .faq-item em {
+    margin-top: 0.32rem;
+    color: var(--muted);
+    font-style: normal;
+    font-size: 0.88rem;
+    line-height: 1.42;
+  }
+
+  .faq-item b {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.6rem;
+    font-weight: 400;
+    transition: transform 200ms ease;
+  }
+
+  .faq-item[open] b {
+    transform: rotate(45deg);
+  }
+
+  .faq-item .icon-box {
+    width: 3.1rem;
+    height: 3.1rem;
+    font-size: 1.35rem;
+  }
+
+  .contact-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) auto;
+    gap: 2rem;
+    align-items: center;
+    overflow: hidden;
+    margin-top: clamp(2.4rem, 5vw, 4rem);
+    padding: clamp(1.4rem, 3vw, 2.4rem) clamp(1.5rem, 4vw, 4rem);
+    background:
+      radial-gradient(circle at 95% 105%, rgba(255, 255, 255, 0.35), transparent 10rem),
+      radial-gradient(circle at 6% 0%, rgba(255, 255, 255, 0.18), transparent 12rem),
+      linear-gradient(120deg, #6020e8, #8b42ff 50%, #6021d9);
+    box-shadow: 0 1.5rem 4rem rgba(76, 20, 190, 0.24);
+  }
+
+  .contact-cta::after {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 0% 90%, transparent 0 4rem, rgba(255, 255, 255, 0.1) 4.05rem 4.12rem, transparent 4.18rem),
+      radial-gradient(circle at 96% 14%, transparent 0 6rem, rgba(255, 255, 255, 0.12) 6.05rem 6.12rem, transparent 6.18rem);
+    content: '';
+    pointer-events: none;
+  }
+
+  .contact-cta h2 {
+    max-width: 520px;
+    font-size: clamp(2rem, 3vw, 3.35rem);
+  }
+
+  .contact-cta p {
+    max-width: 560px;
+    margin-top: 0.75rem;
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 1.05rem;
+    line-height: 1.48;
+  }
+
+  @keyframes pinPulse {
+    0% {
+      opacity: 0.8;
+      transform: translate(-50%, -50%) scale(0.32);
+    }
+    80%,
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.18);
     }
   }
 
-  @media (max-width: 720px) {
-    .contact-page {
-      width: min(100% - 1.25rem, 1320px);
-      padding-top: 5.75rem;
-      padding-bottom: 3rem;
-      background-size: 68px 68px;
+  @keyframes pinBreath {
+    0%,
+    100% {
+      transform: scale(0.88);
+      opacity: 0.88;
     }
+    50% {
+      transform: scale(1.16);
+      opacity: 1;
+    }
+  }
 
-    .contact-form-card,
-    .contact-methods,
-    .contact-workflow,
-    .office-strip {
-      scroll-margin-top: 13.5rem;
+  @keyframes routePulse {
+    0%,
+    100% {
+      opacity: 0.22;
+    }
+    50% {
+      opacity: 0.86;
+    }
+  }
+
+  @keyframes heroGlow {
+    from {
+      opacity: 0.72;
+      transform: translateX(-50%) scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.08);
+    }
+  }
+
+  @keyframes floatCard {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 -12px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  @media (max-width: 1220px) {
+    .contact-page > * {
+      width: min(100% - 2rem, 1500px);
     }
 
     .contact-hero {
+      grid-template-columns: 1fr;
       min-height: auto;
-      gap: 1rem;
-      border-radius: 8px;
-      padding: 1rem;
     }
 
-    h1 {
-      --h1-size: clamp(2.08rem, 10.2vw, 2.86rem);
-      margin-top: 0.82rem;
-      line-height: 1.02;
+    .hero-copy {
+      max-width: 820px;
     }
 
-    .contact-copy p {
-      margin-top: 0.88rem;
-      font-size: 0.95rem;
-      line-height: 1.48;
+    .hero-visual {
+      min-height: 620px;
     }
 
-    .section-kicker,
-    .form-label,
-    .map-label {
-      gap: 0.55rem;
-      font-size: 0.66rem;
-      letter-spacing: 0.12em;
-    }
-
-    .section-kicker::before {
-      width: 1.75rem;
-    }
-
-    .contact-actions {
-      display: grid;
+    .contact-strip {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.62rem;
-      margin-top: 1.2rem;
     }
 
-    .button {
-      min-height: 3.05rem;
-      padding-inline: 0.8rem;
-      border-radius: 7px;
-      font-size: 0.92rem;
-      line-height: 1.1;
+    .contact-strip-card:nth-child(2) {
+      border-right: 0;
     }
 
-    .button:hover,
-    .button:focus-visible {
-      transform: none;
+    .contact-strip-card:nth-child(-n + 2) {
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
     }
 
-    .contact-form-card {
-      border-radius: 8px;
-      padding: 0.92rem;
-    }
-
-    .contact-form-card h2 {
-      --h2-size: clamp(1.32rem, 6.8vw, 1.78rem);
-      margin-top: 0.62rem;
-      line-height: 1.08;
-    }
-
-    form {
-      gap: 0.66rem;
-      margin-top: 1rem;
-    }
-
-    form,
-    .contact-methods,
-    .office-strip {
+    .contact-main-grid {
       grid-template-columns: 1fr;
     }
 
-    label {
-      gap: 0.32rem;
+    .process-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    label span {
-      font-size: 0.72rem;
+    .process-card:nth-child(2) .process-arrow {
+      display: none;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .contact-page {
+      padding: 5.85rem 0.8rem 3rem;
+      background-size: auto, auto, 56px 56px, 56px 56px, auto;
     }
 
-    input,
-    select,
-    textarea {
-      min-height: 3.05rem;
-      padding: 0.78rem 0.82rem;
-      font-size: 0.92rem;
-    }
-
-    textarea {
-      min-height: 7rem;
-    }
-
-    .mobile-page-nav {
-      position: sticky;
-      top: 4.35rem;
-      z-index: 12;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.38rem;
-      overflow: visible;
-      margin: 0.78rem 0;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      padding: 0.42rem;
-      background: rgba(5, 7, 15, 0.88);
-      box-shadow: 0 0.9rem 2rem rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(16px);
-    }
-
-    .mobile-page-nav a {
-      display: grid;
-      min-width: 0;
-      min-height: 3rem;
-      align-content: center;
-      gap: 0.12rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 7px;
-      padding: 0.45rem 0.42rem;
-      background: rgba(255, 255, 255, 0.045);
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .mobile-page-nav span {
-      color: rgba(255, 255, 255, 0.62);
-      font-size: 0.52rem;
-      font-weight: 850;
-      letter-spacing: 0.06em;
-      line-height: 1;
-      text-transform: uppercase;
-    }
-
-    .mobile-page-nav strong {
-      font-size: 0.8rem;
-      font-weight: 900;
-      line-height: 1.08;
-      overflow-wrap: anywhere;
-    }
-
-    .contact-methods {
-      margin-top: 0.8rem;
-      border-radius: 8px;
-    }
-
-    .method-card,
-    .method-card:nth-child(2) {
-      grid-template-columns: 2.6rem minmax(0, 1fr);
-      gap: 0.78rem;
-      min-height: 4.75rem;
-      border-right: 0;
-      border-bottom: 1px solid var(--line);
-      padding: 0.82rem;
-    }
-
-    .method-card:last-child {
-      border-bottom: 0;
-    }
-
-    .method-icon {
-      width: 2.6rem;
-      height: 2.6rem;
-      font-size: 1.15rem;
-    }
-
-    .method-card small {
-      font-size: 0.62rem;
-    }
-
-    .method-card strong {
-      font-size: 0.88rem;
-      line-height: 1.25;
-    }
-
-    .method-card em {
-      font-size: 0.78rem;
-    }
-
-    .contact-actions .button,
-    form .button {
+    .contact-page > * {
       width: 100%;
     }
 
-    .contact-workflow {
-      gap: 0.82rem;
-      margin-top: 0.82rem;
+    .section-kicker {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
     }
 
-    .project-card,
-    .map-card {
-      border-radius: 8px;
+    .contact-hero {
+      gap: 1.5rem;
+      padding-block: 0;
     }
 
-    .project-card {
-      padding: 0.95rem;
+    .hero-copy h1 {
+      margin-top: 0.9rem;
+      font-size: clamp(3rem, 15vw, 4.25rem);
     }
 
-    .project-card h2,
-    .map-card h2 {
-      --h2-size: clamp(1.42rem, 7.2vw, 1.9rem);
-      margin-top: 0.68rem;
-      line-height: 1.08;
-    }
-
-    .type-cloud {
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      gap: 0.46rem;
-      margin-inline: -0.95rem;
-      margin-top: 1rem;
-      padding: 0 0.95rem 0.2rem;
-      scroll-padding-inline: 0.95rem;
-      scroll-snap-type: x proximity;
-    }
-
-    .type-cloud span {
-      flex: 0 0 auto;
-      padding: 0.52rem 0.68rem;
-      font-size: 0.74rem;
-      scroll-snap-align: start;
-    }
-
-    .steps-list {
-      gap: 0.58rem;
-      margin-top: 1rem;
-    }
-
-    .step-row {
-      gap: 0.72rem;
-      padding-top: 0.72rem;
-    }
-
-    .step-row > span {
+    .hero-copy p {
+      margin-top: 1.05rem;
       font-size: 1rem;
+      line-height: 1.52;
     }
 
-    .step-row strong {
-      font-size: 0.92rem;
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
     }
 
-    .step-row p {
-      font-size: 0.78rem;
-      line-height: 1.38;
+    .button {
+      width: 100%;
+      min-height: 3.35rem;
+      padding-inline: 1rem;
+      font-size: 0.94rem;
     }
 
-    .map-card {
-      min-height: 0;
-      padding: 0.95rem;
+    .hero-visual {
+      min-height: 640px;
     }
 
-    .map-stage {
-      position: relative;
-      inset: auto;
-      height: 13.5rem;
-      margin-top: 0.95rem;
+    .hero-map-stage {
+      inset: 0;
+      min-height: 420px;
     }
 
-    .office-label {
+    .hero-map-stage img {
+      inset: 0.5rem;
+      width: calc(100% - 1rem);
+      height: 410px;
+    }
+
+    .hero-platform {
+      bottom: 20%;
+      width: 72%;
+    }
+
+    .holo-card {
       display: none;
     }
 
-    .office-dot {
-      width: 0.62rem;
-      height: 0.62rem;
-      box-shadow: 0 0 0 0.28rem rgba(124, 60, 255, 0.18), 0 0 1rem rgba(124, 60, 255, 0.78);
+    .hero-contact-cards {
+      top: auto;
+      right: 0.75rem;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      width: auto;
+      grid-template-columns: 1fr;
+      gap: 0.72rem;
     }
 
-    .office-pills {
-      position: static;
-      margin-top: 0.78rem;
-      gap: 0.42rem;
+    .hero-contact-card {
+      min-height: 84px;
+      padding: 0.8rem;
     }
 
-    .office-pills span {
-      min-height: 2rem;
-      padding-inline: 0.62rem;
-      font-size: 0.72rem;
+    .hero-contact-card .icon-box {
+      width: 2.8rem;
+      height: 2.8rem;
     }
 
-    .office-strip {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.62rem;
-      margin-top: 0.82rem;
+    .contact-strip,
+    .contact-main-grid,
+    .process-grid,
+    .faq-grid,
+    .contact-cta {
+      margin-top: 1rem;
     }
 
-    .office-strip article {
-      min-height: 6.4rem;
-      padding: 0.82rem;
+    .contact-strip,
+    .process-grid,
+    .faq-grid,
+    .contact-cta {
+      grid-template-columns: 1fr;
     }
 
-    .office-strip article:hover {
-      transform: none;
+    .contact-strip-card,
+    .contact-strip-card:nth-child(2) {
+      min-height: 118px;
+      border-right: 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.18);
+      padding: 1rem;
     }
 
-    .office-strip span {
+    .contact-strip-card:last-child {
+      border-bottom: 0;
+    }
+
+    .icon-box {
+      width: 3.25rem;
+      height: 3.25rem;
+      font-size: 1.45rem;
+    }
+
+    .strip-content strong {
+      font-size: 1.08rem;
+    }
+
+    .strip-content span {
       font-size: 0.92rem;
-      line-height: 1.12;
-      overflow-wrap: anywhere;
     }
 
-    .office-strip p {
-      margin-top: 0.42rem;
-      font-size: 0.72rem;
-      line-height: 1.34;
+    .contact-form-panel,
+    .office-map-panel {
+      padding: 1rem;
+    }
+
+    .contact-form-panel h2,
+    .office-map-panel h2,
+    .faq-section h2 {
+      font-size: 1.62rem;
+    }
+
+    form {
+      grid-template-columns: 1fr;
+      gap: 0.74rem;
+      margin-top: 1rem;
+    }
+
+    .field-shell {
+      min-height: 54px;
+    }
+
+    input,
+    select {
+      min-height: 52px;
+      padding-inline: 0.82rem;
+    }
+
+    textarea {
+      min-height: 132px;
+      padding: 0.86rem;
+    }
+
+    .office-map-panel {
+      min-height: 520px;
+    }
+
+    .office-map-stage {
+      min-height: 390px;
+      margin: 1rem -1rem -1rem;
+    }
+
+    .office-map-stage img {
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+
+    .pin-label {
+      min-width: 110px;
+      padding: 0.48rem 0.6rem;
+      transform: scale(0.82);
+      transform-origin: left top;
+    }
+
+    .office-casablanca .pin-label {
+      left: -5.8rem;
+    }
+
+    .office-dubai .pin-label {
+      left: -2.2rem;
+    }
+
+    .section-heading {
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-heading span {
+      display: none;
+    }
+
+    .next-section h2 {
+      text-align: left;
+    }
+
+    .process-card {
+      min-height: 190px;
+      padding: 1.25rem;
+    }
+
+    .process-arrow {
+      right: 50%;
+      top: auto;
+      bottom: -1.42rem;
+      transform: translateX(50%) rotate(90deg);
+    }
+
+    .process-card:nth-child(2) .process-arrow {
+      display: inline-grid;
+    }
+
+    .process-card:last-child .process-arrow {
+      display: none;
+    }
+
+    .faq-item summary {
+      min-height: 92px;
+      padding: 1rem;
+    }
+
+    .faq-item em {
+      font-size: 0.82rem;
+    }
+
+    .contact-cta {
+      gap: 1.2rem;
+      padding: 1.25rem;
+    }
+
+    .contact-cta h2 {
+      font-size: 2rem;
     }
   }
 </style>

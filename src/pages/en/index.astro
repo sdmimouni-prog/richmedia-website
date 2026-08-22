@@ -5,6 +5,9 @@ import { localBusiness } from '../../lib/schema';
 import { BUSINESS, SITE } from '../../consts';
 
 const assetBase = '/assets/richmedia-home';
+const realizationAssets = '/assets/richmedia-realizations';
+const brochureHref = '/assets/documents/plaquette-richmedia-agency.pdf';
+const resolveAsset = (image: string) => image.startsWith('/') ? image : `${assetBase}/${image}`;
 const pageDescription =
   'Richmedia is a digital marketing and performance agency based in Casablanca, building measurable growth through strategy, media, content, web platforms and AI.';
 const schema = [
@@ -20,21 +23,25 @@ const schema = [
 const stats = [
   { icon: 'ph-chart-pie-slice', value: '+156', target: 156, prefix: '+', suffix: '', label: 'Completed projects' },
   { icon: 'ph-users-three', value: '+117', target: 117, prefix: '+', suffix: '', label: 'Clients supported' },
-  { icon: 'ph-graduation-cap', value: '+34K', target: 34, prefix: '+', suffix: 'K', label: 'Graduates recruited' },
+  { icon: 'ph-calendar-check', value: '+14 years', target: 14, prefix: '+', suffix: ' years', label: 'Digital experience' },
   { icon: 'ph-map-pin', value: '4 cities', target: 4, prefix: '', suffix: ' cities', label: 'Casablanca, Dubai, Montreal, Strasbourg' },
 ];
 
 const heroFilm = [
-  { image: 'hero-film-01.webp', label: 'Ryad Al Andalous' },
-  { image: 'hero-film-02.webp', label: 'Tramway de Rabat' },
-  { image: 'hero-film-03.webp', label: 'Moul Pounj' },
-  { image: 'hero-film-04.webp', label: 'TBS Education Casablanca' },
-  { image: 'hero-film-05.webp', label: 'Caisse Marocaine des Retraites' },
-  { image: 'hero-film-06.webp', label: 'Moul Pounj Coupe du Monde 2026' },
-  { image: 'hero-film-07.webp', label: 'Ryad Al Andalous Prestige' },
-  { image: 'hero-film-08.webp', label: 'Rabat Riviera' },
-  { image: 'hero-film-09.webp', label: 'Beed Luxury Comfort' },
-  { image: 'hero-film-10.webp', label: 'Tramway mobile app' },
+  { image: 'optimized/hero-film-01.webp', label: 'Ryad Al Andalous', width: 640, height: 640 },
+  { image: 'optimized/hero-film-02.webp', label: 'Tramway de Rabat', width: 640, height: 800 },
+  { image: 'optimized/hero-film-03.webp', label: 'Moul Pounj', width: 640, height: 355 },
+  { image: `${realizationAssets}/maserati-levante-push-whatsapp.webp`, label: 'Maserati Levante', width: 960, height: 1200 },
+  { image: `${realizationAssets}/oreo-back-to-school-kv.webp`, label: 'Oreo Back to School', width: 1522, height: 1134 },
+  { image: 'optimized/hero-film-04.webp', label: 'TBS Education Casablanca', width: 640, height: 426 },
+  { image: `${realizationAssets}/milka-back-to-school.webp`, label: 'Milka Back to School', width: 1556, height: 1158 },
+  { image: `${realizationAssets}/nescafe-nadi-nescafe.webp`, label: 'Nescafé Nadi Nescafé', width: 1572, height: 1162 },
+  { image: 'optimized/hero-film-05.webp', label: 'Caisse Marocaine des Retraites', width: 640, height: 290 },
+  { image: 'optimized/hero-film-06.webp', label: 'Moul Pounj Coupe du Monde 2026', width: 640, height: 290 },
+  { image: 'optimized/hero-film-07.webp', label: 'Ryad Al Andalous Prestige', width: 640, height: 289 },
+  { image: 'optimized/hero-film-08.webp', label: 'Rabat Riviera', width: 640, height: 291 },
+  { image: 'optimized/hero-film-09.webp', label: 'BED Luxury Comfort', width: 640, height: 295 },
+  { image: 'optimized/hero-film-10.webp', label: 'Tramway mobile app', width: 640, height: 292 },
 ];
 
 const heroFilmLeft = heroFilm.filter((_, index) => index % 2 === 0);
@@ -42,7 +49,9 @@ const heroFilmRight = heroFilm.filter((_, index) => index % 2 === 1);
 
 const stories = [
   {
-    image: 'expertise-story-branding.webp',
+    image: 'optimized/expertise-story-branding.webp',
+    width: 560,
+    height: 996,
     category: 'Branding',
     status: 'Strategy',
     icon: 'ph-target',
@@ -50,7 +59,9 @@ const stories = [
     outcome: 'Brand clarity',
   },
   {
-    image: 'expertise-story-social.webp',
+    image: 'optimized/expertise-story-social.webp',
+    width: 560,
+    height: 996,
     category: 'Social & UGC',
     status: 'Creation',
     icon: 'ph-heart',
@@ -58,7 +69,9 @@ const stories = [
     outcome: 'Real engagement',
   },
   {
-    image: 'expertise-story-media.webp',
+    image: 'optimized/expertise-story-media.webp',
+    width: 560,
+    height: 996,
     category: 'Media & Performance',
     status: 'Amplification',
     icon: 'ph-chart-line-up',
@@ -66,7 +79,9 @@ const stories = [
     outcome: 'Managed ROI',
   },
   {
-    image: 'expertise-story-tech.webp',
+    image: 'optimized/expertise-story-tech.webp',
+    width: 560,
+    height: 996,
     category: 'Tech, AI & Web',
     status: 'Conversion',
     icon: 'ph-cpu',
@@ -74,7 +89,9 @@ const stories = [
     outcome: 'Conversion',
   },
   {
-    image: 'expertise-story-phygital.webp',
+    image: 'optimized/expertise-story-phygital.webp',
+    width: 560,
+    height: 996,
     category: 'Phygital & events',
     status: 'Field',
     icon: 'ph-map-pin',
@@ -85,24 +102,30 @@ const stories = [
 
 const cases = [
   {
-    image: 'campaign-wide-uir.webp',
-    category: 'Education',
-    client: 'UIR',
-    campaignType: 'Lead acquisition campaign',
-    visibility: '14M views',
-    engagement: '6.2%',
-    size: 'large',
+    image: `${realizationAssets}/milka-back-to-school.webp`,
+    width: 1556,
+    height: 1158,
+    category: 'FMCG',
+    client: 'Milka',
+    campaignType: 'Back to School KV & launch',
+    visibility: '24.2M impressions',
+    engagement: '7.2%',
   },
   {
-    image: 'campaign-wide-amana-tram.webp',
-    category: 'Mobility & retail',
-    client: 'Amana',
-    campaignType: '360° campaign',
-    visibility: '20M impressions',
-    engagement: '7.4%',
+    image: `${realizationAssets}/maserati-levante-push-whatsapp.webp`,
+    width: 960,
+    height: 1200,
+    category: 'Automotive',
+    client: 'Maserati',
+    campaignType: 'WhatsApp push',
+    visibility: '100,000 sends',
+    engagement: '80% open rate',
+    objectPosition: 'center 58%',
   },
   {
-    image: 'campaign-wide-donsimon.webp',
+    image: 'optimized/campaign-wide-donsimon.webp',
+    width: 960,
+    height: 540,
     category: 'Food & beverage',
     client: 'Don Simon',
     campaignType: 'Social media campaign',
@@ -110,67 +133,65 @@ const cases = [
     engagement: '8.1%',
   },
   {
-    image: 'campaign-wide-ada.webp',
-    category: 'Local products',
-    client: 'ADA',
-    campaignType: 'Digital campaign',
-    visibility: '120K views',
-    engagement: '5.6%',
-  },
-  {
-    image: 'campaign-wide-amana-social.webp',
+    image: `${realizationAssets}/nescafe-nadi-nescafe.webp`,
+    width: 1572,
+    height: 1162,
     category: 'Brand content',
-    client: 'Amana',
-    campaignType: 'Local engagement campaign',
-    visibility: '2.1M impressions',
-    engagement: '6.8%',
+    client: 'Nescafé',
+    campaignType: 'Nadi Nescafé campaign',
+    visibility: '19.8M impressions',
+    engagement: '5.8%',
   },
 ];
 
 const team = [
-  { image: 'team-carousel/salah.webp', name: 'Salah-Eddine Mimouni', role: 'CEO & CTO' },
-  { image: 'team-carousel/amal.webp', name: 'Amal Amazouz', role: 'CEO & CDO' },
-  { image: 'team-carousel/tarik.webp', name: 'Tarik El Abbadi', role: 'Communication & Event Director' },
-  { image: 'team-carousel/elhoussine-bw.webp', name: 'Elhoussine Essmami', role: 'Strategic Planner' },
-  { image: 'team-carousel/ikram-bw.webp', name: 'Ikram Dehiri', role: 'Senior Account Manager' },
-  { image: 'team-carousel/zouhair-bw.webp', name: 'Zouhair Lyzouli', role: 'Senior Full Stack Developer' },
-  { image: 'team-carousel/zakaria.webp', name: 'Zakaria Mouchtati', role: 'Senior Full Stack Developer' },
-  { image: 'team-carousel/wafaa.webp', name: 'Wafaa Lamsabni', role: 'Project Manager' },
-  { image: 'team-carousel/yassine.webp', name: 'Mohamed Yassine Dargal', role: 'Project Manager' },
-  { image: 'team-carousel/ayoub.webp', name: 'Ayoub Es-Samlali', role: 'Project Manager' },
-  { image: 'team-carousel/yassmine.webp', name: 'Yassmine Boudial', role: 'Project Manager' },
-  { image: 'team-carousel/safwane.webp', name: 'Safwane Moustaine', role: 'Traffic Manager' },
-  { image: 'team-carousel/rachid.webp', name: 'Rachid Hlalma', role: 'Art Director' },
-  { image: 'team-carousel/abdelkader.webp', name: 'Abdelkader El Bouhaddouti', role: 'Graphic Final Artist' },
-  { image: 'team-carousel/youssef.webp', name: 'Youssef Amazouz', role: 'Graphic Final Artist' },
-  { image: 'team-carousel/wail.webp', name: 'Wail El Asri', role: 'Graphic Final Artist' },
-  { image: 'team-carousel/marwane.webp', name: 'Marwane Jouay', role: 'Video Director & Editor' },
+  { image: 'optimized/team-carousel-salah.webp', width: 360, height: 450, name: 'Salah-Eddine Mimouni', role: 'CEO & CTO' },
+  { image: 'optimized/team-carousel-amal.webp', width: 360, height: 450, name: 'Amal Amazouz', role: 'COO & CDO' },
+  { image: 'optimized/team-carousel-tarik.webp', width: 360, height: 450, name: 'Tarik El Abbadi', role: 'Communication & Event Director' },
+  { image: 'optimized/team-carousel-elhoussine-bw.webp', width: 360, height: 450, name: 'Elhoussine Essmami', role: 'Strategic Planner' },
+  { image: 'optimized/team-carousel-ikram-bw.webp', width: 360, height: 450, name: 'Ikram Dehiri', role: 'Senior Account Manager' },
+  { image: 'optimized/team-carousel-oussama.webp', width: 360, height: 450, name: 'Oussama TAHTAH', role: 'Senior Account Manager' },
+  { image: 'optimized/team-carousel-oumaima-lassri.webp', width: 360, height: 450, name: 'Oumaima LASSRI', role: 'Senior Account Manager' },
+  { image: 'optimized/team-carousel-halima-felloui.webp', width: 360, height: 450, name: 'FELLIOUI Halima', role: 'Account Manager' },
+  { image: 'optimized/team-carousel-soukaina-sammouni.webp', width: 360, height: 450, name: 'Soukaina SAMMOUNI', role: 'Account Manager' },
+  { image: 'optimized/team-carousel-zouhair-bw.webp', width: 360, height: 450, name: 'Zouhair Lyzouli', role: 'Senior Full Stack Developer' },
+  { image: 'optimized/team-carousel-zakaria.webp', width: 360, height: 450, name: 'Zakaria Mouchtati', role: 'Senior Full Stack Developer' },
+  { image: 'optimized/team-carousel-wafaa.webp', width: 360, height: 450, name: 'Wafaa Lamsabni', role: 'Project Manager' },
+  { image: 'optimized/team-carousel-yassine.webp', width: 360, height: 450, name: 'Mohamed Yassine Dargal', role: 'Project Manager' },
+  { image: 'optimized/team-carousel-ayoub.webp', width: 360, height: 450, name: 'Ayoub Es-Samlali', role: 'Project Manager' },
+  { image: 'optimized/team-carousel-yassmine.webp', width: 360, height: 450, name: 'Yassmine Boudial', role: 'Project Manager' },
+  { image: 'optimized/team-carousel-safwane.webp', width: 360, height: 450, name: 'Safwane Moustaine', role: 'Traffic Manager' },
+  { image: 'optimized/team-carousel-rachid.webp', width: 360, height: 450, name: 'Rachid Hlalma', role: 'Art Director' },
+  { image: 'optimized/team-carousel-abdelkader.webp', width: 360, height: 450, name: 'Abdelkader El Bouhaddouti', role: 'Graphic Final Artist' },
+  { image: 'optimized/team-carousel-youssef.webp', width: 360, height: 450, name: 'Youssef Amazouz', role: 'Graphic Final Artist' },
+  { image: 'optimized/team-carousel-wail.webp', width: 360, height: 450, name: 'Wail El Asri', role: 'Graphic Final Artist' },
+  { image: 'optimized/team-carousel-marwane.webp', width: 360, height: 450, name: 'Marwane Jouay', role: 'Video Director & Editor' },
 ];
 
 const teamLoop = [...team, ...team];
 
 const referenceLogos = [
-  { image: 'logos/references/uir.jpg', name: 'UIR' },
-  { image: 'logos/references/amana.jpg', name: 'Amana' },
-  { image: 'logos/references/don-simon.jpg', name: 'Don Simon' },
-  { image: 'logos/references/terroir-du-maroc.jpg', name: 'Terroir du Maroc' },
-  { image: 'logos/references/electroplanet.jpg', name: 'Electroplanet' },
-  { image: 'logos/references/kitea.jpg', name: 'KITEA' },
-  { image: 'logos/references/carrefour-market.jpg', name: 'Carrefour Market' },
-  { image: 'logos/references/asswak-assalam.jpg', name: 'Asswak Assalam' },
-  { image: 'logos/references/lesieur-cristal.jpg', name: 'Lesieur Cristal' },
-  { image: 'logos/references/maroc-telecom.jpg', name: 'Maroc Telecom' },
+  { image: 'logos/references/uir.jpg', width: 640, height: 260, name: 'UIR' },
+  { image: 'logos/references/amana.jpg', width: 640, height: 260, name: 'Amana' },
+  { image: 'logos/references/don-simon.jpg', width: 640, height: 260, name: 'Don Simon' },
+  { image: 'logos/references/terroir-du-maroc.jpg', width: 640, height: 260, name: 'Terroir du Maroc' },
+  { image: 'logos/references/electroplanet.jpg', width: 640, height: 260, name: 'Electroplanet' },
+  { image: 'logos/references/kitea.jpg', width: 640, height: 260, name: 'KITEA' },
+  { image: 'logos/references/carrefour-market.jpg', width: 640, height: 260, name: 'Carrefour Market' },
+  { image: 'logos/references/asswak-assalam.jpg', width: 640, height: 260, name: 'Asswak Assalam' },
+  { image: 'logos/references/lesieur-cristal.jpg', width: 640, height: 260, name: 'Lesieur Cristal' },
+  { image: 'logos/references/maroc-telecom.jpg', width: 640, height: 260, name: 'Maroc Telecom' },
 ];
 const referenceLogoLoop = [...referenceLogos, ...referenceLogos];
 const references = referenceLogos.map((logo) => logo.name);
 const accreditations = ['Google Ads Certified', 'Google Analytics Certified', 'HubSpot Certified', 'IAB Rich Media Certified', 'Meta Blueprint Certified', 'Semrush Certified'];
 const accreditationBadges = [
-  { image: 'logos/accreditations-svg/google-ads.svg', name: 'Google Ads', label: 'Certified' },
-  { image: 'logos/accreditations-svg/google-analytics.svg', name: 'Google Analytics', label: 'Certified' },
-  { image: 'logos/accreditations-svg/hubspot.svg', name: 'HubSpot', label: 'Certified' },
-  { image: 'logos/accreditations-svg/iab-rich-media.svg', name: 'IAB Rich Media', label: 'Certified' },
-  { image: 'logos/accreditations-svg/meta-blueprint.svg', name: 'Meta Blueprint', label: 'Certified' },
-  { image: 'logos/accreditations-svg/semrush.svg', name: 'Semrush', label: 'Certified' },
+  { image: 'logos/accreditations-svg/google-ads.svg', width: 251, height: 313, name: 'Google Ads', label: 'Certified' },
+  { image: 'logos/accreditations-svg/google-analytics.svg', width: 192, height: 192, name: 'Google Analytics', label: 'Certified' },
+  { image: 'logos/accreditations-svg/hubspot.svg', width: 106, height: 31, name: 'HubSpot', label: 'Certified' },
+  { image: 'logos/accreditations-svg/iab-rich-media.svg', width: 487, height: 244, name: 'IAB Rich Media', label: 'Certified' },
+  { image: 'logos/accreditations-svg/meta-blueprint.svg', width: 948, height: 191, name: 'Meta Blueprint', label: 'Certified' },
+  { image: 'logos/accreditations-svg/semrush.svg', width: 195, height: 26, name: 'Semrush', label: 'Certified' },
 ];
 const offices = ['Casablanca', 'Dubai', 'Montreal', 'Strasbourg'];
 const officeMarkers = [
@@ -198,41 +219,77 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
             Start a project
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
-          <a class="button button-secondary" href="/en/case-studies">
-            View portfolio
-            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          <a class="button button-secondary" href={brochureHref} download="Richmedia Agency Brochure.pdf">
+            Download brochure
+            <i class="ph ph-download-simple" aria-hidden="true"></i>
           </a>
         </div>
       </div>
       <div class="hero-visual hero-film" aria-label="Vertical film of Richmedia work">
         <div class="film-lane film-lane-left" aria-hidden="true">
           <div class="film-stack">
-            {heroFilmLeft.map((item) => (
+            {heroFilmLeft.map((item, index) => (
               <figure class="film-frame">
-                <img src={`${assetBase}/${item.image}`} alt="" loading="lazy" decoding="async" />
+                <img
+                  src={resolveAsset(item.image)}
+                  alt=""
+                  width={item.width}
+                  height={item.height}
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  fetchpriority={index === 0 ? 'high' : 'low'}
+                  sizes="(max-width: 720px) 44vw, (max-width: 1060px) 44vw, 24vw"
+                />
               </figure>
             ))}
           </div>
           <div class="film-stack">
             {heroFilmLeft.map((item) => (
               <figure class="film-frame">
-                <img src={`${assetBase}/${item.image}`} alt="" loading="eager" decoding="async" />
+                <img
+                  src={resolveAsset(item.image)}
+                  alt=""
+                  width={item.width}
+                  height={item.height}
+                  loading="lazy"
+                  decoding="async"
+                  fetchpriority="low"
+                  sizes="(max-width: 720px) 44vw, (max-width: 1060px) 44vw, 24vw"
+                />
               </figure>
             ))}
           </div>
         </div>
         <div class="film-lane film-lane-right" aria-hidden="true">
           <div class="film-stack">
-            {heroFilmRight.map((item) => (
+            {heroFilmRight.map((item, index) => (
               <figure class="film-frame">
-                <img src={`${assetBase}/${item.image}`} alt="" loading="lazy" decoding="async" />
+                <img
+                  src={resolveAsset(item.image)}
+                  alt=""
+                  width={item.width}
+                  height={item.height}
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  fetchpriority={index === 0 ? 'high' : 'low'}
+                  sizes="(max-width: 720px) 44vw, (max-width: 1060px) 44vw, 24vw"
+                />
               </figure>
             ))}
           </div>
           <div class="film-stack">
             {heroFilmRight.map((item) => (
               <figure class="film-frame">
-                <img src={`${assetBase}/${item.image}`} alt="" loading="eager" decoding="async" />
+                <img
+                  src={resolveAsset(item.image)}
+                  alt=""
+                  width={item.width}
+                  height={item.height}
+                  loading="lazy"
+                  decoding="async"
+                  fetchpriority="low"
+                  sizes="(max-width: 720px) 44vw, (max-width: 1060px) 44vw, 24vw"
+                />
               </figure>
             ))}
           </div>
@@ -274,7 +331,15 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
           <article class:list={['story-card', index === 0 && 'is-active']} data-story-card>
             <div class="phone-shell">
               <div class="story-screen">
-                <img src={`${assetBase}/${story.image}`} alt={`${story.category} — ${story.title}`} loading="lazy" decoding="async" />
+                <img
+                  src={`${assetBase}/${story.image}`}
+                  alt={`${story.category} — ${story.title}`}
+                  width={story.width}
+                  height={story.height}
+                  loading="lazy"
+                  decoding="async"
+                  sizes="(max-width: 720px) 78vw, 320px"
+                />
                 <div class="story-progress" aria-hidden="true"><span></span><span></span><span></span></div>
                 <div class="story-meta">
                   <span class="story-avatar"><i class={`ph ${story.icon}`} aria-hidden="true"></i></span>
@@ -299,8 +364,17 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
       </div>
       <div class="case-grid">
         {cases.map((item) => (
-          <article class:list={['case-card', item.size === 'large' && 'case-card-large']}>
-            <img src={`${assetBase}/${item.image}`} alt={`${item.client} campaign`} loading="lazy" decoding="async" />
+          <article class="case-card">
+            <img
+              src={resolveAsset(item.image)}
+              alt={`${item.client} campaign`}
+              width={item.width}
+              height={item.height}
+              style={`object-position: ${item.objectPosition ?? 'center'};`}
+              loading="lazy"
+              decoding="async"
+              sizes="(max-width: 720px) 100vw, (max-width: 1060px) 50vw, 33vw"
+            />
             <div class="case-overlay">
               <div class="case-panel">
                 <div class="case-head">
@@ -346,8 +420,11 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
               <img
                 src={`${assetBase}/${member.image}`}
                 alt={index >= team.length ? '' : `Portrait of ${member.name}`}
+                width={member.width}
+                height={member.height}
                 loading="lazy"
                 decoding="async"
+                sizes="(max-width: 720px) 36vw, 140px"
               />
               <div class="team-card-copy">
                 <h3>{member.name}</h3>
@@ -369,9 +446,9 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
             Start a project
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
-          <a class="button button-secondary" href={`mailto:${BUSINESS.email}`}>
-            Email us
-            <i class="ph ph-envelope-simple" aria-hidden="true"></i>
+          <a class="button button-secondary" href={brochureHref} download="Richmedia Agency Brochure.pdf">
+            Download brochure
+            <i class="ph ph-download-simple" aria-hidden="true"></i>
           </a>
         </div>
       </div>
@@ -396,8 +473,10 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
         <div class="map-stage" aria-label="World map with Richmedia offices">
           <img
             class="world-map-img"
-            src={`${assetBase}/world-map-natural-earth.svg`}
+            src={`${assetBase}/optimized/world-map-natural-earth.webp`}
             alt=""
+            width="1000"
+            height="520"
             loading="lazy"
             decoding="async"
           />
@@ -437,8 +516,11 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
                 <img
                   src={`${assetBase}/${logo.image}`}
                   alt={index >= referenceLogos.length ? '' : logo.name}
+                  width={logo.width}
+                  height={logo.height}
                   loading="lazy"
                   decoding="async"
+                  sizes="(max-width: 720px) 208px, 235px"
                 />
               </figure>
               ))}
@@ -457,7 +539,15 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
           <div class="cert-grid" aria-label="Richmedia accreditations">
             {accreditationBadges.map((badge) => (
               <figure class="cert-card">
-                <img src={`${assetBase}/${badge.image}`} alt={`${badge.name} ${badge.label}`} loading="lazy" decoding="async" />
+                <img
+                  src={`${assetBase}/${badge.image}`}
+                  alt={`${badge.name} ${badge.label}`}
+                  width={badge.width}
+                  height={badge.height}
+                  loading="lazy"
+                  decoding="async"
+                  sizes="140px"
+                />
                 <figcaption>
                   <strong>{badge.name}</strong>
                   <span>{badge.label}</span>
@@ -634,6 +724,16 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   .proof-zone {
     width: var(--container);
     margin-inline: auto;
+  }
+
+  .expertise-stories,
+  .work-section,
+  .team-section,
+  .contact-band,
+  .proof-zone,
+  :global(.influence-video-section) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
   }
 
   .hero-section {
@@ -834,9 +934,9 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     position: relative;
     z-index: 1;
     display: block;
-    font-family: var(--font-display);
+    font-family: var(--font-body) !important;
     font-size: clamp(1.45rem, 2.4vw, 2rem);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: normal !important;
     transition: color 220ms ease, letter-spacing 220ms ease, transform 220ms ease;
   }
 
@@ -852,6 +952,11 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     color: var(--muted);
     font-size: 0.9rem;
     transition: color 220ms ease;
+  }
+
+  .stat-item:last-child span {
+    font-size: clamp(0.74rem, 0.9vw, 0.82rem);
+    white-space: nowrap;
   }
 
   .stat-item:hover span {
@@ -1239,15 +1344,15 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
   .case-grid {
     display: grid;
-    grid-template-columns: 1.1fr 0.95fr 1.15fr;
-    grid-auto-rows: minmax(390px, auto);
-    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: minmax(326px, auto);
+    gap: 0.85rem;
   }
 
   .case-card {
-    --case-panel-height: 7.4rem;
+    --case-panel-height: 7rem;
     position: relative;
-    min-height: 390px;
+    min-height: 326px;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.11);
     border-radius: 8px;
@@ -1257,9 +1362,9 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   }
 
   .case-card-large {
-    --case-panel-height: 8.25rem;
-    grid-row: span 2;
-    min-height: 796px;
+    --case-panel-height: 7rem;
+    grid-row: span 1;
+    min-height: 326px;
   }
 
   .team-card img {
@@ -1306,25 +1411,25 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     display: flex;
     align-items: stretch;
     height: var(--case-panel-height);
-    padding: 0.65rem;
+    padding: 0.52rem;
     pointer-events: none;
   }
 
   .case-panel {
     display: grid;
     align-content: center;
-    gap: 0.55rem;
+    gap: 0.42rem;
     width: 100%;
     border: 1px solid rgba(255, 255, 255, 0.13);
     border-radius: 8px;
-    padding: 0.62rem 0.72rem;
+    padding: 0.52rem 0.62rem;
     background: linear-gradient(135deg, rgba(13, 13, 18, 0.92), rgba(7, 7, 10, 0.94));
     box-shadow: 0 14px 34px rgba(0, 0, 0, 0.24);
   }
 
   .case-head {
     display: flex;
-    gap: 0.7rem;
+    gap: 0.52rem;
     align-items: end;
     justify-content: space-between;
     margin-bottom: 0;
@@ -1332,7 +1437,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
   .case-overlay h3 {
     margin: 0;
-    font-size: clamp(1.25rem, 1.65vw, 1.8rem);
+    font-size: clamp(1.08rem, 1.32vw, 1.42rem);
     line-height: 1;
   }
 
@@ -1343,21 +1448,21 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
   .case-metrics {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(6.2rem, 0.76fr) minmax(4.6rem, 0.54fr);
-    gap: 0.55rem;
+    grid-template-columns: minmax(0, 1.05fr) minmax(5.7rem, 0.78fr) minmax(4.2rem, 0.54fr);
+    gap: 0.42rem;
   }
 
   .case-metric {
     min-width: 0;
     border-left: 1px solid rgba(124, 60, 255, 0.62);
-    padding-left: 0.55rem;
+    padding-left: 0.45rem;
   }
 
   .case-metric small {
     display: block;
     margin-bottom: 0.16rem;
     color: rgba(255, 255, 255, 0.58);
-    font-size: 0.52rem;
+    font-size: 0.48rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -1367,7 +1472,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     display: block;
     color: #fff;
     font-family: var(--font-display);
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     font-weight: 700;
     line-height: 1.18;
   }
@@ -1555,10 +1660,18 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   }
 
   .contact-actions {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.75rem;
+    max-width: 640px;
     margin-top: 1.45rem;
+  }
+
+  .contact-actions .button {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 1rem;
+    white-space: nowrap;
   }
 
   .contact-band address {
@@ -1676,6 +1789,17 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     object-fit: fill;
     opacity: 0.96;
     filter: saturate(1.12) contrast(1.06) drop-shadow(0 0 1.8rem rgba(124, 60, 255, 0.18));
+    transition:
+      opacity 260ms ease,
+      filter 260ms ease,
+      transform 420ms ease;
+    will-change: opacity, filter, transform;
+  }
+
+  .map-stage:hover .world-map-img {
+    opacity: 1;
+    filter: saturate(1.32) contrast(1.13) drop-shadow(0 0 2.4rem rgba(153, 96, 255, 0.28));
+    transform: scale(1.018);
   }
 
   .office-marker {
@@ -1690,6 +1814,10 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     white-space: nowrap;
   }
 
+  .office-marker:hover {
+    z-index: 8;
+  }
+
   .office-dot {
     display: block;
     width: 0.68rem;
@@ -1698,9 +1826,17 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     border-radius: 999px;
     background: var(--purple);
     box-shadow: 0 0 0 0.38rem rgba(124, 60, 255, 0.16), 0 0 1.25rem rgba(124, 60, 255, 0.95);
+    transition:
+      border-color 220ms ease,
+      background 220ms ease,
+      box-shadow 220ms ease,
+      transform 220ms ease;
+    will-change: transform;
   }
 
   .office-label {
+    --label-x: 0rem;
+    --label-y: 0rem;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 999px;
     padding: 0.28rem 0.52rem;
@@ -1710,19 +1846,45 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     font-weight: 600;
     line-height: 1;
     backdrop-filter: blur(12px);
+    transform: translate(var(--label-x), var(--label-y)) scale(1);
+    transform-origin: left center;
+    transition:
+      border-color 220ms ease,
+      background 220ms ease,
+      box-shadow 220ms ease,
+      transform 220ms ease;
+    will-change: transform;
   }
 
   .office-marker-montreal .office-label,
   .office-marker-strasbourg .office-label {
-    transform: translateY(-0.75rem);
+    --label-y: -0.75rem;
   }
 
   .office-marker-casablanca .office-label {
-    transform: translate(-5.85rem, 1.25rem);
+    --label-x: -5.85rem;
+    --label-y: 1.25rem;
   }
 
   .office-marker-dubai .office-label {
-    transform: translateY(0.9rem);
+    --label-y: 0.9rem;
+  }
+
+  .office-marker:hover .office-dot {
+    border-color: #fff;
+    background: linear-gradient(135deg, #d8c5ff, var(--purple));
+    box-shadow:
+      0 0 0 0.5rem rgba(124, 60, 255, 0.22),
+      0 0 1.8rem rgba(153, 96, 255, 1),
+      0 0 3rem rgba(255, 255, 255, 0.28);
+    transform: scale(1.38);
+  }
+
+  .office-marker:hover .office-label {
+    border-color: rgba(174, 124, 255, 0.64);
+    background: rgba(8, 7, 18, 0.92);
+    box-shadow: 0 0.75rem 1.8rem rgba(0, 0, 0, 0.28), 0 0 1.8rem rgba(124, 60, 255, 0.24);
+    transform: translate(var(--label-x), calc(var(--label-y) - 0.22rem)) scale(1.06);
   }
 
   .map-label {
@@ -1735,6 +1897,19 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     padding: 0.45rem 0.65rem;
     background: rgba(3, 4, 7, 0.72);
     backdrop-filter: blur(12px);
+    transition:
+      border-color 220ms ease,
+      background 220ms ease,
+      box-shadow 220ms ease,
+      transform 220ms ease;
+    will-change: transform;
+  }
+
+  .map-label:hover {
+    border-color: rgba(174, 124, 255, 0.58);
+    background: rgba(12, 10, 26, 0.88);
+    box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.28), 0 0 1.6rem rgba(124, 60, 255, 0.24);
+    transform: translateY(-0.12rem);
   }
 
   .office-pills {
@@ -1761,6 +1936,13 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     font-size: 0.78rem;
     font-weight: 600;
     backdrop-filter: blur(12px);
+    transition:
+      border-color 220ms ease,
+      background 220ms ease,
+      box-shadow 220ms ease,
+      color 220ms ease,
+      transform 220ms ease;
+    will-change: transform;
   }
 
   .office-pills span::before {
@@ -1770,6 +1952,24 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     background: var(--purple);
     box-shadow: 0 0 0.8rem rgba(124, 60, 255, 0.75);
     content: '';
+    transition:
+      background 220ms ease,
+      box-shadow 220ms ease,
+      transform 220ms ease;
+  }
+
+  .office-pills span:hover {
+    border-color: rgba(174, 124, 255, 0.62);
+    background: rgba(124, 60, 255, 0.16);
+    color: #fff;
+    box-shadow: 0 0.7rem 1.8rem rgba(0, 0, 0, 0.24), 0 0 1.4rem rgba(124, 60, 255, 0.2);
+    transform: translateY(-0.18rem);
+  }
+
+  .office-pills span:hover::before {
+    background: #a985ff;
+    box-shadow: 0 0 1.2rem rgba(169, 133, 255, 0.95), 0 0 0 0.32rem rgba(124, 60, 255, 0.18);
+    transform: scale(1.28);
   }
 
   .proof-zone {
@@ -2060,9 +2260,13 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
       grid-template-columns: 1fr 1fr;
     }
 
+    .case-card,
+    .case-card-large {
+      min-height: 340px;
+    }
+
     .case-card-large {
       grid-row: span 1;
-      min-height: 420px;
     }
 
     .proof-intro,
@@ -2172,21 +2376,21 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
     .case-card,
     .case-card-large {
-      --case-panel-height: 9.9rem;
-      min-height: 460px;
+      --case-panel-height: 8.9rem;
+      min-height: 360px;
       aspect-ratio: auto;
     }
 
     .case-card-large {
-      min-height: 500px;
+      min-height: 360px;
     }
 
     .case-overlay {
-      padding: 0.75rem;
+      padding: 0.62rem;
     }
 
     .case-panel {
-      padding: 0.75rem;
+      padding: 0.62rem;
     }
 
     .case-metrics {
@@ -2270,11 +2474,16 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .hero-actions .button,
-    .contact-actions .button,
     .work-more .button {
       width: 100%;
       min-height: 3.35rem;
       border-radius: 8px;
+    }
+
+    .contact-actions .button {
+      min-height: 3.35rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
     }
 
     .hero-visual {
@@ -2324,6 +2533,10 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     .stat-item span {
       font-size: 0.78rem;
       line-height: 1.25;
+    }
+
+    .stat-item:last-child span {
+      white-space: normal;
     }
 
     .expertise-stories,
@@ -2391,17 +2604,17 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     .case-card,
     .case-card-large {
       flex: 0 0 min(86vw, 348px);
-      min-height: 420px;
+      --case-panel-height: 8.9rem;
+      min-height: 350px;
       scroll-snap-align: start;
     }
 
     .case-card-large {
-      min-height: 430px;
+      min-height: 350px;
     }
 
     .case-panel {
-      --case-panel-height: 10.25rem;
-      padding: 0.82rem;
+      padding: 0.68rem;
     }
 
     .case-panel h3 {
@@ -2452,7 +2665,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
     .contact-actions {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 0.65rem;
     }
 
@@ -2517,6 +2730,10 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   }
 
   @media (max-width: 380px) {
+    .contact-actions {
+      grid-template-columns: 1fr;
+    }
+
     .story-heading h2 {
       --h2-size: 1.12rem;
       font-size: var(--h2-size);

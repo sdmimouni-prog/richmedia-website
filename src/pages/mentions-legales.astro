@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalPage from '../components/LegalPage.astro';
+import { BUSINESS, SITE } from '../consts';
+import { breadcrumbs, localBusiness } from '../lib/schema';
+
+const pageUrl = `${SITE.url}/mentions-legales`;
+const schema = [
+  localBusiness(),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Mentions légales', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Mentions légales - Richmedia"
+  description="Mentions légales du site Richmedia : éditeur, hébergement, propriété intellectuelle, responsabilité et contact."
+  canonical={pageUrl}
+  schema={schema}
+>
+  <LegalPage
+    eyebrow="Cadre légal"
+    title="Mentions légales"
+    intro="Cette page présente les informations relatives à l'éditeur du site, à son hébergement, à la propriété intellectuelle et aux conditions générales d'utilisation des contenus Richmedia."
+  >
+    <article>
+      <h2>Éditeur du site</h2>
+      <dl>
+        <div>
+          <dt>Nom commercial</dt>
+          <dd>{BUSINESS.legalName}</dd>
+        </div>
+        <div>
+          <dt>Adresse</dt>
+          <dd>{BUSINESS.adresse}</dd>
+        </div>
+        <div>
+          <dt>Email</dt>
+          <dd><a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></dd>
+        </div>
+        <div>
+          <dt>Téléphone</dt>
+          <dd>{BUSINESS.tels.join(' / ')}</dd>
+        </div>
+        <div>
+          <dt>Directeur de publication</dt>
+          <dd>Direction de Richmedia.</dd>
+        </div>
+      </dl>
+      <p class="legal-note">
+        Les informations administratives complémentaires telles que la forme juridique, le registre de commerce,
+        l'identifiant fiscal, l'ICE et le capital social doivent être complétées après validation interne.
+      </p>
+    </article>
+
+    <article>
+      <h2>Hébergement</h2>
+      <p>Le site est hébergé par Vercel Inc., plateforme d'hébergement cloud et de déploiement web.</p>
+      <dl>
+        <div>
+          <dt>Hébergeur</dt>
+          <dd>Vercel Inc.</dd>
+        </div>
+        <div>
+          <dt>Adresse indiquée par Vercel</dt>
+          <dd>440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.</dd>
+        </div>
+        <div>
+          <dt>Site web</dt>
+          <dd><a href="https://vercel.com" rel="nofollow noopener" target="_blank">vercel.com</a></dd>
+        </div>
+      </dl>
+    </article>
+
+    <article>
+      <h2>Objet du site</h2>
+      <p>
+        Le site présente l'agence Richmedia, ses expertises, ses produits, ses références, ses contenus éditoriaux
+        et ses moyens de contact. Les informations publiées sont données à titre indicatif et peuvent être modifiées
+        à tout moment.
+      </p>
+    </article>
+
+    <article>
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        Les textes, interfaces, maquettes, visuels, vidéos, logos, marques, bases de données et éléments graphiques
+        présents sur le site sont protégés par les droits de propriété intellectuelle applicables. Toute reproduction,
+        représentation, adaptation, diffusion ou réutilisation non autorisée est interdite.
+      </p>
+      <p>
+        Les marques, logos et visuels tiers cités ou affichés restent la propriété de leurs titulaires respectifs.
+        Leur présence illustre des références, outils, partenaires, certifications ou cas d'usage.
+      </p>
+    </article>
+
+    <article>
+      <h2>Responsabilité</h2>
+      <p>
+        Richmedia met en œuvre des efforts raisonnables pour maintenir le site accessible, sécurisé et à jour.
+        Des interruptions temporaires peuvent toutefois survenir pour maintenance, évolution technique ou incident
+        indépendant de sa volonté.
+      </p>
+      <p>
+        Le site peut contenir des liens vers des sites tiers. Richmedia ne contrôle pas ces sites et ne peut être
+        tenue responsable de leur contenu, de leurs pratiques ou de leur disponibilité.
+      </p>
+    </article>
+
+    <article>
+      <h2>Contact</h2>
+      <p>
+        Pour toute question relative au site, à ses contenus ou à une demande de correction, vous pouvez écrire à
+        <a href={`mailto:${BUSINESS.email}`}> {BUSINESS.email}</a>.
+      </p>
+    </article>
+  </LegalPage>
+</BaseLayout>

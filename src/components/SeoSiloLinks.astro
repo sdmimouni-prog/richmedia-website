@@ -1,0 +1,174 @@
+---
+export type SiloLink = {
+  href: string;
+  label: string;
+  text?: string;
+  eyebrow?: string;
+};
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  links: readonly SiloLink[];
+  variant?: "default" | "compact";
+}
+
+const {
+  eyebrow = "Maillage SEO",
+  title,
+  intro,
+  links,
+  variant = "default",
+} = Astro.props;
+---
+
+{
+  links.length > 0 && (
+    <section class:list={["seo-silo-links", `seo-silo-links-${variant}`]} aria-label={title}>
+      <div class="silo-heading">
+        <span class="silo-kicker">{eyebrow}</span>
+        <h2>{title}</h2>
+        {intro && <p>{intro}</p>}
+      </div>
+
+      <div class="silo-grid">
+        {links.map((link) => (
+          <a class="silo-card" href={link.href}>
+            {link.eyebrow && <span class="silo-card-eyebrow">{link.eyebrow}</span>}
+            <strong>{link.label}</strong>
+            {link.text && <span>{link.text}</span>}
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .seo-silo-links {
+    --silo-accent: #9b6cff;
+    position: relative;
+    z-index: 1;
+    width: min(calc(100% - 3rem), 1320px);
+    margin: clamp(2.25rem, 5vw, 4.75rem) auto;
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+    border: 1px solid rgba(155, 108, 255, 0.34);
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(118, 69, 255, 0.15), rgba(8, 8, 14, 0.92) 48%, rgba(255, 255, 255, 0.035)),
+      rgba(10, 9, 16, 0.94);
+    box-shadow: 0 28px 80px rgba(80, 40, 190, 0.16);
+    color: #fff;
+  }
+
+  .seo-silo-links-compact {
+    margin-block: clamp(1.5rem, 4vw, 3rem);
+    padding: clamp(1rem, 2vw, 1.4rem);
+  }
+
+  .silo-heading {
+    display: grid;
+    gap: 0.65rem;
+    max-width: 760px;
+  }
+
+  .silo-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--silo-accent);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .silo-kicker::before {
+    content: "";
+    display: inline-block;
+    width: 46px;
+    height: 2px;
+    background: currentColor;
+  }
+
+  .silo-heading h2 {
+    margin: 0;
+    font-size: clamp(1.55rem, 3vw, 2.55rem);
+    line-height: 1.05;
+    letter-spacing: 0;
+  }
+
+  .silo-heading p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: clamp(0.98rem, 1.6vw, 1.12rem);
+    line-height: 1.65;
+  }
+
+  .silo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 0.85rem;
+    margin-top: clamp(1rem, 2.4vw, 1.65rem);
+  }
+
+  .silo-card {
+    display: grid;
+    gap: 0.45rem;
+    min-height: 132px;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.045);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      border-color 180ms ease,
+      background 180ms ease,
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .silo-card:hover,
+  .silo-card:focus-visible {
+    border-color: rgba(155, 108, 255, 0.7);
+    background: rgba(155, 108, 255, 0.105);
+    box-shadow: 0 18px 42px rgba(91, 49, 210, 0.18);
+    transform: translateY(-3px);
+    outline: none;
+  }
+
+  .silo-card-eyebrow {
+    color: var(--silo-accent);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .silo-card strong {
+    font-size: clamp(1rem, 1.8vw, 1.18rem);
+    line-height: 1.2;
+  }
+
+  .silo-card span:not(.silo-card-eyebrow) {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 720px) {
+    .seo-silo-links {
+      width: min(calc(100% - 1.25rem), 1320px);
+    }
+
+    .silo-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .silo-card {
+      min-height: auto;
+    }
+  }
+</style>

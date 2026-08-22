@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../../../components/SeoSiloLinks.astro';
 import { SITE } from '../../../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../../../lib/schema';
+import { enSiloLinks } from '../../../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-web-si';
 const logoBase = `${assetBase}/logos`;
@@ -215,7 +217,7 @@ const mobileQuickLinks = [
   title={seoTitle}
   description={seoDescription}
   canonical={pageUrl}
-  ogImage={`${SITE.url}${logoBase}/contact-sheet.png`}
+  ogImage={`${SITE.url}${logoBase}/contact-sheet.webp`}
   lang="en"
   schema={schema}
 >
@@ -454,6 +456,13 @@ const mobileQuickLinks = [
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Connect the web foundation to SEO and CRM"
+    intro="A performant website becomes more useful when it links visibility, tracking, content and sales automation."
+    links={enSiloLinks.web}
+    variant="compact"
+  />
 </BaseLayout>
 
 <script>

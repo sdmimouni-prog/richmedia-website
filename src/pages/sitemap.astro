@@ -1,0 +1,129 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalPage from '../components/LegalPage.astro';
+import { SITE } from '../consts';
+import { breadcrumbs } from '../lib/schema';
+
+const pageUrl = `${SITE.url}/sitemap`;
+const schema = [
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Sitemap', url: pageUrl },
+  ]),
+];
+
+const staticGroups = [
+  {
+    title: 'Pages principales',
+    links: [
+      { href: '/', label: 'Accueil', text: 'Présentation de Richmedia, expertises, références et contact.' },
+      { href: '/expertises', label: 'Expertises', text: 'Vue d’ensemble des expertises Richmedia.' },
+      { href: '/secteurs', label: 'Secteurs', text: 'Pages par marché : éducation, immobilier, retail, GMS, institutionnel et plus.' },
+      { href: '/insights', label: 'Insights', text: 'Guides, analyses et méthodes marketing digital.' },
+      { href: '/realisations', label: 'Réalisations', text: 'Portfolio et cas clients.' },
+      { href: '/references', label: 'Références', text: 'Clients, secteurs et accréditations.' },
+      { href: '/equipe', label: 'Équipe', text: 'Profils et organisation.' },
+      { href: '/carrieres', label: 'Carrières', text: 'Candidatures spontanées et culture Richmedia.' },
+      { href: '/contact', label: 'Contact', text: 'Coordonnées et formulaire de contact.' },
+      { href: '/reserver-un-audit', label: 'Réserver un audit', text: 'Demande d’audit digital 360.' },
+    ],
+  },
+  {
+    title: 'Expertises',
+    links: [
+      { href: '/expertises/strategie-digitale', label: 'Stratégie digitale', text: 'Positionnement, plan d’action, parcours et croissance.' },
+      { href: '/expertises/brand-content', label: 'Brand content', text: 'Storytelling, contenus social-first, photo et vidéo.' },
+      { href: '/expertises/web-si', label: 'Web & SI', text: 'Sites, plateformes, tracking, SEO et systèmes connectés.' },
+      { href: '/expertises/achat-media', label: 'Achat média', text: 'Google Ads, Meta Ads, programmatique et performance.' },
+      { href: '/expertises/influence', label: 'Influence', text: 'Créateurs, UGC, activation et reporting.' },
+      { href: '/expertises/phygital', label: 'Phygital', text: 'Activation terrain, retail et expériences connectées.' },
+      { href: '/expertises/evenementiel', label: 'Événementiel', text: 'Conception, production et amplification événementielle.' },
+      { href: '/expertises/ia-automation', label: 'IA & automation', text: 'CRM, WhatsApp, agents IA et workflows.' },
+    ],
+  },
+  {
+    title: 'Produits',
+    links: [
+      { href: '/produits/whatsapp', label: 'Push WhatsApp', text: 'Campagnes WhatsApp, relances, ciblage et reporting.' },
+      { href: '/produits/hypeo', label: 'Hypeo.ai', text: 'Plateforme influence et IA.' },
+      { href: '/produits/in-talks', label: 'In Talks', text: 'Social listening et réputation.' },
+      { href: '/produits/carter-blake', label: 'Carter & Blake', text: 'Marketing politique et communication publique.' },
+    ],
+  },
+  {
+    title: 'English',
+    links: [
+      { href: '/en', label: 'Home', text: 'English homepage.' },
+      { href: '/en/expertises', label: 'Expertise', text: 'English expertise hub.' },
+      { href: '/en/case-studies', label: 'Case studies', text: 'English case studies hub.' },
+      { href: '/en/team', label: 'Team', text: 'English team page.' },
+      { href: '/en/contact', label: 'Contact', text: 'English contact page.' },
+      { href: '/en/book-audit', label: 'Book audit', text: 'English audit request page.' },
+    ],
+  },
+  {
+    title: 'Pages légales',
+    links: [
+      { href: '/mentions-legales', label: 'Mentions légales', text: 'Éditeur, hébergement, propriété intellectuelle.' },
+      { href: '/confidentialite', label: 'Confidentialité', text: 'Traitement des données personnelles.' },
+      { href: '/cookies', label: 'Cookies', text: 'Cookies, traceurs et préférences.' },
+      { href: '/sitemap', label: 'Sitemap HTML', text: 'Plan du site consultable.' },
+      { href: '/sitemap-index.xml', label: 'Sitemap XML', text: 'Sitemap technique pour les moteurs de recherche.' },
+    ],
+  },
+];
+
+const cases = (await getCollection('cas', ({ data }) => !data.draft)).map((entry) => ({
+  href: `/realisations/${entry.data.slug ?? entry.id}`,
+  label: entry.data.title,
+  text: entry.data.resume,
+}));
+
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).map((entry) => ({
+  href: `/insights/${entry.data.slug ?? entry.id}`,
+  label: entry.data.title,
+  text: entry.data.metaDescription,
+}));
+
+const sectors = (await getCollection('secteurs', ({ data }) => !data.draft)).map((entry) => ({
+  href: `/secteurs/${entry.data.slug ?? entry.id}`,
+  label: entry.data.title,
+  text: entry.data.metaDescription,
+}));
+
+const contentGroups = [
+  { title: 'Cas clients publiés', links: cases },
+  { title: 'Insights', links: articles },
+  { title: 'Secteurs', links: sectors },
+].filter((group) => group.links.length);
+---
+
+<BaseLayout
+  title="Sitemap - Plan du site Richmedia"
+  description="Plan du site Richmedia : pages principales, expertises, produits, réalisations, insights, secteurs et pages légales."
+  canonical={pageUrl}
+  schema={schema}
+>
+  <LegalPage
+    eyebrow="Navigation"
+    title="Sitemap"
+    intro="Retrouvez les principales pages du site Richmedia, les contenus publiés et le sitemap XML destiné aux moteurs de recherche."
+  >
+    {[...staticGroups, ...contentGroups].map((group) => (
+      <nav aria-labelledby={`sitemap-${group.title.toLowerCase().replaceAll(' ', '-')}`}>
+        <h2 id={`sitemap-${group.title.toLowerCase().replaceAll(' ', '-')}`}>{group.title}</h2>
+        <ul class="route-grid">
+          {group.links.map((link) => (
+            <li>
+              <a href={link.href}>
+                <strong>{link.label}</strong>
+                <span>{link.text}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    ))}
+  </LegalPage>
+</BaseLayout>

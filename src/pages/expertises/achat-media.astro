@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
 import { SITE } from '../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
+import { frSiloLinks } from '../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-achat-media';
 const logoBase = '/assets/richmedia-digital-strategy/logos';
@@ -382,9 +384,6 @@ const mobileQuickLinks = [
           <span class="eyebrow">En images</span>
           <h2 id="visual-title">Moins de discours, plus de pilotage visible.</h2>
         </div>
-        <p>
-          Trois moments clés : lire les chiffres, tester les créas, puis scaler sans casser la performance.
-        </p>
       </div>
       <div class="visual-grid">
         {visualStories.map((story) => (
@@ -411,10 +410,6 @@ const mobileQuickLinks = [
           <span class="eyebrow">Tendances achat média 2026</span>
           <h2 id="trend-title">Ce que les marques doivent maîtriser maintenant.</h2>
         </div>
-        <p>
-          IA publicitaire, retail media, budgets flexibles, données propres et mesure incrémentale redéfinissent
-          le rôle d’une vraie agence de performance.
-        </p>
       </div>
       <div class="trend-grid">
         {trends.map((trend) => (
@@ -540,10 +535,6 @@ const mobileQuickLinks = [
           <span class="eyebrow">Méthode Richmedia</span>
           <h2 id="roadmap-title">De l’audit au scaling, chaque arbitrage est traçable.</h2>
         </div>
-        <p>
-          Notre rituel média combine lecture quotidienne, optimisations court terme et décisions stratégiques
-          pour investir plus fort quand les signaux le justifient.
-        </p>
       </div>
       <div class="roadmap">
         {roadmap.map((item) => (
@@ -611,6 +602,13 @@ const mobileQuickLinks = [
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Relier média, SEO et conversion"
+    intro="Un plan média performe mieux lorsqu’il s’appuie sur une stratégie claire, un socle organique et un CRM activable."
+    links={frSiloLinks.media}
+    variant="compact"
+  />
 </BaseLayout>
 
 <style>

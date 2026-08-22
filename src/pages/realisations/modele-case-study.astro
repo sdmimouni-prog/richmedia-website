@@ -5,86 +5,103 @@ import { SITE } from '../../consts';
 import { breadcrumbs } from '../../lib/schema';
 
 const pageUrl = `${SITE.url}/realisations/modele-case-study`;
-const assetBase = '/assets/richmedia-home';
-const realizationBase = '/assets/richmedia-realizations';
-const brandBase = '/assets/richmedia-brand-content/creas-square';
+const assetBase = '/assets/richmedia-case-study';
 
 const content = {
   backHref: '/realisations',
   backLabel: 'Retour aux cas clients',
-  eyebrow: 'Modèle de cas client / Éducation',
+  eyebrow: 'Une approche end-to-end pensée pour performer à chaque étape du parcours.',
   client: 'UIR',
   clientLong: 'Université Internationale de Rabat',
   category: 'Éducation',
-  period: 'Partenariat long terme',
-  scope: 'Acquisition de leads, média, CRM, contenu',
-  title: 'UIR : transformer une campagne d’admission en moteur de recrutement.',
+  period: 'Juin - Septembre 2024',
+  scope: 'Social / Performance / Landing page',
+  title: 'Le Résultat',
   subtitle:
-    'Un modèle plus court, plus visuel et plus premium : il présente le contexte, le dispositif, les preuves créatives, la vidéo et les résultats sans noyer le lecteur.',
-  heroImage: `${assetBase}/campaign-wide-uir.webp`,
-  video: {
-    poster: `${assetBase}/campaign-wide-uir.webp`,
-    title: 'Film de cas client admissions',
-    label: 'Vidéo prévue',
-    meta: 'Reel, témoignage ou parcours de campagne',
-  },
+    "Pour la campagne d'inscriptions 2024 de l’UIR, nous avons conçu un dispositif digital full-funnel qui a propulsé la notoriété et généré des inscriptions qualifiées à grande échelle.",
+  heroImage: `${assetBase}/result-hero-clean.webp`,
+  metaItems: [
+    { label: 'Client', value: 'UIR' },
+    { label: 'Secteur', value: 'Éducation' },
+    { label: 'Période', value: 'Juin - Septembre 2024' },
+    { label: 'Canal', value: 'Social / Performance / Landing page' },
+  ],
   metrics: [
-    { value: '+34K', label: 'diplômés recrutés', note: 'pipeline d’admissions' },
-    { value: '+20K', label: 'étudiants touchés', note: 'audiences qualifiées' },
-    { value: '7', label: 'leviers activés', note: 'paid media, social, CRM, search' },
+    { value: '34K', label: 'Leads qualifiés', note: '+162%', icon: 'ph ph-users' },
+    { value: '20M', label: 'Impressions', note: '+188%', icon: 'ph ph-eye' },
+    { value: '6.2%', label: "Taux d'engagement", note: '+2.4 pts', icon: 'ph ph-chart-line-up' },
+    { value: '2.8x', label: 'Uplift inscriptions', note: 'vs. 2023', icon: 'ph ph-rocket-launch' },
   ],
-  chapters: [
+  deliverables: [
+    'Stratégie & plan média',
+    'Identité créative',
+    'Kits formats (15+)',
+    'Landing page',
+    'Tracking & dashboards',
+    'Rapport de performance',
+  ],
+  work: [
     {
-      eyebrow: 'Brief',
-      title: 'Rendre le choix plus simple',
-      text: 'Clarifier les filières, les moments de décision et les messages qui rassurent les futurs étudiants.',
+      eyebrow: '01',
+      title: 'Insight',
+      text: 'Analyse des parcours étudiants et des tendances digitales.',
+      bullets: ['Analyse des parcours étudiants et des tendances digitales.', 'Segmentation fine par profils et canaux.'],
+      icon: 'ph ph-magnifying-glass',
     },
     {
-      eyebrow: 'Move',
-      title: 'Créer un système, pas une simple affiche',
-      text: 'Connecter landing page, créas, search, social ads, WhatsApp et tracking pour capter puis relancer.',
+      eyebrow: '02',
+      title: 'Concept créatif',
+      text: 'Territoire “Lance ton avenir” porteur et inspirant.',
+      bullets: ['Territoire “Lance ton avenir” porteur et inspirant.', 'Formats multi, vidéos & stories pensés mobile-first.'],
+      icon: 'ph ph-lightbulb',
     },
     {
-      eyebrow: 'Proof',
-      title: 'Prouver la valeur business',
-      text: 'Lire la performance par lead qualifié, qualité CRM, coût d’acquisition et signaux d’inscription.',
+      eyebrow: '03',
+      title: 'Déploiement média',
+      text: 'Mix social, display, vidéo et search.',
+      bullets: ['Mix social, display, vidéo et search.', 'Landing page dédiée & CRM d’inscription.'],
+      icon: 'ph ph-megaphone',
+    },
+    {
+      eyebrow: '04',
+      title: 'Optimisation',
+      text: 'Pilotage data en temps réel.',
+      bullets: ['Pilotage data en temps réel.', 'Tests créatifs et audiences pour maximiser la conversion.'],
+      icon: 'ph ph-chart-line-up',
     },
   ],
-  system: {
-    eyebrow: 'Dispositif',
-    title: 'Une mécanique lisible en quatre temps.',
-    text: 'Le modèle évite les longs pavés. Chaque cas client explique rapidement ce que Richmedia a pensé, produit, diffusé et mesuré.',
-    steps: [
-      { label: 'Insight', text: 'Audience, tension, timing, promesse.' },
-      { label: 'Création', text: 'Key visual, formats sociaux, vidéo.' },
-      { label: 'Média', text: 'Search, paid social, retargeting.' },
-      { label: 'CRM', text: 'Relances, qualification, reporting.' },
-    ],
-  },
-  gallery: {
-    eyebrow: 'Preuves visuelles',
-    title: 'Quelques assets suffisent quand ils sont bien choisis.',
+  proof: {
+    eyebrow: 'Bloc 3',
+    title: 'Les Preuves',
+    intro:
+      'Un assemblage visuel des créations, formats, tableaux de bord et preuves business de la campagne.',
     items: [
-      { image: `${assetBase}/campaign-wide-uir.webp`, label: 'Visuel admissions', format: 'Display / social', size: 'wide' },
-      { image: `${brandBase}/uir-inscriptions.webp`, label: 'Inscription en ligne', format: 'Carré créatif' },
-      { image: `${assetBase}/campaign-portfolio-uir.webp`, label: 'Adaptations social media', format: 'Portfolio' },
-      { image: `${realizationBase}/whatsapp-uir.png`, label: 'Relance WhatsApp', format: 'CRM' },
+      { image: `${assetBase}/proof-social-feed.webp`, label: 'Post sponsorisé', format: 'Social feed', size: 'feed' as const },
+      { image: `${assetBase}/proof-story.webp`, label: 'Story sponsorisée', format: 'Story verticale', size: 'story' as const },
+      { image: `${assetBase}/proof-banner.webp`, label: 'Bannière inscriptions', format: 'Display', size: 'banner' as const },
+      { image: `${assetBase}/proof-dashboard.webp`, label: 'Tableau de bord', format: 'Performance', size: 'dashboard' as const },
+      { image: `${assetBase}/proof-event.webp`, label: 'Activation campus', format: 'Terrain', size: 'event' as const },
+      { image: `${assetBase}/proof-engineering.webp`, label: 'Ingénierie & sciences', format: 'Format vertical', size: 'engineering' as const },
+      { image: `${assetBase}/proof-parcours.webp`, label: 'Parcours différenciants', format: 'Format vertical', size: 'parcours' as const },
+      { image: `${assetBase}/proof-ready.png`, label: 'Prêt pour demain', format: 'Format vertical', size: 'ready' as const },
+      { image: `${assetBase}/proof-landing.webp`, label: 'Landing page', format: 'Conversion', size: 'landing' as const },
+      { image: `${assetBase}/proof-quote-card.webp`, label: 'Témoignage client', format: 'Citation', size: 'quote' as const },
+      { image: `${assetBase}/proof-keys-card.png`, label: 'Preuves clés', format: 'Résultats', size: 'keys' as const },
     ],
   },
   quote:
-    'Un bon cas client ne doit pas tout montrer. Il doit donner envie de comprendre la méthode, puis de lancer un projet.',
-  ctaLabel: 'Voir la vidéo',
-  ctaHref: '#case-video',
+    'Richmedia a dépassé nos objectifs sur toute la ligne. Leur compréhension de nos enjeux et leur agilité ont fait la différence.',
+  ctaLabel: 'Lancer un projet similaire',
+  ctaHref: '/contact',
   secondaryLabel: 'Retour aux cas clients',
   secondaryHref: '/realisations',
   ui: {
-    snapshotLabel: 'Résumé du cas client UIR',
-    scopeLabel: 'Périmètre',
-    sectorLabel: 'Secteur',
-    periodLabel: 'Période',
     resultsLabel: 'Résultats du cas client',
-    storylineKicker: 'Narration',
-    storylineTitle: 'Brief. Action. Preuve.',
+    metaLabel: 'Résumé du cas client',
+    workLabel: 'Bloc 2',
+    workTitle: 'Ce Qu’on A Fait',
+    proofLabel: 'Preuves visuelles',
+    quoteLabel: 'Enseignement du cas client',
     takeawayLabel: 'Enseignement du cas client',
   },
 };
@@ -100,7 +117,7 @@ const schema = [
 
 <BaseLayout
   title="Modèle de cas client — UIR admissions | Richmedia"
-  description="Modèle de page cas client Richmedia plus visuel, plus court et plus premium, avec vidéo, KPI, dispositif et preuves créatives."
+  description="Modèle de page cas client Richmedia simplifié en trois blocs : résultat, méthode et preuves visuelles."
   canonical={pageUrl}
   ogImage={`${SITE.url}${content.heroImage}`}
   schema={schema}

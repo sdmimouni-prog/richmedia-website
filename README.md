@@ -6,25 +6,72 @@ Pas de CMS : le contenu vit dans `src/content/**.mdx` et s'édite via prompt sur
 ## Démarrer
 ```bash
 npm install
-npm run dev           # environnement dev : http://localhost:4321
-npm run prod          # build production
-npm run preview       # preview du build prod : http://localhost:4321
-npm run prod:preview  # build + preview prod
-npm run check         # vérifie les types + le frontmatter
+npm run dev            # environnement dev : http://localhost:4321
+npm run env:check      # vérifie les variables dev + prod locales
+npm run prod           # build production vers dist/
+npm run prod:preview   # build + preview prod locale : http://localhost:4322
+npm run preview        # preview prod sur http://localhost:4321 si le dev est arrêté
+npm run check          # vérifie les types + le frontmatter
+npm run verify         # check + build, à lancer avant livraison
 ```
+
+Le port `4321` est réservé au développement local. La preview production utilise `4322`
+pour pouvoir comparer dev/prod en parallèle sans couper le serveur Astro actif.
 
 ## Environnements
 Les variables locales sont dans `.env.development` et `.env.production` :
 
 ```bash
 ASTRO_HOST=127.0.0.1
-ASTRO_PORT=4321
-PUBLIC_SITE_URL=http://localhost:4321 # dev
-PUBLIC_SITE_URL=https://richmedia.ma   # prod
+ASTRO_PORT=4321                            # dev
+ASTRO_PORT=4322                            # preview prod locale
+PUBLIC_SITE_URL=http://localhost:4321        # dev
+PUBLIC_OG_IMAGE_URL=http://localhost:4321/og-default.jpg
+PUBLIC_SITE_URL=https://richmedia.ma         # prod
+PUBLIC_OG_IMAGE_URL=https://richmedia.ma/og-default.jpg
 ```
 
 `PUBLIC_SITE_URL` alimente les URLs canoniques, le sitemap et le JSON-LD. `ASTRO_HOST`
 et `ASTRO_PORT` pilotent `astro dev` et `astro preview`.
+
+Pour les formulaires et tags marketing, garder en local :
+
+```bash
+CONTACT_TO_EMAIL=sd.mimouni@richmedia.ma
+CONTACT_FROM_EMAIL="Richmedia <noreply@richmedia.ma>"
+RESEND_API_KEY=
+PUBLIC_GTM_ID=
+PUBLIC_GA4_ID=
+PUBLIC_META_PIXEL_ID=
+PUBLIC_LINKEDIN_PARTNER_ID=
+```
+
+En production Vercel, ces valeurs doivent être ajoutées dans les variables
+d'environnement du projet, car `.env.*` est volontairement exclu du déploiement.
+Le projet contient aussi un script de synchronisation qui pousse les valeurs locales
+vers Vercel sans afficher les secrets :
+
+```bash
+npm run env:sync:vercel        # development + preview + production
+npm run env:sync:vercel:prod   # production uniquement
+npm exec vercel -- env add RESEND_API_KEY production --sensitive
+```
+
+`npm run env:check:prod` reste strict : il échoue tant que `RESEND_API_KEY` est vide,
+car le formulaire de contact serveur en dépend.
+
+## Production
+```bash
+npm run vercel:pull      # récupère les settings + env preview Vercel
+npm run vercel:build     # simule le build Vercel localement
+npm run vercel:build:prod # simule le build Vercel production
+npm run deploy:preview   # déploie une preview Vercel
+npm run deploy:prod      # déploie richmedia.ma en production
+```
+
+Le projet est déjà relié à Vercel via `.vercel/project.json`; `vercel.json` déclare
+Astro, le dossier `dist/` et les redirections historiques. Le projet Vercel distant
+utilise Node `24.x`; la contrainte Astro locale accepte Node `>=22.12.0 <27`.
 
 ## Arborescence
 ```

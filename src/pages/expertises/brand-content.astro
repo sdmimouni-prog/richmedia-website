@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
+import ParticleLogoSlide from '../../components/ParticleLogoSlide.astro';
 import { SITE } from '../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
+import { frSiloLinks } from '../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-brand-content';
 const homeBase = '/assets/richmedia-home';
@@ -94,32 +97,37 @@ const creativeReel = [
   { label: 'Don Simon - Saveurs naturelles', image: `${homeBase}/campaign-wide-donsimon.webp`, shape: 'wide' },
   { label: 'Amana - Campagne proximité', image: `${homeBase}/campaign-wide-amana-social.webp`, shape: 'wide' },
   { label: 'ADA - Produits locaux', image: `${homeBase}/campaign-wide-ada.webp`, shape: 'wide' },
-  { label: 'Ryad Al Andalous - Cadre de vie', image: `${realizationBase}/ryad-al-andalous-square.jpg`, shape: 'square' },
-  { label: 'Tramway - Campagne été', image: `${realizationBase}/tramway-summer-square.jpg`, shape: 'portrait' },
-  { label: 'Moul Pounj - Coupe du monde', image: `${realizationBase}/moul-pounj-world-cup.jpg`, shape: 'wide' },
-  { label: 'TBS Casablanca - Masters of Science', image: `${realizationBase}/tbs-casablanca.jpg`, shape: 'photo' },
-  { label: 'CMR - Retraite digitale', image: `${realizationBase}/cmr-retirement.jpg`, shape: 'wide' },
-  { label: 'Moul Pounj - Carousel social', image: `${realizationBase}/moul-pounj-carousel.jpg`, shape: 'wide' },
-  { label: 'Ryad Al Andalous - Format panoramique', image: `${realizationBase}/ryad-al-andalous-wide.jpg`, shape: 'wide' },
-  { label: 'Rabat Riviera - Golf living', image: `${realizationBase}/rabat-riviera-wide.jpg`, shape: 'wide' },
-  { label: 'Beed - Luxury comfort', image: `${realizationBase}/beed-wide.jpg`, shape: 'wide' },
-  { label: 'Tramway - Application mobile', image: `${realizationBase}/tramway-mobile-app.jpg`, shape: 'wide' },
+  { label: 'Maserati - Push WhatsApp Levante', image: `${realizationBase}/maserati-levante-push-whatsapp.webp`, shape: 'portrait' },
+  { label: 'Oreo - KV Back to School', image: `${realizationBase}/oreo-back-to-school-kv.webp`, shape: 'photo' },
+  { label: 'Milka - Lancement Back to School', image: `${realizationBase}/milka-back-to-school.webp`, shape: 'photo' },
+  { label: 'Nescafé - Campagne Nadi Nescafé', image: `${realizationBase}/nescafe-nadi-nescafe.webp`, shape: 'photo' },
+  { label: 'Ryad Al Andalous - Cadre de vie', image: `${realizationBase}/ryad-al-andalous-square.webp`, shape: 'square' },
+  { label: 'Tramway - Campagne été', image: `${realizationBase}/tramway-summer-square.webp`, shape: 'portrait' },
+  { label: 'Moul Pounj - Coupe du monde', image: `${realizationBase}/moul-pounj-world-cup.webp`, shape: 'wide' },
+  { label: 'TBS Casablanca - Masters of Science', image: `${realizationBase}/tbs-casablanca.webp`, shape: 'photo' },
+  { label: 'CMR - Retraite digitale', image: `${realizationBase}/cmr-retirement.webp`, shape: 'wide' },
+  { label: 'Moul Pounj - Carousel social', image: `${realizationBase}/moul-pounj-carousel.webp`, shape: 'wide' },
+  { label: 'Ryad Al Andalous - Format panoramique', image: `${realizationBase}/ryad-al-andalous-wide.webp`, shape: 'wide' },
+  { label: 'Rabat Riviera - Golf living', image: `${realizationBase}/rabat-riviera-wide.webp`, shape: 'wide' },
+  { label: 'BED - Luxury comfort', image: `${realizationBase}/beed-wide.webp`, shape: 'wide' },
+  { label: 'Tramway - Application mobile', image: `${realizationBase}/tramway-mobile-app.webp`, shape: 'wide' },
   { label: 'Amana - Format clean', image: `${homeBase}/campaign-amana-clean.webp`, shape: 'wide' },
   { label: 'Don Simon - Format clean', image: `${homeBase}/campaign-donsimon-clean.webp`, shape: 'wide' },
   { label: 'Moul Pounj - Format clean', image: `${homeBase}/campaign-moul-pounj-clean.webp`, shape: 'wide' },
 ];
 
 const storyCampaigns = [
-  { label: 'SONARGES - Sport & Lifestyle Summer Vibes', image: `${assetBase}/stories/sonarges-sport-lifestyle.jpg` },
-  { label: 'LC Waikiki - Mode & Tendance Printemps', image: `${assetBase}/stories/lc-waikiki-mode-tendance.jpg` },
-  { label: 'Bioderma - Photoderm SPF 50+', image: `${assetBase}/stories/bioderma-photoderm-spf.jpg` },
-  { label: 'Mustela - No Knots Happy Hair', image: `${assetBase}/stories/mustela-happy-hair.jpg` },
-  { label: 'Uriage - Uriage Day Experience', image: `${assetBase}/stories/uriage-day-experience.jpg` },
-  { label: 'Filorga - Launch Night', image: `${assetBase}/stories/filorga-launch-night.jpg` },
+  { label: 'SONARGES - Sport & Lifestyle Summer Vibes', image: `${assetBase}/stories/sonarges-sport-lifestyle.webp` },
+  { label: 'LC Waikiki - Mode & Tendance Printemps', image: `${assetBase}/stories/lc-waikiki-mode-tendance.webp` },
+  { label: 'Bioderma - Photoderm SPF 50+', image: `${assetBase}/stories/bioderma-photoderm-spf.webp` },
+  { label: 'Mustela - No Knots Happy Hair', image: `${assetBase}/stories/mustela-happy-hair.webp` },
+  { label: 'Uriage - Uriage Day Experience', image: `${assetBase}/stories/uriage-day-experience.webp` },
+  { label: 'Filorga - Launch Night', image: `${assetBase}/stories/filorga-launch-night.webp` },
 ];
 
-const creativeReelLeft = creativeReel.slice(0, 9);
-const creativeReelRight = creativeReel.slice(9);
+const creativeReelMidpoint = Math.ceil(creativeReel.length / 2);
+const creativeReelLeft = creativeReel.slice(0, creativeReelMidpoint);
+const creativeReelRight = creativeReel.slice(creativeReelMidpoint);
 
 const partnerGroups = [
   {
@@ -207,7 +215,7 @@ const mobileQuickLinks = [
   title={seoTitle}
   description={seoDescription}
   canonical={pageUrl}
-  ogImage={`${SITE.url}${assetBase}/brand-content-hero.png`}
+  ogImage={`${SITE.url}${assetBase}/brand-content-hero.webp`}
   schema={schema}
 >
   <div class="brand-content-page">
@@ -232,7 +240,7 @@ const mobileQuickLinks = [
       </div>
 
       <div class="hero-visual" data-brand-visual aria-label="Atelier de brand content Richmedia">
-        <img src={`${assetBase}/brand-content-hero.png`} alt="Équipe créative préparant des contenus social-first" />
+        <img src={`${assetBase}/brand-content-hero.webp`} alt="Équipe créative préparant des contenus social-first" />
         <div class="signal-card signal-card-top">
           <span>Storytelling</span>
           <strong>Angle clair</strong>
@@ -425,29 +433,20 @@ const mobileQuickLinks = [
         </div>
       </div>
       <div class="particle-field" aria-hidden="true">
-        <canvas data-brand-particles></canvas>
+        <ParticleLogoSlide />
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Amplifier le contenu avec les bons leviers"
+    intro="Le brand content gagne en impact lorsqu’il sert le SEO, l’influence, l’événementiel et les campagnes mesurées."
+    links={frSiloLinks.content}
+    variant="compact"
+  />
 </BaseLayout>
 
 <script>
-  type BrandParticle = {
-    seed: number;
-    band: number;
-    x: number;
-    y: number;
-    vx: number;
-    vy: number;
-    size: number;
-    alpha: number;
-  };
-
-  type BrandPoint = {
-    x: number;
-    y: number;
-  };
-
   const visuals = document.querySelectorAll('[data-brand-visual]');
 
   visuals.forEach((visual) => {
@@ -476,100 +475,6 @@ const mobileQuickLinks = [
     leave();
   });
 
-  const particleCanvases = document.querySelectorAll('[data-brand-particles]');
-
-  particleCanvases.forEach((canvas) => {
-    if (!(canvas instanceof HTMLCanvasElement) || canvas.dataset.ready === 'true') return;
-    canvas.dataset.ready = 'true';
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const particles: BrandParticle[] = [];
-    let width = 1;
-    let height = 1;
-    let ratio = 1;
-    let pointerX = 0;
-    let pointerY = 0;
-    let active = false;
-
-    const targetPoint = (particle: BrandParticle): BrandPoint => {
-      const angle = particle.seed * Math.PI * 2;
-      const wave = Math.sin(particle.seed * 12 + performance.now() * 0.001) * 0.035;
-      return {
-        x: width * (0.5 + Math.cos(angle) * (0.18 + particle.band * 0.27)),
-        y: height * (0.52 + Math.sin(angle * 2.1) * (0.18 + wave)),
-      };
-    };
-
-    const reset = () => {
-      const bounds = canvas.getBoundingClientRect();
-      ratio = Math.min(window.devicePixelRatio || 1, 2);
-      width = Math.max(1, bounds.width);
-      height = Math.max(1, bounds.height);
-      canvas.width = Math.floor(width * ratio);
-      canvas.height = Math.floor(height * ratio);
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-
-      particles.length = 0;
-      const count = Math.max(240, Math.min(720, Math.floor((width * height) / 760)));
-      for (let i = 0; i < count; i += 1) {
-        const particle: BrandParticle = {
-          seed: i / count + Math.random() * 0.04,
-          band: Math.random(),
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: 0,
-          vy: 0,
-          size: Math.random() > 0.72 ? 2 : 1.3,
-          alpha: 0.42 + Math.random() * 0.46,
-        };
-        particles.push(particle);
-      }
-    };
-
-    const draw = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      for (const particle of particles) {
-        const target = targetPoint(particle);
-        particle.vx = (particle.vx + (target.x - particle.x) * 0.035) * 0.76;
-        particle.vy = (particle.vy + (target.y - particle.y) * 0.035) * 0.76;
-
-        if (active) {
-          const dx = particle.x - pointerX;
-          const dy = particle.y - pointerY;
-          const dist = Math.hypot(dx, dy) || 1;
-          if (dist < 120) {
-            const force = (1 - dist / 120) * 1.4;
-            particle.vx += (dx / dist) * force;
-            particle.vy += (dy / dist) * force;
-          }
-        }
-
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        ctx.fillStyle = `rgba(150, 91, 255, ${particle.alpha})`;
-        ctx.fillRect(particle.x, particle.y, particle.size, particle.size);
-      }
-
-      requestAnimationFrame(draw);
-    };
-
-    canvas.addEventListener('pointermove', (event: PointerEvent) => {
-      const bounds = canvas.getBoundingClientRect();
-      pointerX = event.clientX - bounds.left;
-      pointerY = event.clientY - bounds.top;
-      active = true;
-    });
-    canvas.addEventListener('pointerleave', () => {
-      active = false;
-    });
-
-    reset();
-    new ResizeObserver(reset).observe(canvas);
-    requestAnimationFrame(draw);
-  });
 </script>
 
 <style>
@@ -1385,13 +1290,19 @@ const mobileQuickLinks = [
   .particle-field {
     position: relative;
     min-height: clamp(190px, 20vw, 280px);
+    overflow: hidden;
+    background: #000;
   }
 
-  .particle-field canvas {
+  .particle-field :global(.particle-logo-slide) {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
+  }
+
+  .particle-field :global(.particle-logo-slide__hint) {
+    display: none;
   }
 
   @media (prefers-reduced-motion: reduce) {

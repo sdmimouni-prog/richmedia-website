@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../../../components/SeoSiloLinks.astro';
 import { SITE } from '../../../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../../../lib/schema';
+import { enSiloLinks } from '../../../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-achat-media';
 const logoBase = '/assets/richmedia-digital-strategy/logos';
@@ -611,6 +613,13 @@ const mobileQuickLinks = [
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Connect media, SEO and conversion"
+    intro="A media plan performs better when backed by clear strategy, organic visibility and actionable CRM flows."
+    links={enSiloLinks.media}
+    variant="compact"
+  />
 </BaseLayout>
 
 <style>

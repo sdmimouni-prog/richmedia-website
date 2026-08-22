@@ -1,0 +1,813 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { breadcrumbs } from '../../lib/schema';
+import { SITE } from '../../consts';
+
+const pageUrl = `${SITE.url}/insights`;
+const contentEntries = await getCollection('articles', ({ data }) => !data.draft && data.lang === 'fr');
+const articleBySlug = new Map(
+  contentEntries.map((entry) => [entry.data.slug ?? entry.id, {
+    slug: entry.data.slug ?? entry.id,
+    title: entry.data.title,
+    description: entry.data.metaDescription,
+    category: entry.data.categorie,
+    date: entry.data.datePublication,
+    readingTime: entry.data.tempsLecture ?? 6,
+  }])
+);
+
+const articleImages: Record<string, string> = {
+  'priorites-digitales-2026-croissance-rentable': '/assets/richmedia-digital-strategy/strategy-workshop.webp',
+  'data-decision-strategie-performance': '/assets/richmedia-achat-media/media-traffic-manager.webp',
+  'seo-vs-geo-enjeux-2026': '/assets/richmedia-digital-strategy/strategy-hero.webp',
+  'campagnes-meta-2026-bonnes-pratiques': '/assets/richmedia-achat-media/media-creative-tests.webp',
+  'whatsapp-business-canal-conversion': '/assets/richmedia-ia-automation/whatsapp-agent.webp',
+  'createurs-marques-collaborations-durables': '/assets/richmedia-influence/creator-lifestyle.webp',
+  'plan-acquisition-digital-2026': '/assets/richmedia-digital-strategy/strategy-hero.webp',
+  'marque-employeur-attractivite-digitale': '/assets/richmedia-agence/agence-collaboration.webp',
+  'cout-campagne-google-ads-maroc': '/assets/richmedia-achat-media/achat-media-hero.webp',
+  'contenu-qualite-seo-perenne': '/assets/richmedia-brand-content/brand-content-hero.webp',
+  'crm-automation-aligner-marketing-sales': '/assets/richmedia-ia-automation/crm-automation.webp',
+};
+
+const categoryLabels = {
+  Growth: 'Stratégie',
+  Media: 'Média & performance',
+  SEO: 'SEO / GEO',
+  Social: 'Influence & social media',
+  Secteur: 'Guides',
+};
+
+const articleOrder = [
+  'priorites-digitales-2026-croissance-rentable',
+  'data-decision-strategie-performance',
+  'seo-vs-geo-enjeux-2026',
+  'campagnes-meta-2026-bonnes-pratiques',
+  'whatsapp-business-canal-conversion',
+  'createurs-marques-collaborations-durables',
+  'plan-acquisition-digital-2026',
+  'marque-employeur-attractivite-digitale',
+  'cout-campagne-google-ads-maroc',
+  'contenu-qualite-seo-perenne',
+  'crm-automation-aligner-marketing-sales',
+];
+
+const articles = articleOrder
+  .map((slug) => articleBySlug.get(slug))
+  .filter((article): article is NonNullable<typeof article> => Boolean(article))
+  .map((article) => ({
+    ...article,
+    href: `/insights/${article.slug}`,
+    image: articleImages[article.slug] ?? '/og-default.jpg',
+    displayCategory: categoryLabels[article.category] ?? article.category,
+  }));
+
+const topArticle = articles[0];
+const featuredArticle = articles[1];
+const gridArticles = articles.slice(2, 6);
+const listArticles = articles.slice(6, 11);
+const chips = [
+  { label: 'Tous', filter: 'all' },
+  { label: 'Stratégie', filter: 'Growth' },
+  { label: 'Média & performance', filter: 'Media' },
+  { label: 'SEO / GEO', filter: 'SEO' },
+  { label: 'WhatsApp & automation', filter: 'Automation' },
+  { label: 'Influence & social media', filter: 'Social' },
+  { label: 'Guides', filter: 'Secteur' },
+  { label: 'Case studies', filter: 'Case' },
+];
+const topics = [
+  ['Stratégie digitale', 24],
+  ['Média & performance', 22],
+  ['SEO / GEO', 18],
+  ['WhatsApp & automation', 14],
+  ['Influence & social media', 13],
+  ['Guides', 11],
+  ['Case studies', 9],
+];
+const formatDate = (date: Date) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(date);
+const schema = [
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Insights', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Insights Richmedia — Articles, guides et analyses marketing digital"
+  description="Le hub éditorial Richmedia : stratégie digitale, média, SEO/GEO, WhatsApp, automation, influence, social media et croissance au Maroc."
+  canonical={pageUrl}
+  schema={schema}
+>
+  <div class="insights-page">
+    <section class="insights-hero" aria-labelledby="insights-title">
+      <div class="hero-copy">
+        <span class="section-kicker">Insights Richmedia</span>
+        <h1 id="insights-title">Tous les insights</h1>
+        <p>
+          Articles, analyses, guides et retours d'expérience pour comprendre les leviers qui accélèrent la performance
+          digitale : stratégie, média, SEO/GEO, social media, WhatsApp, automatisation et croissance.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="/contact">Discuter d'un projet <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          <a class="ghost-btn" href="/references">Voir nos réalisations <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      {topArticle && (
+        <a class="top-feature" href={topArticle.href} aria-label={`Lire ${topArticle.title}`}>
+          <figure>
+            <img src={topArticle.image} alt="" width="620" height="420" loading="eager" decoding="async" />
+          </figure>
+          <div>
+            <span>{topArticle.displayCategory}</span>
+            <h2>{topArticle.title}</h2>
+            <p>{topArticle.description}</p>
+            <small><i class="ph ph-clock" aria-hidden="true"></i>{topArticle.readingTime} min de lecture <i class="ph ph-calendar-blank" aria-hidden="true"></i>{formatDate(topArticle.date)}</small>
+          </div>
+        </a>
+      )}
+    </section>
+
+    <section class="insight-controls" aria-label="Recherche et filtres">
+      <label class="search-field">
+        <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+        <input type="search" data-insight-search placeholder="Rechercher un article, un sujet, un mot-clé..." />
+      </label>
+      <button class="filter-button" type="button">
+        <i class="ph ph-sliders-horizontal" aria-hidden="true"></i>
+        Filtres
+      </button>
+    </section>
+
+    <nav class="chip-row" aria-label="Catégories insights">
+      {chips.map((chip) => (
+        <button type="button" class:list={['chip', chip.filter === 'all' && 'is-active']} data-filter={chip.filter}>{chip.label}</button>
+      ))}
+    </nav>
+
+    {featuredArticle && (
+      <section class="editorial-feature" aria-labelledby="featured-title">
+        <img src={featuredArticle.image} alt="" width="560" height="330" loading="lazy" decoding="async" />
+        <div>
+          <span class="section-kicker">Article à la une</span>
+          <h2 id="featured-title">{featuredArticle.title}</h2>
+          <p>{featuredArticle.description}</p>
+          <small><i class="ph ph-clock" aria-hidden="true"></i>{featuredArticle.readingTime} min de lecture <i class="ph ph-calendar-blank" aria-hidden="true"></i>{formatDate(featuredArticle.date)}</small>
+        </div>
+        <a class="outline-link" href={featuredArticle.href}>Lire l'article <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+      </section>
+    )}
+
+    <section class="article-section" id="all-articles" aria-labelledby="articles-title">
+      <div class="section-heading">
+        <h2 id="articles-title">Tous les articles</h2>
+        <a href="/insights#more-articles">Voir tous les articles <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="article-grid">
+        {gridArticles.map((article) => (
+          <a class="article-card" href={article.href} data-article-card data-category={article.category} data-title={`${article.title} ${article.description} ${article.displayCategory}`}>
+            <img src={article.image} alt="" width="420" height="230" loading="lazy" decoding="async" />
+            <div>
+              <span>{article.displayCategory}</span>
+              <h3>{article.title}</h3>
+              <p>{article.description}</p>
+              <small><i class="ph ph-clock" aria-hidden="true"></i>{article.readingTime} min <i class="ph ph-calendar-blank" aria-hidden="true"></i>{formatDate(article.date)}</small>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="more-layout" id="more-articles" aria-label="Plus d'articles">
+      <div class="more-list">
+        <h2>Plus d'articles</h2>
+        {listArticles.map((article) => (
+          <a class="more-row" href={article.href} data-article-card data-category={article.category} data-title={`${article.title} ${article.description} ${article.displayCategory}`}>
+            <img src={article.image} alt="" width="128" height="82" loading="lazy" decoding="async" />
+            <div>
+              <span>{article.displayCategory}</span>
+              <strong>{article.title}</strong>
+              <small><i class="ph ph-clock" aria-hidden="true"></i>{article.readingTime} min de lecture <i class="ph ph-calendar-blank" aria-hidden="true"></i>{formatDate(article.date)}</small>
+            </div>
+            <i class="ph ph-bookmark-simple" aria-hidden="true"></i>
+          </a>
+        ))}
+      </div>
+
+      <aside class="insights-sidebar">
+        <section class="sidebar-card">
+          <h2>Sujets populaires</h2>
+          <ul>
+            {topics.map(([topic, count]) => (
+              <li><span>{topic}</span><strong>{count}</strong></li>
+            ))}
+          </ul>
+        </section>
+        <section class="sidebar-card newsletter">
+          <h2>Restez à la page</h2>
+          <p>Recevez nos derniers insights, tendances et études de cas.</p>
+          <form action="/api/contact" method="post" data-contact-form>
+            <input type="hidden" name="form" value="newsletter insights" />
+            <input type="email" name="email" placeholder="votre@email.com" required />
+            <button type="submit">S'abonner</button>
+          </form>
+          <small>Pas de spam. Désabonnement en 1 clic.</small>
+        </section>
+      </aside>
+    </section>
+
+    <section class="insights-cta">
+      <div>
+        <span class="section-kicker">Parlons de votre croissance</span>
+        <h2>Des questions sur votre stratégie digitale ?<br />Échangeons avec nos experts.</h2>
+      </div>
+      <div class="cta-actions">
+        <a class="primary-btn" href="/contact">Discuter d'un projet <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <a class="ghost-btn" href="/expertises">Découvrir nos expertises <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: min(100% - 3rem, 1320px);
+    max-width: 1320px;
+  }
+
+  .insights-page {
+    --panel: rgba(13, 14, 22, 0.82);
+    --panel-strong: rgba(17, 18, 28, 0.94);
+    --line: rgba(255, 255, 255, 0.12);
+    --muted: rgba(255, 255, 255, 0.68);
+    display: grid;
+    gap: clamp(1.6rem, 3vw, 2.8rem);
+    padding-top: clamp(1rem, 3vw, 2.2rem);
+  }
+
+  h1, h2, h3, p {
+    margin: 0;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #a985ff;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    content: "";
+    width: 3.8rem;
+    height: 2px;
+    background: linear-gradient(90deg, #8a4dff, #b864ff);
+  }
+
+  .insights-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(560px, 1.15fr);
+    gap: clamp(2rem, 5vw, 7rem);
+    align-items: center;
+    min-height: 380px;
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 1.35rem;
+    max-width: 580px;
+  }
+
+  .hero-copy h1 {
+    color: #fff;
+    font-size: clamp(3.2rem, 6vw, 6.4rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 0.94;
+  }
+
+  .hero-copy p,
+  .top-feature p,
+  .editorial-feature p,
+  .article-card p,
+  .newsletter p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .hero-actions,
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.4rem;
+  }
+
+  .primary-btn,
+  .ghost-btn,
+  .outline-link,
+  .filter-button {
+    display: inline-flex;
+    min-height: 3.1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    border-radius: 8px;
+    padding: 0 1.15rem;
+    color: #fff;
+    font-weight: 850;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .primary-btn {
+    border: 1px solid rgba(168, 108, 255, 0.7);
+    background: linear-gradient(135deg, #8b4cff, #6426f4);
+    box-shadow: 0 18px 42px rgba(117, 62, 255, 0.28);
+  }
+
+  .ghost-btn,
+  .outline-link,
+  .filter-button {
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .primary-btn:hover,
+  .ghost-btn:hover,
+  .outline-link:hover,
+  .filter-button:hover {
+    transform: translateY(-2px);
+    border-color: rgba(168, 108, 255, 0.72);
+    box-shadow: 0 18px 40px rgba(121, 75, 255, 0.18);
+  }
+
+  .top-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.95fr);
+    min-height: 330px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 72% 10%, rgba(139, 76, 255, 0.16), transparent 18rem),
+      var(--panel);
+    color: #fff;
+    text-decoration: none;
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .top-feature:hover,
+  .top-feature:focus-visible,
+  .article-card:hover,
+  .article-card:focus-visible,
+  .more-row:hover,
+  .more-row:focus-visible,
+  .editorial-feature:hover {
+    transform: translateY(-4px);
+    border-color: rgba(168, 108, 255, 0.5);
+    box-shadow: 0 24px 60px rgba(105, 55, 255, 0.18);
+  }
+
+  .top-feature figure,
+  .top-feature img,
+  .editorial-feature > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .article-card > img,
+  .more-row img {
+    width: 100%;
+  }
+
+  .top-feature figure {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .top-feature img,
+  .editorial-feature > img,
+  .article-card > img,
+  .more-row img {
+    display: block;
+    object-fit: cover;
+  }
+
+  .top-feature > div {
+    display: grid;
+    align-content: center;
+    gap: 0.85rem;
+    padding: clamp(1.2rem, 2vw, 1.8rem);
+  }
+
+  .top-feature span,
+  .article-card span,
+  .more-row span {
+    color: #a985ff;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .top-feature h2 {
+    color: #fff;
+    font-size: clamp(1.55rem, 2.1vw, 2.25rem);
+    line-height: 1.12;
+  }
+
+  small {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 700;
+  }
+
+  .insight-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+  }
+
+  .search-field {
+    display: flex;
+    min-height: 3.2rem;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .search-field input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #fff;
+    font: inherit;
+  }
+
+  .search-field input::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .chip {
+    min-height: 2.5rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.78);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.86rem;
+    font-weight: 800;
+    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+  }
+
+  .chip:hover,
+  .chip.is-active {
+    border-color: rgba(168, 108, 255, 0.75);
+    background: linear-gradient(135deg, rgba(139, 76, 255, 0.95), rgba(100, 38, 244, 0.95));
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  .editorial-feature {
+    display: grid;
+    grid-template-columns: 0.44fr minmax(0, 1fr) auto;
+    gap: clamp(1.2rem, 3vw, 3rem);
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: clamp(1rem, 2vw, 1.55rem);
+    background:
+      radial-gradient(circle at 88% 18%, rgba(139, 76, 255, 0.13), transparent 20rem),
+      var(--panel);
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .editorial-feature > img {
+    height: clamp(220px, 22vw, 330px);
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+  }
+
+  .editorial-feature div {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .editorial-feature h2 {
+    color: #fff;
+    font-size: clamp(1.55rem, 2.6vw, 2.45rem);
+    line-height: 1.1;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-heading h2,
+  .more-list h2,
+  .sidebar-card h2 {
+    color: #fff;
+    font-size: clamp(1.45rem, 2.3vw, 2rem);
+    line-height: 1.1;
+  }
+
+  .section-heading a {
+    color: #a985ff;
+    font-weight: 850;
+    text-decoration: none;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .article-card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: #fff;
+    text-decoration: none;
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .article-card > img {
+    height: auto;
+    aspect-ratio: 1.7 / 1;
+    object-fit: cover;
+  }
+
+  .article-card > div {
+    display: grid;
+    gap: 0.55rem;
+    padding: 1rem;
+  }
+
+  .article-card h3 {
+    color: #fff;
+    font-size: 1.22rem;
+    line-height: 1.14;
+  }
+
+  .more-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.36fr);
+    gap: 1.3rem;
+    align-items: start;
+  }
+
+  .more-list {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .more-row {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 180ms ease, background 180ms ease;
+  }
+
+  .more-row img {
+    aspect-ratio: 1.35 / 1;
+    border-radius: 6px;
+  }
+
+  .more-row div {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .more-row strong {
+    font-size: 1.05rem;
+    line-height: 1.25;
+  }
+
+  .more-row > i {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 1.2rem;
+  }
+
+  .insights-sidebar {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .sidebar-card {
+    display: grid;
+    gap: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1.2rem;
+    background: var(--panel);
+  }
+
+  .sidebar-card ul {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sidebar-card li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .sidebar-card li strong {
+    min-width: 2rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .newsletter form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.6rem;
+  }
+
+  .newsletter input,
+  .newsletter button {
+    min-height: 2.8rem;
+    border-radius: 8px;
+    font: inherit;
+  }
+
+  .newsletter input {
+    border: 1px solid var(--line);
+    padding: 0 0.85rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+  }
+
+  .newsletter button {
+    border: 1px solid rgba(168, 108, 255, 0.7);
+    padding: 0 1rem;
+    background: linear-gradient(135deg, #8b4cff, #6426f4);
+    color: #fff;
+    font-weight: 850;
+  }
+
+  .newsletter small {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .insights-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    overflow: hidden;
+    border: 1px solid rgba(168, 108, 255, 0.25);
+    border-radius: 8px;
+    padding: clamp(1.2rem, 3vw, 2rem);
+    background:
+      radial-gradient(circle at 88% 58%, rgba(137, 74, 255, 0.44), transparent 16rem),
+      linear-gradient(135deg, rgba(90, 35, 176, 0.42), rgba(13, 14, 22, 0.92));
+  }
+
+  .insights-cta h2 {
+    margin-top: 0.8rem;
+    color: #fff;
+    font-size: clamp(1.65rem, 3vw, 2.8rem);
+    line-height: 1.05;
+  }
+
+  [data-article-card].is-hidden {
+    display: none;
+  }
+
+  @media (max-width: 1180px) {
+    .insights-hero,
+    .top-feature,
+    .editorial-feature,
+    .more-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .article-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .outline-link {
+      width: fit-content;
+    }
+
+    .editorial-feature > img {
+      height: 260px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .insights-page {
+      gap: 1.6rem;
+    }
+
+    .insights-hero {
+      min-height: auto;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.7rem, 15vw, 4.4rem);
+    }
+
+    .insight-controls,
+    .article-grid,
+    .newsletter form {
+      grid-template-columns: 1fr;
+    }
+
+    .more-row {
+      grid-template-columns: 72px minmax(0, 1fr);
+    }
+
+    .more-row > i {
+      display: none;
+    }
+
+    .editorial-feature > img {
+      height: 210px;
+    }
+
+    .insights-cta,
+    .section-heading {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  const searchInput = document.querySelector<HTMLInputElement>('[data-insight-search]');
+  const filterButtons = Array.from(document.querySelectorAll('[data-filter]'));
+  const cards = Array.from(document.querySelectorAll('[data-article-card]'));
+  let activeFilter = 'all';
+
+  const normalize = (value: string) => value.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
+
+  const applyFilters = () => {
+    const term = normalize(searchInput?.value ?? '');
+    cards.forEach((card) => {
+      const category = card.getAttribute('data-category') ?? '';
+      const haystack = normalize(card.getAttribute('data-title') ?? '');
+      const matchesFilter =
+        activeFilter === 'all' ||
+        category === activeFilter ||
+        (activeFilter === 'Automation' && haystack.includes('automation')) ||
+        (activeFilter === 'Case' && haystack.includes('case'));
+      const matchesSearch = !term || haystack.includes(term);
+      card.classList.toggle('is-hidden', !(matchesFilter && matchesSearch));
+    });
+  };
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      activeFilter = button.getAttribute('data-filter') ?? 'all';
+      filterButtons.forEach((item) => item.classList.toggle('is-active', item === button));
+      applyFilters();
+    });
+  });
+
+  searchInput?.addEventListener('input', applyFilters);
+</script>

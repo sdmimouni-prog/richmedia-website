@@ -1,9 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
 import QuickAnswer from '../../components/QuickAnswer.astro';
 import Faq from '../../components/Faq.astro';
 import { breadcrumbs } from '../../lib/schema';
+import { frSiloLinks, sectorSiloLinksFr } from '../../lib/seo-silos';
 import { SITE } from '../../consts';
 
 export async function getStaticPaths() {
@@ -12,16 +14,4411 @@ export async function getStaticPaths() {
 }
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const url = `${SITE.url}/secteurs/${entry.data.slug ?? entry.id}`;
+const slug = entry.data.slug ?? entry.id;
+const url = `${SITE.url}/secteurs/${slug}`;
+const isEducation = slug === 'education';
+const isRetailEcommerce = slug === 'retail-ecommerce';
+const isInstitutionnel = slug === 'institutionnel';
+const isAutomobile = slug === 'automobile';
+const isImmobilier = slug === 'immobilier';
+const isGms = slug === 'gms';
+const isFmcg = slug === 'fmcg';
+const isTourismeHotellerie = slug === 'tourisme-hotellerie';
+const sectorSiloLinks = sectorSiloLinksFr[slug as keyof typeof sectorSiloLinksFr] ?? frSiloLinks.sectorsHub;
 const schema = [breadcrumbs([
   { name: 'Accueil', url: SITE.url },
   { name: 'Secteurs', url: `${SITE.url}/secteurs` },
   { name: entry.data.title, url },
 ])];
+
+const trustBrands = [
+  {
+    name: 'UIR',
+    detail: 'Université Internationale de Rabat',
+    logo: '/assets/richmedia-sector-education/logos/uir-logo.webp',
+    width: 175,
+    height: 166,
+  },
+  {
+    name: 'HEM',
+    detail: 'Business & Engineering School',
+    logo: '/assets/richmedia-sector-education/logos/hem-logo.webp',
+    width: 444,
+    height: 119,
+  },
+  {
+    name: 'TBS',
+    detail: 'Toulouse Business School',
+    logo: '/assets/richmedia-sector-education/logos/tbs-logo.webp',
+    width: 428,
+    height: 166,
+  },
+  {
+    name: 'Euromed',
+    detail: 'Université Euromed de Fès',
+    logo: '/assets/richmedia-sector-education/logos/euromed-logo.webp',
+    width: 444,
+    height: 98,
+  },
+  {
+    name: 'UPM',
+    detail: 'Université Privée de Marrakech',
+    logo: '/assets/richmedia-sector-education/logos/upm-logo.webp',
+    width: 444,
+    height: 129,
+  },
+];
+
+const educationChallenges = [
+  {
+    icon: 'ph ph-graduation-cap',
+    title: "Remplir les campagnes d’inscription",
+    text: 'Atteindre un volume suffisant de candidats chaque année.',
+  },
+  {
+    icon: 'ph ph-users-three',
+    title: 'Générer des leads qualifiés',
+    text: 'Toucher les bons profils et collecter des leads à forte intention.',
+  },
+  {
+    icon: 'ph ph-chart-line-up',
+    title: 'Réduire le CPL',
+    text: 'Optimiser les budgets et améliorer le coût par lead et par inscription.',
+  },
+  {
+    icon: 'ph ph-chat-circle-text',
+    title: 'Convaincre étudiants + parents',
+    text: 'Communiquer les bons messages à chaque décisionnaire.',
+  },
+  {
+    icon: 'ph ph-note-pencil',
+    title: 'Valoriser les filières & programmes',
+    text: 'Mettre en avant vos atouts pédagogiques et vos débouchés.',
+  },
+  {
+    icon: 'ph ph-clock',
+    title: 'Gérer les temps forts',
+    text: 'Admissions, JPO, concours, rentrée, executive education…',
+  },
+];
+
+const educationMethod = [
+  {
+    step: '01',
+    icon: 'ph ph-cursor-click',
+    title: 'Attirer',
+    bullets: ['Paid social', 'Google Search & YouTube', 'Contenus vidéos & UGC', 'Ciblage par persona'],
+  },
+  {
+    step: '02',
+    icon: 'ph ph-users-three',
+    title: 'Qualifier',
+    bullets: ['Landing pages dédiées', 'Formulaires courts', 'Lead scoring & segmentation', 'Chatbots & WhatsApp'],
+  },
+  {
+    step: '03',
+    icon: 'ph ph-chat-circle-text',
+    title: 'Relancer',
+    bullets: ['Automation CRM & emailing', 'Relances WhatsApp', 'Contenus à valeur ajoutée', 'Nurturing personnalisé'],
+  },
+  {
+    step: '04',
+    icon: 'ph ph-check-circle',
+    title: 'Convertir',
+    bullets: ['Accompagnement à l’inscription', 'Offres & bourses ciblées', 'Optimisation continue', 'Reporting & dashboards'],
+  },
+];
+
+const keyLevers = [
+  'Paid Social Ads',
+  'Google Search & YouTube',
+  'Landing pages performantes',
+  'WhatsApp & CRM',
+  'Créas vidéos & UGC',
+  'Tracking, dashboards & optimisation',
+];
+
+const educationCampaigns = [
+  {
+    title: 'Campagnes inscriptions',
+    text: 'Générer des leads et maximiser les inscriptions en ligne.',
+    icon: 'ph ph-note-pencil',
+    image: '/assets/richmedia-sector-education/campaigns/campaign-inscriptions.webp',
+  },
+  {
+    title: 'Journées portes ouvertes',
+    text: 'Remplir vos JPO et convertir les visiteurs en candidats.',
+    icon: 'ph ph-clock',
+    image: '/assets/richmedia-sector-education/campaigns/journees-portes-ouvertes.webp',
+  },
+  {
+    title: 'Concours & admissions',
+    text: 'Attirer et convertir les candidats aux concours & admissions.',
+    icon: 'ph ph-note-pencil',
+    image: '/assets/richmedia-sector-education/campaigns/concours-admissions.webp',
+  },
+  {
+    title: 'Programmes Bachelor & Master',
+    text: 'Promouvoir vos programmes et augmenter les candidatures.',
+    icon: 'ph ph-graduation-cap',
+    image: '/assets/richmedia-sector-education/campaigns/programmes-bachelor-master.webp',
+  },
+  {
+    title: 'Formation continue & Executive education',
+    text: 'Toucher les professionnels et booster les inscriptions.',
+    icon: 'ph ph-briefcase',
+    image: '/assets/richmedia-sector-education/campaigns/formation-continue-executive.webp',
+  },
+  {
+    title: 'Notoriété institutionnelle',
+    text: 'Renforcer votre image et votre positionnement.',
+    icon: 'ph ph-megaphone',
+    image: '/assets/richmedia-sector-education/campaigns/notoriete-institutionnelle.webp',
+  },
+];
+
+const retailTrustBrands = [
+  {
+    name: 'Moul Pounj',
+    detail: 'Food retail',
+    logo: '/assets/richmedia-sector-retail/logos/moul-pounj-normalized.png',
+    width: 680,
+    height: 230,
+  },
+  {
+    name: 'Massinart',
+    detail: 'Retail & marketplace',
+    logo: '/assets/richmedia-sector-retail/logos/massinart.svg',
+    width: 980,
+    height: 458,
+  },
+  {
+    name: 'Glovo',
+    detail: 'Quick commerce',
+    logo: '/assets/richmedia-sector-retail/logos/glovo-normalized.png',
+    width: 680,
+    height: 230,
+  },
+  {
+    name: 'Bringo',
+    detail: 'Commerce connecté',
+    logo: '/assets/richmedia-sector-retail/logos/bringo-normalized.png',
+    width: 680,
+    height: 230,
+  },
+];
+
+const retailChallenges = [
+  {
+    icon: 'ph ph-shopping-bag',
+    title: 'Générer du trafic qualifié',
+    text: 'Transformer l’intention locale en visites site, magasin ou WhatsApp.',
+  },
+  {
+    icon: 'ph ph-storefront',
+    title: 'Connecter online & points de vente',
+    text: 'Aligner campagnes, stocks, offres, zones et parcours d’achat.',
+  },
+  {
+    icon: 'ph ph-chart-line-up',
+    title: 'Améliorer ROAS & CAC',
+    text: 'Piloter les budgets selon les ventes, marges et audiences.',
+  },
+  {
+    icon: 'ph ph-tag',
+    title: 'Activer les temps forts',
+    text: 'Soldes, Ramadan, rentrée, Black Friday, lancements et promotions.',
+  },
+  {
+    icon: 'ph ph-users-three',
+    title: 'Fidéliser les clients',
+    text: 'Créer des relances CRM, WhatsApp et audiences à forte valeur.',
+  },
+  {
+    icon: 'ph ph-map-pin',
+    title: 'Développer la présence locale',
+    text: 'Optimiser les requêtes géolocalisées et la demande par ville.',
+  },
+];
+
+const retailMethod = [
+  {
+    step: '01',
+    icon: 'ph ph-crosshair',
+    title: 'Cibler',
+    bullets: ['Audiences par ville', 'Intentions Search', 'Lookalikes clients', 'Segmentation panier'],
+  },
+  {
+    step: '02',
+    icon: 'ph ph-megaphone',
+    title: 'Activer',
+    bullets: ['Meta, TikTok & Google', 'Créations catalogue', 'Offres par saison', 'UGC & formats courts'],
+  },
+  {
+    step: '03',
+    icon: 'ph ph-shopping-cart',
+    title: 'Convertir',
+    bullets: ['Landing pages rapides', 'Parcours WhatsApp', 'Retargeting dynamique', 'Promos & bundles'],
+  },
+  {
+    step: '04',
+    icon: 'ph ph-chart-pie-slice',
+    title: 'Mesurer',
+    bullets: ['Tracking ROAS', 'Dashboards ventes', 'Tests créatifs', 'Optimisation continue'],
+  },
+];
+
+const retailKeyLevers = [
+  'Meta, TikTok & Google Ads',
+  'SEO local & requêtes e-commerce',
+  'Créations social commerce',
+  'WhatsApp, CRM & retargeting',
+  'Catalogues, offres et landing pages',
+  'Tracking ROAS, ventes et attribution',
+];
+
+const retailCampaigns = [
+  {
+    title: 'Promotions & temps forts',
+    text: 'Construire des campagnes autour des offres, saisons et pics commerciaux.',
+    icon: 'ph ph-tag',
+    image: '/assets/richmedia-sector-retail/campaigns/promotions-temps-forts.webp',
+  },
+  {
+    title: 'Acquisition e-commerce',
+    text: 'Attirer des acheteurs qualifiés depuis Search, Social et retargeting.',
+    icon: 'ph ph-shopping-cart',
+    image: '/assets/richmedia-sector-retail/campaigns/acquisition-ecommerce.webp',
+  },
+  {
+    title: 'Drive-to-store',
+    text: 'Créer du trafic vers vos magasins, pop-ups, restaurants ou points relais.',
+    icon: 'ph ph-map-pin',
+    image: '/assets/richmedia-sector-retail/campaigns/drive-to-store.webp',
+  },
+  {
+    title: 'Social commerce & UGC',
+    text: 'Produire des contenus courts qui donnent envie, rassurent et vendent.',
+    icon: 'ph ph-video-camera',
+    image: '/assets/richmedia-sector-retail/campaigns/social-commerce-ugc.webp',
+  },
+  {
+    title: 'Quick commerce & livraison',
+    text: 'Activer les zones, horaires, offres et parcours de commande rapide.',
+    icon: 'ph ph-truck',
+    image: '/assets/richmedia-sector-retail/campaigns/quick-commerce-livraison.webp',
+  },
+  {
+    title: 'CRM & fidélisation',
+    text: 'Relancer les clients chauds via WhatsApp, email, retargeting et automation.',
+    icon: 'ph ph-chat-circle-dots',
+    image: '/assets/richmedia-sector-retail/campaigns/crm-fidelisation.webp',
+  },
+];
+
+const institutionalTrustBrands = [
+  {
+    name: 'ADA',
+    detail: 'Agence pour le Développement Agricole',
+    logo: '/assets/richmedia-sector-institutionnel/logos/ada-normalized.png',
+    width: 640,
+    height: 220,
+  },
+  {
+    name: 'SONARGES',
+    detail: 'Société Nationale de Réalisation et de Gestion des Équipements Sportifs',
+    logo: '/assets/richmedia-sector-institutionnel/logos/sonarges-normalized.png',
+    width: 640,
+    height: 220,
+  },
+  {
+    name: 'DGI',
+    detail: 'Direction Générale des Impôts',
+    logo: '/assets/richmedia-sector-institutionnel/logos/dgi-normalized.png',
+    width: 640,
+    height: 220,
+  },
+  {
+    name: 'CMR',
+    detail: 'Caisse Marocaine de Retraite',
+    logo: '/assets/richmedia-sector-institutionnel/logos/cmr-normalized.png',
+    width: 640,
+    height: 220,
+  },
+];
+
+const institutionalChallenges = [
+  {
+    icon: 'ph ph-seal-check',
+    title: 'Renforcer la confiance',
+    text: 'Porter des messages fiables, utiles et compréhensibles pour tous les publics.',
+  },
+  {
+    icon: 'ph ph-users-three',
+    title: 'Informer plusieurs audiences',
+    text: 'Adapter les contenus aux citoyens, usagers, partenaires et relais terrain.',
+  },
+  {
+    icon: 'ph ph-megaphone',
+    title: 'Mobiliser autour des campagnes',
+    text: 'Donner de la visibilité aux programmes, services et initiatives publiques.',
+  },
+  {
+    icon: 'ph ph-device-mobile',
+    title: 'Rendre l’information accessible',
+    text: 'Créer des formats clairs, mobiles et faciles à comprendre rapidement.',
+  },
+  {
+    icon: 'ph ph-chart-line-up',
+    title: 'Mesurer l’impact',
+    text: 'Suivre portée, engagement, compréhension, trafic et actions utiles.',
+  },
+  {
+    icon: 'ph ph-map-pin',
+    title: 'Adapter par territoire',
+    text: 'Déployer des messages selon les régions, villes, langues et priorités locales.',
+  },
+];
+
+const institutionalMethod = [
+  {
+    step: '01',
+    icon: 'ph ph-compass',
+    title: 'Clarifier',
+    bullets: ['Objectifs publics', 'Cibles prioritaires', 'Messages clés', 'Parcours usagers'],
+  },
+  {
+    step: '02',
+    icon: 'ph ph-pencil-line',
+    title: 'Créer',
+    bullets: ['Identité de campagne', 'Contenus pédagogiques', 'Formats social-first', 'Pages d’information'],
+  },
+  {
+    step: '03',
+    icon: 'ph ph-broadcast',
+    title: 'Diffuser',
+    bullets: ['Paid social & display', 'SEO/GEO institutionnel', 'Relais médias', 'Activation locale'],
+  },
+  {
+    step: '04',
+    icon: 'ph ph-chart-pie-slice',
+    title: 'Piloter',
+    bullets: ['Tableaux de bord', 'Rapports d’impact', 'Optimisation continue', 'Capitalisation'],
+  },
+];
+
+const institutionalKeyLevers = [
+  'Stratégie de communication publique',
+  'Campagnes de sensibilisation',
+  'Contenus pédagogiques & social-first',
+  'SEO/GEO institutionnel',
+  'Plateformes web & parcours usagers',
+  'Tracking, dashboards et rapports',
+];
+
+const institutionalCampaigns = [
+  {
+    title: 'Campagnes de sensibilisation',
+    text: 'Expliquer un sujet public avec des messages simples, fiables et mémorables.',
+    icon: 'ph ph-megaphone',
+    image: '/assets/richmedia-sector-institutionnel/campaigns/campagnes-sensibilisation.webp',
+  },
+  {
+    title: 'Programmes publics',
+    text: 'Valoriser les dispositifs, services et initiatives auprès des bénéficiaires.',
+    icon: 'ph ph-seal-check',
+    image: '/assets/richmedia-sector-institutionnel/campaigns/programmes-publics.webp',
+  },
+  {
+    title: 'Communication citoyenne',
+    text: 'Créer des contenus capables d’informer, rassurer et orienter les usagers.',
+    icon: 'ph ph-users-three',
+    image: '/assets/richmedia-sector-institutionnel/campaigns/communication-citoyenne.webp',
+  },
+  {
+    title: 'Événements & mobilisation',
+    text: 'Amplifier les temps forts, rencontres, événements et activations terrain.',
+    icon: 'ph ph-calendar-check',
+    image: '/assets/richmedia-sector-institutionnel/campaigns/evenements-mobilisation.webp',
+  },
+  {
+    title: 'Plateformes d’information',
+    text: 'Structurer des pages claires pour faciliter l’accès à l’information publique.',
+    icon: 'ph ph-browser',
+    image: '/assets/richmedia-sector-institutionnel/campaigns/plateformes-information.webp',
+  },
+  {
+    title: 'Reporting d’impact',
+    text: 'Mesurer les performances par canal, message, audience et territoire.',
+    icon: 'ph ph-chart-bar',
+    image: '/assets/richmedia-sector-institutionnel/campaigns/reporting-impact.webp',
+  },
+];
+
+const automobileTrustBrands = [
+  {
+    name: 'Maserati',
+    detail: 'Automobile premium',
+    logo: '/assets/richmedia-sector-automobile/logos/maserati-normalized.png',
+    width: 640,
+    height: 220,
+  },
+  {
+    name: 'Range Rover',
+    detail: 'SUV premium',
+    logo: '/assets/richmedia-sector-automobile/logos/range-rover-normalized.png',
+    width: 640,
+    height: 220,
+  },
+  {
+    name: 'Jaguar',
+    detail: 'Automobile premium',
+    logo: '/assets/richmedia-sector-automobile/logos/jaguar-normalized.png',
+    width: 640,
+    height: 220,
+  },
+  {
+    name: 'Marques auto',
+    detail: 'Showrooms & réseaux',
+  },
+];
+
+const automobileChallenges = [
+  {
+    icon: 'ph ph-car-profile',
+    title: 'Générer des leads qualifiés',
+    text: 'Transformer l’intérêt modèle en demande d’essai, devis, rappel ou WhatsApp.',
+  },
+  {
+    icon: 'ph ph-map-pin',
+    title: 'Créer du trafic showroom',
+    text: 'Activer les prospects par ville, zone de chalandise et point de vente.',
+  },
+  {
+    icon: 'ph ph-sparkle',
+    title: 'Valoriser l’image premium',
+    text: 'Mettre en scène les modèles, finitions, services et preuves de marque.',
+  },
+  {
+    icon: 'ph ph-tag',
+    title: 'Promouvoir offres & reprises',
+    text: 'Rendre les offres commerciales claires, visibles et faciles à demander.',
+  },
+  {
+    icon: 'ph ph-wrench',
+    title: 'Développer l’après-vente',
+    text: 'Activer SAV, entretien, accessoires, garanties et rappels de service.',
+  },
+  {
+    icon: 'ph ph-chart-line-up',
+    title: 'Mesurer par modèle et ville',
+    text: 'Suivre les leads, coûts, taux de rappel et qualité commerciale par source.',
+  },
+];
+
+const automobileMethod = [
+  {
+    step: '01',
+    icon: 'ph ph-compass',
+    title: 'Positionner',
+    bullets: ['Messages par modèle', 'Audiences premium', 'Zones showroom', 'Promesses commerciales'],
+  },
+  {
+    step: '02',
+    icon: 'ph ph-video-camera',
+    title: 'Désirer',
+    bullets: ['Contenus courts', 'Formats immersifs', 'Créations social-first', 'Preuves produit'],
+  },
+  {
+    step: '03',
+    icon: 'ph ph-cursor-click',
+    title: 'Qualifier',
+    bullets: ['Landing pages dédiées', 'Demandes d’essai', 'WhatsApp & formulaires', 'Lead scoring'],
+  },
+  {
+    step: '04',
+    icon: 'ph ph-chart-pie-slice',
+    title: 'Piloter',
+    bullets: ['Tracking CRM', 'Dashboards par ville', 'Optimisation CPL', 'Reporting commercial'],
+  },
+];
+
+const automobileKeyLevers = [
+  'Meta, Google Search & YouTube',
+  'SEO/GEO automobile local',
+  'Landing pages par modèle',
+  'WhatsApp, CRM & relances',
+  'Créations premium social-first',
+  'Dashboards leads, essais et showrooms',
+];
+
+const automobileCampaigns = [
+  {
+    title: 'Lancement de modèle',
+    text: 'Créer désir, notoriété et demandes qualifiées autour d’un nouveau véhicule.',
+    icon: 'ph ph-sparkle',
+    image: '/assets/richmedia-sector-automobile/campaigns/lancement-modele.webp',
+  },
+  {
+    title: 'Demandes d’essai',
+    text: 'Convertir les prospects chauds via landing page, formulaire ou WhatsApp.',
+    icon: 'ph ph-steering-wheel',
+    image: '/assets/richmedia-sector-automobile/campaigns/demandes-essai.webp',
+  },
+  {
+    title: 'Offres commerciales',
+    text: 'Promouvoir financement, reprise, séries limitées et opérations saisonnières.',
+    icon: 'ph ph-tag',
+    image: '/assets/richmedia-sector-automobile/campaigns/offres-commerciales.webp',
+  },
+  {
+    title: 'Drive-to-showroom',
+    text: 'Générer des visites en concession selon les villes et zones prioritaires.',
+    icon: 'ph ph-map-pin',
+    image: '/assets/richmedia-sector-automobile/campaigns/drive-to-showroom.webp',
+  },
+  {
+    title: 'SAV & entretien',
+    text: 'Activer clients existants autour de l’entretien, garanties et services.',
+    icon: 'ph ph-wrench',
+    image: '/assets/richmedia-sector-automobile/campaigns/sav-entretien.webp',
+  },
+  {
+    title: 'CRM & relances',
+    text: 'Suivre les leads, relancer les prospects et améliorer la qualité commerciale.',
+    icon: 'ph ph-chat-circle-dots',
+    image: '/assets/richmedia-sector-automobile/campaigns/crm-relances.webp',
+  },
+];
+
+const immobilierTrustBrands = [
+  {
+    name: 'ADDOHA',
+    detail: 'Promotion immobilière',
+    logo: '/assets/richmedia-sector-immobilier/logos/addoha-normalized.png',
+    width: 900,
+    height: 260,
+  },
+  {
+    name: 'Excelia',
+    detail: 'Immobilier & projets résidentiels',
+    logo: '/assets/richmedia-sector-immobilier/logos/excelia-normalized.png',
+    width: 900,
+    height: 260,
+  },
+  {
+    name: 'Prestigia',
+    detail: 'Immobilier premium',
+    logo: '/assets/richmedia-sector-immobilier/logos/prestigia-normalized.png',
+    width: 900,
+    height: 260,
+  },
+  {
+    name: 'A. Lazrak',
+    detail: 'Promotion immobilière',
+    logo: '/assets/richmedia-sector-immobilier/logos/lazrak-normalized.png',
+    width: 900,
+    height: 260,
+  },
+  {
+    name: 'Al Omrane',
+    detail: 'Aménagement & habitat',
+    logo: '/assets/richmedia-sector-immobilier/logos/al-omrane-normalized.png',
+    width: 900,
+    height: 260,
+  },
+];
+
+const immobilierChallenges = [
+  {
+    icon: 'ph ph-buildings',
+    title: 'Générer des leads qualifiés',
+    text: 'Qualifier budget, ville, typologie, délai d’achat et intention réelle.',
+  },
+  {
+    icon: 'ph ph-map-pin',
+    title: 'Valoriser l’emplacement',
+    text: 'Rendre le quartier, les accès, services et atouts locaux évidents.',
+  },
+  {
+    icon: 'ph ph-house-line',
+    title: 'Donner envie de visiter',
+    text: 'Transformer l’intérêt en rendez-vous, appel, WhatsApp ou visite showroom.',
+  },
+  {
+    icon: 'ph ph-images',
+    title: 'Créer des preuves visuelles',
+    text: 'Mettre en avant plans, vues, finitions, avancement et style de vie.',
+  },
+  {
+    icon: 'ph ph-chart-line-up',
+    title: 'Réduire le coût par contact',
+    text: 'Optimiser les campagnes selon la qualité réelle des demandes.',
+  },
+  {
+    icon: 'ph ph-handshake',
+    title: 'Accompagner la maturité',
+    text: 'Relancer les prospects selon leur projet, budget et niveau d’urgence.',
+  },
+];
+
+const immobilierMethod = [
+  {
+    step: '01',
+    icon: 'ph ph-map-trifold',
+    title: 'Positionner',
+    bullets: ['Promesse projet', 'Zones de chalandise', 'Segments budget', 'Arguments de preuve'],
+  },
+  {
+    step: '02',
+    icon: 'ph ph-megaphone',
+    title: 'Attirer',
+    bullets: ['Meta & Google Ads', 'SEO local immobilier', 'Créations projet', 'Retargeting'],
+  },
+  {
+    step: '03',
+    icon: 'ph ph-chat-circle-dots',
+    title: 'Qualifier',
+    bullets: ['Landing pages dédiées', 'WhatsApp & formulaires', 'Questions budget', 'Rendez-vous commerciaux'],
+  },
+  {
+    step: '04',
+    icon: 'ph ph-chart-pie-slice',
+    title: 'Piloter',
+    bullets: ['Dashboard leads', 'Sources par projet', 'Qualité commerciale', 'Optimisation CPL'],
+  },
+];
+
+const immobilierKeyLevers = [
+  'Meta, Google Search & Display',
+  'SEO/GEO immobilier local',
+  'Landing pages projet',
+  'WhatsApp, CRM & relances',
+  'Créations 3D, plans et preuves',
+  'Tracking leads, visites et rendez-vous',
+];
+
+const immobilierCampaigns = [
+  {
+    title: 'Lancement de projet',
+    text: 'Installer la notoriété, la promesse et la demande dès l’ouverture commerciale.',
+    icon: 'ph ph-buildings',
+    image: '/assets/richmedia-sector-immobilier/campaigns/lancement-projet.webp',
+  },
+  {
+    title: 'Génération de leads',
+    text: 'Collecter des contacts qualifiés par budget, ville, typologie et intention.',
+    icon: 'ph ph-users-three',
+    image: '/assets/richmedia-sector-immobilier/campaigns/generation-leads.webp',
+  },
+  {
+    title: 'Prise de rendez-vous',
+    text: 'Transformer les prospects chauds en visites, appels ou rendez-vous showroom.',
+    icon: 'ph ph-calendar-check',
+    image: '/assets/richmedia-sector-immobilier/campaigns/prise-rendez-vous.webp',
+  },
+  {
+    title: 'Notoriété promoteur',
+    text: 'Renforcer la crédibilité du promoteur et rassurer sur la qualité du projet.',
+    icon: 'ph ph-seal-check',
+    image: '/assets/richmedia-sector-immobilier/campaigns/notoriete-promoteur.webp',
+  },
+  {
+    title: 'SEO local immobilier',
+    text: 'Capter les recherches par ville, quartier, typologie et intention d’achat.',
+    icon: 'ph ph-map-pin',
+    image: '/assets/richmedia-sector-immobilier/campaigns/seo-local-immobilier.webp',
+  },
+  {
+    title: 'Relances CRM & WhatsApp',
+    text: 'Nourrir les prospects selon leur maturité et prioriser les demandes chaudes.',
+    icon: 'ph ph-chat-circle-dots',
+    image: '/assets/richmedia-sector-immobilier/campaigns/relances-crm-whatsapp.webp',
+  },
+];
+
+const gmsTrustBrands = [
+  {
+    name: 'Marjane',
+    detail: 'Grande distribution',
+    logo: '/assets/richmedia-sector-gms/logos/marjane-normalized.png',
+    width: 900,
+    height: 260,
+  },
+  {
+    name: 'Carrefour',
+    detail: 'Grande distribution',
+    logo: '/assets/richmedia-sector-gms/logos/carrefour-normalized.png',
+    width: 900,
+    height: 260,
+  },
+  {
+    name: 'Kazyon',
+    detail: 'Discount retail',
+    logo: '/assets/richmedia-sector-gms/logos/kazyon-normalized.png',
+    width: 900,
+    height: 260,
+  },
+  {
+    name: 'Electroplanet',
+    detail: 'Retail électronique',
+    logo: '/assets/richmedia-sector-gms/logos/electroplanet-normalized.png',
+    width: 900,
+    height: 260,
+  },
+];
+
+const gmsChallenges = [
+  {
+    icon: 'ph ph-tag',
+    title: 'Activer les promotions',
+    text: 'Rendre les offres visibles, compréhensibles et actionnables rapidement.',
+  },
+  {
+    icon: 'ph ph-map-pin',
+    title: 'Générer du trafic magasin',
+    text: 'Cibler par ville, zone de chalandise, magasin et moment d’achat.',
+  },
+  {
+    icon: 'ph ph-shopping-cart',
+    title: 'Digitaliser le catalogue',
+    text: 'Transformer prospectus, offres et catégories en formats mobiles performants.',
+  },
+  {
+    icon: 'ph ph-users-three',
+    title: 'Fidéliser les clients',
+    text: 'Relancer les audiences chaudes via CRM, WhatsApp, retargeting et coupons.',
+  },
+  {
+    icon: 'ph ph-clock-countdown',
+    title: 'Réagir vite aux temps forts',
+    text: 'Déployer soldes, Ramadan, rentrée, Black Friday et opérations flash.',
+  },
+  {
+    icon: 'ph ph-chart-line-up',
+    title: 'Mesurer par zone',
+    text: 'Suivre portée, trafic, engagement, coupons, leads et actions utiles.',
+  },
+];
+
+const gmsMethod = [
+  {
+    step: '01',
+    icon: 'ph ph-map-trifold',
+    title: 'Localiser',
+    bullets: ['Zones de chalandise', 'Magasins prioritaires', 'Audiences locales', 'Calendrier commercial'],
+  },
+  {
+    step: '02',
+    icon: 'ph ph-megaphone',
+    title: 'Activer',
+    bullets: ['Offres promotionnelles', 'Catalogues digitaux', 'Formats social-first', 'Retail media'],
+  },
+  {
+    step: '03',
+    icon: 'ph ph-coupon',
+    title: 'Convertir',
+    bullets: ['Coupons & mécaniques', 'WhatsApp & CRM', 'Drive-to-store', 'Retargeting dynamique'],
+  },
+  {
+    step: '04',
+    icon: 'ph ph-chart-pie-slice',
+    title: 'Piloter',
+    bullets: ['Dashboard par magasin', 'Analyse opérations', 'Optimisation budgets', 'Reporting actionnable'],
+  },
+];
+
+const gmsKeyLevers = [
+  'Meta, TikTok, Google & YouTube',
+  'Ciblage géographique magasin',
+  'Catalogues digitaux & offres promo',
+  'WhatsApp, CRM & couponing',
+  'Retail media & social commerce',
+  'Tracking par zone, offre et opération',
+];
+
+const gmsCampaigns = [
+  {
+    title: 'Catalogues & promotions',
+    text: 'Transformer les offres en contenus mobiles clairs, rapides et mesurables.',
+    icon: 'ph ph-tag',
+    image: '/assets/richmedia-sector-gms/campaigns/catalogues-promotions.webp',
+  },
+  {
+    title: 'Drive-to-store local',
+    text: 'Créer du trafic magasin avec des campagnes géolocalisées par zone.',
+    icon: 'ph ph-map-pin',
+    image: '/assets/richmedia-sector-gms/campaigns/drive-to-store-local.webp',
+  },
+  {
+    title: 'Retail media',
+    text: 'Valoriser marques, catégories et opérations partenaires sur les bons canaux.',
+    icon: 'ph ph-broadcast',
+    image: '/assets/richmedia-sector-gms/campaigns/retail-media.webp',
+  },
+  {
+    title: 'WhatsApp & couponing',
+    text: 'Réduire la friction entre l’offre, la demande d’information et l’achat.',
+    icon: 'ph ph-chat-circle-dots',
+    image: '/assets/richmedia-sector-gms/campaigns/whatsapp-couponing.webp',
+  },
+  {
+    title: 'Temps forts commerciaux',
+    text: 'Orchestrer Ramadan, rentrée, soldes, Black Friday et opérations flash.',
+    icon: 'ph ph-calendar-check',
+    image: '/assets/richmedia-sector-gms/campaigns/temps-forts-commerciaux.webp',
+  },
+  {
+    title: 'Fidélisation & CRM',
+    text: 'Réactiver les clients avec des segments, relances, offres et dashboards.',
+    icon: 'ph ph-users-three',
+    image: '/assets/richmedia-sector-gms/campaigns/fidelisation-crm.webp',
+  },
+];
+
+const fmcgTrustBrands = [
+  {
+    name: 'SANGO',
+    detail: 'FMCG & grande consommation',
+    logo: '/assets/richmedia-sector-fmcg/logos/sango-normalized.png',
+    width: 900,
+    height: 260,
+  },
+  {
+    name: 'Don Simon',
+    detail: 'Boissons & saveurs',
+    logo: '/assets/richmedia-sector-fmcg/logos/don-simon-normalized.png',
+    width: 900,
+    height: 260,
+  },
+  {
+    name: 'Lesaffre',
+    detail: 'Food ingredients',
+    logo: '/assets/richmedia-sector-fmcg/logos/lesaffre-normalized.png',
+    width: 900,
+    height: 260,
+  },
+  {
+    name: 'Yara',
+    detail: 'Nutrition agricole',
+    logo: '/assets/richmedia-sector-fmcg/logos/yara-normalized.png',
+    width: 900,
+    height: 260,
+  },
+];
+
+const fmcgChallenges = [
+  {
+    icon: 'ph ph-sparkle',
+    title: 'Créer de la préférence',
+    text: 'Rendre la marque mémorable dans des catégories très concurrentielles.',
+  },
+  {
+    icon: 'ph ph-package',
+    title: 'Valoriser le produit',
+    text: 'Montrer usages, bénéfices, formats, moments de consommation et preuves.',
+  },
+  {
+    icon: 'ph ph-storefront',
+    title: 'Soutenir la distribution',
+    text: 'Connecter visibilité digitale, points de vente, e-commerce et activations terrain.',
+  },
+  {
+    icon: 'ph ph-video-camera',
+    title: 'Produire du contenu social-first',
+    text: 'Créer des formats courts, UGC, influence et contenus faciles à décliner.',
+  },
+  {
+    icon: 'ph ph-calendar-check',
+    title: 'Activer les temps forts',
+    text: 'Piloter Ramadan, été, rentrée, lancements, promotions et saisons produit.',
+  },
+  {
+    icon: 'ph ph-chart-line-up',
+    title: 'Mesurer l’impact',
+    text: 'Suivre portée, engagement, répétition, trafic, intention et signaux business.',
+  },
+];
+
+const fmcgMethod = [
+  {
+    step: '01',
+    icon: 'ph ph-compass',
+    title: 'Construire',
+    bullets: ['Plateforme créative', 'Personas conso', 'Moments d’usage', 'Messages par canal'],
+  },
+  {
+    step: '02',
+    icon: 'ph ph-camera',
+    title: 'Créer',
+    bullets: ['Brand content', 'Formats social-first', 'UGC & influence', 'Déclinaisons promo'],
+  },
+  {
+    step: '03',
+    icon: 'ph ph-broadcast',
+    title: 'Amplifier',
+    bullets: ['Paid social', 'YouTube & display', 'Activations locales', 'Retail & e-commerce'],
+  },
+  {
+    step: '04',
+    icon: 'ph ph-chart-pie-slice',
+    title: 'Optimiser',
+    bullets: ['Tests créatifs', 'Reporting brand lift', 'Analyse engagement', 'Capitalisation'],
+  },
+];
+
+const fmcgKeyLevers = [
+  'Brand content & storytelling',
+  'Social media, UGC & influence',
+  'Paid social, YouTube & display',
+  'Activations retail & e-commerce',
+  'Formats promotionnels saisonniers',
+  'Tracking, dashboards et optimisation',
+];
+
+const fmcgCampaigns = [
+  {
+    title: 'Lancement produit',
+    text: 'Créer le désir, expliquer le bénéfice et installer les preuves d’usage.',
+    icon: 'ph ph-sparkle',
+    image: '/assets/richmedia-sector-fmcg/campaigns/lancement-produit.webp',
+  },
+  {
+    title: 'Brand content social-first',
+    text: 'Produire des contenus courts adaptés aux usages mobiles et plateformes.',
+    icon: 'ph ph-video-camera',
+    image: '/assets/richmedia-sector-fmcg/campaigns/brand-content-social-first.webp',
+  },
+  {
+    title: 'Influence & UGC',
+    text: 'Activer créateurs, routines, recettes, démonstrations et preuves sociales.',
+    icon: 'ph ph-users-three',
+    image: '/assets/richmedia-sector-fmcg/campaigns/influence-ugc.webp',
+  },
+  {
+    title: 'Promotions & temps forts',
+    text: 'Décliner offres, saisons et opérations commerciales en formats performants.',
+    icon: 'ph ph-tag',
+    image: '/assets/richmedia-sector-fmcg/campaigns/promotions-temps-forts.webp',
+  },
+  {
+    title: 'Activation retail',
+    text: 'Connecter campagnes, points de vente, visibilité locale et e-commerce.',
+    icon: 'ph ph-storefront',
+    image: '/assets/richmedia-sector-fmcg/campaigns/activation-retail.webp',
+  },
+  {
+    title: 'Reporting de marque',
+    text: 'Mesurer portée, mémorisation, engagement, contenus gagnants et apprentissages.',
+    icon: 'ph ph-chart-line-up',
+    image: '/assets/richmedia-sector-fmcg/campaigns/reporting-marque.webp',
+  },
+];
+
+const hotellerieTrustBrands = [
+  {
+    name: 'Barceló',
+    detail: 'Hôtellerie & resorts',
+    logo: '/assets/richmedia-sector-hotellerie/logos/barcelo-normalized.png',
+    width: 900,
+    height: 260,
+  },
+  {
+    name: 'Banyan Tree',
+    detail: 'Luxury hospitality',
+    logo: '/assets/richmedia-sector-hotellerie/logos/banyan-tree-normalized.png',
+    width: 900,
+    height: 260,
+  },
+];
+
+const hotellerieChallenges = [
+  {
+    icon: 'ph ph-sparkle',
+    title: 'Valoriser l’expérience',
+    text: 'Faire ressentir le lieu, le service, l’ambiance et la promesse de séjour.',
+  },
+  {
+    icon: 'ph ph-map-pin',
+    title: 'Être visible localement',
+    text: 'Capter les recherches par destination, ville, expérience et intention.',
+  },
+  {
+    icon: 'ph ph-calendar-check',
+    title: 'Générer des réservations',
+    text: 'Transformer l’intérêt en demande, réservation, appel ou message WhatsApp.',
+  },
+  {
+    icon: 'ph ph-star',
+    title: 'Renforcer la réputation',
+    text: 'Rassurer avec contenus, preuves, avis, expériences et cohérence de marque.',
+  },
+  {
+    icon: 'ph ph-globe-hemisphere-east',
+    title: 'Toucher plusieurs marchés',
+    text: 'Adapter messages et médias aux touristes locaux, MRE et marchés internationaux.',
+  },
+  {
+    icon: 'ph ph-chart-line-up',
+    title: 'Piloter par saison',
+    text: 'Mesurer performance par période, marché, offre, canal et audience.',
+  },
+];
+
+const hotellerieMethod = [
+  {
+    step: '01',
+    icon: 'ph ph-compass',
+    title: 'Positionner',
+    bullets: ['Promesse de séjour', 'Audiences par marché', 'Expériences clés', 'Saisonnalité'],
+  },
+  {
+    step: '02',
+    icon: 'ph ph-camera',
+    title: 'Inspirer',
+    bullets: ['Contenus immersifs', 'Social-first', 'Influence travel', 'Preuves visuelles'],
+  },
+  {
+    step: '03',
+    icon: 'ph ph-cursor-click',
+    title: 'Convertir',
+    bullets: ['Landing pages offres', 'SEO local', 'Retargeting', 'WhatsApp & formulaires'],
+  },
+  {
+    step: '04',
+    icon: 'ph ph-chart-pie-slice',
+    title: 'Optimiser',
+    bullets: ['Dashboards marchés', 'ROAS par offre', 'Tests créatifs', 'Reporting saisonnier'],
+  },
+];
+
+const hotellerieKeyLevers = [
+  'SEO/GEO destination & hôtel',
+  'Social media, UGC & influence travel',
+  'Meta, Google Search & YouTube',
+  'Landing pages offres & séjours',
+  'WhatsApp, CRM & retargeting',
+  'Tracking réservations, demandes et marchés',
+];
+
+const hotellerieCampaigns = [
+  {
+    title: 'Campagnes réservation',
+    text: 'Convertir les intentions en demandes, séjours, appels ou messages qualifiés.',
+    icon: 'ph ph-calendar-check',
+    image: '/assets/richmedia-sector-hotellerie/campaigns/campagnes-reservation.webp',
+  },
+  {
+    title: 'Notoriété destination',
+    text: 'Créer le désir autour du lieu, de l’expérience et des temps forts saisonniers.',
+    icon: 'ph ph-map-pin',
+    image: '/assets/richmedia-sector-hotellerie/campaigns/notoriete-destination.webp',
+  },
+  {
+    title: 'Offres & packages',
+    text: 'Mettre en avant spa, séjour, restauration, famille, business ou événements.',
+    icon: 'ph ph-gift',
+    image: '/assets/richmedia-sector-hotellerie/campaigns/offres-packages.webp',
+  },
+  {
+    title: 'Influence travel & UGC',
+    text: 'Activer créateurs, contenus immersifs, recommandations et preuves sociales.',
+    icon: 'ph ph-users-three',
+    image: '/assets/richmedia-sector-hotellerie/campaigns/influence-travel-ugc.webp',
+  },
+  {
+    title: 'Événements & expériences',
+    text: 'Amplifier soirées, ouvertures, offres saisonnières et activations sur site.',
+    icon: 'ph ph-sparkle',
+    image: '/assets/richmedia-sector-hotellerie/campaigns/evenements-experiences.webp',
+  },
+  {
+    title: 'CRM & relances séjour',
+    text: 'Réactiver anciens clients, prospects chauds et audiences selon la saison.',
+    icon: 'ph ph-chat-circle-dots',
+    image: '/assets/richmedia-sector-hotellerie/campaigns/crm-relances-sejour.webp',
+  },
+];
 ---
 <BaseLayout title={entry.data.metaTitle ?? entry.data.title} description={entry.data.metaDescription} canonical={url} schema={schema}>
-  <h1>{entry.data.title}</h1>
-  <QuickAnswer text={entry.data.quickAnswer} />
-  <Content />
-  <Faq faq={entry.data.faq} />
+  {isEducation ? (
+    <article class="education-sector">
+      <section class="education-hero" aria-labelledby="education-title">
+        <div class="education-hero-copy">
+          <span class="education-kicker">Secteur / Éducation</span>
+          <h1 id="education-title"><strong>Marketing digital</strong> pour écoles, universités et organismes de formation</h1>
+          <div class="education-underline" aria-hidden="true"></div>
+          <p>
+            Richmedia accompagne les acteurs de l’éducation dans leurs campagnes d’inscription, notoriété,
+            génération de leads et conversion candidats.
+          </p>
+          <div class="education-actions">
+            <a class="education-button education-button-primary" href="/contact">
+              Parler de votre projet
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            <a class="education-button education-button-secondary" href="/realisations/uir-campagnes-digitales">
+              Nos réalisations éducation
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <figure class="education-hero-visual">
+          <img
+            src="/assets/richmedia-sector-education/education-hero-campus.webp"
+            alt="Étudiante sur un campus, campagne digitale éducation"
+            width="1100"
+            height="1074"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <figcaption class="education-trust-panel">
+            <div class="education-trust-heading">
+              <span>Ils nous font confiance</span>
+              <strong>
+                5
+                <small>références</small>
+              </strong>
+            </div>
+            <div class="education-trust-grid" aria-label="Références éducation">
+              {trustBrands.map((brand, index) => (
+                <strong class="education-trust-logo" style={`--logo-index: ${index + 1}`}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <img
+                    src={brand.logo}
+                    alt={`Logo ${brand.name} - ${brand.detail}`}
+                    width={brand.width}
+                    height={brand.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </strong>
+              ))}
+            </div>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="education-section" aria-labelledby="education-challenges-title">
+        <h2 id="education-challenges-title">Les enjeux du secteur</h2>
+        <div class="education-challenge-grid">
+          {educationChallenges.map((challenge) => (
+            <article>
+              <i class={challenge.icon} aria-hidden="true"></i>
+              <h3>{challenge.title}</h3>
+              <p>{challenge.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-section education-method" aria-labelledby="education-method-title">
+        <h2 id="education-method-title">Notre méthode pour l’éducation</h2>
+        <div class="education-method-layout">
+          <div class="education-timeline" aria-label="Méthode en quatre étapes">
+            {educationMethod.map((step) => (
+              <article>
+                <span>{step.step}</span>
+                <i class={step.icon} aria-hidden="true"></i>
+                <h3>{step.title}</h3>
+                <ul>
+                  {step.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <aside class="education-levers" aria-label="Nos leviers clés">
+            <h3>Nos leviers clés</h3>
+            <ul>
+              {keyLevers.map((lever) => (
+                <li>
+                  <i class="ph ph-check-circle" aria-hidden="true"></i>
+                  {lever}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="education-section" aria-labelledby="education-campaigns-title">
+        <h2 id="education-campaigns-title">Campagnes que nous savons piloter</h2>
+        <div class="education-campaign-grid">
+          {educationCampaigns.map((campaign) => (
+            <article style={`--campaign-image: url('${campaign.image}')`}>
+              <i class={campaign.icon} aria-hidden="true"></i>
+              <h3>{campaign.title}</h3>
+              <p>{campaign.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-trust-case" aria-labelledby="education-trust-title">
+        <div class="education-trust-copy">
+          <h2 id="education-trust-title">Ils nous font confiance</h2>
+          <div class="education-logo-row" aria-label="Références éducation">
+            {trustBrands.map((brand) => (
+              <span class="education-logo-item">
+                <img
+                  src={brand.logo}
+                  alt={`Logo ${brand.name} - ${brand.detail}`}
+                  width={brand.width}
+                  height={brand.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+            ))}
+          </div>
+        </div>
+        <article class="education-case-card">
+          <img src="/assets/richmedia-sector-education/campaigns/notoriete-institutionnelle.webp" alt="Campus universitaire moderne pour campagne admissions" width="1280" height="720" loading="lazy" decoding="async" />
+          <div class="education-case-content">
+            <div class="education-case-main">
+              <span>Cas client</span>
+              <h3>UIR - Campagne d’inscriptions 2024</h3>
+              <p>
+                Un dispositif admissions full-funnel pour générer des demandes qualifiées,
+                relancer les candidats et mesurer la performance jusqu’à l’inscription.
+              </p>
+              <a class="education-button education-button-primary" href="/realisations/uir-campagnes-digitales">
+                Voir le case study UIR
+                <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="education-case-metrics" aria-label="Résultats de la campagne">
+              <strong>
+                20,1M
+                <span>impressions</span>
+              </strong>
+              <strong>
+                34 287
+                <span>leads qualifiés</span>
+              </strong>
+              <strong>
+                18,7%
+                <span>taux d’inscription</span>
+              </strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="education-section education-faq-section" aria-labelledby="education-faq-title">
+        <h2 id="education-faq-title">FAQ - Éducation</h2>
+        <div class="education-faq-grid">
+          {entry.data.faq.map((item, index) => (
+            <details>
+              <summary>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {item.question}
+                <i class="ph ph-caret-down" aria-hidden="true"></i>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-bottom-cta" aria-labelledby="education-cta-title">
+        <i class="ph ph-graduation-cap" aria-hidden="true"></i>
+        <div>
+          <h2 id="education-cta-title">Prêt à booster vos inscriptions ?</h2>
+        </div>
+        <a class="education-button education-button-primary" href="/contact">
+          Parler de votre projet
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </section>
+    </article>
+  ) : isRetailEcommerce ? (
+    <article class="education-sector retail-sector">
+      <section class="education-hero" aria-labelledby="retail-title">
+        <div class="education-hero-copy">
+          <span class="education-kicker">Secteur / Retail & E-commerce</span>
+          <h1 id="retail-title"><strong>Marketing digital</strong> pour retail, commerce en ligne et réseaux de vente</h1>
+          <div class="education-underline" aria-hidden="true"></div>
+          <p>
+            Richmedia accompagne les enseignes retail, marques e-commerce et acteurs du commerce connecté dans leurs
+            campagnes d’acquisition, trafic magasin, conversion, fidélisation et visibilité géolocalisée au Maroc.
+          </p>
+          <div class="education-actions">
+            <a class="education-button education-button-primary" href="/contact">
+              Parler de votre projet
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            <a class="education-button education-button-secondary" href="/realisations">
+              Voir nos réalisations retail
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <figure class="education-hero-visual">
+          <img
+            src="/assets/richmedia-home/campaign-moul-pounj-clean.webp"
+            alt="Campagne digitale retail et social commerce au Maroc"
+            width="1200"
+            height="720"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <figcaption class="education-trust-panel">
+            <div class="education-trust-heading">
+              <span>Ils nous font confiance</span>
+              <strong>
+                4
+                <small>références</small>
+              </strong>
+            </div>
+            <div class="education-trust-grid" style={`--trust-count: ${retailTrustBrands.length}`} aria-label="Références retail et e-commerce">
+              {retailTrustBrands.map((brand, index) => (
+                <strong class="education-trust-logo" style={`--logo-index: ${index + 1}`}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  {brand.logo ? (
+                    <img
+                      src={brand.logo}
+                      alt={`Logo ${brand.name} - ${brand.detail}`}
+                      width={brand.width}
+                      height={brand.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <b>
+                      {brand.name}
+                      <small>{brand.detail}</small>
+                    </b>
+                  )}
+                </strong>
+              ))}
+            </div>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="education-section" aria-labelledby="retail-challenges-title">
+        <h2 id="retail-challenges-title">Les enjeux du retail & e-commerce</h2>
+        <div class="education-challenge-grid">
+          {retailChallenges.map((challenge) => (
+            <article>
+              <i class={challenge.icon} aria-hidden="true"></i>
+              <h3>{challenge.title}</h3>
+              <p>{challenge.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-section education-method" aria-labelledby="retail-method-title">
+        <h2 id="retail-method-title">Notre méthode pour vendre plus, mieux mesurer et fidéliser</h2>
+        <div class="education-method-layout">
+          <div class="education-timeline" aria-label="Méthode retail en quatre étapes">
+            {retailMethod.map((step) => (
+              <article>
+                <span>{step.step}</span>
+                <i class={step.icon} aria-hidden="true"></i>
+                <h3>{step.title}</h3>
+                <ul>
+                  {step.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <aside class="education-levers" aria-label="Leviers retail et e-commerce">
+            <h3>Nos leviers clés</h3>
+            <ul>
+              {retailKeyLevers.map((lever) => (
+                <li>
+                  <i class="ph ph-check-circle" aria-hidden="true"></i>
+                  {lever}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="education-section" aria-labelledby="retail-campaigns-title">
+        <h2 id="retail-campaigns-title">Campagnes que nous savons piloter</h2>
+        <div class="education-campaign-grid">
+          {retailCampaigns.map((campaign) => (
+            <article style={`--campaign-image: url('${campaign.image}')`}>
+              <i class={campaign.icon} aria-hidden="true"></i>
+              <h3>{campaign.title}</h3>
+              <p>{campaign.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-trust-case" aria-labelledby="retail-trust-title">
+        <div class="education-trust-copy">
+          <h2 id="retail-trust-title">Ils nous font confiance</h2>
+          <div class="education-logo-row" aria-label="Références retail et e-commerce">
+            {retailTrustBrands.map((brand) => (
+              <span class="education-logo-item">
+                {brand.logo ? (
+                  <img
+                    src={brand.logo}
+                    alt={`Logo ${brand.name} - ${brand.detail}`}
+                    width={brand.width}
+                    height={brand.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <b>
+                    {brand.name}
+                    <small>{brand.detail}</small>
+                  </b>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+        <article class="education-case-card">
+          <img src="/assets/richmedia-sector-retail/case-moul-pounj-commerce-connected.webp" alt="Activation social commerce et retail pour une marque e-commerce" width="1915" height="821" loading="lazy" decoding="async" />
+          <div class="education-case-content">
+            <div class="education-case-main">
+              <span>Cas client</span>
+              <h3>Moul Pounj - Social commerce & temps forts commerciaux</h3>
+              <p>
+                Un dispositif retail orienté désir produit, contenus social-first, activation d’offres et amplification
+                média pour capter l’attention et pousser les parcours de commande.
+              </p>
+              <a class="education-button education-button-primary" href="/contact">
+                Discuter d’une campagne retail
+                <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="education-case-metrics retail-case-metrics" aria-label="Piliers du dispositif retail">
+              <strong>
+                Social
+                <span>contenus & campagnes</span>
+              </strong>
+              <strong>
+                Retail
+                <span>offres & temps forts</span>
+              </strong>
+              <strong>
+                CRM
+                <span>relances & tracking</span>
+              </strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="education-section education-faq-section" aria-labelledby="retail-faq-title">
+        <h2 id="retail-faq-title">FAQ - Retail & E-commerce</h2>
+        <div class="education-faq-grid">
+          {entry.data.faq.map((item, index) => (
+            <details>
+              <summary>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {item.question}
+                <i class="ph ph-caret-down" aria-hidden="true"></i>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-bottom-cta" aria-labelledby="retail-cta-title">
+        <i class="ph ph-shopping-cart" aria-hidden="true"></i>
+        <div>
+          <h2 id="retail-cta-title">Prêt à accélérer vos ventes ?</h2>
+          <p>Construisons un dispositif retail ou e-commerce mesurable, créatif et adapté à vos zones de vente.</p>
+        </div>
+        <a class="education-button education-button-primary" href="/contact">
+          Parler à un expert retail
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </section>
+    </article>
+  ) : isInstitutionnel ? (
+    <article class="education-sector institutionnel-sector">
+      <section class="education-hero" aria-labelledby="institutionnel-title">
+        <div class="education-hero-copy">
+          <span class="education-kicker">Secteur / Institutionnel</span>
+          <h1 id="institutionnel-title"><strong>Communication digitale</strong> <span>pour institutions, organismes publics et campagnes citoyennes</span></h1>
+          <div class="education-underline" aria-hidden="true"></div>
+          <p>
+            Richmedia accompagne les institutions au Maroc dans leurs campagnes de sensibilisation, dispositifs
+            pédagogiques, contenus digitaux, plateformes web, SEO/GEO institutionnel et mesure de l’impact public.
+          </p>
+          <div class="education-actions">
+            <a class="education-button education-button-primary" href="/contact">
+              Parler de votre projet
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            <a class="education-button education-button-secondary" href="/references">
+              Voir nos références
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <figure class="education-hero-visual">
+          <img
+            src="/assets/richmedia-sector-institutionnel/hero-building-ministere-maroc.webp"
+            alt="Bâtiment institutionnel marocain pour communication publique digitale"
+            width="1672"
+            height="941"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <figcaption class="education-trust-panel">
+            <div class="education-trust-heading">
+              <span>Ils nous font confiance</span>
+              <strong>
+                4
+                <small>références</small>
+              </strong>
+            </div>
+            <div class="education-trust-grid" style={`--trust-count: ${institutionalTrustBrands.length}`} aria-label="Références institutionnelles">
+              {institutionalTrustBrands.map((brand, index) => (
+                <strong class="education-trust-logo" style={`--logo-index: ${index + 1}`}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  {brand.logo ? (
+                    <img
+                      src={brand.logo}
+                      alt={`Logo ${brand.name} - ${brand.detail}`}
+                      width={brand.width}
+                      height={brand.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <b>
+                      {brand.name}
+                      <small>{brand.detail}</small>
+                    </b>
+                  )}
+                </strong>
+              ))}
+            </div>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="education-section" aria-labelledby="institutionnel-challenges-title">
+        <h2 id="institutionnel-challenges-title">Les enjeux de la communication institutionnelle</h2>
+        <div class="education-challenge-grid">
+          {institutionalChallenges.map((challenge) => (
+            <article>
+              <i class={challenge.icon} aria-hidden="true"></i>
+              <h3>{challenge.title}</h3>
+              <p>{challenge.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-section education-method" aria-labelledby="institutionnel-method-title">
+        <h2 id="institutionnel-method-title">Notre méthode pour informer, rassurer et mobiliser</h2>
+        <div class="education-method-layout">
+          <div class="education-timeline" aria-label="Méthode institutionnelle en quatre étapes">
+            {institutionalMethod.map((step) => (
+              <article>
+                <span>{step.step}</span>
+                <i class={step.icon} aria-hidden="true"></i>
+                <h3>{step.title}</h3>
+                <ul>
+                  {step.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <aside class="education-levers" aria-label="Leviers institutionnels">
+            <h3>Nos leviers clés</h3>
+            <ul>
+              {institutionalKeyLevers.map((lever) => (
+                <li>
+                  <i class="ph ph-check-circle" aria-hidden="true"></i>
+                  {lever}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="education-section" aria-labelledby="institutionnel-campaigns-title">
+        <h2 id="institutionnel-campaigns-title">Campagnes que nous savons piloter</h2>
+        <div class="education-campaign-grid">
+          {institutionalCampaigns.map((campaign) => (
+            <article style={`--campaign-image: url('${campaign.image}')`}>
+              <i class={campaign.icon} aria-hidden="true"></i>
+              <h3>{campaign.title}</h3>
+              <p>{campaign.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-trust-case" aria-labelledby="institutionnel-trust-title">
+        <div class="education-trust-copy">
+          <h2 id="institutionnel-trust-title">Ils nous font confiance</h2>
+          <div class="education-logo-row" aria-label="Références institutionnelles">
+            {institutionalTrustBrands.map((brand) => (
+              <span class="education-logo-item">
+                {brand.logo ? (
+                  <img
+                    src={brand.logo}
+                    alt={`Logo ${brand.name} - ${brand.detail}`}
+                    width={brand.width}
+                    height={brand.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <b>
+                    {brand.name}
+                    <small>{brand.detail}</small>
+                  </b>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+        <article class="education-case-card">
+          <img src="/assets/richmedia-sector-institutionnel/case-ada-terroir-communication.webp" alt="Valorisation institutionnelle des produits du terroir marocain" width="1915" height="821" loading="lazy" decoding="async" />
+          <div class="education-case-content">
+            <div class="education-case-main">
+              <span>Cas client</span>
+              <h3>ADA - Valorisation des produits du terroir et communication publique</h3>
+              <p>
+                Un dispositif institutionnel orienté pédagogie, notoriété et visibilité digitale pour rendre un programme
+                public plus lisible, plus désirable et plus accessible aux audiences ciblées.
+              </p>
+              <a class="education-button education-button-primary" href="/contact">
+                Discuter d’une campagne institutionnelle
+                <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="education-case-metrics" aria-label="Piliers du dispositif institutionnel">
+              <strong>
+                Impact
+                <span>notoriété & pédagogie</span>
+              </strong>
+              <strong>
+                Public
+                <span>messages accessibles</span>
+              </strong>
+              <strong>
+                Data
+                <span>reporting & optimisation</span>
+              </strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="education-section education-faq-section" aria-labelledby="institutionnel-faq-title">
+        <h2 id="institutionnel-faq-title">FAQ - Institutionnel</h2>
+        <div class="education-faq-grid">
+          {entry.data.faq.map((item, index) => (
+            <details>
+              <summary>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {item.question}
+                <i class="ph ph-caret-down" aria-hidden="true"></i>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-bottom-cta" aria-labelledby="institutionnel-cta-title">
+        <i class="ph ph-seal-check" aria-hidden="true"></i>
+        <div>
+          <h2 id="institutionnel-cta-title">Prêt à structurer une campagne publique claire ?</h2>
+        </div>
+        <a class="education-button education-button-primary" href="/contact">
+          Parler à l’équipe
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </section>
+    </article>
+  ) : isAutomobile ? (
+    <article class="education-sector automobile-sector">
+      <section class="education-hero" aria-labelledby="automobile-title">
+        <div class="education-hero-copy">
+          <span class="education-kicker">Secteur / Automobile</span>
+          <h1 id="automobile-title"><strong>Marketing digital</strong> pour marques automobiles, concessions et réseaux premium</h1>
+          <div class="education-underline" aria-hidden="true"></div>
+          <p>
+            Richmedia accompagne les marques automobiles et distributeurs au Maroc dans leurs campagnes de lancement,
+            génération de leads, demandes d’essai, visibilité locale, contenus premium, WhatsApp, CRM et reporting.
+          </p>
+          <div class="education-actions">
+            <a class="education-button education-button-primary" href="/contact">
+              Parler de votre projet
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            <a class="education-button education-button-secondary" href="/produits/whatsapp">
+              Voir nos solutions WhatsApp
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <figure class="education-hero-visual">
+          <img
+            src="/assets/richmedia-sector-automobile/hero-premium-showroom.webp"
+            alt="Showroom automobile premium pour campagne digitale au Maroc"
+            width="1915"
+            height="821"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <figcaption class="education-trust-panel">
+            <div class="education-trust-heading">
+              <span>Ils nous font confiance</span>
+              <strong>
+                3+
+                <small>références</small>
+              </strong>
+            </div>
+            <div class="education-trust-grid" style={`--trust-count: ${automobileTrustBrands.length}`} aria-label="Références automobile">
+              {automobileTrustBrands.map((brand, index) => (
+                <strong class="education-trust-logo" style={`--logo-index: ${index + 1}`}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  {brand.logo ? (
+                    <img
+                      src={brand.logo}
+                      alt={`Logo ${brand.name} - ${brand.detail}`}
+                      width={brand.width}
+                      height={brand.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <b>
+                      {brand.name}
+                      <small>{brand.detail}</small>
+                    </b>
+                  )}
+                </strong>
+              ))}
+            </div>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="education-section" aria-labelledby="automobile-challenges-title">
+        <h2 id="automobile-challenges-title">Les enjeux du marketing automobile</h2>
+        <div class="education-challenge-grid">
+          {automobileChallenges.map((challenge) => (
+            <article>
+              <i class={challenge.icon} aria-hidden="true"></i>
+              <h3>{challenge.title}</h3>
+              <p>{challenge.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-section education-method" aria-labelledby="automobile-method-title">
+        <h2 id="automobile-method-title">Notre méthode pour générer des opportunités commerciales</h2>
+        <div class="education-method-layout">
+          <div class="education-timeline" aria-label="Méthode automobile en quatre étapes">
+            {automobileMethod.map((step) => (
+              <article>
+                <span>{step.step}</span>
+                <i class={step.icon} aria-hidden="true"></i>
+                <h3>{step.title}</h3>
+                <ul>
+                  {step.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <aside class="education-levers" aria-label="Leviers automobile">
+            <h3>Nos leviers clés</h3>
+            <ul>
+              {automobileKeyLevers.map((lever) => (
+                <li>
+                  <i class="ph ph-check-circle" aria-hidden="true"></i>
+                  {lever}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="education-section" aria-labelledby="automobile-campaigns-title">
+        <h2 id="automobile-campaigns-title">Campagnes que nous savons piloter</h2>
+        <div class="education-campaign-grid">
+          {automobileCampaigns.map((campaign) => (
+            <article style={`--campaign-image: url('${campaign.image}')`}>
+              <i class={campaign.icon} aria-hidden="true"></i>
+              <h3>{campaign.title}</h3>
+              <p>{campaign.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-trust-case" aria-labelledby="automobile-trust-title">
+        <div class="education-trust-copy">
+          <h2 id="automobile-trust-title">Ils nous font confiance</h2>
+          <div class="education-logo-row" aria-label="Références automobile">
+            {automobileTrustBrands.map((brand) => (
+              <span class="education-logo-item">
+                {brand.logo ? (
+                  <img
+                    src={brand.logo}
+                    alt={`Logo ${brand.name} - ${brand.detail}`}
+                    width={brand.width}
+                    height={brand.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <b>
+                    {brand.name}
+                    <small>{brand.detail}</small>
+                  </b>
+                )}
+              </span>
+            ))}
+          </div>
+          <p>
+            Des campagnes automobile conçues pour relier image de marque, désir modèle, génération de leads,
+            parcours WhatsApp, visibilité locale des showrooms et pilotage commercial.
+          </p>
+        </div>
+        <article class="education-case-card">
+          <img src="/assets/richmedia-sector-automobile/case-jaguar-whatsapp-acquisition.webp" alt="Parcours automobile premium entre WhatsApp, showroom et CRM" width="1915" height="821" loading="lazy" decoding="async" />
+          <div class="education-case-content">
+            <div class="education-case-main">
+              <span>Cas client</span>
+              <h3>Jaguar Maroc - Parcours WhatsApp et acquisition automobile</h3>
+              <p>
+                Un dispositif orienté conversion pour faciliter la prise de contact, qualifier les demandes et
+                accompagner les prospects entre contenu, message, rappel commercial et showroom.
+              </p>
+              <a class="education-button education-button-primary" href="/contact">
+                Discuter d’une campagne automobile
+                <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="education-case-metrics" aria-label="Piliers du dispositif automobile">
+              <strong>
+                Leads
+                <span>essais, devis & rappels</span>
+              </strong>
+              <strong>
+                Local
+                <span>showrooms & zones</span>
+              </strong>
+              <strong>
+                CRM
+                <span>suivi commercial</span>
+              </strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="education-section education-faq-section" aria-labelledby="automobile-faq-title">
+        <h2 id="automobile-faq-title">FAQ - Automobile</h2>
+        <div class="education-faq-grid">
+          {entry.data.faq.map((item, index) => (
+            <details>
+              <summary>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {item.question}
+                <i class="ph ph-caret-down" aria-hidden="true"></i>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-bottom-cta" aria-labelledby="automobile-cta-title">
+        <i class="ph ph-car-profile" aria-hidden="true"></i>
+        <div>
+          <h2 id="automobile-cta-title">Prêt à générer plus de demandes qualifiées ?</h2>
+          <p>Construisons une campagne automobile premium, locale et mesurable.</p>
+        </div>
+        <a class="education-button education-button-primary" href="/contact">
+          Parler à l’équipe
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </section>
+    </article>
+  ) : isImmobilier ? (
+    <article class="education-sector immobilier-sector">
+      <section class="education-hero" aria-labelledby="immobilier-title">
+        <div class="education-hero-copy">
+          <span class="education-kicker">Secteur / Immobilier</span>
+          <h1 id="immobilier-title"><strong>Marketing digital</strong> pour promoteurs, programmes résidentiels et projets immobiliers</h1>
+          <div class="education-underline" aria-hidden="true"></div>
+          <p>
+            Richmedia accompagne les promoteurs immobiliers au Maroc dans leurs lancements de projets, campagnes de
+            notoriété, génération de leads qualifiés, rendez-vous commerciaux, SEO/GEO local, WhatsApp, CRM et reporting.
+          </p>
+          <div class="education-actions">
+            <a class="education-button education-button-primary" href="/contact">
+              Parler de votre projet
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            <a class="education-button education-button-secondary" href="/realisations">
+              Voir nos réalisations immobilières
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <figure class="education-hero-visual">
+          <img
+            src="/assets/richmedia-sector-immobilier/hero-real-estate-premium.webp"
+            alt="Campagne digitale immobilière pour programme résidentiel au Maroc"
+            width="1111"
+            height="504"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <figcaption class="education-trust-panel">
+            <div class="education-trust-heading">
+              <span>Ils nous font confiance</span>
+              <strong>
+                5
+                <small>références</small>
+              </strong>
+            </div>
+            <div class="education-trust-grid" style={`--trust-count: ${immobilierTrustBrands.length}`} aria-label="Références immobilier">
+              {immobilierTrustBrands.map((brand, index) => (
+                <strong class="education-trust-logo" style={`--logo-index: ${index + 1}`}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  {brand.logo ? (
+                    <img
+                      src={brand.logo}
+                      alt={`Logo ${brand.name} - ${brand.detail}`}
+                      width={brand.width}
+                      height={brand.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <b>
+                      {brand.name}
+                      <small>{brand.detail}</small>
+                    </b>
+                  )}
+                </strong>
+              ))}
+            </div>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="education-section" aria-labelledby="immobilier-challenges-title">
+        <h2 id="immobilier-challenges-title">Les enjeux du marketing immobilier</h2>
+        <div class="education-challenge-grid">
+          {immobilierChallenges.map((challenge) => (
+            <article>
+              <i class={challenge.icon} aria-hidden="true"></i>
+              <h3>{challenge.title}</h3>
+              <p>{challenge.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-section education-method" aria-labelledby="immobilier-method-title">
+        <h2 id="immobilier-method-title">Notre méthode pour transformer l’attention en rendez-vous</h2>
+        <div class="education-method-layout">
+          <div class="education-timeline" aria-label="Méthode immobilier en quatre étapes">
+            {immobilierMethod.map((step) => (
+              <article>
+                <span>{step.step}</span>
+                <i class={step.icon} aria-hidden="true"></i>
+                <h3>{step.title}</h3>
+                <ul>
+                  {step.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <aside class="education-levers" aria-label="Leviers immobilier">
+            <h3>Nos leviers clés</h3>
+            <ul>
+              {immobilierKeyLevers.map((lever) => (
+                <li>
+                  <i class="ph ph-check-circle" aria-hidden="true"></i>
+                  {lever}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="education-section" aria-labelledby="immobilier-campaigns-title">
+        <h2 id="immobilier-campaigns-title">Campagnes que nous savons piloter</h2>
+        <div class="education-campaign-grid">
+          {immobilierCampaigns.map((campaign) => (
+            <article style={`--campaign-image: url('${campaign.image}')`}>
+              <i class={campaign.icon} aria-hidden="true"></i>
+              <h3>{campaign.title}</h3>
+              <p>{campaign.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-trust-case" aria-labelledby="immobilier-trust-title">
+        <div class="education-trust-copy">
+          <h2 id="immobilier-trust-title">Ils nous font confiance</h2>
+          <div class="education-logo-row" aria-label="Références immobilier">
+            {immobilierTrustBrands.map((brand) => (
+              <span class="education-logo-item">
+                {brand.logo ? (
+                  <img
+                    src={brand.logo}
+                    alt={`Logo ${brand.name} - ${brand.detail}`}
+                    width={brand.width}
+                    height={brand.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <b>
+                    {brand.name}
+                    <small>{brand.detail}</small>
+                  </b>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+        <article class="education-case-card">
+          <img src="/assets/richmedia-sector-immobilier/case-residential-full-funnel.webp" alt="Campagne immobilière full-funnel pour programme résidentiel" width="1115" height="504" loading="lazy" decoding="async" />
+          <div class="education-case-content">
+            <div class="education-case-main">
+              <span>Cas client</span>
+              <h3>Programmes résidentiels - Lancement, leads et rendez-vous qualifiés</h3>
+              <p>
+                Un dispositif immobilier full-funnel pour valoriser le projet, capter les recherches locales, qualifier
+                les demandes et aider les équipes commerciales à prioriser les prospects les plus mûrs.
+              </p>
+              <a class="education-button education-button-primary" href="/contact">
+                Discuter d’une campagne immobilière
+                <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="education-case-metrics" aria-label="Piliers du dispositif immobilier">
+              <strong>
+                Leads
+                <span>budget, ville & typologie</span>
+              </strong>
+              <strong>
+                Visites
+                <span>rendez-vous commerciaux</span>
+              </strong>
+              <strong>
+                Local
+                <span>SEO/GEO & zones</span>
+              </strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="education-section education-faq-section" aria-labelledby="immobilier-faq-title">
+        <h2 id="immobilier-faq-title">FAQ - Immobilier</h2>
+        <div class="education-faq-grid">
+          {entry.data.faq.map((item, index) => (
+            <details>
+              <summary>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {item.question}
+                <i class="ph ph-caret-down" aria-hidden="true"></i>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-bottom-cta" aria-labelledby="immobilier-cta-title">
+        <i class="ph ph-buildings" aria-hidden="true"></i>
+        <div>
+          <h2 id="immobilier-cta-title">Prêt à générer des demandes immobilières qualifiées ?</h2>
+          <p>Construisons une campagne qui relie image projet, leads, rendez-vous et ventes.</p>
+        </div>
+        <a class="education-button education-button-primary" href="/contact">
+          Parler à l’équipe
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </section>
+    </article>
+  ) : isGms ? (
+    <article class="education-sector gms-sector">
+      <section class="education-hero" aria-labelledby="gms-title">
+        <div class="education-hero-copy">
+          <span class="education-kicker">Secteur / GMS</span>
+          <h1 id="gms-title"><strong>Marketing digital</strong> pour grande distribution, enseignes et activations locales</h1>
+          <div class="education-underline" aria-hidden="true"></div>
+          <p>
+            Richmedia accompagne les acteurs GMS au Maroc dans leurs campagnes promotionnelles, drive-to-store,
+            catalogues digitaux, retail media, WhatsApp, CRM, fidélisation et reporting par magasin ou zone.
+          </p>
+          <div class="education-actions">
+            <a class="education-button education-button-primary" href="/contact">
+              Parler de votre projet
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            <a class="education-button education-button-secondary" href="/produits/whatsapp">
+              Voir nos solutions WhatsApp
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <figure class="education-hero-visual">
+          <img
+            src="/assets/richmedia-sector-gms/hero-gms-retail.webp"
+            alt="Campagne digitale GMS et drive-to-store pour grande distribution au Maroc"
+            width="1600"
+            height="900"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <figcaption class="education-trust-panel">
+            <div class="education-trust-heading">
+              <span>Ils nous font confiance</span>
+              <strong>
+                4
+                <small>références</small>
+              </strong>
+            </div>
+            <div class="education-trust-grid" style={`--trust-count: ${gmsTrustBrands.length}`} aria-label="Références GMS">
+              {gmsTrustBrands.map((brand, index) => (
+                <strong class="education-trust-logo" style={`--logo-index: ${index + 1}`}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  {brand.logo ? (
+                    <img
+                      src={brand.logo}
+                      alt={`Logo ${brand.name} - ${brand.detail}`}
+                      width={brand.width}
+                      height={brand.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <b>
+                      {brand.name}
+                      <small>{brand.detail}</small>
+                    </b>
+                  )}
+                </strong>
+              ))}
+            </div>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="education-section" aria-labelledby="gms-challenges-title">
+        <h2 id="gms-challenges-title">Les enjeux du marketing GMS</h2>
+        <div class="education-challenge-grid">
+          {gmsChallenges.map((challenge) => (
+            <article>
+              <i class={challenge.icon} aria-hidden="true"></i>
+              <h3>{challenge.title}</h3>
+              <p>{challenge.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-section education-method" aria-labelledby="gms-method-title">
+        <h2 id="gms-method-title">Notre méthode pour activer, vendre et mesurer localement</h2>
+        <div class="education-method-layout">
+          <div class="education-timeline" aria-label="Méthode GMS en quatre étapes">
+            {gmsMethod.map((step) => (
+              <article>
+                <span>{step.step}</span>
+                <i class={step.icon} aria-hidden="true"></i>
+                <h3>{step.title}</h3>
+                <ul>
+                  {step.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <aside class="education-levers" aria-label="Leviers GMS">
+            <h3>Nos leviers clés</h3>
+            <ul>
+              {gmsKeyLevers.map((lever) => (
+                <li>
+                  <i class="ph ph-check-circle" aria-hidden="true"></i>
+                  {lever}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="education-section" aria-labelledby="gms-campaigns-title">
+        <h2 id="gms-campaigns-title">Campagnes que nous savons piloter</h2>
+        <div class="education-campaign-grid">
+          {gmsCampaigns.map((campaign) => (
+            <article style={`--campaign-image: url('${campaign.image}')`}>
+              <i class={campaign.icon} aria-hidden="true"></i>
+              <h3>{campaign.title}</h3>
+              <p>{campaign.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-trust-case" aria-labelledby="gms-trust-title">
+        <div class="education-trust-copy">
+          <h2 id="gms-trust-title">Ils nous font confiance</h2>
+          <div class="education-logo-row" aria-label="Références GMS">
+            {gmsTrustBrands.map((brand) => (
+              <span class="education-logo-item">
+                {brand.logo ? (
+                  <img
+                    src={brand.logo}
+                    alt={`Logo ${brand.name} - ${brand.detail}`}
+                    width={brand.width}
+                    height={brand.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <b>
+                    {brand.name}
+                    <small>{brand.detail}</small>
+                  </b>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+        <article class="education-case-card">
+          <img src="/assets/richmedia-sector-gms/case-gms-drive-to-store.webp" alt="Campagne promotionnelle digitale pour enseigne GMS" width="1280" height="720" loading="lazy" decoding="async" />
+          <div class="education-case-content">
+            <div class="education-case-main">
+              <span>Cas client</span>
+              <h3>Marjane - Activation WhatsApp, promotions et parcours drive-to-store</h3>
+              <p>
+                Un dispositif pensé pour réduire la friction entre offre, découverte produit, demande d’information et
+                passage à l’action, avec une logique mobile-first et mesurable par opération.
+              </p>
+              <a class="education-button education-button-primary" href="/contact">
+                Discuter d’une campagne GMS
+                <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="education-case-metrics" aria-label="Piliers du dispositif GMS">
+              <strong>
+                Promo
+                <span>offres & catalogues</span>
+              </strong>
+              <strong>
+                Local
+                <span>magasins & zones</span>
+              </strong>
+              <strong>
+                CRM
+                <span>fidélisation & relances</span>
+              </strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="education-section education-faq-section" aria-labelledby="gms-faq-title">
+        <h2 id="gms-faq-title">FAQ - GMS</h2>
+        <div class="education-faq-grid">
+          {entry.data.faq.map((item, index) => (
+            <details>
+              <summary>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {item.question}
+                <i class="ph ph-caret-down" aria-hidden="true"></i>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-bottom-cta" aria-labelledby="gms-cta-title">
+        <i class="ph ph-shopping-cart" aria-hidden="true"></i>
+        <div>
+          <h2 id="gms-cta-title">Prêt à rendre vos opérations GMS plus mesurables ?</h2>
+          <p>Construisons un dispositif local, rapide à activer et clair à piloter.</p>
+        </div>
+        <a class="education-button education-button-primary" href="/contact">
+          Parler à l’équipe
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </section>
+    </article>
+  ) : isFmcg ? (
+    <article class="education-sector fmcg-sector">
+      <section class="education-hero" aria-labelledby="fmcg-title">
+        <div class="education-hero-copy">
+          <span class="education-kicker">Secteur / FMCG</span>
+          <h1 id="fmcg-title"><strong>Marketing digital</strong> pour marques FMCG, grande consommation et produits du quotidien</h1>
+          <div class="education-underline" aria-hidden="true"></div>
+          <p>
+            Richmedia accompagne les marques de grande consommation au Maroc dans leurs campagnes de préférence,
+            brand content, social media, influence, activations retail, lancements produit, promotions et reporting.
+          </p>
+          <div class="education-actions">
+            <a class="education-button education-button-primary" href="/contact">
+              Parler de votre projet
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            <a class="education-button education-button-secondary" href="/expertises/brand-content">
+              Voir Brand content
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <figure class="education-hero-visual">
+          <img
+            src="/assets/richmedia-sector-fmcg/hero-fmcg-products.webp"
+            alt="Campagne digitale FMCG et grande consommation pour marque de boisson"
+            width="1600"
+            height="900"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <figcaption class="education-trust-panel">
+            <div class="education-trust-heading">
+              <span>Ils nous font confiance</span>
+              <strong>
+                4
+                <small>références</small>
+              </strong>
+            </div>
+            <div class="education-trust-grid" style={`--trust-count: ${fmcgTrustBrands.length}`} aria-label="Références FMCG">
+              {fmcgTrustBrands.map((brand, index) => (
+                <strong class="education-trust-logo" style={`--logo-index: ${index + 1}`}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  {brand.logo ? (
+                    <img
+                      src={brand.logo}
+                      alt={`Logo ${brand.name} - ${brand.detail}`}
+                      width={brand.width}
+                      height={brand.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <b>
+                      {brand.name}
+                      <small>{brand.detail}</small>
+                    </b>
+                  )}
+                </strong>
+              ))}
+            </div>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="education-section" aria-labelledby="fmcg-challenges-title">
+        <h2 id="fmcg-challenges-title">Les enjeux du marketing FMCG</h2>
+        <div class="education-challenge-grid">
+          {fmcgChallenges.map((challenge) => (
+            <article>
+              <i class={challenge.icon} aria-hidden="true"></i>
+              <h3>{challenge.title}</h3>
+              <p>{challenge.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-section education-method" aria-labelledby="fmcg-method-title">
+        <h2 id="fmcg-method-title">Notre méthode pour créer de la préférence et de la répétition</h2>
+        <div class="education-method-layout">
+          <div class="education-timeline" aria-label="Méthode FMCG en quatre étapes">
+            {fmcgMethod.map((step) => (
+              <article>
+                <span>{step.step}</span>
+                <i class={step.icon} aria-hidden="true"></i>
+                <h3>{step.title}</h3>
+                <ul>
+                  {step.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <aside class="education-levers" aria-label="Leviers FMCG">
+            <h3>Nos leviers clés</h3>
+            <ul>
+              {fmcgKeyLevers.map((lever) => (
+                <li>
+                  <i class="ph ph-check-circle" aria-hidden="true"></i>
+                  {lever}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="education-section" aria-labelledby="fmcg-campaigns-title">
+        <h2 id="fmcg-campaigns-title">Campagnes que nous savons piloter</h2>
+        <div class="education-campaign-grid">
+          {fmcgCampaigns.map((campaign) => (
+            <article style={`--campaign-image: url('${campaign.image}')`}>
+              <i class={campaign.icon} aria-hidden="true"></i>
+              <h3>{campaign.title}</h3>
+              <p>{campaign.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-trust-case" aria-labelledby="fmcg-trust-title">
+        <div class="education-trust-copy">
+          <h2 id="fmcg-trust-title">Ils nous font confiance</h2>
+          <div class="education-logo-row" aria-label="Références FMCG">
+            {fmcgTrustBrands.map((brand) => (
+              <span class="education-logo-item">
+                {brand.logo ? (
+                  <img
+                    src={brand.logo}
+                    alt={`Logo ${brand.name} - ${brand.detail}`}
+                    width={brand.width}
+                    height={brand.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <b>
+                    {brand.name}
+                    <small>{brand.detail}</small>
+                  </b>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+        <article class="education-case-card">
+          <img src="/assets/richmedia-sector-fmcg/case-fmcg-brand-content.webp" alt="Campagne FMCG Don Simon autour des moments de consommation" width="1280" height="720" loading="lazy" decoding="async" />
+          <div class="education-case-content">
+            <div class="education-case-main">
+              <span>Cas client</span>
+              <h3>Don Simon - Brand content, saveurs et activation social-first</h3>
+              <p>
+                Un dispositif de contenus et d’amplification pour installer la marque dans les moments de consommation,
+                décliner les preuves produit et renforcer la mémorisation sur les plateformes sociales.
+              </p>
+              <a class="education-button education-button-primary" href="/contact">
+                Discuter d’une campagne FMCG
+                <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="education-case-metrics" aria-label="Piliers du dispositif FMCG">
+              <strong>
+                Brand
+                <span>préférence & mémorisation</span>
+              </strong>
+              <strong>
+                Social
+                <span>contenus & influence</span>
+              </strong>
+              <strong>
+                Retail
+                <span>activation & promotion</span>
+              </strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="education-section education-faq-section" aria-labelledby="fmcg-faq-title">
+        <h2 id="fmcg-faq-title">FAQ - FMCG</h2>
+        <div class="education-faq-grid">
+          {entry.data.faq.map((item, index) => (
+            <details>
+              <summary>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {item.question}
+                <i class="ph ph-caret-down" aria-hidden="true"></i>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-bottom-cta" aria-labelledby="fmcg-cta-title">
+        <i class="ph ph-package" aria-hidden="true"></i>
+        <div>
+          <h2 id="fmcg-cta-title">Prêt à faire émerger votre marque FMCG ?</h2>
+          <p>Construisons une campagne créative, visible et mesurable sur vos moments clés.</p>
+        </div>
+        <a class="education-button education-button-primary" href="/contact">
+          Parler à l’équipe
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </section>
+    </article>
+  ) : isTourismeHotellerie ? (
+    <article class="education-sector hotellerie-sector">
+      <section class="education-hero" aria-labelledby="hotellerie-title">
+        <div class="education-hero-copy">
+          <span class="education-kicker">Secteur / Tourisme & Hôtellerie</span>
+          <h1 id="hotellerie-title"><strong>Marketing digital</strong> pour hôtels, resorts et expériences touristiques premium</h1>
+          <div class="education-underline" aria-hidden="true"></div>
+          <p>
+            Richmedia accompagne les marques hôtelières et touristiques au Maroc dans leurs campagnes de notoriété,
+            réservation, SEO/GEO destination, contenus immersifs, influence travel, CRM, retargeting et reporting.
+          </p>
+          <div class="education-actions">
+            <a class="education-button education-button-primary" href="/contact">
+              Parler de votre projet
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            <a class="education-button education-button-secondary" href="/expertises/influence">
+              Voir Influence
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <figure class="education-hero-visual">
+          <img
+            src="/assets/richmedia-sector-hotellerie/hero-hotellerie-resort.webp"
+            alt="Campagne digitale hôtellerie et expérience touristique premium"
+            width="1600"
+            height="900"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <figcaption class="education-trust-panel">
+            <div class="education-trust-heading">
+              <span>Ils nous font confiance</span>
+              <strong>
+                2
+                <small>références</small>
+              </strong>
+            </div>
+            <div class="education-trust-grid" style={`--trust-count: ${hotellerieTrustBrands.length}`} aria-label="Références tourisme et hôtellerie">
+              {hotellerieTrustBrands.map((brand, index) => (
+                <strong class="education-trust-logo" style={`--logo-index: ${index + 1}`}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  {brand.logo ? (
+                    <img
+                      src={brand.logo}
+                      alt={`Logo ${brand.name} - ${brand.detail}`}
+                      width={brand.width}
+                      height={brand.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <b>
+                      {brand.name}
+                      <small>{brand.detail}</small>
+                    </b>
+                  )}
+                </strong>
+              ))}
+            </div>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="education-section" aria-labelledby="hotellerie-challenges-title">
+        <h2 id="hotellerie-challenges-title">Les enjeux du marketing hôtellerie & tourisme</h2>
+        <div class="education-challenge-grid">
+          {hotellerieChallenges.map((challenge) => (
+            <article>
+              <i class={challenge.icon} aria-hidden="true"></i>
+              <h3>{challenge.title}</h3>
+              <p>{challenge.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-section education-method" aria-labelledby="hotellerie-method-title">
+        <h2 id="hotellerie-method-title">Notre méthode pour inspirer, convertir et fidéliser</h2>
+        <div class="education-method-layout">
+          <div class="education-timeline" aria-label="Méthode hôtellerie en quatre étapes">
+            {hotellerieMethod.map((step) => (
+              <article>
+                <span>{step.step}</span>
+                <i class={step.icon} aria-hidden="true"></i>
+                <h3>{step.title}</h3>
+                <ul>
+                  {step.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <aside class="education-levers" aria-label="Leviers tourisme et hôtellerie">
+            <h3>Nos leviers clés</h3>
+            <ul>
+              {hotellerieKeyLevers.map((lever) => (
+                <li>
+                  <i class="ph ph-check-circle" aria-hidden="true"></i>
+                  {lever}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="education-section" aria-labelledby="hotellerie-campaigns-title">
+        <h2 id="hotellerie-campaigns-title">Campagnes que nous savons piloter</h2>
+        <div class="education-campaign-grid">
+          {hotellerieCampaigns.map((campaign) => (
+            <article style={`--campaign-image: url('${campaign.image}')`}>
+              <i class={campaign.icon} aria-hidden="true"></i>
+              <h3>{campaign.title}</h3>
+              <p>{campaign.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-trust-case" aria-labelledby="hotellerie-trust-title">
+        <div class="education-trust-copy">
+          <h2 id="hotellerie-trust-title">Ils nous font confiance</h2>
+          <div class="education-logo-row" aria-label="Références tourisme et hôtellerie">
+            {hotellerieTrustBrands.map((brand) => (
+              <span class="education-logo-item">
+                {brand.logo ? (
+                  <img
+                    src={brand.logo}
+                    alt={`Logo ${brand.name} - ${brand.detail}`}
+                    width={brand.width}
+                    height={brand.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <b>
+                    {brand.name}
+                    <small>{brand.detail}</small>
+                  </b>
+                )}
+              </span>
+            ))}
+          </div>
+          <p>
+            Des campagnes hôtelières pensées pour donner envie de séjourner, rassurer, capter les recherches par
+            destination et connecter contenus, acquisition, relances et performance de réservation.
+          </p>
+        </div>
+        <article class="education-case-card">
+          <img src="/assets/richmedia-sector-hotellerie/case-hotellerie-reservation.webp" alt="Contenu lifestyle pour expérience hôtelière premium" width="1280" height="720" loading="lazy" decoding="async" />
+          <div class="education-case-content">
+            <div class="education-case-main">
+              <span>Cas client</span>
+              <h3>Hospitality premium - Inspiration, contenus et parcours de réservation</h3>
+              <p>
+                Un dispositif pensé pour transformer une expérience en désir de séjour : contenus immersifs, campagnes
+                média, SEO destination, retargeting et relances pour soutenir les demandes qualifiées.
+              </p>
+              <a class="education-button education-button-primary" href="/contact">
+                Discuter d’une campagne hôtelière
+                <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="education-case-metrics" aria-label="Piliers du dispositif hôtellerie">
+              <strong>
+                Image
+                <span>désir & expérience</span>
+              </strong>
+              <strong>
+                Booking
+                <span>demandes & réservations</span>
+              </strong>
+              <strong>
+                Local
+                <span>SEO/GEO destination</span>
+              </strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="education-section education-faq-section" aria-labelledby="hotellerie-faq-title">
+        <h2 id="hotellerie-faq-title">FAQ - Tourisme & Hôtellerie</h2>
+        <div class="education-faq-grid">
+          {entry.data.faq.map((item, index) => (
+            <details>
+              <summary>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {item.question}
+                <i class="ph ph-caret-down" aria-hidden="true"></i>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="education-bottom-cta" aria-labelledby="hotellerie-cta-title">
+        <i class="ph ph-sparkle" aria-hidden="true"></i>
+        <div>
+          <h2 id="hotellerie-cta-title">Prêt à développer vos demandes et réservations ?</h2>
+          <p>Construisons une campagne hôtelière inspirante, locale et mesurable.</p>
+        </div>
+        <a class="education-button education-button-primary" href="/contact">
+          Parler à l’équipe
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </section>
+    </article>
+  ) : (
+    <article class="sector-detail">
+      <header class="sector-detail-hero">
+        <a href="/secteurs">Secteurs</a>
+        <h1>{entry.data.title}</h1>
+        <QuickAnswer text={entry.data.quickAnswer} />
+      </header>
+
+      <div class="sector-detail-content">
+        <Content />
+      </div>
+
+      <nav class="sector-detail-links" aria-label="Navigation secteur">
+        <a href="/secteurs">
+          <span>Tous les secteurs</span>
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        <a href="/expertises">
+          <span>Expertises Richmedia</span>
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        <a href="/contact">
+          <span>Parler à l’équipe</span>
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </nav>
+
+      <Faq faq={entry.data.faq} />
+    </article>
+  )}
+
+  <SeoSiloLinks
+    title="Relier ce secteur aux bons leviers"
+    intro="Ces passerelles aident à passer du besoin métier aux expertises, contenus et références les plus proches."
+    links={sectorSiloLinks}
+    variant="compact"
+  />
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (prefersReducedMotion || !supportsHover) return;
+
+    document.querySelectorAll('.education-challenge-grid article, .education-timeline article, .education-levers').forEach((card) => {
+      const resetCard = () => {
+        card.style.setProperty('--mx', '50%');
+        card.style.setProperty('--my', '24%');
+        card.style.setProperty('--tilt-x', '0deg');
+        card.style.setProperty('--tilt-y', '0deg');
+      };
+
+      card.addEventListener('pointermove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const px = x / rect.width - 0.5;
+        const py = y / rect.height - 0.5;
+
+        card.style.setProperty('--mx', `${x}px`);
+        card.style.setProperty('--my', `${y}px`);
+        card.style.setProperty('--tilt-x', `${px * 4}deg`);
+        card.style.setProperty('--tilt-y', `${py * -4}deg`);
+      });
+
+      card.addEventListener('pointerleave', resetCard);
+      resetCard();
+    });
+  })();
+</script>
+
+<style>
+  .sector-detail {
+    display: grid;
+    max-width: 880px;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    padding-top: clamp(1rem, 4vw, 3rem);
+  }
+
+  .sector-detail-hero {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .sector-detail-hero > a {
+    width: fit-content;
+    color: #a985ff;
+    font-size: 0.78rem;
+    font-weight: 850;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .sector-detail h1 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2.6rem, 6vw, 5.4rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 0.96;
+  }
+
+  .sector-detail-content {
+    display: grid;
+    gap: 1.3rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .sector-detail-content :global(h2) {
+    margin: 1.3rem 0 0;
+    color: #fff;
+    font-size: clamp(1.55rem, 2.6vw, 2.2rem);
+    line-height: 1.08;
+  }
+
+  .sector-detail-content :global(p),
+  .sector-detail-content :global(ul) {
+    margin: 0;
+  }
+
+  .sector-detail-content :global(ul) {
+    display: grid;
+    gap: 0.55rem;
+    padding-left: 1.2rem;
+  }
+
+  .sector-detail-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .sector-detail-links a {
+    display: flex;
+    min-height: 4.4rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: #fff;
+    font-weight: 800;
+    line-height: 1.12;
+    text-decoration: none;
+    transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  }
+
+  .sector-detail-links i {
+    color: #a985ff;
+    flex: 0 0 auto;
+  }
+
+  .sector-detail-links a:hover,
+  .sector-detail-links a:focus-visible {
+    border-color: rgba(156, 109, 255, 0.48);
+    background: rgba(124, 60, 255, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .education-sector {
+    display: grid;
+    gap: clamp(2rem, 4.4vw, 3.75rem);
+    padding-bottom: 1rem;
+  }
+
+  :global(main:has(.education-sector)) {
+    width: min(100% - 3rem, 1320px);
+  }
+
+  .education-sector h2,
+  .education-sector h3,
+  .education-sector p {
+    margin: 0;
+  }
+
+  .education-kicker {
+    width: fit-content;
+    color: #a985ff;
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .education-button {
+    display: inline-flex;
+    min-height: 2.7rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.48rem;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 0.72rem 1.05rem;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 850;
+    line-height: 1;
+    text-decoration: none;
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
+  }
+
+  .education-button:hover,
+  .education-button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .education-button-primary {
+    background: linear-gradient(135deg, #8e55ff, #6726ee);
+    box-shadow: 0 1rem 2.2rem rgba(124, 60, 255, 0.26);
+  }
+
+  .education-button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .education-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.91fr) minmax(520px, 1.09fr);
+    gap: clamp(1.5rem, 4.2vw, 3.2rem);
+    align-items: center;
+    padding-top: clamp(1.1rem, 3vw, 2.2rem);
+  }
+
+  .education-hero-copy {
+    display: grid;
+    align-content: center;
+    gap: 1rem;
+  }
+
+  .education-hero h1 {
+    --h1-size: clamp(2.55rem, 4.6vw, 3.125rem);
+    max-width: min(100%, 11.7em);
+    color: #fff;
+    font-weight: 520;
+    letter-spacing: 0;
+    line-height: 0.96;
+  }
+
+  .education-hero h1 strong {
+    display: block;
+    font-weight: 930;
+  }
+
+  .institutionnel-sector .education-hero h1 {
+    max-width: min(100%, 13.4em);
+    text-align: justify;
+    text-align-last: left;
+  }
+
+  .institutionnel-sector .education-hero h1 span {
+    display: block;
+  }
+
+  .education-underline {
+    width: min(16rem, 48vw);
+    height: 2.1rem;
+    margin-top: -0.9rem;
+    background: url("/assets/richmedia-case-study/purple-underline.png") left center / contain no-repeat;
+  }
+
+  .education-hero-copy p {
+    max-width: 58ch;
+    color: rgba(255, 255, 255, 0.73);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .education-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.55rem;
+  }
+
+  .education-hero-visual {
+    position: relative;
+    overflow: hidden;
+    min-height: clamp(27rem, 38vw, 32rem);
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    background: #070910;
+  }
+
+  .education-hero-visual > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .education-hero-visual::after,
+  .education-case-card::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(3, 4, 7, 0.2), rgba(3, 4, 7, 0.62));
+    content: "";
+    pointer-events: none;
+  }
+
+  .education-trust-panel {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    z-index: 1;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    width: min(18.75rem, 45%);
+    gap: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 1rem;
+    background:
+      linear-gradient(145deg, rgba(140, 86, 255, 0.12), transparent 34%),
+      linear-gradient(180deg, rgba(8, 9, 15, 0.9), rgba(6, 7, 12, 0.78));
+    backdrop-filter: blur(18px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1rem 2.6rem rgba(0, 0, 0, 0.32);
+  }
+
+  .education-trust-panel::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 3.4rem 3.4rem;
+    content: "";
+    mask-image: linear-gradient(140deg, rgba(0, 0, 0, 0.72), transparent 64%);
+    pointer-events: none;
+  }
+
+  .education-trust-heading,
+  .education-trust-grid {
+    position: relative;
+    z-index: 1;
+  }
+
+  .education-trust-heading {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .education-trust-heading > span {
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 850;
+  }
+
+  .education-trust-heading strong {
+    display: none;
+    justify-items: end;
+    color: #fff;
+    font-size: 2.15rem;
+    font-weight: 850;
+    line-height: 0.88;
+  }
+
+  .education-trust-heading small {
+    color: rgba(255, 255, 255, 0.54);
+    font-size: 0.5rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .education-trust-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(var(--trust-count, 5), minmax(0, 1fr));
+    gap: 0.5rem;
+    min-height: 0;
+  }
+
+  .education-trust-logo {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    overflow: visible;
+    background: transparent;
+    transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease, background 220ms ease;
+  }
+
+  .education-trust-logo::before {
+    display: none;
+  }
+
+  .education-trust-logo > span {
+    display: none;
+  }
+
+  .education-trust-logo:hover {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+    transform: translateY(-4px) scale(1.04);
+  }
+
+  .education-trust-logo:hover::before {
+    opacity: 1;
+    transform: translateX(85%);
+  }
+
+  .education-trust-logo img {
+    width: 8.5rem;
+    height: 2.35rem;
+    max-width: 78%;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    object-fit: contain;
+    object-position: center;
+    opacity: 0.96;
+    transform: translateZ(0);
+    filter: drop-shadow(0 0 0.45rem rgba(255, 255, 255, 0.1));
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
+
+  .education-trust-logo b,
+  .education-logo-row b {
+    display: grid;
+    gap: 0.12rem;
+    justify-items: center;
+    color: #fff;
+    font-size: 1.02rem;
+    font-weight: 920;
+    letter-spacing: 0;
+    line-height: 1;
+    text-align: center;
+    text-transform: none;
+  }
+
+  .education-trust-logo b small,
+  .education-logo-row b small {
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.48rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .education-trust-logo:hover img {
+    opacity: 1;
+    filter: drop-shadow(0 0 1rem rgba(255, 255, 255, 0.22)) drop-shadow(0 0 1.4rem rgba(154, 93, 255, 0.18));
+    transform: scale(1.08);
+  }
+
+  .education-section {
+    display: grid;
+    gap: 1.35rem;
+  }
+
+  .education-section > h2,
+  .education-trust-copy h2,
+  .education-bottom-cta h2 {
+    color: #fff;
+    font-size: clamp(1.55rem, 2.5vw, 2rem);
+    font-weight: 760;
+    letter-spacing: 0;
+    line-height: 1.08;
+  }
+
+  .education-challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.55rem;
+    perspective: 1000px;
+  }
+
+  .education-challenge-grid article,
+  .education-timeline article,
+  .education-levers,
+  .education-faq-grid details,
+  .education-bottom-cta {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.09), transparent 46%),
+      rgba(10, 12, 18, 0.82);
+  }
+
+  .education-challenge-grid article {
+    display: grid;
+    min-height: 13.1rem;
+    gap: 0.8rem;
+    align-content: start;
+    overflow: hidden;
+    padding: 1.05rem 0.9rem;
+  }
+
+  .education-challenge-grid article,
+  .education-timeline article,
+  .education-levers {
+    --mx: 50%;
+    --my: 24%;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    position: relative;
+    isolation: isolate;
+    transform: translateY(0) rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
+    transform-style: preserve-3d;
+    transition:
+      border-color 220ms ease,
+      box-shadow 220ms ease,
+      background 220ms ease,
+      transform 220ms ease;
+    will-change: transform;
+  }
+
+  .education-challenge-grid article::before,
+  .education-challenge-grid article::after,
+  .education-timeline article::before,
+  .education-timeline article::after,
+  .education-levers::before,
+  .education-levers::after {
+    position: absolute;
+    content: "";
+    pointer-events: none;
+  }
+
+  .education-challenge-grid article::before,
+  .education-timeline article::before,
+  .education-levers::before {
+    inset: -1px;
+    z-index: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at var(--mx) var(--my), rgba(154, 93, 255, 0.28), transparent 34%),
+      linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.16) 42%, transparent 62%);
+    opacity: 0;
+    transform: translateX(-18%) scale(0.98);
+    transition: opacity 220ms ease, transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .education-challenge-grid article::after,
+  .education-timeline article::after,
+  .education-levers::after {
+    right: 0.85rem;
+    bottom: 0.85rem;
+    left: 0.85rem;
+    z-index: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, #9a5dff, transparent);
+    opacity: 0;
+    transform: scaleX(0.16);
+    transform-origin: left center;
+    transition: opacity 220ms ease, transform 360ms ease;
+  }
+
+  .education-challenge-grid article > *,
+  .education-timeline article > *,
+  .education-levers > * {
+    position: relative;
+    z-index: 1;
+    transition: transform 220ms ease, color 220ms ease, filter 220ms ease;
+  }
+
+  .education-challenge-grid article:hover,
+  .education-challenge-grid article:focus-within,
+  .education-timeline article:hover,
+  .education-timeline article:focus-within,
+  .education-levers:hover,
+  .education-levers:focus-within {
+    border-color: rgba(154, 93, 255, 0.58);
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.18), transparent 48%),
+      rgba(12, 14, 22, 0.94);
+    box-shadow:
+      0 1rem 2.2rem rgba(0, 0, 0, 0.3),
+      0 0 2.6rem rgba(124, 60, 255, 0.18);
+    transform: translateY(-7px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
+  }
+
+  .education-challenge-grid article:hover::before,
+  .education-challenge-grid article:focus-within::before,
+  .education-timeline article:hover::before,
+  .education-timeline article:focus-within::before,
+  .education-levers:hover::before,
+  .education-levers:focus-within::before {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  .education-challenge-grid article:hover::after,
+  .education-challenge-grid article:focus-within::after,
+  .education-timeline article:hover::after,
+  .education-timeline article:focus-within::after,
+  .education-levers:hover::after,
+  .education-levers:focus-within::after {
+    opacity: 0.88;
+    transform: scaleX(1);
+  }
+
+  .education-challenge-grid article:hover i,
+  .education-challenge-grid article:focus-within i,
+  .education-timeline article:hover i,
+  .education-timeline article:focus-within i,
+  .education-levers:hover i,
+  .education-levers:focus-within i {
+    filter: drop-shadow(0 0 0.8rem rgba(154, 93, 255, 0.58));
+    transform: translate3d(0, -3px, 18px) scale(1.08) rotate(-3deg);
+  }
+
+  .education-challenge-grid article:hover h3,
+  .education-challenge-grid article:focus-within h3,
+  .education-timeline article:hover h3,
+  .education-timeline article:focus-within h3,
+  .education-levers:hover h3,
+  .education-levers:focus-within h3 {
+    transform: translate3d(0, -2px, 14px);
+  }
+
+  .education-challenge-grid article:hover p,
+  .education-challenge-grid article:focus-within p,
+  .education-timeline article:hover li,
+  .education-timeline article:focus-within li,
+  .education-levers:hover li,
+  .education-levers:focus-within li {
+    color: rgba(255, 255, 255, 0.82);
+    transform: translate3d(0, -1px, 10px);
+  }
+
+  .education-challenge-grid i,
+  .education-timeline i,
+  .education-campaign-grid i,
+  .education-bottom-cta > i {
+    color: #9a5dff;
+    font-size: 2rem;
+    text-shadow: 0 0 1.1rem rgba(124, 60, 255, 0.48);
+  }
+
+  .education-challenge-grid i:is(.ph-car-profile, .ph-tag, .ph-wrench, .ph-shopping-bag, .ph-storefront, .ph-buildings, .ph-package, .ph-calendar-check, .ph-coupon)::before,
+  .education-timeline i:is(.ph-car-profile, .ph-tag, .ph-wrench, .ph-shopping-bag, .ph-storefront, .ph-buildings, .ph-package, .ph-calendar-check, .ph-coupon)::before,
+  .education-campaign-grid i:is(.ph-car-profile, .ph-tag, .ph-wrench, .ph-shopping-bag, .ph-storefront, .ph-buildings, .ph-package, .ph-calendar-check, .ph-coupon)::before {
+    display: block;
+    width: 1em;
+    height: 1em;
+    content: "";
+    background: currentColor;
+    -webkit-mask: var(--sector-icon-mask) center / contain no-repeat;
+    mask: var(--sector-icon-mask) center / contain no-repeat;
+  }
+
+  .education-challenge-grid i.ph-car-profile,
+  .education-timeline i.ph-car-profile,
+  .education-campaign-grid i.ph-car-profile {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M5.5%2016.5h13l-.7-4.1A2%202%200%200%200%2015.8%2011H8.2a2%202%200%200%200-2%201.4l-.7%204.1Zm1.2-7.3A3.5%203.5%200%200%201%2010%207h4a3.5%203.5%200%200%201%203.3%202.2l.8%202.1%201.4.5A2.3%202.3%200%200%201%2021%2014v4.8a1%201%200%200%201-1%201h-1.5a1%201%200%200%201-1-1v-.8h-9v.8a1%201%200%200%201-1%201H5a1%201%200%200%201-1-1V14a2.3%202.3%200%200%201%201.5-2.2l1.4-.5.8-2.1ZM7%2015.5a1.2%201.2%200%201%200%200-2.4%201.2%201.2%200%200%200%200%202.4Zm10%200a1.2%201.2%200%201%200%200-2.4%201.2%201.2%200%200%200%200%202.4Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-tag,
+  .education-timeline i.ph-tag,
+  .education-campaign-grid i.ph-tag {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M20.6%2013.4 13.4%2020.6a2%202%200%200%201-2.8%200L3.4%2013.4A2%202%200%200%201%202.8%2012V5a2%202%200%200%201%202-2h7a2%202%200%200%201%201.4.6l7.4%207.4a2%202%200%200%201%200%202.8ZM7.2%208.8a1.6%201.6%200%201%200%200-3.2%201.6%201.6%200%200%200%200%203.2Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-wrench,
+  .education-timeline i.ph-wrench,
+  .education-campaign-grid i.ph-wrench {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M21%206.5a6.5%206.5%200%200%201-8.7%206.1l-6.9%206.9a2.6%202.6%200%200%201-3.7-3.7l6.9-6.9A6.5%206.5%200%200%201%2016%201.2l-3.5%203.5%201.1%203%203%201.1L20%205.4c.6-.6%201-.2%201%201.1Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-shopping-bag,
+  .education-timeline i.ph-shopping-bag,
+  .education-campaign-grid i.ph-shopping-bag {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M7%208V7a5%205%200%200%201%2010%200v1h2a1%201%200%200%201%201%201.1l-1%2011A2%202%200%200%201%2017%2022H7a2%202%200%200%201-2-1.9l-1-11A1%201%200%200%201%205%208h2Zm2%200h6V7a3%203%200%200%200-6%200v1Zm-2%204a1%201%200%201%200%202%200%201%201%200%200%200-2%200Zm8%200a1%201%200%201%200%202%200%201%201%200%200%200-2%200Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-storefront,
+  .education-timeline i.ph-storefront,
+  .education-campaign-grid i.ph-storefront {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M4%2010.5A3%203%200%200%201%202.2%206l1.2-2.4A1%201%200%200%201%204.3%203h15.4a1%201%200%200%201%20.9.6L21.8%206A3%203%200%200%201%2020%2010.5V20a1%201%200%200%201-1%201H5a1%201%200%200%201-1-1v-9.5Zm2%202V19h3v-5h6v5h3v-6.5a3.8%203.8%200%200%201-3-1.1%203.8%203.8%200%200%201-6%200%203.8%203.8%200%200%201-3%201.1Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-buildings,
+  .education-timeline i.ph-buildings,
+  .education-campaign-grid i.ph-buildings {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M4%2021V5a2%202%200%200%201%202-2h7a2%202%200%200%201%202%202v4h3a2%202%200%200%201%202%202v10h-6v-4h-4v4H4Zm3-14v2h2V7H7Zm0%204v2h2v-2H7Zm4-4v2h2V7h-2Zm0%204v2h2v-2h-2Zm5%202v2h2v-2h-2Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-package,
+  .education-timeline i.ph-package,
+  .education-campaign-grid i.ph-package {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='m12%202%209%204.7v10.6L12%2022l-9-4.7V6.7L12%202Zm0%202.2L6.1%207.3%2012%2010.4l5.9-3.1L12%204.2ZM5%209v7.1l6%203.1v-7.1L5%209Zm14%200-6%203.1v7.1l6-3.1V9Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-calendar-check,
+  .education-timeline i.ph-calendar-check,
+  .education-campaign-grid i.ph-calendar-check {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M7%202a1%201%200%200%201%201%201v1h8V3a1%201%200%201%201%202%200v1h1a3%203%200%200%201%203%203v12a3%203%200%200%201-3%203H5a3%203%200%200%201-3-3V7a3%203%200%200%201%203-3h1V3a1%201%200%200%201%201-1Zm9.7%209.3a1%201%200%200%200-1.4-1.4L11%2014.2l-1.8-1.8a1%201%200%201%200-1.4%201.4l2.5%202.5a1%201%200%200%200%201.4%200l5-5ZM4%208h16V7a1%201%200%200%200-1-1H5a1%201%200%200%200-1%201v1Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-coupon,
+  .education-timeline i.ph-coupon,
+  .education-campaign-grid i.ph-coupon {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M3%207a2%202%200%200%201%202-2h14a2%202%200%200%201%202%202v3a2%202%200%200%200%200%204v3a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2v-3a2%202%200%200%200%200-4V7Zm6%201.5a1%201%200%201%200%200%202%201%201%200%200%200%200-2Zm6.7.8a1%201%200%200%200-1.4%200l-6%206a1%201%200%201%200%201.4%201.4l6-6a1%201%200%200%200%200-1.4ZM15%2013.5a1%201%200%201%200%200%202%201%201%200%200%200%200-2Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid h3,
+  .education-timeline h3,
+  .education-campaign-grid h3 {
+    color: #fff;
+    font-size: 0.98rem;
+    font-weight: 850;
+    line-height: 1.16;
+  }
+
+  .education-challenge-grid p,
+  .education-timeline li,
+  .education-campaign-grid p,
+  .education-trust-copy p,
+  .education-faq-grid p,
+  .education-bottom-cta p {
+    color: rgba(255, 255, 255, 0.67);
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .education-method-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 0.3fr);
+    gap: 1rem;
+    align-items: end;
+    perspective: 1000px;
+  }
+
+  .education-timeline {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding-top: 2.8rem;
+  }
+
+  .education-timeline::before {
+    position: absolute;
+    top: 1.25rem;
+    right: 12.5%;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(157, 91, 255, 0.25), #9a5dff);
+    content: "";
+  }
+
+  .education-timeline article {
+    position: relative;
+    display: grid;
+    gap: 0.75rem;
+    min-height: 14.5rem;
+    padding: 1.1rem 1rem;
+  }
+
+  .education-timeline article > span {
+    position: absolute;
+    top: -3.15rem;
+    left: 50%;
+    display: grid;
+    width: 3.2rem;
+    height: 3.2rem;
+    place-items: center;
+    border: 1px solid #9a5dff;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(124, 60, 255, 0.42), rgba(18, 10, 38, 0.96));
+    box-shadow: 0 0 1.8rem rgba(124, 60, 255, 0.42);
+    color: #fff;
+    font-family: var(--font-numeric);
+    font-size: 1rem;
+    font-weight: 900;
+    transform: translateX(-50%);
+    transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+  }
+
+  .education-timeline article:hover > span,
+  .education-timeline article:focus-within > span {
+    border-color: rgba(255, 255, 255, 0.42);
+    box-shadow:
+      0 0 2.2rem rgba(124, 60, 255, 0.62),
+      0 0 0 0.45rem rgba(124, 60, 255, 0.1);
+    transform: translateX(-50%) scale(1.07);
+  }
+
+  .education-timeline ul,
+  .education-levers ul {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .education-timeline li {
+    position: relative;
+    padding-left: 0.75rem;
+  }
+
+  .education-timeline li::before {
+    position: absolute;
+    top: 0.62em;
+    left: 0;
+    width: 3px;
+    height: 3px;
+    border-radius: 999px;
+    background: #fff;
+    content: "";
+  }
+
+  .education-levers {
+    display: grid;
+    gap: 0.9rem;
+    padding: 1.05rem;
+  }
+
+  .education-levers h3 {
+    color: #fff;
+    font-size: 0.98rem;
+  }
+
+  .education-levers li {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.5rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.78rem;
+  }
+
+  .education-levers li:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .education-levers i {
+    color: #9a5dff;
+  }
+
+  .education-campaign-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .education-campaign-grid article {
+    position: relative;
+    display: grid;
+    min-height: 11.2rem;
+    align-content: end;
+    gap: 0.55rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--campaign-image) center / cover no-repeat;
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  }
+
+  .education-campaign-grid article::before {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 58%;
+    background:
+      linear-gradient(180deg, rgba(3, 4, 7, 0), rgba(3, 4, 7, 0.18) 48%, rgba(3, 4, 7, 0.36)),
+      linear-gradient(90deg, rgba(3, 4, 7, 0.34), rgba(3, 4, 7, 0.08) 72%);
+    content: "";
+  }
+
+  .education-campaign-grid article > * {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0.18rem 0.9rem rgba(0, 0, 0, 0.72);
+  }
+
+  .education-campaign-grid article:hover,
+  .education-campaign-grid article:focus-within {
+    border-color: rgba(154, 93, 255, 0.54);
+    box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .education-trust-case {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(420px, 1.25fr);
+    gap: clamp(1rem, 4vw, 3rem);
+    align-items: center;
+  }
+
+  .education-trust-copy {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .education-logo-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    max-width: 27rem;
+  }
+
+  .education-logo-row span {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    width: 100%;
+    height: 4.1rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+    opacity: 0.9;
+    transform: translateZ(0);
+    transition: transform 280ms cubic-bezier(.2,.8,.2,1), border-color 280ms ease, box-shadow 280ms ease, background 280ms ease, opacity 280ms ease;
+    will-change: transform;
+  }
+
+  .education-logo-row span::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.16) 42%, transparent 72%),
+      radial-gradient(circle at 50% 100%, rgba(154, 93, 255, 0.18), transparent 54%);
+    content: "";
+    opacity: 0;
+    transform: translateX(-28%);
+    transition: opacity 240ms ease, transform 460ms ease;
+  }
+
+  .education-logo-row span:hover,
+  .education-logo-row span:focus-within {
+    border-color: rgba(174, 112, 255, 0.72);
+    background:
+      radial-gradient(circle at 50% 0%, rgba(154, 93, 255, 0.16), transparent 58%),
+      rgba(154, 93, 255, 0.075);
+    box-shadow:
+      0 1.1rem 2.35rem rgba(0, 0, 0, 0.3),
+      0 0 2.2rem rgba(124, 60, 255, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    opacity: 1;
+    transform: translateY(-7px) scale(1.025);
+  }
+
+  .education-logo-row span:hover::before,
+  .education-logo-row span:focus-within::before {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .education-logo-row img {
+    position: relative;
+    z-index: 1;
+    width: 8.25rem;
+    height: 2.35rem;
+    max-width: 78%;
+    object-fit: contain;
+    object-position: center;
+    filter: drop-shadow(0 0 0.55rem rgba(255, 255, 255, 0.08));
+    transition: transform 240ms ease, filter 240ms ease;
+  }
+
+  .education-logo-row span:hover img,
+  .education-logo-row span:focus-within img {
+    filter: drop-shadow(0 0 1rem rgba(255, 255, 255, 0.24)) drop-shadow(0 0 1.35rem rgba(154, 93, 255, 0.22));
+    transform: scale(1.1) rotate(-0.8deg);
+  }
+
+  .education-logo-row b {
+    max-width: 90%;
+    font-size: 1rem;
+  }
+
+  .retail-sector .education-hero-visual > img,
+  .immobilier-sector .education-hero-visual > img,
+  .gms-sector .education-hero-visual > img,
+  .fmcg-sector .education-hero-visual > img,
+  .hotellerie-sector .education-hero-visual > img {
+    object-position: center;
+  }
+
+  .immobilier-sector .education-trust-logo img,
+  .immobilier-sector .education-logo-row img {
+    width: 12.75rem;
+    height: 3.7rem;
+    max-width: 84%;
+    padding: 0.32rem 0.58rem;
+    border-radius: 8px;
+    background: rgba(246, 244, 239, 0.94);
+    box-shadow: 0 0.75rem 1.7rem rgba(0, 0, 0, 0.22);
+    filter: none;
+  }
+
+  .immobilier-sector .education-logo-row span {
+    height: 5rem;
+  }
+
+  .immobilier-sector .education-logo-row span,
+  .immobilier-sector .education-case-metrics strong {
+    will-change: transform;
+  }
+
+  .immobilier-sector .education-logo-row span:hover,
+  .immobilier-sector .education-logo-row span:focus-within {
+    border-color: rgba(196, 153, 86, 0.58);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(124, 60, 255, 0.1));
+    box-shadow:
+      0 1.1rem 2.4rem rgba(0, 0, 0, 0.3),
+      0 0 2.1rem rgba(196, 153, 86, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-6px) scale(1.022);
+  }
+
+  .immobilier-sector .education-case-metrics strong:hover,
+  .immobilier-sector .education-case-metrics strong:focus-within {
+    border-color: rgba(196, 153, 86, 0.62);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 1rem 2rem rgba(0, 0, 0, 0.28),
+      0 0 2.3rem rgba(196, 153, 86, 0.16),
+      0 0 2.2rem rgba(124, 60, 255, 0.12);
+    transform: translateX(-5px) scale(1.03);
+  }
+
+  .institutionnel-sector .education-trust-logo img,
+  .institutionnel-sector .education-logo-row img {
+    width: 11.5rem;
+    height: 3.95rem;
+    max-width: 84%;
+    padding: 0.38rem 0.62rem;
+    border-radius: 8px;
+    background: rgba(248, 247, 252, 0.95);
+    box-shadow: 0 0.75rem 1.8rem rgba(0, 0, 0, 0.18);
+    filter: none;
+  }
+
+  .institutionnel-sector .education-logo-row span {
+    height: 5rem;
+  }
+
+  .automobile-sector .education-trust-logo img,
+  .automobile-sector .education-logo-row img {
+    width: 12.5rem;
+    height: 3.65rem;
+    max-width: 86%;
+    filter: drop-shadow(0 0 0.65rem rgba(255, 255, 255, 0.12));
+  }
+
+  .automobile-sector .education-logo-row span {
+    height: 5rem;
+  }
+
+  .retail-sector .education-trust-logo img,
+  .retail-sector .education-logo-row img {
+    width: 14.5rem;
+    height: 4.25rem;
+    max-width: 86%;
+  }
+
+  .retail-sector .education-logo-row span {
+    height: 5rem;
+  }
+
+  .gms-sector .education-trust-logo img,
+  .gms-sector .education-logo-row img,
+  .fmcg-sector .education-trust-logo img,
+  .fmcg-sector .education-logo-row img,
+  .hotellerie-sector .education-trust-logo img,
+  .hotellerie-sector .education-logo-row img {
+    width: 12.75rem;
+    height: 3.7rem;
+    max-width: 84%;
+    padding: 0.34rem 0.6rem;
+    border-radius: 8px;
+    background: rgba(246, 244, 239, 0.94);
+    box-shadow: 0 0.75rem 1.7rem rgba(0, 0, 0, 0.22);
+    filter: none;
+  }
+
+  .gms-sector .education-logo-row span,
+  .fmcg-sector .education-logo-row span,
+  .hotellerie-sector .education-logo-row span {
+    height: 5rem;
+  }
+
+  .gms-sector .education-trust-logo img,
+  .gms-sector .education-logo-row img {
+    width: 12.75rem;
+    height: 3.7rem;
+    max-width: 84%;
+    padding: 0.34rem 0.72rem;
+    border-radius: 8px;
+    background: rgba(5, 6, 10, 0.9);
+    box-shadow: 0 0.75rem 1.7rem rgba(0, 0, 0, 0.24), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    filter: drop-shadow(0 0 0.85rem rgba(255, 255, 255, 0.08));
+  }
+
+  .fmcg-sector .education-trust-logo img,
+  .fmcg-sector .education-logo-row img,
+  .hotellerie-sector .education-trust-logo img,
+  .hotellerie-sector .education-logo-row img {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .education-case-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 18.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #080a10;
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.28);
+  }
+
+  .education-case-card > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .education-case-card::after {
+    background:
+      linear-gradient(90deg, rgba(3, 4, 8, 0.36), rgba(3, 4, 8, 0.16) 48%, rgba(3, 4, 8, 0.28)),
+      linear-gradient(180deg, rgba(3, 4, 8, 0.08), rgba(3, 4, 8, 0.36));
+  }
+
+  .education-case-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    min-height: 18.5rem;
+    grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.42fr);
+    align-items: end;
+    gap: 1.1rem;
+    max-width: none;
+    padding: 1.2rem;
+  }
+
+  .education-case-main {
+    display: grid;
+    max-width: 28rem;
+    gap: 1rem;
+    align-content: end;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(10, 12, 20, 0.68), rgba(10, 12, 20, 0.38));
+    backdrop-filter: blur(10px);
+  }
+
+  .education-case-main > span {
+    color: #a985ff;
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .education-case-main h3 {
+    color: #fff;
+    font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+    line-height: 1.08;
+  }
+
+  .education-case-main p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .education-case-main .education-button {
+    width: fit-content;
+    min-height: 2.55rem;
+    padding-inline: 1rem;
+  }
+
+  .education-case-metrics {
+    display: grid;
+    gap: 0.6rem;
+    align-self: stretch;
+  }
+
+  .education-case-metrics strong {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    align-content: center;
+    gap: 0.12rem;
+    min-height: 4.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.72rem 0.8rem;
+    background: rgba(3, 4, 8, 0.46);
+    color: #fff;
+    font-family: var(--font-numeric);
+    font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+    font-weight: 900;
+    line-height: 1;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    transform: translateZ(0);
+    transition: transform 280ms cubic-bezier(.2,.8,.2,1), border-color 280ms ease, box-shadow 280ms ease, background 280ms ease;
+    will-change: transform;
+  }
+
+  .education-case-metrics strong::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(115deg, transparent 4%, rgba(255, 255, 255, 0.14) 42%, transparent 68%),
+      radial-gradient(circle at 88% 20%, rgba(154, 93, 255, 0.24), transparent 34%);
+    content: "";
+    opacity: 0;
+    transform: translateX(-22%);
+    transition: opacity 240ms ease, transform 520ms ease;
+  }
+
+  .education-case-metrics strong:hover,
+  .education-case-metrics strong:focus-within {
+    border-color: rgba(174, 112, 255, 0.74);
+    background:
+      radial-gradient(circle at 18% 20%, rgba(154, 93, 255, 0.18), transparent 52%),
+      rgba(10, 11, 18, 0.7);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.13),
+      0 1.05rem 2.2rem rgba(0, 0, 0, 0.3),
+      0 0 2.4rem rgba(124, 60, 255, 0.22);
+    transform: translateX(-6px) scale(1.035);
+  }
+
+  .education-case-metrics strong:hover::before,
+  .education-case-metrics strong:focus-within::before {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .education-case-metrics strong > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .education-case-metrics span {
+    color: rgba(255, 255, 255, 0.68);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 760;
+    line-height: 1.2;
+  }
+
+  .education-faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem 1rem;
+  }
+
+  .education-faq-grid details {
+    overflow: hidden;
+  }
+
+  .education-faq-grid summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.78rem 0.9rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 780;
+    list-style: none;
+  }
+
+  .education-faq-grid summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .education-faq-grid summary span {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border: 1px solid #9a5dff;
+    border-radius: 999px;
+    background: rgba(124, 60, 255, 0.24);
+    color: #fff;
+    font-family: var(--font-numeric);
+  }
+
+  .education-faq-grid summary i {
+    color: #9a5dff;
+    transition: transform 180ms ease;
+  }
+
+  .education-faq-grid details[open] summary i {
+    transform: rotate(180deg);
+  }
+
+  .education-faq-grid p {
+    padding: 0 0.9rem 0.9rem 3.65rem;
+  }
+
+  .education-bottom-cta {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 1.2rem;
+    align-items: center;
+    padding: 1.15rem;
+  }
+
+  .education-bottom-cta > i {
+    display: grid;
+    width: 4.2rem;
+    height: 4.2rem;
+    place-items: center;
+    border: 1px solid #9a5dff;
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.12);
+  }
+
+  .education-bottom-cta > i::before {
+    width: 2.05rem;
+    height: 2.05rem;
+    content: "";
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20256%20256'%3E%3Cpath%20d='M223.7%2030.3a8%208%200%200%200-8-2.1L136.3%2051a8%208%200%200%200-5%204.1l-35.7%2062.4-58.7%2023.5a8%208%200%200%200-2.7%2013.1l67.7%2067.7a8%208%200%200%200%2013.1-2.7l23.5-58.7%2062.4-35.7a8%208%200%200%200%204.1-5l22.8-79.4a8%208%200%200%200-2.1-8.1ZM190.1%20112.3l-57.4%2032.8a8%208%200%200%200-3.5%204l-20.1%2050.4-52.6-52.6%2050.4-20.1a8%208%200%200%200%204-3.5l32.8-57.4%2065.6-18.8-18.8%2065.2ZM88%2072a8%208%200%200%201-8%208H56v24a8%208%200%200%201-16%200V80H16a8%208%200%200%201%200-16h24V40a8%208%200%200%201%2016%200v24h24a8%208%200%200%201%208%208Zm56%20128a8%208%200%200%201-8%208h-16v16a8%208%200%200%201-16%200v-16H88a8%208%200%200%201%200-16h16v-16a8%208%200%200%201%2016%200v16h16a8%208%200%200%201%208%208Z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20256%20256'%3E%3Cpath%20d='M223.7%2030.3a8%208%200%200%200-8-2.1L136.3%2051a8%208%200%200%200-5%204.1l-35.7%2062.4-58.7%2023.5a8%208%200%200%200-2.7%2013.1l67.7%2067.7a8%208%200%200%200%2013.1-2.7l23.5-58.7%2062.4-35.7a8%208%200%200%200%204.1-5l22.8-79.4a8%208%200%200%200-2.1-8.1ZM190.1%20112.3l-57.4%2032.8a8%208%200%200%200-3.5%204l-20.1%2050.4-52.6-52.6%2050.4-20.1a8%208%200%200%200%204-3.5l32.8-57.4%2065.6-18.8-18.8%2065.2ZM88%2072a8%208%200%200%201-8%208H56v24a8%208%200%200%201-16%200V80H16a8%208%200%200%201%200-16h24V40a8%208%200%200%201%2016%200v24h24a8%208%200%200%201%208%208Zm56%20128a8%208%200%200%201-8%208h-16v16a8%208%200%200%201-16%200v-16H88a8%208%200%200%201%200-16h16v-16a8%208%200%200%201%2016%200v16h16a8%208%200%200%201%208%208Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  .education-bottom-cta > div {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  @media (max-width: 760px) {
+    .sector-detail-links {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 980px) {
+    .education-hero,
+    .education-method-layout,
+    .education-trust-case,
+    .education-bottom-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .education-challenge-grid,
+    .education-campaign-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .education-method-layout {
+      align-items: stretch;
+    }
+
+    .education-case-content {
+      grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.36fr);
+    }
+  }
+
+  @media (max-width: 620px) {
+    .education-sector {
+      gap: 2.4rem;
+    }
+
+    .education-hero {
+      gap: 1.4rem;
+    }
+
+    .education-hero h1 {
+      max-width: 12ch;
+      font-size: clamp(2.2rem, 12.8vw, 3.35rem);
+    }
+
+    .education-actions,
+    .education-button,
+    .education-bottom-cta .education-button {
+      width: 100%;
+    }
+
+    .education-hero-visual {
+      min-height: 25rem;
+    }
+
+    .education-trust-panel {
+      top: auto;
+      right: 0.8rem;
+      bottom: 0.8rem;
+      left: 0.8rem;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      width: auto;
+      gap: 0.55rem;
+      padding: 0.85rem;
+    }
+
+    .education-trust-heading {
+      align-items: center;
+    }
+
+    .education-trust-heading strong {
+      font-size: 1.75rem;
+    }
+
+    .education-trust-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(2, 2.95rem);
+      gap: 0.4rem;
+    }
+
+    .education-trust-logo {
+      min-height: 0;
+    }
+
+    .education-trust-logo:first-child,
+    .education-trust-logo:nth-child(5) {
+      grid-row: auto;
+      grid-column: auto;
+    }
+
+    .education-trust-logo > span {
+      top: 0.3rem;
+      left: 0.35rem;
+      font-size: 0.45rem;
+    }
+
+    .education-trust-logo img {
+      width: 6.5rem;
+      height: 1.75rem;
+      max-width: 78%;
+    }
+
+    .retail-sector .education-trust-logo img {
+      width: 6.8rem;
+      height: 2.15rem;
+      max-width: 82%;
+    }
+
+    .immobilier-sector .education-trust-logo img {
+      width: 7.4rem;
+      height: 2.3rem;
+      max-width: 84%;
+      padding: 0.22rem 0.38rem;
+    }
+
+    .immobilier-sector .education-logo-row img {
+      width: 8.8rem;
+      height: 2.8rem;
+      max-width: 84%;
+      padding: 0.26rem 0.45rem;
+    }
+
+    .immobilier-sector .education-logo-row span {
+      height: 4.3rem;
+    }
+
+    .institutionnel-sector .education-trust-logo img {
+      width: 7rem;
+      height: 2.45rem;
+      max-width: 82%;
+      padding: 0.25rem 0.4rem;
+    }
+
+    .institutionnel-sector .education-logo-row img {
+      width: 8.5rem;
+      height: 3rem;
+      max-width: 84%;
+      padding: 0.28rem 0.45rem;
+    }
+
+    .institutionnel-sector .education-logo-row span {
+      height: 4.35rem;
+    }
+
+    .automobile-sector .education-trust-logo img {
+      width: 7.3rem;
+      height: 2.35rem;
+      max-width: 84%;
+    }
+
+    .automobile-sector .education-logo-row img {
+      width: 8.8rem;
+      height: 2.8rem;
+      max-width: 84%;
+    }
+
+    .automobile-sector .education-logo-row span {
+      height: 4.3rem;
+    }
+
+    .retail-sector .education-logo-row img {
+      width: 8.4rem;
+      height: 2.65rem;
+      max-width: 84%;
+    }
+
+    .retail-sector .education-logo-row span {
+      height: 4.25rem;
+    }
+
+    .gms-sector .education-trust-logo img,
+    .fmcg-sector .education-trust-logo img,
+    .hotellerie-sector .education-trust-logo img {
+      width: 7.4rem;
+      height: 2.3rem;
+      max-width: 84%;
+      padding: 0.22rem 0.38rem;
+    }
+
+    .gms-sector .education-logo-row img,
+    .fmcg-sector .education-logo-row img,
+    .hotellerie-sector .education-logo-row img {
+      width: 8.8rem;
+      height: 2.8rem;
+      max-width: 84%;
+      padding: 0.26rem 0.45rem;
+    }
+
+    .gms-sector .education-trust-logo img,
+    .gms-sector .education-logo-row img {
+      background: rgba(5, 6, 10, 0.9);
+      box-shadow: 0 0.7rem 1.4rem rgba(0, 0, 0, 0.24), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+      filter: drop-shadow(0 0 0.7rem rgba(255, 255, 255, 0.08));
+    }
+
+    .gms-sector .education-logo-row span,
+    .fmcg-sector .education-logo-row span,
+    .hotellerie-sector .education-logo-row span {
+      height: 4.3rem;
+    }
+
+    .education-challenge-grid,
+    .education-timeline,
+    .education-campaign-grid,
+    .education-faq-grid,
+    .education-case-content {
+      grid-template-columns: 1fr;
+    }
+
+    .education-timeline {
+      gap: 2rem;
+      padding-top: 0;
+    }
+
+    .education-timeline::before {
+      display: none;
+    }
+
+    .education-timeline article > span {
+      top: -1.65rem;
+      left: 1rem;
+      width: 2.8rem;
+      height: 2.8rem;
+      transform: none;
+    }
+
+    .education-timeline article:hover > span,
+    .education-timeline article:focus-within > span {
+      transform: scale(1.07);
+    }
+
+    .education-case-card {
+      min-height: 33rem;
+    }
+
+    .education-case-content {
+      min-height: 33rem;
+      padding: 1rem;
+    }
+
+    .education-case-main {
+      max-width: none;
+    }
+
+    .education-logo-row {
+      gap: 0.9rem;
+    }
+
+    .education-bottom-cta {
+      justify-items: stretch;
+      text-align: left;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .education-challenge-grid article,
+    .education-challenge-grid article::before,
+    .education-challenge-grid article::after,
+    .education-challenge-grid article > *,
+    .education-timeline article,
+    .education-timeline article::before,
+    .education-timeline article::after,
+    .education-timeline article > *,
+    .education-levers,
+    .education-levers::before,
+    .education-levers::after,
+    .education-levers > * {
+      transition: none;
+    }
+
+    .education-challenge-grid article:hover,
+    .education-challenge-grid article:focus-within,
+    .education-timeline article:hover,
+    .education-timeline article:focus-within,
+    .education-levers:hover,
+    .education-levers:focus-within {
+      transform: none;
+    }
+  }
+</style>

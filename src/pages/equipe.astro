@@ -4,9 +4,16 @@ import { breadcrumbs, localBusiness } from '../lib/schema';
 import { SITE } from '../consts';
 
 const assetBase = '/assets/richmedia-home/team-carousel';
+const pageDescription =
+  'Découvrez l’équipe Richmedia à Casablanca : stratégie, création, média, développement, gestion de projet et production au service d’une croissance digitale mesurable.';
 
 const schema = [
-  localBusiness(),
+  {
+    ...localBusiness(),
+    url: `${SITE.url}/equipe`,
+    description: pageDescription,
+    inLanguage: 'fr',
+  },
   breadcrumbs([
     { name: 'Accueil', url: SITE.url },
     { name: 'Équipe', url: `${SITE.url}/equipe` },
@@ -17,73 +24,78 @@ const founder = {
   image: `${assetBase}/salah.webp`,
   name: 'Salah-Eddine Mimouni',
   role: 'CEO & CTO',
-  intro: "Après plusieurs années d’expérience dans le digital, Richmedia s’est construite autour d’une conviction simple : réunir la stratégie, la créativité et la technologie dans une même équipe.",
+  intro: 'Après des années d’expérience dans le digital, Richmedia s’est construite autour d’une conviction : stratégie, création et technologie avancent mieux dans une même équipe.',
   facts: [
-    'Doctorat en systèmes d’information',
+    'Docteur en systèmes d’information',
     'Plus de 15 ans d’expérience',
     'Plus de 90 plateformes digitales dirigées',
     'Plus de 1 600 développeurs formés',
     'Certifié sur plus de 20 plateformes internationales',
-    'Cofondateur de Richmedia',
+    'Co-fondateur de Richmedia',
   ],
 };
 
 const team = [
   { image: 'salah.webp', name: 'Salah-Eddine Mimouni', role: 'CEO & CTO', group: 'Direction' },
-  { image: 'amal.webp', name: 'Amal Amazouz', role: 'CEO & CDO', group: 'Direction' },
-  { image: 'tarik.webp', name: 'Tarik El Abbadi', role: 'Directeur communication & événementiel', group: 'Direction' },
+  { image: 'amal.webp', name: 'Amal Amazouz', role: 'COO & CDO', group: 'Direction' },
+  { image: 'tarik.webp', name: 'Tarik El Abbadi', role: 'Directeur Communication & Event', group: 'Direction' },
   { image: 'elhoussine-bw.webp', name: 'Elhoussine Essmami', role: 'Planneur stratégique', group: 'Stratégie' },
   { image: 'ikram-bw.webp', name: 'Ikram Dehiri', role: 'Responsable de compte senior', group: 'Gestion de compte' },
+  { image: 'oussama.webp', name: 'Oussama TAHTAH', role: 'Senior Account Manager', group: 'Gestion de compte' },
+  { image: 'oumaima-lassri.webp', name: 'Oumaima LASSRI', role: 'Senior Account Manager', group: 'Gestion de compte' },
+  { image: 'halima-felloui.webp', name: 'FELLIOUI Halima', role: 'Account Manager', group: 'Gestion de compte' },
+  { image: 'soukaina-sammouni.webp', name: 'Soukaina SAMMOUNI', role: 'Account Manager', group: 'Gestion de compte' },
   { image: 'zouhair-bw.webp', name: 'Zouhair Lyzouli', role: 'Développeur full stack senior', group: 'Développement' },
   { image: 'zakaria.webp', name: 'Zakaria Mouchtati', role: 'Développeur full stack senior', group: 'Développement' },
-  { image: 'wafaa.webp', name: 'Wafaa Lamsabni', role: 'Cheffe de projet', group: 'Gestion de projet' },
+  { image: 'wafaa.webp', name: 'Wafaa Lamsabni', role: 'Chef de projet', group: 'Gestion de projet' },
   { image: 'yassine.webp', name: 'Mohamed Yassine Dargal', role: 'Chef de projet', group: 'Gestion de projet' },
   { image: 'ayoub.webp', name: 'Ayoub Es-Samlali', role: 'Chef de projet', group: 'Gestion de projet' },
-  { image: 'yassmine.webp', name: 'Yassmine Boudial', role: 'Cheffe de projet', group: 'Gestion de projet' },
-  { image: 'safwane.webp', name: 'Safwane Moustaine', role: 'Traffic manager', group: 'Marketing' },
+  { image: 'yassmine.webp', name: 'Yassmine Boudial', role: 'Chef de projet', group: 'Gestion de projet' },
+  { image: 'safwane.webp', name: 'Safwane Moustaine', role: 'Responsable trafic', group: 'Marketing' },
   { image: 'rachid.webp', name: 'Rachid Hlalma', role: 'Directeur artistique', group: 'Création' },
-  { image: 'abdelkader.webp', name: 'Abdelkader El Bouhaddouti', role: 'Finaliste graphique', group: 'Design' },
-  { image: 'youssef.webp', name: 'Youssef Amazouz', role: 'Finaliste graphique', group: 'Design' },
-  { image: 'wail.webp', name: 'Wail El Asri', role: 'Finaliste graphique', group: 'Design' },
+  { image: 'abdelkader.webp', name: 'Abdelkader El Bouhaddouti', role: 'Graphiste finaliste', group: 'Design' },
+  { image: 'youssef.webp', name: 'Youssef Amazouz', role: 'Graphiste finaliste', group: 'Design' },
+  { image: 'wail.webp', name: 'Wail El Asri', role: 'Graphiste finaliste', group: 'Design' },
   { image: 'marwane.webp', name: 'Marwane Jouay', role: 'Réalisateur & monteur vidéo', group: 'Production' },
 ];
 
 const teamLoop = [...team, ...team];
 
 const poles = [
-  { label: '01', title: 'Stratégie', text: 'Positionnement, planning, architecture de campagne et vision business.' },
+  { label: '01', title: 'Stratégie', text: 'Positionnement, cadrage, architecture de campagne et vision business.' },
   { label: '02', title: 'Création', text: 'Direction artistique, design, vidéo, brand content et storytelling.' },
   { label: '03', title: 'Performance', text: 'Achat média, tracking, CRM, génération de leads et optimisation continue.' },
-  { label: '04', title: 'Technologie', text: 'Développement web, plateformes, automation, IA et systèmes connectés.' },
+  { label: '04', title: 'Technologie', text: 'Développement web, plateformes, automatisation, IA et systèmes connectés.' },
 ];
 
 const stats = [
-  { value: '17', label: 'profils intégrés' },
-  { value: '8', label: 'pôles métiers' },
+  { value: '19', label: 'profils intégrés' },
+  { value: '8', label: 'unités spécialisées' },
   { value: '+156', label: 'projets réalisés' },
   { value: '4', label: 'bureaux connectés' },
 ];
 
 const quickLinks = [
-  { href: '#team-proof', label: 'Preuves', value: '17 profils' },
+  { href: '#team-proof', label: 'Preuve', value: '19 profils' },
   { href: '#team-poles', label: 'Pôles', value: '4 axes' },
   { href: '#hall-of-fame', label: 'Équipe', value: String(team.length) },
-  { href: '#team-contact', label: 'Contact', value: 'Brief' },
+  { href: '#team-contact', label: 'Contact', value: 'Échange' },
 ];
 ---
 <BaseLayout
   title="Équipe Richmedia — Stratégie, création, média et technologie"
-  description="Découvrez l’équipe Richmedia : direction, stratégie, gestion de compte, développement, gestion de projet, marketing, design, création et production."
+  description={pageDescription}
+  canonical={`${SITE.url}/equipe`}
   schema={schema}
 >
   <div class="team-page">
     <section class="team-hero" aria-labelledby="team-title">
       <div class="team-hero-copy">
-        <span class="section-kicker">Dream Team</span>
-        <h1 id="team-title">Une équipe senior pour faire avancer les marques.</h1>
+        <span class="section-kicker">Équipe Richmedia</span>
+        <h1 id="team-title">Une équipe senior pensée pour faire avancer les marques.</h1>
         <p>
-          Richmedia rassemble des profils stratégie, création, média, technologie et production pour transformer les
-          idées en campagnes utiles, visibles et mesurables.
+          Richmedia réunit stratégie, création, média, technologie et production pour transformer les idées
+          en campagnes utiles, visibles et mesurables.
         </p>
         <div class="team-actions">
           <a class="button button-primary" href="#hall-of-fame">
@@ -102,7 +114,7 @@ const quickLinks = [
           <img src={founder.image} alt={founder.name} loading="eager" decoding="async" />
         </div>
         <div class="founder-copy">
-          <span>Rencontre avec le fondateur</span>
+          <span>Rencontrer le fondateur</span>
           <h2>{founder.name}</h2>
           <strong>{founder.role}</strong>
           <p>{founder.intro}</p>
@@ -113,7 +125,7 @@ const quickLinks = [
       </div>
     </section>
 
-    <nav class="mobile-page-nav" aria-label="Navigation de la page Équipe">
+    <nav class="mobile-page-nav" aria-label="Navigation de la page équipe">
       {quickLinks.map((link) => (
         <a href={link.href}>
           <span>{link.label}</span>
@@ -122,7 +134,7 @@ const quickLinks = [
       ))}
     </nav>
 
-    <section class="team-stats" id="team-proof" aria-label="Chiffres équipe">
+    <section class="team-stats" id="team-proof" aria-label="Chiffres clés de l’équipe">
       {stats.map((stat) => (
         <article>
           <strong>{stat.value}</strong>
@@ -131,7 +143,7 @@ const quickLinks = [
       ))}
     </section>
 
-    <section class="team-marquee" id="team-portraits" aria-label="Portraits de l'équipe">
+    <section class="team-marquee" id="team-portraits" aria-label="Portraits de l’équipe Richmedia">
       <div class="marquee-row marquee-row-forward">
         {teamLoop.map((member) => (
           <figure>
@@ -174,7 +186,7 @@ const quickLinks = [
 
     <section class="hall-section" id="hall-of-fame" aria-labelledby="hall-title">
       <div class="hall-head">
-        <span class="section-kicker">Équipe</span>
+        <span class="section-kicker">Profils équipe</span>
         <h2 id="hall-title">Tous les profils Richmedia</h2>
       </div>
 
@@ -196,7 +208,7 @@ const quickLinks = [
 
     <section class="team-closing" id="team-contact" aria-labelledby="closing-title">
       <div>
-        <span class="section-kicker">Prêts à accélérer ?</span>
+        <span class="section-kicker">Prêt à accélérer ?</span>
         <h2 id="closing-title">La bonne équipe change la vitesse d’un projet.</h2>
       </div>
       <a class="button button-primary" href="/contact">
@@ -295,7 +307,7 @@ const quickLinks = [
   .team-hero h1 {
     max-width: 720px;
     margin: 1.25rem 0 0;
-    --h1-size: clamp(2rem, 3.2vw, 3.65rem);
+    --h1-size: clamp(2rem, 3vw, 3.125rem);
     font-weight: 800;
     letter-spacing: 0;
     line-height: 1.02;
@@ -570,7 +582,7 @@ const quickLinks = [
   .hall-section h2,
   .team-closing h2 {
     margin: 1rem 0 0;
-    --h2-size: clamp(2.2rem, 4.5vw, 4.2rem);
+    --h2-size: clamp(2rem, 3vw, 2.5rem);
     font-size: var(--h2-size);
     font-weight: 800;
     line-height: 0.96;

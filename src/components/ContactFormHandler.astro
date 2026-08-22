@@ -1,0 +1,65 @@
+<script is:inline>
+  (() => {
+    const forms = document.querySelectorAll('form[data-contact-form]');
+    if (!forms.length) return;
+
+    const setStatus = (form, state, message) => {
+      const status = form.querySelector('[data-form-status]');
+      if (!status) return;
+      status.textContent = message;
+      status.dataset.state = state;
+    };
+
+    forms.forEach((form) => {
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const submit = form.querySelector('button[type="submit"]');
+        const sendingMessage = form.dataset.sendingMessage || 'Envoi en cours...';
+        const successMessage = form.dataset.successMessage || 'Votre demande a bien ete envoyee.';
+        const errorMessage =
+          form.dataset.errorMessage || "L'envoi n'a pas abouti. Merci de nous contacter directement.";
+
+        const body = new URLSearchParams();
+        new FormData(form).forEach((value, key) => {
+          body.append(key, String(value));
+        });
+        body.set('_page', window.location.href);
+
+        form.classList.add('is-submitting');
+        if (submit) {
+          submit.disabled = true;
+          submit.setAttribute('aria-busy', 'true');
+        }
+        setStatus(form, 'loading', sendingMessage);
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            },
+            body,
+          });
+          const result = await response.json().catch(() => ({}));
+
+          if (!response.ok || result.ok === false) {
+            throw new Error(result.message || errorMessage);
+          }
+
+          form.reset();
+          setStatus(form, 'success', result.message || successMessage);
+        } catch (error) {
+          setStatus(form, 'error', error.message || errorMessage);
+        } finally {
+          form.classList.remove('is-submitting');
+          if (submit) {
+            submit.disabled = false;
+            submit.removeAttribute('aria-busy');
+          }
+        }
+      });
+    });
+  })();
+</script>

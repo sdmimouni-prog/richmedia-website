@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
+import ParticleLogoSlide from '../../components/ParticleLogoSlide.astro';
 import { SITE } from '../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
+import { frSiloLinks } from '../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-digital-strategy';
 const logoBase = `${assetBase}/logos`;
@@ -423,186 +426,20 @@ const mobileQuickLinks = [
         </div>
       </div>
       <div class="cta-particle-panel" aria-hidden="true">
-        <canvas class="cta-particle-slider" data-strategy-cta-particles></canvas>
+        <ParticleLogoSlide />
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Continuer le parcours stratégie"
+    intro="Après le cadrage, les leviers média, SEO et automation structurent la croissance dans la durée."
+    links={frSiloLinks.strategy}
+    variant="compact"
+  />
 </BaseLayout>
 
 <script>
-  type StrategyParticle = {
-    u: number;
-    band: number;
-    size: number;
-    alpha: number;
-    vx: number;
-    vy: number;
-    drift: number;
-    x: number;
-    y: number;
-  };
-
-  type StrategyPoint = {
-    x: number;
-    y: number;
-  };
-
-  const ctaParticleCanvases = document.querySelectorAll('[data-strategy-cta-particles]');
-
-  ctaParticleCanvases.forEach((canvas) => {
-    if (!(canvas instanceof HTMLCanvasElement) || canvas.dataset.ready === 'true') return;
-    canvas.dataset.ready = 'true';
-
-    const context = canvas.getContext('2d');
-    if (!context) return;
-
-    const tau = Math.PI * 2;
-    const particles: StrategyParticle[] = [];
-    let width = 1;
-    let height = 1;
-    let ratio = 1;
-    let pose = 1.4;
-    let targetPose = 1.4;
-    let pointerX = 0;
-    let pointerY = 0;
-    let pointerActive = false;
-    let lastInteraction = 0;
-
-    const pointFor = (particle: StrategyParticle, step: number): StrategyPoint => {
-      const u = particle.u;
-      const band = particle.band;
-      const side = band - 0.5;
-
-      if (step === 0) {
-        const angle = (u * tau) + Math.PI * 0.25;
-        return {
-          x: 0.48 + Math.sin(angle) * (0.2 + band * 0.12),
-          y: 0.5 + Math.sin(angle * 2) * 0.2 + side * 0.15,
-        };
-      }
-
-      if (step === 1) {
-        const spread = (1 - u) * 0.55;
-        return {
-          x: 0.24 + u * 0.54 + Math.sin(u * tau * 2) * spread * side,
-          y: 0.18 + u * 0.66 + side * spread,
-        };
-      }
-
-      if (step === 2) {
-        const angle = u * tau;
-        return {
-          x: 0.5 + Math.cos(angle) * (0.18 + band * 0.22),
-          y: 0.5 + Math.sin(angle) * (0.12 + band * 0.16),
-        };
-      }
-
-      const x = 0.16 + u * 0.68;
-      const y = 0.72 - Math.pow(u, 1.35) * 0.48 + Math.sin(u * tau * 3) * 0.035;
-      return { x: x + side * 0.05, y: y + side * 0.12 };
-    };
-
-    const shapePoint = (particle: StrategyParticle, currentPose: number): StrategyPoint => {
-      const lower = Math.floor(currentPose);
-      const upper = Math.min(3, lower + 1);
-      const mix = currentPose - lower;
-      const from = pointFor(particle, lower);
-      const to = pointFor(particle, upper);
-
-      return {
-        x: (from.x + (to.x - from.x) * mix) * width,
-        y: (from.y + (to.y - from.y) * mix) * height,
-      };
-    };
-
-    const reset = () => {
-      const bounds = canvas.getBoundingClientRect();
-      ratio = Math.min(window.devicePixelRatio || 1, 2);
-      width = Math.max(1, bounds.width);
-      height = Math.max(1, bounds.height);
-      canvas.width = Math.floor(width * ratio);
-      canvas.height = Math.floor(height * ratio);
-      context.setTransform(ratio, 0, 0, ratio, 0, 0);
-
-      const count = Math.max(360, Math.min(980, Math.floor((width * height) / 520)));
-      particles.length = 0;
-      for (let index = 0; index < count; index += 1) {
-        const particle: StrategyParticle = {
-          u: (index / count + Math.random() * 0.025) % 1,
-          band: Math.random(),
-          size: Math.random() > 0.78 ? 2 : 1.25,
-          alpha: 0.48 + Math.random() * 0.44,
-          vx: 0,
-          vy: 0,
-          drift: Math.random(),
-          x: 0,
-          y: 0,
-        };
-        const origin = shapePoint(particle, pose);
-        particle.x = origin.x;
-        particle.y = origin.y;
-        particles.push(particle);
-      }
-    };
-
-    const move = (event: PointerEvent) => {
-      const bounds = canvas.getBoundingClientRect();
-      pointerX = event.clientX - bounds.left;
-      pointerY = event.clientY - bounds.top;
-      pointerActive = true;
-      lastInteraction = performance.now();
-      targetPose = Math.max(0, Math.min(3, (pointerX / bounds.width) * 3));
-    };
-
-    const leave = () => {
-      pointerActive = false;
-    };
-
-    const draw = (time: number) => {
-      context.clearRect(0, 0, width, height);
-      pose += (targetPose - pose) * 0.055;
-      const activeMotion = pointerActive || time - lastInteraction < 900;
-
-      const gradient = context.createRadialGradient(width * 0.5, height * 0.5, 0, width * 0.5, height * 0.5, Math.max(width, height) * 0.5);
-      gradient.addColorStop(0, 'rgba(124, 60, 255, 0.18)');
-      gradient.addColorStop(1, 'rgba(124, 60, 255, 0)');
-      context.fillStyle = gradient;
-      context.fillRect(0, 0, width, height);
-
-      for (const particle of particles) {
-        const target = shapePoint(particle, pose);
-        particle.vx = (particle.vx + (target.x - particle.x) * 0.04) * 0.76;
-        particle.vy = (particle.vy + (target.y - particle.y) * 0.04) * 0.76;
-
-        if (pointerActive) {
-          const dx = particle.x - pointerX;
-          const dy = particle.y - pointerY;
-          const distance = Math.hypot(dx, dy) || 1;
-          if (distance < 110) {
-            const force = (1 - distance / 110) * 1.55;
-            particle.vx += (dx / distance) * force;
-            particle.vy += (dy / distance) * force;
-          }
-        }
-
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        const pulse = activeMotion ? 0.75 + Math.sin(time * 0.005 + particle.drift * 8) * 0.25 : 0.88;
-        context.fillStyle = `rgba(150, 91, 255, ${particle.alpha * pulse})`;
-        context.fillRect(particle.x, particle.y, particle.size, particle.size);
-      }
-
-      requestAnimationFrame(draw);
-    };
-
-    reset();
-    new ResizeObserver(reset).observe(canvas);
-    canvas.addEventListener('pointermove', move);
-    canvas.addEventListener('pointerleave', leave);
-    requestAnimationFrame(draw);
-  });
-
   const strategyVisuals = document.querySelectorAll('[data-strategy-visual]');
 
   strategyVisuals.forEach((visual) => {
@@ -1679,11 +1516,12 @@ const mobileQuickLinks = [
   }
 
   .cta-particle-panel {
+    position: relative;
     min-height: clamp(190px, 20vw, 280px);
     overflow: hidden;
     border: 0;
     border-radius: 0;
-    background: transparent;
+    background: #000;
     box-shadow: none;
   }
 
@@ -1691,12 +1529,15 @@ const mobileQuickLinks = [
     content: none;
   }
 
-  .cta-particle-slider {
+  .cta-particle-panel :global(.particle-logo-slide) {
     position: absolute;
     inset: 0;
-    z-index: 1;
     width: 100%;
     height: 100%;
+  }
+
+  .cta-particle-panel :global(.particle-logo-slide__hint) {
+    display: none;
   }
 
   .cta-particle-copy {

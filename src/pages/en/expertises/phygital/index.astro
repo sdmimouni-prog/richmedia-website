@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../../../components/SeoSiloLinks.astro';
 import { SITE } from '../../../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../../../lib/schema';
+import { enSiloLinks } from '../../../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-phygital';
 const logoBase = '/assets/richmedia-digital-strategy/logos';
@@ -591,6 +593,13 @@ const mobileQuickLinks = [
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Connect field, media and CRM"
+    intro="Phygital activations perform when they connect traffic, points of sale, QR, WhatsApp and measurement."
+    links={enSiloLinks.phygital}
+    variant="compact"
+  />
 </BaseLayout>
 
 <style>

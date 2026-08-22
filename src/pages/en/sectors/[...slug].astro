@@ -1,0 +1,956 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../../components/SeoSiloLinks.astro';
+import QuickAnswer from '../../../components/QuickAnswer.astro';
+import Faq from '../../../components/Faq.astro';
+import { breadcrumbs, serviceSchema } from '../../../lib/schema';
+import { enSiloLinks, sectorSiloLinksEn } from '../../../lib/seo-silos';
+import { SITE } from '../../../consts';
+
+type Card = {
+  title: string;
+  text: string;
+  icon: string;
+  image?: string;
+};
+
+type MethodStep = {
+  title: string;
+  bullets: string[];
+  icon: string;
+};
+
+type FaqItem = {
+  question: string;
+  answer: string;
+};
+
+type SectorPage = {
+  slug: string;
+  fr: string;
+  label: string;
+  title: string;
+  h1: string;
+  description: string;
+  quick: string;
+  heroImage: string;
+  caseImage: string;
+  clients: string[];
+  challenges: Card[];
+  methodTitle: string;
+  method: MethodStep[];
+  levers: string[];
+  campaigns: Card[];
+  caseTitle: string;
+  caseText: string;
+  cta: string;
+  faq: FaqItem[];
+};
+
+export function getStaticPaths() {
+  const sectorPages: SectorPage[] = [
+  {
+    slug: 'education',
+    fr: '/secteurs/education',
+    label: 'Education',
+    title: 'Education digital marketing in Morocco',
+    h1: 'Digital marketing for schools, universities and training organizations.',
+    description: 'Richmedia supports schools, universities and training organizations with admissions, qualified lead generation, landing pages, WhatsApp, SEO/GEO, media campaigns and enrollment reporting.',
+    quick: 'Richmedia helps education organizations attract qualified candidates, improve enrollment campaigns and convert requests into admissions through strategy, media, landing pages, WhatsApp, content, tracking and continuous optimization.',
+    heroImage: '/assets/richmedia-sector-education/education-hero-campus.webp',
+    caseImage: '/assets/richmedia-sector-education/campaigns/notoriete-institutionnelle.webp',
+    clients: ['UIR', 'HEM', 'TBS Education', 'Euromed', 'UPM'],
+    challenges: [
+      { title: 'Clarify the program offer', text: 'Make degrees, outcomes and admission paths easier to compare and understand.', icon: 'ph-graduation-cap' },
+      { title: 'Generate qualified applications', text: 'Capture student and parent demand during key enrollment periods.', icon: 'ph-user-plus' },
+      { title: 'Improve lead quality', text: 'Track sources, programs and real admission quality beyond raw lead volume.', icon: 'ph-funnel' },
+      { title: 'Reassure families', text: 'Create proof content that addresses trust, employability, campus life and support.', icon: 'ph-heart' },
+      { title: 'Manage admissions peaks', text: 'Coordinate media, landing pages, CRM and WhatsApp during short decision windows.', icon: 'ph-calendar-check' },
+      { title: 'Measure enrollment performance', text: 'Connect spend, campaigns, leads, follow-up and admissions outcomes.', icon: 'ph-chart-line-up' },
+    ],
+    methodTitle: 'Our method for education growth',
+    method: [
+      { title: 'Structure the offer', bullets: ['Program messages', 'Proof content', 'Audience segmentation'], icon: 'ph-list-checks' },
+      { title: 'Capture demand', bullets: ['Search and social media', 'Dedicated landing pages', 'Fast mobile journeys'], icon: 'ph-target' },
+      { title: 'Qualify and follow up', bullets: ['Forms by program', 'WhatsApp and CRM', 'Admissions team handoff'], icon: 'ph-chat-circle-text' },
+      { title: 'Optimize admissions', bullets: ['CPL and quality tracking', 'Program-level reporting', 'Learning from each intake'], icon: 'ph-gauge' },
+    ],
+    levers: ['Admissions campaigns', 'Open days', 'Entrance exams', 'Bachelor and Master programs', 'Executive education', 'Institutional awareness'],
+    campaigns: [
+      { title: 'Enrollment campaigns', text: 'Generate candidates during admission periods with clear offers and tracked sources.', icon: 'ph-megaphone', image: '/assets/richmedia-sector-education/campaigns/campaign-inscriptions.webp' },
+      { title: 'Open days', text: 'Drive registrations for campus visits and information sessions.', icon: 'ph-buildings', image: '/assets/richmedia-sector-education/campaigns/journees-portes-ouvertes.webp' },
+      { title: 'Entrance exams', text: 'Promote exams, deadlines and application paths without losing intent.', icon: 'ph-exam', image: '/assets/richmedia-sector-education/campaigns/concours-admissions.webp' },
+      { title: 'Bachelor and Master programs', text: 'Segment campaigns by audience, level, city and career aspiration.', icon: 'ph-student', image: '/assets/richmedia-sector-education/campaigns/programmes-bachelor-master.webp' },
+      { title: 'Executive education', text: 'Address working professionals with credibility, timing and business outcomes.', icon: 'ph-briefcase', image: '/assets/richmedia-sector-education/campaigns/formation-continue-executive.webp' },
+      { title: 'Institutional awareness', text: 'Strengthen reputation, campus preference and long-term demand.', icon: 'ph-seal-check', image: '/assets/richmedia-sector-education/campaigns/notoriete-institutionnelle.webp' },
+    ],
+    caseTitle: 'A sector where quality matters as much as lead volume',
+    caseText: 'The education journey involves students, parents, alumni, prescribers and internal teams. Richmedia connects awareness, admissions campaigns, proof content, CRM follow-up and performance reporting.',
+    cta: 'Ready to boost your next admissions campaign',
+    faq: [
+      { question: 'How can a school or university generate qualified leads?', answer: 'Qualified education lead generation combines media targeting, program-specific messages, fast landing pages, adapted forms, WhatsApp or CRM follow-up and quality tracking through to enrollment.' },
+      { question: 'Which channels work for student enrollment campaigns?', answer: 'Google Search captures active intent, Meta and TikTok create demand, YouTube and display build awareness, retargeting brings back hesitant users, and WhatsApp or email supports the candidate journey.' },
+      { question: 'Why use dedicated landing pages for admissions?', answer: 'A dedicated landing page clarifies the offer, reassures families, reduces form friction and measures sources, requested programs and cost per lead or application precisely.' },
+      { question: 'How is education campaign performance measured?', answer: 'Performance is measured through lead volume, qualification rate, cost per lead, call-back rate, application rate, enrollment rate, channel contribution and the real quality of contacts sent to admissions teams.' },
+      { question: 'Does Richmedia only support universities?', answer: 'No. Richmedia also supports private schools, business schools, training centers, executive education programs, specialized schools and EdTech actors.' },
+    ],
+  },
+  {
+    slug: 'real-estate',
+    fr: '/secteurs/immobilier',
+    label: 'Real estate',
+    title: 'Real estate digital marketing in Morocco',
+    h1: 'Digital marketing for developers, residential programs and real estate projects.',
+    description: 'Richmedia helps real estate developers launch projects, generate qualified leads, build local SEO/GEO visibility, create proof content, manage WhatsApp and CRM follow-up, and turn interest into sales appointments.',
+    quick: 'Richmedia supports developers, residential programs and real estate projects with launches, qualified lead generation, local SEO/GEO, landing pages, proof content, WhatsApp, CRM, tracking and follow-up.',
+    heroImage: '/assets/richmedia-sector-immobilier/hero-real-estate-premium.webp',
+    caseImage: '/assets/richmedia-sector-immobilier/case-residential-full-funnel.webp',
+    clients: ['ADDOHA', 'Excelia', 'Prestigia', 'Lazrek Immobilier', 'Al Omrane'],
+    challenges: [
+      { title: 'Build project credibility', text: 'Make the location, promise, standing and developer reputation clear from the first interaction.', icon: 'ph-buildings' },
+      { title: 'Generate qualified leads', text: 'Segment by city, budget, property type and buying intent.', icon: 'ph-funnel' },
+      { title: 'Turn interest into appointments', text: 'Reduce friction between discovery, information request, WhatsApp and sales follow-up.', icon: 'ph-calendar-plus' },
+      { title: 'Show proof visually', text: 'Highlight plans, amenities, location, renders, benefits and trust signals.', icon: 'ph-image' },
+      { title: 'Track commercial quality', text: 'Measure which sources generate real appointments, visits and pipeline contribution.', icon: 'ph-chart-bar' },
+      { title: 'Improve local visibility', text: 'Capture searches by city, district, property type and project intent.', icon: 'ph-map-pin' },
+    ],
+    methodTitle: 'Our method to turn attention into appointments',
+    method: [
+      { title: 'Stage the project', bullets: ['Positioning and proof', 'Visual content', 'Landing page structure'], icon: 'ph-pencil-ruler' },
+      { title: 'Capture intent', bullets: ['Meta and Google Ads', 'Local SEO real estate', 'Retargeting'], icon: 'ph-crosshair' },
+      { title: 'Qualify demand', bullets: ['Budget and typology fields', 'WhatsApp routing', 'CRM tracking'], icon: 'ph-database' },
+      { title: 'Support sales', bullets: ['Appointment reporting', 'Source quality', 'Follow-up scenarios'], icon: 'ph-handshake' },
+    ],
+    levers: ['Project launches', 'Lead generation', 'Appointment booking', 'Developer awareness', 'Local real estate SEO', 'CRM and WhatsApp follow-up'],
+    campaigns: [
+      { title: 'Project launches', text: 'Create visibility and desirability for new residential or mixed-use programs.', icon: 'ph-rocket-launch', image: '/assets/richmedia-sector-immobilier/campaigns/lancement-projet.webp' },
+      { title: 'Lead generation', text: 'Capture qualified requests by budget, typology and intent.', icon: 'ph-user-plus', image: '/assets/richmedia-sector-immobilier/campaigns/generation-leads.webp' },
+      { title: 'Appointment booking', text: 'Move prospects from interest to visit, call or sales appointment.', icon: 'ph-calendar-check', image: '/assets/richmedia-sector-immobilier/campaigns/prise-rendez-vous.webp' },
+      { title: 'Developer awareness', text: 'Strengthen trust before prospects leave their contact details.', icon: 'ph-seal-check', image: '/assets/richmedia-sector-immobilier/campaigns/notoriete-promoteur.webp' },
+      { title: 'Local real estate SEO', text: 'Improve visibility on searches by city, neighborhood and property type.', icon: 'ph-magnifying-glass', image: '/assets/richmedia-sector-immobilier/campaigns/seo-local-immobilier.webp' },
+      { title: 'CRM and WhatsApp follow-up', text: 'Keep warm prospects moving with adapted messages and commercial handoff.', icon: 'ph-chat-circle-dots', image: '/assets/richmedia-sector-immobilier/campaigns/relances-crm-whatsapp.webp' },
+    ],
+    caseTitle: 'A market where trust comes before contact',
+    caseText: 'Real estate prospects compare, return several times and need proof before sharing their details. Richmedia connects branding, media, content, landing pages, forms, WhatsApp and commercial reporting.',
+    cta: 'Ready to build a real estate lead system',
+    faq: [
+      { question: 'How can a real estate project generate qualified leads?', answer: 'Qualified real estate lead generation combines targeting by city, budget and intent, dedicated landing pages, proof content, adapted forms, WhatsApp, CRM and quality tracking through to sales appointments.' },
+      { question: 'Which channels work for a real estate program?', answer: 'Google Search captures buying intent, Meta and TikTok create demand, display and video build awareness, local SEO captures city or district searches, and WhatsApp makes contact easier.' },
+      { question: 'Why create a dedicated landing page for a real estate project?', answer: 'A dedicated page clearly presents location, typologies, amenities, visuals, trust arguments and contact options. It improves conversion and identifies the sources generating the best prospects.' },
+      { question: 'How is real estate campaign performance measured?', answer: 'Performance is measured with lead volume, qualified cost per lead, calls, WhatsApp messages, appointments, visits, sales quality, call-back rate, conversion by channel and contribution to pipeline.' },
+      { question: 'Can Richmedia support developers across multiple cities?', answer: 'Yes. Campaigns can be structured by city, catchment area, program, typology and budget level to adapt messages, budgets and follow-up to local realities.' },
+    ],
+  },
+  {
+    slug: 'retail-ecommerce',
+    fr: '/secteurs/retail-ecommerce',
+    label: 'Retail & e-commerce',
+    title: 'Retail and e-commerce digital marketing in Morocco',
+    h1: 'Digital marketing for retail, marketplaces and connected commerce.',
+    description: 'Richmedia helps retail and e-commerce brands generate qualified traffic, activate commercial peaks, improve conversion and retain customers through paid media, social commerce, local SEO, WhatsApp, CRM and tracking.',
+    quick: 'Richmedia helps retail, e-commerce brands and connected commerce players generate qualified traffic, activate commercial peaks, improve conversion and retain customers through paid media, social commerce, local SEO, WhatsApp, CRM and tracking.',
+    heroImage: '/assets/richmedia-sector-retail/case-moul-pounj-commerce-connected.webp',
+    caseImage: '/assets/richmedia-sector-retail/case-moul-pounj-social-commerce.webp',
+    clients: ['Moul Pounj', 'Massinart', 'Glovo', 'Bringo'],
+    challenges: [
+      { title: 'Generate qualified traffic', text: 'Bring the right audiences to the website, product pages or points of sale.', icon: 'ph-users-three' },
+      { title: 'Highlight commercial peaks', text: 'Activate offers, collections, launches and seasonal moments with clear formats.', icon: 'ph-tag' },
+      { title: 'Measure by channel and offer', text: 'Understand performance by audience, product, city and sales moment.', icon: 'ph-chart-line-up' },
+      { title: 'Create social commerce content', text: 'Help people compare, choose and act from mobile-first creative assets.', icon: 'ph-shopping-bag' },
+      { title: 'Reconnect warm audiences', text: 'Use CRM, WhatsApp and retargeting to recover intent and support conversion.', icon: 'ph-arrows-clockwise' },
+      { title: 'Connect online and stores', text: 'Link e-commerce, local searches, drive-to-store and customer loyalty.', icon: 'ph-storefront' },
+    ],
+    methodTitle: 'Our method for connected commerce',
+    method: [
+      { title: 'Map demand', bullets: ['Commercial calendar', 'Audience and city priorities', 'Offer architecture'], icon: 'ph-map-trifold' },
+      { title: 'Activate acquisition', bullets: ['Meta, Google and TikTok', 'Catalogues and short formats', 'Search and social commerce'], icon: 'ph-megaphone' },
+      { title: 'Improve conversion', bullets: ['Landing and product pages', 'WhatsApp support', 'Retargeting'], icon: 'ph-shopping-cart' },
+      { title: 'Build loyalty', bullets: ['CRM journeys', 'Repeat purchase signals', 'Performance reporting'], icon: 'ph-heart' },
+    ],
+    levers: ['Promotions and seasonal peaks', 'E-commerce acquisition', 'Drive-to-store', 'Social commerce and UGC', 'Quick commerce', 'CRM loyalty'],
+    campaigns: [
+      { title: 'Promotions and seasonal peaks', text: 'Turn sales moments into readable, measurable and timely campaigns.', icon: 'ph-tag', image: '/assets/richmedia-sector-retail/campaigns/promotions-temps-forts.webp' },
+      { title: 'E-commerce acquisition', text: 'Bring qualified demand to collections, products, landing pages and funnels.', icon: 'ph-shopping-cart-simple', image: '/assets/richmedia-sector-retail/campaigns/acquisition-ecommerce.webp' },
+      { title: 'Drive-to-store', text: 'Connect local audiences to stores, availability and commercial operations.', icon: 'ph-storefront', image: '/assets/richmedia-sector-retail/campaigns/drive-to-store.webp' },
+      { title: 'Social commerce and UGC', text: 'Use social-first content to create consideration and action.', icon: 'ph-video-camera', image: '/assets/richmedia-sector-retail/campaigns/social-commerce-ugc.webp' },
+      { title: 'Quick commerce', text: 'Support fast delivery demand, convenience and proximity.', icon: 'ph-lightning', image: '/assets/richmedia-sector-retail/campaigns/quick-commerce-livraison.webp' },
+      { title: 'CRM loyalty', text: 'Retain, reactivate and understand customers across repeated purchases.', icon: 'ph-identification-card', image: '/assets/richmedia-sector-retail/campaigns/crm-fidelisation.webp' },
+    ],
+    caseTitle: 'A journey that is local, social and omnichannel',
+    caseText: 'Customers discover on social, compare on Google, check reviews and availability, then buy or visit. Richmedia connects visibility, commercial activation, content, paid campaigns, tracking and CRM follow-up.',
+    cta: 'Ready to accelerate your retail sales',
+    faq: [
+      { question: 'How can e-commerce brands generate more sales in Morocco?', answer: 'They need qualified acquisition, fast pages, clear offers, social commerce content, conversion tracking, retargeting and CRM or WhatsApp follow-up depending on audience value.' },
+      { question: 'Which channels work for retail campaigns?', answer: 'Google Search captures intent, Meta and TikTok create demand, product catalogues support shopping when available, WhatsApp assists conversion and CRM helps loyalty.' },
+      { question: 'How is drive-to-store performance measured?', answer: 'Drive-to-store can be measured through direction clicks, calls, local searches, coupons, forms, WhatsApp messages, geographic zones and, when data allows, comparison with store visits or sales.' },
+      { question: 'Can Richmedia support multi-city retail brands?', answer: 'Yes. Campaigns can be structured by city, catchment area, store, audience and commercial moment to adapt messages and budgets locally.' },
+      { question: 'Why integrate WhatsApp into a retail strategy?', answer: 'WhatsApp reduces friction between interest and purchase: information requests, product availability, ordering, cart recovery, support and loyalty can all become more direct.' },
+    ],
+  },
+  {
+    slug: 'grocery-retail',
+    fr: '/secteurs/gms',
+    label: 'Grocery retail',
+    title: 'Grocery retail and GMS digital marketing in Morocco',
+    h1: 'Digital marketing for grocery retail, supermarkets and store networks.',
+    description: 'Richmedia supports grocery retail and large distribution brands with promotional campaigns, drive-to-store, digital catalogues, retail media, WhatsApp, CRM, couponing, geographic targeting and reporting.',
+    quick: 'Richmedia helps grocery retail and large distribution players generate measurable store traffic by campaign, area and operation through promotions, digital catalogues, retail media, WhatsApp, CRM, couponing and geographic targeting.',
+    heroImage: '/assets/richmedia-sector-gms/hero-gms-retail.webp',
+    caseImage: '/assets/richmedia-sector-gms/case-gms-drive-to-store.webp',
+    clients: ['Marjane', 'Carrefour', 'Kazyon', 'Electroplanet'],
+    challenges: [
+      { title: 'Make offers visible locally', text: 'Give promotions the right reach in the right catchment areas.', icon: 'ph-map-pin' },
+      { title: 'Generate store and catalogue traffic', text: 'Move audiences toward stores, digital catalogues and offer pages.', icon: 'ph-storefront' },
+      { title: 'Adapt messages by location', text: 'Localize content by city, point of sale, audience or promotion.', icon: 'ph-map-trifold' },
+      { title: 'Produce fast commercial assets', text: 'Turn flyers, offers and categories into mobile-first formats.', icon: 'ph-package' },
+      { title: 'Measure campaign impact', text: 'Track engagement, intent, coupons, WhatsApp and useful actions.', icon: 'ph-chart-pie-slice' },
+      { title: 'Retarget warm audiences', text: 'Reconnect people through WhatsApp, CRM, coupons and retargeting.', icon: 'ph-coupon' },
+    ],
+    methodTitle: 'Our method for local activation',
+    method: [
+      { title: 'Plan the commercial peak', bullets: ['Offers and categories', 'Store priorities', 'Timing and pressure'], icon: 'ph-calendar-check' },
+      { title: 'Create mobile formats', bullets: ['Digital catalogues', 'Short social assets', 'Clear calls to action'], icon: 'ph-device-mobile' },
+      { title: 'Activate by area', bullets: ['Geo-targeted media', 'Retail media', 'Drive-to-store mechanics'], icon: 'ph-target' },
+      { title: 'Measure and relaunch', bullets: ['Coupons and WhatsApp', 'Local reporting', 'Audience retargeting'], icon: 'ph-arrows-clockwise' },
+    ],
+    levers: ['Catalogues and promotions', 'Drive-to-store', 'Opening campaigns', 'WhatsApp and couponing', 'Retail media', 'CRM loyalty'],
+    campaigns: [
+      { title: 'Catalogues and promotions', text: 'Make offers readable on mobile and measurable by audience and category.', icon: 'ph-book-open-text', image: '/assets/richmedia-sector-gms/campaigns/catalogues-promotions.webp' },
+      { title: 'Drive-to-store', text: 'Bring local audiences closer to stores and commercial operations.', icon: 'ph-storefront', image: '/assets/richmedia-sector-gms/campaigns/drive-to-store-local.webp' },
+      { title: 'Retail media', text: 'Use audience and commerce contexts to support offer visibility.', icon: 'ph-broadcast', image: '/assets/richmedia-sector-gms/campaigns/retail-media.webp' },
+      { title: 'WhatsApp and couponing', text: 'Reduce friction between offer discovery, information request and purchase.', icon: 'ph-chat-circle-text', image: '/assets/richmedia-sector-gms/campaigns/whatsapp-couponing.webp' },
+      { title: 'Commercial peaks', text: 'Coordinate seasonal, opening and promotional campaigns with precise timing.', icon: 'ph-lightning', image: '/assets/richmedia-sector-gms/campaigns/temps-forts-commerciaux.webp' },
+      { title: 'CRM loyalty', text: 'Reactivate customers and understand repeat engagement by operation.', icon: 'ph-identification-card', image: '/assets/richmedia-sector-gms/campaigns/fidelisation-crm.webp' },
+    ],
+    caseTitle: 'A sector driven by offers and proximity',
+    caseText: 'Grocery retail must activate fast, locally and clearly. Richmedia connects promotional content, social media, performance media, retail media, couponing, WhatsApp and reporting by operation.',
+    cta: 'Ready to activate your next retail peak',
+    faq: [
+      { question: 'How can digital campaigns generate store traffic for grocery retail?', answer: 'Drive-to-store campaigns combine geographic targeting, clear offers, mobile formats, digital catalogues, coupons, Google or Meta Ads, WhatsApp and reporting by area.' },
+      { question: 'Which channels work for a promotional operation?', answer: 'Useful channels include Meta, TikTok, Google Search, YouTube, display, retail media, WhatsApp and CRM depending on area, offer type, urgency and measurement needs.' },
+      { question: 'Why digitize promotional catalogues?', answer: 'Digital catalogues make offers easier to read on mobile, segment audiences, track category clicks, retarget interested people and measure campaign or store performance.' },
+      { question: 'How is grocery retail campaign performance measured?', answer: 'Performance is measured through local reach, clicks, catalogue views, interactions, coupons, WhatsApp messages, calls, directions, qualified traffic, cost per action and area comparisons.' },
+      { question: 'Can Richmedia manage multi-store campaigns?', answer: 'Yes. Campaigns can be structured by store, city, catchment area, offer, audience and period to make activations locally relevant and easier to analyze.' },
+    ],
+  },
+  {
+    slug: 'institutional',
+    fr: '/secteurs/institutionnel',
+    label: 'Institutional',
+    title: 'Institutional digital communication in Morocco',
+    h1: 'Digital communication for institutions, public bodies and general-interest programs.',
+    description: 'Richmedia supports institutions and public-interest organizations with awareness campaigns, citizen communication, educational content, digital platforms, institutional SEO/GEO, social media and impact measurement.',
+    quick: 'Richmedia supports institutions, public bodies and general-interest organizations with awareness campaigns, citizen communication, educational content, digital platforms, institutional SEO/GEO, social media and impact measurement.',
+    heroImage: '/assets/richmedia-sector-institutionnel/hero-building-ministere-maroc.webp',
+    caseImage: '/assets/richmedia-sector-institutionnel/case-ada-terroir-communication.webp',
+    clients: ['ADA', 'SONARGES', 'DGI', 'CMR'],
+    challenges: [
+      { title: 'Make public messages clear', text: 'Simplify complex information without losing rigor or reliability.', icon: 'ph-chats-circle' },
+      { title: 'Structure information journeys', text: 'Build web and content paths that are easy to consult on mobile.', icon: 'ph-flow-arrow' },
+      { title: 'Improve accessibility', text: 'Make editorial hierarchy and key actions understandable for varied audiences.', icon: 'ph-universal-access' },
+      { title: 'Measure useful impact', text: 'Track reach, engagement, completion, useful clicks and regional performance.', icon: 'ph-chart-line' },
+      { title: 'Prepare sensitive campaigns', text: 'Build robust devices for important public information moments.', icon: 'ph-shield-check' },
+      { title: 'Adapt by audience and territory', text: 'Localize messages based on region, maturity, language and need.', icon: 'ph-map-pin-line' },
+    ],
+    methodTitle: 'Our method for useful public impact',
+    method: [
+      { title: 'Clarify the message', bullets: ['Objectives and audiences', 'Accessible wording', 'Information hierarchy'], icon: 'ph-text-aa' },
+      { title: 'Design the journey', bullets: ['Web architecture', 'Educational formats', 'Mobile accessibility'], icon: 'ph-browser' },
+      { title: 'Diffuse intelligently', bullets: ['Social media', 'Paid media', 'Regional targeting'], icon: 'ph-broadcast' },
+      { title: 'Measure understanding', bullets: ['Reach and engagement', 'Useful clicks', 'Impact reporting'], icon: 'ph-chart-bar' },
+    ],
+    levers: ['Awareness campaigns', 'Public programs', 'Citizen communication', 'Events and mobilization', 'Information platforms', 'Impact reporting'],
+    campaigns: [
+      { title: 'Awareness campaigns', text: 'Make important public messages visible, understandable and memorable.', icon: 'ph-megaphone', image: '/assets/richmedia-sector-institutionnel/campaigns/campagnes-sensibilisation.webp' },
+      { title: 'Public programs', text: 'Explain initiatives, procedures and benefits through clear campaign systems.', icon: 'ph-bank', image: '/assets/richmedia-sector-institutionnel/campaigns/programmes-publics.webp' },
+      { title: 'Citizen communication', text: 'Answer concrete questions with accessible social and web content.', icon: 'ph-users-four', image: '/assets/richmedia-sector-institutionnel/campaigns/communication-citoyenne.webp' },
+      { title: 'Events and mobilization', text: 'Support participation, attendance and regional engagement.', icon: 'ph-calendar-star', image: '/assets/richmedia-sector-institutionnel/campaigns/evenements-mobilisation.webp' },
+      { title: 'Information platforms', text: 'Structure pages that make official information easier to find and use.', icon: 'ph-layout', image: '/assets/richmedia-sector-institutionnel/campaigns/plateformes-information.webp' },
+      { title: 'Impact reporting', text: 'Help teams understand what was seen, understood and used.', icon: 'ph-chart-pie', image: '/assets/richmedia-sector-institutionnel/campaigns/reporting-impact.webp' },
+    ],
+    caseTitle: 'Public messages must be understood',
+    caseText: 'Institutional communication requires clarity, rigor and accessibility. Richmedia connects editorial strategy, creative assets, web platforms, digital campaigns, educational content, SEO/GEO and reporting.',
+    cta: 'Ready to structure a clear public campaign',
+    faq: [
+      { question: 'How can an institutional digital campaign succeed?', answer: 'It needs clear objectives, accessible messages, strong audience understanding, educational content, channel-specific diffusion and reporting that measures real impact.' },
+      { question: 'Which channels work for public communication in Morocco?', answer: 'Useful channels combine social networks, paid media, web platforms, SEO/GEO, educational video, display, local campaigns and mobile-adapted content.' },
+      { question: 'How can institutional messages become easier to understand?', answer: 'Vocabulary should be simplified, information prioritized, visual formats used, concrete user questions answered and digital journeys kept easy to consult.' },
+      { question: 'Why is SEO/GEO important for institutions?', answer: 'SEO/GEO helps institutions appear when citizens, businesses or partners search for official information, procedures, public programs or localized answers.' },
+      { question: 'Can Richmedia measure the impact of public campaigns?', answer: 'Yes. Richmedia sets indicators for reach, engagement, traffic, video completion, useful clicks, audiences, territory performance and reporting.' },
+    ],
+  },
+  {
+    slug: 'tourism-hospitality',
+    fr: '/secteurs/tourisme-hotellerie',
+    label: 'Tourism & hospitality',
+    title: 'Tourism and hospitality digital marketing in Morocco',
+    h1: 'Digital marketing for hotels, resorts and premium tourism experiences.',
+    description: 'Richmedia supports hotels, resorts and tourism brands with image, qualified demand, destination SEO/GEO, immersive content, travel influence and booking performance reporting.',
+    quick: 'Richmedia helps hotels, resorts and tourism brands strengthen image, generate qualified demand, improve destination SEO/GEO visibility, produce immersive content, activate travel influence and manage booking performance.',
+    heroImage: '/assets/richmedia-sector-hotellerie/hero-hotellerie-resort.webp',
+    caseImage: '/assets/richmedia-sector-hotellerie/case-hotellerie-reservation.webp',
+    clients: ['Barcelo', 'Banyan Tree'],
+    challenges: [
+      { title: 'Show the experience', text: 'Help travelers project themselves into the place, service and stay.', icon: 'ph-image-square' },
+      { title: 'Be visible on destination searches', text: 'Capture local and intentional searches around stays, places and experiences.', icon: 'ph-magnifying-glass' },
+      { title: 'Generate qualified requests', text: 'Turn inspiration into bookings, calls, WhatsApp messages or forms.', icon: 'ph-calendar-plus' },
+      { title: 'Create mobile-first content', text: 'Build immersive visual content adapted to social platforms and travel intent.', icon: 'ph-video-camera' },
+      { title: 'Measure by market and season', text: 'Analyze demand by audience, season, offer, channel and market.', icon: 'ph-chart-line-up' },
+      { title: 'Adapt messages by traveler type', text: 'Address local guests, international travelers and premium experience seekers.', icon: 'ph-globe-hemisphere-east' },
+    ],
+    methodTitle: 'Our method to turn projection into demand',
+    method: [
+      { title: 'Build desire', bullets: ['Experience storytelling', 'Visual proof', 'Offer framing'], icon: 'ph-sparkle' },
+      { title: 'Capture booking intent', bullets: ['Search and social ads', 'Destination SEO/GEO', 'Dedicated landing pages'], icon: 'ph-target' },
+      { title: 'Amplify experiences', bullets: ['Travel influence', 'UGC and reels', 'Event content'], icon: 'ph-camera' },
+      { title: 'Nurture guests', bullets: ['CRM journeys', 'Retargeting', 'Seasonal reporting'], icon: 'ph-heart' },
+    ],
+    levers: ['Booking campaigns', 'Destination awareness', 'Offers and packages', 'Travel influence and UGC', 'Events and experiences', 'CRM stay follow-up'],
+    campaigns: [
+      { title: 'Booking campaigns', text: 'Capture demand with clear offers, retargeting and conversion journeys.', icon: 'ph-calendar-check', image: '/assets/richmedia-sector-hotellerie/campaigns/campagnes-reservation.webp' },
+      { title: 'Destination awareness', text: 'Make the place, mood and differentiators memorable before booking intent.', icon: 'ph-map-pin', image: '/assets/richmedia-sector-hotellerie/campaigns/notoriete-destination.webp' },
+      { title: 'Offers and packages', text: 'Promote seasonal stays, packages and premium experiences.', icon: 'ph-gift', image: '/assets/richmedia-sector-hotellerie/campaigns/offres-packages.webp' },
+      { title: 'Travel influence and UGC', text: 'Use credible travel content to increase projection and trust.', icon: 'ph-camera', image: '/assets/richmedia-sector-hotellerie/campaigns/influence-travel-ugc.webp' },
+      { title: 'Events and experiences', text: 'Support weddings, retreats, gastronomy, wellness and destination moments.', icon: 'ph-confetti', image: '/assets/richmedia-sector-hotellerie/campaigns/evenements-experiences.webp' },
+      { title: 'CRM stay follow-up', text: 'Nurture previous guests, warm audiences and seasonal offers.', icon: 'ph-envelope-simple', image: '/assets/richmedia-sector-hotellerie/campaigns/crm-relances-sejour.webp' },
+    ],
+    caseTitle: 'A sector driven by image and search',
+    caseText: 'Tourism and hospitality rely on projection: seeing, comparing, feeling reassured and booking. Richmedia connects storytelling, visual content, local SEO, media campaigns, landing pages, tracking and follow-up.',
+    cta: 'Ready to grow bookings and demand',
+    faq: [
+      { question: 'How can a hotel generate more bookings?', answer: 'More bookings come from destination SEO, Google and social ads, immersive content, clear offers, retargeting, fast landing pages, WhatsApp or forms and demand tracking by market and season.' },
+      { question: 'Which channels work for hotels and resorts?', answer: 'Useful channels include Google Search, local SEO, Meta, Instagram, TikTok, YouTube, travel influence, display, retargeting, CRM and WhatsApp depending on target markets and seasonality.' },
+      { question: 'Why is SEO/GEO important for hospitality?', answer: 'SEO/GEO helps hotels appear on destination, stay type, experience, neighborhood, service and conversational searches used by travelers before booking.' },
+      { question: 'How is hotel campaign performance measured?', answer: 'Performance is measured through qualified requests, bookings, calls, messages, landing page traffic, cost per request, ROAS, content engagement and performance by market, season, offer and channel.' },
+      { question: 'Does Richmedia support premium hotels and resorts?', answer: 'Yes. Richmedia builds systems for premium hotels and resorts covering brand image, immersive content, influence, media campaigns, destination SEO, CRM follow-up and reporting.' },
+    ],
+  },
+  {
+    slug: 'automotive',
+    fr: '/secteurs/automobile',
+    label: 'Automotive',
+    title: 'Automotive digital marketing in Morocco',
+    h1: 'Digital marketing for car brands, showrooms and dealer networks.',
+    description: 'Richmedia supports automotive brands, dealerships and premium networks with model launches, qualified leads, test-drive requests, showroom visibility, product content, WhatsApp, CRM, local SEO/GEO and commercial reporting.',
+    quick: 'Richmedia supports automotive brands, dealerships and premium networks with model launches, qualified leads, test-drive requests, showroom visibility, product content, WhatsApp, CRM, automotive SEO/GEO and commercial reporting.',
+    heroImage: '/assets/richmedia-sector-automobile/hero-premium-showroom.webp',
+    caseImage: '/assets/richmedia-sector-automobile/case-jaguar-whatsapp-acquisition.webp',
+    clients: ['Maserati', 'Range Rover', 'Jaguar'],
+    challenges: [
+      { title: 'Highlight models and offers', text: 'Promote launches, offers and commercial moments with premium creative control.', icon: 'ph-car-profile' },
+      { title: 'Generate test drives and quotes', text: 'Turn intent into contact, callback, quote or test-drive requests.', icon: 'ph-steering-wheel' },
+      { title: 'Improve showroom visibility', text: 'Capture local searches and demand around points of sale.', icon: 'ph-map-pin' },
+      { title: 'Create readable product content', text: 'Present models, features, availability and benefits clearly on mobile.', icon: 'ph-image' },
+      { title: 'Track lead quality', text: 'Measure source, model, city and real commercial relevance.', icon: 'ph-chart-bar' },
+      { title: 'Follow up quickly', text: 'Use WhatsApp, CRM and retargeting to avoid losing warm prospects.', icon: 'ph-chat-circle-dots' },
+    ],
+    methodTitle: 'Our method for automotive opportunities',
+    method: [
+      { title: 'Frame the offer', bullets: ['Model and audience priorities', 'Premium creative direction', 'Landing page message'], icon: 'ph-car-profile' },
+      { title: 'Capture intent', bullets: ['Search and social campaigns', 'Local showroom visibility', 'Retargeting'], icon: 'ph-target' },
+      { title: 'Qualify leads', bullets: ['Forms and WhatsApp', 'Model and city routing', 'Commercial handoff'], icon: 'ph-funnel' },
+      { title: 'Pilot quality', bullets: ['CPL and lead quality', 'Performance by model', 'CRM follow-up'], icon: 'ph-gauge' },
+    ],
+    levers: ['Model launches', 'Test-drive requests', 'Commercial offers', 'Drive-to-showroom', 'After-sales and maintenance', 'CRM follow-up'],
+    campaigns: [
+      { title: 'Model launches', text: 'Create desire and qualified interest for new models.', icon: 'ph-rocket-launch', image: '/assets/richmedia-sector-automobile/campaigns/lancement-modele.webp' },
+      { title: 'Test-drive requests', text: 'Make the path from interest to appointment simple and trackable.', icon: 'ph-steering-wheel', image: '/assets/richmedia-sector-automobile/campaigns/demandes-essai.webp' },
+      { title: 'Commercial offers', text: 'Promote offers, financing, trade-ins and seasonal campaigns.', icon: 'ph-tag', image: '/assets/richmedia-sector-automobile/campaigns/offres-commerciales.webp' },
+      { title: 'Drive-to-showroom', text: 'Generate local intent and visits around dealership locations.', icon: 'ph-storefront', image: '/assets/richmedia-sector-automobile/campaigns/drive-to-showroom.webp' },
+      { title: 'After-sales and maintenance', text: 'Support service demand, maintenance offers and owner engagement.', icon: 'ph-wrench', image: '/assets/richmedia-sector-automobile/campaigns/sav-entretien.webp' },
+      { title: 'CRM follow-up', text: 'Nurture warm prospects, owners and offer audiences.', icon: 'ph-identification-card', image: '/assets/richmedia-sector-automobile/campaigns/crm-relances.webp' },
+    ],
+    caseTitle: 'A purchase driven by proof and proximity',
+    caseText: 'Automotive combines desire, comparison, budget, availability and service. Richmedia structures digital systems that qualify demand and help networks follow opportunities from first interaction to commercial callback.',
+    cta: 'Ready to launch an automotive acquisition campaign',
+    faq: [
+      { question: 'How can a dealership generate qualified automotive leads?', answer: 'Automotive lead generation relies on campaigns targeted by model, city and intent, fast landing pages, qualifying forms, WhatsApp, CRM follow-up and optimization based on lead cost and real commercial quality.' },
+      { question: 'Which channels work for promoting a car model?', answer: 'Google Search captures intent, Meta and YouTube create desire, retargeting reactivates prospects, local SEO supports showrooms and WhatsApp makes contact easier.' },
+      { question: 'How is an automotive digital campaign measured?', answer: 'It is measured through test-drive requests, quotes, calls, WhatsApp messages, landing page visits, qualification rate, CPL, call-back rate and performance by model, city, channel and pipeline contribution.' },
+      { question: 'Why create dedicated pages by model or offer?', answer: 'Dedicated pages clearly present the model, offer, equipment, contact options, showroom location and proof. They improve tracking and reduce friction from interest to appointment.' },
+      { question: 'Does Richmedia support premium automotive brands?', answer: 'Yes. Richmedia designs systems adapted to premium brands with refined content, more qualitative lead journeys, precise targeting, brand image protection and quality-oriented reporting.' },
+    ],
+  },
+  {
+    slug: 'fmcg',
+    fr: '/secteurs/fmcg',
+    label: 'FMCG',
+    title: 'FMCG digital marketing in Morocco',
+    h1: 'Digital marketing for FMCG, food, beverages and consumer brands.',
+    description: 'Richmedia helps FMCG and consumer brands build preference, launch products, activate commercial moments, produce social-first brand content, use influence and UGC, support retail distribution and measure campaign performance.',
+    quick: 'Richmedia helps FMCG and consumer brands create preference, launch products, activate key moments, produce social-first brand content, use influence and UGC, support retail distribution and measure campaign performance.',
+    heroImage: '/assets/richmedia-sector-fmcg/hero-fmcg-products.webp',
+    caseImage: '/assets/richmedia-sector-fmcg/case-fmcg-brand-content.webp',
+    clients: ['SANGO', 'Don Simon', 'Lesaffre', 'Yara'],
+    challenges: [
+      { title: 'Create preference and repetition', text: 'Keep the brand present in competitive daily-use categories.', icon: 'ph-heart' },
+      { title: 'Show usage and benefits', text: 'Make formats, moments, reasons to buy and proof easy to understand.', icon: 'ph-package' },
+      { title: 'Activate commercial peaks', text: 'Support seasons, promotions, launches and retail operations.', icon: 'ph-calendar-check' },
+      { title: 'Work with influence and UGC', text: 'Create content people believe, recognize and can reuse.', icon: 'ph-camera' },
+      { title: 'Measure campaign signals', text: 'Track reach, engagement, video views, clicks and learning by audience.', icon: 'ph-chart-line' },
+      { title: 'Support distribution', text: 'Connect brand content, retail activation and moments of consumption.', icon: 'ph-storefront' },
+    ],
+    methodTitle: 'Our method to build preference and repetition',
+    method: [
+      { title: 'Build the platform', bullets: ['Creative idea', 'Usage moments', 'Social-first formats'], icon: 'ph-sparkle' },
+      { title: 'Activate audiences', bullets: ['Paid social', 'Influence and UGC', 'Video and display'], icon: 'ph-megaphone' },
+      { title: 'Support retail', bullets: ['Promotions', 'Retail activation', 'Product launches'], icon: 'ph-storefront' },
+      { title: 'Measure learning', bullets: ['Reach and repetition', 'Engagement signals', 'Audience and format insights'], icon: 'ph-chart-pie' },
+    ],
+    levers: ['Awareness campaigns', 'Product launches', 'Influence and UGC', 'Promotions', 'Retail activation', 'Content and reporting'],
+    campaigns: [
+      { title: 'Product launches', text: 'Introduce new products and ranges with clear usage and benefit messages.', icon: 'ph-rocket-launch', image: '/assets/richmedia-sector-fmcg/campaigns/lancement-produit.webp' },
+      { title: 'Social-first brand content', text: 'Create short, understandable content adapted to daily mobile use.', icon: 'ph-video-camera', image: '/assets/richmedia-sector-fmcg/campaigns/brand-content-social-first.webp' },
+      { title: 'Influence and UGC', text: 'Use creators and consumer-style formats to build credibility.', icon: 'ph-camera', image: '/assets/richmedia-sector-fmcg/campaigns/influence-ugc.webp' },
+      { title: 'Promotions and peaks', text: 'Turn offers, seasons and commercial operations into effective formats.', icon: 'ph-tag', image: '/assets/richmedia-sector-fmcg/campaigns/promotions-temps-forts.webp' },
+      { title: 'Retail activation', text: 'Support distribution, visibility and in-market moments.', icon: 'ph-storefront', image: '/assets/richmedia-sector-fmcg/campaigns/activation-retail.webp' },
+      { title: 'Brand reporting', text: 'Understand what was seen, remembered, clicked and learned.', icon: 'ph-chart-bar', image: '/assets/richmedia-sector-fmcg/campaigns/reporting-marque.webp' },
+    ],
+    caseTitle: 'Brands that need to stay present',
+    caseText: 'FMCG requires preference, usage moments and visibility in competitive categories. Richmedia connects creative platforms, short content, social media, influence, paid social, retail activation and dashboards.',
+    cta: 'Ready to grow your consumer brand',
+    faq: [
+      { question: 'How can an FMCG brand create preference?', answer: 'Preference is built through a clear creative platform, regular content, usage proof, social-ready formats, influence, retail activations and coherent repetition across consumption moments.' },
+      { question: 'Which channels work for FMCG campaigns in Morocco?', answer: 'Useful channels include Meta, TikTok, YouTube, display, influence, UGC, retail activation, e-commerce, WhatsApp and CRM depending on awareness, launch, promotion, store traffic or loyalty goals.' },
+      { question: 'How is an FMCG campaign measured?', answer: 'It is measured with reach, repetition, video views, engagement, clicks, memorability, best-performing content, retail signals, qualified traffic and learning by audience or format.' },
+      { question: 'Why produce social-first content for FMCG?', answer: 'Social-first content is understood quickly, occupies consumption moments, adapts messages by audience and makes the brand more present in everyday mobile use.' },
+      { question: 'Does Richmedia support FMCG product launches?', answer: 'Yes. Richmedia can structure positioning, messages, content, influence, paid media, retail activations and reporting for product or range launches.' },
+    ],
+  },
+  ];
+
+  return sectorPages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const slug = Astro.params.slug;
+const pageUrl = `${SITE.url}/en/sectors/${slug}`;
+const sectorSiloLinks = sectorSiloLinksEn[page.slug as keyof typeof sectorSiloLinksEn] ?? enSiloLinks.sectorsHub;
+const schema = [
+  serviceSchema({ name: page.title, description: page.description, url: pageUrl }),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Sectors', url: `${SITE.url}/en/sectors` },
+    { name: page.label, url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout title={`${page.title} | Richmedia`} description={page.description} canonical={pageUrl} lang="en" schema={schema}>
+  <article class="sector-detail">
+    <section class="sector-hero" aria-labelledby="sector-title">
+      <div class="sector-hero-copy">
+        <span class="section-kicker">Sector / {page.label}</span>
+        <h1 id="sector-title">{page.h1}</h1>
+        <p>{page.description}</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/en/contact">
+            Talk to an expert
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/en/sectors">
+            All sectors
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+      <figure class="sector-hero-visual">
+        <img src={page.heroImage} alt="" width="1280" height="900" loading="eager" decoding="async" />
+        <figcaption>
+          <span>References</span>
+          <div>{page.clients.map((client) => <strong>{client}</strong>)}</div>
+        </figcaption>
+      </figure>
+    </section>
+
+    <QuickAnswer text={page.quick} />
+
+    <section class="sector-section" aria-labelledby="challenges-title">
+      <div class="section-heading">
+        <span class="section-kicker">Challenges</span>
+        <h2 id="challenges-title">Priority sector challenges.</h2>
+      </div>
+      <div class="card-grid">
+        {page.challenges.map((item) => (
+          <article class="motion-card">
+            <i class={`ph ${item.icon}`} aria-hidden="true"></i>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="sector-section method-section" aria-labelledby="method-title">
+      <div class="section-heading">
+        <span class="section-kicker">Method</span>
+        <h2 id="method-title">{page.methodTitle}.</h2>
+      </div>
+      <div class="method-layout">
+        <div class="method-timeline">
+          {page.method.map((step, index) => (
+            <article class="motion-card">
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <i class={`ph ${step.icon}`} aria-hidden="true"></i>
+              <h3>{step.title}</h3>
+              <ul>
+                {step.bullets.map((bullet) => <li>{bullet}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+        <aside class="levers-panel motion-card" aria-label={`${page.label} key levers`}>
+          <i class="ph ph-lightning" aria-hidden="true"></i>
+          <h3>Key levers</h3>
+          <ul>{page.levers.map((lever) => <li>{lever}</li>)}</ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="sector-section" aria-labelledby="campaigns-title">
+      <div class="section-heading">
+        <span class="section-kicker">Campaigns</span>
+        <h2 id="campaigns-title">Campaigns we know how to run.</h2>
+      </div>
+      <div class="campaign-grid">
+        {page.campaigns.map((campaign) => (
+          <article class="campaign-card">
+            <img src={campaign.image} alt="" width="800" height="520" loading="lazy" decoding="async" />
+            <div>
+              <i class={`ph ${campaign.icon}`} aria-hidden="true"></i>
+              <h3>{campaign.title}</h3>
+              <p>{campaign.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="case-panel" aria-labelledby="case-title">
+      <img src={page.caseImage} alt="" width="1280" height="720" loading="lazy" decoding="async" />
+      <div>
+        <span class="section-kicker">References</span>
+        <h2 id="case-title">{page.caseTitle}.</h2>
+        <p>{page.caseText}</p>
+        <div class="reference-pills">{page.clients.map((client) => <span>{client}</span>)}</div>
+      </div>
+    </section>
+
+    <section class="sector-cta" aria-labelledby="cta-title">
+      <div>
+        <span class="section-kicker">Next step</span>
+        <h2 id="cta-title">{page.cta}?</h2>
+      </div>
+      <a class="button button-primary" href="/en/contact">
+        Start the discussion
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <Faq faq={page.faq} lang="en" />
+  </article>
+  <SeoSiloLinks
+    title="Connect this sector to the right levers"
+    intro="These pathways link each business need to the closest expertises, content and proof points."
+    links={sectorSiloLinks}
+    variant="compact"
+  />
+</BaseLayout>
+
+<style>
+  :global(main) {
+    max-width: 1280px;
+  }
+
+  .sector-detail {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4.6rem);
+  }
+
+  .sector-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    padding-top: clamp(1rem, 4vw, 3.5rem);
+  }
+
+  .sector-hero-copy,
+  .sector-section,
+  .method-layout,
+  .sector-cta {
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.4rem);
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h1 {
+    color: #fff;
+    font-size: clamp(2.7rem, 6.5vw, 5.9rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 0.95;
+    text-wrap: balance;
+  }
+
+  h2 {
+    color: #fff;
+    font-size: clamp(2rem, 4.5vw, 4.2rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  h3 {
+    color: #fff;
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    font-weight: 850;
+    letter-spacing: 0;
+    line-height: 1.14;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.68);
+    line-height: 1.7;
+  }
+
+  .sector-hero-copy > p {
+    max-width: 65ch;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 0.4rem;
+  }
+
+  .sector-hero-visual {
+    position: relative;
+    min-height: clamp(23rem, 36vw, 34rem);
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    background: #07070c;
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.32);
+  }
+
+  .sector-hero-visual::after {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, transparent 44%, rgba(3, 3, 8, 0.9)),
+      radial-gradient(circle at 15% 10%, rgba(139, 88, 255, 0.18), transparent 18rem);
+    content: "";
+    pointer-events: none;
+  }
+
+  .sector-hero-visual > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+  }
+
+  .sector-hero-visual figcaption {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 1;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .sector-hero-visual figcaption > span {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.78rem;
+    font-weight: 850;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .sector-hero-visual figcaption div,
+  .reference-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .sector-hero-visual strong,
+  .reference-pills span {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(5, 5, 10, 0.62);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    padding: 0.58rem 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .section-heading {
+    display: grid;
+    gap: 0.7rem;
+    max-width: 820px;
+  }
+
+  .card-grid,
+  .campaign-grid,
+  .method-timeline {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .motion-card,
+  .campaign-card,
+  .case-panel,
+  .sector-cta {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 12% 0%, rgba(124, 60, 255, 0.18), transparent 14rem),
+      rgba(255, 255, 255, 0.035);
+  }
+
+  .motion-card,
+  .campaign-card {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+    transition:
+      transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 280ms ease,
+      box-shadow 280ms ease,
+      background 280ms ease;
+  }
+
+  .motion-card {
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+    min-height: 12.5rem;
+    padding: 1.15rem;
+  }
+
+  .motion-card::before,
+  .campaign-card::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(115deg, transparent 4%, rgba(255, 255, 255, 0.14) 42%, transparent 68%),
+      radial-gradient(circle at 86% 18%, rgba(154, 93, 255, 0.22), transparent 38%);
+    content: "";
+    opacity: 0;
+    transform: translateX(-24%);
+    transition: opacity 240ms ease, transform 520ms ease;
+    pointer-events: none;
+  }
+
+  .motion-card:hover,
+  .motion-card:focus-within,
+  .campaign-card:hover,
+  .campaign-card:focus-within {
+    border-color: rgba(174, 112, 255, 0.7);
+    background:
+      radial-gradient(circle at 12% 0%, rgba(124, 60, 255, 0.26), transparent 14rem),
+      rgba(255, 255, 255, 0.055);
+    box-shadow: 0 1.1rem 2.35rem rgba(0, 0, 0, 0.3), 0 0 2.2rem rgba(124, 60, 255, 0.2);
+    transform: translateY(-7px) scale(1.018);
+  }
+
+  .motion-card:hover::before,
+  .motion-card:focus-within::before,
+  .campaign-card:hover::before,
+  .campaign-card:focus-within::before {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .motion-card > *,
+  .campaign-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .motion-card i,
+  .campaign-card i,
+  .levers-panel i {
+    color: #a985ff;
+    font-size: 1.9rem;
+  }
+
+  .method-layout {
+    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+    align-items: start;
+  }
+
+  .method-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .method-timeline article > span {
+    color: #a985ff;
+    font-size: 0.86rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+  }
+
+  .method-timeline ul,
+  .levers-panel ul {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .method-timeline li,
+  .levers-panel li {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+  }
+
+  .method-timeline li::before,
+  .levers-panel li::before {
+    color: #a985ff;
+    content: "+ ";
+    font-weight: 900;
+  }
+
+  .levers-panel {
+    min-height: 100%;
+  }
+
+  .campaign-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .campaign-card {
+    display: grid;
+    min-height: 22rem;
+  }
+
+  .campaign-card img {
+    width: 100%;
+    height: 13rem;
+    object-fit: cover;
+    opacity: 0.84;
+    transition: opacity 260ms ease, transform 420ms ease;
+  }
+
+  .campaign-card:hover img,
+  .campaign-card:focus-within img {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+
+  .campaign-card div {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .case-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    align-items: stretch;
+    overflow: hidden;
+  }
+
+  .case-panel > img {
+    width: 100%;
+    height: 100%;
+    min-height: 24rem;
+    object-fit: cover;
+    opacity: 0.88;
+  }
+
+  .case-panel > div {
+    display: grid;
+    align-content: center;
+    gap: 1rem;
+    padding: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .case-panel p {
+    max-width: 64ch;
+  }
+
+  .sector-cta {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  .sector-cta h2 {
+    max-width: 780px;
+    font-size: clamp(2rem, 4vw, 3.7rem);
+  }
+
+  @media (max-width: 1000px) {
+    .sector-hero,
+    .method-layout,
+    .case-panel,
+    .sector-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .sector-hero {
+      align-items: stretch;
+    }
+
+    .sector-hero-visual {
+      min-height: 24rem;
+    }
+
+    .card-grid,
+    .campaign-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .card-grid,
+    .campaign-grid,
+    .method-timeline {
+      grid-template-columns: 1fr;
+    }
+
+    h1 {
+      font-size: clamp(2.35rem, 14vw, 3.6rem);
+    }
+
+    h2 {
+      font-size: clamp(1.85rem, 11vw, 2.9rem);
+    }
+
+    .button,
+    .hero-actions {
+      width: 100%;
+    }
+
+    .sector-hero-visual,
+    .case-panel > img {
+      min-height: 18rem;
+    }
+
+    .campaign-card {
+      min-height: 0;
+    }
+  }
+</style>

@@ -1,0 +1,232 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  updated?: string;
+}
+
+const { eyebrow, title, intro, updated = '18 août 2026' } = Astro.props;
+---
+
+<div class="legal-page">
+  <section class="legal-hero" aria-labelledby="legal-title">
+    <span class="section-kicker">{eyebrow}</span>
+    <h1 id="legal-title">{title}</h1>
+    <p>{intro}</p>
+    <small>Dernière mise à jour : {updated}</small>
+  </section>
+
+  <section class="legal-shell">
+    <slot />
+  </section>
+</div>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .legal-page {
+    min-height: 100vh;
+    color: #fff;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(124, 60, 255, 0.22), transparent 28rem),
+      radial-gradient(circle at 88% 18%, rgba(64, 217, 255, 0.08), transparent 24rem),
+      linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+      #030407;
+    background-size: auto, auto, 76px 76px, 76px 76px, auto;
+  }
+
+  .legal-hero,
+  .legal-shell {
+    width: min(100% - 3rem, 1120px);
+    margin-inline: auto;
+  }
+
+  .legal-hero {
+    padding: clamp(4rem, 9vw, 7.5rem) 0 2rem;
+  }
+
+  .legal-hero h1 {
+    max-width: 780px;
+    margin: 0.5rem 0 1rem;
+    font-size: clamp(2.45rem, 6vw, 5rem) !important;
+    font-weight: 900;
+    line-height: 0.95;
+  }
+
+  .legal-hero p {
+    max-width: 760px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: clamp(1rem, 1.6vw, 1.22rem);
+    line-height: 1.75;
+  }
+
+  .legal-hero small {
+    display: inline-flex;
+    margin-top: 1.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.45rem 0.7rem;
+    background: rgba(255, 255, 255, 0.055);
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .legal-shell {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem 0 clamp(4rem, 8vw, 7rem);
+  }
+
+  .legal-shell :global(article),
+  .legal-shell :global(nav) {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: clamp(1.15rem, 2.2vw, 1.75rem);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.22);
+  }
+
+  .legal-shell :global(h2) {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.35rem, 2.2vw, 2rem) !important;
+  }
+
+  .legal-shell :global(h3) {
+    margin: 1.15rem 0 0.45rem;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+
+  .legal-shell :global(p),
+  .legal-shell :global(li),
+  .legal-shell :global(dd) {
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.72;
+  }
+
+  .legal-shell :global(p) {
+    margin: 0.5rem 0 0;
+  }
+
+  .legal-shell :global(ul),
+  .legal-shell :global(ol) {
+    margin: 0.75rem 0 0;
+    padding-left: 1.25rem;
+  }
+
+  .legal-shell :global(a) {
+    color: #b996ff;
+    text-decoration: none;
+  }
+
+  .legal-shell :global(a:hover) {
+    color: #fff;
+  }
+
+  .legal-shell :global(dl) {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0.8rem 0 0;
+  }
+
+  .legal-shell :global(dt) {
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .legal-shell :global(dd) {
+    margin: 0.16rem 0 0;
+  }
+
+  .legal-shell :global(table) {
+    width: 100%;
+    margin-top: 1rem;
+    border-collapse: collapse;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+  }
+
+  .legal-shell :global(th),
+  .legal-shell :global(td) {
+    padding: 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.72);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .legal-shell :global(th) {
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .legal-shell :global(.legal-note) {
+    border-left: 3px solid #8c52ff;
+    padding-left: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .legal-shell :global(.route-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.7rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .legal-shell :global(.route-grid a) {
+    display: grid;
+    gap: 0.25rem;
+    min-height: 4.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .legal-shell :global(.route-grid strong) {
+    color: #fff;
+    font-size: 0.96rem;
+  }
+
+  .legal-shell :global(.route-grid span) {
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  @media (max-width: 720px) {
+    .legal-hero,
+    .legal-shell {
+      width: min(100% - 1.25rem, 1120px);
+    }
+
+    .legal-shell :global(table),
+    .legal-shell :global(tbody),
+    .legal-shell :global(tr),
+    .legal-shell :global(th),
+    .legal-shell :global(td) {
+      display: block;
+    }
+
+    .legal-shell :global(th) {
+      padding-bottom: 0.2rem;
+      border-bottom: 0;
+    }
+
+    .legal-shell :global(td) {
+      padding-top: 0.2rem;
+    }
+  }
+</style>

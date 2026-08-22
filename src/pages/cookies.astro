@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalPage from '../components/LegalPage.astro';
+import { BUSINESS, SITE } from '../consts';
+import { breadcrumbs, localBusiness } from '../lib/schema';
+
+const pageUrl = `${SITE.url}/cookies`;
+const schema = [
+  localBusiness(),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Cookies', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Politique cookies - Richmedia"
+  description="Politique cookies Richmedia : types de cookies, finalités, durées, gestion du consentement et paramétrage navigateur."
+  canonical={pageUrl}
+  schema={schema}
+>
+  <LegalPage
+    eyebrow="Traceurs"
+    title="Politique cookies"
+    intro="Cette page explique l'utilisation des cookies et technologies similaires sur le site Richmedia, ainsi que les moyens de les gérer."
+  >
+    <article>
+      <h2>Qu'est-ce qu'un cookie ?</h2>
+      <p>
+        Un cookie est un petit fichier ou traceur déposé sur votre terminal lors de la consultation d'un site. Il peut
+        permettre le fonctionnement technique du site, la mesure d'audience, la personnalisation ou le suivi marketing,
+        selon sa finalité.
+      </p>
+      <p>
+        La CNDP rappelle qu'un site utilisant des cookies faisant appel à des données personnelles doit recueillir le
+        consentement de l'internaute avant leur dépôt, sauf lorsque ces cookies sont strictement nécessaires.
+      </p>
+    </article>
+
+    <article>
+      <h2>Cookies susceptibles d'être utilisés</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Catégorie</th>
+            <th>Finalité</th>
+            <th>Consentement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cookies strictement nécessaires</td>
+            <td>Fonctionnement du site, sécurité, disponibilité, protection anti-spam des formulaires.</td>
+            <td>Non requis lorsqu'ils sont indispensables au service demandé.</td>
+          </tr>
+          <tr>
+            <td>Cookies de mesure d'audience</td>
+            <td>Comprendre les pages consultées, les parcours, les performances et les erreurs.</td>
+            <td>Requis lorsque la mesure implique des données personnelles ou des traceurs non essentiels.</td>
+          </tr>
+          <tr>
+            <td>Cookies marketing</td>
+            <td>Mesurer les campagnes, créer des audiences, attribuer les conversions ou personnaliser les messages.</td>
+            <td>Requis avant dépôt.</td>
+          </tr>
+          <tr>
+            <td>Cookies de services tiers</td>
+            <td>Affichage de contenus intégrés, cartes, vidéos, réseaux sociaux ou outils externes.</td>
+            <td>Selon le service et la finalité du traceur.</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article>
+      <h2>État actuel du site</h2>
+      <p>
+        Le site Richmedia intègre un module de consentement. Les cookies strictement nécessaires peuvent fonctionner
+        sans action de votre part. Les outils de mesure d'audience, comme Google Tag Manager et Google Analytics 4, ne
+        sont déclenchés qu'après acceptation de la catégorie "Mesure d'audience". Les pixels marketing, comme Meta
+        Pixel et LinkedIn Insight Tag, ne sont déclenchés qu'après acceptation de la catégorie "Marketing".
+      </p>
+    </article>
+
+    <article>
+      <h2>Gestion de vos préférences</h2>
+      <p>
+        Lors de votre première visite, vous pouvez accepter tous les cookies, refuser les cookies non essentiels ou
+        personnaliser vos choix. Vos préférences sont enregistrées localement dans votre navigateur et peuvent être
+        modifiées à tout moment depuis cette page.
+      </p>
+      <button class="legal-cookie-action" type="button" data-cookie-manage>Modifier mes préférences cookies</button>
+      <p>
+        Vous pouvez aussi configurer votre navigateur pour bloquer ou supprimer les cookies. Les modalités dépendent
+        du navigateur utilisé : Chrome, Safari, Firefox, Edge ou autre. Le blocage de certains cookies essentiels peut
+        affecter le fonctionnement normal du site.
+      </p>
+    </article>
+
+    <article>
+      <h2>Contact</h2>
+      <p>
+        Pour toute question concernant les cookies ou vos données personnelles, contactez Richmedia à
+        <a href={`mailto:${BUSINESS.email}`}> {BUSINESS.email}</a>.
+      </p>
+    </article>
+  </LegalPage>
+</BaseLayout>
+
+<style>
+  .legal-cookie-action {
+    min-height: 46px;
+    margin-top: 1rem;
+    border: 1px solid rgba(184, 120, 255, 0.46);
+    border-radius: 8px;
+    padding: 0 1rem;
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    color: #fff;
+    font: inherit;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 1rem 2.2rem rgba(124, 60, 255, 0.26);
+  }
+
+  .legal-cookie-action:hover,
+  .legal-cookie-action:focus-visible {
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+</style>

@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPage from '../../components/LegalPage.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/sitemap`;
+const schema = [breadcrumbs([
+  { name: 'Home', url: `${SITE.url}/en` },
+  { name: 'Sitemap', url: pageUrl },
+])];
+
+const groups = [
+  {
+    title: 'Main pages',
+    links: [
+      { href: '/en', label: 'Home', text: 'Richmedia overview, expertise, references and contact.' },
+      { href: '/en/agency', label: 'Agency', text: 'About Richmedia, approach, history and offices.' },
+      { href: '/en/expertises', label: 'Expertise', text: 'Strategy, content, media, web, influence, phygital, events and AI.' },
+      { href: '/en/sectors', label: 'Sectors', text: 'Sector pages for education, retail, real estate, institutions and more.' },
+      { href: '/en/insights', label: 'Insights', text: 'Guides, analysis and digital marketing methods.' },
+      { href: '/en/case-studies', label: 'Case studies', text: 'Portfolio and client cases.' },
+      { href: '/en/references', label: 'References', text: 'Clients, sectors and certifications.' },
+      { href: '/en/team', label: 'Team', text: 'Profiles and organization.' },
+      { href: '/en/careers', label: 'Careers', text: 'Open profiles and Richmedia culture.' },
+      { href: '/en/contact', label: 'Contact', text: 'Contact details and contact form.' },
+      { href: '/en/book-audit', label: 'Book an audit', text: 'Request a 360 digital audit.' },
+    ],
+  },
+  {
+    title: 'Sectors',
+    links: [
+      { href: '/en/sectors/education', label: 'Education', text: 'Admissions, reputation and qualified lead generation.' },
+      { href: '/en/sectors/real-estate', label: 'Real estate', text: 'Project launches, appointments and local demand.' },
+      { href: '/en/sectors/retail-ecommerce', label: 'Retail & e-commerce', text: 'Traffic, conversion and CRM.' },
+      { href: '/en/sectors/grocery-retail', label: 'Grocery retail', text: 'Promotions, catalogues and drive-to-store.' },
+      { href: '/en/sectors/institutional', label: 'Institutional', text: 'Public communication and impact.' },
+      { href: '/en/sectors/tourism-hospitality', label: 'Tourism & hospitality', text: 'Bookings, destination visibility and CRM.' },
+      { href: '/en/sectors/automotive', label: 'Automotive', text: 'Model launches, showrooms and qualified leads.' },
+      { href: '/en/sectors/fmcg', label: 'FMCG', text: 'Awareness, retail activation and social-first content.' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { href: '/en/legal-notice', label: 'Legal notice', text: 'Publisher, hosting and intellectual property.' },
+      { href: '/en/privacy', label: 'Privacy policy', text: 'Personal data processing.' },
+      { href: '/en/cookies', label: 'Cookie policy', text: 'Cookies, trackers and preferences.' },
+      { href: '/en/sitemap', label: 'HTML sitemap', text: 'Human-readable sitemap.' },
+      { href: '/sitemap-index.xml', label: 'XML sitemap', text: 'Technical sitemap for search engines.' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Sitemap - Richmedia"
+  description="Richmedia sitemap: main pages, expertise, sectors, products, case studies, insights and legal pages."
+  canonical={pageUrl}
+  lang="en"
+  schema={schema}
+>
+  <LegalPage eyebrow="Navigation" title="Sitemap" intro="Find the main English pages of the Richmedia website and the XML sitemap for search engines.">
+    {groups.map((group) => (
+      <nav aria-labelledby={`sitemap-${group.title.toLowerCase().replaceAll(' ', '-')}`}>
+        <h2 id={`sitemap-${group.title.toLowerCase().replaceAll(' ', '-')}`}>{group.title}</h2>
+        <ul class="route-grid">
+          {group.links.map((link) => (
+            <li>
+              <a href={link.href}>
+                <strong>{link.label}</strong>
+                <span>{link.text}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    ))}
+  </LegalPage>
+</BaseLayout>

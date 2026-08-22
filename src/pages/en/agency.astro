@@ -1,0 +1,1242 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localBusiness, breadcrumbs } from '../../lib/schema';
+import { SITE } from '../../consts';
+
+const pageUrl = `${SITE.url}/en/agency`;
+const pageDescription =
+  'Richmedia is a digital agency in Casablanca specializing in digital strategy, creative, media, SEO/GEO, web, WhatsApp, CRM and AI automation for brands in Morocco and internationally.';
+
+const schema = [
+  { ...localBusiness(), url: pageUrl, description: pageDescription, inLanguage: 'en' },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Agency', url: pageUrl },
+  ]),
+];
+
+const metrics = [
+  { icon: 'ph ph-chart-line-up', value: '+156', label: 'completed projects', text: 'for local, national and international brands.' },
+  { icon: 'ph ph-users-three', value: '+117', label: 'clients supported', text: 'across demanding sectors.' },
+  { icon: 'ph ph-buildings', value: '4', label: 'offices', text: 'Casablanca, Dubai, Montreal and Strasbourg.' },
+];
+
+const approach = [
+  {
+    number: '01',
+    icon: 'ph ph-target',
+    title: 'Clear strategy',
+    text: 'We frame goals, audiences, messages, channels and indicators to align vision, budget and execution.',
+  },
+  {
+    number: '02',
+    icon: 'ph ph-note-pencil',
+    title: 'Useful creative',
+    text: 'We design content, interfaces and experiences that attract attention, reassure audiences and make conversion easier.',
+  },
+  {
+    number: '03',
+    icon: 'ph ph-chart-line-up',
+    title: 'Continuous steering',
+    text: 'We activate, measure and continuously optimize campaigns to improve performance, acquisition cost and ROI.',
+  },
+];
+
+const values = [
+  { icon: 'ph ph-users-three', title: 'Team spirit', text: 'Complementary profiles united around client results.' },
+  { icon: 'ph ph-lightbulb', title: 'Standards & quality', text: 'Strong attention to detail, consistency and reliability.' },
+  { icon: 'ph ph-heart', title: 'Results culture', text: 'Creative ideas designed to produce measurable impact.' },
+];
+
+const milestones = [
+  { year: '2012', title: 'Richmedia is founded in Casablanca', text: 'The agency starts with a simple ambition: connect digital strategy, creative and performance.' },
+  { year: '2015', title: 'Expertise expansion', text: 'Media, social media, content, web and acquisition-driven systems become core agency pillars.' },
+  { year: '2018', title: 'International opening', text: 'Richmedia supports clients in Morocco and internationally, with a presence in Dubai.' },
+  { year: '2021', title: 'Montreal and Strasbourg', text: 'The agency gets closer to new markets and creative, media and technology partners.' },
+  { year: '2024', title: 'Data, AI & automation', text: 'WhatsApp journeys, CRM, SEO/GEO and AI strengthen campaign measurement and efficiency.' },
+];
+
+const references = [
+  { name: 'UIR', src: '/assets/richmedia-home/logos/references/uir.jpg' },
+  { name: 'Amana', src: '/assets/richmedia-home/logos/references/amana.jpg' },
+  { name: 'Don Simon', src: '/assets/richmedia-home/logos/references/don-simon.jpg' },
+  { name: 'Terroir du Maroc', src: '/assets/richmedia-home/logos/references/terroir-du-maroc.jpg' },
+  { name: 'Electroplanet', src: '/assets/richmedia-home/logos/references/electroplanet.jpg' },
+  { name: 'KITEA', src: '/assets/richmedia-home/logos/references/kitea.jpg' },
+  { name: 'Carrefour Market', src: '/assets/richmedia-home/logos/references/carrefour-market.jpg' },
+  { name: 'Asswak Assalam', src: '/assets/richmedia-home/logos/references/asswak-assalam.jpg' },
+  { name: 'Lesieur Cristal', src: '/assets/richmedia-home/logos/references/lesieur-cristal.jpg' },
+  { name: 'Maroc Telecom', src: '/assets/richmedia-home/logos/references/maroc-telecom.jpg' },
+  { name: 'Prestigia', src: '/assets/richmedia-home/logos/campaigns/prestigia.jpg' },
+  { name: 'Tramway Rabat-Salé', src: '/assets/richmedia-home/logos/campaigns/tramway-rabat.jpg' },
+  { name: 'TBS Education', src: '/assets/richmedia-home/logos/campaigns/tbs-education.jpg' },
+  { name: 'CMR', src: '/assets/richmedia-home/logos/campaigns/cmr.jpg' },
+  { name: 'Moul Pounj', src: '/assets/richmedia-home/logos/campaigns/moul-pounj.jpg' },
+  { name: 'Ryad Al Andalous', src: '/assets/richmedia-home/logos/campaigns/ryad-al-andalous.jpg' },
+  { name: 'Rabat Riviera', src: '/assets/richmedia-home/logos/campaigns/rabat-riviera.jpg' },
+  { name: 'BED', src: '/assets/richmedia-home/logos/campaigns/beed.jpg' },
+];
+
+const referenceLoop = [...references, ...references];
+---
+
+<BaseLayout
+  title="Digital agency in Casablanca and Morocco - Richmedia"
+  description={pageDescription}
+  canonical={pageUrl}
+  lang="en"
+  schema={schema}
+>
+  <article class="agency-page">
+    <section class="agency-hero" aria-labelledby="agency-title">
+      <div class="agency-hero-copy">
+        <span class="section-kicker">About Richmedia</span>
+        <h1 id="agency-title">
+          The digital agency that turns ideas into <strong>measurable growth.</strong>
+        </h1>
+        <p>
+          From Casablanca, Richmedia helps brands, institutions and networks grow in Morocco and internationally
+          through digital strategy, media, web, SEO/GEO and automation.
+        </p>
+        <a class="agency-play-link" href="/en/case-studies">
+          <span><i class="ph ph-arrow-up-right" aria-hidden="true"></i></span>
+          Discover Richmedia in 90s
+        </a>
+      </div>
+
+      <figure class="agency-hero-visual">
+        <img
+          src="/assets/richmedia-agence/agence-hero-office.webp"
+          alt="Richmedia studio, digital agency in Casablanca"
+          width="1280"
+          height="720"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <figcaption class="agency-experience-card">
+          <strong>12</strong>
+          <span>years of experience serving growth</span>
+        </figcaption>
+        <div class="agency-caption-card">Strategy. Creative. Media. Web. Automation.</div>
+      </figure>
+    </section>
+
+    <section class="agency-metrics" aria-label="Richmedia key figures">
+      <div class="metrics-grid">
+        {metrics.map((metric) => (
+          <article>
+            <i class={metric.icon} aria-hidden="true"></i>
+            <div>
+              <strong data-count-value={metric.value}>{metric.value}</strong>
+              <span>{metric.label}</span>
+              <p>{metric.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="metrics-map" aria-hidden="true">
+        <img src="/assets/richmedia-home/world-map-natural-earth.svg" alt="" loading="lazy" decoding="async" />
+        <span class="map-arc arc-casa-montreal"></span>
+        <span class="map-arc arc-casa-strasbourg"></span>
+        <span class="map-arc arc-casa-dubai"></span>
+        <span class="pin pin-casa"><b>Casablanca</b><small>Morocco</small></span>
+        <span class="pin pin-dubai"><b>Dubai</b><small>UAE</small></span>
+        <span class="pin pin-montreal"><b>Montreal</b><small>Canada</small></span>
+        <span class="pin pin-strasbourg"><b>Strasbourg</b><small>France</small></span>
+      </div>
+    </section>
+
+    <section class="agency-approach" aria-labelledby="approach-title">
+      <div class="section-intro">
+        <span class="section-kicker">Our approach</span>
+        <h2 id="approach-title">What makes us different.</h2>
+        <p>
+          A clear method, useful deliverables and continuous steering to turn your marketing goals into measurable
+          results.
+        </p>
+      </div>
+      <div class="approach-grid">
+        {approach.map((item) => (
+          <article>
+            <i class={item.icon} aria-hidden="true"></i>
+            <span>{item.number}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="agency-studio" aria-labelledby="studio-title">
+      <div class="studio-copy">
+        <span class="section-kicker">Our studio</span>
+        <h2 id="studio-title">Passionate talent serving your challenges.</h2>
+        <p>
+          Strategists, creatives, developers, media buyers, social media managers, data analysts and AI profiles work
+          together to create digital systems tailored to your ambitions in Morocco, the Maghreb and internationally.
+        </p>
+        <div class="value-grid">
+          {values.map((value) => (
+            <article>
+              <i class={value.icon} aria-hidden="true"></i>
+              <strong>{value.title}</strong>
+              <p>{value.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+      <div class="studio-media">
+        <img class="studio-main" src="/assets/richmedia-agence/agence-studio-meeting.webp" alt="Richmedia team in a digital strategy workshop" width="1280" height="720" loading="lazy" decoding="async" />
+        <img class="studio-small studio-small-top" src="/assets/richmedia-agence/agence-collaboration-small.webp" alt="Creative and digital collaboration at Richmedia" width="720" height="405" loading="lazy" decoding="async" />
+        <img class="studio-small studio-small-bottom" src="/assets/richmedia-agence/agence-studio-meeting-small.webp" alt="Richmedia digital studio and project team" width="720" height="405" loading="lazy" decoding="async" />
+        <a class="studio-floating" href="/en/team">
+          A culture of collaboration and impact.
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="agency-history" aria-labelledby="history-title">
+      <div class="section-intro">
+        <span class="section-kicker">Our story</span>
+        <h2 id="history-title">A growth trajectory.</h2>
+      </div>
+      <ol class="history-timeline">
+        {milestones.map((item, index) => (
+          <li style={`--history-delay: ${index * 120}ms`}>
+            <time>{item.year}</time>
+            <strong>{item.title}</strong>
+            <p>{item.text}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="agency-references" aria-labelledby="references-title">
+      <span class="section-kicker">They trust us</span>
+      <h2 id="references-title">Solid references in Morocco and internationally.</h2>
+      <div class="reference-strip" aria-label="Richmedia references">
+        <div class="reference-track">
+          {referenceLoop.map((item, index) => (
+            <figure aria-hidden={index >= references.length ? 'true' : 'false'}>
+              <img src={item.src} alt={index >= references.length ? '' : `${item.name} logo`} loading="lazy" decoding="async" />
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="agency-cta" aria-labelledby="agency-cta-title">
+      <h2 id="agency-cta-title">Let's talk about your next digital growth.</h2>
+      <p>
+        A project, an idea or a challenge? Let's discuss your goals and build a clear, creative and measurable digital
+        strategy.
+      </p>
+      <a class="button button-primary" href="/en/contact">
+        Let's discuss your project
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </section>
+  </article>
+</BaseLayout>
+
+<script>
+  const countValues = () => {
+    const counters = document.querySelectorAll<HTMLElement>('[data-count-value]');
+    const animate = (counter: HTMLElement) => {
+      if (counter.dataset.counted === 'true') return;
+      counter.dataset.counted = 'true';
+      const raw = counter.dataset.countValue || counter.textContent || '';
+      const prefix = raw.trim().startsWith('+') ? '+' : '';
+      const target = Number(raw.replace(/[^\d]/g, ''));
+      if (!Number.isFinite(target)) return;
+      const duration = 1100;
+      const start = performance.now();
+      const tick = (now: number) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        counter.textContent = `${prefix}${Math.round(target * eased)}`;
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      counters.forEach(animate);
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animate(entry.target as HTMLElement);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.35 });
+
+    counters.forEach((counter) => observer.observe(counter));
+  };
+
+  countValues();
+</script>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .agency-page {
+    --purple: #8c52ff;
+    --purple-soft: #b985ff;
+    --line: rgba(255, 255, 255, 0.13);
+    --panel: rgba(10, 11, 20, 0.78);
+    --muted: rgba(232, 237, 245, 0.72);
+    width: min(100% - 3rem, 1320px);
+    margin: 0 auto;
+    padding: clamp(8rem, 9vw, 9.8rem) 0 clamp(3rem, 6vw, 5rem);
+  }
+
+  .agency-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.86fr) minmax(520px, 1.14fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.1rem;
+    color: var(--purple-soft);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    display: inline-block;
+    width: 1.55rem;
+    height: 1px;
+    background: var(--purple);
+    content: "";
+  }
+
+  .agency-hero h1,
+  .section-intro h2,
+  .studio-copy h2,
+  .agency-references h2,
+  .agency-cta h2 {
+    margin: 0;
+    color: #fff;
+    font-family: var(--font-display);
+    letter-spacing: 0;
+  }
+
+  .agency-hero h1 {
+    max-width: 36rem;
+    font-size: clamp(3.15rem, 6.6vw, 5.8rem);
+    line-height: 0.96;
+  }
+
+  .agency-hero h1 strong {
+    color: var(--purple);
+    font-weight: inherit;
+  }
+
+  .agency-hero-copy > p,
+  .section-intro p,
+  .studio-copy > p,
+  .agency-cta p {
+    color: var(--muted);
+    line-height: 1.78;
+  }
+
+  .agency-hero-copy > p {
+    max-width: 34rem;
+    margin: 1.45rem 0 0;
+    font-size: 1rem;
+  }
+
+  .agency-play-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 2rem;
+    color: var(--purple-soft);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .agency-play-link span {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 1px solid rgba(185, 133, 255, 0.64);
+    border-radius: 999px;
+    background: rgba(124, 60, 255, 0.08);
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  .agency-play-link:hover span {
+    box-shadow: 0 0 1.5rem rgba(124, 60, 255, 0.35);
+    transform: scale(1.06);
+  }
+
+  .agency-hero-visual {
+    position: relative;
+    min-height: clamp(25rem, 44vw, 36rem);
+    margin: 0;
+  }
+
+  .agency-hero-visual > img {
+    position: absolute;
+    inset: 4% 9% 8% 0;
+    width: 74%;
+    height: 78%;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 1.6rem 5rem rgba(0, 0, 0, 0.4);
+  }
+
+  .agency-hero-visual::before {
+    position: absolute;
+    inset: 18% 18% 8% 6%;
+    border: 1px solid rgba(140, 82, 255, 0.34);
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.12);
+    box-shadow: 0 0 3rem rgba(124, 60, 255, 0.18);
+    content: "";
+    transform: rotate(-31deg);
+  }
+
+  .agency-experience-card,
+  .agency-caption-card {
+    position: absolute;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    background: rgba(10, 10, 18, 0.72);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.34);
+  }
+
+  .agency-experience-card {
+    right: 1.5rem;
+    top: 24%;
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(5.6rem, 0.72fr);
+    gap: 0.9rem;
+    align-items: end;
+    width: min(16rem, calc(100% - 2rem));
+    max-width: none;
+    padding: 1.25rem;
+  }
+
+  .agency-experience-card strong {
+    color: var(--purple);
+    font-family: var(--font-display);
+    font-size: clamp(4.4rem, 8vw, 7rem);
+    line-height: 0.78;
+  }
+
+  .agency-experience-card span {
+    color: #fff;
+    min-width: 0;
+    font-size: clamp(0.68rem, 1.05vw, 0.78rem);
+    font-weight: 900;
+    line-height: 1.18;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+
+  .agency-caption-card {
+    left: 1rem;
+    bottom: 17%;
+    max-width: 15rem;
+    padding: 1.25rem;
+    color: rgba(255, 255, 255, 0.74);
+    line-height: 1.65;
+  }
+
+  .agency-metrics {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+    gap: 2rem;
+    align-items: center;
+    margin-top: clamp(3rem, 5vw, 5.4rem);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1.55rem 1.7rem;
+    background: rgba(10, 11, 20, 0.64);
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .metrics-grid article {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 0 1.45rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .metrics-grid article:first-child {
+    padding-left: 0;
+  }
+
+  .metrics-grid article:last-child {
+    border-right: 0;
+  }
+
+  .metrics-grid i,
+  .approach-grid i,
+  .value-grid i {
+    color: var(--purple-soft);
+    font-size: 2.2rem;
+  }
+
+  .metrics-grid i {
+    display: grid;
+    width: 3.35rem;
+    height: 3.35rem;
+    place-items: center;
+    border: 1px solid rgba(185, 133, 255, 0.26);
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.12);
+  }
+
+  .metrics-grid strong {
+    display: block;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    line-height: 0.92;
+  }
+
+  .metrics-grid span {
+    display: block;
+    margin-top: 0.3rem;
+    color: #fff;
+    font-size: 0.92rem;
+    font-weight: 800;
+  }
+
+  .metrics-grid p {
+    margin: 0.45rem 0 0;
+    color: rgba(232, 237, 245, 0.62);
+    font-size: 0.8rem;
+    line-height: 1.55;
+  }
+
+  .metrics-map {
+    position: relative;
+    min-height: 12.2rem;
+    overflow: hidden;
+    border: 1px solid rgba(162, 104, 255, 0.18);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 49% 62%, rgba(124, 60, 255, 0.34), transparent 24%),
+      radial-gradient(circle at 60% 45%, rgba(124, 60, 255, 0.18), transparent 30%),
+      linear-gradient(180deg, rgba(12, 10, 24, 0.82), rgba(5, 7, 13, 0.94));
+  }
+
+  .metrics-map img {
+    width: 100%;
+    height: 100%;
+    min-height: 12.2rem;
+    object-fit: contain;
+    opacity: 0.58;
+    filter: invert(1) sepia(1) saturate(1.5) hue-rotate(210deg) brightness(0.72);
+  }
+
+  .pin {
+    position: absolute;
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 999px;
+    border: 2px solid rgba(255, 255, 255, 0.88);
+    background: var(--purple-soft);
+    box-shadow: 0 0 1rem var(--purple), 0 0 0 0.55rem rgba(124, 60, 255, 0.18), 0 0 0 1.15rem rgba(124, 60, 255, 0.08);
+  }
+
+  .pin b,
+  .pin small {
+    position: absolute;
+    left: 1.1rem;
+    display: block;
+    white-space: nowrap;
+    text-shadow: 0 0.25rem 0.8rem rgba(0, 0, 0, 0.65);
+  }
+
+  .pin b {
+    top: -0.4rem;
+    color: #fff;
+    font-size: 0.68rem;
+    line-height: 1;
+  }
+
+  .pin small {
+    top: 0.35rem;
+    color: #b985ff;
+    font-size: 0.55rem;
+    font-weight: 700;
+  }
+
+  .map-arc {
+    position: absolute;
+    height: 3.8rem;
+    border: 1px solid rgba(169, 133, 255, 0.28);
+    border-color: rgba(169, 133, 255, 0.3) transparent transparent transparent;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .arc-casa-montreal {
+    left: 28%;
+    top: 35%;
+    width: 26%;
+    transform: rotate(-18deg);
+  }
+
+  .arc-casa-strasbourg {
+    left: 43%;
+    top: 36%;
+    width: 22%;
+    transform: rotate(8deg);
+  }
+
+  .arc-casa-dubai {
+    left: 49%;
+    top: 48%;
+    width: 22%;
+    transform: rotate(22deg);
+  }
+
+  .pin-casa { left: 43%; top: 63%; }
+  .pin-dubai { left: 64%; top: 56%; }
+  .pin-montreal { left: 24%; top: 38%; }
+  .pin-strasbourg { left: 50%; top: 37%; }
+
+  .agency-approach,
+  .agency-studio,
+  .agency-history,
+  .agency-references,
+  .agency-cta {
+    margin-top: clamp(3.4rem, 6vw, 5.2rem);
+  }
+
+  .agency-approach {
+    display: grid;
+    grid-template-columns: minmax(15rem, 0.72fr) minmax(0, 1.28fr);
+    gap: 2.2rem;
+    align-items: start;
+  }
+
+  .section-intro h2,
+  .studio-copy h2 {
+    max-width: 28rem;
+    font-size: clamp(2.2rem, 4.2vw, 3.55rem);
+    line-height: 1.03;
+  }
+
+  .section-intro p {
+    max-width: 22rem;
+    margin: 1.1rem 0 0;
+  }
+
+  .approach-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .approach-grid article {
+    min-height: 18rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 2.1rem 1.7rem;
+    background:
+      radial-gradient(circle at 82% 12%, rgba(124, 60, 255, 0.28), transparent 42%),
+      var(--panel);
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  }
+
+  .approach-grid article:hover {
+    border-color: rgba(185, 133, 255, 0.42);
+    box-shadow: 0 1.2rem 3rem rgba(124, 60, 255, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .approach-grid span {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--purple-soft);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 900;
+  }
+
+  .approach-grid h3 {
+    margin: 2.1rem 0 0.8rem;
+    color: #fff;
+    font-size: 1.35rem;
+  }
+
+  .approach-grid p,
+  .value-grid p,
+  .history-timeline p {
+    color: rgba(232, 237, 245, 0.68);
+    line-height: 1.65;
+  }
+
+  .agency-studio {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(520px, 1.22fr);
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .studio-copy > p {
+    max-width: 31rem;
+    margin: 1.1rem 0 0;
+  }
+
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2.2rem;
+  }
+
+  .value-grid i {
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+
+  .value-grid strong {
+    color: #fff;
+    font-size: 0.92rem;
+  }
+
+  .value-grid p {
+    margin: 0.45rem 0 0;
+    font-size: 0.76rem;
+  }
+
+  .studio-media {
+    position: relative;
+    min-height: 28rem;
+    perspective: 1200px;
+    isolation: isolate;
+  }
+
+  .studio-media::before {
+    position: absolute;
+    inset: 12% 8% 8% 18%;
+    z-index: -1;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(124, 60, 255, 0.28), transparent 62%);
+    content: "";
+    opacity: 0;
+    filter: blur(18px);
+    transform: scale(0.82);
+    transition: opacity 360ms ease, transform 520ms ease;
+  }
+
+  .studio-media img {
+    position: absolute;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 1.3rem 3.5rem rgba(0, 0, 0, 0.32);
+    transform: translateZ(0);
+    transition:
+      transform 520ms cubic-bezier(.2,.8,.2,1),
+      border-color 320ms ease,
+      box-shadow 320ms ease,
+      filter 320ms ease;
+    will-change: transform;
+  }
+
+  .studio-main {
+    left: 0;
+    bottom: 2rem;
+    width: 58%;
+    height: 63%;
+  }
+
+  .studio-small-top {
+    right: 14%;
+    top: 1rem;
+    width: 36%;
+    height: 31%;
+  }
+
+  .studio-small-bottom {
+    right: 0;
+    bottom: 1.1rem;
+    width: 43%;
+    height: 36%;
+  }
+
+  .studio-floating {
+    position: absolute;
+    right: 16%;
+    bottom: 0;
+    z-index: 2;
+    display: inline-flex;
+    max-width: 15rem;
+    align-items: end;
+    gap: 0.9rem;
+    border: 1px solid rgba(185, 133, 255, 0.35);
+    border-radius: 8px;
+    padding: 1.05rem 1.15rem;
+    background: linear-gradient(135deg, rgba(124, 60, 255, 0.7), rgba(54, 28, 100, 0.9));
+    color: #fff;
+    font-weight: 800;
+    line-height: 1.4;
+    text-decoration: none;
+    box-shadow: 0 1rem 2.2rem rgba(75, 35, 180, 0.24);
+    transform: translateZ(0);
+    transition:
+      transform 420ms cubic-bezier(.2,.8,.2,1),
+      border-color 280ms ease,
+      box-shadow 280ms ease,
+      background 280ms ease;
+  }
+
+  .studio-floating i {
+    transition: transform 260ms ease;
+  }
+
+  .studio-media:hover::before,
+  .studio-media:focus-within::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .studio-media:hover img,
+  .studio-media:focus-within img {
+    border-color: rgba(185, 133, 255, 0.42);
+    filter: saturate(1.08) contrast(1.04);
+  }
+
+  .studio-media:hover .studio-main,
+  .studio-media:focus-within .studio-main {
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.38), 0 0 2.4rem rgba(124, 60, 255, 0.14);
+    transform: translate3d(-0.45rem, -0.35rem, 0) rotate(-1.2deg) scale(1.018);
+  }
+
+  .studio-media:hover .studio-small-top,
+  .studio-media:focus-within .studio-small-top {
+    box-shadow: 0 1.3rem 3.2rem rgba(0, 0, 0, 0.36), 0 0 2rem rgba(124, 60, 255, 0.18);
+    transform: translate3d(0.45rem, -0.7rem, 0) rotate(1.8deg) scale(1.035);
+  }
+
+  .studio-media:hover .studio-small-bottom,
+  .studio-media:focus-within .studio-small-bottom {
+    box-shadow: 0 1.3rem 3.2rem rgba(0, 0, 0, 0.36), 0 0 2rem rgba(124, 60, 255, 0.16);
+    transform: translate3d(0.65rem, 0.25rem, 0) rotate(1.1deg) scale(1.025);
+  }
+
+  .studio-media:hover .studio-floating,
+  .studio-media:focus-within .studio-floating,
+  .studio-floating:hover,
+  .studio-floating:focus-visible {
+    border-color: rgba(220, 194, 255, 0.58);
+    background: linear-gradient(135deg, rgba(147, 86, 255, 0.88), rgba(60, 28, 116, 0.94));
+    box-shadow: 0 1.2rem 2.6rem rgba(75, 35, 180, 0.34), 0 0 2.2rem rgba(124, 60, 255, 0.22);
+    transform: translate3d(0.25rem, -0.55rem, 0) scale(1.025);
+  }
+
+  .studio-floating:hover i,
+  .studio-floating:focus-visible i,
+  .studio-media:hover .studio-floating i,
+  .studio-media:focus-within .studio-floating i {
+    transform: translate(0.2rem, -0.2rem);
+  }
+
+  .agency-history {
+    display: grid;
+    grid-template-columns: minmax(15rem, 0.6fr) minmax(0, 1.4fr);
+    gap: 2.6rem;
+    align-items: start;
+  }
+
+  .history-timeline {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.2rem 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .history-timeline li {
+    position: relative;
+    padding-top: 1rem;
+    opacity: 0;
+    transform: translateY(1rem);
+    animation: historyItemIn 720ms cubic-bezier(.2,.8,.2,1) forwards;
+    animation-delay: calc(220ms + var(--history-delay, 0ms));
+  }
+
+  .history-timeline li::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(185, 133, 255, 0.8), rgba(185, 133, 255, 0.18));
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: historyLineIn 820ms cubic-bezier(.2,.8,.2,1) forwards;
+    animation-delay: calc(420ms + var(--history-delay, 0ms));
+  }
+
+  .history-timeline li::before {
+    position: absolute;
+    top: -0.42rem;
+    left: 0;
+    width: 0.78rem;
+    height: 0.78rem;
+    border-radius: 999px;
+    background: var(--purple);
+    box-shadow: 0 0 0 0.32rem rgba(124, 60, 255, 0.18);
+    content: "";
+    z-index: 1;
+    opacity: 0;
+    transform: scale(0.55);
+    animation: historyDotIn 620ms cubic-bezier(.2,.8,.2,1) forwards, historyDotPulse 2200ms ease-in-out infinite;
+    animation-delay: calc(560ms + var(--history-delay, 0ms)), calc(1250ms + var(--history-delay, 0ms));
+  }
+
+  .history-timeline time {
+    display: block;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 900;
+  }
+
+  .history-timeline strong {
+    display: block;
+    margin-top: 0.45rem;
+    color: #fff;
+    line-height: 1.35;
+  }
+
+  .history-timeline p {
+    margin: 0.45rem 0 0;
+    font-size: 0.82rem;
+  }
+
+  @keyframes historyItemIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes historyLineIn {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes historyDotIn {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes historyDotPulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0.32rem rgba(124, 60, 255, 0.18), 0 0 0 rgba(124, 60, 255, 0);
+    }
+    50% {
+      box-shadow: 0 0 0 0.42rem rgba(124, 60, 255, 0.24), 0 0 1.4rem rgba(124, 60, 255, 0.32);
+    }
+  }
+
+  .agency-references h2 {
+    max-width: 46rem;
+    margin-bottom: 1.2rem;
+    font-size: clamp(1.55rem, 3vw, 2.35rem);
+  }
+
+  .reference-strip {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(10, 11, 20, 0.72);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .reference-track {
+    display: flex;
+    width: max-content;
+    gap: 0.85rem;
+    padding: 1rem;
+    animation: agencyReferenceSlide 38s linear infinite;
+  }
+
+  .reference-strip:hover .reference-track {
+    animation-play-state: paused;
+  }
+
+  .reference-strip figure {
+    display: grid;
+    width: clamp(9.5rem, 12vw, 12rem);
+    height: 5.6rem;
+    flex: 0 0 auto;
+    place-items: center;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+    transition:
+      transform 0.32s ease,
+      border-color 0.32s ease,
+      background 0.32s ease,
+      box-shadow 0.32s ease;
+  }
+
+  .reference-strip figure:hover {
+    transform: translateY(-0.35rem);
+    border-color: rgba(185, 133, 255, 0.42);
+    background: rgba(124, 60, 255, 0.1);
+    box-shadow: 0 1rem 2.2rem rgba(124, 60, 255, 0.18);
+  }
+
+  .reference-strip img {
+    width: 76%;
+    max-height: 3.45rem;
+    object-fit: contain;
+    filter: grayscale(1) brightness(1.2) contrast(0.96);
+    opacity: 0.82;
+    transition:
+      transform 0.32s ease,
+      filter 0.32s ease,
+      opacity 0.32s ease;
+  }
+
+  .reference-strip figure:hover img {
+    transform: scale(1.06);
+    filter: grayscale(0) brightness(1.08) contrast(1);
+    opacity: 1;
+  }
+
+  @keyframes agencyReferenceSlide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .agency-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(260px, 0.6fr) auto;
+    gap: 2rem;
+    align-items: center;
+    border: 1px solid rgba(185, 133, 255, 0.28);
+    border-radius: 8px;
+    padding: clamp(1.8rem, 4vw, 3rem);
+    background:
+      radial-gradient(circle at 20% 100%, rgba(124, 60, 255, 0.34), transparent 46%),
+      linear-gradient(135deg, rgba(38, 16, 74, 0.95), rgba(10, 11, 20, 0.9));
+    box-shadow: 0 1.6rem 4rem rgba(124, 60, 255, 0.12);
+  }
+
+  .agency-cta h2 {
+    max-width: 30rem;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.05;
+  }
+
+  .agency-cta p {
+    margin: 0;
+    border-left: 1px solid rgba(255, 255, 255, 0.16);
+    padding-left: 2rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 3.4rem;
+    border-radius: 8px;
+    padding: 0.95rem 1.35rem;
+    color: #fff;
+    font-weight: 900;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    box-shadow: 0 1rem 2.5rem rgba(124, 60, 255, 0.28);
+  }
+
+  @media (max-width: 1100px) {
+    .agency-hero,
+    .agency-studio,
+    .agency-approach,
+    .agency-history,
+    .agency-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .agency-hero-visual,
+    .studio-media {
+      min-height: 30rem;
+    }
+
+    .agency-metrics {
+      grid-template-columns: 1fr;
+    }
+
+    .metrics-map {
+      display: none;
+    }
+
+    .agency-cta p {
+      border-left: 0;
+      padding-left: 0;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .agency-page {
+      width: min(100% - 1.25rem, 1320px);
+      padding-top: 6.8rem;
+    }
+
+    .agency-hero h1 {
+      font-size: clamp(2.75rem, 15vw, 4.4rem);
+    }
+
+    .agency-hero-visual,
+    .studio-media {
+      min-height: 24rem;
+    }
+
+    .agency-hero-visual > img {
+      inset: 0;
+      width: 100%;
+      height: 76%;
+    }
+
+    .agency-hero-visual::before {
+      display: none;
+    }
+
+    .agency-experience-card {
+      right: 0.75rem;
+      top: 43%;
+      grid-template-columns: auto minmax(4.8rem, 1fr);
+      width: min(13rem, calc(100% - 1.5rem));
+      padding: 0.9rem;
+    }
+
+    .agency-experience-card strong {
+      font-size: 4rem;
+    }
+
+    .agency-caption-card {
+      left: 0.75rem;
+      bottom: 0.5rem;
+      max-width: 13rem;
+      padding: 1rem;
+    }
+
+    .metrics-grid,
+    .approach-grid,
+    .value-grid,
+    .history-timeline {
+      grid-template-columns: 1fr;
+    }
+
+    .metrics-grid article {
+      border-right: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 1rem 0;
+    }
+
+    .metrics-grid article:last-child {
+      border-bottom: 0;
+    }
+
+    .approach-grid article {
+      min-height: auto;
+    }
+
+    .studio-main {
+      left: 0;
+      top: 0;
+      width: 78%;
+      height: 45%;
+    }
+
+    .studio-small-top {
+      right: 0;
+      top: 34%;
+      width: 48%;
+      height: 25%;
+    }
+
+    .studio-small-bottom {
+      right: 0;
+      bottom: 3.3rem;
+      width: 62%;
+      height: 28%;
+    }
+
+    .studio-floating {
+      right: 0;
+      bottom: 0;
+      max-width: 100%;
+    }
+
+    .agency-cta {
+      gap: 1.25rem;
+    }
+
+    .reference-track {
+      animation-duration: 28s;
+    }
+
+    .reference-strip figure {
+      width: 9rem;
+      height: 5rem;
+    }
+
+    .button {
+      width: 100%;
+      white-space: normal;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reference-track {
+      flex-wrap: wrap;
+      justify-content: center;
+      width: auto;
+      animation: none;
+    }
+  }
+</style>

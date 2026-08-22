@@ -19,27 +19,37 @@ const t = copy[lang];
 const reels = [
   {
     video: '/videos/influence/lc-waikik.mp4',
-    poster: '/assets/richmedia-home/influence-reels/reel-01.png',
+    poster: '/assets/richmedia-home/optimized/influence-reels-reel-01.webp',
+    width: 255,
+    height: 404,
     label: 'LC Waikiki',
   },
   {
     video: '/videos/influence/amana.mp4',
-    poster: '/assets/richmedia-home/influence-reels/reel-02.png',
+    poster: '/assets/richmedia-home/optimized/influence-reels-reel-02.webp',
+    width: 255,
+    height: 404,
     label: 'Amana',
   },
   {
     video: '/videos/influence/6.mp4',
-    poster: '/assets/richmedia-home/influence-reels/reel-03.png',
+    poster: '/assets/richmedia-home/optimized/influence-reels-reel-03.webp',
+    width: 276,
+    height: 404,
     label: 'Lifestyle creator',
   },
   {
     video: '/videos/influence/lc-waikik-3.mp4',
-    poster: '/assets/richmedia-home/influence-reels/reel-04.png',
+    poster: '/assets/richmedia-home/optimized/influence-reels-reel-04.webp',
+    width: 251,
+    height: 404,
     label: 'Beauty content',
   },
   {
     video: '/videos/influence/5.mp4',
-    poster: '/assets/richmedia-home/influence-reels/reel-05.png',
+    poster: '/assets/richmedia-home/optimized/influence-reels-reel-05.webp',
+    width: 250,
+    height: 404,
     label: 'Creator portrait',
   },
 ];
@@ -51,16 +61,17 @@ const reels = [
       <article class="influence-video-card">
         <video
           data-influence-video
+          data-video-src={reel.video}
+          data-poster-src={reel.poster}
           autoplay
           muted
           loop
           playsinline
-          preload="metadata"
-          poster={reel.poster}
+          preload="none"
+          width={reel.width}
+          height={reel.height}
           aria-label={reel.label}
-        >
-          <source src={reel.video} type="video/mp4" />
-        </video>
+        />
       </article>
     ))}
   </div>
@@ -68,11 +79,33 @@ const reels = [
 
 <script>
   const motionIsReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const videos = Array.from(document.querySelectorAll('video[data-influence-video]'));
+  const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('video[data-influence-video]'));
 
-  if (motionIsReduced) {
-    videos.forEach((video) => video.pause());
-  } else if ('IntersectionObserver' in window) {
+  const applyInfluencePoster = (video: HTMLVideoElement) => {
+    if (video.dataset.posterApplied === 'true') return;
+
+    const posterUrl = video.dataset.posterSrc;
+    if (!posterUrl) return;
+
+    video.poster = posterUrl;
+    video.dataset.posterApplied = 'true';
+  };
+
+  const loadInfluenceVideo = (video: HTMLVideoElement) => {
+    if (video.dataset.loaded === 'true') return;
+
+    const sourceUrl = video.dataset.videoSrc;
+    if (!sourceUrl) return;
+
+    const source = document.createElement('source');
+    source.src = sourceUrl;
+    source.type = 'video/mp4';
+    video.appendChild(source);
+    video.dataset.loaded = 'true';
+    video.load();
+  };
+
+  if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -83,18 +116,34 @@ const reels = [
           }
 
           if (entry.isIntersecting) {
-            video.play().catch(() => undefined);
+            applyInfluencePoster(video);
+
+            if (motionIsReduced) {
+              video.pause();
+            } else {
+              loadInfluenceVideo(video);
+              video.play().catch(() => undefined);
+            }
           } else {
             video.pause();
           }
         });
       },
-      { threshold: 0.16 }
+      { rootMargin: '420px 0px', threshold: 0.16 }
     );
 
     videos.forEach((video) => observer.observe(video));
   } else {
-    videos.forEach((video) => video.play().catch(() => undefined));
+    videos.forEach((video) => {
+      applyInfluencePoster(video);
+
+      if (motionIsReduced) {
+        video.pause();
+      } else {
+        loadInfluenceVideo(video);
+        video.play().catch(() => undefined);
+      }
+    });
   }
 </script>
 
@@ -102,6 +151,8 @@ const reels = [
   .influence-video-section {
     position: relative;
     width: 100%;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 35rem;
     overflow: hidden;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);

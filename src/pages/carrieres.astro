@@ -1,0 +1,1100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbs, localBusiness } from '../lib/schema';
+import { SITE } from '../consts';
+
+const pageUrl = `${SITE.url}/carrieres`;
+const teamBase = '/assets/richmedia-home/team-carousel';
+const agencyBase = '/assets/richmedia-agence';
+
+const schema = [
+  localBusiness(),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Carrières', url: pageUrl },
+  ]),
+];
+
+const heroPeople = [
+  { image: 'salah.webp', name: 'Salah-Eddine Mimouni', className: 'portrait-a' },
+  { image: 'amal.webp', name: 'Amal Amazouz', className: 'portrait-b' },
+  { image: 'ikram.webp', name: 'Ikram Dehiri', className: 'portrait-c' },
+  { image: 'tarik.webp', name: 'Tarik El Abbadi', className: 'portrait-d' },
+  { image: 'rachid.webp', name: 'Rachid Hlalma', className: 'portrait-e' },
+  { image: 'oussama.webp', name: 'Oussama TAHTAH', className: 'portrait-f' },
+];
+
+const poles = [
+  {
+    icon: 'ph ph-target',
+    title: 'Stratégie',
+    text: 'Positionnement, cadrage, architecture de campagne, SEO/GEO, parcours et indicateurs business.',
+  },
+  {
+    icon: 'ph ph-palette',
+    title: 'Création',
+    text: 'Direction artistique, brand content, social media, vidéo, motion design et expériences créatives.',
+  },
+  {
+    icon: 'ph ph-chart-bar',
+    title: 'Performance',
+    text: 'Achat média, tracking, analytics, génération de leads, CRM, WhatsApp et optimisation continue.',
+  },
+  {
+    icon: 'ph ph-code',
+    title: 'Technologie',
+    text: 'Sites web, plateformes, automatisation, IA, intégrations et systèmes connectés pour scaler.',
+  },
+];
+
+const stats = [
+  { icon: 'ph ph-users-three', value: '19', label: 'profils', text: 'stratégie, création, média, tech et production' },
+  { icon: 'ph ph-squares-four', value: '8', label: 'unités', text: 'métiers spécialisés et connectés' },
+  { icon: 'ph ph-map-pin', value: '4', label: 'bureaux', text: 'Casablanca, Dubaï, Montréal, Strasbourg' },
+  { icon: 'ph ph-chart-line-up', value: '+156', label: 'projets', text: 'réalisés pour des marques et institutions' },
+];
+
+const culture = [
+  {
+    icon: 'ph ph-users-three',
+    title: 'Collaboration',
+    text: 'L’intelligence collective au service des meilleures idées.',
+  },
+  {
+    icon: 'ph ph-lightbulb',
+    title: 'Créativité',
+    text: 'Nous encourageons les idées nouvelles et l’audace créative.',
+  },
+  {
+    icon: 'ph ph-sparkle',
+    title: 'Autonomie',
+    text: 'Des responsabilités réelles, la liberté d’agir et d’innover.',
+  },
+  {
+    icon: 'ph ph-graduation-cap',
+    title: 'Apprentissage',
+    text: 'La curiosité est notre moteur, l’apprentissage est continu.',
+  },
+];
+
+const team = [
+  { image: 'salah.webp', name: 'Salah-Eddine Mimouni', role: 'CEO & CTO', group: 'Direction' },
+  { image: 'amal.webp', name: 'Amal Amazouz', role: 'COO & CDO', group: 'Direction' },
+  { image: 'tarik.webp', name: 'Tarik El Abbadi', role: 'Directeur Communication & Event', group: 'Direction' },
+  { image: 'elhoussine-bw.webp', name: 'Elhoussine Essmami', role: 'Strategic Planner', group: 'Stratégie' },
+  { image: 'ikram-bw.webp', name: 'Ikram Dehiri', role: 'Senior Account Manager', group: 'Account management' },
+  { image: 'oussama.webp', name: 'Oussama TAHTAH', role: 'Senior Account Manager', group: 'Account management' },
+  { image: 'oumaima-lassri.webp', name: 'Oumaima LASSRI', role: 'Senior Account Manager', group: 'Account management' },
+  { image: 'halima-felloui.webp', name: 'FELLIOUI Halima', role: 'Account Manager', group: 'Account management' },
+  { image: 'soukaina-sammouni.webp', name: 'Soukaina SAMMOUNI', role: 'Account Manager', group: 'Account management' },
+  { image: 'zouhair-bw.webp', name: 'Zouhair Lyzouli', role: 'Senior Full Stack Developer', group: 'Développement' },
+  { image: 'zakaria.webp', name: 'Zakaria Mouchtati', role: 'Senior Full Stack Developer', group: 'Développement' },
+  { image: 'wafaa.webp', name: 'Wafaa Lamsabni', role: 'Project Manager', group: 'Gestion de projet' },
+  { image: 'yassine.webp', name: 'Mohamed Yassine Dargal', role: 'Project Manager', group: 'Gestion de projet' },
+  { image: 'ayoub.webp', name: 'Ayoub Es-Samlali', role: 'Project Manager', group: 'Gestion de projet' },
+  { image: 'yassmine.webp', name: 'Yassmine Boudial', role: 'Project Manager', group: 'Gestion de projet' },
+  { image: 'safwane.webp', name: 'Safwane Moustaine', role: 'Traffic Manager', group: 'Marketing' },
+  { image: 'rachid.webp', name: 'Rachid Hlalma', role: 'Art Director', group: 'Création' },
+  { image: 'abdelkader.webp', name: 'Abdelkader El Bouhaddouti', role: 'Graphic Final Artist', group: 'Design' },
+  { image: 'youssef.webp', name: 'Youssef Amazouz', role: 'Graphic Final Artist', group: 'Design' },
+  { image: 'wail.webp', name: 'Wail El Asri', role: 'Graphic Final Artist', group: 'Design' },
+  { image: 'marwane.webp', name: 'Marwane Jouay', role: 'Réalisateur & monteur vidéo', group: 'Production' },
+];
+---
+
+<BaseLayout
+  title="Carrières Richmedia — Équipe digitale à Casablanca, Maroc & international"
+  description="Découvrez les profils Richmedia à Casablanca : stratégie digitale, création, média, SEO/GEO, web, CRM, WhatsApp, automatisation IA et production pour les marques au Maroc et à l’international."
+  canonical={pageUrl}
+  schema={schema}
+>
+  <div class="team-page">
+    <section class="team-hero" aria-labelledby="team-title">
+      <div class="hero-copy">
+        <span class="section-kicker">Équipe Richmedia</span>
+        <h1 id="team-title">Construire ensemble ce qui rend les marques <strong>visibles.</strong></h1>
+        <p>
+          À Casablanca, Richmedia rassemble des profils créatifs, analytiques, média et techniques autour d’un même
+          objectif : transformer les idées en dispositifs digitaux utiles, visibles et mesurables pour les marques au
+          Maroc et à l’international.
+        </p>
+        <a class="round-link" href="#profils">
+          Découvrir l’équipe
+          <span><i class="ph ph-arrow-right" aria-hidden="true"></i></span>
+        </a>
+      </div>
+
+      <div class="hero-portraits" aria-label="Portraits de l’équipe Richmedia">
+        <span class="orbit orbit-one"></span>
+        <span class="orbit orbit-two"></span>
+        {heroPeople.map((person, index) => (
+          <figure class:list={['hero-portrait', person.className]}>
+            <img
+              src={`${teamBase}/${person.image}`}
+              alt={person.name}
+              width="420"
+              height="520"
+              loading={index < 3 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section class="why-team" aria-labelledby="why-title">
+      <h2 id="why-title">Nos pôles d’expertise</h2>
+      <div class="why-grid">
+        {poles.map((reason) => (
+          <article>
+            <i class={reason.icon} aria-hidden="true"></i>
+            <h3>{reason.title}</h3>
+            <p>{reason.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="team-stats" aria-label="Chiffres clés équipe Richmedia">
+      {stats.map((stat) => (
+        <article>
+          <i class={stat.icon} aria-hidden="true"></i>
+          <div>
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+            <p>{stat.text}</p>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section class="team-life" aria-labelledby="life-title">
+      <div class="life-media">
+        <img
+          src={`${agencyBase}/agence-studio-meeting.webp`}
+          alt="Vie chez Richmedia, équipe digitale en atelier à Casablanca"
+          width="1280"
+          height="720"
+          loading="lazy"
+          decoding="async"
+        />
+        <a class="play-button" href="/agence" aria-label="Découvrir la culture Richmedia">
+          <i class="ph ph-monitor-play" aria-hidden="true"></i>
+        </a>
+        <p>Plus qu’un lieu de travail, un espace pour grandir, collaborer et créer ensemble.</p>
+      </div>
+      <div class="life-copy">
+        <span class="section-kicker">La vie chez Richmedia</span>
+        <h2 id="life-title">Une équipe qui connecte stratégie, création, média et technologie.</h2>
+        <p>
+          Nos équipes accompagnent des campagnes de notoriété, performance, social media, SEO/GEO, sites web,
+          WhatsApp, CRM et automatisation IA. Chaque profil apporte une expertise, mais le résultat naît de la collaboration.
+        </p>
+        <div class="culture-grid">
+          {culture.map((item) => (
+            <article>
+              <i class={item.icon} aria-hidden="true"></i>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+        <a class="text-link" href="/agence">
+          Découvrir notre culture
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="open-jobs team-roster" id="profils" aria-labelledby="jobs-title">
+      <div class="section-row">
+        <h2 id="jobs-title">Les profils Richmedia</h2>
+        <a href="/contact">Parler à l’équipe <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="members-grid">
+        {team.map((member, index) => (
+          <article>
+            <div class="member-image">
+              <img
+                src={`${teamBase}/${member.image}`}
+                alt={member.name}
+                width="420"
+                height="520"
+                loading={index < 4 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            </div>
+            <div class="member-info">
+              <span>{member.group}</span>
+              <h3>{member.name}</h3>
+              <p>{member.role}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="team-cta" aria-labelledby="cta-title">
+      <div>
+        <h2 id="cta-title">Une équipe senior peut changer la vitesse d’un projet.</h2>
+        <p>Échangeons sur vos objectifs de croissance digitale au Maroc et à l’international.</p>
+      </div>
+      <a class="button button-primary" href="/contact">
+        Parler à l’équipe
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .team-page {
+    --container: min(100% - 3rem, 1320px);
+    --purple: #7c3cff;
+    --purple-soft: #a56bff;
+    --panel: rgba(11, 12, 18, 0.78);
+    --line: rgba(255, 255, 255, 0.15);
+    --muted: rgba(255, 255, 255, 0.68);
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 16% 7%, rgba(124, 60, 255, 0.28), transparent 28rem),
+      radial-gradient(circle at 84% 22%, rgba(124, 60, 255, 0.18), transparent 30rem),
+      linear-gradient(180deg, #030408 0%, #050608 52%, #030408 100%);
+    color: #fff;
+  }
+
+  .team-page::before {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    background-size: 64px 64px;
+    content: "";
+    pointer-events: none;
+  }
+
+  .team-hero,
+  .why-team,
+  .team-stats,
+  .team-life,
+  .open-jobs,
+  .recruitment,
+  .team-cta {
+    position: relative;
+    z-index: 1;
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .team-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(560px, 1.18fr);
+    gap: clamp(2rem, 5vw, 6rem);
+    align-items: center;
+    min-height: 690px;
+    padding: clamp(4rem, 8vw, 8rem) 0 3.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .section-kicker,
+  .why-team h2,
+  .section-row h2,
+  .recruitment h2 {
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--purple-soft);
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .section-kicker::before {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 999px;
+    background: currentColor;
+    box-shadow: 0 0 24px rgba(165, 107, 255, 0.76);
+    content: "";
+  }
+
+  .hero-copy h1 {
+    max-width: 640px;
+    margin: 1.3rem 0 1.2rem;
+    font-size: clamp(3.4rem, 7.4vw, 7.2rem);
+    line-height: 0.95;
+    letter-spacing: 0;
+  }
+
+  .hero-copy h1 strong {
+    display: block;
+    color: var(--purple);
+  }
+
+  .hero-copy p {
+    max-width: 520px;
+    margin: 0 0 2rem;
+    color: var(--muted);
+    font-size: 1.06rem;
+    line-height: 1.78;
+  }
+
+  .round-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.62rem 0.65rem 0.62rem 1.35rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .round-link span {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #8c48ff, #6e20f4);
+    box-shadow: 0 0 32px rgba(124, 60, 255, 0.78);
+  }
+
+  .round-link:hover {
+    transform: translateY(-3px);
+    border-color: rgba(165, 107, 255, 0.65);
+    box-shadow: 0 24px 80px rgba(124, 60, 255, 0.2);
+  }
+
+  .hero-portraits {
+    position: relative;
+    min-height: 520px;
+    isolation: isolate;
+  }
+
+  .hero-portraits::before {
+    position: absolute;
+    inset: 9% 8% 7% 10%;
+    z-index: 0;
+    background-image: radial-gradient(rgba(140, 72, 255, 0.9) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(circle at 62% 48%, #000 0 38%, transparent 70%);
+    opacity: 0.74;
+    content: "";
+  }
+
+  .orbit {
+    position: absolute;
+    z-index: 0;
+    border: 1px solid rgba(165, 107, 255, 0.58);
+    border-radius: 999px;
+    pointer-events: none;
+  }
+
+  .orbit-one {
+    inset: 16% 17% 18% 20%;
+    transform: rotate(-18deg);
+  }
+
+  .orbit-two {
+    inset: 22% 22% 25% 26%;
+    transform: rotate(26deg);
+  }
+
+  .hero-portrait {
+    position: absolute;
+    z-index: 1;
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5);
+    transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
+  }
+
+  .hero-portrait:hover {
+    z-index: 3;
+    transform: translateY(-10px) scale(1.03);
+    border-color: rgba(165, 107, 255, 0.72);
+    box-shadow: 0 30px 90px rgba(124, 60, 255, 0.28);
+  }
+
+  .hero-portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
+    filter: saturate(1.04) contrast(1.04);
+  }
+
+  .portrait-e img,
+  .portrait-f img {
+    object-position: center 14%;
+  }
+
+  .portrait-a {
+    top: 0;
+    left: 22%;
+    width: 170px;
+    height: 215px;
+  }
+
+  .portrait-b {
+    top: 12%;
+    right: 5%;
+    width: 190px;
+    height: 230px;
+  }
+
+  .portrait-c {
+    top: 18%;
+    left: 39%;
+    width: 280px;
+    height: 210px;
+  }
+
+  .portrait-d {
+    top: 40%;
+    right: 2%;
+    width: 205px;
+    height: 225px;
+  }
+
+  .portrait-e {
+    bottom: 4%;
+    left: 30%;
+    width: 230px;
+    height: 145px;
+  }
+
+  .portrait-f {
+    bottom: 2%;
+    left: 55%;
+    width: 240px;
+    height: 170px;
+  }
+
+  .why-team,
+  .open-jobs,
+  .recruitment {
+    padding: clamp(2.6rem, 5vw, 4.5rem) 0 0;
+  }
+
+  .why-team h2,
+  .section-row h2,
+  .recruitment h2 {
+    margin: 0 0 1.45rem;
+    font-size: 0.9rem;
+  }
+
+  .why-grid,
+  .jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.35rem;
+  }
+
+  .why-grid article,
+  .jobs-grid article,
+  .culture-grid article {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(17, 18, 27, 0.9), rgba(8, 9, 14, 0.76));
+    transition: transform 260ms ease, border-color 260ms ease, background 260ms ease, box-shadow 260ms ease;
+  }
+
+  .why-grid article::before,
+  .jobs-grid article::before,
+  .culture-grid article::before {
+    position: absolute;
+    inset: auto 0 0;
+    height: 42%;
+    background: radial-gradient(circle at 50% 100%, rgba(124, 60, 255, 0.32), transparent 68%);
+    opacity: 0;
+    transition: opacity 260ms ease;
+    content: "";
+  }
+
+  .why-grid article {
+    min-height: 230px;
+    padding: 2rem 1.7rem;
+  }
+
+  .why-grid article:hover,
+  .jobs-grid article:hover,
+  .culture-grid article:hover {
+    transform: translateY(-8px);
+    border-color: rgba(165, 107, 255, 0.7);
+    background: linear-gradient(145deg, rgba(26, 21, 42, 0.96), rgba(9, 10, 16, 0.82));
+    box-shadow: 0 24px 70px rgba(124, 60, 255, 0.22);
+  }
+
+  .why-grid article:hover::before,
+  .jobs-grid article:hover::before,
+  .culture-grid article:hover::before {
+    opacity: 1;
+  }
+
+  .why-grid i,
+  .culture-grid i {
+    display: block;
+    margin-bottom: 1.8rem;
+    color: var(--purple-soft);
+    font-size: 2.7rem;
+    filter: drop-shadow(0 0 18px rgba(165, 107, 255, 0.45));
+  }
+
+  .why-grid h3,
+  .culture-grid h3,
+  .jobs-grid h3,
+  .process-line h3 {
+    margin: 0 0 0.85rem;
+    font-size: 1.25rem;
+    line-height: 1.18;
+  }
+
+  .why-grid p,
+  .culture-grid p,
+  .jobs-grid p,
+  .process-line p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .team-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 1.6rem;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(12, 13, 20, 0.8);
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.28);
+  }
+
+  .team-stats article {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    min-height: 112px;
+    padding: 1.35rem 1.6rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .team-stats article:last-child {
+    border-right: 0;
+  }
+
+  .team-stats i {
+    color: var(--purple-soft);
+    font-size: 2.25rem;
+  }
+
+  .team-stats strong {
+    margin-right: 0.3rem;
+    font-size: 2.45rem;
+    line-height: 1;
+  }
+
+  .team-stats span {
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .team-stats p {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .team-life {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    padding: clamp(3.5rem, 7vw, 6rem) 0 0;
+  }
+
+  .life-media {
+    position: relative;
+    overflow: hidden;
+    min-height: 360px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #08090f;
+  }
+
+  .life-media::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 44%, rgba(0, 0, 0, 0.78) 100%);
+    content: "";
+  }
+
+  .life-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+    object-fit: cover;
+  }
+
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    display: grid;
+    width: 4.4rem;
+    height: 4.4rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+    font-size: 1.8rem;
+    text-decoration: none;
+    transform: translate(-50%, -50%);
+    transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .play-button:hover {
+    background: rgba(124, 60, 255, 0.72);
+    box-shadow: 0 0 46px rgba(124, 60, 255, 0.5);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .life-media p {
+    position: absolute;
+    right: 1.35rem;
+    bottom: 1.25rem;
+    left: 1.35rem;
+    z-index: 2;
+    margin: 0;
+    font-size: 1.08rem;
+    line-height: 1.55;
+  }
+
+  .life-copy h2 {
+    max-width: 620px;
+    margin: 1rem 0 1rem;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.02;
+  }
+
+  .life-copy > p {
+    max-width: 670px;
+    margin: 0 0 1.6rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .culture-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .culture-grid article {
+    min-height: 170px;
+    padding: 1.5rem;
+    border-radius: 0;
+    border-top: 0;
+    border-left: 0;
+  }
+
+  .culture-grid i {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  .text-link,
+  .section-row a,
+  .jobs-grid a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--purple-soft);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .text-link {
+    margin-top: 1.35rem;
+  }
+
+  .section-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .jobs-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .jobs-grid article {
+    min-height: 230px;
+    padding: 1.35rem;
+  }
+
+  .jobs-grid span {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1.35rem;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(124, 60, 255, 0.18);
+    color: var(--purple-soft);
+    font-size: 1.35rem;
+  }
+
+  .jobs-grid small {
+    display: block;
+    margin: 0.25rem 0 1.5rem;
+    color: var(--muted);
+  }
+
+  .team-roster {
+    scroll-margin-top: 7rem;
+  }
+
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.15rem;
+  }
+
+  .members-grid article {
+    position: relative;
+    overflow: hidden;
+    min-height: 360px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(17, 18, 27, 0.92), rgba(8, 9, 14, 0.78));
+    transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+  }
+
+  .members-grid article::after {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.88) 88%),
+      radial-gradient(circle at 50% 100%, rgba(124, 60, 255, 0.24), transparent 62%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .members-grid article:hover {
+    transform: translateY(-8px);
+    border-color: rgba(165, 107, 255, 0.72);
+    box-shadow: 0 28px 80px rgba(124, 60, 255, 0.2);
+  }
+
+  .member-image {
+    position: absolute;
+    inset: 0;
+  }
+
+  .member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(0.18) saturate(1.05) contrast(1.04);
+    transform: scale(1.01);
+    transition: transform 420ms ease, filter 420ms ease;
+  }
+
+  .members-grid article:hover .member-image img {
+    filter: grayscale(0) saturate(1.12) contrast(1.06);
+    transform: scale(1.07);
+  }
+
+  .member-info {
+    position: absolute;
+    right: 1.2rem;
+    bottom: 1.2rem;
+    left: 1.2rem;
+    z-index: 2;
+  }
+
+  .member-info span {
+    display: inline-flex;
+    margin-bottom: 0.55rem;
+    color: var(--purple-soft);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .member-info h3 {
+    margin: 0;
+    font-size: clamp(1.15rem, 1.5vw, 1.55rem);
+    line-height: 1.08;
+  }
+
+  .member-info p {
+    margin: 0.45rem 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .recruitment {
+    padding-bottom: 0;
+  }
+
+  .process-line {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+    border-top: 1px solid rgba(165, 107, 255, 0.35);
+    padding-top: 1.4rem;
+  }
+
+  .process-line article {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .process-line article:not(:last-child)::after {
+    position: absolute;
+    top: 1.45rem;
+    right: -1.7rem;
+    width: 1.4rem;
+    height: 1px;
+    background: repeating-linear-gradient(90deg, rgba(165, 107, 255, 0.8), rgba(165, 107, 255, 0.8) 3px, transparent 3px, transparent 7px);
+    content: "";
+  }
+
+  .process-line span {
+    display: grid;
+    flex: 0 0 auto;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 2px solid var(--purple-soft);
+    border-radius: 999px;
+    background: rgba(124, 60, 255, 0.14);
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 900;
+    box-shadow: 0 0 28px rgba(124, 60, 255, 0.28);
+  }
+
+  .team-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 3.2rem;
+    margin-bottom: 4rem;
+    padding: 2rem 3rem;
+    border: 1px solid rgba(165, 107, 255, 0.52);
+    border-radius: 14px;
+    background:
+      radial-gradient(circle at 25% 100%, rgba(124, 60, 255, 0.44), transparent 32rem),
+      linear-gradient(135deg, rgba(35, 20, 69, 0.96), rgba(12, 10, 20, 0.92));
+    box-shadow: 0 22px 90px rgba(124, 60, 255, 0.2);
+  }
+
+  .team-cta h2 {
+    margin: 0 0 0.4rem;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    line-height: 1.08;
+  }
+
+  .team-cta p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .hand-note {
+    color: var(--purple-soft);
+    font-size: 1.1rem;
+    font-weight: 900;
+    transform: rotate(-7deg);
+  }
+
+  .button.button-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 3.8rem;
+    padding: 0.9rem 1.8rem;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #8b49ff, #641df1);
+    color: #fff;
+    font-weight: 900;
+    text-decoration: none;
+    box-shadow: 0 18px 60px rgba(124, 60, 255, 0.34);
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+
+  .button.button-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 72px rgba(124, 60, 255, 0.46);
+  }
+
+  @media (max-width: 1180px) {
+    .team-hero,
+    .team-life {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-portraits {
+      min-height: 560px;
+    }
+
+    .why-grid,
+    .team-stats,
+    .jobs-grid,
+    .members-grid,
+    .process-line {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .team-stats article:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .team-stats article:nth-child(n + 3) {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .process-line article::after {
+      display: none;
+    }
+
+    .team-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .hand-note {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .team-page {
+      --container: min(100% - 1.25rem, 1320px);
+    }
+
+    .team-hero {
+      min-height: auto;
+      padding-top: 3rem;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(3rem, 16vw, 4.7rem);
+    }
+
+    .hero-copy p,
+    .life-copy > p {
+      font-size: 1rem;
+    }
+
+    .hero-portraits {
+      min-height: 430px;
+    }
+
+    .portrait-a {
+      left: 2%;
+      width: 32%;
+      height: 38%;
+    }
+
+    .portrait-b {
+      right: 0;
+      width: 34%;
+      height: 40%;
+    }
+
+    .portrait-c {
+      top: 24%;
+      left: 24%;
+      width: 56%;
+      height: 34%;
+    }
+
+    .portrait-d {
+      top: 50%;
+      right: 2%;
+      width: 36%;
+      height: 38%;
+    }
+
+    .portrait-e {
+      bottom: 2%;
+      left: 5%;
+      width: 42%;
+      height: 28%;
+    }
+
+    .portrait-f {
+      bottom: 0;
+      left: 48%;
+      width: 44%;
+      height: 30%;
+    }
+
+    .why-grid,
+    .team-stats,
+    .team-life,
+    .culture-grid,
+    .jobs-grid,
+    .members-grid,
+    .process-line {
+      grid-template-columns: 1fr;
+    }
+
+    .team-stats article {
+      border-right: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .team-stats article:first-child {
+      border-top: 0;
+    }
+
+    .section-row {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .team-cta {
+      padding: 1.45rem;
+    }
+  }
+</style>

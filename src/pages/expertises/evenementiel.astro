@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
 import { SITE } from '../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
+import { frSiloLinks } from '../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-evenementiel';
 const logoBase = '/assets/richmedia-digital-strategy/logos';
@@ -369,10 +371,6 @@ const mobileQuickLinks = [
       <div class="section-head">
         <span class="eyebrow">Tendances événementiel 2026</span>
         <h2 id="trend-title">Ce que les marques doivent intégrer maintenant.</h2>
-        <p>
-          Les événements gagnants combinent émotion, précision opérationnelle, technologie utile,
-          donnée first-party, durabilité et suivi post-événement.
-        </p>
       </div>
       <div class="trend-grid">
         {trends.map((trend) => (
@@ -388,11 +386,7 @@ const mobileQuickLinks = [
     <section id="formats" class="usecase-section" aria-labelledby="format-title">
       <div class="section-head section-head-wide">
         <span class="eyebrow">Formats événementiels</span>
-        <h2 id="format-title">Des expériences conçues pour vos invités, vos contenus et vos objectifs business.</h2>
-        <p>
-          Notre priorité : transformer chaque point de contact en souvenir de marque, en contenu réutilisable
-          et en signal exploitable par vos équipes.
-        </p>
+        <h2 id="format-title">Des expériences utiles, mémorables et mesurables.</h2>
       </div>
       <div class="usecase-grid">
         {eventFormats.map((event) => (
@@ -502,10 +496,6 @@ const mobileQuickLinks = [
       <div class="section-head section-head-wide">
         <span class="eyebrow">Méthode Richmedia</span>
         <h2 id="roadmap-title">Du concept au bilan, chaque détail doit servir l’objectif.</h2>
-        <p>
-          Nous cadrons vite, nous produisons avec rigueur, nous pilotons le live, puis nous transformons
-          les signaux en actions post-événement.
-        </p>
       </div>
       <div class="roadmap-grid">
         {roadmap.map((item) => (
@@ -568,6 +558,13 @@ const mobileQuickLinks = [
       </a>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Transformer l’événement en système d’acquisition"
+    intro="Un temps fort devient plus rentable lorsqu’il nourrit les contenus, l’influence, le média et la visibilité long terme."
+    links={frSiloLinks.event}
+    variant="compact"
+  />
 </BaseLayout>
 
 <style>
@@ -690,8 +687,8 @@ const mobileQuickLinks = [
   .hero-lead {
     margin-top: 26px;
     color: rgba(255, 255, 255, 0.68);
-    font-size: clamp(18px, 1.8vw, 24px);
-    line-height: 1.55;
+    font-size: clamp(16px, 1.35vw, 19px);
+    line-height: 1.6;
   }
 
   .hero-actions {
@@ -1524,6 +1521,8 @@ const mobileQuickLinks = [
   }
 
   .deliverables-grid div {
+    position: relative;
+    overflow: hidden;
     min-height: 58px;
     display: flex;
     align-items: center;
@@ -1532,10 +1531,47 @@ const mobileQuickLinks = [
     padding: 0 18px;
     color: rgba(255, 255, 255, 0.75);
     font-weight: 800;
+    transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease, color 260ms ease;
+  }
+
+  .deliverables-grid div::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(120deg, transparent 0%, rgba(169, 112, 255, 0.16) 42%, transparent 72%),
+      radial-gradient(circle at 92% 50%, rgba(169, 112, 255, 0.26), transparent 34%);
+    content: "";
+    opacity: 0;
+    transform: translateX(-18%);
+    transition: opacity 260ms ease, transform 360ms ease;
+  }
+
+  .deliverables-grid div:hover {
+    border-color: rgba(169, 112, 255, 0.76);
+    box-shadow: 0 18px 52px rgba(124, 60, 255, 0.2);
+    color: rgba(255, 255, 255, 0.96);
+    transform: translateY(-5px);
+  }
+
+  .deliverables-grid div:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .deliverables-grid span,
+  .deliverables-grid i {
+    position: relative;
+    z-index: 1;
   }
 
   .deliverables-grid i {
     color: #a970ff;
+    transition: transform 260ms ease, filter 260ms ease;
+  }
+
+  .deliverables-grid div:hover i {
+    filter: drop-shadow(0 0 14px rgba(169, 112, 255, 0.78));
+    transform: scale(1.18) rotate(8deg);
   }
 
   .sources-grid,

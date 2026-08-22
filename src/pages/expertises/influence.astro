@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
 import { SITE } from '../../consts';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
+import { frSiloLinks } from '../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-influence';
 const logoBase = '/assets/richmedia-digital-strategy/logos';
@@ -356,12 +358,11 @@ const mobileQuickLinks = [
     <section id="answer" class="quick-answer" aria-labelledby="quick-answer-title">
       <div>
         <span class="eyebrow">Réponse rapide</span>
-        <h2 id="quick-answer-title">En 2026, l’influence performe quand elle est cadrée comme un média.</h2>
+        <h2 id="quick-answer-title">En 2026, l’influence performe mieux quand elle est structurée.</h2>
       </div>
       <p>
-        Les marques ne peuvent plus acheter seulement une publication. Elles doivent piloter un système :
-        bon casting, brief précis, liberté éditoriale, droits UGC, tracking, amplification paid et lecture
-        business. C’est là que Richmedia transforme l’influence en levier de croissance mesurable.
+        Richmedia transforme l’influence en levier mesurable : bon casting, brief clair, contenus UGC,
+        amplification paid et reporting business.
       </p>
     </section>
 
@@ -369,12 +370,8 @@ const mobileQuickLinks = [
       <div class="section-heading">
         <div>
           <span class="eyebrow">Tendances influence 2026</span>
-          <h2 id="trend-title">Ce que les marques doivent maîtriser maintenant.</h2>
+          <h2 id="trend-title">Ce que les marques doivent<br />maîtriser maintenant.</h2>
         </div>
-        <p>
-          Creator economy structurée, micro-communautés, UGC amplifiable, IA de matching, conformité
-          et mesure ROI redéfinissent le rôle d’une vraie agence influence.
-        </p>
       </div>
       <div class="trend-grid">
         {trends.map((trend) => (
@@ -396,12 +393,8 @@ const mobileQuickLinks = [
       <div class="section-heading">
         <div>
           <span class="eyebrow">Réseau créateurs</span>
-          <h2 id="creator-title">Des profils marocains adaptés au message, pas seulement à la portée.</h2>
+          <h2 id="creator-title">Des profils marocains adaptés au message,<br />pas seulement à la portée.</h2>
         </div>
-        <p>
-          Chaque activation combine influence, production de contenu, preuve sociale et réutilisation média.
-          Le bon profil est celui qui rend votre offre crédible auprès de la bonne communauté.
-        </p>
       </div>
       <div class="creator-grid">
         {creatorProfiles.map((creator) => (
@@ -518,12 +511,8 @@ const mobileQuickLinks = [
       <div class="section-heading">
         <div>
           <span class="eyebrow">Méthode Richmedia</span>
-          <h2 id="roadmap-title">Du casting au reporting, chaque décision est pilotée.</h2>
+          <h2 id="roadmap-title">Du casting au reporting,<br />chaque décision est pilotée.</h2>
         </div>
-        <p>
-          Le processus sécurise la marque, respecte le ton des créateurs et donne aux équipes une lecture claire
-          de ce qui a réellement généré de l’attention, du trafic et de la conversion.
-        </p>
       </div>
       <div class="roadmap">
         {roadmap.map((item) => (
@@ -591,6 +580,13 @@ const mobileQuickLinks = [
       </div>
     </section>
   </div>
+
+  <SeoSiloLinks
+    title="Relier influence, contenu et amplification"
+    intro="Une campagne influence est plus forte lorsqu’elle s’intègre au brand content, au média paid et aux objectifs sectoriels."
+    links={frSiloLinks.influence}
+    variant="compact"
+  />
 </BaseLayout>
 
 <style>

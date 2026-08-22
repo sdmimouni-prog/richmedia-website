@@ -1,0 +1,336 @@
+<div class="particle-logo-slide" data-richmedia-particle-slide>
+  <canvas class="particle-logo-slide__canvas" data-richmedia-particle-canvas></canvas>
+  <p class="particle-logo-slide__hint">Déplacez la souris pour interagir</p>
+</div>
+
+<script is:inline>
+  const initRichmediaParticleSlides = () => {
+    const slides = document.querySelectorAll('[data-richmedia-particle-slide]');
+
+    const measureSpaced = (ctx, text, spacing) => {
+      let width = 0;
+      for (let index = 0; index < text.length; index += 1) {
+        width += ctx.measureText(text[index]).width;
+        if (index < text.length - 1) width += spacing;
+      }
+      return width;
+    };
+
+    const drawSpaced = (ctx, text, x, y, spacing, color) => {
+      ctx.fillStyle = color;
+      ctx.strokeStyle = color;
+      for (let index = 0; index < text.length; index += 1) {
+        ctx.strokeText(text[index], x, y);
+        ctx.fillText(text[index], x, y);
+        x += ctx.measureText(text[index]).width + spacing;
+      }
+      return x;
+    };
+
+    const drawLogo = (sourceContext, width, height) => {
+      sourceContext.clearRect(0, 0, width, height);
+
+      const scale = width / 1000;
+      const mainSize = Math.round(Math.min(140 * scale, height * 0.42));
+      const subtitleSize = Math.round(mainSize * 0.215);
+      const squareSize = Math.round(mainSize * 0.165);
+      const purple = '#9b78ff';
+      const white = '#ffffff';
+      const centerX = width / 2;
+      const mainY = height / 2 + mainSize * 0.26;
+
+      sourceContext.font = `800 ${mainSize}px "Poppins","Arial Black",Arial,sans-serif`;
+      sourceContext.textAlign = 'left';
+      sourceContext.textBaseline = 'alphabetic';
+      sourceContext.fillStyle = white;
+
+      const word = 'richmedia';
+      const wordWidth = sourceContext.measureText(word).width;
+      const wordX = centerX - wordWidth / 2;
+      sourceContext.fillText(word, wordX, mainY);
+
+      const rWidth = sourceContext.measureText('r').width;
+      sourceContext.fillStyle = purple;
+      sourceContext.fillRect(
+        wordX + rWidth * 0.12,
+        mainY - mainSize * 0.92 - squareSize * 0.1,
+        squareSize,
+        squareSize
+      );
+
+      sourceContext.font = `800 ${subtitleSize}px "Poppins",Arial,sans-serif`;
+      sourceContext.lineWidth = Math.max(1, Math.round(subtitleSize * 0.08));
+      const spacing = subtitleSize * 0.28;
+      const first = 'WE BUILD ';
+      const second = 'DIGITAL';
+      const third = ' GROWTH';
+      const totalWidth = measureSpaced(sourceContext, first + second + third, spacing);
+      let subtitleX = centerX - totalWidth / 2;
+      const subtitleY = mainY + mainSize * 0.52;
+
+      subtitleX = drawSpaced(sourceContext, first, subtitleX, subtitleY, spacing, white);
+      subtitleX = drawSpaced(sourceContext, second, subtitleX, subtitleY, spacing, purple);
+      drawSpaced(sourceContext, third, subtitleX, subtitleY, spacing, white);
+    };
+
+    const samplePixels = (sourceContext, width, height, gap) => {
+      const data = sourceContext.getImageData(0, 0, width, height).data;
+      const targets = [];
+
+      for (let x = 0; x < width; x += gap) {
+        for (let y = 0; y < height; y += gap) {
+          const index = (y * width + x) * 4;
+          if (data[index + 3] > 35) {
+            targets.push({
+              tx: x,
+              ty: y,
+              r: Math.min(255, Math.round(data[index] * 1.22 + 34)),
+              g: Math.min(255, Math.round(data[index + 1] * 1.22 + 34)),
+              b: Math.min(255, Math.round(data[index + 2] * 1.22 + 34)),
+            });
+          }
+        }
+      }
+
+      for (let index = targets.length - 1; index > 0; index -= 1) {
+        const targetIndex = (Math.random() * (index + 1)) | 0;
+        const target = targets[index];
+        targets[index] = targets[targetIndex];
+        targets[targetIndex] = target;
+      }
+
+      return targets;
+    };
+
+    slides.forEach((slide) => {
+      if (!(slide instanceof HTMLElement) || slide.dataset.particleReady === 'true') return;
+      const canvas = slide.querySelector('[data-richmedia-particle-canvas]');
+      if (!(canvas instanceof HTMLCanvasElement)) return;
+      const context = canvas.getContext('2d');
+      if (!context) return;
+
+      slide.dataset.particleReady = 'true';
+
+      const source = document.createElement('canvas');
+      const sourceContext = source.getContext('2d');
+      if (!sourceContext) return;
+
+      let width = 0;
+      let height = 0;
+      let gap = 2;
+      let particles = [];
+      let mouseX = -1;
+      let mouseY = -1;
+      let resizeTimeout = 0;
+
+      const createParticles = () => {
+        width = slide.clientWidth || window.innerWidth || 1000;
+        height = slide.clientHeight || window.innerHeight || 500;
+        canvas.width = width;
+        canvas.height = height;
+        source.width = width;
+        source.height = height;
+        drawLogo(sourceContext, width, height);
+        gap = Math.max(2, Math.round(2.2 * (width / 1000)));
+
+        const targets = samplePixels(sourceContext, width, height, gap);
+        particles = targets.map((target) => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 14,
+          vy: (Math.random() - 0.5) * 14,
+          tx: target.tx,
+          ty: target.ty,
+          r: target.r,
+          g: target.g,
+          b: target.b,
+        }));
+      };
+
+      const reassignTargets = () => {
+        width = slide.clientWidth || window.innerWidth || 1000;
+        height = slide.clientHeight || window.innerHeight || 500;
+        canvas.width = width;
+        canvas.height = height;
+        source.width = width;
+        source.height = height;
+        drawLogo(sourceContext, width, height);
+        gap = Math.max(2, Math.round(2.2 * (width / 1000)));
+
+        const targets = samplePixels(sourceContext, width, height, gap);
+        const length = Math.min(particles.length, targets.length);
+        for (let index = 0; index < length; index += 1) {
+          particles[index].tx = targets[index].tx;
+          particles[index].ty = targets[index].ty;
+          particles[index].r = targets[index].r;
+          particles[index].g = targets[index].g;
+          particles[index].b = targets[index].b;
+        }
+        while (particles.length < targets.length) {
+          const target = targets[particles.length];
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: 0,
+            vy: 0,
+            tx: target.tx,
+            ty: target.ty,
+            r: target.r,
+            g: target.g,
+            b: target.b,
+          });
+        }
+        particles.length = targets.length;
+      };
+
+      canvas.addEventListener('mousemove', (event) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = (event.clientX - rect.left) * (width / rect.width);
+        mouseY = (event.clientY - rect.top) * (height / rect.height);
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        mouseX = -1;
+        mouseY = -1;
+      });
+
+      canvas.addEventListener(
+        'touchmove',
+        (event) => {
+          event.preventDefault();
+          const rect = canvas.getBoundingClientRect();
+          const touch = event.touches[0];
+          mouseX = (touch.clientX - rect.left) * (width / rect.width);
+          mouseY = (touch.clientY - rect.top) * (height / rect.height);
+        },
+        { passive: false }
+      );
+
+      canvas.addEventListener('touchend', () => {
+        mouseX = -1;
+        mouseY = -1;
+      });
+
+      const gravity = 0.06;
+      const restless = 0.22;
+      const damp = 0.905;
+      const mouseRadius = 22000;
+
+      const frame = () => {
+        const output = context.createImageData(width, height);
+        const data = output.data;
+
+        for (let index = 0; index < particles.length; index += 1) {
+          const particle = particles[index];
+
+          particle.vx += (particle.tx - particle.x) * gravity + (Math.random() - 0.5) * restless;
+          particle.vy += (particle.ty - particle.y) * gravity + (Math.random() - 0.5) * restless;
+
+          if (mouseX >= 0) {
+            const dx = particle.x - mouseX;
+            const dy = particle.y - mouseY;
+            const distance = dx * dx + dy * dy;
+            if (distance < mouseRadius && distance > 0.5) {
+              const force = mouseRadius / distance;
+              const angle = Math.atan2(dy, dx);
+              particle.vx += Math.cos(angle) * force * 0.055;
+              particle.vy += Math.sin(angle) * force * 0.055;
+            }
+          }
+
+          particle.vx *= damp;
+          particle.vy *= damp;
+          particle.x += particle.vx;
+          particle.y += particle.vy;
+
+          const x = particle.x | 0;
+          const y = particle.y | 0;
+          if (x >= 0 && x < width && y >= 0 && y < height) {
+            const particleSize = width < 640 ? 1 : 2;
+            for (let offsetX = 0; offsetX < particleSize; offsetX += 1) {
+              for (let offsetY = 0; offsetY < particleSize; offsetY += 1) {
+                const drawX = x + offsetX;
+                const drawY = y + offsetY;
+                if (drawX >= width || drawY >= height) continue;
+                const pixel = (drawY * width + drawX) * 4;
+                data[pixel] = particle.r;
+                data[pixel + 1] = particle.g;
+                data[pixel + 2] = particle.b;
+                data[pixel + 3] = 255;
+              }
+            }
+          }
+        }
+
+        context.putImageData(output, 0, 0);
+        window.requestAnimationFrame(frame);
+      };
+
+      createParticles();
+      frame();
+
+      window.addEventListener('resize', () => {
+        window.clearTimeout(resizeTimeout);
+        resizeTimeout = window.setTimeout(reassignTargets, 250);
+      });
+    });
+  };
+
+  const bootRichmediaParticleSlides = () => {
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(initRichmediaParticleSlides);
+      return;
+    }
+    window.addEventListener('load', initRichmediaParticleSlides, { once: true });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootRichmediaParticleSlides, { once: true });
+  } else {
+    bootRichmediaParticleSlides();
+  }
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap');
+
+  .particle-logo-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
+    cursor: crosshair;
+  }
+
+  .particle-logo-slide__canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .particle-logo-slide__hint {
+    position: absolute;
+    right: 24px;
+    bottom: 20px;
+    z-index: 2;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.25);
+    font-family: Poppins, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    pointer-events: none;
+  }
+
+  @media (max-width: 720px) {
+    .particle-logo-slide__hint {
+      right: 16px;
+      bottom: 14px;
+      font-size: 10px;
+    }
+  }
+</style>

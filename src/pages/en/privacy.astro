@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPage from '../../components/LegalPage.astro';
+import { BUSINESS, SITE } from '../../consts';
+import { breadcrumbs, localBusiness } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/privacy`;
+const schema = [
+  { ...localBusiness(), url: pageUrl, inLanguage: 'en' },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Privacy policy', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Privacy policy - Richmedia"
+  description="Richmedia privacy policy: collected data, purposes, retention periods, recipients, rights and contact."
+  canonical={pageUrl}
+  lang="en"
+  schema={schema}
+>
+  <LegalPage
+    eyebrow="Personal data"
+    title="Privacy policy"
+    intro="This policy explains how Richmedia collects, uses and protects personal data submitted through the website and its forms."
+  >
+    <article>
+      <h2>Data controller</h2>
+      <p>The data controller for data collected through this website is {BUSINESS.legalName}, reachable at <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>.</p>
+      <p>Richmedia operates within the framework of Moroccan law no. 09-08 on personal data protection.</p>
+    </article>
+
+    <article>
+      <h2>Data collected</h2>
+      <ul>
+        <li>identification data: name, company, role where applicable;</li>
+        <li>contact details: email, phone, website or professional link;</li>
+        <li>project information: need, priority, message, timing and market;</li>
+        <li>technical data: IP address, source page, browser, date and time of submission;</li>
+        <li>navigation and audience measurement data when the related tools are enabled.</li>
+      </ul>
+    </article>
+
+    <article>
+      <h2>Purposes</h2>
+      <p>We use data to answer requests, prepare business discussions, improve the website, secure services and comply with applicable obligations.</p>
+    </article>
+
+    <article>
+      <h2>Recipients and providers</h2>
+      <p>
+        Data is intended for authorized Richmedia teams. It may be processed by technical providers required for website
+        operation, hosting, email delivery, security, CRM and, subject to consent, measurement and marketing tools such
+        as Google Tag Manager, Google Analytics 4, Meta Pixel and LinkedIn Insight Tag.
+      </p>
+    </article>
+
+    <article>
+      <h2>Retention</h2>
+      <ul>
+        <li>Contact and audit requests: up to 36 months after the last useful exchange.</li>
+        <li>Prospecting data: up to 36 months after the last active contact.</li>
+        <li>Technical security data: limited to diagnostic and protection needs.</li>
+        <li>Data required by law: retained for the applicable legal period.</li>
+      </ul>
+    </article>
+
+    <article>
+      <h2>Your rights</h2>
+      <p>
+        You may request access, rectification, update, deletion or restriction of your data and object to certain
+        processing operations where applicable. To exercise your rights, write to <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>.
+      </p>
+    </article>
+  </LegalPage>
+</BaseLayout>

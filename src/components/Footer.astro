@@ -9,18 +9,20 @@ const expertiseLinks = [
   isEnglish ? 'Strategy & Branding' : 'Stratégie & Branding',
   'Social, Influence & UGC',
   'Media & Performance',
-  isEnglish ? 'Tech, AI & Experience' : 'Tech, IA & Experience',
+  isEnglish ? 'Tech, AI & Experience' : 'Tech, IA & Expérience',
 ];
 const agencyLinks = isEnglish
   ? [
+      { label: 'Agency', href: '/en/agency' },
       { label: 'Team', href: '/en/team' },
       { label: 'Case studies', href: '/en/case-studies' },
+      { label: 'Careers', href: '/en/careers' },
       { label: 'Contact', href: '/en/contact' },
     ]
   : [
       { label: 'Équipe', href: '/equipe' },
-      { label: 'Références', href: '/references' },
-      { label: 'Carrières', href: '/contact' },
+      { label: 'Réalisations', href: '/realisations' },
+      { label: 'Carrières', href: '/carrieres' },
     ];
 
 const footerDescription = isEnglish
@@ -38,6 +40,7 @@ const labels = isEnglish
       legal: 'Legal notice',
       privacy: 'Privacy',
       cookies: 'Cookies',
+      sitemap: 'Sitemap',
     }
   : {
       brandHome: 'Richmedia — Accueil',
@@ -49,6 +52,7 @@ const labels = isEnglish
       legal: 'Mentions légales',
       privacy: 'Confidentialité',
       cookies: 'Cookies',
+      sitemap: 'Sitemap',
     };
 ---
 <footer class="site-footer">
@@ -75,9 +79,9 @@ const labels = isEnglish
     <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
     {BUSINESS.tels.map((tel) => <a href={`tel:${tel.replaceAll(' ', '')}`}>{tel}</a>)}
     <div class="footer-socials" aria-label={labels.socials}>
-      <a href={BUSINESS.sameAs[0]} aria-label="LinkedIn">in</a>
-      <a href={BUSINESS.sameAs[1]} aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
-      <a href={BUSINESS.sameAs[2]} aria-label="Facebook"><i class="ph ph-facebook-logo" aria-hidden="true"></i></a>
+      <a href={BUSINESS.sameAs[0]} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+      <a href={BUSINESS.sameAs[1]} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
+      <a href={BUSINESS.sameAs[2]} target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ph ph-facebook-logo" aria-hidden="true"></i></a>
     </div>
   </address>
 
@@ -91,8 +95,9 @@ const labels = isEnglish
 
   <div class="footer-bottom">
     <small>© 2025 {SITE.name}. {labels.rights}</small>
-    <a href="#">{labels.legal}</a>
-    <a href="#">{labels.privacy}</a>
-    <a href="#">{labels.cookies}</a>
+    <a href={isEnglish ? '/en/legal-notice' : '/mentions-legales'}>{labels.legal}</a>
+    <a href={isEnglish ? '/en/privacy' : '/confidentialite'}>{labels.privacy}</a>
+    <a href={isEnglish ? '/en/cookies' : '/cookies'}>{labels.cookies}</a>
+    <a href={isEnglish ? '/en/sitemap' : '/sitemap'}>{labels.sitemap}</a>
   </div>
 </footer>

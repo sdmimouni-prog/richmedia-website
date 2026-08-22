@@ -6,93 +6,79 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   lang?: 'fr' | 'en';
+  noindex?: boolean;
 }
-const { title, description, canonical, ogImage, lang = 'fr' } = Astro.props;
+const { title, description, canonical, ogImage, lang = 'fr', noindex = false } = Astro.props;
 const url = canonical ?? new URL(Astro.url.pathname, SITE.url).href;
-const image = ogImage ?? `${SITE.url}/og-default.jpg`;
+const defaultImage = import.meta.env.PUBLIC_OG_IMAGE_URL ?? `${SITE.url}/og-default.jpg`;
+const image = ogImage ?? defaultImage;
 const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isHomeVariant = normalizedPath === '/' || normalizedPath === '/en';
-const isExpertiseVariant = normalizedPath === '/expertises' || normalizedPath === '/en/expertises';
-const isCaseStudiesVariant = normalizedPath === '/realisations' || normalizedPath === '/en/case-studies';
-const isTeamVariant = normalizedPath === '/equipe' || normalizedPath === '/en/team';
-const isContactVariant = normalizedPath === '/contact' || normalizedPath === '/en/contact';
-const isDigitalStrategyVariant =
-  normalizedPath === '/expertises/strategie-digitale' || normalizedPath === '/en/expertises/strategie-digitale';
-const isBrandContentVariant =
-  normalizedPath === '/expertises/brand-content' || normalizedPath === '/en/expertises/brand-content';
-const isWebSiVariant = normalizedPath === '/expertises/web-si' || normalizedPath === '/en/expertises/web-si';
-const isMediaBuyingVariant =
-  normalizedPath === '/expertises/achat-media' || normalizedPath === '/en/expertises/achat-media';
-const isInfluenceVariant =
-  normalizedPath === '/expertises/influence' || normalizedPath === '/en/expertises/influence';
-const isPhygitalVariant =
-  normalizedPath === '/expertises/phygital' || normalizedPath === '/en/expertises/phygital';
-const isEventsVariant =
-  normalizedPath === '/expertises/evenementiel' || normalizedPath === '/en/expertises/evenementiel';
-const isAiAutomationVariant =
-  normalizedPath === '/expertises/ia-automation' || normalizedPath === '/en/expertises/ia-automation';
-const frAlternate = isHomeVariant
-  ? SITE.url
-  : isExpertiseVariant
-    ? `${SITE.url}/expertises`
-    : isDigitalStrategyVariant
-      ? `${SITE.url}/expertises/strategie-digitale`
-      : isBrandContentVariant
-        ? `${SITE.url}/expertises/brand-content`
-        : isWebSiVariant
-          ? `${SITE.url}/expertises/web-si`
-          : isMediaBuyingVariant
-            ? `${SITE.url}/expertises/achat-media`
-            : isInfluenceVariant
-              ? `${SITE.url}/expertises/influence`
-              : isPhygitalVariant
-                ? `${SITE.url}/expertises/phygital`
-                : isEventsVariant
-                  ? `${SITE.url}/expertises/evenementiel`
-                  : isAiAutomationVariant
-                    ? `${SITE.url}/expertises/ia-automation`
-    : isCaseStudiesVariant
-      ? `${SITE.url}/realisations`
-      : isTeamVariant
-        ? `${SITE.url}/equipe`
-        : isContactVariant
-          ? `${SITE.url}/contact`
-          : url;
-const enAlternate = isHomeVariant
-  ? `${SITE.url}/en`
-  : isExpertiseVariant
-    ? `${SITE.url}/en/expertises`
-    : isDigitalStrategyVariant
-      ? `${SITE.url}/en/expertises/strategie-digitale`
-      : isBrandContentVariant
-        ? `${SITE.url}/en/expertises/brand-content`
-        : isWebSiVariant
-          ? `${SITE.url}/en/expertises/web-si`
-          : isMediaBuyingVariant
-            ? `${SITE.url}/en/expertises/achat-media`
-            : isInfluenceVariant
-              ? `${SITE.url}/en/expertises/influence`
-              : isPhygitalVariant
-                ? `${SITE.url}/en/expertises/phygital`
-                : isEventsVariant
-                  ? `${SITE.url}/en/expertises/evenementiel`
-                  : isAiAutomationVariant
-                    ? `${SITE.url}/en/expertises/ia-automation`
-    : isCaseStudiesVariant
-      ? `${SITE.url}/en/case-studies`
-      : isTeamVariant
-        ? `${SITE.url}/en/team`
-        : isContactVariant
-          ? `${SITE.url}/en/contact`
-          : null;
+const bilingualRoutes = [
+  ['/', '/en'],
+  ['/agence', '/en/agency'],
+  ['/carrieres', '/en/careers'],
+  ['/confidentialite', '/en/privacy'],
+  ['/contact', '/en/contact'],
+  ['/cookies', '/en/cookies'],
+  ['/equipe', '/en/team'],
+  ['/expertises', '/en/expertises'],
+  ['/expertises/achat-media', '/en/expertises/achat-media'],
+  ['/expertises/brand-content', '/en/expertises/brand-content'],
+  ['/expertises/evenementiel', '/en/expertises/evenementiel'],
+  ['/expertises/ia-automation', '/en/expertises/ia-automation'],
+  ['/expertises/influence', '/en/expertises/influence'],
+  ['/expertises/media-performance', '/en/expertises/media-performance'],
+  ['/expertises/phygital', '/en/expertises/phygital'],
+  ['/expertises/referencement-seo', '/en/expertises/seo-geo'],
+  ['/expertises/strategie-digitale', '/en/expertises/strategie-digitale'],
+  ['/expertises/web-si', '/en/expertises/web-si'],
+  ['/insights', '/en/insights'],
+  ['/insights/priorites-digitales-2026-croissance-rentable', '/en/insights/digital-priorities-2026-profitable-growth'],
+  ['/insights/plan-acquisition-digital-2026', '/en/insights/digital-acquisition-plan-2026'],
+  ['/insights/campagnes-meta-2026-bonnes-pratiques', '/en/insights/meta-campaigns-2026-best-practices'],
+  ['/insights/seo-vs-geo-enjeux-2026', '/en/insights/seo-vs-geo-2026'],
+  ['/insights/whatsapp-business-canal-conversion', '/en/insights/whatsapp-business-conversion-channel'],
+  ['/insights/createurs-marques-collaborations-durables', '/en/insights/creators-brands-durable-collaborations'],
+  ['/insights/data-decision-strategie-performance', '/en/insights/data-for-decisions-performance-strategy'],
+  ['/insights/marque-employeur-attractivite-digitale', '/en/insights/employer-brand-digital-attractiveness'],
+  ['/insights/contenu-qualite-seo-perenne', '/en/insights/quality-content-durable-seo'],
+  ['/insights/crm-automation-aligner-marketing-sales', '/en/insights/crm-automation-marketing-sales-alignment'],
+  ['/insights/cout-campagne-google-ads-maroc', '/en/insights/google-ads-campaign-cost-morocco'],
+  ['/mentions-legales', '/en/legal-notice'],
+  ['/produits/carter-blake', '/en/products/carter-blake'],
+  ['/produits/hypeo', '/en/products/hypeo'],
+  ['/produits/in-talks', '/en/products/in-talks'],
+  ['/produits/whatsapp', '/en/products/whatsapp'],
+  ['/realisations', '/en/case-studies'],
+  ['/realisations/modele-case-study', '/en/case-studies/model-case-study'],
+  ['/realisations/uir-campagnes-digitales', '/en/case-studies/uir-digital-campaigns'],
+  ['/references', '/en/references'],
+  ['/reserver-un-audit', '/en/book-audit'],
+  ['/secteurs', '/en/sectors'],
+  ['/secteurs/automobile', '/en/sectors/automotive'],
+  ['/secteurs/education', '/en/sectors/education'],
+  ['/secteurs/fmcg', '/en/sectors/fmcg'],
+  ['/secteurs/gms', '/en/sectors/grocery-retail'],
+  ['/secteurs/immobilier', '/en/sectors/real-estate'],
+  ['/secteurs/institutionnel', '/en/sectors/institutional'],
+  ['/secteurs/retail-ecommerce', '/en/sectors/retail-ecommerce'],
+  ['/secteurs/tourisme-hotellerie', '/en/sectors/tourism-hospitality'],
+  ['/sitemap', '/en/sitemap'],
+] as const;
+const absoluteUrl = (pathname: string) => (pathname === '/' ? SITE.url : `${SITE.url}${pathname}`);
+const routePair = bilingualRoutes.find(([frPath, enPath]) => normalizedPath === frPath || normalizedPath === enPath);
+const frAlternate = routePair ? absoluteUrl(routePair[0]) : lang === 'fr' ? url : null;
+const enAlternate = routePair ? absoluteUrl(routePair[1]) : lang === 'en' ? url : null;
+const defaultAlternate = routePair ? absoluteUrl(routePair[0]) : frAlternate ?? enAlternate ?? url;
 ---
 <title>{title}</title>
 <meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
 <link rel="canonical" href={url} />
 
-<link rel="alternate" hreflang="fr" href={frAlternate} />
+{frAlternate && <link rel="alternate" hreflang="fr" href={frAlternate} />}
 {enAlternate && <link rel="alternate" hreflang="en" href={enAlternate} />}
-<link rel="alternate" hreflang="x-default" href={frAlternate} />
+<link rel="alternate" hreflang="x-default" href={defaultAlternate} />
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />

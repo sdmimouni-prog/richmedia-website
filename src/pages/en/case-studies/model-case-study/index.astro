@@ -5,78 +5,104 @@ import { SITE } from '../../../../consts';
 import { breadcrumbs } from '../../../../lib/schema';
 
 const pageUrl = `${SITE.url}/en/case-studies/model-case-study`;
-const assetBase = '/assets/richmedia-home';
-const realizationBase = '/assets/richmedia-realizations';
-const brandBase = '/assets/richmedia-brand-content/creas-square';
+const assetBase = '/assets/richmedia-case-study';
 
 const content = {
   backHref: '/en/case-studies',
   backLabel: 'Case studies',
-  eyebrow: 'Case study model / Education',
+  eyebrow: 'An end-to-end approach built to perform at every step of the journey.',
   client: 'UIR',
   clientLong: 'International University of Rabat',
   category: 'Education',
-  period: 'Long-term partnership',
-  scope: 'Lead acquisition, media, CRM, content',
-  title: 'UIR: turning an admissions campaign into a recruitment engine.',
+  period: 'June - September 2024',
+  scope: 'Social / Performance / Landing page',
+  title: 'The Result',
   subtitle:
-    'A shorter, more visual and more premium template: context, setup, creative proof, video and results without overwhelming the reader.',
-  heroImage: `${assetBase}/campaign-wide-uir.webp`,
-  video: {
-    poster: `${assetBase}/campaign-wide-uir.webp`,
-    title: 'Admissions case study film',
-    label: 'Video planned',
-    meta: 'Reel, testimonial or campaign walkthrough',
-  },
+    'For UIR’s 2024 enrollment campaign, we designed a full-funnel digital system that boosted awareness and generated qualified applications at scale.',
+  heroImage: `${assetBase}/result-hero-clean.webp`,
+  metaItems: [
+    { label: 'Client', value: 'UIR' },
+    { label: 'Sector', value: 'Education' },
+    { label: 'Period', value: 'June - September 2024' },
+    { label: 'Channel', value: 'Social / Performance / Landing page' },
+  ],
   metrics: [
-    { value: '+34K', label: 'graduates recruited', note: 'admissions pipeline' },
-    { value: '+20K', label: 'students reached', note: 'qualified audiences' },
-    { value: '7', label: 'levers activated', note: 'paid, social, CRM, search' },
+    { value: '34K', label: 'Qualified leads', note: '+162%', icon: 'ph ph-users' },
+    { value: '20M', label: 'Impressions', note: '+188%', icon: 'ph ph-eye' },
+    { value: '6.2%', label: 'Engagement rate', note: '+2.4 pts', icon: 'ph ph-chart-line-up' },
+    { value: '2.8x', label: 'Enrollment uplift', note: 'vs. 2023', icon: 'ph ph-rocket-launch' },
   ],
-  chapters: [
+  deliverables: [
+    'Media strategy & plan',
+    'Creative identity',
+    'Format kits (15+)',
+    'Landing page',
+    'Tracking & dashboards',
+    'Performance report',
+  ],
+  work: [
     {
-      eyebrow: 'Brief',
-      title: 'Make the choice simpler',
-      text: 'Clarify programs, decision moments and the messages that reassure future students.',
+      eyebrow: '01',
+      title: 'Insight',
+      text: 'Student journeys and digital trend analysis.',
+      bullets: ['Student journeys and digital trend analysis.', 'Precise segmentation by profile and channel.'],
+      icon: 'ph ph-magnifying-glass',
     },
     {
-      eyebrow: 'Move',
-      title: 'Build a system, not a poster',
-      text: 'Connect the landing page, creative assets, search, social ads, WhatsApp and tracking to capture and follow up.',
+      eyebrow: '02',
+      title: 'Creative concept',
+      text: 'The “Lance ton avenir” platform: clear, aspirational and memorable.',
+      bullets: ['The “Lance ton avenir” platform: clear, aspirational and memorable.', 'Multi-format video and story assets built mobile-first.'],
+      icon: 'ph ph-lightbulb',
     },
     {
-      eyebrow: 'Proof',
-      title: 'Prove the business value',
-      text: 'Read performance through useful leads, CRM quality, acquisition cost and enrollment signals.',
+      eyebrow: '03',
+      title: 'Media deployment',
+      text: 'Social, display, video and search mix.',
+      bullets: ['Social, display, video and search mix.', 'Dedicated landing page and enrollment CRM.'],
+      icon: 'ph ph-megaphone',
+    },
+    {
+      eyebrow: '04',
+      title: 'Optimization',
+      text: 'Real-time data steering.',
+      bullets: ['Real-time data steering.', 'Creative and audience tests to maximize conversion.'],
+      icon: 'ph ph-chart-line-up',
     },
   ],
-  system: {
-    eyebrow: 'System',
-    title: 'An easy-to-scan four-step mechanism.',
-    text: 'The model avoids heavy copy. Each case study quickly explains what Richmedia thought, produced, distributed and measured.',
-    steps: [
-      { label: 'Insight', text: 'Audience, tension, timing, promise.' },
-      { label: 'Creative', text: 'Key visual, social formats, video.' },
-      { label: 'Media', text: 'Search, paid social, retargeting.' },
-      { label: 'CRM', text: 'Follow-ups, qualification, reporting.' },
-    ],
-  },
-  gallery: {
-    eyebrow: 'Visual proof',
-    title: 'A few assets are enough when they are well selected.',
+  proof: {
+    eyebrow: 'Block 3',
+    title: 'The Proof',
+    intro:
+      'A visual collection of creative assets, media formats, dashboards and business proof from the campaign.',
     items: [
-      { image: `${assetBase}/campaign-wide-uir.webp`, label: 'Admissions hero', format: 'Display / social', size: 'wide' },
-      { image: `${brandBase}/uir-inscriptions.webp`, label: 'Online enrollment', format: 'Creative square' },
-      { image: `${assetBase}/campaign-portfolio-uir.webp`, label: 'Social adaptations', format: 'Portfolio' },
-      { image: `${realizationBase}/whatsapp-uir.png`, label: 'WhatsApp follow-up', format: 'CRM' },
+      { image: `${assetBase}/proof-social-feed.webp`, label: 'Sponsored post', format: 'Social feed', size: 'feed' as const },
+      { image: `${assetBase}/proof-story.webp`, label: 'Sponsored story', format: 'Vertical story', size: 'story' as const },
+      { image: `${assetBase}/proof-banner.webp`, label: 'Enrollment banner', format: 'Display', size: 'banner' as const },
+      { image: `${assetBase}/proof-dashboard.webp`, label: 'Dashboard', format: 'Performance', size: 'dashboard' as const },
+      { image: `${assetBase}/proof-event.webp`, label: 'Campus activation', format: 'Field', size: 'event' as const },
+      { image: `${assetBase}/proof-engineering.webp`, label: 'Engineering and sciences', format: 'Vertical format', size: 'engineering' as const },
+      { image: `${assetBase}/proof-parcours.webp`, label: 'Differentiating paths', format: 'Vertical format', size: 'parcours' as const },
+      { image: `${assetBase}/proof-ready.png`, label: 'Ready for tomorrow', format: 'Vertical format', size: 'ready' as const },
+      { image: `${assetBase}/proof-landing.webp`, label: 'Landing page', format: 'Conversion', size: 'landing' as const },
+      { image: `${assetBase}/proof-quote-card.webp`, label: 'Client quote', format: 'Testimonial', size: 'quote' as const },
+      { image: `${assetBase}/proof-keys-card.png`, label: 'Key proof points', format: 'Results', size: 'keys' as const },
     ],
   },
   quote:
-    'A strong case study does not need to show everything. It should make people want to understand the method, then start a project.',
-  ctaLabel: 'Watch the video',
-  ctaHref: '#case-video',
+    'Richmedia exceeded our objectives across the board. Their understanding of our challenges and agility made the difference.',
+  ctaLabel: 'Launch a similar project',
+  ctaHref: '/en/contact',
   secondaryLabel: 'Back to case studies',
   secondaryHref: '/en/case-studies',
+  ui: {
+    resultLabel: 'Case study results',
+    metaLabel: 'Case study summary',
+    workLabel: 'Block 2',
+    workTitle: 'What We Did',
+    proofLabel: 'Visual proof',
+    quoteLabel: 'Case study takeaway',
+  },
 };
 
 const schema = [
@@ -90,7 +116,7 @@ const schema = [
 
 <BaseLayout
   title="Case study model — UIR admissions | Richmedia"
-  description="A more visual, shorter and more premium Richmedia case study page model with video, KPIs, setup and creative proof."
+  description="A simplified Richmedia case study page model in three blocks: result, method and visual proof."
   canonical={pageUrl}
   ogImage={`${SITE.url}${content.heroImage}`}
   lang="en"

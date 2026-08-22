@@ -1,0 +1,216 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../../components/SeoSiloLinks.astro';
+import QuickAnswer from '../../../components/QuickAnswer.astro';
+import Faq from '../../../components/Faq.astro';
+import { breadcrumbs, serviceSchema } from '../../../lib/schema';
+import { enSiloLinks } from '../../../lib/seo-silos';
+import { SITE } from '../../../consts';
+
+type ExpertisePage = {
+  slug: string;
+  fr: string;
+  title: string;
+  metaTitle: string;
+  h1: string;
+  description: string;
+  quick: string;
+  services: string[];
+  sections: Array<{
+    title: string;
+    paragraphs?: string[];
+    bullets?: string[];
+  }>;
+  faq: Array<{
+    question: string;
+    answer: string;
+  }>;
+};
+
+export function getStaticPaths() {
+  const expertisePages: ExpertisePage[] = [
+    {
+      slug: 'media-performance',
+      fr: '/expertises/media-performance',
+      title: 'Media & performance',
+      metaTitle: 'Media buying agency in Morocco - Google, Meta, TikTok | Richmedia',
+      h1: 'Media & performance',
+      description: 'Media buying agency in Morocco: data-led acquisition across Google, Meta, TikTok and LinkedIn, focused on ROI and qualified leads.',
+      quick: 'Richmedia is a media performance agency based in Casablanca. We manage your paid campaigns on Google, Meta, TikTok and LinkedIn to generate qualified leads and measurable ROI.',
+      services: ['Meta & Google advertising', 'SEO', 'Lead generation', 'Programmatic & DOOH'],
+      sections: [
+        {
+          title: 'What we do',
+          paragraphs: [
+            'Our Media & performance team combines acquisition strategy, ad creative and continuous optimization to turn your media budget into measurable growth.',
+            'We work from the framing stage: goals, audiences, promise, tracking plan, media budget, calendar and decision indicators. Campaigns are then managed week after week to reinforce what converts, cut what dilutes the budget and document learnings that are useful for sales teams.',
+          ],
+        },
+        {
+          title: 'Our approach',
+          paragraphs: [
+            'We build media systems around four levers: the right message, the right channel, a clear landing page and usable reporting. This method prevents isolated campaigns that generate traffic without creating commercial value.',
+          ],
+          bullets: [
+            'Google Ads and search to capture active intent.',
+            'Meta, TikTok and LinkedIn to develop demand and retarget audiences.',
+            'Social-first creative to quickly test angles, formats and proof points.',
+            'Dashboards to track leads, quality, acquisition cost and conversions.',
+          ],
+        },
+        {
+          title: 'What you receive',
+          paragraphs: [
+            'Each engagement includes a media plan, creative recommendations, conversion tracking setup, a reporting rhythm and optimization checkpoints. The goal is not only to spend better, but to make each campaign smarter than the previous one.',
+            'This expertise can be combined with SEO, landing pages, CRM, WhatsApp Business or phygital activations when the conversion journey requires it.',
+          ],
+        },
+      ],
+      faq: [
+        {
+          question: 'How much does a digital advertising campaign cost in Morocco?',
+          answer: 'The budget depends on the goals and channels. We build a media plan adapted to your audience and manage the budget around ROI, with transparent reporting.',
+        },
+        {
+          question: 'Which platforms does Richmedia buy media on?',
+          answer: 'Google Ads, Meta (Facebook/Instagram), TikTok and LinkedIn, across search, social and programmatic formats.',
+        },
+      ],
+    },
+    {
+      slug: 'seo-geo',
+      fr: '/expertises/referencement-seo',
+      title: 'Search engine optimization (SEO)',
+      metaTitle: 'SEO agency in Morocco - Natural search in Casablanca | Richmedia',
+      h1: 'Search engine optimization (SEO)',
+      description: 'SEO agency in Morocco: audit, content and authority building to rank sustainably on Google and be cited by AI engines.',
+      quick: 'An SEO agency in Morocco optimizes your website for Google and generative engines such as ChatGPT and Perplexity through technical audits, content and authority. Richmedia manages all three levers from Casablanca.',
+      services: ['Technical audit', 'Content strategy', 'Link building', 'Local SEO', 'GEO'],
+      sections: [
+        {
+          title: 'Our SEO method',
+          paragraphs: [
+            'Search engine optimization starts with a full diagnosis: site architecture, technical performance, indexation, internal linking, search intent, competition and the quality of existing content. This stage helps prioritize actions that can genuinely improve visibility instead of producing content at random.',
+          ],
+        },
+        {
+          title: 'Technical, content, authority',
+          paragraphs: [
+            'We work on the three foundations of SEO in the same movement. Technical SEO makes the site readable and fast. Content answers the questions your audiences actually ask. Authority strengthens trust around your brand, pages and expertise.',
+            'For local or commercial websites, we also integrate local SEO, structured data, service pages, FAQs and proof content: case studies, references, reviews, figures and reassurance elements.',
+          ],
+        },
+        {
+          title: 'SEO and AI engines',
+          paragraphs: [
+            'Generative engines value content that is clear, structured, attributable and consistent with the rest of your digital presence. We therefore prepare pages for Google, but also for AI-assisted search uses: short answers, reliable context, named entities, internal links and expertise signals.',
+          ],
+        },
+        {
+          title: 'Deliverables',
+          paragraphs: [
+            'A Richmedia SEO engagement can include a technical audit, keyword mapping, an editorial plan, content briefs, on-page optimizations, an internal linking strategy, authority recommendations and position tracking. Every action remains tied to a goal: qualified traffic, inbound requests, awareness or conversion.',
+          ],
+        },
+      ],
+      faq: [
+        {
+          question: 'How long does it take to see SEO results?',
+          answer: 'The first effects generally appear within 3 to 6 months. SEO is a long-term investment whose ROI compounds over time.',
+        },
+        {
+          question: 'Are SEO and GEO the same thing?',
+          answer: 'No. SEO targets ranking in Google results; GEO targets citation in AI answers. Both share the same technical foundations.',
+        },
+      ],
+    },
+  ];
+  return expertisePages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const slug = Astro.params.slug;
+const pageUrl = `${SITE.url}/en/expertises/${slug}`;
+const schema = [
+  serviceSchema({ name: page.title, description: page.description, url: pageUrl }),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Expertise', url: `${SITE.url}/en/expertises` },
+    { name: page.title, url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout title={page.metaTitle} description={page.description} canonical={pageUrl} lang="en" schema={schema}>
+  <section class="expertise-hero">
+    <span class="section-kicker">Expertise</span>
+    <h1>{page.h1}</h1>
+    <p>{page.description}</p>
+    <a class="button button-primary" href="/en/contact">Talk to an expert <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+  </section>
+  <QuickAnswer text={page.quick} />
+  <article class="expertise-content">
+    {page.sections.map((section) => (
+      <section class="content-section">
+        <h2>{section.title}</h2>
+        {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+        {section.bullets && (
+          <ul>
+            {section.bullets.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+        )}
+      </section>
+    ))}
+  </article>
+  <section class="service-grid" aria-label="Services">
+    {page.services.map((service) => (
+      <article><i class="ph ph-check-circle" aria-hidden="true"></i><h2>{service}</h2></article>
+    ))}
+  </section>
+  <Faq faq={page.faq} lang="en" />
+  <SeoSiloLinks
+    title="Connect SEO, content and performance"
+    intro="Search visibility works better with a strong web foundation, clear strategy and content built around real intent."
+    links={enSiloLinks.seo}
+    variant="compact"
+  />
+</BaseLayout>
+
+<style>
+  :global(main) { max-width: 1180px; }
+  .expertise-hero { display: grid; max-width: 900px; gap: 1rem; padding-block: clamp(2rem, 6vw, 5rem); }
+  h1, h2, p { margin: 0; }
+  h1 { color: #fff; font-size: clamp(3rem, 7vw, 6.3rem); font-weight: 900; line-height: .94; }
+  h2 { color: #fff; font-size: 1.25rem; }
+  p { color: rgba(255,255,255,.72); line-height: 1.7; }
+  .expertise-content {
+    display: grid;
+    gap: 1rem;
+    padding-block: clamp(1rem, 4vw, 3rem);
+  }
+  .content-section {
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    padding: clamp(1.1rem, 2.4vw, 1.65rem);
+    background: rgba(255,255,255,.035);
+  }
+  .content-section h2 {
+    font-size: clamp(1.45rem, 2.5vw, 2.2rem);
+    line-height: 1.05;
+  }
+  .content-section p,
+  .content-section ul {
+    margin-top: .85rem;
+  }
+  .content-section ul {
+    display: grid;
+    gap: .48rem;
+    padding-left: 1.15rem;
+    color: rgba(255,255,255,.72);
+    line-height: 1.65;
+  }
+  .service-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .9rem; padding-block: clamp(2rem, 6vw, 5rem); }
+  .service-grid article { border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 1.2rem; background: rgba(255,255,255,.04); }
+  .service-grid i { color: #a985ff; font-size: 2rem; }
+  @media (max-width: 900px) { .service-grid { grid-template-columns: 1fr; } }
+</style>

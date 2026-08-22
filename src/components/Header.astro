@@ -3,13 +3,47 @@ const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith(
 const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const homeHref = isEnglish ? '/en' : '/';
 const englishDetailExpertiseSlugs = ['strategie-digitale', 'brand-content', 'web-si', 'achat-media', 'influence', 'phygital', 'evenementiel', 'ia-automation'];
+const languagePairs: Record<string, string> = {
+  '/agence': '/en/agency',
+  '/carrieres': '/en/careers',
+  '/confidentialite': '/en/privacy',
+  '/cookies': '/en/cookies',
+  '/mentions-legales': '/en/legal-notice',
+  '/references': '/en/references',
+  '/sitemap': '/en/sitemap',
+  '/insights': '/en/insights',
+  '/insights/priorites-digitales-2026-croissance-rentable': '/en/insights/digital-priorities-2026-profitable-growth',
+  '/insights/plan-acquisition-digital-2026': '/en/insights/digital-acquisition-plan-2026',
+  '/insights/campagnes-meta-2026-bonnes-pratiques': '/en/insights/meta-campaigns-2026-best-practices',
+  '/insights/seo-vs-geo-enjeux-2026': '/en/insights/seo-vs-geo-2026',
+  '/insights/whatsapp-business-canal-conversion': '/en/insights/whatsapp-business-conversion-channel',
+  '/insights/createurs-marques-collaborations-durables': '/en/insights/creators-brands-durable-collaborations',
+  '/insights/data-decision-strategie-performance': '/en/insights/data-for-decisions-performance-strategy',
+  '/insights/marque-employeur-attractivite-digitale': '/en/insights/employer-brand-digital-attractiveness',
+  '/insights/contenu-qualite-seo-perenne': '/en/insights/quality-content-durable-seo',
+  '/insights/crm-automation-aligner-marketing-sales': '/en/insights/crm-automation-marketing-sales-alignment',
+  '/insights/cout-campagne-google-ads-maroc': '/en/insights/google-ads-campaign-cost-morocco',
+  '/realisations/uir-campagnes-digitales': '/en/case-studies/uir-digital-campaigns',
+  '/expertises/media-performance': '/en/expertises/media-performance',
+  '/expertises/referencement-seo': '/en/expertises/seo-geo',
+  '/secteurs': '/en/sectors',
+  '/secteurs/education': '/en/sectors/education',
+  '/secteurs/immobilier': '/en/sectors/real-estate',
+  '/secteurs/retail-ecommerce': '/en/sectors/retail-ecommerce',
+  '/secteurs/gms': '/en/sectors/grocery-retail',
+  '/secteurs/institutionnel': '/en/sectors/institutional',
+  '/secteurs/tourisme-hotellerie': '/en/sectors/tourism-hospitality',
+  '/secteurs/automobile': '/en/sectors/automotive',
+  '/secteurs/fmcg': '/en/sectors/fmcg',
+};
+const reverseLanguagePairs = Object.fromEntries(Object.entries(languagePairs).map(([fr, en]) => [en, fr]));
 const expertiseHref = (slug?: string) => {
   if (!slug) return isEnglish ? '/en/expertises' : '/expertises';
   if (isEnglish && englishDetailExpertiseSlugs.includes(slug)) return `/en/expertises/${slug}`;
   return isEnglish ? `/en/expertises#${slug}` : `/expertises/${slug}`;
 };
 const languageHref = isEnglish
-  ? normalizedPath === '/en/team'
+  ? reverseLanguagePairs[normalizedPath] ?? (normalizedPath === '/en/team'
     ? '/equipe'
     : normalizedPath === '/en/case-studies'
     ? '/realisations'
@@ -43,8 +77,8 @@ const languageHref = isEnglish
     ? '/expertises/evenementiel'
     : normalizedPath === '/en/expertises/ia-automation'
     ? '/expertises/ia-automation'
-    : Astro.url.pathname.replace(/^\/en(?=\/|$)/, '') || '/'
-  : normalizedPath === '/equipe'
+    : Astro.url.pathname.replace(/^\/en(?=\/|$)/, '') || '/')
+  : languagePairs[normalizedPath] ?? (normalizedPath === '/equipe'
     ? '/en/team'
     : normalizedPath === '/realisations/modele-case-study'
     ? '/en/case-studies/model-case-study'
@@ -80,13 +114,19 @@ const languageHref = isEnglish
     ? '/en/products/in-talks'
     : normalizedPath === '/produits/carter-blake'
     ? '/en/products/carter-blake'
-    : '/en';
+    : '/en');
 
 const labels = isEnglish
   ? {
       home: 'Home',
       team: 'Team',
-      products: 'Our products',
+      agency: 'Agency',
+      agencyMenu: 'Agency menu',
+      sectors: 'Sectors',
+      sectorMenu: 'Sectors menu',
+      insights: 'Insights',
+      insightMenu: 'Insights menu',
+      products: 'Products',
       mainNav: 'Primary navigation',
       mobileNav: 'Mobile navigation',
       brandHome: 'Richmedia — Home',
@@ -105,7 +145,13 @@ const labels = isEnglish
   : {
       home: 'Accueil',
       team: 'Équipe',
-      products: 'Nos produits',
+      agency: "L’agence",
+      agencyMenu: "Menu l’agence",
+      sectors: 'Secteurs',
+      sectorMenu: 'Menu secteurs',
+      insights: 'Insights',
+      insightMenu: 'Menu insights',
+      products: 'Produits',
       mainNav: 'Navigation principale',
       mobileNav: 'Navigation mobile',
       brandHome: 'Richmedia — Accueil',
@@ -126,9 +172,64 @@ const ctaHref = isEnglish ? '/en/book-audit' : 'tel:+212661172885';
 
 const navItems = [
   { href: isEnglish ? '/en/case-studies' : '/realisations', label: labels.caseStudies },
-  { href: isEnglish ? '/en/team' : '/equipe', label: labels.team },
   { href: isEnglish ? '/en/contact' : '/contact', label: 'Contact' },
 ];
+
+const agencyHref = isEnglish ? '/en/agency' : '/agence';
+
+const agencyLinks = isEnglish
+  ? [
+      { href: '/en/agency', label: 'Agency', text: 'Richmedia approach and offices.' },
+      { href: '/en/team', label: 'Team', text: 'People, skills and culture.' },
+      { href: '/en/references', label: 'References', text: 'Brands and institutions.' },
+      { href: '/en/careers', label: 'Careers', text: 'Join Richmedia.' },
+    ]
+  : [
+      { href: '/agence', label: "L’agence", text: 'Approche, vision et bureaux.' },
+      { href: '/equipe', label: "L’équipe", text: 'Talents, pôles et culture.' },
+      { href: '/references', label: 'Références', text: 'Marques et institutions.' },
+      { href: '/carrieres', label: 'Carrières', text: 'Rejoindre Richmedia.' },
+    ];
+
+const sectorLinks = isEnglish
+  ? [
+      { href: '/en/sectors/education', label: 'Education', text: 'Schools, universities and admissions.' },
+      { href: '/en/sectors/real-estate', label: 'Real estate', text: 'Developers, projects and leads.' },
+      { href: '/en/sectors/retail-ecommerce', label: 'Retail & e-commerce', text: 'Traffic, conversion and CRM.' },
+      { href: '/en/sectors/grocery-retail', label: 'Grocery retail', text: 'Retail chains and drive-to-store.' },
+      { href: '/en/sectors/institutional', label: 'Institutional', text: 'Public communication and impact.' },
+      { href: '/en/sectors/tourism-hospitality', label: 'Tourism / hospitality', text: 'Image, demand and bookings.' },
+      { href: '/en/sectors/automotive', label: 'Automotive', text: 'Launches, test drives and leads.' },
+      { href: '/en/sectors/fmcg', label: 'FMCG', text: 'Consumer goods and activation.' },
+    ]
+  : [
+      { href: '/secteurs/education', label: 'Éducation', text: 'Écoles, universités et admissions.' },
+      { href: '/secteurs/immobilier', label: 'Immobilier', text: 'Promoteurs, projets et leads.' },
+      { href: '/secteurs/retail-ecommerce', label: 'Retail & e-commerce', text: 'Trafic, conversion et CRM.' },
+      { href: '/secteurs/gms', label: 'GMS', text: 'Grande distribution et drive-to-store.' },
+      { href: '/secteurs/institutionnel', label: 'Institutionnel', text: 'Communication publique et impact.' },
+      { href: '/secteurs/tourisme-hotellerie', label: 'Tourisme / hôtellerie', text: 'Image, demandes et réservation.' },
+      { href: '/secteurs/automobile', label: 'Automobile', text: 'Lancements, essais et leads.' },
+      { href: '/secteurs/fmcg', label: 'FMCG', text: 'Grande consommation et activation.' },
+    ];
+
+const insightLinks = isEnglish
+  ? [
+      { href: '/en/insights', label: 'All insights', text: 'Guides, analysis and methods.' },
+      { href: '/en/insights/digital-acquisition-plan-2026', label: 'Marketing guides', text: 'Methods and frameworks.' },
+      { href: '/en/insights/meta-campaigns-2026-best-practices', label: 'Media & performance', text: 'Budgets, acquisition and tracking.' },
+      { href: '/en/insights/seo-vs-geo-2026', label: 'SEO / GEO', text: 'Search and AI visibility.' },
+      { href: '/en/insights/whatsapp-business-conversion-channel', label: 'WhatsApp & automation', text: 'CRM, follow-up and AI agents.' },
+      { href: '/en/insights/creators-brands-durable-collaborations', label: 'Influence & social media', text: 'Creators, UGC and communities.' },
+    ]
+  : [
+      { href: '/insights', label: 'Tous les insights', text: 'Guides, analyses et méthodes.' },
+      { href: '/insights/plan-acquisition-digital-2026', label: 'Guides marketing', text: 'Méthodes et cadrages.' },
+      { href: '/insights/campagnes-meta-2026-bonnes-pratiques', label: 'Média & performance', text: 'Budgets, acquisition et tracking.' },
+      { href: '/insights/seo-vs-geo-enjeux-2026', label: 'SEO / GEO', text: 'Référencement et visibilité IA.' },
+      { href: '/insights/whatsapp-business-canal-conversion', label: 'WhatsApp & automation', text: 'CRM, relances et agents IA.' },
+      { href: '/insights/createurs-marques-collaborations-durables', label: 'Influence & social media', text: 'Créateurs, UGC et communautés.' },
+    ];
 
 const productLinks = [
   {
@@ -229,15 +330,27 @@ const mobileNavItems = [
     icon: 'ph ph-sparkle',
   },
   {
+    href: isEnglish ? '/en/sectors' : '/secteurs',
+    label: labels.sectors,
+    kicker: isEnglish ? 'Markets' : 'Marchés',
+    icon: 'ph ph-briefcase',
+  },
+  {
     href: isEnglish ? '/en/case-studies' : '/realisations',
     label: labels.caseStudies,
     kicker: isEnglish ? 'Proof' : 'Preuves',
     icon: 'ph ph-images-square',
   },
   {
-    href: isEnglish ? '/en/team' : '/equipe',
-    label: labels.team,
-    kicker: isEnglish ? 'People' : 'Talents',
+    href: isEnglish ? '/en/insights' : '/insights',
+    label: labels.insights,
+    kicker: isEnglish ? 'Ideas' : 'Idées',
+    icon: 'ph ph-lightbulb',
+  },
+  {
+    href: agencyHref,
+    label: labels.agency,
+    kicker: isEnglish ? 'Agency' : 'Agence',
     icon: 'ph ph-users-three',
   },
   {
@@ -260,7 +373,7 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
     <a href={homeHref}>{labels.home}</a>
     <div class="nav-dropdown">
       <a class="nav-dropdown-trigger" href={expertiseHref()} aria-haspopup="true">
-        {isEnglish ? 'Our expertise' : 'Nos expertises'}
+        {isEnglish ? 'Expertise' : 'Expertises'}
         <i class="ph ph-caret-down" aria-hidden="true"></i>
       </a>
       <div class="expertise-submenu" aria-label="Mega menu expertises">
@@ -289,7 +402,58 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
         </div>
       </div>
     </div>
-    {navItems.slice(0, 2).map((item) => <a href={item.href}>{item.label}</a>)}
+    <div class="nav-dropdown sector-dropdown">
+        <a class="nav-dropdown-trigger" href={isEnglish ? '/en/sectors' : '/secteurs'} aria-haspopup="true">
+          {labels.sectors}
+          <i class="ph ph-caret-down" aria-hidden="true"></i>
+        </a>
+        <div class="sector-submenu" aria-label={labels.sectorMenu}>
+          <div class="sector-menu-grid">
+            {sectorLinks.map((item) => (
+              <a href={item.href}>
+                <span>{item.label}</span>
+                <small>{item.text}</small>
+                <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    {navItems.slice(0, 1).map((item) => <a href={item.href}>{item.label}</a>)}
+    <div class="nav-dropdown insight-dropdown">
+        <a class="nav-dropdown-trigger" href={isEnglish ? '/en/insights' : '/insights'} aria-haspopup="true">
+          {labels.insights}
+          <i class="ph ph-caret-down" aria-hidden="true"></i>
+        </a>
+        <div class="insight-submenu" aria-label={labels.insightMenu}>
+          <div class="insight-menu-grid">
+            {insightLinks.map((item) => (
+              <a href={item.href}>
+                <span>{item.label}</span>
+                <small>{item.text}</small>
+                <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    <div class="nav-dropdown agency-dropdown">
+      <a class="nav-dropdown-trigger" href={agencyHref} aria-haspopup="true">
+        {labels.agency}
+        <i class="ph ph-caret-down" aria-hidden="true"></i>
+      </a>
+      <div class="agency-submenu" aria-label={labels.agencyMenu}>
+        <div class="agency-menu-grid">
+          {agencyLinks.map((item) => (
+            <a href={item.href}>
+              <span>{item.label}</span>
+              <small>{item.text}</small>
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
     <div class="nav-dropdown product-dropdown">
       <button class="nav-dropdown-trigger" type="button" aria-haspopup="true">
         {labels.products}
@@ -317,7 +481,7 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
         </div>
       </div>
     </div>
-    {navItems.slice(2).map((item) => <a href={item.href}>{item.label}</a>)}
+    {navItems.slice(1).map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
 
   <div class="header-actions">
@@ -361,6 +525,37 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
       <span>{isEnglish ? 'Expertise' : 'Expertises'}</span>
       <div class="mobile-menu-chip-grid">
         {mobileExpertiseLinks.map((item) => (
+          <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
+        ))}
+      </div>
+    </section>
+
+    {!isEnglish && (
+      <section class="mobile-menu-section">
+        <span>{labels.sectors}</span>
+        <div class="mobile-menu-chip-grid">
+          {sectorLinks.map((item) => (
+            <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {!isEnglish && (
+      <section class="mobile-menu-section">
+        <span>{labels.insights}</span>
+        <div class="mobile-menu-chip-grid">
+          {insightLinks.map((item) => (
+            <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="mobile-menu-section">
+      <span>{labels.agency}</span>
+      <div class="mobile-menu-chip-grid">
+        {agencyLinks.map((item) => (
           <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
         ))}
       </div>
@@ -424,7 +619,55 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
       link.addEventListener('click', () => setMenuState(false, false));
     });
 
+    const desktopQuery = window.matchMedia('(min-width: 1241px)');
+    const dropdowns = [...header.querySelectorAll('.nav-dropdown')];
+    const closeDelay = 460;
+
+    const setDropdownState = (dropdown, open) => {
+      dropdown.classList.toggle('is-open', open);
+      dropdown.querySelector('.nav-dropdown-trigger')?.setAttribute('aria-expanded', String(open));
+    };
+
+    const openDropdown = (dropdown) => {
+      if (!desktopQuery.matches) return;
+
+      dropdowns.forEach((item) => {
+        if (item !== dropdown) {
+          window.clearTimeout(item.closeTimer);
+          setDropdownState(item, false);
+        }
+      });
+
+      window.clearTimeout(dropdown.closeTimer);
+      setDropdownState(dropdown, true);
+    };
+
+    const closeDropdown = (dropdown, delay = closeDelay) => {
+      window.clearTimeout(dropdown.closeTimer);
+      dropdown.closeTimer = window.setTimeout(() => {
+        setDropdownState(dropdown, false);
+      }, delay);
+    };
+
+    dropdowns.forEach((dropdown) => {
+      dropdown.querySelector('.nav-dropdown-trigger')?.setAttribute('aria-expanded', 'false');
+
+      dropdown.addEventListener('pointerenter', () => openDropdown(dropdown));
+      dropdown.addEventListener('pointerleave', () => closeDropdown(dropdown));
+      dropdown.addEventListener('focusin', () => openDropdown(dropdown));
+      dropdown.addEventListener('focusout', (event) => {
+        if (!dropdown.contains(event.relatedTarget)) closeDropdown(dropdown, 0);
+      });
+    });
+
     document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        dropdowns.forEach((dropdown) => {
+          window.clearTimeout(dropdown.closeTimer);
+          setDropdownState(dropdown, false);
+        });
+      }
+
       if (!header.classList.contains('is-menu-open')) return;
 
       if (event.key === 'Escape') {
@@ -451,9 +694,14 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
       }
     });
 
-    const desktopQuery = window.matchMedia('(min-width: 1081px)');
     desktopQuery.addEventListener?.('change', (event) => {
       if (event.matches) setMenuState(false, false);
+      if (!event.matches) {
+        dropdowns.forEach((dropdown) => {
+          window.clearTimeout(dropdown.closeTimer);
+          setDropdownState(dropdown, false);
+        });
+      }
     });
   })();
 </script>

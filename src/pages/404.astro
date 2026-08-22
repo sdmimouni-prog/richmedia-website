@@ -1,0 +1,337 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+
+const quickLinks = [
+  {
+    href: '/',
+    icon: 'ph-house-line',
+    title: 'Accueil',
+    text: 'Revenir à la page principale.',
+  },
+  {
+    href: '/expertises',
+    icon: 'ph-sparkle',
+    title: 'Expertises',
+    text: 'Explorer nos offres et savoir-faire.',
+  },
+  {
+    href: '/realisations',
+    icon: 'ph-images-square',
+    title: 'Réalisations',
+    text: 'Voir les campagnes et cas clients.',
+  },
+  {
+    href: '/contact',
+    icon: 'ph-envelope-simple',
+    title: 'Contact',
+    text: 'Nous signaler le lien ou démarrer un projet.',
+  },
+];
+---
+
+<BaseLayout
+  title="Page introuvable - Richmedia"
+  description="Cette page Richmedia est introuvable. Retournez vers l’accueil, les expertises, les réalisations ou contactez-nous."
+  canonical={`${SITE.url}/404`}
+  noindex
+>
+  <div class="not-found-page">
+    <section class="not-found-hero" aria-labelledby="not-found-title">
+      <div class="not-found-code" aria-hidden="true">
+        <span>4</span>
+        <i class="ph ph-warning-circle"></i>
+        <span>4</span>
+      </div>
+
+      <div class="not-found-copy">
+        <span class="not-found-kicker">Erreur 404</span>
+        <h1 id="not-found-title">Cette page a quitté le brief.</h1>
+        <p>
+          Le lien est peut-être ancien, la page a changé d’adresse ou l’URL contient une petite faute.
+          On vous remet vite sur une piste utile.
+        </p>
+        <div class="not-found-actions">
+          <a class="button button-primary" href="/">
+            Retour à l’accueil
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/contact">
+            Signaler le lien
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <nav class="not-found-links" aria-label="Pages utiles">
+      {quickLinks.map((link) => (
+        <a href={link.href}>
+          <i class:list={['ph', link.icon]} aria-hidden="true"></i>
+          <span>
+            <strong>{link.title}</strong>
+            <small>{link.text}</small>
+          </span>
+        </a>
+      ))}
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .not-found-page {
+    min-height: 100vh;
+    color: #fff;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 18% 12%, rgba(124, 60, 255, 0.32), transparent 28rem),
+      radial-gradient(circle at 82% 20%, rgba(64, 217, 255, 0.12), transparent 26rem),
+      linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+      #030407;
+    background-size: auto, auto, 72px 72px, 72px 72px, auto;
+  }
+
+  .not-found-page::before {
+    position: absolute;
+    inset: 5rem 0 auto;
+    height: 18rem;
+    pointer-events: none;
+    content: '';
+    background: linear-gradient(90deg, transparent, rgba(124, 60, 255, 0.42), transparent);
+    filter: blur(54px);
+    opacity: 0.44;
+  }
+
+  .not-found-hero,
+  .not-found-links {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 3rem, 1180px);
+    margin-inline: auto;
+  }
+
+  .not-found-hero {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.85fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+    min-height: min(760px, 86vh);
+    padding: clamp(7rem, 12vw, 10rem) 0 clamp(2rem, 5vw, 4rem);
+  }
+
+  .not-found-code {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    place-content: center;
+    align-items: center;
+    gap: clamp(0.4rem, 1.3vw, 1rem);
+    min-height: 18rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background:
+      linear-gradient(145deg, rgba(124, 60, 255, 0.2), rgba(255, 255, 255, 0.04)),
+      rgba(255, 255, 255, 0.035);
+    box-shadow: 0 1.8rem 5rem rgba(0, 0, 0, 0.34);
+  }
+
+  .not-found-code::after {
+    position: absolute;
+    inset: auto 8% -1px;
+    height: 3px;
+    content: '';
+    background: linear-gradient(90deg, transparent, #a96bff, transparent);
+    box-shadow: 0 0 2rem rgba(169, 107, 255, 0.72);
+  }
+
+  .not-found-code span,
+  .not-found-code i {
+    color: #fff;
+    font-family: var(--font-numeric);
+    font-size: clamp(4.8rem, 12vw, 9.5rem);
+    font-weight: 900;
+    line-height: 0.9;
+    text-shadow: 0 0 2.6rem rgba(124, 60, 255, 0.28);
+  }
+
+  .not-found-code i {
+    color: #9f72ff;
+    font-size: clamp(3.8rem, 8vw, 7rem);
+  }
+
+  .not-found-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #b88cff;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.78rem;
+    font-weight: 900;
+  }
+
+  .not-found-kicker::before {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    content: '';
+    background: #7c3cff;
+    box-shadow: 0 0 1.5rem rgba(124, 60, 255, 0.85);
+  }
+
+  .not-found-copy h1 {
+    max-width: 740px;
+    margin: 0.7rem 0 1rem;
+    font-size: clamp(3rem, 7vw, 6.6rem) !important;
+    font-weight: 900;
+    line-height: 0.9;
+  }
+
+  .not-found-copy p {
+    max-width: 680px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(1rem, 1.6vw, 1.22rem);
+    line-height: 1.72;
+  }
+
+  .not-found-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.75rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3.15rem;
+    border-radius: 6px;
+    padding: 0 1.05rem;
+    color: #fff;
+    font-weight: 850;
+    text-decoration: none;
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    box-shadow: 0 1rem 2.5rem rgba(124, 60, 255, 0.34);
+  }
+
+  .button-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.075);
+  }
+
+  .not-found-links {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+    padding: 0 0 clamp(4rem, 8vw, 7rem);
+  }
+
+  .not-found-links a {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.85rem;
+    align-items: center;
+    min-height: 7.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1rem;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .not-found-links a:hover,
+  .not-found-links a:focus-visible {
+    border-color: rgba(169, 107, 255, 0.62);
+    background: linear-gradient(145deg, rgba(124, 60, 255, 0.18), rgba(255, 255, 255, 0.05));
+    box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.24);
+    transform: translateY(-3px);
+  }
+
+  .not-found-links i {
+    display: grid;
+    place-items: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 8px;
+    color: #a96bff;
+    font-size: 1.45rem;
+    background: rgba(124, 60, 255, 0.13);
+  }
+
+  .not-found-links span {
+    display: grid;
+    gap: 0.24rem;
+  }
+
+  .not-found-links strong {
+    font-size: 1rem;
+  }
+
+  .not-found-links small {
+    color: rgba(255, 255, 255, 0.62);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 900px) {
+    .not-found-hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .not-found-code {
+      min-height: 13rem;
+    }
+
+    .not-found-links {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 620px) {
+    .not-found-hero,
+    .not-found-links {
+      width: min(100% - 1.25rem, 1180px);
+    }
+
+    .not-found-hero {
+      padding-top: 6.5rem;
+    }
+
+    .not-found-actions .button {
+      width: 100%;
+    }
+
+    .not-found-links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

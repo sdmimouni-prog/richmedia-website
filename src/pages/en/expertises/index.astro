@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ParticleLogoSlide from '../../../components/ParticleLogoSlide.astro';
+import SeoSiloLinks from '../../../components/SeoSiloLinks.astro';
 import { breadcrumbs } from '../../../lib/schema';
+import { enSiloLinks } from '../../../lib/seo-silos';
 import { SITE } from '../../../consts';
 
 const assetBase = '/assets/richmedia-home';
@@ -89,7 +92,7 @@ const expertises = [
   {
     number: '05',
     slug: 'influence',
-    image: 'case-influence.webp',
+    image: 'expertise-card-influence-ai.webp',
     label: 'Influence',
     title: 'Influence',
     text: 'Creator selection, activation, negotiation and performance tracking.',
@@ -183,7 +186,7 @@ const ops = [
       </div>
 
       <div class="expertise-hero-board" aria-label="Richmedia expertise preview">
-        <canvas class="particle-slider" data-particle-slider aria-hidden="true"></canvas>
+        <ParticleLogoSlide />
       </div>
     </section>
 
@@ -253,6 +256,12 @@ const ops = [
       </a>
     </section>
 
+    <SeoSiloLinks
+      title="Explore complementary growth levers"
+      intro="Each expertise fits into a system: strategy, acquisition, SEO, content, CRM and industry-specific priorities."
+      links={enSiloLinks.expertisesHub}
+    />
+
     <section class="expertise-accreditations" aria-labelledby="expertise-accreditations-title">
       <div class="accreditation-copy">
         <span>Certifications</span>
@@ -273,225 +282,6 @@ const ops = [
     </section>
   </div>
 </BaseLayout>
-
-<script>
-  type Particle = {
-    u: number;
-    band: number;
-    lane: number;
-    drift: number;
-    x: number;
-    y: number;
-    vx: number;
-    vy: number;
-    size: number;
-    alpha: number;
-  };
-
-  type Point = {
-    x: number;
-    y: number;
-  };
-
-  const initParticleSliders = () => {
-    const canvases = document.querySelectorAll('[data-particle-slider]');
-
-    canvases.forEach((canvas) => {
-      if (!(canvas instanceof HTMLCanvasElement) || canvas.dataset.particleReady === 'true') return;
-      canvas.dataset.particleReady = 'true';
-
-      const context = canvas.getContext('2d', { alpha: false });
-      if (!context) return;
-
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const pointer = { x: 0.5, y: 0.5, active: false };
-      const tau = Math.PI * 2;
-      let width = 0;
-      let height = 0;
-      let dpr = 1;
-      let particles: Particle[] = [];
-      let animationFrame = 0;
-      let renderUntil = 0;
-
-      const random = (seed: number) => {
-        const value = Math.sin(seed * 12.9898) * 43758.5453;
-        return value - Math.floor(value);
-      };
-
-      const resize = () => {
-        const rect = canvas.getBoundingClientRect();
-        width = Math.max(1, Math.floor(rect.width));
-        height = Math.max(1, Math.floor(rect.height));
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        canvas.width = Math.floor(width * dpr);
-        canvas.height = Math.floor(height * dpr);
-        context.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-        const density = width < 720 ? 54 : 38;
-        const count = Math.floor(Math.min(12500, Math.max(5200, (width * height) / density)));
-        const startTime = performance.now();
-        particles = Array.from({ length: count }, (_, index) => {
-          const particle = {
-            u: random(index + 1),
-            band: Math.sign(random(index + 19) - 0.5) * Math.pow(random(index + 23), 0.55),
-            lane: random(index + 31),
-            drift: random(index + 37),
-            x: 0,
-            y: 0,
-            vx: 0,
-            vy: 0,
-            size: 0.85 + random(index + 59) * 1.55,
-            alpha: 0.62 + random(index + 83) * 0.38,
-          };
-          const origin = particleShapePoint(particle, startTime, 0);
-          particle.x = origin.x;
-          particle.y = origin.y;
-          return particle;
-        });
-      };
-
-      const ease = (value: number) => value * value * (3 - 2 * value);
-
-      const lerp = (from: number, to: number, amount: number) => from + (to - from) * amount;
-
-      const particleShapePoint = (particle: Particle, _time: number, pose: number): Point => {
-        const posePhase = pose * 0.72;
-        const flow = (particle.u + pose * 0.042) % 1;
-        const ribbon = particle.band;
-        const wobble = Math.sin(particle.drift * tau + posePhase) * 0.035;
-        const breathing = Math.sin(posePhase) * 0.035;
-
-        let x = 0.5;
-        let y = 0.5;
-
-        if (particle.lane < 0.12) {
-          const t = ease((flow + pose * 0.08) % 1);
-          const side = particle.lane < 0.06 ? -1 : 1;
-          x = 0.47 + side * 0.045 + ribbon * 0.045 + Math.sin(t * Math.PI + posePhase) * 0.035;
-          y = 0.2 + t * 0.56 + Math.sin(t * tau + posePhase) * 0.035;
-        } else if (flow < 0.52) {
-          const t = flow / 0.52;
-          const theta = lerp(-2.2, 1.1, t) + breathing;
-          const thickness = 0.09 + Math.sin(t * Math.PI) * 0.08;
-          const radiusX = 0.2 + ribbon * thickness;
-          const radiusY = 0.28 + ribbon * thickness * 1.05;
-          x = 0.51 + Math.cos(theta) * radiusX + Math.sin(theta * 2.1 + posePhase) * 0.035;
-          y = 0.36 + Math.sin(theta) * radiusY + wobble;
-        } else {
-          const t = (flow - 0.52) / 0.48;
-          const theta = lerp(-1.0, 1.78, t) - breathing;
-          const taper = 1 - Math.max(0, t - 0.78) * 2.8;
-          const thickness = (0.105 + Math.sin(t * Math.PI) * 0.095) * Math.max(0.45, taper);
-          const radiusX = 0.27 + ribbon * thickness;
-          const radiusY = 0.31 + ribbon * thickness;
-          x = 0.58 + Math.cos(theta) * radiusX + Math.sin(theta * 1.45 + posePhase) * 0.038;
-          y = 0.63 + Math.sin(theta) * radiusY + Math.cos(theta * 1.2 + posePhase) * 0.03;
-        }
-
-        const tilt = Math.sin(posePhase) * 0.045;
-        const centeredX = x - 0.52;
-        const centeredY = y - 0.52;
-
-        return {
-          x: (0.54 + centeredX * (1.02 + breathing) - centeredY * tilt) * width,
-          y: (0.52 + centeredY * (1.02 - breathing * 0.65) + centeredX * tilt) * height,
-        };
-      };
-
-      const draw = (time = 0) => {
-        animationFrame = 0;
-        context.fillStyle = '#000';
-        context.fillRect(0, 0, width, height);
-
-        const glow = context.createRadialGradient(width * 0.55, height * 0.48, 0, width * 0.55, height * 0.48, width * 0.62);
-        glow.addColorStop(0, 'rgba(124, 60, 255, 0.24)');
-        glow.addColorStop(0.48, 'rgba(163, 107, 255, 0.08)');
-        glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        context.fillStyle = glow;
-        context.fillRect(0, 0, width, height);
-
-        const now = performance.now();
-        const recentMotion = pointer.active && now < renderUntil;
-        const slideProgress = pointer.active ? Math.min(2.999, Math.max(0, pointer.x * 3)) : 0;
-        const pose = Math.floor(slideProgress);
-        const nextPose = (pose + 1) % 3;
-        const easedMorph = ease(slideProgress - pose);
-        const pointerX = pointer.x * width;
-        const pointerY = pointer.y * height;
-        const ambientMotion = recentMotion ? 1 : 0;
-
-        for (let index = 0; index < particles.length; index += 1) {
-          const particle = particles[index];
-          const a = particleShapePoint(particle, time, pose);
-          const b = particleShapePoint(particle, time, nextPose);
-          const targetX = a.x + (b.x - a.x) * easedMorph;
-          const targetY = a.y + (b.y - a.y) * easedMorph;
-
-          particle.vx = (particle.vx + (targetX - particle.x) * 0.045) * 0.72;
-          particle.vy = (particle.vy + (targetY - particle.y) * 0.045) * 0.72;
-          particle.x += particle.vx + Math.sin(time * 0.0011 + particle.drift * 9) * 0.12 * ambientMotion;
-          particle.y += particle.vy + Math.cos(time * 0.001 + particle.drift * 7) * 0.1 * ambientMotion;
-
-          if (pointer.active) {
-            const dx = particle.x - pointerX;
-            const dy = particle.y - pointerY;
-            const distance = Math.max(1, Math.hypot(dx, dy));
-            if (distance < 155) {
-              const force = (1 - distance / 155) * 1.8;
-              particle.vx += (dx / distance) * force + (-dy / distance) * force * 0.36;
-              particle.vy += (dy / distance) * force + (dx / distance) * force * 0.36;
-            }
-          }
-
-          const flicker = recentMotion ? 0.78 + Math.sin(time * 0.002 + particle.drift * 14) * 0.22 : 1;
-          const shade = 132 + Math.floor(particle.drift * 62);
-          context.fillStyle = `rgba(${shade}, ${78 + Math.floor(particle.drift * 46)}, 255, ${particle.alpha * flicker})`;
-          context.fillRect(particle.x, particle.y, particle.size, particle.size);
-        }
-
-        if (!reduceMotion && performance.now() < renderUntil) {
-          animationFrame = window.requestAnimationFrame(draw);
-        }
-      };
-
-      const requestDraw = () => {
-        if (!reduceMotion && !animationFrame) {
-          animationFrame = window.requestAnimationFrame(draw);
-        }
-      };
-
-      canvas.addEventListener('pointermove', (event) => {
-        const rect = canvas.getBoundingClientRect();
-        pointer.x = (event.clientX - rect.left) / rect.width;
-        pointer.y = (event.clientY - rect.top) / rect.height;
-        pointer.active = true;
-        renderUntil = performance.now() + 700;
-        requestDraw();
-      });
-
-      canvas.addEventListener('pointerleave', () => {
-        pointer.active = false;
-        renderUntil = performance.now() + 900;
-        requestDraw();
-      });
-
-      const resizeObserver = new ResizeObserver(() => {
-        window.cancelAnimationFrame(animationFrame);
-        animationFrame = 0;
-        resize();
-        draw(performance.now());
-      });
-
-      resizeObserver.observe(canvas);
-    });
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initParticleSliders, { once: true });
-  } else {
-    initParticleSliders();
-  }
-</script>
 
 <style>
   :global(main) {
@@ -638,13 +428,12 @@ const ops = [
     box-shadow: none;
   }
 
-  .particle-slider {
+  .expertise-hero-board :global(.particle-logo-slide) {
     position: absolute;
     inset: 0;
     z-index: 0;
     width: 100%;
     height: 100%;
-    display: block;
     background: #000;
   }
 
@@ -1520,7 +1309,7 @@ const ops = [
       border-radius: 8px;
     }
 
-    .particle-slider {
+    .expertise-hero-board :global(.particle-logo-slide) {
       opacity: 0.86;
     }
 

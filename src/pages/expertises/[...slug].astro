@@ -1,9 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
 import QuickAnswer from '../../components/QuickAnswer.astro';
 import Faq from '../../components/Faq.astro';
 import { serviceSchema, breadcrumbs } from '../../lib/schema';
+import { frSiloLinks } from '../../lib/seo-silos';
 import { SITE } from '../../consts';
 
 export async function getStaticPaths() {
@@ -37,4 +39,10 @@ const schema = [
   <QuickAnswer text={entry.data.quickAnswer} />
   <Content />
   <Faq faq={entry.data.faq} />
+  <SeoSiloLinks
+    title="Relier SEO, contenu et performance"
+    intro="Le référencement travaille mieux avec un socle web solide, une stratégie claire et des contenus pensés pour les intentions de recherche."
+    links={frSiloLinks.seo}
+    variant="compact"
+  />
 </BaseLayout>

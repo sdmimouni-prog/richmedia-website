@@ -1,0 +1,183 @@
+---
+import type { ProofCaseLinkSet } from '../lib/seo-silos';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  cases: readonly ProofCaseLinkSet[];
+}
+
+const {
+  eyebrow = "Preuve & réalisations",
+  title,
+  intro,
+  cases,
+} = Astro.props;
+---
+
+{
+  cases.length > 0 && (
+    <section class="case-proof-links" aria-label={title}>
+      <div class="proof-heading">
+        <span class="proof-kicker">{eyebrow}</span>
+        <h2>{title}</h2>
+        {intro && <p>{intro}</p>}
+      </div>
+
+      <div class="proof-grid">
+        {cases.map((item) => (
+          <article class="proof-item">
+            <div>
+              <span>{item.category}</span>
+              <h3>{item.client}</h3>
+              <p>{item.campaign}</p>
+            </div>
+            <nav aria-label={`Maillage ${item.client}`}>
+              {item.links.map((link) => (
+                <a href={link.href}>
+                  <strong>{link.label}</strong>
+                  {link.text && <small>{link.text}</small>}
+                </a>
+              ))}
+            </nav>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .case-proof-links {
+    width: min(calc(100% - 3rem), 1320px);
+    margin: clamp(2rem, 5vw, 4.5rem) auto;
+    color: #fff;
+  }
+
+  .proof-heading {
+    display: grid;
+    gap: 0.65rem;
+    max-width: 860px;
+    margin-bottom: clamp(1rem, 2.5vw, 1.75rem);
+  }
+
+  .proof-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #a985ff;
+    font-size: 0.8rem;
+    font-weight: 850;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .proof-kicker::before {
+    content: "";
+    width: 46px;
+    height: 2px;
+    background: currentColor;
+  }
+
+  .proof-heading h2 {
+    margin: 0;
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+    line-height: 1.05;
+  }
+
+  .proof-heading p,
+  .proof-item p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.66);
+    line-height: 1.55;
+  }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.85rem;
+  }
+
+  .proof-item {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    min-height: 260px;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(6, 6, 10, 0.92) 50%),
+      rgba(255, 255, 255, 0.035);
+  }
+
+  .proof-item span {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: #a985ff;
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .proof-item h3 {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+    line-height: 1.05;
+  }
+
+  .proof-item nav {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .proof-item a {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      border-color 180ms ease,
+      background 180ms ease,
+      transform 180ms ease;
+  }
+
+  .proof-item a:hover,
+  .proof-item a:focus-visible {
+    border-color: rgba(169, 133, 255, 0.7);
+    background: rgba(169, 133, 255, 0.12);
+    transform: translateY(-2px);
+    outline: none;
+  }
+
+  .proof-item strong {
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+
+  .proof-item small {
+    color: rgba(255, 255, 255, 0.56);
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  @media (max-width: 720px) {
+    .case-proof-links {
+      width: min(calc(100% - 1.25rem), 1320px);
+    }
+
+    .proof-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-item {
+      min-height: auto;
+    }
+  }
+</style>
