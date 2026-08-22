@@ -110,14 +110,26 @@ jobs:
           fi
 
           for nginx_file in "${nginx_files[@]}"; do
+            perl -0pi -e 's/^\s*include \/etc\/nginx\/snippets\/richmedia-seo-cache-headers\.conf;\n//mg' "$nginx_file"
+          done
+
+          for nginx_file in "${nginx_files[@]}"; do
             if ! grep -q 'richmedia-seo-cache-headers.conf' "$nginx_file"; then
               cp "$nginx_file" "$nginx_file.bak.$(date -u +%Y%m%d%H%M%S)"
               perl -0pi -e 's/(server_name\s+[^;]*richmedia\.ma[^;]*;\s*)/$1\n  include \/etc\/nginx\/snippets\/richmedia-seo-cache-headers.conf;\n/gs' "$nginx_file"
             fi
           done
 
-          nginx -t
-          systemctl reload nginx
+          if nginx -t; then
+            systemctl reload nginx
+          else
+            echo "::warning::SEO cache header include conflicts with the active Nginx config. Rolling it back so deployment can continue."
+            for nginx_file in "${nginx_files[@]}"; do
+              perl -0pi -e 's/^\s*include \/etc\/nginx\/snippets\/richmedia-seo-cache-headers\.conf;\n//mg' "$nginx_file"
+            done
+            nginx -t
+            systemctl reload nginx
+          fi
           REMOTE
 
       - name: Configure contact API
