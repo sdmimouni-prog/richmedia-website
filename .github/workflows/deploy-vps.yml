@@ -69,6 +69,9 @@ jobs:
             set -e
             chown -R www-data:www-data '$release_path'
             ln -sfn '$release_path' '$VPS_WEBROOT/current'
+            for nginx_file in \$(grep -RslE 'server_name[^;]*richmedia\.ma' /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null || true); do
+              perl -0pi -e 's/^\s*include \/etc\/nginx\/snippets\/richmedia-seo-cache-headers\.conf;\n//mg' \"\$nginx_file\"
+            done
             nginx -t
           "
           echo "RICHMEDIA_RELEASE_PATH=$release_path" >> "$GITHUB_ENV"
