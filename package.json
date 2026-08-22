@@ -21,6 +21,7 @@
     "preview:prod": "astro preview --host 127.0.0.1 --port 4322",
     "prod": "npm run build",
     "prod:preview": "npm run prod && npm run preview:prod",
+    "seo:check-cache": "node scripts/check-seo-cache-headers.mjs",
     "check": "astro check",
     "verify": "npm run check && npm run build",
     "vercel:pull": "npm exec vercel -- pull --yes --environment=preview",

@@ -1,0 +1,6 @@
+<IfModule mod_headers.c>
+  <FilesMatch "^(robots\.txt|sitemap-index\.xml|sitemap-[0-9]+\.xml)$">
+    Header set Cache-Control "public, max-age=300, s-maxage=300, must-revalidate"
+    Header unset Expires
+  </FilesMatch>
+</IfModule>

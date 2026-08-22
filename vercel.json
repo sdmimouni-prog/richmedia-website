@@ -84,5 +84,34 @@
       "destination": "/en/insights/whatsapp-business-conversion-channel",
       "permanent": true
     }
+  ],
+  "headers": [
+    {
+      "source": "/robots.txt",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, s-maxage=300, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/sitemap-index.xml",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, s-maxage=300, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/sitemap-0.xml",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, s-maxage=300, must-revalidate"
+        }
+      ]
+    }
   ]
 }
