@@ -232,7 +232,7 @@ const t = content[lang];
     </div>
 
     <div class="war-room" aria-label={lang === 'fr' ? 'Aperçu Carter & Blake' : 'Carter & Blake preview'}>
-      <img class="hero-image" src="/assets/richmedia-achat-media/media-scaling-room.webp" alt="" loading="eager" decoding="async" />
+      <img class="hero-image" src="/assets/richmedia-achat-media/media-scaling-room.webp" alt="" width="1024" height="1536" loading="eager" decoding="async" fetchpriority="high" />
       <div class="war-orbit"></div>
       <article class="command-card command-top">
         <span>{lang === 'fr' ? 'Opinion' : 'Opinion'}</span>
@@ -273,7 +273,7 @@ const t = content[lang];
 
   <section id="method" class="visual-band" aria-labelledby="visual-title">
     <div class="visual-card large">
-      <img src="/assets/richmedia-evenementiel/event-control-room.webp" alt="" loading="lazy" decoding="async" />
+      <img src="/assets/richmedia-evenementiel/event-control-room.webp" alt="" loading="lazy" decoding="async" width="1024" height="1536" />
       <div>
         <span>{lang === 'fr' ? 'Méthode campagne' : 'Campaign method'}</span>
         <h2 id="visual-title">{t.visualTitle}</h2>

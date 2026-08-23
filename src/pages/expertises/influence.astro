@@ -288,7 +288,15 @@ const mobileQuickLinks = [
       </div>
 
       <div class="hero-visual creator-hover-lab" aria-label="Campagne influence Richmedia au Maroc">
-        <img src={`${assetBase}/influence-hero.webp`} alt="Équipe et créateurs marocains fictifs préparant une campagne d’influence" />
+        <img
+          src={`${assetBase}/influence-hero.webp`}
+          alt="Équipe et créateurs marocains fictifs préparant une campagne d’influence"
+          width="1586"
+          height="992"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
         <div class="signal-card signal-card-top">
           <span>Casting</span>
           <strong>Créateurs qualifiés</strong>
@@ -383,7 +391,7 @@ const mobileQuickLinks = [
         {trends.map((trend) => (
           <article>
             <div class="trend-media">
-              <img src={`${assetBase}/${trend.image}`} alt={trend.title} loading="eager" decoding="async" />
+              <img src={`${assetBase}/${trend.image}`} alt={trend.title} loading="lazy" decoding="async" />
             </div>
             <div class="trend-copy">
               <span>{trend.label}</span>
@@ -406,7 +414,7 @@ const mobileQuickLinks = [
         {creatorProfiles.map((creator) => (
           <article>
             <div class="creator-photo">
-              <img src={`${assetBase}/${creator.image}`} alt={`${creator.title} à ${creator.city}`} loading="eager" decoding="async" />
+              <img src={`${assetBase}/${creator.image}`} alt={`${creator.title} à ${creator.city}`} loading="lazy" decoding="async" />
             </div>
             <div class="creator-copy">
               <span>{creator.type} · {creator.city}</span>
@@ -487,7 +495,7 @@ const mobileQuickLinks = [
                     <img
                       src={`${logoBase}/${tool.logo}`}
                       alt={`Logo ${tool.name}`}
-                      loading="eager"
+                      loading="lazy"
                       decoding="async"
                     />
                   </span>

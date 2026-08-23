@@ -137,7 +137,7 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
       <div class="result-copy">
         <span class="block-kicker">Bloc 1</span>
         <h1 id="case-title">{content.title}</h1>
-        <img class="heading-stroke" src={`${assetBase}/purple-underline.png`} alt="" loading="eager" decoding="async" />
+        <img class="heading-stroke" src={`${assetBase}/purple-underline.png`} alt="" width="270" height="38" loading="eager" decoding="async" />
         <p>{content.subtitle}</p>
 
         <dl class="case-meta" aria-label={content.ui?.metaLabel ?? 'Résumé du cas client'}>
@@ -151,7 +151,15 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
       </div>
 
       <figure class="result-visual">
-        <img src={content.heroImage} alt={`${content.client} - campagne inscriptions 2024`} loading="eager" decoding="async" />
+        <img
+          src={content.heroImage}
+          alt={`${content.client} - campagne inscriptions 2024`}
+          width="1077"
+          height="669"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
         <div class="result-metrics" data-result-metrics aria-label={content.ui?.resultLabel ?? 'Résultats du cas client'}>
           {animatedMetrics.map((metric) => (
             <article class="result-metric-card" data-result-metric-card style={`--metric-delay: ${metric.delay}ms;`}>

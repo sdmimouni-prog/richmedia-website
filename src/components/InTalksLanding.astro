@@ -251,7 +251,7 @@ const useCaseCards = t.useCases.map((useCase, index) => ({
     </div>
 
     <div class="intalks-console" aria-label={lang === 'fr' ? 'Aperçu In Talks' : 'In Talks preview'}>
-      <img class="hero-image" src="/assets/richmedia-digital-strategy/strategy-hero.webp" alt="" loading="eager" decoding="async" />
+      <img class="hero-image" src="/assets/richmedia-digital-strategy/strategy-hero.webp" alt="" width="1600" height="1000" loading="eager" decoding="async" fetchpriority="high" />
       <div class="console-overlay"></div>
       <article class="signal-card signal-live">
         <span>{lang === 'fr' ? 'Mentions live' : 'Live mentions'}</span>
@@ -294,7 +294,7 @@ const useCaseCards = t.useCases.map((useCase, index) => ({
 
   <section id="cockpit" class="visual-band" aria-labelledby="visual-title">
     <div class="visual-card large">
-      <img src="/assets/richmedia-ia-automation/agent-workflows.webp" alt="" loading="lazy" decoding="async" />
+      <img src="/assets/richmedia-ia-automation/agent-workflows.webp" alt="" loading="lazy" decoding="async" width="1024" height="1536" />
       <div>
         <span>{lang === 'fr' ? 'Cockpit réputation' : 'Reputation cockpit'}</span>
         <h2 id="visual-title">{t.visualTitle}</h2>
@@ -317,7 +317,7 @@ const useCaseCards = t.useCases.map((useCase, index) => ({
   <section class="section-band benefits-band" aria-labelledby="benefits-title">
     <div class="benefit-showcase">
       <figure class="benefit-visual">
-        <img src="/assets/richmedia-digital-strategy/strategy-hero.webp" alt="" loading="lazy" decoding="async" />
+        <img src="/assets/richmedia-digital-strategy/strategy-hero.webp" alt="" loading="lazy" decoding="async" width="1600" height="1000" />
         <figcaption class="benefit-visual-caption">
           <span>{lang === 'fr' ? 'Lecture instantanée' : 'Instant read'}</span>
           <strong>{t.benefitsTitle}</strong>

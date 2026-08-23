@@ -1,10 +1,24 @@
 ---
 // Injecte un ou plusieurs blocs JSON-LD. Les valeurs null sont ignorées.
-type JsonLdItem = object;
+type JsonLdInput = object;
+type JsonLdItem = Record<string, unknown>;
 interface Props {
-  schema: JsonLdItem | (JsonLdItem | null)[];
+  schema: JsonLdInput | (JsonLdInput | null)[];
 }
 const { schema } = Astro.props;
-const items = (Array.isArray(schema) ? schema : [schema]).filter((item): item is JsonLdItem => item !== null);
+const items = (Array.isArray(schema) ? schema : [schema])
+  .filter((item): item is JsonLdInput => item !== null)
+  .map((item) => item as JsonLdItem);
+const normalizeGraphItem = (item: JsonLdItem) => {
+  const { ['@context']: _context, ...node } = item;
+  return node;
+};
+const payload =
+  items.length === 1
+    ? items[0]
+    : {
+        '@context': 'https://schema.org',
+        '@graph': items.map(normalizeGraphItem),
+      };
 ---
-{items.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
+{items.length > 0 && <script is:inline type="application/ld+json" set:html={JSON.stringify(payload)} />}

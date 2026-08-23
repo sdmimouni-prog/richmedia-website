@@ -300,7 +300,15 @@ const mobileQuickLinks = [
       </div>
 
       <div class="hero-visual media-hover-lab" aria-label="Pilotage achat média Richmedia">
-        <img src={`${assetBase}/achat-media-hero.webp`} alt="Interface premium de pilotage d'achat média et de performance marketing" />
+        <img
+          src={`${assetBase}/achat-media-hero.webp`}
+          alt="Interface premium de pilotage d'achat média et de performance marketing"
+          width="1586"
+          height="992"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
         <div class="signal-card signal-card-top">
           <span>Budget</span>
           <strong>Dotation sécurisée</strong>
@@ -389,7 +397,7 @@ const mobileQuickLinks = [
         {visualStories.map((story) => (
           <article>
             <div class="visual-photo">
-              <img src={`${assetBase}/${story.image}`} alt={story.title} loading="eager" decoding="async" />
+              <img src={`${assetBase}/${story.image}`} alt={story.title} loading="lazy" decoding="async" />
             </div>
             <div class="visual-copy">
               <span>{story.type}</span>
@@ -503,7 +511,7 @@ const mobileQuickLinks = [
                     <img
                       src={`${logoBase}/${tool.logo}`}
                       alt={`Logo ${tool.name}`}
-                      loading="eager"
+                      loading="lazy"
                       decoding="async"
                     />
                   </span>

@@ -1,0 +1,616 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import QuickAnswer from '../../components/QuickAnswer.astro';
+import { definedTerm, faqSchema, breadcrumbs } from '../../lib/schema';
+import { SITE } from '../../consts';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('glossaire', ({ data }) => !data.draft && data.lang === 'fr');
+  return entries.map((entry) => ({ params: { slug: entry.data.slug ?? entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const slug = entry.data.slug ?? entry.id;
+const url = `${SITE.url}/glossaire/${slug}`;
+const glossaryEntries = await getCollection('glossaire', ({ data }) => !data.draft && data.lang === 'fr');
+const expertiseEntries = await getCollection('expertises', ({ data }) => !data.draft && data.lang === 'fr');
+const glossaryById = new Map(glossaryEntries.map((item) => [item.id, item]));
+const expertiseById = new Map(expertiseEntries.map((item) => [item.id, item]));
+const relatedTerms = entry.data.termesLies.map((ref) => {
+  const relatedEntry = glossaryById.get(ref.id);
+  return {
+    href: `/glossaire/${relatedEntry?.data.slug ?? ref.id}`,
+    label: relatedEntry?.data.title ?? ref.id,
+    category: relatedEntry?.data.categorie ?? 'Glossaire',
+    acronym: relatedEntry?.data.acronyme,
+  };
+});
+const expertiseEntry = entry.data.expertiseLiee ? expertiseById.get(entry.data.expertiseLiee.id) : undefined;
+const expertiseHref = entry.data.expertiseLiee
+  ? `/expertises/${expertiseEntry?.data.slug ?? entry.data.expertiseLiee.id}`
+  : undefined;
+const expertiseTitle = expertiseEntry?.data.title ?? 'Expertise Richmedia';
+const formattedDate = entry.data.dateModification.toLocaleDateString('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const schema = [
+  definedTerm({
+    name: entry.data.title,
+    description: entry.data.quickAnswer,
+    url,
+    acronym: entry.data.acronyme,
+    synonyms: entry.data.synonymes,
+  }),
+  faqSchema(entry.data.faq),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Glossaire', url: `${SITE.url}/glossaire` },
+    { name: entry.data.title, url },
+  ]),
+];
+---
+<BaseLayout title={entry.data.metaTitle ?? entry.data.title} description={entry.data.metaDescription} canonical={url} schema={schema}>
+  <div class="term-page">
+    <a class="term-back" href="/glossaire">
+      <i class="ph ph-arrow-left" aria-hidden="true"></i>
+      Retour au glossaire
+    </a>
+
+    <section class="term-hero" aria-labelledby="term-title">
+      <div class="term-hero-copy">
+        <span class="section-kicker">{entry.data.categorie}</span>
+        <h1 id="term-title">{entry.data.title}</h1>
+        {entry.data.acronyme && <p class="term-acronym">{entry.data.acronyme}</p>}
+      </div>
+
+      <aside class="term-meta" aria-label="Informations du terme">
+        <span>Type de contenu</span>
+        <strong>Définition GEO</strong>
+        <dl>
+          <div>
+            <dt>Catégorie</dt>
+            <dd>{entry.data.categorie}</dd>
+          </div>
+          <div>
+            <dt>Mise à jour</dt>
+            <dd>{formattedDate}</dd>
+          </div>
+        </dl>
+      </aside>
+    </section>
+
+    <section class="term-answer-card" aria-labelledby="term-answer-title">
+      <span class="section-kicker">Définition courte</span>
+      <h2 id="term-answer-title">La réponse simple</h2>
+      <QuickAnswer text={entry.data.quickAnswer} />
+    </section>
+
+    <article class="term-body">
+      <Content />
+    </article>
+
+    {entry.data.faq.length > 0 && (
+      <section class="term-faq" aria-labelledby="term-faq-title">
+        <span class="section-kicker">FAQ</span>
+        <h2 id="term-faq-title">Questions fréquentes</h2>
+        <div class="term-faq-grid">
+          {entry.data.faq.map((item) => (
+            <article>
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {(relatedTerms.length > 0 || expertiseHref) && (
+      <section class="term-next-grid" aria-label="Compléments">
+        {relatedTerms.length > 0 && (
+          <nav class="term-related" aria-label="Voir aussi">
+            <span class="section-kicker">Voir aussi</span>
+            <h2>Termes liés</h2>
+            <div>
+              {relatedTerms.map((term) => (
+                <a href={term.href}>
+                  <small>{term.category}</small>
+                  <strong>
+                    {term.label}
+                    {term.acronym && <em>{term.acronym}</em>}
+                  </strong>
+                  <i class="ph ph-arrow-right" aria-hidden="true"></i>
+                </a>
+              ))}
+            </div>
+          </nav>
+        )}
+
+        {expertiseHref && (
+          <aside class="term-pillar">
+            <span class="section-kicker">Expertise liée</span>
+            <h2>{expertiseTitle}</h2>
+            <p>Reliez cette définition à une page métier Richmedia, avec méthode, leviers et cas d’usage.</p>
+            <a href={expertiseHref}>
+              Voir notre expertise
+              <i class="ph ph-arrow-right" aria-hidden="true"></i>
+            </a>
+          </aside>
+        )}
+      </section>
+    )}
+
+    <section class="term-prefooter" aria-labelledby="term-prefooter-title">
+      <div>
+        <span class="section-kicker">Audit & croissance</span>
+        <h2 id="term-prefooter-title">Transformons ces définitions en plan d’action.</h2>
+        <p>
+          Richmedia relie SEO/GEO, média, CRM et conversion pour transformer votre visibilité en demandes qualifiées.
+        </p>
+      </div>
+      <div class="term-prefooter-actions">
+        <a class="primary-btn" href="/reserver-un-audit">
+          Réserver un audit
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="ghost-btn" href="/expertises">
+          Voir les expertises
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .term-page {
+    width: min(calc(100% - 2rem), 1180px);
+    margin: 0 auto;
+    padding: 4rem 0 5.5rem;
+    color: #fff;
+  }
+
+  .term-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.45rem;
+    margin-bottom: 1.8rem;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.92rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .term-back:hover {
+    color: #fff;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: #a985ff;
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    content: "";
+    width: 38px;
+    height: 3px;
+    border-radius: 999px;
+    background: currentColor;
+  }
+
+  .term-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.32fr);
+    gap: 1.5rem;
+    align-items: stretch;
+    margin-bottom: 1.4rem;
+  }
+
+  .term-hero-copy,
+  .term-meta,
+  .term-answer-card,
+  .term-faq,
+  .term-related,
+  .term-pillar,
+  .term-prefooter {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 92% 12%, rgba(137, 76, 255, 0.14), transparent 18rem),
+      rgba(12, 12, 18, 0.88);
+  }
+
+  .term-hero-copy {
+    display: grid;
+    align-content: end;
+    min-height: 20rem;
+    padding: 2rem;
+  }
+
+  .term-hero h1 {
+    max-width: 11ch;
+    margin: 1rem 0 0;
+    color: #fff;
+    font-size: 4.75rem;
+    line-height: 0.96;
+  }
+
+  .term-acronym {
+    width: fit-content;
+    margin: 1.1rem 0 0;
+    border: 1px solid rgba(169, 133, 255, 0.42);
+    border-radius: 999px;
+    padding: 0.4rem 0.8rem;
+    color: #d7c8ff;
+    background: rgba(137, 76, 255, 0.14);
+    font-size: 0.9rem;
+    font-weight: 900;
+  }
+
+  .term-meta {
+    display: grid;
+    align-content: space-between;
+    gap: 1.6rem;
+    padding: 1.35rem;
+  }
+
+  .term-meta > span {
+    color: #a985ff;
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .term-meta > strong {
+    color: #fff;
+    font-size: 1.55rem;
+    line-height: 1.1;
+  }
+
+  .term-meta dl {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+  }
+
+  .term-meta div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.75rem;
+  }
+
+  .term-meta dt,
+  .term-meta dd {
+    margin: 0;
+  }
+
+  .term-meta dt {
+    color: rgba(255, 255, 255, 0.52);
+  }
+
+  .term-meta dd {
+    color: #fff;
+    font-weight: 800;
+    text-align: right;
+  }
+
+  .term-answer-card {
+    margin-bottom: 1.6rem;
+    padding: 1.5rem 1.7rem;
+  }
+
+  .term-answer-card h2 {
+    margin: 0.75rem 0 0;
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1.08;
+  }
+
+  .term-answer-card :global(.quick-answer) {
+    max-width: 72ch;
+    margin: 1rem 0 0;
+    border-left-color: #8f59ff;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.12rem;
+  }
+
+  .term-body {
+    display: grid;
+    gap: 0.9rem;
+    max-width: 80ch;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 1.08rem;
+    line-height: 1.78;
+  }
+
+  .term-body :global(p),
+  .term-body :global(ul),
+  .term-body :global(ol) {
+    margin: 0;
+  }
+
+  .term-body :global(h2),
+  .term-body :global(h3) {
+    margin: 1rem 0 0;
+    color: #fff;
+    line-height: 1.12;
+  }
+
+  .term-body :global(h2) {
+    font-size: 2rem;
+  }
+
+  .term-body :global(h3) {
+    font-size: 1.35rem;
+  }
+
+  .term-body :global(a) {
+    color: #b99cff;
+    font-weight: 850;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+
+  .term-faq {
+    margin-top: 2rem;
+    padding: 1.5rem;
+  }
+
+  .term-faq h2 {
+    margin: 0.8rem 0 1rem;
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1.08;
+  }
+
+  .term-faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  .term-faq article {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .term-faq h3 {
+    margin: 0 0 0.55rem;
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1.25;
+  }
+
+  .term-faq p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.68);
+    line-height: 1.65;
+  }
+
+  .term-next-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.38fr);
+    gap: 1rem;
+    align-items: stretch;
+    margin-top: 1.5rem;
+  }
+
+  .term-related,
+  .term-pillar {
+    padding: 1.35rem;
+  }
+
+  .term-related h2,
+  .term-pillar h2 {
+    margin: 0.75rem 0 1rem;
+    color: #fff;
+    font-size: 1.65rem;
+    line-height: 1.1;
+  }
+
+  .term-related > div {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .term-related a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.4rem 0.9rem;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.9rem;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.035);
+    text-decoration: none;
+  }
+
+  .term-related a:hover,
+  .term-pillar a:hover,
+  .primary-btn:hover,
+  .ghost-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .term-related small {
+    grid-column: 1 / -1;
+    color: #a985ff;
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .term-related strong {
+    min-width: 0;
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .term-related em {
+    display: inline-flex;
+    margin-left: 0.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: normal;
+  }
+
+  .term-pillar {
+    display: grid;
+    align-content: space-between;
+    gap: 0.8rem;
+  }
+
+  .term-pillar p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.68);
+    line-height: 1.65;
+  }
+
+  .term-pillar a,
+  .primary-btn,
+  .ghost-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-weight: 900;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .term-pillar a {
+    width: fit-content;
+    border: 1px solid rgba(169, 133, 255, 0.35);
+    color: #fff;
+    background: rgba(137, 76, 255, 0.16);
+  }
+
+  .term-prefooter {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.25rem;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1.6rem;
+    background:
+      radial-gradient(circle at 84% 50%, rgba(148, 89, 255, 0.34), transparent 20rem),
+      linear-gradient(135deg, rgba(70, 26, 138, 0.88), rgba(11, 12, 18, 0.95));
+  }
+
+  .term-prefooter h2 {
+    max-width: 14ch;
+    margin: 0.8rem 0 0;
+    color: #fff;
+    font-size: 2.45rem;
+    line-height: 1.03;
+  }
+
+  .term-prefooter p {
+    max-width: 58ch;
+    margin: 0.9rem 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.65;
+  }
+
+  .term-prefooter-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
+  }
+
+  .primary-btn {
+    color: #fff;
+    background: #7c3dff;
+    box-shadow: 0 18px 42px rgba(124, 61, 255, 0.28);
+  }
+
+  .ghost-btn {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  @media (max-width: 900px) {
+    .term-page {
+      padding-top: 2.2rem;
+    }
+
+    .term-hero,
+    .term-next-grid,
+    .term-prefooter {
+      grid-template-columns: 1fr;
+    }
+
+    .term-hero-copy {
+      min-height: 15rem;
+    }
+
+    .term-hero h1 {
+      max-width: 100%;
+      font-size: 3.2rem;
+    }
+
+    .term-faq-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .term-prefooter-actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .term-page {
+      width: min(calc(100% - 1rem), 1180px);
+      padding-bottom: 3rem;
+    }
+
+    .term-hero-copy,
+    .term-answer-card,
+    .term-faq,
+    .term-related,
+    .term-pillar,
+    .term-prefooter {
+      padding: 1rem;
+    }
+
+    .term-hero h1 {
+      font-size: 2.45rem;
+    }
+
+    .term-answer-card h2,
+    .term-faq h2 {
+      font-size: 1.55rem;
+    }
+
+    .term-prefooter h2 {
+      max-width: 100%;
+      font-size: 1.85rem;
+    }
+
+    .primary-btn,
+    .ghost-btn {
+      width: 100%;
+    }
+  }
+</style>

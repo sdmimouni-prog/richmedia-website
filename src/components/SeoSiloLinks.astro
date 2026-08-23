@@ -15,7 +15,7 @@ interface Props {
 }
 
 const {
-  eyebrow = "Maillage SEO",
+  eyebrow,
   title,
   intro,
   links,
@@ -27,7 +27,7 @@ const {
   links.length > 0 && (
     <section class:list={["seo-silo-links", `seo-silo-links-${variant}`]} aria-label={title}>
       <div class="silo-heading">
-        <span class="silo-kicker">{eyebrow}</span>
+        {eyebrow && <span class="silo-kicker">{eyebrow}</span>}
         <h2>{title}</h2>
         {intro && <p>{intro}</p>}
       </div>

@@ -65,6 +65,10 @@
 - [Créateurs et marques : collaborations durables](https://richmedia.ma/insights/createurs-marques-collaborations-durables/)
 - [Marque employeur et attractivité digitale](https://richmedia.ma/insights/marque-employeur-attractivite-digitale/)
 
+## Glossaire
+- [Glossaire (accueil)](https://richmedia.ma/glossaire/)
+- [GEO — Generative Engine Optimization](https://richmedia.ma/glossaire/geo/)
+
 ## English pages
 - [Home](https://richmedia.ma/en/)
 - [Agency](https://richmedia.ma/en/agency/)

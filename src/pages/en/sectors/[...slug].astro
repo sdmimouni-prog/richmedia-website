@@ -463,7 +463,7 @@ const schema = [
         </div>
       </div>
       <figure class="sector-hero-visual">
-        <img src={page.heroImage} alt={`${page.label} digital marketing in Morocco`} width="1280" height="900" loading="eager" decoding="async" />
+        <img src={page.heroImage} alt={`${page.label} digital marketing in Morocco`} width="1280" height="900" loading="eager" decoding="async" fetchpriority="high" />
         <figcaption>
           <span>References</span>
           <div>{page.clients.map((client) => <strong>{client}</strong>)}</div>

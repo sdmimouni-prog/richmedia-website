@@ -1,14 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import InfluenceVideoStrip from '../components/InfluenceVideoStrip.astro';
-import { localBusiness } from '../lib/schema';
+import { localBusiness, webSiteSchema } from '../lib/schema';
 import { BUSINESS, SITE } from '../consts';
 
 const assetBase = '/assets/richmedia-home';
 const realizationAssets = '/assets/richmedia-realizations';
 const brochureHref = '/assets/documents/plaquette-richmedia-agency.pdf';
 const resolveAsset = (image: string) => image.startsWith('/') ? image : `${assetBase}/${image}`;
-const schema = [localBusiness()];
+const schema = [localBusiness(), webSiteSchema()];
 
 const stats = [
   { icon: 'ph-chart-pie-slice', value: '+156', target: 156, prefix: '+', suffix: '', label: 'Projets réalisés' },

@@ -1,0 +1,644 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { definedTermSet, collectionPageSchema, breadcrumbs } from '../../lib/schema';
+import { SITE } from '../../consts';
+
+const pageUrl = `${SITE.url}/glossaire`;
+const entries = await getCollection('glossaire', ({ data }) => !data.draft && data.lang === 'fr');
+entries.sort((a, b) => a.data.title.localeCompare(b.data.title, 'fr'));
+
+const categories = ['SEO/GEO', 'Média', 'Social & Influence', 'CRM & Data', 'Web & Tech', 'Growth & Stratégie'] as const;
+
+const terms = entries.map((entry) => {
+  const dotIndex = entry.data.quickAnswer.indexOf('.');
+  const slug = entry.data.slug ?? entry.id;
+  const title = entry.data.title;
+  const acronyme = entry.data.acronyme;
+  const categorie = entry.data.categorie;
+  const definition = entry.data.quickAnswer;
+  return {
+    slug,
+    title,
+    acronyme,
+    categorie,
+    definition,
+    teaser: dotIndex === -1 ? entry.data.quickAnswer : entry.data.quickAnswer.slice(0, dotIndex + 1),
+    searchText: [title, acronyme, categorie, entry.data.quickAnswer, entry.data.keywordPrincipal, ...entry.data.keywordsSecondaires]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase(),
+  };
+});
+
+const categoryFilters = categories
+  .map((category) => ({
+    category,
+    count: terms.filter((term) => term.categorie === category).length,
+  }))
+  .filter((item) => item.count > 0);
+
+const items = entries.map((e) => ({ name: e.data.title, url: `${SITE.url}/glossaire/${e.data.slug ?? e.id}` }));
+const schema = [
+  definedTermSet(items),
+  collectionPageSchema({
+    name: 'Glossaire marketing digital, SEO/GEO & média',
+    description: 'Définitions des termes clés du marketing digital, du SEO/GEO, du média et de la data, par Richmedia.',
+    url: pageUrl,
+    items,
+    inLanguage: 'fr',
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Glossaire', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Glossaire marketing digital, SEO/GEO & média | Richmedia"
+  description="Définitions claires des termes clés du marketing digital, du SEO/GEO, du média et de la data."
+  canonical={pageUrl}
+  schema={schema}
+>
+  <div class="glossary-page" data-glossary-page>
+    <section class="glossary-hero" aria-labelledby="glossary-title">
+      <span class="section-kicker">Glossaire Richmedia</span>
+      <h1 id="glossary-title">Glossaire</h1>
+      <p>
+        Les définitions essentielles du marketing digital, SEO/GEO, média, CRM, social, web et growth.
+      </p>
+    </section>
+
+    {terms.length > 0 ? (
+      <>
+        <section class="glossary-toolbar" aria-label="Recherche et filtres du glossaire">
+          <label class="glossary-search">
+            <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+            <span class="sr-only">Rechercher un terme</span>
+            <input type="search" data-glossary-search placeholder="Rechercher un terme, une catégorie, un acronyme..." />
+          </label>
+          <p class="glossary-count" data-glossary-count>{terms.length} termes</p>
+        </section>
+
+        <nav class="glossary-filters" aria-label="Catégories du glossaire">
+          <button class="is-active" type="button" data-glossary-filter="all">Tous <span>{terms.length}</span></button>
+          {categoryFilters.map(({ category, count }) => (
+            <button type="button" data-glossary-filter={category}>{category} <span>{count}</span></button>
+          ))}
+        </nav>
+
+        <section class="glossary-table-wrap" aria-labelledby="glossary-table-title">
+          <h2 id="glossary-table-title" class="sr-only">Liste des termes du glossaire</h2>
+          <table class="glossary-table">
+            <thead>
+              <tr>
+                <th scope="col">Terme</th>
+                <th scope="col">Catégorie</th>
+                <th scope="col">Définition</th>
+                <th scope="col">Voir</th>
+              </tr>
+            </thead>
+            <tbody>
+              {terms.map(({ slug, title, acronyme, categorie, definition, searchText }) => (
+                <tr data-glossary-row data-category={categorie} data-search={searchText}>
+                  <th scope="row">
+                    <a class="term-name" href={`/glossaire/${slug}`}>
+                      {title}
+                      {acronyme && <span>{acronyme}</span>}
+                    </a>
+                  </th>
+                  <td><span class="category-pill">{categorie}</span></td>
+                  <td><p>{definition}</p></td>
+                  <td>
+                    <a class="read-link" href={`/glossaire/${slug}`} aria-label={`Lire la définition : ${title}`}>
+                      Lire <i class="ph ph-arrow-right" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+
+        <section class="glossary-cards" aria-label="Liste mobile des termes du glossaire">
+          {terms.map(({ slug, title, acronyme, categorie, teaser, searchText }) => (
+            <article class="glossary-card" data-glossary-card data-category={categorie} data-search={searchText}>
+              <div>
+                <span class="category-pill">{categorie}</span>
+                <h2>
+                  <a href={`/glossaire/${slug}`}>
+                    {title}
+                    {acronyme && <span>{acronyme}</span>}
+                  </a>
+                </h2>
+              </div>
+              <p>{teaser}</p>
+              <a class="read-link" href={`/glossaire/${slug}`} aria-label={`Lire la définition : ${title}`}>
+                Lire la définition <i class="ph ph-arrow-right" aria-hidden="true"></i>
+              </a>
+            </article>
+          ))}
+        </section>
+
+        <nav class="glossary-pagination" aria-label="Pagination du glossaire" data-glossary-pagination hidden>
+          <button type="button" data-glossary-prev>
+            <i class="ph ph-arrow-left" aria-hidden="true"></i>
+            Précédent
+          </button>
+          <div class="glossary-page-numbers" data-glossary-pages></div>
+          <button type="button" data-glossary-next>
+            Suivant
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </button>
+          <span class="glossary-page-status" data-glossary-page-status aria-live="polite"></span>
+        </nav>
+
+        <p class="glossary-empty" data-glossary-empty hidden>Aucun terme ne correspond à cette recherche.</p>
+      </>
+    ) : (
+      <p class="glossary-empty">Le glossaire sera bientôt disponible.</p>
+    )}
+  </div>
+</BaseLayout>
+
+<script>
+  const glossaryPage = document.querySelector('[data-glossary-page]');
+
+  if (glossaryPage) {
+    const searchInput = glossaryPage.querySelector<HTMLInputElement>('[data-glossary-search]');
+    const filters = [...glossaryPage.querySelectorAll<HTMLButtonElement>('[data-glossary-filter]')];
+    const rows = [...glossaryPage.querySelectorAll<HTMLTableRowElement>('[data-glossary-row]')];
+    const cards = [...glossaryPage.querySelectorAll<HTMLElement>('[data-glossary-card]')];
+    const count = glossaryPage.querySelector<HTMLElement>('[data-glossary-count]');
+    const empty = glossaryPage.querySelector<HTMLElement>('[data-glossary-empty]');
+    const pagination = glossaryPage.querySelector<HTMLElement>('[data-glossary-pagination]');
+    const prevButton = glossaryPage.querySelector<HTMLButtonElement>('[data-glossary-prev]');
+    const nextButton = glossaryPage.querySelector<HTMLButtonElement>('[data-glossary-next]');
+    const pageList = glossaryPage.querySelector<HTMLElement>('[data-glossary-pages]');
+    const pageStatus = glossaryPage.querySelector<HTMLElement>('[data-glossary-page-status]');
+    let activeFilter = 'all';
+    let currentPage = 1;
+    const pageSize = 10;
+
+    const normalize = (value: string) =>
+      value
+        .toString()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+    const matches = (item: HTMLElement, term: string) => {
+      const category = item.dataset.category ?? '';
+      const search = normalize(item.dataset.search ?? '');
+      return (activeFilter === 'all' || category === activeFilter) && (!term || search.includes(term));
+    };
+
+    const renderPagination = (totalPages: number, totalItems: number) => {
+      if (!pagination || !pageList || !prevButton || !nextButton || !pageStatus) return;
+
+      pagination.hidden = totalItems <= pageSize;
+      prevButton.disabled = currentPage <= 1;
+      nextButton.disabled = currentPage >= totalPages;
+      pageStatus.textContent = totalItems > 0 ? `Page ${currentPage} / ${totalPages}` : '';
+      pageList.replaceChildren();
+
+      for (let page = 1; page <= totalPages; page += 1) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = String(page);
+        button.dataset.glossaryPage = String(page);
+        button.classList.toggle('is-active', page === currentPage);
+        button.setAttribute('aria-label', `Aller à la page ${page}`);
+        if (page === currentPage) button.setAttribute('aria-current', 'page');
+        button.addEventListener('click', () => {
+          currentPage = page;
+          applyFilters(false);
+        });
+        pageList.append(button);
+      }
+    };
+
+    const applyFilters = (resetPage = true) => {
+      const term = normalize(searchInput?.value ?? '');
+      if (resetPage) currentPage = 1;
+
+      const matchingRows = rows.filter((row) => matches(row, term));
+      const matchingCards = cards.filter((card) => matches(card, term));
+      const totalPages = Math.max(1, Math.ceil(matchingRows.length / pageSize));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const start = (currentPage - 1) * pageSize;
+      const end = start + pageSize;
+
+      rows.forEach((row) => {
+        row.hidden = true;
+      });
+
+      cards.forEach((card) => {
+        card.hidden = true;
+      });
+
+      matchingRows.forEach((row, index) => {
+        row.hidden = index < start || index >= end;
+      });
+
+      matchingCards.forEach((card, index) => {
+        card.hidden = index < start || index >= end;
+      });
+
+      if (count) count.textContent = `${matchingRows.length} ${matchingRows.length > 1 ? 'termes' : 'terme'}`;
+      if (empty) empty.hidden = matchingRows.length > 0;
+      renderPagination(totalPages, matchingRows.length);
+    };
+
+    filters.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeFilter = button.dataset.glossaryFilter ?? 'all';
+        filters.forEach((filter) => filter.classList.toggle('is-active', filter === button));
+        applyFilters();
+      });
+    });
+
+    prevButton?.addEventListener('click', () => {
+      currentPage = Math.max(1, currentPage - 1);
+      applyFilters(false);
+    });
+
+    nextButton?.addEventListener('click', () => {
+      currentPage += 1;
+      applyFilters(false);
+    });
+
+    searchInput?.addEventListener('input', () => applyFilters());
+    applyFilters();
+  }
+</script>
+
+<style>
+  .glossary-page {
+    width: min(calc(100% - 2rem), 1180px);
+    margin: 0 auto;
+    padding: clamp(2.5rem, 5vw, 5rem) 0 clamp(3rem, 6vw, 6rem);
+    color: #fff;
+  }
+
+  .glossary-hero {
+    display: grid;
+    gap: 1rem;
+    max-width: 820px;
+    margin-bottom: clamp(1.5rem, 4vw, 2.75rem);
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #9b7cff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    content: "";
+    width: 40px;
+    height: 2px;
+    background: currentColor;
+  }
+
+  .glossary-hero h1 {
+    margin: 0;
+    font-size: clamp(2.6rem, 7vw, 5.7rem);
+    line-height: 0.95;
+    letter-spacing: 0;
+  }
+
+  .glossary-hero p {
+    max-width: 65ch;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: clamp(1rem, 1.6vw, 1.18rem);
+    line-height: 1.7;
+  }
+
+  .glossary-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .glossary-search {
+    display: flex;
+    min-height: 3.4rem;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.045);
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .glossary-search input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #fff;
+    font: inherit;
+  }
+
+  .glossary-search input::placeholder {
+    color: rgba(255, 255, 255, 0.42);
+  }
+
+  .glossary-count {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  .glossary-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .glossary-filters button {
+    min-height: 2.45rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    padding: 0 0.85rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: rgba(255, 255, 255, 0.76);
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+  }
+
+  .glossary-filters button span {
+    color: rgba(255, 255, 255, 0.44);
+  }
+
+  .glossary-filters button:hover,
+  .glossary-filters button.is-active {
+    border-color: rgba(155, 124, 255, 0.7);
+    background: rgba(155, 124, 255, 0.16);
+    color: #fff;
+  }
+
+  .glossary-table-wrap {
+    overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(7, 8, 12, 0.86);
+  }
+
+  .glossary-table {
+    width: 100%;
+    min-width: 880px;
+    border-collapse: collapse;
+  }
+
+  .glossary-table th,
+  .glossary-table td {
+    padding: 1.05rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .glossary-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #090a10;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .glossary-table tbody tr:last-child th,
+  .glossary-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .glossary-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .glossary-table th:first-child {
+    width: 24%;
+  }
+
+  .glossary-table td:nth-child(2) {
+    width: 18%;
+  }
+
+  .term-name,
+  .glossary-card h2 a {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .term-name span,
+  .glossary-card h2 span {
+    border: 1px solid rgba(155, 124, 255, 0.35);
+    border-radius: 999px;
+    padding: 0.16rem 0.45rem;
+    color: #c9b7ff;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+  }
+
+  .category-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.8rem;
+    border: 1px solid rgba(61, 214, 176, 0.24);
+    border-radius: 999px;
+    padding: 0 0.65rem;
+    background: rgba(61, 214, 176, 0.08);
+    color: #a7f0dc;
+    font-size: 0.78rem;
+    font-weight: 750;
+    white-space: nowrap;
+  }
+
+  .glossary-table p,
+  .glossary-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.94rem;
+    line-height: 1.58;
+  }
+
+  .read-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #d9ccff;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .read-link i {
+    font-size: 1rem;
+    transition: transform 160ms ease;
+  }
+
+  .read-link:hover i {
+    transform: translateX(3px);
+  }
+
+  .glossary-cards {
+    display: none;
+  }
+
+  .glossary-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    margin-top: 1rem;
+  }
+
+  .glossary-pagination[hidden] {
+    display: none;
+  }
+
+  .glossary-pagination button {
+    display: inline-flex;
+    min-width: 2.65rem;
+    min-height: 2.65rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    padding: 0 0.85rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: rgba(255, 255, 255, 0.78);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: border-color 160ms ease, background 160ms ease, color 160ms ease, opacity 160ms ease;
+  }
+
+  .glossary-pagination button:hover:not(:disabled),
+  .glossary-pagination button.is-active {
+    border-color: rgba(155, 124, 255, 0.72);
+    background: rgba(155, 124, 255, 0.18);
+    color: #fff;
+  }
+
+  .glossary-pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.42;
+  }
+
+  .glossary-page-numbers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+  }
+
+  .glossary-page-status {
+    flex-basis: 100%;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.84rem;
+    text-align: center;
+  }
+
+  .glossary-empty {
+    margin: 1rem 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  @media (max-width: 760px) {
+    .glossary-page {
+      width: min(calc(100% - 1.1rem), 1180px);
+      padding-top: 2rem;
+    }
+
+    .glossary-toolbar {
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+    }
+
+    .glossary-count {
+      justify-self: start;
+    }
+
+    .glossary-filters {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+    }
+
+    .glossary-filters button {
+      flex: 0 0 auto;
+    }
+
+    .glossary-table-wrap {
+      display: none;
+    }
+
+    .glossary-cards {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .glossary-card {
+      display: grid;
+      gap: 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 1rem;
+      background: rgba(7, 8, 12, 0.88);
+    }
+
+    .glossary-card h2 {
+      margin: 0.65rem 0 0;
+      font-size: 1.08rem;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .glossary-pagination {
+      justify-content: stretch;
+    }
+
+    .glossary-pagination > button {
+      flex: 1 1 calc(50% - 0.4rem);
+    }
+
+    .glossary-page-numbers {
+      order: -1;
+      flex-basis: 100%;
+    }
+  }
+</style>

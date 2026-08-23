@@ -115,7 +115,15 @@ const quickLinks = [
 
       <div class="founder-panel" aria-label="Fondateur Richmedia">
         <div class="founder-photo">
-          <img src={founder.image} alt={founder.name} loading="eager" decoding="async" />
+          <img
+            src={founder.image}
+            alt={founder.name}
+            width="640"
+            height="800"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
         </div>
         <div class="founder-copy">
           <span>Rencontrer le fondateur</span>
@@ -151,7 +159,7 @@ const quickLinks = [
       <div class="marquee-row marquee-row-forward">
         {teamLoop.map((member) => (
           <figure>
-            <img src={`${assetBase}/${member.image}`} alt="" loading="lazy" decoding="async" />
+            <img src={`${assetBase}/${member.image}`} alt="" width="640" height="800" loading="lazy" decoding="async" />
             <figcaption>
               <strong>{member.name}</strong>
               <span>{member.group}</span>
@@ -162,7 +170,7 @@ const quickLinks = [
       <div class="marquee-row marquee-row-reverse">
         {[...teamLoop].reverse().map((member) => (
           <figure>
-            <img src={`${assetBase}/${member.image}`} alt="" loading="lazy" decoding="async" />
+            <img src={`${assetBase}/${member.image}`} alt="" width="640" height="800" loading="lazy" decoding="async" />
             <figcaption>
               <strong>{member.name}</strong>
               <span>{member.group}</span>
@@ -198,7 +206,7 @@ const quickLinks = [
         {team.map((member, index) => (
           <article class:list={['member-card', index < 3 && 'member-card-featured']}>
             <div class="member-image">
-              <img src={`${assetBase}/${member.image}`} alt={member.name} loading="lazy" decoding="async" />
+              <img src={`${assetBase}/${member.image}`} alt={member.name} width="640" height="800" loading="lazy" decoding="async" />
             </div>
             <div class="member-info">
               <span>{member.group}</span>

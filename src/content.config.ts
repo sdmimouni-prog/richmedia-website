@@ -86,4 +86,15 @@ const articles = defineCollection({
     }),
 });
 
-export const collections = { expertises, cas, secteurs, articles };
+const glossaire = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/glossaire' }),
+  schema: seo.extend({
+    acronyme: z.string().optional(),
+    categorie: z.enum(['SEO/GEO', 'Média', 'Social & Influence', 'CRM & Data', 'Web & Tech', 'Growth & Stratégie']),
+    synonymes: z.array(z.string()).default([]),
+    termesLies: z.array(reference('glossaire')).default([]),
+    expertiseLiee: reference('expertises').optional(),
+  }),
+});
+
+export const collections = { expertises, cas, secteurs, articles, glossaire };

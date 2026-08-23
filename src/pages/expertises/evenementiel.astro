@@ -288,7 +288,15 @@ const mobileQuickLinks = [
       </div>
 
       <div class="hero-visual event-hover-lab" aria-label="Production événementielle Richmedia">
-        <img src={`${assetBase}/evenementiel-hero.webp`} alt="Événement corporate premium avec scène, régie et public" />
+        <img
+          src={`${assetBase}/evenementiel-hero.webp`}
+          alt="Événement corporate premium avec scène, régie et public"
+          width="1774"
+          height="887"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
         <div class="signal-card signal-card-top">
           <span>Concept</span>
           <strong>Scénographie + récit</strong>
@@ -392,7 +400,7 @@ const mobileQuickLinks = [
         {eventFormats.map((event) => (
           <article>
             <div class="usecase-photo">
-              <img src={`${assetBase}/${event.image}`} alt={event.title} loading="eager" decoding="async" />
+              <img src={`${assetBase}/${event.image}`} alt={event.title} loading="lazy" decoding="async" />
             </div>
             <div class="usecase-copy">
               <span>{event.type}</span>
@@ -470,7 +478,7 @@ const mobileQuickLinks = [
                 <img
                   src={`${logoBase}/${tool.logo}`}
                   alt={`Logo ${tool.name}`}
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                 />
               </span>

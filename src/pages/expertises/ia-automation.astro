@@ -288,7 +288,15 @@ const mobileQuickLinks = [
       </div>
 
       <div class="hero-visual automation-hover-lab" aria-label="Système IA et automation Richmedia">
-        <img src={`${assetBase}/ia-automation-hero.webp`} alt="Équipe marketing pilotant un système CRM, WhatsApp et agents IA automatisés" />
+        <img
+          src={`${assetBase}/ia-automation-hero.webp`}
+          alt="Équipe marketing pilotant un système CRM, WhatsApp et agents IA automatisés"
+          width="1713"
+          height="918"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
         <div class="signal-card signal-card-top">
           <span>CRM</span>
           <strong>Data propre</strong>
@@ -476,7 +484,7 @@ const mobileQuickLinks = [
                     <img
                       src={`${logoBase}/${tool.logo}`}
                       alt={`Logo ${tool.name}`}
-                      loading="eager"
+                      loading="lazy"
                       decoding="async"
                     />
                   </span>

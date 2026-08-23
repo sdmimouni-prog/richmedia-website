@@ -116,7 +116,7 @@ const schema = [breadcrumbs([
       </div>
 
       <a class="top-feature" href={topArticle.href} aria-label={`Read ${topArticle.title}`}>
-        <figure><img src={topArticle.image} alt="" width="620" height="420" loading="eager" decoding="async" /></figure>
+        <figure><img src={topArticle.image} alt="" width="620" height="420" loading="eager" decoding="async" fetchpriority="high" /></figure>
         <div>
           <span>{topArticle.displayCategory}</span>
           <h2>{topArticle.title}</h2>

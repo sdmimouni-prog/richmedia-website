@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleDetailPage from '../../components/ArticleDetailPage.astro';
 import { articleSchema, breadcrumbs } from '../../lib/schema';
-import { EDITORIAL_AUTHOR, SITE } from '../../consts';
+import { getEditorialAuthor, SITE } from '../../consts';
 
 const categoryLabels: Record<string, string> = {
   Growth: 'Stratégie',
@@ -77,6 +77,7 @@ let fallbackRelated: ReturnType<typeof toArticleCard>[] = [];
 let categoryLabel = '';
 let schemaImage = '';
 let schema: object[] = [];
+let authorProfile = getEditorialAuthor();
 
 if (!redirectTo) {
   if (!pageEntry) throw new Error('Missing article entry');
@@ -96,13 +97,14 @@ if (!redirectTo) {
   fallbackRelated = relatedArticles.length > 0 ? relatedArticles : recentArticles.slice(0, 4);
   categoryLabel = categoryLabels[pageEntry.data.categorie] ?? pageEntry.data.categorie;
   schemaImage = image.startsWith('/') ? `${SITE.url}${image}` : image;
-  const authorImage = EDITORIAL_AUTHOR.image.startsWith('/') ? `${SITE.url}${EDITORIAL_AUTHOR.image}` : EDITORIAL_AUTHOR.image;
+  authorProfile = getEditorialAuthor(pageEntry.data.auteur);
+  const authorImage = authorProfile.image.startsWith('/') ? `${SITE.url}${authorProfile.image}` : authorProfile.image;
   schema = [
     articleSchema({
       title: pageEntry.data.title,
       description: pageEntry.data.metaDescription,
       url,
-      author: EDITORIAL_AUTHOR.name,
+      author: authorProfile.name,
       authorType: 'Person',
       authorImage,
       datePublished: pageEntry.data.datePublication,
@@ -144,7 +146,7 @@ if (!redirectTo) {
     ogType="article"
     articlePublishedTime={pageEntry.data.datePublication}
     articleModifiedTime={pageEntry.data.dateModification}
-    articleAuthor={EDITORIAL_AUTHOR.name}
+    articleAuthor={authorProfile.name}
     articleSection={pageEntry.data.categorie}
     schema={schema}
   >
@@ -154,10 +156,10 @@ if (!redirectTo) {
       categoryLabel={categoryLabel}
       title={pageEntry.data.title}
       description={pageEntry.data.metaDescription}
-      author={EDITORIAL_AUTHOR.name}
-      authorRole={EDITORIAL_AUTHOR.role.fr}
-      authorBio={EDITORIAL_AUTHOR.bio.fr}
-      authorImage={EDITORIAL_AUTHOR.image}
+      author={authorProfile.name}
+      authorRole={authorProfile.role.fr}
+      authorBio={authorProfile.bio.fr}
+      authorImage={authorProfile.image}
       date={pageEntry.data.datePublication}
       readingTime={pageEntry.data.tempsLecture ?? 6}
       image={image}

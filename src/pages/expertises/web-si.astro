@@ -7,6 +7,17 @@ import { frSiloLinks } from '../../lib/seo-silos';
 
 const assetBase = '/assets/richmedia-web-si';
 const logoBase = `${assetBase}/logos`;
+const logoDimensions: Record<string, { width: number; height: number }> = {
+  'html5.png': { width: 202, height: 273 },
+  'javascript.png': { width: 287, height: 288 },
+  'react.png': { width: 390, height: 350 },
+  'nodejs.png': { width: 329, height: 366 },
+  'php.png': { width: 352, height: 201 },
+  'laravel.png': { width: 350, height: 366 },
+  'sql.png': { width: 320, height: 184 },
+  'github.png': { width: 327, height: 109 },
+  'markerio.png': { width: 435, height: 108 },
+};
 
 const seoTitle = 'Agence Web & SI à Casablanca — sites, plateformes, CRM & GEO | Richmedia';
 const seoDescription =
@@ -272,6 +283,8 @@ const mobileQuickLinks = [
                       <img
                         src={`${logoBase}/${tool.logo}`}
                         alt={`Logo ${tool.name}`}
+                        width={logoDimensions[tool.logo].width}
+                        height={logoDimensions[tool.logo].height}
                         loading="eager"
                         decoding="async"
                       />
@@ -382,7 +395,14 @@ const mobileQuickLinks = [
             {group.tools.map((tool) => (
               <figure>
                 <span>
-                  <img src={`${logoBase}/${tool.logo}`} alt={`Logo ${tool.name}`} loading="lazy" decoding="async" />
+                  <img
+                    src={`${logoBase}/${tool.logo}`}
+                    alt={`Logo ${tool.name}`}
+                    width={logoDimensions[tool.logo].width}
+                    height={logoDimensions[tool.logo].height}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </span>
                 <figcaption>
                   <strong>{tool.name}</strong>

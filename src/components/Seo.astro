@@ -153,10 +153,13 @@ const routePair = bilingualRoutes.find(([frPath, enPath]) => normalizedPath === 
 const frAlternate = routePair ? absoluteUrl(routePair[0]) : lang === 'fr' ? url : null;
 const enAlternate = routePair ? absoluteUrl(routePair[1]) : lang === 'en' ? url : null;
 const defaultAlternate = routePair ? absoluteUrl(routePair[0]) : frAlternate ?? enAlternate ?? url;
+const robotsContent = noindex
+  ? 'noindex, nofollow'
+  : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 ---
 <title>{title}</title>
 <meta name="description" content={description} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+<meta name="robots" content={robotsContent} />
 <link rel="canonical" href={url} />
 
 {frAlternate && <link rel="alternate" hreflang="fr" href={frAlternate} />}

@@ -238,7 +238,15 @@ const mobileQuickLinks = [
       </div>
 
       <div class="hero-visual" data-strategy-visual aria-label="Richmedia digital strategy workshop">
-        <img src={`${assetBase}/strategy-hero.webp`} alt="Marketing team analyzing digital strategy dashboards" />
+        <img
+          src={`${assetBase}/strategy-hero.webp`}
+          alt="Marketing team analyzing digital strategy dashboards"
+          width="1600"
+          height="1000"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
         <div class="signal-card signal-card-top">
           <span>SEO + GEO</span>
           <strong>AI visibility</strong>

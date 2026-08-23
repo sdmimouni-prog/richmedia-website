@@ -292,7 +292,15 @@ const mobileQuickLinks = [
       </div>
 
       <div class="hero-visual phygital-hover-lab" aria-label="Richmedia phygital street marketing activation">
-        <img src={`${assetBase}/phygital-hero.webp`} alt="Phygital street marketing activation with booth, QR code and brand ambassadors" />
+        <img
+          src={`${assetBase}/phygital-hero.webp`}
+          alt="Phygital street marketing activation with booth, QR code and brand ambassadors"
+          width="1568"
+          height="1003"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
         <div class="signal-card signal-card-top">
           <span>Street</span>
           <strong>Booth + ambassadors</strong>
@@ -409,7 +417,7 @@ const mobileQuickLinks = [
         {activationFormats.map((activation) => (
           <article>
             <div class="activation-photo">
-              <img src={`${assetBase}/${activation.image}`} alt={`${activation.title} - ${activation.place}`} loading="eager" decoding="async" />
+              <img src={`${assetBase}/${activation.image}`} alt={`${activation.title} - ${activation.place}`} loading="lazy" decoding="async" />
             </div>
             <div class="activation-copy">
               <span>{activation.type} / {activation.place}</span>
@@ -490,7 +498,7 @@ const mobileQuickLinks = [
                     <img
                       src={`${logoBase}/${tool.logo}`}
                       alt={`Logo ${tool.name}`}
-                      loading="eager"
+                      loading="lazy"
                       decoding="async"
                     />
                   </span>
@@ -505,7 +513,7 @@ const mobileQuickLinks = [
         {phygitalTools.map((tool) => (
           <figure>
             <span>
-              <img src={`${logoBase}/${tool.logo}`} alt={`Logo ${tool.name}`} loading="eager" decoding="async" />
+              <img src={`${logoBase}/${tool.logo}`} alt={`Logo ${tool.name}`} loading="lazy" decoding="async" />
             </span>
             <figcaption>
               <strong>{tool.name}</strong>

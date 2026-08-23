@@ -1,4 +1,4 @@
-import { BUSINESS, SITE } from '../consts';
+import { BRAND_ASSETS, BUSINESS, SITE } from '../consts';
 
 /**
  * Fabriques de nodes schema.org (JSON-LD).
@@ -6,17 +6,43 @@ import { BUSINESS, SITE } from '../consts';
  * LocalBusiness + Service/Article + FAQPage + BreadcrumbList.
  */
 
+const absoluteUrl = (source: string) => (source.startsWith('http') ? source : `${SITE.url}${source}`);
+
 export function localBusiness() {
+  const logoUrl = absoluteUrl(BRAND_ASSETS.logo.path);
+  const imageUrl = absoluteUrl(BRAND_ASSETS.image.path);
+
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     '@id': `${SITE.url}/#organization`,
     name: SITE.name,
+    legalName: BUSINESS.legalName,
     description: SITE.description,
     url: SITE.url,
+    logo: {
+      '@type': 'ImageObject',
+      '@id': `${SITE.url}/#logo`,
+      url: logoUrl,
+      contentUrl: logoUrl,
+      width: BRAND_ASSETS.logo.width,
+      height: BRAND_ASSETS.logo.height,
+      caption: BRAND_ASSETS.logo.alt,
+    },
+    image: {
+      '@type': 'ImageObject',
+      '@id': `${SITE.url}/#primaryimage`,
+      url: imageUrl,
+      contentUrl: imageUrl,
+      width: BRAND_ASSETS.image.width,
+      height: BRAND_ASSETS.image.height,
+      caption: BRAND_ASSETS.image.alt,
+    },
     email: BUSINESS.email,
     telephone: BUSINESS.tels[0],
     slogan: SITE.tagline,
+    foundingDate: BUSINESS.foundingDate,
+    priceRange: BUSINESS.priceRange,
     address: {
       '@type': 'PostalAddress',
       streetAddress: BUSINESS.address.street,
@@ -24,9 +50,36 @@ export function localBusiness() {
       postalCode: BUSINESS.address.postalCode,
       addressCountry: BUSINESS.address.country,
     },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: BUSINESS.geo.latitude,
+      longitude: BUSINESS.geo.longitude,
+    },
     areaServed: BUSINESS.areaServed,
     sameAs: BUSINESS.sameAs,
-    hasCredential: BUSINESS.accreditations,
+    hasCredential: BUSINESS.accreditations.map((credential) => ({
+      '@type': 'EducationalOccupationalCredential',
+      name: credential.name,
+      credentialCategory: credential.category,
+      recognizedBy: {
+        '@type': 'Organization',
+        name: credential.issuer,
+      },
+    })),
+  };
+}
+
+export function webSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE.url}/#website`,
+    name: SITE.name,
+    alternateName: ['Richmedia.ma', 'Richmedia Digital Agency'],
+    description: SITE.description,
+    url: SITE.url,
+    inLanguage: [...SITE.locales],
+    publisher: { '@id': `${SITE.url}/#organization` },
   };
 }
 
@@ -126,5 +179,38 @@ export function breadcrumbs(items: { name: string; url: string }[]) {
       name: it.name,
       item: it.url,
     })),
+  };
+}
+
+export function definedTerm(opts: {
+  name: string; description: string; url: string;
+  acronym?: string; synonyms?: string[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTerm',
+    '@id': `${opts.url}#term`,
+    name: opts.name,
+    description: opts.description,
+    url: opts.url,
+    ...(opts.acronym ? { termCode: opts.acronym } : {}),
+    ...(opts.synonyms?.length ? { alternateName: opts.synonyms } : {}),
+    inDefinedTermSet: {
+      '@type': 'DefinedTermSet',
+      '@id': `${SITE.url}/glossaire/#set`,
+      name: 'Glossaire marketing digital — Richmedia',
+      url: `${SITE.url}/glossaire`,
+    },
+  };
+}
+
+export function definedTermSet(terms: { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTermSet',
+    '@id': `${SITE.url}/glossaire/#set`,
+    name: 'Glossaire marketing digital — Richmedia',
+    url: `${SITE.url}/glossaire`,
+    hasDefinedTerm: terms.map((t) => ({ '@type': 'DefinedTerm', name: t.name, url: t.url })),
   };
 }

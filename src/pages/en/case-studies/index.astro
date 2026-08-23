@@ -311,6 +311,28 @@ const caseStudies = [
 const heroSliderCases = caseStudies.slice(0, 4);
 const featuredCase = caseStudies[0];
 const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
+const caseImageDimensions: Record<string, { width: number; height: number }> = {
+  [`${realizationAssets}/maserati-levante-push-whatsapp.webp`]: { width: 960, height: 1200 },
+  [`${realizationAssets}/chergui-conception-emballage.webp`]: { width: 1570, height: 1168 },
+  [`${realizationAssets}/oreo-back-to-school-kv.webp`]: { width: 1522, height: 1134 },
+  [`${realizationAssets}/nescafe-nadi-nescafe.webp`]: { width: 1572, height: 1162 },
+  [`${realizationAssets}/milka-back-to-school.webp`]: { width: 1556, height: 1158 },
+  [`${homeAssets}/campaign-wide-uir.webp`]: { width: 1600, height: 900 },
+  [`${homeAssets}/campaign-wide-amana-tram.webp`]: { width: 1600, height: 900 },
+  [`${homeAssets}/campaign-wide-amana-social.webp`]: { width: 1600, height: 900 },
+  [`${homeAssets}/campaign-wide-donsimon.webp`]: { width: 1600, height: 900 },
+  [`${homeAssets}/campaign-wide-ada.webp`]: { width: 1600, height: 900 },
+  [`${homeAssets}/case-influence.webp`]: { width: 560, height: 315 },
+  [`${realizationAssets}/ryad-al-andalous-square.webp`]: { width: 1200, height: 1200 },
+  [`${realizationAssets}/tramway-summer-square.webp`]: { width: 1080, height: 1350 },
+  [`${realizationAssets}/moul-pounj-world-cup.webp`]: { width: 1600, height: 887 },
+  [`${realizationAssets}/tbs-casablanca.webp`]: { width: 1536, height: 1024 },
+  [`${realizationAssets}/cmr-retirement.webp`]: { width: 1108, height: 502 },
+  [`${realizationAssets}/rabat-riviera-wide.webp`]: { width: 1111, height: 504 },
+  [`${realizationAssets}/beed-wide.webp`]: { width: 1099, height: 507 },
+  [`${realizationAssets}/tramway-mobile-app.webp`]: { width: 1121, height: 511 },
+};
+const getCaseImageDimensions = (image: string) => caseImageDimensions[image] ?? { width: 1600, height: 900 };
 const quickLinks = [
   { href: '#case-proof', label: 'Proof', value: '14+' },
   { href: '#case-board', label: 'Cases', value: String(caseStudies.length) },
@@ -350,7 +372,16 @@ const quickLinks = [
         <article class="featured-work">
           <div class="featured-work-frame" aria-label={`${featuredCase.client} - ${featuredCase.title}`}>
             <figure>
-              <img data-featured-image src={featuredCase.image} alt={`${featuredCase.client} — ${featuredCase.title}`} loading="eager" decoding="async" />
+              <img
+                data-featured-image
+                src={featuredCase.image}
+                alt={`${featuredCase.client} — ${featuredCase.title}`}
+                width={getCaseImageDimensions(featuredCase.image).width}
+                height={getCaseImageDimensions(featuredCase.image).height}
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+              />
             </figure>
             <div class="featured-work-copy">
               <span>Featured case</span>
@@ -379,7 +410,14 @@ const quickLinks = [
             <article
               class:list={['hero-mini-card', item.slug === featuredCase.slug && 'is-active']}
             >
-              <img src={item.image} alt="" loading="eager" decoding="async" />
+              <img
+                src={item.image}
+                alt=""
+                width={getCaseImageDimensions(item.image).width}
+                height={getCaseImageDimensions(item.image).height}
+                loading="eager"
+                decoding="async"
+              />
               <span class="hero-mini-caption">
                 <strong>{item.client}</strong>
                 <span>{item.category}</span>
@@ -439,7 +477,15 @@ const quickLinks = [
           >
             <div class="work-card-body">
               <div class="work-media">
-                <img class="media-main" src={item.image} alt={`${item.client} — ${item.title}`} loading="lazy" decoding="async" />
+                <img
+                  class="media-main"
+                  src={item.image}
+                  alt={`${item.client} — ${item.title}`}
+                  width={getCaseImageDimensions(item.image).width}
+                  height={getCaseImageDimensions(item.image).height}
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <div class="work-copy">
                 <div class="work-topline">
@@ -491,7 +537,14 @@ const quickLinks = [
         <div class="case-marquee-track">
           {caseLoop.map((item) => (
             <figure class:list={['marquee-frame', `marquee-frame-${item.format}`]}>
-              <img src={item.image} alt="" loading="lazy" decoding="async" />
+              <img
+                src={item.image}
+                alt=""
+                width={getCaseImageDimensions(item.image).width}
+                height={getCaseImageDimensions(item.image).height}
+                loading="lazy"
+                decoding="async"
+              />
             </figure>
           ))}
         </div>
