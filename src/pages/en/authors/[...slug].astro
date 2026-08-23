@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { authorProfileSchema, breadcrumbs } from '../../../lib/schema';
-import { EDITORIAL_AUTHOR_LIST, SITE, getEditorialAuthorBySlug } from '../../../consts';
+import { CONTACT_FORM, EDITORIAL_AUTHOR_LIST, SITE, getEditorialAuthorBySlug } from '../../../consts';
 
 const categoryLabels: Record<string, string> = {
   Growth: 'Strategy',
@@ -218,7 +218,7 @@ const schema = [
             <h2>Stay in the loop</h2>
           </div>
           <p>Receive our latest insights, trends and case studies.</p>
-          <form action="/api/contact" method="post" data-contact-form>
+          <form action={CONTACT_FORM.action} method="post" data-contact-endpoint={CONTACT_FORM.ajaxAction} data-contact-form>
             <input type="hidden" name="form" value="newsletter author en" />
             <input type="email" name="email" placeholder="your@email.com" required />
             <button type="submit">Subscribe</button>

@@ -10,6 +10,25 @@
       status.dataset.state = state;
     };
 
+    const normalizeFieldName = (value) =>
+      String(value || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+    const findFormValue = (formData, candidates) => {
+      const normalizedCandidates = candidates.map(normalizeFieldName);
+      for (const [key, value] of formData.entries()) {
+        const fieldName = normalizeFieldName(key);
+        if (!normalizedCandidates.some((candidate) => fieldName.includes(candidate))) continue;
+        const text = String(value || '').trim();
+        if (text) return text;
+      }
+      return '';
+    };
+
+    const isTruthySuccess = (value) => value === true || value === 'true' || value === '1';
+
     forms.forEach((form) => {
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -20,11 +39,31 @@
         const errorMessage =
           form.dataset.errorMessage || "L'envoi n'a pas abouti. Merci de nous contacter directement.";
 
+        const formData = new FormData(form);
+        const honeypot = String(formData.get('company_url') || '').trim();
+
+        if (honeypot) {
+          form.reset();
+          setStatus(form, 'success', successMessage);
+          return;
+        }
+
         const body = new URLSearchParams();
-        new FormData(form).forEach((value, key) => {
+        formData.forEach((value, key) => {
           body.append(key, String(value));
         });
+
+        const endpoint = form.dataset.contactEndpoint || form.action;
+        const formName = String(formData.get('_form') || formData.get('form') || 'Formulaire site web').trim();
+        const email = findFormValue(formData, ['email', 'e-mail', 'courriel']);
+
         body.set('_page', window.location.href);
+        body.set('_subject', `[Richmedia] ${formName || 'Nouvelle demande'}`);
+        body.set('_template', 'table');
+        body.set('_captcha', 'false');
+        if (email) {
+          body.set('_replyto', email);
+        }
 
         form.classList.add('is-submitting');
         if (submit) {
@@ -34,7 +73,7 @@
         setStatus(form, 'loading', sendingMessage);
 
         try {
-          const response = await fetch(form.action, {
+          const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -45,13 +84,15 @@
           const contentType = response.headers.get('content-type') || '';
           const isJson = contentType.includes('application/json');
           const result = isJson ? await response.json().catch(() => ({})) : {};
+          const isFormSubmit = endpoint.includes('formsubmit.co');
+          const formSubmitFailed = isFormSubmit && (result.error || result.success === false || result.success === 'false');
 
-          if (response.redirected || !response.ok || !isJson || result.ok !== true) {
+          if (response.redirected || !response.ok || !isJson || formSubmitFailed || (!isFormSubmit && result.ok !== true)) {
             throw new Error(result.message || errorMessage);
           }
 
           form.reset();
-          setStatus(form, 'success', result.message || successMessage);
+          setStatus(form, 'success', result.message || (isTruthySuccess(result.success) ? successMessage : successMessage));
         } catch (error) {
           setStatus(form, 'error', error.message || errorMessage);
         } finally {

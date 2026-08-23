@@ -59,6 +59,12 @@ export const BUSINESS = {
   ],
 };
 
+export const CONTACT_FORM = {
+  recipient: 'sd.mimouni@richmedia.ma',
+  action: 'https://formsubmit.co/sd.mimouni@richmedia.ma',
+  ajaxAction: 'https://formsubmit.co/ajax/sd.mimouni@richmedia.ma',
+} as const;
+
 export const EDITORIAL_AUTHOR = {
   name: 'Salah Eddine MIMOUNI',
   slug: 'salah-eddine-mimouni',

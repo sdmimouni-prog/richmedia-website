@@ -500,17 +500,6 @@ export const proofCaseLinksFr = [
     ],
   },
   {
-    client: "Don Simon",
-    campaign: "Multi-context",
-    category: "Influence",
-    links: [
-      { href: "#don-simon-multi-context", label: "Réalisation Richmedia", text: "Repérer la référence Don Simon influence." },
-      { href: "/secteurs/fmcg", label: "Campagne digitale au Maroc", text: "Relier ce cas au secteur FMCG." },
-      { href: "/expertises/influence", label: "Dispositif de croissance", text: "Approfondir campagne influence et créateurs UGC." },
-      { href: "/contact", label: "Créer un dispositif de croissance", text: "Cadrer une campagne influence." },
-    ],
-  },
-  {
     client: "Ryad Al Andalous",
     campaign: "Rabat",
     category: "Immobilier",
@@ -709,17 +698,6 @@ export const proofCaseLinksEn = [
       { href: "/en/sectors/institutional", label: "Digital campaign in Morocco", text: "Connect this case to institutional campaigns." },
       { href: "/en/expertises/brand-content", label: "Growth system", text: "Explore narrative, content and education." },
       { href: "/en/contact", label: "Create a growth system", text: "Frame a public or local-product campaign." },
-    ],
-  },
-  {
-    client: "Don Simon",
-    campaign: "Multi-context",
-    category: "Influence",
-    links: [
-      { href: "#don-simon-multi-context", label: "Richmedia case study", text: "Find the Don Simon influence reference." },
-      { href: "/en/sectors/fmcg", label: "Digital campaign in Morocco", text: "Connect this case to FMCG." },
-      { href: "/en/expertises/influence", label: "Growth system", text: "Explore influence campaigns and UGC creators." },
-      { href: "/en/contact", label: "Create a growth system", text: "Frame an influence campaign." },
     ],
   },
   {

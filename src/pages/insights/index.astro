@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getInsightFilters, getInsightTopicCounts } from '../../lib/insights';
 import { breadcrumbs } from '../../lib/schema';
-import { SITE } from '../../consts';
+import { CONTACT_FORM, SITE } from '../../consts';
 
 const pageUrl = `${SITE.url}/insights`;
 const contentEntries = await getCollection('articles', ({ data }) => !data.draft && data.lang === 'fr');
@@ -243,7 +243,7 @@ const schema = [
         <section class="sidebar-card newsletter">
           <h2>Restez à la page</h2>
           <p>Recevez nos derniers insights, tendances et études de cas.</p>
-          <form action="/api/contact" method="post" data-contact-form>
+          <form action={CONTACT_FORM.action} method="post" data-contact-endpoint={CONTACT_FORM.ajaxAction} data-contact-form>
             <input type="hidden" name="form" value="newsletter insights" />
             <input type="email" name="email" placeholder="votre@email.com" required />
             <button type="submit">S'abonner</button>

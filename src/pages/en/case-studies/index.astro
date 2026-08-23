@@ -26,7 +26,6 @@ const categories = [
   'Brand content',
   'Social media',
   'Local products',
-  'Influence',
   'Real estate',
   'Automotive',
   'Mobility',
@@ -34,7 +33,7 @@ const categories = [
 ];
 
 const featuredStats = [
-  { value: '19+', label: 'selected case studies' },
+  { value: '18+', label: 'selected case studies' },
   { value: '9', label: 'active sectors' },
   { value: '360°', label: 'media, social, WhatsApp, field and CRM formats' },
 ];
@@ -47,6 +46,7 @@ const caseStudies = [
     category: 'Automotive',
     type: 'WhatsApp push',
     image: `${realizationAssets}/maserati-levante-push-whatsapp.webp`,
+    imagePosition: 'center 38%',
     format: 'poster',
     visibility: '100,000 sends',
     engagement: '80% open rate',
@@ -181,20 +181,6 @@ const caseStudies = [
     accent: 'green',
   },
   {
-    slug: 'don-simon-multi-context',
-    client: 'Don Simon',
-    title: 'Multi-context campaign',
-    category: 'Influence',
-    type: 'Influence and UGC campaign',
-    image: `${homeAssets}/case-influence.webp`,
-    format: 'wide',
-    visibility: '3.2M interactions',
-    engagement: 'Audience resonance',
-    year: 'Multi-product',
-    status: '',
-    accent: 'yellow',
-  },
-  {
     slug: 'ryad-al-andalous-rabat',
     client: 'Ryad Al Andalous',
     title: 'The pleasure of feeling at home',
@@ -311,6 +297,7 @@ const caseStudies = [
 const heroSliderCases = caseStudies.slice(0, 4);
 const featuredCase = caseStudies[0];
 const caseLoop = [...caseStudies.slice(0, 10), ...caseStudies.slice(0, 10)];
+const getCaseImagePosition = (item: { imagePosition?: string }) => item.imagePosition ?? 'center';
 const caseImageDimensions: Record<string, { width: number; height: number }> = {
   [`${realizationAssets}/maserati-levante-push-whatsapp.webp`]: { width: 960, height: 1200 },
   [`${realizationAssets}/chergui-conception-emballage.webp`]: { width: 1570, height: 1168 },
@@ -322,7 +309,6 @@ const caseImageDimensions: Record<string, { width: number; height: number }> = {
   [`${homeAssets}/campaign-wide-amana-social.webp`]: { width: 1600, height: 900 },
   [`${homeAssets}/campaign-wide-donsimon.webp`]: { width: 1600, height: 900 },
   [`${homeAssets}/campaign-wide-ada.webp`]: { width: 1600, height: 900 },
-  [`${homeAssets}/case-influence.webp`]: { width: 560, height: 315 },
   [`${realizationAssets}/ryad-al-andalous-square.webp`]: { width: 1200, height: 1200 },
   [`${realizationAssets}/tramway-summer-square.webp`]: { width: 1080, height: 1350 },
   [`${realizationAssets}/moul-pounj-world-cup.webp`]: { width: 1600, height: 887 },
@@ -370,7 +356,12 @@ const quickLinks = [
 
       <div class="hero-showcase" data-featured-slider aria-label="Richmedia case studies preview">
         <article class="featured-work">
-          <div class="featured-work-frame" aria-label={`${featuredCase.client} - ${featuredCase.title}`}>
+          <div
+            class="featured-work-frame"
+            data-featured-frame
+            aria-label={`${featuredCase.client} - ${featuredCase.title}`}
+            style={`--case-image-position: ${getCaseImagePosition(featuredCase)};`}
+          >
             <figure>
               <img
                 data-featured-image
@@ -407,8 +398,22 @@ const quickLinks = [
 
         <div class="hero-mini-grid" aria-label="Featured case studies preview">
           {heroSliderCases.map((item) => (
-            <article
+            <button
+              type="button"
               class:list={['hero-mini-card', item.slug === featuredCase.slug && 'is-active']}
+              data-featured-trigger
+              data-featured-src={item.image}
+              data-featured-alt={`${item.client} — ${item.title}`}
+              data-featured-width={getCaseImageDimensions(item.image).width}
+              data-featured-height={getCaseImageDimensions(item.image).height}
+              data-featured-position={getCaseImagePosition(item)}
+              data-featured-title={item.title}
+              data-featured-summary={`${item.type} · ${item.year}`}
+              data-featured-client={item.client}
+              data-featured-visibility={item.visibility}
+              data-featured-engagement={item.engagement}
+              aria-pressed={item.slug === featuredCase.slug ? 'true' : 'false'}
+              style={`--case-image-position: ${getCaseImagePosition(item)};`}
             >
               <img
                 src={item.image}
@@ -422,7 +427,7 @@ const quickLinks = [
                 <strong>{item.client}</strong>
                 <span>{item.category}</span>
               </span>
-            </article>
+            </button>
           ))}
         </div>
       </div>
@@ -474,6 +479,7 @@ const quickLinks = [
             class:list={['work-card', `work-card-${item.format}`, `work-accent-${item.accent}`]}
             data-case-slug={item.slug}
             data-case-category={item.category}
+            style={`--case-image-position: ${getCaseImagePosition(item)};`}
           >
             <div class="work-card-body">
               <div class="work-media">
@@ -607,7 +613,66 @@ const quickLinks = [
     });
   };
 
+  const initFeaturedSliders = () => {
+    const sliders = document.querySelectorAll('[data-featured-slider]');
+
+    sliders.forEach((slider) => {
+      if (!(slider instanceof HTMLElement) || slider.dataset.featuredReady === 'true') return;
+      slider.dataset.featuredReady = 'true';
+
+      const featured = slider.querySelector('.featured-work');
+      const frame = slider.querySelector('[data-featured-frame]');
+      const image = slider.querySelector('[data-featured-image]');
+      const triggers = [...slider.querySelectorAll('[data-featured-trigger]')];
+
+      const updateText = (selector: string, value?: string) => {
+        const node = slider.querySelector(selector);
+        if (node && value) node.textContent = value;
+      };
+
+      const setActiveCase = (trigger: Element) => {
+        if (!(trigger instanceof HTMLElement)) return;
+        const data = trigger.dataset;
+
+        triggers.forEach((item) => {
+          const isActive = item === trigger;
+          item.classList.toggle('is-active', isActive);
+          if (item instanceof HTMLElement) {
+            item.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+          }
+        });
+
+        featured?.classList.add('is-switching');
+
+        if (image instanceof HTMLImageElement && data.featuredSrc) {
+          image.src = data.featuredSrc;
+          image.alt = data.featuredAlt || '';
+          if (data.featuredWidth) image.setAttribute('width', data.featuredWidth);
+          if (data.featuredHeight) image.setAttribute('height', data.featuredHeight);
+        }
+
+        updateText('[data-featured-title]', data.featuredTitle);
+        updateText('[data-featured-summary]', data.featuredSummary);
+        updateText('[data-featured-client]', data.featuredClient);
+        updateText('[data-featured-visibility]', data.featuredVisibility);
+        updateText('[data-featured-engagement]', data.featuredEngagement);
+
+        if (frame instanceof HTMLElement && data.featuredClient && data.featuredTitle) {
+          frame.setAttribute('aria-label', `${data.featuredClient} - ${data.featuredTitle}`);
+          frame.style.setProperty('--case-image-position', data.featuredPosition || 'center');
+        }
+
+        window.setTimeout(() => featured?.classList.remove('is-switching'), 180);
+      };
+
+      triggers.forEach((trigger) => {
+        trigger.addEventListener('click', () => setActiveCase(trigger));
+      });
+    });
+  };
+
   const initRealisationsInteractions = () => {
+    initFeaturedSliders();
     initCaseFilters();
   };
 
@@ -790,13 +855,14 @@ const quickLinks = [
   .featured-work-frame {
     display: grid;
     grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.82fr);
-    min-height: 420px;
+    min-height: clamp(420px, 36vw, 520px);
     color: inherit;
     text-decoration: none;
   }
 
   .featured-work figure {
     position: relative;
+    height: 100%;
     min-height: 100%;
     margin: 0;
     overflow: hidden;
@@ -804,9 +870,11 @@ const quickLinks = [
   }
 
   .featured-work img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: var(--case-image-position, center);
     transition: transform 700ms ease;
   }
 
@@ -897,11 +965,17 @@ const quickLinks = [
     position: relative;
     aspect-ratio: 4 / 3;
     margin: 0;
+    padding: 0;
+    appearance: none;
+    width: 100%;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.13);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.035);
     color: inherit;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
     transition: border-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
   }
 
@@ -912,15 +986,22 @@ const quickLinks = [
     transform: translateY(-3px);
   }
 
+  .hero-mini-card:focus-visible {
+    outline: 2px solid rgba(164, 108, 255, 0.95);
+    outline-offset: 3px;
+  }
+
   .hero-mini-card.is-active {
     border-color: rgba(124, 60, 255, 0.95);
     box-shadow: inset 0 0 0 1px rgba(124, 60, 255, 0.32), 0 0 1.3rem rgba(124, 60, 255, 0.22);
   }
 
   .hero-mini-grid img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: var(--case-image-position, center);
     opacity: 0.8;
     transition: opacity 240ms ease, transform 360ms ease;
   }
@@ -1158,7 +1239,7 @@ const quickLinks = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: var(--case-image-position, center);
   }
 
   .media-main {

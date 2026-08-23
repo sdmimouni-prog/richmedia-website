@@ -2,6 +2,7 @@
 import QuickAnswer from './QuickAnswer.astro';
 import Faq from './Faq.astro';
 import SeoSiloLinks from './SeoSiloLinks.astro';
+import { CONTACT_FORM } from '../consts';
 import { enSiloLinks, frSiloLinks } from '../lib/seo-silos';
 
 type ArticleCard = {
@@ -272,7 +273,7 @@ const formatDate = (value: Date | string) =>
       <section class="sidebar-card newsletter-card">
         <h2>{newsletterTitle}</h2>
         <p>{newsletterDescription}</p>
-        <form action="/api/contact" method="post" data-contact-form>
+        <form action={CONTACT_FORM.action} method="post" data-contact-endpoint={CONTACT_FORM.ajaxAction} data-contact-form>
           <input type="hidden" name="form" value={lang === 'en' ? 'newsletter article en' : 'newsletter article'} />
           <input type="email" name="email" placeholder={emailPlaceholder} required />
           <button type="submit">{newsletterButton}</button>

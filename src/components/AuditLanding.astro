@@ -1,5 +1,5 @@
 ---
-import { BUSINESS } from '../consts';
+import { BUSINESS, CONTACT_FORM } from '../consts';
 
 interface Props {
   lang?: 'fr' | 'en';
@@ -621,8 +621,9 @@ const t = content[lang];
 
     <form
       class="audit-form"
-      action="/api/contact"
+      action={CONTACT_FORM.action}
       method="post"
+      data-contact-endpoint={CONTACT_FORM.ajaxAction}
       data-contact-form
       data-sending-message={lang === 'fr' ? 'Envoi de votre demande...' : 'Sending your request...'}
       data-success-message={lang === 'fr' ? 'Votre demande a bien été envoyée. Nous revenons vers vous rapidement.' : 'Your request has been sent. We will get back to you shortly.'}

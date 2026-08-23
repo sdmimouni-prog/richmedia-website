@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { BUSINESS, SITE } from '../../../consts';
+import { BUSINESS, CONTACT_FORM, SITE } from '../../../consts';
 import { breadcrumbs, localBusiness } from '../../../lib/schema';
 
 const assetBase = '/assets/richmedia-home';
@@ -239,8 +239,9 @@ const faqs = [
       <article class="contact-form-panel hover-card" id="contact-form">
         <h2>Send us your request</h2>
         <form
-          action="/api/contact"
+          action={CONTACT_FORM.action}
           method="post"
+          data-contact-endpoint={CONTACT_FORM.ajaxAction}
           data-contact-form
           data-sending-message="Sending your request..."
           data-success-message="Your request has been sent. We will get back to you shortly."
