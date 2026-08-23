@@ -5,6 +5,7 @@ import QuickAnswer from '../../../components/QuickAnswer.astro';
 import Faq from '../../../components/Faq.astro';
 import { breadcrumbs, serviceSchema } from '../../../lib/schema';
 import { enSiloLinks } from '../../../lib/seo-silos';
+import { enServiceLandingPages } from '../../../lib/en-service-landings';
 import { SITE } from '../../../consts';
 
 type ExpertisePage = {
@@ -125,20 +126,36 @@ export function getStaticPaths() {
       ],
     },
   ];
-  return expertisePages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+  return [...expertisePages, ...enServiceLandingPages].map((page) => ({ params: { slug: page.slug }, props: { page } }));
 }
 
 const { page } = Astro.props;
 const slug = Astro.params.slug;
 const pageUrl = `${SITE.url}/en/expertises/${slug}`;
-const metaDescription = slug === 'media-performance'
-  ? 'Improve acquisition with Google Ads, Social Ads, SEO/GEO, tracking, CRM and optimization focused on leads, sales and ROI.'
-  : 'Improve organic visibility on Google and AI engines through technical SEO, content, authority building and structured answers.';
-const siloConfig = slug === 'media-performance'
+const metaDescription = page.description;
+const siloConfig = slug === 'media-performance' || slug === 'google-ads-morocco' || slug === 'meta-ads-morocco' || slug === 'tiktok-ads-morocco' || slug === 'lead-generation-morocco'
   ? {
       title: 'Connect performance, media and conversion',
       intro: 'Digital performance connects paid acquisition, SEO/GEO, Social Ads, CRM and sector pages to turn traffic into results.',
       links: enSiloLinks.media,
+    }
+  : slug === 'whatsapp-marketing-morocco' || slug === 'crm-marketing-automation-morocco'
+  ? {
+      title: 'Connect CRM, automation and conversion',
+      intro: 'Conversion improves when acquisition, WhatsApp, CRM and reporting move together.',
+      links: enSiloLinks.conversion,
+    }
+  : slug === 'social-media-morocco' || slug === 'influencer-marketing-morocco' || slug === 'social-listening-morocco'
+  ? {
+      title: 'Connect social, influence and content',
+      intro: 'Social performance works better when content, creators, communities and paid amplification are aligned.',
+      links: enSiloLinks.influence,
+    }
+  : slug === 'geofencing-drive-to-store-morocco'
+  ? {
+      title: 'Connect local media and physical conversion',
+      intro: 'Drive-to-store works when local targeting, creative, conversion paths and reporting are designed together.',
+      links: enSiloLinks.phygital,
     }
   : {
       title: 'Connect SEO, content and performance',

@@ -1,0 +1,854 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { SITE } from '../../../consts';
+import { breadcrumbs, collectionPageSchema, faqSchema, localBusiness } from '../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/tools/`;
+const assetBase = '/assets/richmedia-tools';
+
+const categories = [
+  {
+    id: 'calculators',
+    title: 'Calculators',
+    eyebrow: 'Estimate',
+    summary: 'Fast benchmarks to frame budget, leads and profitability.',
+    icon: 'ph-chart-bar',
+    count: '3',
+    items: [
+      {
+        title: 'Media Budget & Leads Calculator',
+        text: 'Frame budget, lead volume and channel mix before launch.',
+        href: '/en/tools/media-budget-leads-calculator/',
+        icon: 'ph-chart-line-up',
+        action: 'Open',
+      },
+      {
+        title: 'Profitable CPL / CAC Calculator',
+        text: 'Profitability threshold, target CPL and decision margin.',
+        href: '/en/tools/profitable-cpl-cac-calculator/',
+        icon: 'ph-target',
+        action: 'Open',
+      },
+      {
+        title: 'WhatsApp Campaign Estimator',
+        text: 'Volumes, cost and performance scenarios for conversational campaigns.',
+        href: '/en/tools/whatsapp-campaign-estimator/',
+        icon: 'ph-whatsapp-logo',
+        action: 'Estimate',
+      },
+    ],
+  },
+  {
+    id: 'templates',
+    title: 'Templates',
+    eyebrow: 'Structure',
+    summary: 'Ready-to-adapt files to align teams and decisions.',
+    icon: 'ph-note-pencil',
+    count: '3',
+    items: [
+      {
+        title: 'Digital Media Plan Template',
+        text: 'Objectives, channels, budgets, calendar and KPIs.',
+        href: '/en/tools/digital-media-plan-template/',
+        icon: 'ph-note-pencil',
+        action: 'View template',
+        badge: 'Excel',
+      },
+      {
+        title: 'Marketing KPI Dashboard Template',
+        text: 'A clean KPI view to manage decisions.',
+        href: '/en/tools/marketing-kpi-dashboard-template/',
+        icon: 'ph-chart-donut',
+        action: 'View',
+        badge: 'Dashboard',
+      },
+      {
+        title: 'Digital Campaign Brief Template',
+        text: 'A clear brief for creative, media, tracking and validation.',
+        href: '/en/tools/digital-campaign-brief-template/',
+        icon: 'ph-briefcase',
+        action: 'View',
+        badge: 'Brief',
+      },
+    ],
+  },
+  {
+    id: 'checklists',
+    title: 'Checklists',
+    eyebrow: 'Verify',
+    summary: 'Short lists to avoid costly launch mistakes.',
+    icon: 'ph-check-circle',
+    count: '3',
+    items: [
+      {
+        title: 'Pre-launch Tracking Checklist',
+        text: 'Events, pixels, UTMs and conversions.',
+        href: '/en/tools/pre-launch-tracking-checklist/',
+        icon: 'ph-check-circle',
+        action: 'View',
+      },
+      {
+        title: 'Landing Page Conversion Checklist',
+        text: 'Message, proof, CTA, speed and friction.',
+        href: '/en/tools/landing-page-conversion-checklist/',
+        icon: 'ph-cursor-click',
+        action: 'View',
+      },
+      {
+        title: 'Meta Ads 2026 Checklist',
+        text: 'Creative, structure, audiences, signals and reporting.',
+        href: '/en/tools/meta-ads-2026-checklist/',
+        icon: 'ph-shield-check',
+        action: 'View',
+      },
+    ],
+  },
+];
+
+const usageSteps = [
+  { title: 'Choose', text: 'Pick the right resource for the task at hand.', icon: 'ph-cursor-click' },
+  { title: 'Adapt', text: 'Replace assumptions with your real numbers.', icon: 'ph-note-pencil' },
+  { title: 'Decide', text: 'Turn the result into a clear next action.', icon: 'ph-rocket-launch' },
+];
+
+const faq = [
+  {
+    question: 'Are these tools free?',
+    answer:
+      'Yes. This hub centralizes practical resources made available by Richmedia. Some personalized versions may require a conversation with the team.',
+  },
+  {
+    question: 'Can I download and edit the templates?',
+    answer:
+      'Downloadable files are designed to be adapted to your objectives, channels and KPIs. Advanced resources may be released progressively.',
+  },
+  {
+    question: 'Do I need an account to access the resources?',
+    answer:
+      'No. The hub is accessible without an account. Some advanced resources can use a form when personalization is useful.',
+  },
+  {
+    question: 'Can Richmedia help interpret my results?',
+    answer:
+      'Yes. The team can analyze your data, compare your KPIs with your market context and prioritize media, CRM, social or SEO/GEO actions.',
+  },
+];
+
+const resourceItems = categories.flatMap((category) =>
+  category.items.map((item) => ({
+    name: item.title,
+    url: `${SITE.url}${item.href}`,
+  })),
+);
+
+const schema = [
+  {
+    ...localBusiness(),
+    url: pageUrl,
+    inLanguage: 'en',
+  },
+  collectionPageSchema({
+    name: 'Digital marketing tools and resources by Richmedia',
+    description:
+      'Calculators, templates and checklists to plan campaigns, measure performance and optimize digital marketing.',
+    url: pageUrl,
+    items: resourceItems,
+    inLanguage: 'en',
+  }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Tools & resources', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  lang="en"
+  title="Digital Marketing Tools & Resources | Richmedia"
+  description="Calculators, templates and checklists to plan campaigns, measure performance and optimize digital marketing."
+  canonical={pageUrl}
+  schema={schema}
+>
+  <div class="tools-page">
+    <section class="tools-hero" aria-labelledby="tools-title">
+      <div class="hero-copy">
+        <span class="section-kicker">Tools & resources</span>
+        <h1 id="tools-title">Marketing tools without the messy spreadsheet maze.</h1>
+        <p>
+          Practical marketing calculators, digital marketing templates and checklists built to help teams decide faster,
+          frame campaigns better and move into action.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#calculators">
+            Explore the tools
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/en/contact">
+            Custom benchmark
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <figure class="hero-visual">
+        <img
+          src={`${assetBase}/hero-dashboard.webp`}
+          alt="Visual interface of marketing resources with dashboards, graphs and calculator modules"
+          width="1717"
+          height="916"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <figcaption class="visual-caption">
+          <span>Marketing hub</span>
+          <strong>9 ready resources</strong>
+        </figcaption>
+        <div class="visual-floating visual-floating-top" aria-hidden="true">
+          <span>Budget</span>
+          <span>Leads</span>
+          <span>KPI</span>
+        </div>
+        <div class="visual-floating visual-floating-bottom" aria-hidden="true">
+          <strong>Decision</strong>
+          <span>fewer fuzzy assumptions</span>
+        </div>
+      </figure>
+    </section>
+
+    <nav class="category-rail" aria-label="Tool categories">
+      {categories.map((category) => (
+        <a href={`#${category.id}`}>
+          <i class={`ph ${category.icon}`} aria-hidden="true"></i>
+          <span>{category.title}</span>
+          <strong>{category.count}</strong>
+        </a>
+      ))}
+    </nav>
+
+    <section class="featured-band" aria-labelledby="featured-band-title">
+      <figure>
+        <img
+          src={`${assetBase}/calculator-focus.webp`}
+          alt="Dark marketing calculator with media budget charts"
+          width="1536"
+          height="1024"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div>
+        <span class="section-kicker">Featured resource</span>
+        <h2 id="featured-band-title">Media Budget & Leads Calculator</h2>
+        <p>
+          A practical calculator to frame media budget, estimate expected leads and check whether objectives remain
+          realistic for your conversion funnel.
+        </p>
+        <a class="button button-primary" href="/en/tools/media-budget-leads-calculator/">
+          Preview
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="resource-hub" aria-labelledby="resource-hub-title">
+      <div class="hub-heading">
+        <span class="section-kicker">Short library</span>
+        <h2 id="resource-hub-title">Nine resources, three use cases.</h2>
+      </div>
+
+      {categories.map((category) => (
+        <section class="resource-category" id={category.id} aria-labelledby={`${category.id}-title`}>
+          <div class="category-heading">
+            <span>{category.eyebrow}</span>
+            <h3 id={`${category.id}-title`}>{category.title}</h3>
+            <p>{category.summary}</p>
+          </div>
+          <div class="resource-grid">
+            {category.items.map((item) => (
+              <article class="resource-card">
+                <i class={`ph ${item.icon}`} aria-hidden="true"></i>
+                <div>
+                  {'badge' in item && item.badge && <span class="resource-badge">{item.badge}</span>}
+                  <h4>{item.title}</h4>
+                  <p>{item.text}</p>
+                </div>
+                <a href={item.href}>
+                  {item.action}
+                  <i class="ph ph-arrow-right" aria-hidden="true"></i>
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </section>
+
+    <section class="visual-break" aria-labelledby="visual-break-title">
+      <div>
+        <span class="section-kicker">Templates & checklists</span>
+        <h2 id="visual-break-title">Less theory, more usable support.</h2>
+        <p>
+          The point is not to stack resources. Each format should help a team make a decision, frame a campaign or check
+          a critical point before investing.
+        </p>
+      </div>
+      <figure>
+        <img
+          src={`${assetBase}/templates-checklists.webp`}
+          alt="Marketing templates, checklists and dashboards on a dark desk"
+          width="1536"
+          height="1024"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </section>
+
+    <section class="usage-section" aria-labelledby="usage-title">
+      <div class="compact-heading">
+        <span class="section-kicker">How to use them</span>
+        <h2 id="usage-title">Three steps, then action.</h2>
+      </div>
+      <div class="usage-grid">
+        {usageSteps.map((step, index) => (
+          <article>
+            <span>{index + 1}</span>
+            <i class={`ph ${step.icon}`} aria-hidden="true"></i>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="compact-heading">
+        <span class="section-kicker">FAQ</span>
+        <h2 id="faq-title">Frequently asked questions</h2>
+      </div>
+      <div class="faq-grid">
+        {faq.map((item) => (
+          <details>
+            <summary>
+              <span>{item.question}</span>
+              <i class="ph ph-caret-down" aria-hidden="true"></i>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="cta-title">
+      <div>
+        <span class="section-kicker">Custom support</span>
+        <h2 id="cta-title">Need a personalized benchmark?</h2>
+        <p>We analyze your figures, channels and goals to prioritize the next actions.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="button button-primary" href="/en/contact">
+          Compare my KPIs
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href="/en/contact">
+          Contact Richmedia
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+  </div>
+
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .tools-page {
+    --purple: #7c3cff;
+    --purple-soft: #aa7cff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(255, 255, 255, 0.66);
+    width: min(100% - 3rem, 1240px);
+    margin: 0 auto;
+    padding: clamp(7rem, 10vw, 9rem) 0 clamp(3rem, 6vw, 5.5rem);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  .tools-page::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 70% 8%, rgba(124, 60, 255, 0.14), transparent 26rem),
+      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: auto, 84px 84px, 84px 84px;
+    content: '';
+    pointer-events: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    margin: 0;
+  }
+
+  .tools-page,
+  .tools-page * {
+    box-sizing: border-box;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--purple-soft);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2.1rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-soft));
+    content: '';
+  }
+
+  .tools-hero {
+    display: grid;
+    grid-template-columns: minmax(420px, 0.9fr) minmax(420px, 1fr);
+    gap: clamp(1.4rem, 3.8vw, 3.5rem);
+    align-items: center;
+    min-height: 540px;
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 1.05rem;
+  }
+
+  .hero-copy h1 {
+    max-width: 740px;
+    font-size: clamp(3.1rem, 5.8vw, 5.55rem);
+    font-weight: 900;
+    line-height: 0.9;
+  }
+
+  .hero-copy p {
+    max-width: 620px;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.35vw, 1.16rem);
+    line-height: 1.62;
+  }
+
+  .hero-actions,
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 0.35rem;
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 1.2rem;
+    color: #fff;
+    font-weight: 900;
+    text-decoration: none;
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+    white-space: nowrap;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .resource-card:hover,
+  .usage-grid article:hover,
+  .category-rail a:hover {
+    transform: translateY(-4px);
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1.2rem 2.8rem rgba(124, 60, 255, 0.28);
+  }
+
+  .button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .hero-visual,
+  .featured-band figure,
+  .visual-break figure {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #05060a;
+    box-shadow: 0 2rem 5.5rem rgba(0, 0, 0, 0.34);
+  }
+
+  .hero-visual {
+    aspect-ratio: 1.68;
+    transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 320ms ease, box-shadow 420ms ease;
+  }
+
+  .hero-visual:hover {
+    border-color: rgba(170, 124, 255, 0.52);
+    box-shadow: 0 2.6rem 6.8rem rgba(0, 0, 0, 0.42), 0 0 4.5rem rgba(124, 60, 255, 0.22);
+    transform: translateY(-8px) perspective(1000px) rotateX(2deg) rotateY(-3deg);
+  }
+
+  .hero-visual img,
+  .featured-band img,
+  .visual-break img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 420ms ease;
+  }
+
+  .hero-visual:hover img,
+  .featured-band:hover img,
+  .visual-break:hover img {
+    filter: saturate(1.14) contrast(1.06);
+    transform: scale(1.045);
+  }
+
+  .visual-caption,
+  .visual-floating {
+    position: absolute;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    background: rgba(8, 9, 14, 0.72);
+    box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(16px);
+  }
+
+  .visual-caption {
+    left: 1rem;
+    bottom: 1rem;
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .visual-caption span,
+  .visual-floating span {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .visual-floating-top {
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.45rem;
+    padding: 0.55rem;
+  }
+
+  .visual-floating-top span {
+    border-radius: 999px;
+    padding: 0.42rem 0.58rem;
+    background: rgba(124, 60, 255, 0.2);
+    color: #d9ccff;
+  }
+
+  .visual-floating-bottom {
+    right: 1rem;
+    bottom: 1rem;
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+    text-align: right;
+  }
+
+  .category-rail,
+  .featured-band,
+  .resource-hub,
+  .visual-break,
+  .usage-section,
+  .faq-section,
+  .final-cta {
+    margin-top: clamp(1.6rem, 4vw, 3.2rem);
+  }
+
+  .category-rail,
+  .resource-grid,
+  .usage-grid,
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .category-rail a,
+  .resource-card,
+  .featured-band,
+  .resource-hub,
+  .visual-break,
+  .usage-grid article,
+  .faq-grid details,
+  .final-cta {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 16% 0%, rgba(124, 60, 255, 0.13), transparent 14rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.92), rgba(7, 8, 12, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  }
+
+  .category-rail a,
+  .resource-card {
+    color: #fff;
+    text-decoration: none;
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+  }
+
+  .category-rail a:hover,
+  .resource-card:hover {
+    border-color: rgba(155, 124, 255, 0.58);
+    background:
+      radial-gradient(circle at 18% 0%, rgba(124, 60, 255, 0.22), transparent 16rem),
+      linear-gradient(145deg, rgba(25, 24, 38, 0.96), rgba(8, 9, 14, 0.94));
+  }
+
+  .category-rail a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.9rem;
+    align-items: center;
+    min-height: 4.7rem;
+    padding: 1rem;
+  }
+
+  .category-rail i,
+  .resource-card > i,
+  .usage-grid i {
+    display: inline-grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid rgba(155, 124, 255, 0.35);
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.16);
+    color: var(--purple-soft);
+    font-size: 1.5rem;
+  }
+
+  .featured-band,
+  .visual-break {
+    display: grid;
+    grid-template-columns: minmax(420px, 1.05fr) minmax(0, 0.8fr);
+    gap: clamp(1.2rem, 3vw, 2rem);
+    align-items: center;
+    padding: clamp(1rem, 2vw, 1.2rem);
+  }
+
+  .visual-break {
+    grid-template-columns: minmax(0, 0.8fr) minmax(420px, 1.05fr);
+  }
+
+  .featured-band figure,
+  .visual-break figure {
+    aspect-ratio: 1.6;
+  }
+
+  .featured-band > div,
+  .visual-break > div {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  .featured-band h2,
+  .visual-break h2,
+  .final-cta h2,
+  .hub-heading h2,
+  .compact-heading h2 {
+    font-size: clamp(2rem, 3.6vw, 3.55rem);
+    line-height: 0.98;
+  }
+
+  .featured-band p,
+  .visual-break p,
+  .final-cta p,
+  .category-heading p,
+  .resource-card p,
+  .usage-grid p,
+  .faq-grid p {
+    color: var(--muted);
+    line-height: 1.58;
+  }
+
+  .resource-hub {
+    padding: clamp(1.15rem, 2vw, 1.5rem);
+  }
+
+  .hub-heading,
+  .compact-heading {
+    display: grid;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .resource-category {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1fr);
+    gap: 1rem;
+    padding: clamp(1rem, 2vw, 1.35rem) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .category-heading {
+    display: grid;
+    align-content: start;
+    gap: 0.45rem;
+    padding-right: 1rem;
+  }
+
+  .category-heading span,
+  .resource-badge {
+    width: fit-content;
+    border: 1px solid rgba(155, 124, 255, 0.3);
+    border-radius: 999px;
+    padding: 0.22rem 0.55rem;
+    color: #d6c8ff;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .resource-card {
+    display: grid;
+    min-height: 16rem;
+    align-content: start;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .resource-card h4 {
+    color: #fff;
+    font-size: 1.15rem;
+    line-height: 1.12;
+  }
+
+  .resource-card a {
+    align-self: end;
+    justify-self: start;
+    color: #fff;
+    font-size: 0.88rem;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .usage-grid article {
+    display: grid;
+    gap: 1rem;
+    min-height: 13rem;
+    padding: 1.25rem;
+    transition: transform 220ms ease, border-color 220ms ease;
+  }
+
+  .usage-grid article:hover {
+    border-color: rgba(155, 124, 255, 0.58);
+  }
+
+  .usage-grid article > span {
+    width: 2rem;
+    height: 2rem;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid rgba(155, 124, 255, 0.45);
+    border-radius: 999px;
+    color: #cdbbff;
+    font-weight: 900;
+  }
+
+  .faq-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .faq-grid details {
+    padding: 1rem;
+  }
+
+  .faq-grid summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 900;
+  }
+
+  .faq-grid p {
+    margin-top: 0.8rem;
+  }
+
+  .final-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: clamp(1.1rem, 3vw, 1.6rem);
+  }
+
+  @media (max-width: 980px) {
+    .tools-hero,
+    .featured-band,
+    .visual-break,
+    .resource-category,
+    .final-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .category-rail,
+    .resource-grid,
+    .usage-grid,
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .tools-page {
+      width: min(100% - 1rem, 1240px);
+    }
+
+    .hero-actions,
+    .cta-actions {
+      flex-direction: column;
+    }
+
+    .button {
+      width: 100%;
+    }
+  }
+</style>

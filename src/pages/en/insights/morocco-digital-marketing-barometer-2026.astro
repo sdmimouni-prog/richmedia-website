@@ -1,0 +1,1049 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleDetailPage from '../../../components/ArticleDetailPage.astro';
+import { articleSchema, authorCanonicalUrl, authorPersonId, breadcrumbs } from '../../../lib/schema';
+import { CONTACT_FORM, getEditorialAuthor, getEditorialAuthorPath, SITE } from '../../../consts';
+
+const pageUrl = `${SITE.url}/en/insights/morocco-digital-marketing-barometer-2026/`;
+const pageTitle = 'Morocco Digital Marketing Barometer 2026';
+const metaTitle = 'Morocco Digital Marketing Barometer 2026 | Richmedia';
+const metaDescription =
+  '400 campaigns, 25M MAD in media spend and 553,000 leads analyzed. Benchmarks for Meta, Google, WhatsApp and acquisition in Morocco.';
+const image = '/assets/richmedia-case-study/proof-dashboard.webp';
+const absoluteImage = `${SITE.url}${image}`;
+const barometerPdfHref = '/downloads/barometre-marketing-digital-maroc-2026-richmedia.pdf';
+const barometerPdfFilename = 'Morocco Digital Marketing Barometer 2026 - Richmedia.pdf';
+const publishedDate = new Date('2026-08-23');
+const modifiedDate = new Date('2026-08-23');
+const authorProfile = getEditorialAuthor('Salah Eddine MIMOUNI');
+const authorImage = authorProfile.image.startsWith('/') ? `${SITE.url}${authorProfile.image}` : authorProfile.image;
+
+const keyStats = [
+  { value: '400', label: 'campaigns analyzed' },
+  { value: '82', label: 'clients and brands' },
+  { value: '25M MAD', label: 'media spend managed' },
+  { value: '1.6B', label: 'impressions generated' },
+  { value: '16M', label: 'clicks measured' },
+  { value: '553,000', label: 'leads generated' },
+];
+
+const sectors = [
+  { label: 'Education', campaigns: 88, share: '22%', value: 22 },
+  { label: 'Real estate', campaigns: 72, share: '18%', value: 18 },
+  { label: 'Automotive', campaigns: 53, share: '13.3%', value: 13.3 },
+  { label: 'Retail / Grocery', campaigns: 52, share: '13%', value: 13 },
+  { label: 'FMCG', campaigns: 42, share: '10.5%', value: 10.5 },
+  { label: 'Tourism', campaigns: 33, share: '8.3%', value: 8.3 },
+  { label: 'Banking / Insurance', campaigns: 24, share: '6%', value: 6 },
+  { label: 'Other', campaigns: 36, share: '9%', value: 9 },
+];
+
+const channels = [
+  { label: 'Meta Ads', campaigns: 320, share: '80%', value: 80 },
+  { label: 'Google Ads', campaigns: 160, share: '40%', value: 40 },
+  { label: 'WhatsApp', campaigns: 130, share: '32.5%', value: 32.5 },
+  { label: 'TikTok Ads', campaigns: 80, share: '20%', value: 20 },
+  { label: 'Influence', campaigns: 50, share: '12.5%', value: 12.5 },
+  { label: 'Programmatic', campaigns: 49, share: '12.3%', value: 12.3 },
+  { label: 'LinkedIn Ads', campaigns: 44, share: '11%', value: 11 },
+  { label: 'Other', campaigns: 33, share: '8.3%', value: 8.3 },
+  { label: 'Emailing', campaigns: 10, share: '2.5%', value: 2.5 },
+];
+
+const globalPerformance = [
+  { label: 'Aggregate CTR', value: 'around 1.0%', detail: '16M clicks from 1.6B impressions.' },
+  { label: 'Aggregate CPC', value: 'around 1.56 MAD', detail: '25M MAD invested / 16M clicks.' },
+  { label: 'Aggregate CPL', value: 'around 45 MAD', detail: '25M MAD invested / 553,000 leads.' },
+  { label: 'Click to lead conversion', value: 'around 3.46%', detail: '553,000 leads from 16M clicks.' },
+];
+
+const metaRanges = [
+  { label: 'CPM', value: '5 to 18 MAD', low: 5, high: 18, max: 180 },
+  { label: 'CPC', value: '0.4 to 2.5 MAD', low: 4, high: 25, max: 180 },
+  { label: 'CTR', value: '0.8 to 3.2%', low: 8, high: 32, max: 180 },
+  { label: 'CPL', value: '8 to 180 MAD', low: 8, high: 180, max: 180 },
+];
+
+const googleRanges = [
+  { label: 'CPC', value: '2 to 8 MAD', low: 2, high: 8, max: 150 },
+  { label: 'CTR', value: '3 to 7%', low: 3, high: 7, max: 150 },
+  { label: 'CPL', value: '18 to 150 MAD', low: 18, high: 150, max: 150 },
+  { label: 'Conversion rate', value: '3 to 10%', low: 3, high: 10, max: 150 },
+];
+
+const cplBySector = [
+  { label: 'Education', value: '8 to 220 MAD', low: 8, high: 220, max: 220 },
+  { label: 'Real estate', value: '25 to 220 MAD', low: 25, high: 220, max: 220 },
+  { label: 'Automotive', value: '30 to 100 MAD', low: 30, high: 100, max: 220 },
+  { label: 'Retail / Grocery', value: '8 to 35 MAD', low: 8, high: 35, max: 220 },
+  { label: 'Tourism', value: '20 to 70 MAD', low: 20, high: 70, max: 220 },
+  { label: 'Banking / Insurance', value: '40 to 120 MAD', low: 40, high: 120, max: 220 },
+];
+
+const relatedArticles = [
+  {
+    href: '/en/insights/digital-acquisition-plan-2026',
+    title: 'Digital acquisition plan 2026',
+    description: 'Channels, budget, tracking and conversion for a better acquisition plan.',
+    category: 'Strategy',
+    image: '/assets/richmedia-digital-strategy/strategy-hero.webp',
+    readingTime: 10,
+    date: new Date('2026-04-18'),
+  },
+  {
+    href: '/en/insights/google-ads-campaign-cost-morocco',
+    title: 'How much does a Google Ads campaign cost in Morocco?',
+    description: 'Budget, auctions and cost variables to understand Google Ads.',
+    category: 'Media & performance',
+    image: '/assets/richmedia-achat-media/achat-media-hero.webp',
+    readingTime: 10,
+    date: new Date('2026-02-01'),
+  },
+  {
+    href: '/en/insights/meta-campaigns-2026-best-practices',
+    title: 'Meta campaigns 2026: best practices',
+    description: 'Campaign structure, targeting, creative and measurement.',
+    category: 'Media & performance',
+    image: '/assets/richmedia-achat-media/media-creative-tests.webp',
+    readingTime: 7,
+    date: new Date('2026-05-12'),
+  },
+  {
+    href: '/en/insights/whatsapp-business-conversion-channel',
+    title: 'WhatsApp Business as a conversion channel',
+    description: 'Use cases, automation and practices to turn conversations into results.',
+    category: 'WhatsApp & automation',
+    image: '/assets/richmedia-ia-automation/whatsapp-agent.webp',
+    readingTime: 8,
+    date: new Date('2026-05-03'),
+  },
+];
+
+const serviceLinks = [
+  { href: '/en/expertises/media-performance', label: 'Media & performance' },
+  { href: '/en/expertises/seo-geo', label: 'SEO / GEO' },
+  { href: '/en/expertises/influence', label: 'Influence & social media' },
+  { href: '/en/products/whatsapp', label: 'WhatsApp Business' },
+  { href: '/en/tools', label: 'Tools & resources' },
+  { href: '/en/tools/media-budget-leads-calculator', label: 'Media Budget & Leads Calculator' },
+  { href: '/en/tools/whatsapp-campaign-estimator', label: 'WhatsApp Campaign Estimator' },
+  { href: '/en/tools/digital-media-plan-template', label: 'Digital Media Plan Template' },
+];
+
+const faq = [
+  {
+    question: 'Is this barometer an official benchmark for the Moroccan market?',
+    answer:
+      'No. It is based on campaigns managed by Richmedia between 2022 and 2026. The figures provide useful planning ranges, but each sector, offer, audience and sales process must be analyzed separately.',
+  },
+  {
+    question: 'Which KPI should be tracked first?',
+    answer:
+      'The priority KPI depends on the business goal. For acquisition, CPL should be read with contact rate, qualification, appointments and sales. A cheaper lead can become more expensive if it does not convert.',
+  },
+  {
+    question: 'How can these figures help prepare a 2026 budget?',
+    answer:
+      'Start from the business target, define the role of each channel, estimate the required volumes and keep room for testing. The budget should generate learning, not only impressions or clicks.',
+  },
+];
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: metaDescription,
+    url: pageUrl,
+    author: {
+      '@type': 'Person',
+      '@id': authorPersonId(authorProfile.slug),
+      name: authorProfile.name,
+      url: authorCanonicalUrl(authorProfile.slug),
+      image: authorImage,
+    },
+    datePublished: publishedDate,
+    dateModified: modifiedDate,
+    image: absoluteImage,
+  }),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Insights', url: `${SITE.url}/en/insights` },
+    { name: pageTitle, url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  lang="en"
+  title={metaTitle}
+  description={metaDescription}
+  canonical={pageUrl}
+  ogImage={absoluteImage}
+  ogType="article"
+  articlePublishedTime={publishedDate}
+  articleModifiedTime={modifiedDate}
+  articleAuthor={authorProfile.name}
+  articleSection="Digital marketing benchmark"
+  schema={schema}
+>
+  <ArticleDetailPage
+    lang="en"
+    breadcrumbLabel="Insights"
+    breadcrumbHref="/en/insights"
+    categoryLabel="Digital marketing benchmark"
+    title={pageTitle}
+    description={metaDescription}
+    author={authorProfile.name}
+    authorRole={authorProfile.role.en}
+    authorBio={authorProfile.bio.en}
+    authorImage={authorProfile.image}
+    authorUrl={getEditorialAuthorPath(authorProfile.name, 'en')}
+    date={publishedDate}
+    readingTime={12}
+    image={image}
+    quickAnswer="The Morocco Digital Marketing Barometer 2026 summarizes 400 campaigns managed by Richmedia between 2022 and 2026. It provides practical benchmarks for budgets, channels, acquisition costs, leads, WhatsApp, Google Ads, Meta Ads and performance measurement."
+    tags={['digital marketing Morocco', 'acquisition benchmark', 'Meta Ads Morocco', 'Google Ads Morocco']}
+    recentArticles={relatedArticles}
+    relatedArticles={relatedArticles}
+    faq={faq}
+    ctaTitle="Compare your campaigns with Richmedia benchmarks."
+    ctaPrimary="Request an audit"
+    ctaPrimaryHref="/en/book-audit"
+    ctaSecondary="Explore expertise"
+    ctaSecondaryHref="/en/expertises"
+    newsletterTitle="Stay in the loop"
+    newsletterDescription="Receive the latest insights, trends and case studies."
+    newsletterButton="Subscribe"
+    relatedTitle="Read next"
+    recentTitle="Recent articles"
+    authorTitle="About the author"
+  >
+    <p>
+      This barometer is not a declarative survey. It aggregates performance observed on digital campaigns managed by
+      Richmedia in Morocco: acquisition, awareness, lead generation, WhatsApp, e-commerce, influence, drive-to-store
+      and reporting.
+    </p>
+
+    <figure class="article-visual">
+      <img
+        src="/assets/richmedia-achat-media/media-scaling-room.webp"
+        alt="Marketing team analyzing the media performance of a digital campaign"
+        loading="lazy"
+      />
+      <figcaption>A useful benchmark connects media, tracking, commercial quality and optimization decisions.</figcaption>
+    </figure>
+
+    <div class="benchmark-stat-grid" aria-label="Barometer key figures">
+      {keyStats.map((stat) => (
+        <article>
+          <strong>{stat.value}</strong>
+          <span>{stat.label}</span>
+        </article>
+      ))}
+    </div>
+
+    <section class="barometer-download" aria-labelledby="barometer-download-title">
+      <div class="barometer-download-copy">
+        <span>PDF download</span>
+        <h2 id="barometer-download-title">Get the full 2026 Barometer</h2>
+        <p>
+          Fill in the form with a professional email address and your company name. The PDF download starts after
+          validation.
+        </p>
+        <ul>
+          <li>Media and acquisition benchmarks in Morocco</li>
+          <li>CPL, CPC, CTR and conversion ranges</li>
+          <li>Data observed on Richmedia campaigns from 2022 to 2026</li>
+        </ul>
+      </div>
+
+      <form
+        class="barometer-download-form"
+        action={CONTACT_FORM.action}
+        method="post"
+        data-contact-endpoint={CONTACT_FORM.ajaxAction}
+        data-barometer-download-form
+        data-pdf-href={barometerPdfHref}
+        data-pdf-name={barometerPdfFilename}
+        novalidate
+      >
+        <input type="hidden" name="_form" value="Morocco Digital Marketing Barometer 2026 download" />
+        <input type="hidden" name="_subject" value="[Richmedia] Morocco Digital Marketing Barometer 2026 download" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="Source" value={pageUrl} />
+        <label class="form-honeypot" aria-hidden="true">
+          Website
+          <input type="text" name="company_url" tabindex="-1" autocomplete="off" />
+        </label>
+        <label>
+          <span>Full name</span>
+          <input type="text" name="Full name" autocomplete="name" required />
+        </label>
+        <label>
+          <span>Professional email</span>
+          <input type="email" name="Professional email" autocomplete="email" required data-business-email />
+          <small>Gmail and personal email addresses are not accepted.</small>
+        </label>
+        <label>
+          <span>Company</span>
+          <input type="text" name="Company" autocomplete="organization" required data-company-input />
+        </label>
+        <button type="submit">
+          Download the PDF
+          <i class="ph ph-download-simple" aria-hidden="true"></i>
+        </button>
+        <p class="barometer-form-status" data-form-status role="status" aria-live="polite"></p>
+        <a class="barometer-download-link" href={barometerPdfHref} download={barometerPdfFilename} hidden data-download-link>
+          Download the PDF again
+        </a>
+      </form>
+    </section>
+
+    <h2>Sample structure</h2>
+    <p>
+      The 400 campaigns cover several sectors and several objectives. Education and real estate are strongly
+      represented because these sectors often activate lead generation systems in Morocco.
+    </p>
+
+    <div class="insight-chart" role="img" aria-label="Campaign distribution by sector">
+      <strong>Share of analyzed campaigns by sector</strong>
+      {sectors.map((sector) => (
+        <div class="chart-row">
+          <span>{sector.label}</span>
+          <i style={`width: ${sector.value * 3.6}%`}></i>
+          <span>{sector.campaigns} - {sector.share}</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="article-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Sector</th>
+            <th>Campaigns</th>
+            <th>Sample weight</th>
+            <th>Business reading</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sectors.map((sector) => (
+            <tr>
+              <td>{sector.label}</td>
+              <td>{sector.campaigns}</td>
+              <td>{sector.share}</td>
+              <td>{sector.value >= 13 ? 'Strongly represented in acquisition campaigns.' : 'Present, with more varied objectives.'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Channels activated: Meta drives volume, Google captures intent</h2>
+    <p>
+      One campaign can activate several platforms. The shares below show how often each channel appears in the 400
+      campaigns, not a market share split.
+    </p>
+
+    <div class="insight-chart" role="img" aria-label="Channels activated in Richmedia campaigns">
+      <strong>Share of campaigns that activated each channel</strong>
+      {channels.map((channel) => (
+        <div class="chart-row">
+          <span>{channel.label}</span>
+          <i style={`width: ${channel.value}%`}></i>
+          <span>{channel.campaigns} - {channel.share}</span>
+        </div>
+      ))}
+    </div>
+
+    <h2>Global performance reading</h2>
+    <p>
+      These averages give an order of magnitude. They should not be used as universal benchmarks: the sector, offer,
+      audience, landing page and level of qualification strongly change the reading.
+    </p>
+
+    <div class="benchmark-metric-grid">
+      {globalPerformance.map((item) => (
+        <article>
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+          <p>{item.detail}</p>
+        </article>
+      ))}
+    </div>
+
+    <figure class="article-visual">
+      <img
+        src="/assets/richmedia-case-study/proof-social-feed.webp"
+        alt="Social media reporting and content performance in a digital system"
+        loading="lazy"
+      />
+      <figcaption>Media alone is not enough: creative, proof and conversion pages change performance.</figcaption>
+    </figure>
+
+    <h2>Meta Ads and Google Search benchmarks</h2>
+    <p>
+      Meta Ads generates the highest volume in the sample. Google Ads appears less often, but closer to expressed
+      intent, especially on searches tied to a concrete need.
+    </p>
+
+    <div class="range-grid">
+      <article class="range-card">
+        <h3>Meta Ads</h3>
+        <p>A volume lever, highly dependent on creative, targeting and post-lead qualification.</p>
+        {metaRanges.map((item) => (
+          <div class="range-row" style={`--low:${(item.low / item.max) * 100}%; --high:${(item.high / item.max) * 100}%`}>
+            <span>{item.label}</span>
+            <div><i></i></div>
+            <strong>{item.value}</strong>
+          </div>
+        ))}
+      </article>
+
+      <article class="range-card">
+        <h3>Google Search</h3>
+        <p>An intent lever, often more expensive per click but clearer for active demand.</p>
+        {googleRanges.map((item) => (
+          <div class="range-row" style={`--low:${(item.low / item.max) * 100}%; --high:${(item.high / item.max) * 100}%`}>
+            <span>{item.label}</span>
+            <div><i></i></div>
+            <strong>{item.value}</strong>
+          </div>
+        ))}
+      </article>
+    </div>
+
+    <h2>CPL by sector: cost depends on what is being sold</h2>
+    <p>
+      A retail lead, a real estate prospect, an admission request and an automotive inquiry do not carry the same
+      commercial value. Comparing CPL without qualification creates poor decisions.
+    </p>
+
+    <div class="range-card wide">
+      {cplBySector.map((item) => (
+        <div class="range-row" style={`--low:${(item.low / item.max) * 100}%; --high:${(item.high / item.max) * 100}%`}>
+          <span>{item.label}</span>
+          <div><i></i></div>
+          <strong>{item.value}</strong>
+        </div>
+      ))}
+    </div>
+
+    <h2>WhatsApp, retargeting and commercial quality</h2>
+    <p>
+      130 benchmark campaigns integrated WhatsApp. The channel extends media into interaction: message, click, reply,
+      chatbot, advisor, follow-up and conversion.
+    </p>
+
+    <div class="conversion-panel">
+      <article>
+        <h3>WhatsApp in analyzed campaigns</h3>
+        <div class="mini-metrics">
+          <span><strong>80 to 95%</strong> Read / open</span>
+          <span><strong>8 to 25%</strong> Click</span>
+          <span><strong>3 to 25%</strong> Reply</span>
+          <span><strong>5 to 8%</strong> Observed conversion</span>
+        </div>
+      </article>
+      <article>
+        <h3>Observed e-commerce conversions</h3>
+        <div class="donut-wrap" aria-label="45% retargeting, 30% lookalike audiences, 25% other signals">
+          <div class="donut" aria-hidden="true"></div>
+          <div>
+            <strong>45%</strong><span>retargeting</span>
+            <strong>30%</strong><span>lookalike audiences</span>
+            <strong>25%</strong><span>other signals</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <h2>Methodology</h2>
+    <div class="method-grid">
+      <p><strong>Period:</strong> 2022 to 2026</p>
+      <p><strong>Sample:</strong> 400 campaigns</p>
+      <p><strong>Clients:</strong> 82 brands and organizations</p>
+      <p><strong>Media spend:</strong> 25M MAD</p>
+      <p><strong>Volume:</strong> 1.6B impressions, 16M clicks, 553,000 leads</p>
+      <p><strong>Channels:</strong> Meta Ads, Google Ads, TikTok Ads, WhatsApp, LinkedIn Ads, influence, programmatic and emailing</p>
+    </div>
+
+    <blockquote>
+      These figures are planning references based on Richmedia experience. They are not performance guarantees or
+      universal standards for the Moroccan market.
+    </blockquote>
+
+    <h2>Continue the analysis</h2>
+    <div class="service-link-grid">
+      {serviceLinks.map((link) => (
+        <a href={link.href}>{link.label}<i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+      ))}
+    </div>
+  </ArticleDetailPage>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const form = document.querySelector('[data-barometer-download-form]');
+    if (!form) return;
+
+    const freeEmailDomains = new Set([
+      'gmail.com',
+      'googlemail.com',
+      'hotmail.com',
+      'hotmail.fr',
+      'outlook.com',
+      'outlook.fr',
+      'live.com',
+      'live.fr',
+      'msn.com',
+      'yahoo.com',
+      'yahoo.fr',
+      'icloud.com',
+      'me.com',
+      'mac.com',
+      'aol.com',
+      'proton.me',
+      'protonmail.com',
+      'mail.com',
+      'gmx.com',
+      'gmx.fr',
+      'wanadoo.fr',
+      'orange.fr',
+      'laposte.net',
+    ]);
+
+    const status = form.querySelector('[data-form-status]');
+    const submit = form.querySelector('button[type="submit"]');
+    const emailInput = form.querySelector('[data-business-email]');
+    const companyInput = form.querySelector('[data-company-input]');
+    const downloadLink = form.querySelector('[data-download-link]');
+    const pdfHref = form.dataset.pdfHref;
+    const pdfName = form.dataset.pdfName || 'Richmedia Barometer 2026.pdf';
+
+    const setStatus = (state, message) => {
+      if (!status) return;
+      status.dataset.state = state;
+      status.textContent = message;
+    };
+
+    const getEmailDomain = (email) => {
+      const parts = String(email || '').trim().toLowerCase().split('@');
+      return parts.length === 2 ? parts[1] : '';
+    };
+
+    const isProfessionalEmail = (email) => {
+      const domain = getEmailDomain(email);
+      return domain && domain.includes('.') && !freeEmailDomains.has(domain);
+    };
+
+    const triggerDownload = () => {
+      if (!pdfHref) return;
+      const link = document.createElement('a');
+      link.href = pdfHref;
+      link.download = pdfName;
+      link.rel = 'noopener';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      if (downloadLink) downloadLink.hidden = false;
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      setStatus('', '');
+
+      if (!companyInput.value.trim()) {
+        companyInput.setCustomValidity('Please enter your company.');
+      } else {
+        companyInput.setCustomValidity('');
+      }
+
+      if (!isProfessionalEmail(emailInput.value)) {
+        emailInput.setCustomValidity('Please use a professional email address, not Gmail or a personal email.');
+      } else {
+        emailInput.setCustomValidity('');
+      }
+
+      if (!form.reportValidity()) return;
+
+      const formData = new FormData(form);
+      if (String(formData.get('company_url') || '').trim()) {
+        form.reset();
+        setStatus('success', 'Thank you, the download is starting.');
+        triggerDownload();
+        return;
+      }
+
+      const body = new URLSearchParams();
+      formData.forEach((value, key) => {
+        body.append(key, String(value));
+      });
+      body.set('_page', window.location.href);
+      body.set('_replyto', String(emailInput.value || '').trim());
+
+      form.classList.add('is-submitting');
+      if (submit) {
+        submit.disabled = true;
+        submit.setAttribute('aria-busy', 'true');
+      }
+      setStatus('loading', 'Validation in progress...');
+
+      try {
+        const response = await fetch(form.dataset.contactEndpoint || form.action, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          },
+          body,
+        });
+        const contentType = response.headers.get('content-type') || '';
+        const result = contentType.includes('application/json') ? await response.json().catch(() => ({})) : {};
+        const failed = !response.ok || response.redirected || result.error || result.success === false || result.success === 'false';
+
+        if (failed) {
+          throw new Error(result.message || 'The form could not be sent. Please try again.');
+        }
+
+        form.reset();
+        emailInput.setCustomValidity('');
+        companyInput.setCustomValidity('');
+        setStatus('success', 'Thank you, the download is starting.');
+        triggerDownload();
+      } catch (error) {
+        setStatus('error', error.message || 'The form could not be sent. Please try again.');
+      } finally {
+        form.classList.remove('is-submitting');
+        if (submit) {
+          submit.disabled = false;
+          submit.removeAttribute('aria-busy');
+        }
+      }
+    });
+  })();
+</script>
+
+<style>
+  .benchmark-stat-grid,
+  .benchmark-metric-grid,
+  .range-grid,
+  .conversion-panel,
+  .method-grid,
+  .service-link-grid {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .barometer-download {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.72fr);
+    gap: clamp(1rem, 3vw, 1.5rem);
+    align-items: stretch;
+    border: 1px solid rgba(169, 133, 255, 0.28);
+    border-radius: 8px;
+    margin: clamp(1rem, 3vw, 1.6rem) 0;
+    padding: clamp(1rem, 3vw, 1.35rem);
+    background:
+      radial-gradient(circle at 12% 12%, rgba(137, 76, 255, 0.22), transparent 17rem),
+      radial-gradient(circle at 92% 88%, rgba(53, 229, 139, 0.09), transparent 15rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.92), rgba(7, 8, 12, 0.96));
+    box-shadow: 0 1.4rem 3.4rem rgba(0, 0, 0, 0.24);
+  }
+
+  .barometer-download-copy {
+    display: grid;
+    align-content: center;
+    gap: 0.75rem;
+  }
+
+  .barometer-download-copy > span {
+    color: #a985ff;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .barometer-download-copy h2 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.7rem, 3vw, 2.55rem);
+    line-height: 1;
+  }
+
+  .barometer-download-copy p,
+  .barometer-download-copy li,
+  .range-card p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.56;
+  }
+
+  .barometer-download-copy ul {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0.2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .barometer-download-copy li {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    font-weight: 800;
+  }
+
+  .barometer-download-copy li::before {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #8b4cff, #35e58b);
+    box-shadow: 0 0 1rem rgba(137, 76, 255, 0.35);
+    content: '';
+    flex: 0 0 auto;
+  }
+
+  .barometer-download-form {
+    display: grid;
+    gap: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.24);
+  }
+
+  .barometer-download-form label {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .barometer-download-form label span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.83rem;
+    font-weight: 900;
+  }
+
+  .barometer-download-form input {
+    width: 100%;
+    min-height: 3.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.32);
+    color: #fff;
+    font: inherit;
+    font-weight: 800;
+    outline: none;
+    padding: 0 0.9rem;
+  }
+
+  .barometer-download-form input:focus {
+    border-color: rgba(169, 133, 255, 0.68);
+    box-shadow: 0 0 0 3px rgba(137, 76, 255, 0.15);
+  }
+
+  .barometer-download-form small {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.78rem;
+  }
+
+  .barometer-download-form button,
+  .barometer-download-link {
+    display: inline-flex;
+    min-height: 3.1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 7px;
+    color: #fff;
+    font: inherit;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .barometer-download-form button {
+    border: 1px solid rgba(169, 133, 255, 0.68);
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1rem 2.2rem rgba(124, 60, 255, 0.22);
+  }
+
+  .barometer-download-form button:hover,
+  .barometer-download-link:hover {
+    transform: translateY(-2px);
+  }
+
+  .barometer-download-link {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.045);
+  }
+
+  .barometer-form-status {
+    min-height: 1.2rem;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.66);
+    font-weight: 850;
+  }
+
+  .barometer-form-status[data-state='success'] {
+    color: #35e58b;
+  }
+
+  .barometer-form-status[data-state='error'] {
+    color: #ff9f9f;
+  }
+
+  .form-honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .benchmark-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0.5rem 0 1rem;
+  }
+
+  .benchmark-stat-grid article,
+  .benchmark-metric-grid article,
+  .range-card,
+  .conversion-panel article,
+  .method-grid p,
+  .service-link-grid a,
+  .insight-chart {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 82% 10%, rgba(137, 76, 255, 0.14), transparent 16rem),
+      rgba(255, 255, 255, 0.035);
+  }
+
+  .benchmark-stat-grid article,
+  .benchmark-metric-grid article,
+  .range-card,
+  .conversion-panel article,
+  .method-grid p,
+  .insight-chart {
+    padding: clamp(1rem, 2vw, 1.25rem);
+  }
+
+  .benchmark-stat-grid article,
+  .benchmark-metric-grid article {
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+  }
+
+  .benchmark-stat-grid strong {
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3.8rem);
+    line-height: 1;
+  }
+
+  .benchmark-stat-grid span,
+  .benchmark-metric-grid span,
+  .range-row span,
+  .mini-metrics span,
+  .donut-wrap span {
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  .benchmark-metric-grid,
+  .range-grid,
+  .conversion-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .benchmark-metric-grid strong {
+    display: block;
+    margin: 0.35rem 0;
+    color: #fff;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1;
+  }
+
+  .insight-chart {
+    display: grid;
+    gap: 0.7rem;
+    margin: 1rem 0;
+  }
+
+  .insight-chart > strong,
+  .range-card h3,
+  .conversion-panel h3 {
+    color: #fff;
+  }
+
+  .chart-row {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.4fr) minmax(0, 1fr) minmax(6rem, auto);
+    gap: 0.7rem;
+    align-items: center;
+  }
+
+  .chart-row i {
+    height: 0.75rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #8b4cff, #35e58b);
+    box-shadow: 0 0 1rem rgba(137, 76, 255, 0.28);
+  }
+
+  .range-card {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .range-card.wide {
+    margin: 0.3rem 0 1rem;
+  }
+
+  .range-row {
+    display: grid;
+    grid-template-columns: minmax(7.5rem, 0.5fr) minmax(0, 1fr) auto;
+    gap: 0.7rem;
+    align-items: center;
+  }
+
+  .range-row div {
+    position: relative;
+    overflow: hidden;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .range-row i {
+    position: absolute;
+    left: var(--low);
+    width: calc(var(--high) - var(--low));
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #8b4cff, #35e58b);
+  }
+
+  .range-row strong {
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  .mini-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.8rem;
+  }
+
+  .mini-metrics span {
+    display: grid;
+    gap: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(0, 0, 0, 0.18);
+  }
+
+  .mini-metrics strong,
+  .donut-wrap strong {
+    color: #fff;
+    font-size: 1.35rem;
+  }
+
+  .donut-wrap {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 0.8rem;
+  }
+
+  .donut {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: conic-gradient(#8b4cff 0 45%, #35e58b 45% 75%, rgba(255, 255, 255, 0.18) 75% 100%);
+    box-shadow: 0 0 2rem rgba(137, 76, 255, 0.2);
+  }
+
+  .donut-wrap > div:last-child,
+  .method-grid {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .method-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .method-grid p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.74);
+  }
+
+  .method-grid strong {
+    color: #fff;
+  }
+
+  .service-link-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-link-grid a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    color: #fff;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .article-table {
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+
+  .article-table table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+  }
+
+  .article-table th,
+  .article-table td {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.85rem;
+    text-align: left;
+  }
+
+  .article-table th {
+    color: #fff;
+    background: rgba(137, 76, 255, 0.12);
+  }
+
+  .article-table td {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  @media (max-width: 800px) {
+    .barometer-download,
+    .benchmark-stat-grid,
+    .benchmark-metric-grid,
+    .range-grid,
+    .conversion-panel,
+    .method-grid,
+    .service-link-grid,
+    .mini-metrics {
+      grid-template-columns: 1fr;
+    }
+
+    .chart-row,
+    .range-row {
+      grid-template-columns: 1fr;
+    }
+
+    .donut-wrap {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

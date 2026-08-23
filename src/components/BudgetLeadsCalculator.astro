@@ -1,0 +1,2031 @@
+---
+import { CONTACT_FORM, SITE } from '../consts';
+
+type Lang = 'fr' | 'en';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'fr' } = Astro.props;
+
+const isEnglish = lang === 'en';
+
+const t = isEnglish
+  ? {
+      eyebrow: 'Richmedia tools',
+      title: 'Media Budget & Leads Calculator',
+      intro:
+        'Estimate a media budget or expected lead volume using ranges from the Richmedia 2026 Digital Marketing Barometer.',
+      primaryCta: 'Start calculating',
+      secondaryCta: 'See methodology',
+      calculatorTitle: 'Calculator settings',
+      calculatorText: 'Choose a mode, a sector, a channel and enter your target. Results stay visible while you request a tailored estimate.',
+      budgetMode: 'Budget → estimated leads',
+      leadsMode: 'Lead target → estimated budget',
+      sector: 'Sector',
+      educationSegment: 'Education segment',
+      channel: 'Channel',
+      budgetLabel: 'Media budget in MAD',
+      budgetHelp: 'Example: 50000',
+      leadsLabel: 'Target number of leads',
+      leadsHelp: 'Example: 450',
+      calculate: 'Calculate',
+      resultsTitle: 'Estimated result',
+      resultReady: 'Your range is ready',
+      cplUsed: 'CPL range used',
+      leadsMin: 'Minimum leads',
+      leadsMax: 'Maximum leads',
+      budgetMin: 'Minimum budget',
+      budgetMax: 'Maximum budget',
+      methodologyTitle: 'Method used',
+      budgetFormula: 'Minimum leads = budget ÷ maximum CPL. Maximum leads = budget ÷ minimum CPL.',
+      leadsFormula: 'Minimum budget = leads × minimum CPL. Maximum budget = leads × maximum CPL.',
+      googleNote: 'Leads generally more qualified',
+      linkedinNote: 'LinkedIn coefficient applied: minimum CPL ×2 and maximum CPL ×3.',
+      mixNote: 'Sector reference range used without coefficient.',
+      metaNote: 'Sector reference range used.',
+      disclaimer:
+        'Estimate based on ranges observed in Richmedia campaigns from 2022 to 2026. Actual performance depends on the offer, target, creative assets, conversion journey and tracking quality.',
+      barometer: 'Read the 2026 Barometer',
+      ctaEyebrow: 'Custom benchmark',
+      ctaTitle: 'Receive a tailored Richmedia estimate',
+      ctaText:
+        'Share your details and we will use your calculator result as a starting point for a sharper estimate.',
+      name: 'Name',
+      email: 'Work email',
+      company: 'Company',
+      phone: 'Phone, optional',
+      send: 'Request my estimate',
+      sending: 'Sending...',
+      success: 'Your request has been sent.',
+      error: 'The request could not be sent. Please contact us directly.',
+      consent: 'I agree to be contacted by Richmedia about this estimate.',
+      hiddenForm: 'Media budget calculator EN',
+      resultMode: 'Mode',
+      resultSector: 'Sector',
+      resultChannel: 'Channel',
+      resultInput: 'Input',
+      resultOutput: 'Estimated output',
+      requiredError: 'Please enter a positive value to calculate.',
+      categoriesEyebrow: 'Benchmarks',
+      categoriesTitle: 'Ranges by business context',
+      categoriesText:
+        'The calculator avoids generic averages. Education segments and acquisition channels change the CPL range automatically.',
+    }
+  : {
+      eyebrow: 'Outils Richmedia',
+      title: 'Calculateur Budget Média & Leads',
+      intro:
+        'Estimez un budget média ou un volume de leads attendu à partir des fourchettes du Baromètre Richmedia 2026.',
+      primaryCta: 'Lancer le calcul',
+      secondaryCta: 'Voir la méthode',
+      calculatorTitle: 'Paramètres du calcul',
+      calculatorText:
+        'Choisissez un mode, un secteur, un canal et entrez votre objectif. Le résultat reste visible pendant la demande d’estimation personnalisée.',
+      budgetMode: 'Budget → leads estimés',
+      leadsMode: 'Objectif leads → budget estimé',
+      sector: 'Secteur',
+      educationSegment: 'Segment éducation',
+      channel: 'Canal',
+      budgetLabel: 'Budget média en MAD',
+      budgetHelp: 'Exemple : 50000',
+      leadsLabel: 'Nombre de leads visé',
+      leadsHelp: 'Exemple : 450',
+      calculate: 'Calculer',
+      resultsTitle: 'Résultat estimé',
+      resultReady: 'Votre fourchette est prête',
+      cplUsed: 'Fourchette CPL utilisée',
+      leadsMin: 'Leads minimum',
+      leadsMax: 'Leads maximum',
+      budgetMin: 'Budget minimum',
+      budgetMax: 'Budget maximum',
+      methodologyTitle: 'Méthode utilisée',
+      budgetFormula: 'Leads minimum = budget ÷ CPL maximum. Leads maximum = budget ÷ CPL minimum.',
+      leadsFormula: 'Budget minimum = leads × CPL minimum. Budget maximum = leads × CPL maximum.',
+      googleNote: 'Leads généralement plus qualifiés',
+      linkedinNote: 'Coefficient LinkedIn appliqué : CPL minimum ×2 et CPL maximum ×3.',
+      mixNote: 'Fourchette sectorielle utilisée sans coefficient.',
+      metaNote: 'Fourchette sectorielle de référence utilisée.',
+      disclaimer:
+        'Estimation basée sur les fourchettes observées dans les campagnes Richmedia 2022–2026. Les performances réelles dépendent notamment de l’offre, de la cible, des créations, du parcours de conversion et de la qualité du tracking.',
+      barometer: 'Lire le Baromètre 2026',
+      ctaEyebrow: 'Benchmark sur-mesure',
+      ctaTitle: 'Recevoir une estimation personnalisée Richmedia',
+      ctaText:
+        'Laissez vos coordonnées : on repart du résultat calculé pour affiner l’estimation selon votre offre, votre cible et votre tunnel.',
+      name: 'Nom',
+      email: 'Email professionnel',
+      company: 'Entreprise',
+      phone: 'Téléphone facultatif',
+      send: 'Demander mon estimation',
+      sending: 'Envoi en cours...',
+      success: 'Votre demande a bien été envoyée.',
+      error: "L'envoi n'a pas abouti. Merci de nous contacter directement.",
+      consent: 'J’accepte d’être contacté(e) par Richmedia au sujet de cette estimation.',
+      hiddenForm: 'Calculateur budget media FR',
+      resultMode: 'Mode',
+      resultSector: 'Secteur',
+      resultChannel: 'Canal',
+      resultInput: 'Saisie',
+      resultOutput: 'Sortie estimée',
+      requiredError: 'Entrez une valeur positive pour lancer le calcul.',
+      categoriesEyebrow: 'Benchmarks',
+      categoriesTitle: 'Fourchettes par contexte business',
+      categoriesText:
+        'Le calculateur évite la moyenne générique. Les segments éducation et les canaux d’acquisition ajustent automatiquement la fourchette CPL.',
+    };
+
+const formSubject = `[Richmedia] ${t.hiddenForm}`;
+const formRedirect = isEnglish
+  ? `${SITE.url}/en/tools/media-budget-leads-calculator/?sent=1`
+  : `${SITE.url}/outils/calculateur-budget-media-leads/?sent=1`;
+
+const sectors = isEnglish
+  ? [
+      { value: 'education', label: 'Education' },
+      { value: 'real_estate', label: 'Real estate' },
+      { value: 'automotive', label: 'Automotive' },
+      { value: 'retail_gms', label: 'Retail / grocery retail' },
+      { value: 'tourism', label: 'Tourism' },
+      { value: 'banking_insurance', label: 'Banking / Insurance' },
+    ]
+  : [
+      { value: 'education', label: 'Éducation' },
+      { value: 'real_estate', label: 'Immobilier' },
+      { value: 'automotive', label: 'Automobile' },
+      { value: 'retail_gms', label: 'Retail / GMS' },
+      { value: 'tourism', label: 'Tourisme' },
+      { value: 'banking_insurance', label: 'Banque / Assurance' },
+    ];
+
+const educationSegments = isEnglish
+  ? [
+      { value: 'bachelier', label: 'High-school graduate', min: 20, max: 40 },
+      { value: 'master', label: 'Master', min: 20, max: 50 },
+      { value: 'mba', label: 'Executive education / MBA', min: 60, max: 120 },
+    ]
+  : [
+      { value: 'bachelier', label: 'Bachelier', min: 20, max: 40 },
+      { value: 'master', label: 'Master', min: 20, max: 50 },
+      { value: 'mba', label: 'Formation continue / MBA', min: 60, max: 120 },
+    ];
+
+const channels = [
+  { value: 'meta', label: 'Meta Ads' },
+  { value: 'google', label: 'Google Ads' },
+  { value: 'linkedin', label: 'LinkedIn Ads' },
+  { value: 'mix', label: 'Mix Meta + Google' },
+];
+
+const calculatorConfig = {
+  lang,
+  labels: {
+    budgetMode: t.budgetMode,
+    leadsMode: t.leadsMode,
+    cplUsed: t.cplUsed,
+    leadsMin: t.leadsMin,
+    leadsMax: t.leadsMax,
+    budgetMin: t.budgetMin,
+    budgetMax: t.budgetMax,
+    resultReady: t.resultReady,
+    budgetFormula: t.budgetFormula,
+    leadsFormula: t.leadsFormula,
+    googleNote: t.googleNote,
+    linkedinNote: t.linkedinNote,
+    mixNote: t.mixNote,
+    metaNote: t.metaNote,
+    resultMode: t.resultMode,
+    resultSector: t.resultSector,
+    resultChannel: t.resultChannel,
+    resultInput: t.resultInput,
+    resultOutput: t.resultOutput,
+    budgetLabel: t.budgetLabel,
+    leadsLabel: t.leadsLabel,
+    requiredError: t.requiredError,
+  },
+  ranges: {
+    education: {
+      segments: Object.fromEntries(educationSegments.map(({ value, min, max }) => [value, { min, max }])),
+    },
+    real_estate: { min: 25, max: 220 },
+    automotive: { min: 30, max: 100 },
+    retail_gms: { min: 8, max: 35 },
+    tourism: { min: 20, max: 70 },
+    banking_insurance: { min: 40, max: 120 },
+  },
+};
+
+const benchmarkCards = isEnglish
+  ? [
+      { label: 'Education', note: 'High-school, master and executive programs.', range: '20–120 MAD', meter: '55%' },
+      { label: 'Real estate', note: 'Lead cost varies strongly by ticket and intent.', range: '25–220 MAD', meter: '100%' },
+      { label: 'Automotive', note: 'Useful for test drives, financing and model demand.', range: '30–100 MAD', meter: '45%' },
+      { label: 'Retail / grocery', note: 'Lower CPL when offer and stock are clear.', range: '8–35 MAD', meter: '18%' },
+      { label: 'Tourism', note: 'Seasonality and destination intent move the range.', range: '20–70 MAD', meter: '32%' },
+      { label: 'Banking / Insurance', note: 'Qualification and compliance raise CPL levels.', range: '40–120 MAD', meter: '55%' },
+    ]
+  : [
+      { label: 'Éducation', note: 'Bachelier, master et formation continue.', range: '20–120 MAD', meter: '55%' },
+      { label: 'Immobilier', note: 'CPL très variable selon ticket et intention.', range: '25–220 MAD', meter: '100%' },
+      { label: 'Automobile', note: 'Essais, financement et demande par modèle.', range: '30–100 MAD', meter: '45%' },
+      { label: 'Retail / GMS', note: 'CPL plus bas si offre et stock sont lisibles.', range: '8–35 MAD', meter: '18%' },
+      { label: 'Tourisme', note: 'Saisonnalité et intention destination pèsent fort.', range: '20–70 MAD', meter: '32%' },
+      { label: 'Banque / Assurance', note: 'Qualification et conformité élèvent la fourchette.', range: '40–120 MAD', meter: '55%' },
+    ];
+---
+
+<div class="budget-tool" data-budget-tool>
+  <section class="tool-hero" aria-labelledby="calculator-title">
+    <div class="tool-hero-copy">
+      <span class="section-kicker">{t.eyebrow}</span>
+      <h1 id="calculator-title">{t.title}</h1>
+      <p>{t.intro}</p>
+      <div class="tool-actions">
+        <a class="tool-button tool-button-primary" href="#calculator-panel">
+          {t.primaryCta}
+          <i class="ph ph-calculator" aria-hidden="true"></i>
+        </a>
+        <a class="tool-button tool-button-secondary" href="#methodology">
+          {t.secondaryCta}
+          <i class="ph ph-arrow-down" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+    <aside class="tool-console dashboard-console" aria-label={isEnglish ? 'Media performance dashboard preview' : 'Aperçu du tableau de bord média'}>
+      <div class="dashboard-hidden-preview" aria-hidden="true" hidden>
+        <span data-preview-cpl>20–40 MAD</span>
+        <span data-preview-leads>1 250–2 500</span>
+      </div>
+      <div class="dashboard-header">
+        <div class="console-top" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <h2>{isEnglish ? 'Dashboard — 2026 admissions campaign' : 'Tableau de bord — Campagne inscriptions 2026'}</h2>
+      </div>
+
+      <div class="dashboard-kpis" aria-label={isEnglish ? 'Key campaign indicators' : 'Indicateurs clés de campagne'}>
+        <article>
+          <span>{isEnglish ? 'Qualified leads' : 'Leads qualifiés'}</span>
+          <strong data-dashboard-count data-count-to="38756" data-count-format="number">0</strong>
+          <small class="is-up">▲ 164%</small>
+        </article>
+        <article>
+          <span>{isEnglish ? 'Impressions' : 'Impressions'}</span>
+          <strong data-dashboard-count data-count-to="22.4" data-count-format="million" data-count-decimals="1">0</strong>
+          <small>-17,5%</small>
+        </article>
+        <article>
+          <span>CTR</span>
+          <strong data-dashboard-count data-count-to="1.68" data-count-format="percent" data-count-decimals="2">0%</strong>
+          <small class="is-up">▲ 28%</small>
+        </article>
+        <article>
+          <span>{isEnglish ? 'Registration rate' : 'Taux d’inscription'}</span>
+          <strong data-dashboard-count data-count-to="20.3" data-count-format="percent" data-count-decimals="1">0%</strong>
+          <small class="is-up">▲ 25%</small>
+        </article>
+      </div>
+
+      <div class="dashboard-chart">
+        <div class="dashboard-chart-head">
+          <strong>{isEnglish ? 'Qualified leads growth' : 'Évolution des leads qualifiés'}</strong>
+          <span>{isEnglish ? 'May — Oct.' : 'Mai — Oct.'}</span>
+        </div>
+        <div class="dashboard-chart-wrap">
+          <div class="dashboard-y-axis" aria-hidden="true">
+            <span>40K</span>
+            <span>20K</span>
+            <span>10K</span>
+            <span>0</span>
+          </div>
+          <svg class="dashboard-svg" viewBox="0 0 620 250" role="img" aria-label={isEnglish ? 'Line chart showing growth in qualified leads' : 'Courbe de progression des leads qualifiés'}>
+            <defs>
+              <linearGradient id="budgetDashboardArea" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#8b4cff" stop-opacity="0.48" />
+                <stop offset="100%" stop-color="#8b4cff" stop-opacity="0.02" />
+              </linearGradient>
+              <filter id="budgetDashboardGlow" x="-20%" y="-60%" width="140%" height="220%">
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <path class="dashboard-area" d="M28 214 L78 186 L132 187 L184 162 L238 138 L292 165 L348 136 L404 101 L458 108 L512 126 L566 101 L604 50 L604 220 L28 220 Z"></path>
+            <path class="dashboard-line" d="M28 214 L78 186 L132 187 L184 162 L238 138 L292 165 L348 136 L404 101 L458 108 L512 126 L566 101 L604 50"></path>
+            {[
+              [28, 214],
+              [78, 186],
+              [132, 187],
+              [184, 162],
+              [238, 138],
+              [292, 165],
+              [348, 136],
+              [404, 101],
+              [458, 108],
+              [512, 126],
+              [566, 101],
+              [604, 50],
+            ].map(([cx, cy], index) => (
+              <circle class="dashboard-dot" cx={cx} cy={cy} r="7" style={`--dot-delay:${index * 55}ms`}></circle>
+            ))}
+          </svg>
+        </div>
+        <div class="dashboard-months" aria-hidden="true">
+          <span>{isEnglish ? 'May' : 'Mai'}</span>
+          <span>{isEnglish ? 'June' : 'Juin'}</span>
+          <span>{isEnglish ? 'July' : 'Juil.'}</span>
+          <span>{isEnglish ? 'Aug.' : 'Août'}</span>
+          <span>{isEnglish ? 'Sept.' : 'Sept.'}</span>
+          <span>{isEnglish ? 'Oct.' : 'Oct.'}</span>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="context-strip" aria-labelledby="benchmarks-title">
+    <div class="context-copy">
+      <span class="section-kicker">{t.categoriesEyebrow}</span>
+      <h2 id="benchmarks-title">{t.categoriesTitle}</h2>
+      <p>{t.categoriesText}</p>
+      <div class="benchmark-signals" aria-label={isEnglish ? 'Benchmark signals' : 'Signaux benchmark'}>
+        <span><strong>6</strong>{isEnglish ? ' sectors' : ' secteurs'}</span>
+        <span><strong>4</strong>{isEnglish ? ' channels' : ' canaux'}</span>
+        <span><strong>2</strong>{isEnglish ? ' modes' : ' modes'}</span>
+      </div>
+    </div>
+    <div class="benchmark-board" aria-label={isEnglish ? 'CPL ranges by sector' : 'Fourchettes CPL par secteur'}>
+      {
+        benchmarkCards.map((item, index) => (
+          <article class="benchmark-card" style={`--meter: ${item.meter}; --delay: ${index * 70}ms`}>
+            <div class="benchmark-card-head">
+              <span>{item.label}</span>
+              <strong>{item.range}</strong>
+            </div>
+            <p>{item.note}</p>
+            <div class="benchmark-meter" aria-hidden="true">
+              <span></span>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="calculator-shell" id="calculator-panel" aria-labelledby="settings-title">
+    <div class="settings-panel">
+      <div class="panel-heading">
+        <span class="section-kicker">{isEnglish ? 'Inputs' : 'Paramètres'}</span>
+        <h2 id="settings-title">{t.calculatorTitle}</h2>
+        <p>{t.calculatorText}</p>
+      </div>
+
+      <div class="mode-tabs" role="tablist" aria-label={isEnglish ? 'Calculation mode' : 'Mode de calcul'}>
+        <button class="is-active" type="button" role="tab" aria-selected="true" data-mode-button="budget">
+          {t.budgetMode}
+        </button>
+        <button type="button" role="tab" aria-selected="false" data-mode-button="leads">
+          {t.leadsMode}
+        </button>
+      </div>
+
+      <div class="field-grid">
+        <label>
+          <span>{t.sector}</span>
+          <select data-sector-select>
+            {sectors.map((sector) => <option value={sector.value}>{sector.label}</option>)}
+          </select>
+        </label>
+
+        <label data-education-field>
+          <span>{t.educationSegment}</span>
+          <select data-segment-select>
+            {educationSegments.map((segment) => <option value={segment.value}>{segment.label}</option>)}
+          </select>
+        </label>
+
+        <label>
+          <span>{t.channel}</span>
+          <select data-channel-select>
+            {channels.map((channel) => <option value={channel.value}>{channel.label}</option>)}
+          </select>
+        </label>
+
+        <label data-budget-field>
+          <span>{t.budgetLabel}</span>
+          <input type="number" min="1" step="100" value="50000" inputmode="numeric" data-budget-input />
+          <small>{t.budgetHelp}</small>
+        </label>
+
+        <label data-leads-field hidden>
+          <span>{t.leadsLabel}</span>
+          <input type="number" min="1" step="1" value="450" inputmode="numeric" data-leads-input />
+          <small>{t.leadsHelp}</small>
+        </label>
+      </div>
+
+      <button class="calculate-button" type="button" data-calculate>
+        {t.calculate}
+        <i class="ph ph-arrow-right" aria-hidden="true"></i>
+      </button>
+      <p class="calculator-error" data-calculator-error role="alert"></p>
+    </div>
+
+    <aside class="result-panel" aria-labelledby="result-title" aria-live="polite">
+      <div class="result-head">
+        <span class="section-kicker">{t.resultReady}</span>
+        <h2 id="result-title">{t.resultsTitle}</h2>
+        <p class="channel-note" data-channel-note></p>
+      </div>
+
+      <div class="result-kpis">
+        <article class="kpi-card kpi-cpl">
+          <span>{t.cplUsed}</span>
+          <strong data-cpl-output>20&nbsp;MAD&nbsp;–&nbsp;40&nbsp;MAD</strong>
+        </article>
+        <article class="kpi-card">
+          <span data-primary-label>{t.leadsMin}</span>
+          <strong data-primary-output>1 250</strong>
+        </article>
+        <article class="kpi-card">
+          <span data-secondary-label>{t.leadsMax}</span>
+          <strong data-secondary-output>2 500</strong>
+        </article>
+      </div>
+
+      <div class="method-card" id="methodology">
+        <div>
+          <i class="ph ph-calculator" aria-hidden="true"></i>
+          <h3>{t.methodologyTitle}</h3>
+        </div>
+        <p data-methodology-output>{t.budgetFormula}</p>
+      </div>
+
+      <div class="disclaimer">
+        <i class="ph ph-warning-circle" aria-hidden="true"></i>
+        <p>
+          {t.disclaimer}
+          <a href={isEnglish ? '/en/insights/morocco-digital-marketing-barometer-2026/' : '/insights/barometre-marketing-digital-maroc-2026/'}>{t.barometer}</a>
+        </p>
+      </div>
+
+      <nav class="tool-related-links" aria-label={isEnglish ? 'Related resources' : 'Ressources liées'}>
+        <a href={isEnglish ? '/en/insights/google-ads-campaign-cost-morocco/' : '/insights/cout-campagne-google-ads-maroc/'}>
+          {isEnglish ? 'Google Ads cost guide' : 'Guide coût Google Ads'}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        <a href={isEnglish ? '/en/insights/digital-acquisition-plan-2026/' : '/insights/plan-acquisition-digital-2026/'}>
+          {isEnglish ? 'Acquisition plan' : 'Plan d’acquisition'}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        <a href={isEnglish ? '/en/tools/digital-media-plan-template/' : '/outils/template-plan-media-digital/'}>
+          {isEnglish ? 'Digital media plan template' : 'Template plan média'}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        <a href={isEnglish ? '/en/tools/whatsapp-campaign-estimator/' : '/outils/estimateur-campagne-whatsapp/'}>
+          {isEnglish ? 'WhatsApp estimator' : 'Estimateur WhatsApp'}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </nav>
+    </aside>
+  </section>
+
+  <section class="estimate-section" aria-labelledby="estimate-title">
+    <div>
+      <span class="section-kicker">{t.ctaEyebrow}</span>
+      <h2 id="estimate-title">{t.ctaTitle}</h2>
+      <p>{t.ctaText}</p>
+    </div>
+    <form
+      class="estimate-form"
+      action={CONTACT_FORM.action}
+      method="post"
+      data-contact-endpoint={CONTACT_FORM.ajaxAction}
+      data-contact-form
+      data-sending-message={t.sending}
+      data-success-message={t.success}
+      data-error-message={t.error}
+    >
+      <input type="hidden" name="_form" value={t.hiddenForm} />
+      <input type="hidden" name="_subject" value={formSubject} />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value={formRedirect} />
+      <input type="hidden" name="Mode de calcul" data-hidden-mode />
+      <input type="hidden" name="Secteur" data-hidden-sector />
+      <input type="hidden" name="Canal" data-hidden-channel />
+      <input type="hidden" name="Valeur saisie" data-hidden-input />
+      <input type="hidden" name="Résultat calculé" data-hidden-output />
+      <label class="form-honeypot" aria-hidden="true">
+        Website
+        <input type="text" name="company_url" tabindex="-1" autocomplete="off" />
+      </label>
+      <label>
+        <span>{t.name}</span>
+        <input type="text" name={t.name} autocomplete="name" required />
+      </label>
+      <label>
+        <span>{t.email}</span>
+        <input type="email" name={t.email} autocomplete="email" required />
+      </label>
+      <label>
+        <span>{t.company}</span>
+        <input type="text" name={t.company} autocomplete="organization" required />
+      </label>
+      <label>
+        <span>{t.phone}</span>
+        <input type="tel" name={t.phone} autocomplete="tel" />
+      </label>
+      <label class="consent">
+        <input type="checkbox" name="Consentement" value="Oui" required />
+        <span>{t.consent}</span>
+      </label>
+      <button type="submit">
+        {t.send}
+        <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i>
+      </button>
+      <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</div>
+
+<script is:inline define:vars={{ calculatorConfig }}>
+  (() => {
+    const root = document.querySelector('[data-budget-tool]');
+    if (!root) return;
+
+    const config = calculatorConfig;
+    const labels = config.labels;
+    const state = { mode: 'budget' };
+
+    const modeButtons = [...root.querySelectorAll('[data-mode-button]')];
+    const sectorSelect = root.querySelector('[data-sector-select]');
+    const segmentSelect = root.querySelector('[data-segment-select]');
+    const educationField = root.querySelector('[data-education-field]');
+    const channelSelect = root.querySelector('[data-channel-select]');
+    const budgetField = root.querySelector('[data-budget-field]');
+    const leadsField = root.querySelector('[data-leads-field]');
+    const budgetInput = root.querySelector('[data-budget-input]');
+    const leadsInput = root.querySelector('[data-leads-input]');
+    const error = root.querySelector('[data-calculator-error]');
+    const cplOutput = root.querySelector('[data-cpl-output]');
+    const primaryLabel = root.querySelector('[data-primary-label]');
+    const primaryOutput = root.querySelector('[data-primary-output]');
+    const secondaryLabel = root.querySelector('[data-secondary-label]');
+    const secondaryOutput = root.querySelector('[data-secondary-output]');
+    const methodologyOutput = root.querySelector('[data-methodology-output]');
+    const channelNote = root.querySelector('[data-channel-note]');
+    const toolConsole = root.querySelector('.tool-console');
+    const previewCpl = root.querySelector('[data-preview-cpl]');
+    const previewLeads = root.querySelector('[data-preview-leads]');
+    const dashboardCounters = [...root.querySelectorAll('[data-dashboard-count]')];
+    const hiddenMode = root.querySelector('[data-hidden-mode]');
+    const hiddenSector = root.querySelector('[data-hidden-sector]');
+    const hiddenChannel = root.querySelector('[data-hidden-channel]');
+    const hiddenInput = root.querySelector('[data-hidden-input]');
+    const hiddenOutput = root.querySelector('[data-hidden-output]');
+
+    const formatter = new Intl.NumberFormat(config.lang === 'en' ? 'en-US' : 'fr-FR');
+    const moneyFormatter = new Intl.NumberFormat(config.lang === 'en' ? 'en-US' : 'fr-FR', {
+      maximumFractionDigits: 0,
+    });
+
+    const keepTogether = (value) => String(value).replace(/[\s\u00a0\u202f]+/g, '\u202f');
+    const formatNumber = (value) => keepTogether(formatter.format(Math.max(0, Math.round(value))));
+    const formatMad = (value) => `${keepTogether(moneyFormatter.format(Math.max(0, Math.round(value))))}\u00a0MAD`;
+    const currentOptionLabel = (select) => select.options[select.selectedIndex]?.textContent?.trim() || '';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let previewAnimationFrame;
+    let dashboardAnimationFrames = [];
+
+    const animatePreviewValue = ({ duration = 820, leadsMode = 'range' } = {}) => {
+      if (prefersReducedMotion) return;
+
+      window.cancelAnimationFrame(previewAnimationFrame);
+
+      const cplMin = Number(previewCpl.dataset.min || 0);
+      const cplMax = Number(previewCpl.dataset.max || 0);
+      const leadsMin = Number(previewLeads.dataset.min || 0);
+      const leadsMax = Number(previewLeads.dataset.max || leadsMin);
+      const start = performance.now();
+      const easeOut = (progress) => 1 - Math.pow(1 - progress, 3);
+
+      const frame = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = easeOut(progress);
+        previewCpl.textContent = `${formatMad(cplMin * eased)} – ${formatMad(cplMax * eased)}`;
+        previewLeads.textContent =
+          leadsMode === 'single'
+            ? formatNumber(leadsMin * eased)
+            : `${formatNumber(leadsMin * eased)}–${formatNumber(leadsMax * eased)}`;
+
+        if (progress < 1) {
+          previewAnimationFrame = window.requestAnimationFrame(frame);
+          return;
+        }
+
+        previewCpl.textContent = `${formatMad(cplMin)} – ${formatMad(cplMax)}`;
+        previewLeads.textContent =
+          leadsMode === 'single' ? formatNumber(leadsMin) : `${formatNumber(leadsMin)}–${formatNumber(leadsMax)}`;
+      };
+
+      previewAnimationFrame = window.requestAnimationFrame(frame);
+    };
+
+    const formatDashboardValue = (value, format, decimals = 0) => {
+      if (format === 'million') {
+        return `${value.toLocaleString(config.lang === 'en' ? 'en-US' : 'fr-FR', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        })}\u00a0M`;
+      }
+
+      if (format === 'percent') {
+        return `${value.toLocaleString(config.lang === 'en' ? 'en-US' : 'fr-FR', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        })}%`;
+      }
+
+      return keepTogether(formatter.format(Math.round(value)));
+    };
+
+    const animateDashboardCounters = ({ duration = 980 } = {}) => {
+      dashboardAnimationFrames.forEach((frame) => window.cancelAnimationFrame(frame));
+      dashboardAnimationFrames = [];
+
+      dashboardCounters.forEach((counter, index) => {
+        const target = Number(counter.dataset.countTo || 0);
+        const format = counter.dataset.countFormat || 'number';
+        const decimals = Number(counter.dataset.countDecimals || 0);
+
+        if (prefersReducedMotion) {
+          counter.textContent = formatDashboardValue(target, format, decimals);
+          return;
+        }
+
+        const start = performance.now() + index * 70;
+        const easeOut = (progress) => 1 - Math.pow(1 - progress, 3);
+
+        const frame = (now) => {
+          const elapsed = Math.max(0, now - start);
+          const progress = Math.min(elapsed / duration, 1);
+          const value = target * easeOut(progress);
+          counter.textContent = formatDashboardValue(value, format, decimals);
+
+          if (progress < 1) {
+            dashboardAnimationFrames[index] = window.requestAnimationFrame(frame);
+            return;
+          }
+
+          counter.textContent = formatDashboardValue(target, format, decimals);
+        };
+
+        dashboardAnimationFrames[index] = window.requestAnimationFrame(frame);
+      });
+    };
+
+    const replayConsoleAnimation = () => {
+      if (!toolConsole) return;
+      toolConsole.classList.remove('is-animating');
+      void toolConsole.offsetWidth;
+      toolConsole.classList.add('is-animating');
+      animatePreviewValue({ leadsMode: previewLeads.dataset.mode || 'range' });
+      animateDashboardCounters();
+      window.setTimeout(() => toolConsole.classList.remove('is-animating'), 1250);
+    };
+
+    const getBaseRange = () => {
+      const sector = sectorSelect.value;
+      if (sector === 'education') {
+        return config.ranges.education.segments[segmentSelect.value];
+      }
+      return config.ranges[sector];
+    };
+
+    const getAdjustedRange = () => {
+      const base = getBaseRange();
+      if (channelSelect.value === 'linkedin') {
+        return { min: base.min * 2, max: base.max * 3 };
+      }
+      return base;
+    };
+
+    const getChannelNote = () => {
+      if (channelSelect.value === 'google') return labels.googleNote;
+      if (channelSelect.value === 'linkedin') return labels.linkedinNote;
+      if (channelSelect.value === 'mix') return labels.mixNote;
+      return labels.metaNote;
+    };
+
+    const updateMode = (mode) => {
+      state.mode = mode;
+      modeButtons.forEach((button) => {
+        const active = button.dataset.modeButton === mode;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-selected', String(active));
+      });
+      budgetField.hidden = mode !== 'budget';
+      leadsField.hidden = mode !== 'leads';
+      calculate();
+    };
+
+    const updateEducationVisibility = () => {
+      educationField.hidden = sectorSelect.value !== 'education';
+    };
+
+    const setError = (message = '') => {
+      error.textContent = message;
+    };
+
+    const setHiddenSummary = ({ modeLabel, sectorLabel, channelLabel, inputLabel, inputValue, outputText }) => {
+      hiddenMode.value = modeLabel;
+      hiddenSector.value = sectorLabel;
+      hiddenChannel.value = channelLabel;
+      hiddenInput.value = `${inputLabel}: ${inputValue}`;
+      hiddenOutput.value = outputText;
+    };
+
+    const calculate = () => {
+      updateEducationVisibility();
+      const range = getAdjustedRange();
+      const cplText = `${formatMad(range.min)} – ${formatMad(range.max)}`;
+      const channelText = currentOptionLabel(channelSelect);
+      const sectorText =
+        sectorSelect.value === 'education'
+          ? `${currentOptionLabel(sectorSelect)} · ${currentOptionLabel(segmentSelect)}`
+          : currentOptionLabel(sectorSelect);
+      const modeLabel = state.mode === 'budget' ? labels.budgetMode : labels.leadsMode;
+
+      cplOutput.textContent = cplText;
+      previewCpl.textContent = cplText;
+      previewCpl.dataset.min = String(range.min);
+      previewCpl.dataset.max = String(range.max);
+      channelNote.textContent = getChannelNote();
+
+      if (state.mode === 'budget') {
+        const budget = Number(budgetInput.value);
+        if (!Number.isFinite(budget) || budget <= 0) {
+          setError(labels.requiredError);
+          return;
+        }
+        setError();
+        const leadsMin = Math.floor(budget / range.max);
+        const leadsMax = Math.floor(budget / range.min);
+        primaryLabel.textContent = labels.leadsMin;
+        primaryOutput.textContent = formatNumber(leadsMin);
+        secondaryLabel.textContent = labels.leadsMax;
+        secondaryOutput.textContent = formatNumber(leadsMax);
+        methodologyOutput.textContent = labels.budgetFormula;
+        previewLeads.textContent = `${formatNumber(leadsMin)}–${formatNumber(leadsMax)}`;
+        previewLeads.dataset.mode = 'range';
+        previewLeads.dataset.min = String(leadsMin);
+        previewLeads.dataset.max = String(leadsMax);
+        setHiddenSummary({
+          modeLabel,
+          sectorLabel: sectorText,
+          channelLabel: channelText,
+          inputLabel: labels.budgetLabel,
+          inputValue: formatMad(budget),
+          outputText: `${labels.cplUsed}: ${cplText} | ${labels.leadsMin}: ${formatNumber(leadsMin)} | ${labels.leadsMax}: ${formatNumber(leadsMax)}`,
+        });
+        return;
+      }
+
+      const leads = Number(leadsInput.value);
+      if (!Number.isFinite(leads) || leads <= 0) {
+        setError(labels.requiredError);
+        return;
+      }
+      setError();
+      const budgetMin = leads * range.min;
+      const budgetMax = leads * range.max;
+      primaryLabel.textContent = labels.budgetMin;
+      primaryOutput.textContent = formatMad(budgetMin);
+      secondaryLabel.textContent = labels.budgetMax;
+      secondaryOutput.textContent = formatMad(budgetMax);
+      methodologyOutput.textContent = labels.leadsFormula;
+      previewLeads.textContent = formatNumber(leads);
+      previewLeads.dataset.mode = 'single';
+      previewLeads.dataset.min = String(leads);
+      previewLeads.dataset.max = String(leads);
+      setHiddenSummary({
+        modeLabel,
+        sectorLabel: sectorText,
+        channelLabel: channelText,
+        inputLabel: labels.leadsLabel,
+        inputValue: formatNumber(leads),
+        outputText: `${labels.cplUsed}: ${cplText} | ${labels.budgetMin}: ${formatMad(budgetMin)} | ${labels.budgetMax}: ${formatMad(budgetMax)}`,
+      });
+    };
+
+    modeButtons.forEach((button) => {
+      button.addEventListener('click', () => updateMode(button.dataset.modeButton));
+    });
+    [sectorSelect, segmentSelect, channelSelect, budgetInput, leadsInput].forEach((field) => {
+      field.addEventListener('input', calculate);
+      field.addEventListener('change', calculate);
+    });
+    root.querySelector('[data-calculate]')?.addEventListener('click', calculate);
+    toolConsole?.addEventListener('pointerenter', replayConsoleAnimation);
+
+    calculate();
+    window.setTimeout(replayConsoleAnimation, 280);
+  })();
+</script>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .budget-tool {
+    --purple: #7c3cff;
+    --purple-soft: #aa7cff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(255, 255, 255, 0.66);
+    --panel: rgba(15, 16, 24, 0.82);
+    width: min(100% - 3rem, 1240px);
+    margin: 0 auto;
+    padding: clamp(7rem, 10vw, 9rem) 0 clamp(3rem, 6vw, 5.5rem);
+    color: #fff;
+  }
+
+  .budget-tool,
+  .budget-tool * {
+    box-sizing: border-box;
+  }
+
+  .budget-tool::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 78% 10%, rgba(124, 60, 255, 0.16), transparent 24rem),
+      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: auto, 84px 84px, 84px 84px;
+    content: '';
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--purple-soft);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2.1rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-soft));
+    content: '';
+  }
+
+  .tool-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.8fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    align-items: center;
+    min-height: 470px;
+  }
+
+  .tool-hero-copy {
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .tool-hero h1 {
+    --h1-size: clamp(3rem, 6vw, 5.4rem);
+    max-width: 700px;
+    font-size: clamp(3rem, 6vw, 5.4rem);
+    font-weight: 900;
+    line-height: 0.9;
+  }
+
+  .tool-hero p {
+    max-width: 620px;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.35vw, 1.18rem);
+    line-height: 1.62;
+  }
+
+  .tool-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 0.35rem;
+  }
+
+  .tool-button,
+  .calculate-button,
+  .estimate-form button {
+    display: inline-flex;
+    min-height: 3.1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 1.15rem;
+    color: #fff;
+    font-weight: 900;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .tool-button:hover,
+  .tool-button:focus-visible,
+  .calculate-button:hover,
+  .calculate-button:focus-visible,
+  .estimate-form button:hover,
+  .estimate-form button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .tool-button-primary,
+  .calculate-button,
+  .estimate-form button {
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1.2rem 2.8rem rgba(124, 60, 255, 0.28);
+  }
+
+  .tool-button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .tool-console,
+  .context-strip,
+  .settings-panel,
+  .result-panel,
+  .estimate-section {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 14% 0%, rgba(124, 60, 255, 0.13), transparent 16rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.92), rgba(7, 8, 12, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  }
+
+  .tool-console {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    min-height: 330px;
+    align-content: stretch;
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+    transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+  }
+
+  .tool-console::after {
+    position: absolute;
+    inset: -40% auto auto -35%;
+    width: 60%;
+    height: 145%;
+    background: linear-gradient(105deg, transparent, rgba(168, 122, 255, 0.14), transparent);
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-40%) rotate(10deg);
+    transition: opacity 260ms ease, transform 680ms ease;
+  }
+
+  .tool-console:hover,
+  .tool-console.is-animating {
+    border-color: rgba(168, 122, 255, 0.38);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 1.6rem 4.2rem rgba(84, 45, 190, 0.24);
+    transform: translateY(-6px);
+  }
+
+  .tool-console:hover::after,
+  .tool-console.is-animating::after {
+    opacity: 1;
+    transform: translateX(190%) rotate(10deg);
+  }
+
+  .console-top {
+    display: flex;
+    gap: 0.45rem;
+  }
+
+  .console-top span {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.22);
+    transition: background 220ms ease, transform 220ms ease;
+  }
+
+  .tool-console:hover .console-top span,
+  .tool-console.is-animating .console-top span {
+    background: rgba(170, 124, 255, 0.58);
+    transform: translateY(-1px);
+  }
+
+  .console-graph {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.7rem;
+    align-items: end;
+    min-height: 180px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 1rem;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+
+  .console-graph span {
+    height: var(--height);
+    min-height: 2rem;
+    border-radius: 999px 999px 4px 4px;
+    background: linear-gradient(180deg, #b685ff, #6926ee);
+    box-shadow: 0 0 1.6rem rgba(124, 60, 255, 0.26);
+    transform-origin: bottom;
+    transition: filter 220ms ease, box-shadow 220ms ease;
+  }
+
+  .tool-console:hover .console-graph span,
+  .tool-console.is-animating .console-graph span {
+    animation: console-bar-rise 760ms cubic-bezier(0.2, 0.82, 0.2, 1) both;
+    animation-delay: var(--delay);
+    box-shadow: 0 0 2rem rgba(159, 101, 255, 0.42);
+    filter: saturate(1.22);
+  }
+
+  .console-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .console-grid div {
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(255, 255, 255, 0.035);
+    transition: border-color 220ms ease, background 220ms ease, transform 220ms ease;
+  }
+
+  .tool-console:hover .console-grid div,
+  .tool-console.is-animating .console-grid div {
+    border-color: rgba(168, 122, 255, 0.3);
+    background: rgba(124, 60, 255, 0.09);
+    transform: translateY(-2px);
+  }
+
+  .console-grid small,
+  .kpi-card span {
+    display: block;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .kpi-card span {
+    overflow: hidden;
+    font-size: clamp(0.62rem, 0.72vw, 0.74rem);
+    letter-spacing: 0.09em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .console-grid strong {
+    display: block;
+    margin-top: 0.45rem;
+    font-size: 1.35rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .dashboard-console {
+    gap: clamp(0.8rem, 2vw, 1rem);
+    min-height: 0;
+    padding: clamp(1rem, 2.2vw, 1.25rem);
+    background:
+      radial-gradient(circle at 70% 8%, rgba(124, 60, 255, 0.13), transparent 16rem),
+      radial-gradient(circle at 18% 80%, rgba(53, 229, 139, 0.06), transparent 16rem),
+      linear-gradient(145deg, rgba(17, 18, 28, 0.96), rgba(5, 7, 12, 0.96));
+  }
+
+  .dashboard-console::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+    background-size: 56px 56px;
+    content: '';
+    opacity: 0.6;
+    pointer-events: none;
+    transition: opacity 260ms ease, transform 480ms ease;
+  }
+
+  .dashboard-console:hover::before,
+  .dashboard-console.is-animating::before {
+    opacity: 0.9;
+    transform: translate3d(-8px, -8px, 0);
+  }
+
+  .dashboard-console > *:not(.dashboard-hidden-preview) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .dashboard-header {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .dashboard-header h2 {
+    color: #fff;
+    font-size: clamp(1rem, 1.75vw, 1.45rem);
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  .dashboard-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-block: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .dashboard-kpis article {
+    display: grid;
+    gap: 0.28rem;
+    min-width: 0;
+    min-height: 5.9rem;
+    align-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.7rem clamp(0.55rem, 1vw, 0.8rem);
+    transition: background 220ms ease, transform 220ms ease;
+  }
+
+  .dashboard-kpis article:last-child {
+    border-right: 0;
+  }
+
+  .dashboard-kpis article:hover {
+    background: rgba(124, 60, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .dashboard-kpis span {
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: clamp(0.58rem, 0.82vw, 0.74rem);
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dashboard-kpis strong {
+    overflow: hidden;
+    color: #fff;
+    font-size: clamp(1.35rem, 2.75vw, 2.35rem);
+    font-variant-numeric: tabular-nums;
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 0.95;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color 220ms ease, text-shadow 220ms ease, transform 220ms ease;
+  }
+
+  .dashboard-console:hover .dashboard-kpis strong,
+  .dashboard-console.is-animating .dashboard-kpis strong {
+    color: #f9f6ff;
+    text-shadow: 0 0 1rem rgba(170, 124, 255, 0.22);
+  }
+
+  .dashboard-kpis small {
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 0.78rem;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .dashboard-kpis small.is-up {
+    color: #43e57f;
+  }
+
+  .dashboard-chart {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .dashboard-chart-head {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .dashboard-chart-head strong {
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 0.94rem;
+  }
+
+  .dashboard-chart-head span {
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 0.76rem;
+    font-weight: 900;
+  }
+
+  .dashboard-chart-wrap {
+    display: grid;
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    gap: 0.45rem;
+    align-items: stretch;
+  }
+
+  .dashboard-y-axis {
+    display: grid;
+    align-content: space-between;
+    min-height: 170px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-align: right;
+  }
+
+  .dashboard-svg {
+    width: 100%;
+    min-height: 170px;
+    overflow: visible;
+    border-radius: 8px;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      radial-gradient(circle at 84% 26%, rgba(124, 60, 255, 0.12), transparent 13rem);
+    background-size: 100% 25%, 16.66% 100%, auto;
+  }
+
+  .dashboard-area {
+    fill: url(#budgetDashboardArea);
+    opacity: 0.82;
+    transform-origin: left bottom;
+  }
+
+  .dashboard-line {
+    fill: none;
+    filter: url('#budgetDashboardGlow');
+    stroke: #7c3cff;
+    stroke-dasharray: 820;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 4.5;
+  }
+
+  .dashboard-dot {
+    fill: #8d55ff;
+    filter: url('#budgetDashboardGlow');
+    stroke: rgba(255, 255, 255, 0.24);
+    stroke-width: 2;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .dashboard-console:hover .dashboard-line,
+  .dashboard-console.is-animating .dashboard-line {
+    animation: dashboard-line-draw 980ms cubic-bezier(0.2, 0.82, 0.2, 1) both;
+  }
+
+  .dashboard-console:hover .dashboard-area,
+  .dashboard-console.is-animating .dashboard-area {
+    animation: dashboard-area-fill 980ms cubic-bezier(0.2, 0.82, 0.2, 1) both;
+  }
+
+  .dashboard-console:hover .dashboard-dot,
+  .dashboard-console.is-animating .dashboard-dot {
+    animation: dashboard-dot-pop 420ms cubic-bezier(0.2, 1.35, 0.35, 1) both;
+    animation-delay: var(--dot-delay);
+  }
+
+  .dashboard-console:hover .dashboard-dot:last-child,
+  .dashboard-console.is-animating .dashboard-dot:last-child {
+    animation-name: dashboard-dot-pop, dashboard-dot-pulse;
+    animation-duration: 420ms, 900ms;
+    animation-delay: var(--dot-delay), 720ms;
+    animation-iteration-count: 1, infinite;
+  }
+
+  .dashboard-months {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    padding-left: 2.65rem;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.76rem;
+    font-weight: 900;
+  }
+
+  .dashboard-months span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .context-strip,
+  .calculator-shell,
+  .estimate-section {
+    margin-top: clamp(1.5rem, 4vw, 3.5rem);
+  }
+
+  .context-strip {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.64fr) minmax(0, 1fr);
+    gap: clamp(1.25rem, 3vw, 2.2rem);
+    align-items: stretch;
+    padding: clamp(1.15rem, 3vw, 1.8rem);
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.16), transparent 34%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.94), rgba(7, 8, 12, 0.92));
+    background-size: auto, 72px 72px, 72px 72px, auto;
+    transition: border-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
+  }
+
+  .context-strip::after {
+    position: absolute;
+    right: -8rem;
+    bottom: -5rem;
+    width: 24rem;
+    height: 12rem;
+    border: 1px solid rgba(168, 122, 255, 0.16);
+    border-radius: 999px;
+    content: '';
+    pointer-events: none;
+    transform: rotate(-16deg);
+  }
+
+  .context-strip:hover {
+    border-color: rgba(168, 122, 255, 0.34);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 1.4rem 3.6rem rgba(82, 45, 180, 0.18);
+    transform: translateY(-3px);
+  }
+
+  .context-strip h2,
+  .estimate-section h2 {
+    --h2-size: clamp(2rem, 3.8vw, 3.7rem);
+    margin-top: 0.8rem;
+    font-size: clamp(2rem, 3.8vw, 3.7rem);
+    line-height: 0.98;
+  }
+
+  .context-strip p,
+  .estimate-section p,
+  .panel-heading p {
+    margin-top: 0.8rem;
+    color: var(--muted);
+    line-height: 1.58;
+  }
+
+  .context-copy {
+    display: grid;
+    align-content: center;
+  }
+
+  .benchmark-signals {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin-top: 1.3rem;
+  }
+
+  .benchmark-signals span {
+    min-height: 4.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.22);
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .benchmark-signals strong {
+    display: block;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 900;
+    line-height: 0.95;
+  }
+
+  .benchmark-board {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .benchmark-card {
+    display: grid;
+    gap: 0.55rem;
+    min-height: 7.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.1), transparent 54%),
+      rgba(4, 5, 9, 0.58);
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  }
+
+  .benchmark-card:hover {
+    border-color: rgba(168, 122, 255, 0.46);
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.18), transparent 58%),
+      rgba(8, 9, 15, 0.78);
+    box-shadow: 0 1rem 2.2rem rgba(0, 0, 0, 0.22);
+    transform: translateY(-4px);
+  }
+
+  .context-strip:hover .benchmark-card {
+    animation: benchmark-card-in 520ms cubic-bezier(0.2, 0.82, 0.2, 1) both;
+    animation-delay: var(--delay);
+  }
+
+  .benchmark-card-head {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .benchmark-card-head span {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.88rem;
+    font-weight: 900;
+  }
+
+  .benchmark-card-head strong {
+    color: #fff;
+    font-size: 0.86rem;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .benchmark-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .benchmark-meter {
+    height: 0.46rem;
+    margin-top: auto;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.075);
+    overflow: hidden;
+  }
+
+  .benchmark-meter span {
+    display: block;
+    width: var(--meter);
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #7c3cff, #b685ff);
+    box-shadow: 0 0 1rem rgba(124, 60, 255, 0.34);
+    transform-origin: left;
+    transition: transform 260ms ease;
+  }
+
+  .context-strip:hover .benchmark-meter span,
+  .benchmark-card:hover .benchmark-meter span {
+    animation: benchmark-meter-grow 780ms cubic-bezier(0.2, 0.82, 0.2, 1) both;
+    animation-delay: var(--delay);
+  }
+
+  .calculator-shell {
+    display: grid;
+    grid-template-columns: minmax(320px, 0.78fr) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .settings-panel,
+  .result-panel {
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+  }
+
+  .panel-heading h2,
+  .result-head h2 {
+    --h2-size: clamp(1.9rem, 3vw, 2.8rem);
+    margin-top: 0.8rem;
+    font-size: clamp(1.9rem, 3vw, 2.8rem);
+    line-height: 1;
+  }
+
+  .mode-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    margin-top: 1.4rem;
+  }
+
+  .mode-tabs button {
+    min-height: 3.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+    color: rgba(255, 255, 255, 0.72);
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .mode-tabs button.is-active {
+    border-color: rgba(165, 120, 255, 0.68);
+    background: rgba(124, 60, 255, 0.2);
+    color: #fff;
+  }
+
+  .field-grid,
+  .estimate-form {
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 1rem;
+  }
+
+  label {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  label span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.84rem;
+    font-weight: 900;
+  }
+
+  input,
+  select {
+    width: 100%;
+    min-height: 3.15rem;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 7px;
+    background: rgba(3, 4, 7, 0.72);
+    color: #fff;
+    padding: 0 0.9rem;
+    outline: none;
+  }
+
+  select {
+    appearance: auto;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: rgba(169, 133, 255, 0.75);
+    box-shadow: 0 0 0 3px rgba(124, 60, 255, 0.14);
+  }
+
+  label small {
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 0.78rem;
+  }
+
+  .calculate-button {
+    width: 100%;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+
+  .calculator-error {
+    min-height: 1.3rem;
+    margin-top: 0.7rem;
+    color: #ff9aa9;
+    font-size: 0.9rem;
+  }
+
+  .result-panel {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    min-height: 100%;
+  }
+
+  .channel-note {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 0.85rem;
+    border: 1px solid rgba(155, 124, 255, 0.32);
+    border-radius: 999px;
+    padding: 0.42rem 0.7rem;
+    color: #d7c9ff;
+    font-size: 0.82rem;
+    font-weight: 900;
+  }
+
+  .result-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .kpi-card {
+    display: grid;
+    align-content: center;
+    min-height: 8.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.035);
+    container-type: inline-size;
+    overflow: hidden;
+  }
+
+  .kpi-card strong {
+    display: block;
+    margin-top: 0.9rem;
+    font-size: clamp(1.65rem, 3vw, 3.05rem);
+    font-size: clamp(1.65rem, 14cqw, 3.05rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .kpi-cpl strong {
+    font-size: clamp(1.2rem, 1.9vw, 1.85rem);
+    font-size: clamp(1.2rem, 8.7cqw, 1.85rem);
+    line-height: 1;
+  }
+
+  .method-card,
+  .disclaimer {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .method-card div {
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+  }
+
+  .method-card i,
+  .disclaimer i {
+    display: inline-grid;
+    width: 2.3rem;
+    height: 2.3rem;
+    place-items: center;
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.16);
+    color: var(--purple-soft);
+    font-size: 1.25rem;
+  }
+
+  .method-card h3 {
+    font-size: 1rem;
+    font-weight: 900;
+  }
+
+  .method-card p,
+  .disclaimer p {
+    margin-top: 0.8rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .disclaimer {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: start;
+  }
+
+  .disclaimer p {
+    margin-top: 0;
+  }
+
+  .disclaimer a {
+    display: inline-flex;
+    margin-left: 0.35rem;
+    color: #c9b6ff;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .tool-related-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .tool-related-links a {
+    display: inline-flex;
+    min-height: 2.6rem;
+    align-items: center;
+    gap: 0.45rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.6rem 0.82rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.78rem;
+    font-weight: 900;
+    line-height: 1;
+    text-decoration: none;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, color 220ms ease;
+  }
+
+  .tool-related-links a:hover,
+  .tool-related-links a:focus-visible {
+    border-color: rgba(156, 106, 255, 0.5);
+    background: rgba(124, 60, 255, 0.16);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  .tool-related-links i {
+    color: var(--purple-soft);
+    font-size: 0.95rem;
+  }
+
+  .estimate-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(360px, 1fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: start;
+    padding: clamp(1.15rem, 3vw, 1.8rem);
+  }
+
+  .estimate-form {
+    margin-top: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .consent,
+  .estimate-form button,
+  .form-status {
+    grid-column: 1 / -1;
+  }
+
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .consent input {
+    width: 1rem;
+    min-height: 1rem;
+    margin-top: 0.2rem;
+    accent-color: var(--purple);
+  }
+
+  .consent span {
+    color: var(--muted);
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .estimate-form button {
+    cursor: pointer;
+  }
+
+  .form-status {
+    min-height: 1.35rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.9rem;
+  }
+
+  .form-status[data-state='success'] {
+    color: #42e082;
+  }
+
+  .form-status[data-state='error'] {
+    color: #ff9aa9;
+  }
+
+  .form-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  @keyframes console-bar-rise {
+    0% {
+      opacity: 0.45;
+      transform: scaleY(0.08);
+    }
+
+    72% {
+      opacity: 1;
+      transform: scaleY(1.08);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes benchmark-card-in {
+    0% {
+      opacity: 0.72;
+      transform: translateY(8px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes benchmark-meter-grow {
+    0% {
+      transform: scaleX(0.08);
+    }
+
+    100% {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes dashboard-line-draw {
+    0% {
+      stroke-dashoffset: 820;
+    }
+
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes dashboard-area-fill {
+    0% {
+      opacity: 0;
+      transform: scaleX(0.06);
+    }
+
+    100% {
+      opacity: 0.82;
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes dashboard-dot-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.2);
+    }
+
+    72% {
+      opacity: 1;
+      transform: scale(1.22);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes dashboard-dot-pulse {
+    0%,
+    100% {
+      r: 7;
+      opacity: 1;
+    }
+
+    50% {
+      r: 9;
+      opacity: 0.75;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tool-console,
+    .tool-console::after,
+    .tool-console *,
+    .tool-console:hover .console-graph span,
+    .tool-console.is-animating .console-graph span,
+    .context-strip:hover .benchmark-card,
+    .context-strip:hover .benchmark-meter span,
+    .benchmark-card:hover .benchmark-meter span {
+      animation: none;
+      transition: none;
+    }
+  }
+
+  @media (max-width: 1080px) {
+    .tool-hero,
+    .context-strip,
+    .calculator-shell,
+    .estimate-section {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .budget-tool {
+      width: calc(100% - 1rem);
+      padding-top: 6.25rem;
+      overflow-x: hidden;
+    }
+
+    .tool-hero {
+      min-height: auto;
+    }
+
+    .tool-hero h1 {
+      --h1-size: 2.38rem;
+      max-width: 10ch;
+      line-height: 0.92;
+    }
+
+    .tool-hero p {
+      max-width: 32ch;
+      font-size: 0.98rem;
+    }
+
+    .tool-actions,
+    .mode-tabs,
+    .result-kpis,
+    .console-grid,
+    .dashboard-kpis,
+    .benchmark-board,
+    .benchmark-signals,
+    .estimate-form {
+      grid-template-columns: 1fr;
+    }
+
+    .dashboard-kpis {
+      border-block: 0;
+      gap: 0.6rem;
+    }
+
+    .dashboard-kpis article {
+      min-height: auto;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+    }
+
+    .dashboard-chart-wrap {
+      grid-template-columns: 1.9rem minmax(0, 1fr);
+    }
+
+    .dashboard-y-axis,
+    .dashboard-svg {
+      min-height: 150px;
+    }
+
+    .tool-button,
+    .calculate-button,
+    .estimate-form button {
+      width: 100%;
+    }
+
+    .result-kpis {
+      display: grid;
+    }
+
+    .kpi-card {
+      min-height: auto;
+    }
+  }
+</style>

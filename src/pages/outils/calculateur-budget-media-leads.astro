@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BudgetLeadsCalculator from '../../components/BudgetLeadsCalculator.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, localBusiness } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/outils/calculateur-budget-media-leads/`;
+const pageDescription =
+  'Estimez le budget média ou le volume de leads attendu selon votre secteur et vos canaux, à partir des fourchettes observées par Richmedia.';
+
+const schema = [
+  localBusiness(),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    '@id': `${pageUrl}#calculator`,
+    name: 'Calculateur Budget Média & Leads',
+    description: pageDescription,
+    url: pageUrl,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    inLanguage: 'fr',
+    publisher: { '@id': `${SITE.url}/#organization` },
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'MAD',
+    },
+  },
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Outils & ressources', url: `${SITE.url}/outils` },
+    { name: 'Calculateur Budget Média & Leads', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Calculateur Budget Média & Leads | Richmedia"
+  description={pageDescription}
+  canonical={pageUrl}
+  schema={schema}
+>
+  <BudgetLeadsCalculator lang="fr" />
+</BaseLayout>

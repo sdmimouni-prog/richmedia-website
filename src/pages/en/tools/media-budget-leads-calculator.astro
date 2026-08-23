@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BudgetLeadsCalculator from '../../../components/BudgetLeadsCalculator.astro';
+import { SITE } from '../../../consts';
+import { breadcrumbs, localBusiness } from '../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/tools/media-budget-leads-calculator/`;
+const pageDescription =
+  'Estimate your media budget or expected lead volume by sector and channel, using ranges observed by Richmedia.';
+
+const schema = [
+  {
+    ...localBusiness(),
+    url: pageUrl,
+    description: pageDescription,
+    inLanguage: 'en',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    '@id': `${pageUrl}#calculator`,
+    name: 'Media Budget & Leads Calculator',
+    description: pageDescription,
+    url: pageUrl,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    inLanguage: 'en',
+    publisher: { '@id': `${SITE.url}/#organization` },
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'MAD',
+    },
+  },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Media Budget & Leads Calculator', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  lang="en"
+  title="Media Budget & Leads Calculator | Richmedia"
+  description={pageDescription}
+  canonical={pageUrl}
+  schema={schema}
+>
+  <BudgetLeadsCalculator lang="en" />
+</BaseLayout>

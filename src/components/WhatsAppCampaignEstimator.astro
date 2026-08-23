@@ -1,0 +1,2002 @@
+---
+import { CONTACT_FORM } from '../consts';
+
+type Lang = 'fr' | 'en';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'fr' } = Astro.props;
+const isEnglish = lang === 'en';
+const locale = isEnglish ? 'en-US' : 'fr-FR';
+const WHATSAPP_PUSH_PRICE = 0.8;
+
+const benchmarks = {
+  campaigns: 130,
+  reading: { min: 0.8, max: 0.95 },
+  clicks: { min: 0.08, max: 0.25 },
+  replies: { min: 0.03, max: 0.25 },
+  conversions: { min: 0.05, max: 0.08 },
+  optOut: { min: 0.002, max: 0.02 },
+};
+
+const priceLabel = WHATSAPP_PUSH_PRICE.toLocaleString(locale, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+const t = isEnglish
+  ? {
+      heroEyebrow: 'Richmedia tool',
+      title: 'WhatsApp Campaign Estimator',
+      intro: 'Estimate your budget, push volume and potential performance for your next WhatsApp campaign.',
+      benchmarkNote: `Based on ${benchmarks.campaigns} WhatsApp campaigns analyzed by Richmedia between 2022 and 2026.`,
+      start: 'Start estimating',
+      methodCta: 'See the method',
+      phonePreview: 'WhatsApp campaign preview',
+      mediaType: 'Image + video',
+      offer: 'Personalized offer',
+      button: 'Button',
+      offerCta: 'Request an offer',
+      crm: 'CRM',
+      followUp: 'Tracked reply',
+      reading: 'Read',
+      click: 'Click',
+      benchmarkAria: 'Richmedia WhatsApp benchmarks',
+      campaignsAnalyzed: 'campaigns analyzed',
+      readOpen: 'read / open',
+      perPush: 'per WhatsApp push',
+      settingsEyebrow: 'Inputs',
+      scenario: 'Your scenario',
+      scenarioText: 'Choose your starting point: available budget or audience size.',
+      tabAria: 'Calculation mode',
+      budgetMode: 'I have a budget',
+      audienceMode: 'I have an audience',
+      budgetLabel: 'Available budget in MAD',
+      audienceLabel: 'Number of contacts to reach',
+      budgetHelp: 'Example: 80000',
+      audienceHelp: 'Example: 100000',
+      priceCaption: 'Richmedia rate',
+      calculate: 'Estimate my campaign',
+      linksAria: 'Useful links',
+      links: [
+        { href: '/en/tools/', label: 'Tools & resources' },
+        { href: '/en/tools/media-budget-leads-calculator/', label: 'Media Budget & Leads Calculator' },
+        { href: '/en/products/whatsapp/', label: 'WhatsApp product' },
+        { href: '/en/insights/morocco-digital-marketing-barometer-2026/', label: '2026 Barometer' },
+      ],
+      resultEyebrow: 'Estimate',
+      resultTitle: 'Campaign potential',
+      resultText: 'Ranges are independent and applied to the estimated total audience.',
+      budgetEstimated: 'Estimated budget',
+      pushesEstimated: 'Estimated pushes',
+      readings: 'Estimated reads',
+      clicks: 'Estimated clicks',
+      replies: 'Estimated replies',
+      conversions: 'Estimated conversions',
+      optOut: 'Estimated opt-out',
+      audience: 'Audience',
+      methodEyebrow: 'Why WhatsApp',
+      methodTitle: 'Why does WhatsApp perform differently from a classic push?',
+      methodText:
+        'In comparable campaigns observed by Richmedia, WhatsApp generates interaction levels far above traditional SMS pushes.',
+      workflowAria: 'WhatsApp journey',
+      capabilities: ['Text', 'Images', 'Videos', 'Buttons', 'Location', 'Chatbot', 'Advisor', 'CRM', 'Reporting'],
+      requestEyebrow: 'Recommendation',
+      requestTitle: 'Preparing a WhatsApp campaign?',
+      requestText: 'Receive a personalized recommendation based on your audience, objective and budget.',
+      disclaimer: `This estimate uses a rate of ${priceLabel} MAD per WhatsApp push. Projections are based on ranges observed in ${benchmarks.campaigns} Richmedia campaigns between 2022 and 2026. Actual performance depends on audience, message, offer, targeting and conversion journey. The definition of a conversion may vary depending on the campaign objective.`,
+      summaryLabel: 'Budget or audience size',
+      name: 'Name',
+      email: 'Professional email',
+      company: 'Company',
+      phone: 'Optional phone',
+      submit: 'Receive a personalized proposal',
+      sending: 'Sending...',
+      success: 'Your request has been sent.',
+      error: 'Submission failed. Please contact us directly.',
+      requiredError: 'Enter a positive value to launch the estimate.',
+      inputBudget: 'Entered budget',
+      inputAudience: 'Entered audience',
+      outputSummary: 'Estimated projection',
+      contacts: 'contacts',
+    }
+  : {
+      heroEyebrow: 'Outil Richmedia',
+      title: 'Estimateur de campagne WhatsApp',
+      intro:
+        'Estimez votre budget, votre volume de pushes et les performances potentielles de votre prochaine campagne WhatsApp.',
+      benchmarkNote: `Basé sur ${benchmarks.campaigns} campagnes WhatsApp Richmedia analysées entre 2022 et 2026.`,
+      start: 'Lancer l’estimation',
+      methodCta: 'Voir la méthode',
+      phonePreview: 'Aperçu de campagne WhatsApp',
+      mediaType: 'Image + vidéo',
+      offer: 'Offre personnalisée',
+      button: 'Bouton',
+      offerCta: 'Demander une offre',
+      crm: 'CRM',
+      followUp: 'Réponse suivie',
+      reading: 'Lecture',
+      click: 'Clic',
+      benchmarkAria: 'Benchmarks WhatsApp Richmedia',
+      campaignsAnalyzed: 'campagnes analysées',
+      readOpen: 'lecture / ouverture',
+      perPush: 'par push WhatsApp',
+      settingsEyebrow: 'Paramètres',
+      scenario: 'Votre scénario',
+      scenarioText: 'Choisissez votre point de départ : budget disponible ou audience à toucher.',
+      tabAria: 'Mode de calcul',
+      budgetMode: 'J’ai un budget',
+      audienceMode: 'J’ai une audience',
+      budgetLabel: 'Budget disponible en MAD',
+      audienceLabel: 'Nombre de contacts à toucher',
+      budgetHelp: 'Exemple : 80000',
+      audienceHelp: 'Exemple : 100000',
+      priceCaption: 'Tarif Richmedia',
+      calculate: 'Estimer ma campagne',
+      linksAria: 'Liens utiles',
+      links: [
+        { href: '/outils/', label: 'Outils & ressources' },
+        { href: '/outils/calculateur-budget-media-leads/', label: 'Calculateur Budget Média & Leads' },
+        { href: '/expertises/whatsapp-marketing-maroc/', label: 'Expertise WhatsApp' },
+        { href: '/produits/whatsapp/', label: 'Produit WhatsApp' },
+        { href: '/insights/barometre-marketing-digital-maroc-2026/', label: 'Baromètre 2026' },
+      ],
+      resultEyebrow: 'Estimation',
+      resultTitle: 'Potentiel de campagne',
+      resultText: 'Les fourchettes sont indépendantes et appliquées à l’audience totale estimée.',
+      budgetEstimated: 'Budget estimé',
+      pushesEstimated: 'Pushes estimés',
+      readings: 'Lectures estimées',
+      clicks: 'Clics estimés',
+      replies: 'Réponses estimées',
+      conversions: 'Conversions estimées',
+      optOut: 'Opt-out estimé',
+      audience: 'Audience',
+      methodEyebrow: 'Pourquoi WhatsApp',
+      methodTitle: 'Pourquoi WhatsApp performe différemment d’un push classique ?',
+      methodText:
+        'Dans les campagnes comparables observées par Richmedia, WhatsApp génère des niveaux d’interaction très supérieurs aux pushes SMS traditionnels.',
+      workflowAria: 'Parcours WhatsApp',
+      capabilities: ['Texte', 'Images', 'Vidéos', 'Boutons', 'Localisation', 'Chatbot', 'Conseiller', 'CRM', 'Reporting'],
+      requestEyebrow: 'Recommandation',
+      requestTitle: 'Vous préparez une campagne WhatsApp ?',
+      requestText: 'Recevez une recommandation personnalisée selon votre audience, votre objectif et votre budget.',
+      disclaimer: `Le tarif utilisé pour cette estimation est de ${priceLabel} MAD par push WhatsApp. Les projections sont basées sur les fourchettes observées dans ${benchmarks.campaigns} campagnes Richmedia entre 2022 et 2026. Les performances réelles dépendent notamment de l’audience, du message, de l’offre, du ciblage et du parcours de conversion. La définition d’une conversion peut varier selon l’objectif de la campagne.`,
+      summaryLabel: 'Budget ou taille d’audience',
+      name: 'Nom',
+      email: 'Email professionnel',
+      company: 'Entreprise',
+      phone: 'Téléphone facultatif',
+      submit: 'Recevoir une proposition personnalisée',
+      sending: 'Envoi en cours...',
+      success: 'Votre demande a bien été envoyée.',
+      error: 'L’envoi n’a pas abouti. Merci de nous contacter directement.',
+      requiredError: 'Entrez une valeur positive pour lancer l’estimation.',
+      inputBudget: 'Budget saisi',
+      inputAudience: 'Audience saisie',
+      outputSummary: 'Projection estimée',
+      contacts: 'contacts',
+    };
+
+const workflowSteps = isEnglish
+  ? [
+      { label: 'Message', icon: 'ph-chat-circle-text' },
+      { label: 'Rich media', icon: 'ph-images-square' },
+      { label: 'Button', icon: 'ph-cursor-click' },
+      { label: 'Interaction', icon: 'ph-sparkle' },
+      { label: 'Conversation', icon: 'ph-chat-circle-dots' },
+      { label: 'Conversion', icon: 'ph-check-circle' },
+    ]
+  : [
+      { label: 'Message', icon: 'ph-chat-circle-text' },
+      { label: 'Média riche', icon: 'ph-images-square' },
+      { label: 'Bouton', icon: 'ph-cursor-click' },
+      { label: 'Interaction', icon: 'ph-sparkle' },
+      { label: 'Conversation', icon: 'ph-chat-circle-dots' },
+      { label: 'Conversion', icon: 'ph-check-circle' },
+    ];
+
+const estimatorConfig = {
+  lang,
+  locale,
+  price: WHATSAPP_PUSH_PRICE,
+  benchmarks,
+  labels: {
+    budgetMode: t.budgetMode,
+    audienceMode: t.audienceMode,
+    budgetLabel: t.budgetLabel,
+    audienceLabel: t.audienceLabel,
+    budgetHelp: t.budgetHelp,
+    audienceHelp: t.audienceHelp,
+    calculate: t.calculate,
+    budgetEstimated: t.budgetEstimated,
+    pushesEstimated: t.pushesEstimated,
+    readings: t.readings,
+    clicks: t.clicks,
+    replies: t.replies,
+    conversions: t.conversions,
+    optOut: t.optOut,
+    audience: t.audience,
+    requiredError: t.requiredError,
+    inputBudget: t.inputBudget,
+    inputAudience: t.inputAudience,
+    outputSummary: t.outputSummary,
+    contacts: t.contacts,
+  },
+};
+---
+
+<div class="whatsapp-estimator" data-whatsapp-estimator lang={lang}>
+  <section class="tool-hero" aria-labelledby="whatsapp-estimator-title">
+    <div class="hero-copy">
+      <span class="section-kicker">{t.heroEyebrow}</span>
+      <h1 id="whatsapp-estimator-title">{t.title}</h1>
+      <p>{t.intro}</p>
+      <small>{t.benchmarkNote}</small>
+      <div class="hero-actions">
+        <a class="tool-button tool-button-primary" href="#estimation">
+          {t.start}
+          <i class="ph ph-whatsapp-logo" aria-hidden="true"></i>
+        </a>
+        <a class="tool-button tool-button-secondary" href="#whatsapp-method">
+          {t.methodCta}
+          <i class="ph ph-arrow-down" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+    <aside class="hero-phone" aria-label={t.phonePreview}>
+      <div class="phone-shell">
+        <div class="phone-top">
+          <span></span>
+          <strong>WhatsApp Push</strong>
+          <i class="ph ph-dots-three-vertical" aria-hidden="true"></i>
+        </div>
+        <div class="message-stack">
+          <div class="chat-card media-card">
+            <span>{t.mediaType}</span>
+            <strong>{t.offer}</strong>
+          </div>
+          <div class="chat-card">
+            <span>{t.button}</span>
+            <strong>{t.offerCta}</strong>
+          </div>
+          <div class="chat-card compact">
+            <span>{t.crm}</span>
+            <strong>{t.followUp}</strong>
+          </div>
+        </div>
+        <div class="phone-metrics">
+          <article>
+            <span>{t.reading}</span>
+            <strong>80–95%</strong>
+          </article>
+          <article>
+            <span>{t.click}</span>
+            <strong>8–25%</strong>
+          </article>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="benchmark-strip" aria-label={t.benchmarkAria}>
+    <article>
+      <strong>{benchmarks.campaigns}</strong>
+      <span>{t.campaignsAnalyzed}</span>
+    </article>
+    <article>
+      <strong>80–95%</strong>
+      <span>{t.readOpen}</span>
+    </article>
+    <article>
+      <strong>8–25%</strong>
+      <span>{t.click}</span>
+    </article>
+    <article>
+      <strong>{priceLabel} MAD</strong>
+      <span>{t.perPush}</span>
+    </article>
+  </section>
+
+  <section class="estimator-shell" id="estimation" aria-labelledby="estimator-panel-title">
+    <div class="settings-panel">
+      <div class="panel-heading">
+        <span class="section-kicker">{t.settingsEyebrow}</span>
+        <h2 id="estimator-panel-title">{t.scenario}</h2>
+        <p>{t.scenarioText}</p>
+      </div>
+
+      <div class="mode-tabs" role="tablist" aria-label={t.tabAria}>
+        <button class="is-active" type="button" role="tab" aria-selected="true" data-mode-button="budget">
+          {t.budgetMode}
+        </button>
+        <button type="button" role="tab" aria-selected="false" data-mode-button="audience">
+          {t.audienceMode}
+        </button>
+      </div>
+
+      <div class="field-grid">
+        <label data-budget-field>
+          <span>{t.budgetLabel}</span>
+          <input type="number" min="1" step="100" value="80000" inputmode="numeric" data-budget-input />
+          <small>{t.budgetHelp}</small>
+        </label>
+
+        <label data-audience-field hidden>
+          <span>{t.audienceLabel}</span>
+          <input type="number" min="1" step="1" value="100000" inputmode="numeric" data-audience-input />
+          <small>{t.audienceHelp}</small>
+        </label>
+      </div>
+
+      <div class="price-card">
+        <i class="ph ph-tag" aria-hidden="true"></i>
+        <div>
+          <strong>{priceLabel} MAD / push</strong>
+          <span>{t.priceCaption}</span>
+        </div>
+      </div>
+
+      <button class="calculate-button" type="button" data-calculate>
+        {t.calculate}
+        <i class="ph ph-arrow-right" aria-hidden="true"></i>
+      </button>
+      <p class="calculator-error" data-calculator-error role="alert"></p>
+
+      <nav class="internal-links" aria-label={t.linksAria}>
+        {t.links.map((link) => <a href={link.href}>{link.label}</a>)}
+      </nav>
+    </div>
+
+    <aside class="result-panel" aria-labelledby="result-title" aria-live="polite">
+      <div class="result-head">
+        <span class="section-kicker">{t.resultEyebrow}</span>
+        <h2 id="result-title">{t.resultTitle}</h2>
+        <p>{t.resultText}</p>
+      </div>
+
+      <div class="result-topline">
+        <article>
+          <span>{t.budgetEstimated}</span>
+          <strong data-budget-output>80 000 MAD</strong>
+        </article>
+        <article>
+          <span>{t.pushesEstimated}</span>
+          <strong data-pushes-output>100 000</strong>
+        </article>
+      </div>
+
+      <div class="metric-grid">
+        <article>
+          <i class="ph ph-eye" aria-hidden="true"></i>
+          <span>{t.readings}</span>
+          <strong data-reading-output>80 000 – 95 000</strong>
+        </article>
+        <article>
+          <i class="ph ph-cursor-click" aria-hidden="true"></i>
+          <span>{t.clicks}</span>
+          <strong data-clicks-output>8 000 – 25 000</strong>
+        </article>
+        <article>
+          <i class="ph ph-chat-circle-dots" aria-hidden="true"></i>
+          <span>{t.replies}</span>
+          <strong data-replies-output>3 000 – 25 000</strong>
+        </article>
+        <article>
+          <i class="ph ph-check-circle" aria-hidden="true"></i>
+          <span>{t.conversions}</span>
+          <strong data-conversions-output>5 000 – 8 000</strong>
+        </article>
+        <article>
+          <i class="ph ph-warning-circle" aria-hidden="true"></i>
+          <span>{t.optOut}</span>
+          <strong data-optout-output>200 – 2 000</strong>
+        </article>
+      </div>
+
+      <div class="funnel-visual" aria-label={isEnglish ? 'Campaign potential visualization' : 'Visualisation du potentiel de campagne'}>
+        <article>
+          <span>{t.audience}</span>
+          <strong data-funnel-audience>100 000</strong>
+        </article>
+        <i class="ph ph-arrow-down" aria-hidden="true"></i>
+        <article>
+          <span>{t.reading}</span>
+          <strong data-funnel-reading>80–95K</strong>
+        </article>
+        <i class="ph ph-arrow-down" aria-hidden="true"></i>
+        <article>
+          <span>{t.clicks}</span>
+          <strong data-funnel-clicks>8–25K</strong>
+        </article>
+        <i class="ph ph-arrow-down" aria-hidden="true"></i>
+        <article>
+          <span>{t.replies}</span>
+          <strong data-funnel-replies>3–25K</strong>
+        </article>
+      </div>
+    </aside>
+  </section>
+
+  <section class="method-section" id="whatsapp-method" aria-labelledby="method-title">
+    <div>
+      <span class="section-kicker">{t.methodEyebrow}</span>
+      <h2 id="method-title">{t.methodTitle}</h2>
+      <p>{t.methodText}</p>
+    </div>
+
+    <div class="workflow" aria-label={t.workflowAria}>
+      {workflowSteps.map((step) => (
+        <article>
+          <i class={`ph ${step.icon}`} aria-hidden="true"></i>
+          <span>{step.label}</span>
+        </article>
+      ))}
+    </div>
+
+    <div class="capability-grid">
+      {t.capabilities.map((item) => <span>{item}</span>)}
+    </div>
+  </section>
+
+  <section class="estimate-request" aria-labelledby="request-title">
+    <div>
+      <span class="section-kicker">{t.requestEyebrow}</span>
+      <h2 id="request-title">{t.requestTitle}</h2>
+      <p>{t.requestText}</p>
+      <div class="disclaimer">
+        <i class="ph ph-warning-circle" aria-hidden="true"></i>
+        <p>{t.disclaimer}</p>
+      </div>
+    </div>
+
+    <form
+      class="estimate-form"
+      action={CONTACT_FORM.action}
+      method="post"
+      data-contact-endpoint={CONTACT_FORM.ajaxAction}
+      data-contact-form
+      data-sending-message={t.sending}
+      data-success-message={t.success}
+      data-error-message={t.error}
+    >
+      <input type="hidden" name="_form" value={isEnglish ? 'WhatsApp Campaign Estimator' : 'Estimateur campagne WhatsApp'} />
+      <input type="hidden" name={isEnglish ? 'Calculation mode' : 'Mode de calcul'} data-hidden-mode />
+      <input type="hidden" name={isEnglish ? 'Estimated result' : 'Résultat estimé'} data-hidden-result />
+      <label class="form-honeypot" aria-hidden="true">
+        Website
+        <input type="text" name="company_url" tabindex="-1" autocomplete="off" />
+      </label>
+      <label class="full-field">
+        <span>{t.summaryLabel}</span>
+        <input type="text" name={isEnglish ? 'Budget or audience' : 'Budget ou audience'} readonly data-summary-input />
+      </label>
+      <label>
+        <span>{t.name}</span>
+        <input type="text" name={isEnglish ? 'Name' : 'Nom'} autocomplete="name" required />
+      </label>
+      <label>
+        <span>{t.email}</span>
+        <input type="email" name={isEnglish ? 'Professional email' : 'Email professionnel'} autocomplete="email" required />
+      </label>
+      <label>
+        <span>{t.company}</span>
+        <input type="text" name={isEnglish ? 'Company' : 'Entreprise'} autocomplete="organization" required />
+      </label>
+      <label>
+        <span>{t.phone}</span>
+        <input type="tel" name={isEnglish ? 'Phone' : 'Téléphone'} autocomplete="tel" />
+      </label>
+      <button type="submit">
+        {t.submit}
+        <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i>
+      </button>
+      <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</div>
+
+<script is:inline define:vars={{ estimatorConfig }}>
+  (() => {
+    const root = document.querySelector('[data-whatsapp-estimator]');
+    if (!root) return;
+
+    const config = estimatorConfig;
+    const labels = config.labels;
+    const state = { mode: 'budget' };
+
+    const modeButtons = [...root.querySelectorAll('[data-mode-button]')];
+    const budgetField = root.querySelector('[data-budget-field]');
+    const audienceField = root.querySelector('[data-audience-field]');
+    const budgetInput = root.querySelector('[data-budget-input]');
+    const audienceInput = root.querySelector('[data-audience-input]');
+    const error = root.querySelector('[data-calculator-error]');
+    const budgetOutput = root.querySelector('[data-budget-output]');
+    const pushesOutput = root.querySelector('[data-pushes-output]');
+    const readingOutput = root.querySelector('[data-reading-output]');
+    const clicksOutput = root.querySelector('[data-clicks-output]');
+    const repliesOutput = root.querySelector('[data-replies-output]');
+    const conversionsOutput = root.querySelector('[data-conversions-output]');
+    const optOutOutput = root.querySelector('[data-optout-output]');
+    const funnelAudience = root.querySelector('[data-funnel-audience]');
+    const funnelReading = root.querySelector('[data-funnel-reading]');
+    const funnelClicks = root.querySelector('[data-funnel-clicks]');
+    const funnelReplies = root.querySelector('[data-funnel-replies]');
+    const summaryInput = root.querySelector('[data-summary-input]');
+    const hiddenMode = root.querySelector('[data-hidden-mode]');
+    const hiddenResult = root.querySelector('[data-hidden-result]');
+
+    const formatter = new Intl.NumberFormat(config.locale || 'fr-FR', { maximumFractionDigits: 0 });
+    const keepTogether = (value) => String(value).replace(/[\s\u00a0\u202f]+/g, '\u202f');
+    const formatNumber = (value) => keepTogether(formatter.format(Math.max(0, Math.round(value))));
+    const formatMad = (value) => `${formatNumber(value)}\u00a0MAD`;
+    const formatRange = (min, max) => `${formatNumber(min)} – ${formatNumber(max)}`;
+    const formatShort = (value) => {
+      const rounded = Math.max(0, Math.round(value));
+      return rounded >= 1000 ? `${formatter.format(Math.round(rounded / 1000))}K` : formatter.format(rounded);
+    };
+    const calculateRange = (audience, range) => ({
+      min: audience * range.min,
+      max: audience * range.max,
+    });
+
+    const setError = (message = '') => {
+      error.textContent = message;
+    };
+
+    const updateMode = (mode) => {
+      state.mode = mode;
+      modeButtons.forEach((button) => {
+        const active = button.dataset.modeButton === mode;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-selected', String(active));
+      });
+      budgetField.hidden = mode !== 'budget';
+      audienceField.hidden = mode !== 'audience';
+      calculate();
+    };
+
+    const calculate = () => {
+      const enteredBudget = Number(budgetInput.value);
+      const enteredAudience = Number(audienceInput.value);
+      const sourceValue = state.mode === 'budget' ? enteredBudget : enteredAudience;
+
+      if (!Number.isFinite(sourceValue) || sourceValue <= 0) {
+        setError(labels.requiredError);
+        return;
+      }
+
+      setError();
+      const budget = state.mode === 'budget' ? enteredBudget : enteredAudience * config.price;
+      const audience = state.mode === 'budget' ? Math.floor(enteredBudget / config.price) : Math.floor(enteredAudience);
+      const readings = calculateRange(audience, config.benchmarks.reading);
+      const clicks = calculateRange(audience, config.benchmarks.clicks);
+      const replies = calculateRange(audience, config.benchmarks.replies);
+      const conversions = calculateRange(audience, config.benchmarks.conversions);
+      const optOut = calculateRange(audience, config.benchmarks.optOut);
+
+      budgetOutput.textContent = formatMad(budget);
+      pushesOutput.textContent = formatNumber(audience);
+      readingOutput.textContent = formatRange(readings.min, readings.max);
+      clicksOutput.textContent = formatRange(clicks.min, clicks.max);
+      repliesOutput.textContent = formatRange(replies.min, replies.max);
+      conversionsOutput.textContent = formatRange(conversions.min, conversions.max);
+      optOutOutput.textContent = formatRange(optOut.min, optOut.max);
+      funnelAudience.textContent = formatNumber(audience);
+      funnelReading.textContent = `${formatShort(readings.min)}–${formatShort(readings.max)}`;
+      funnelClicks.textContent = `${formatShort(clicks.min)}–${formatShort(clicks.max)}`;
+      funnelReplies.textContent = `${formatShort(replies.min)}–${formatShort(replies.max)}`;
+
+      const modeLabel = state.mode === 'budget' ? labels.budgetMode : labels.audienceMode;
+      const inputSummary =
+        state.mode === 'budget'
+          ? `${labels.inputBudget}: ${formatMad(enteredBudget)}`
+          : `${labels.inputAudience}: ${formatNumber(enteredAudience)} ${labels.contacts}`;
+      const outputSummary = [
+        `${labels.budgetEstimated}: ${formatMad(budget)}`,
+        `${labels.pushesEstimated}: ${formatNumber(audience)}`,
+        `${labels.readings}: ${formatRange(readings.min, readings.max)}`,
+        `${labels.clicks}: ${formatRange(clicks.min, clicks.max)}`,
+        `${labels.replies}: ${formatRange(replies.min, replies.max)}`,
+        `${labels.conversions}: ${formatRange(conversions.min, conversions.max)}`,
+        `${labels.optOut}: ${formatRange(optOut.min, optOut.max)}`,
+      ].join(' | ');
+
+      summaryInput.value = inputSummary;
+      hiddenMode.value = modeLabel;
+      hiddenResult.value = outputSummary;
+    };
+
+    modeButtons.forEach((button) => {
+      button.addEventListener('click', () => updateMode(button.dataset.modeButton));
+    });
+    [budgetInput, audienceInput].forEach((field) => {
+      field.addEventListener('input', calculate);
+      field.addEventListener('change', calculate);
+    });
+    root.querySelector('[data-calculate]')?.addEventListener('click', calculate);
+
+    calculate();
+  })();
+</script>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .whatsapp-estimator {
+    --purple: #7c3cff;
+    --purple-soft: #aa7cff;
+    --green: #35e58b;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(255, 255, 255, 0.66);
+    --panel: rgba(15, 16, 24, 0.82);
+    width: min(100% - 3rem, 1240px);
+    margin: 0 auto;
+    padding: clamp(7rem, 10vw, 9rem) 0 clamp(3rem, 6vw, 5.5rem);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  .whatsapp-estimator,
+  .whatsapp-estimator * {
+    box-sizing: border-box;
+  }
+
+  .whatsapp-estimator::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 78% 10%, rgba(53, 229, 139, 0.08), transparent 24rem),
+      radial-gradient(circle at 20% 15%, rgba(124, 60, 255, 0.12), transparent 25rem),
+      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: auto, auto, 84px 84px, 84px 84px;
+    content: '';
+    pointer-events: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--purple-soft);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2.1rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-soft));
+    content: '';
+  }
+
+  .tool-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(390px, 0.72fr);
+    gap: clamp(1.6rem, 5vw, 4.5rem);
+    align-items: center;
+    min-height: 560px;
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 1.05rem;
+  }
+
+  .hero-copy h1 {
+    --h1-size: clamp(3rem, 6vw, 5.4rem);
+    max-width: 760px;
+    font-size: clamp(3rem, 6vw, 5.4rem);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: 0;
+  }
+
+  .hero-copy p {
+    max-width: 650px;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.35vw, 1.16rem);
+    line-height: 1.62;
+  }
+
+  .hero-copy small {
+    width: fit-content;
+    border: 1px solid rgba(53, 229, 139, 0.22);
+    border-radius: 999px;
+    padding: 0.5rem 0.7rem;
+    background: rgba(53, 229, 139, 0.06);
+    color: rgba(220, 255, 235, 0.84);
+    font-weight: 800;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 0.35rem;
+  }
+
+  .tool-button {
+    display: inline-flex;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 1.2rem;
+    color: #fff;
+    font-weight: 900;
+    text-decoration: none;
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  }
+
+  .tool-button:hover,
+  .tool-button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .tool-button-primary {
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1.2rem 2.8rem rgba(124, 60, 255, 0.28);
+  }
+
+  .tool-button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .hero-phone {
+    margin: 0;
+  }
+
+  .phone-shell,
+  .benchmark-strip,
+  .settings-panel,
+  .result-panel,
+  .method-section,
+  .estimate-request {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 18% 0%, rgba(124, 60, 255, 0.17), transparent 18rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.93), rgba(7, 8, 12, 0.95));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  }
+
+  .phone-shell {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    max-width: 440px;
+    margin-left: auto;
+    padding: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.36);
+    transform: translateZ(0);
+    transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+  }
+
+  .phone-shell::before {
+    position: absolute;
+    inset: auto -20% -18% 28%;
+    height: 14rem;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(53, 229, 139, 0.18), transparent 64%);
+    content: '';
+    pointer-events: none;
+    opacity: 0.85;
+    transition: opacity 260ms ease, transform 260ms ease;
+  }
+
+  .phone-shell::after {
+    position: absolute;
+    inset: -35% auto auto -38%;
+    width: 56%;
+    height: 145%;
+    background: linear-gradient(105deg, transparent, rgba(53, 229, 139, 0.12), rgba(170, 124, 255, 0.16), transparent);
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-55%) rotate(12deg);
+    transition: opacity 260ms ease, transform 760ms ease;
+  }
+
+  .phone-shell:hover {
+    border-color: rgba(53, 229, 139, 0.34);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 2.4rem 5.4rem rgba(0, 0, 0, 0.44),
+      0 0 3.5rem rgba(53, 229, 139, 0.1);
+    transform: translateY(-6px) rotateX(1deg) rotateY(-1deg);
+  }
+
+  .phone-shell:hover::before {
+    opacity: 1;
+    transform: scale(1.12) translate(-4%, -4%);
+  }
+
+  .phone-shell:hover::after {
+    opacity: 1;
+    transform: translateX(250%) rotate(12deg);
+  }
+
+  .phone-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.9rem;
+  }
+
+  .phone-top span {
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 999px;
+    background: var(--green);
+    box-shadow: 0 0 1.4rem rgba(53, 229, 139, 0.7);
+  }
+
+  .phone-shell:hover .phone-top span {
+    animation: whatsapp-status-pulse 960ms ease-in-out infinite;
+  }
+
+  .phone-top i {
+    transition: transform 240ms ease, color 240ms ease;
+  }
+
+  .phone-shell:hover .phone-top i {
+    color: var(--green);
+    transform: rotate(90deg);
+  }
+
+  .message-stack {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .chat-card {
+    display: grid;
+    width: min(100%, 320px);
+    gap: 0.28rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    background: rgba(255, 255, 255, 0.045);
+    transform: translateZ(0);
+    transition: transform 240ms ease, border-color 240ms ease, background 240ms ease, box-shadow 240ms ease;
+  }
+
+  .chat-card:nth-child(2) {
+    justify-self: end;
+    border-color: rgba(53, 229, 139, 0.28);
+    background: rgba(53, 229, 139, 0.08);
+  }
+
+  .chat-card.compact {
+    width: 230px;
+  }
+
+  .phone-shell:hover .chat-card {
+    border-color: rgba(170, 124, 255, 0.35);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  }
+
+  .phone-shell:hover .chat-card:nth-child(1) {
+    transform: translate(0.35rem, -0.2rem);
+  }
+
+  .phone-shell:hover .chat-card:nth-child(2) {
+    border-color: rgba(53, 229, 139, 0.55);
+    background: rgba(53, 229, 139, 0.12);
+    transform: translate(-0.55rem, -0.05rem);
+  }
+
+  .phone-shell:hover .chat-card:nth-child(3) {
+    transform: translate(0.45rem, 0.18rem);
+  }
+
+  .chat-card span {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .chat-card strong {
+    font-size: 1.15rem;
+  }
+
+  .media-card {
+    position: relative;
+    min-height: 9rem;
+    align-content: end;
+    overflow: hidden;
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.46), rgba(53, 229, 139, 0.12)),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+      linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+    background-size: auto, 34px 34px, 34px 34px;
+  }
+
+  .media-card::after {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(120deg, transparent 24%, rgba(255, 255, 255, 0.13), transparent 42%),
+      radial-gradient(circle at 75% 18%, rgba(53, 229, 139, 0.2), transparent 22%);
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-45%);
+  }
+
+  .phone-shell:hover .media-card {
+    animation: whatsapp-grid-drift 900ms ease both;
+  }
+
+  .phone-shell:hover .media-card::after {
+    animation: whatsapp-media-sweep 920ms ease both;
+  }
+
+  .phone-metrics {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .phone-metrics article {
+    display: grid;
+    gap: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(0, 0, 0, 0.2);
+    transition: transform 240ms ease, border-color 240ms ease, background 240ms ease, box-shadow 240ms ease;
+  }
+
+  .phone-shell:hover .phone-metrics article {
+    border-color: rgba(53, 229, 139, 0.28);
+    background: rgba(53, 229, 139, 0.07);
+    box-shadow: 0 0 1.6rem rgba(53, 229, 139, 0.08);
+    transform: translateY(-3px);
+  }
+
+  .phone-shell:hover .phone-metrics article:nth-child(2) {
+    transition-delay: 80ms;
+  }
+
+  .phone-metrics span,
+  .result-topline span,
+  .metric-grid span,
+  .funnel-visual span {
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .phone-metrics strong {
+    color: #fff;
+    font-size: 1.55rem;
+    transition: color 220ms ease, text-shadow 220ms ease;
+  }
+
+  .phone-shell:hover .phone-metrics strong {
+    color: #f0fff7;
+    text-shadow: 0 0 1rem rgba(53, 229, 139, 0.28);
+  }
+
+  .benchmark-strip {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: hidden;
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+    transform: translateZ(0);
+    transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+  }
+
+  .benchmark-strip:hover {
+    border-color: rgba(170, 124, 255, 0.32);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 1.4rem 3.8rem rgba(0, 0, 0, 0.24),
+      0 0 2.6rem rgba(124, 60, 255, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .benchmark-strip article {
+    position: relative;
+    display: grid;
+    gap: 0.35rem;
+    min-height: 6.2rem;
+    align-content: center;
+    border-right: 1px solid var(--line);
+    padding: 1rem 1.2rem;
+    overflow: hidden;
+    transition: background 220ms ease, transform 220ms ease;
+  }
+
+  .benchmark-strip article::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--purple-soft), var(--green));
+    content: '';
+    opacity: 0;
+    transform: scaleY(0.2);
+    transform-origin: center;
+    transition: opacity 220ms ease, transform 220ms ease;
+  }
+
+  .benchmark-strip article::after {
+    position: absolute;
+    inset: -35% auto auto -45%;
+    width: 55%;
+    height: 170%;
+    background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.11), transparent);
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-35%) rotate(12deg);
+  }
+
+  .benchmark-strip:hover article {
+    animation: whatsapp-stat-card 520ms cubic-bezier(0.2, 0.82, 0.2, 1) both;
+    animation-delay: var(--stat-delay, 0ms);
+    background: linear-gradient(135deg, rgba(124, 60, 255, 0.11), rgba(53, 229, 139, 0.035));
+  }
+
+  .benchmark-strip:hover article::before,
+  .benchmark-strip article:hover::before {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  .benchmark-strip:hover article::after,
+  .benchmark-strip article:hover::after {
+    animation: whatsapp-stat-sweep 900ms ease both;
+    animation-delay: var(--stat-delay, 0ms);
+  }
+
+  .benchmark-strip article:nth-child(1) {
+    --stat-delay: 0ms;
+  }
+
+  .benchmark-strip article:nth-child(2) {
+    --stat-delay: 80ms;
+  }
+
+  .benchmark-strip article:nth-child(3) {
+    --stat-delay: 160ms;
+  }
+
+  .benchmark-strip article:nth-child(4) {
+    --stat-delay: 240ms;
+  }
+
+  .benchmark-strip article:hover {
+    background: linear-gradient(135deg, rgba(124, 60, 255, 0.16), rgba(53, 229, 139, 0.07));
+    transform: translateY(-2px);
+  }
+
+  .benchmark-strip article:last-child {
+    border-right: 0;
+  }
+
+  .benchmark-strip strong {
+    font-size: clamp(1.7rem, 3vw, 3rem);
+    line-height: 0.95;
+    transition: color 220ms ease, text-shadow 220ms ease, transform 220ms ease;
+  }
+
+  .benchmark-strip:hover strong,
+  .benchmark-strip article:hover strong {
+    color: #f8f5ff;
+    text-shadow: 0 0 1.2rem rgba(170, 124, 255, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .benchmark-strip span {
+    color: var(--muted);
+    font-size: 0.92rem;
+    transition: color 220ms ease;
+  }
+
+  .benchmark-strip:hover span,
+  .benchmark-strip article:hover span {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .estimator-shell {
+    display: grid;
+    grid-template-columns: minmax(320px, 0.64fr) minmax(0, 1fr);
+    gap: 1rem;
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+  }
+
+  .settings-panel,
+  .result-panel {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1.05rem, 2.4vw, 1.6rem);
+  }
+
+  .panel-heading,
+  .result-head,
+  .method-section > div:first-child,
+  .estimate-request > div:first-child {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .panel-heading h2,
+  .result-head h2,
+  .method-section h2,
+  .estimate-request h2 {
+    font-size: clamp(2rem, 3.5vw, 3.4rem);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .panel-heading p,
+  .result-head p,
+  .method-section p,
+  .estimate-request p {
+    color: var(--muted);
+    line-height: 1.58;
+  }
+
+  .mode-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .mode-tabs button,
+  .calculate-button,
+  .estimate-form button {
+    min-height: 3.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.035);
+    color: #fff;
+    font: inherit;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .mode-tabs button:hover,
+  .mode-tabs button:focus-visible,
+  .calculate-button:hover,
+  .calculate-button:focus-visible,
+  .estimate-form button:hover,
+  .estimate-form button:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(170, 124, 255, 0.55);
+  }
+
+  .mode-tabs button.is-active,
+  .calculate-button,
+  .estimate-form button {
+    border-color: rgba(170, 124, 255, 0.7);
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1rem 2.2rem rgba(124, 60, 255, 0.22);
+  }
+
+  .field-grid,
+  .estimate-form {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  label {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  label span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.84rem;
+    font-weight: 900;
+  }
+
+  input {
+    width: 100%;
+    min-height: 3.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.28);
+    color: #fff;
+    font: inherit;
+    font-weight: 800;
+    outline: none;
+    padding: 0 1rem;
+  }
+
+  input:focus {
+    border-color: rgba(170, 124, 255, 0.68);
+    box-shadow: 0 0 0 3px rgba(124, 60, 255, 0.15);
+  }
+
+  input[readonly] {
+    color: #d8ccff;
+  }
+
+  label small {
+    color: rgba(255, 255, 255, 0.46);
+  }
+
+  .price-card {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    border: 1px solid rgba(53, 229, 139, 0.24);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(53, 229, 139, 0.055);
+  }
+
+  .price-card i {
+    display: inline-grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: 8px;
+    background: rgba(53, 229, 139, 0.12);
+    color: var(--green);
+    font-size: 1.45rem;
+  }
+
+  .price-card div {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .price-card span {
+    color: var(--muted);
+    font-weight: 800;
+  }
+
+  .calculate-button,
+  .estimate-form button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0 1rem;
+  }
+
+  .calculator-error,
+  .form-status {
+    min-height: 1.2rem;
+    color: #ff8f8f;
+    font-weight: 800;
+  }
+
+  .form-status[data-state='success'] {
+    color: var(--green);
+  }
+
+  .internal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .internal-links a {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.48rem 0.68rem;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.82rem;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus-visible {
+    border-color: rgba(170, 124, 255, 0.62);
+    color: #fff;
+  }
+
+  .result-topline {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .result-topline article,
+  .metric-grid article,
+  .funnel-visual article {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .result-topline article {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1rem;
+    container-type: inline-size;
+    overflow: hidden;
+  }
+
+  .result-topline strong {
+    display: block;
+    overflow: hidden;
+    font-size: clamp(1.8rem, 4.7vw, 3rem);
+    font-size: clamp(1.8rem, 16cqw, 3rem);
+    letter-spacing: 0;
+    line-height: 0.95;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .metric-grid article {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.55rem 0.75rem;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .metric-grid i {
+    display: inline-grid;
+    width: 2.7rem;
+    height: 2.7rem;
+    grid-row: span 2;
+    place-items: center;
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.16);
+    color: var(--purple-soft);
+    font-size: 1.3rem;
+  }
+
+  .metric-grid strong {
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+    line-height: 1.05;
+  }
+
+  .funnel-visual {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.6rem;
+    align-items: stretch;
+    border: 1px solid rgba(53, 229, 139, 0.18);
+    border-radius: 8px;
+    padding: 0.8rem;
+    background: rgba(53, 229, 139, 0.035);
+  }
+
+  .funnel-visual i {
+    display: none;
+  }
+
+  .funnel-visual article {
+    position: relative;
+    display: grid;
+    gap: 0.35rem;
+    min-height: 5rem;
+    align-content: center;
+    padding: 0.8rem;
+  }
+
+  .funnel-visual article:not(:last-of-type)::after {
+    position: absolute;
+    top: 50%;
+    right: -0.45rem;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-top: 2px solid rgba(53, 229, 139, 0.62);
+    border-right: 2px solid rgba(53, 229, 139, 0.62);
+    content: '';
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .funnel-visual strong {
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+  }
+
+  .method-section,
+  .estimate-request {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
+    gap: clamp(1.2rem, 3vw, 2rem);
+    align-items: start;
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+    padding: clamp(1.15rem, 3vw, 2rem);
+  }
+
+  .method-section {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+    transition: border-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
+  }
+
+  .method-section::before {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 78% 26%, rgba(53, 229, 139, 0.13), transparent 16rem),
+      linear-gradient(115deg, transparent 18%, rgba(124, 60, 255, 0.14), transparent 42%);
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 260ms ease, transform 560ms ease;
+    transform: translateX(-8%);
+  }
+
+  .method-section::after {
+    position: absolute;
+    inset: auto 1.4rem 1.4rem 1.4rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(53, 229, 139, 0.56), rgba(170, 124, 255, 0.62), transparent);
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    transform: scaleX(0.15);
+    transform-origin: left;
+    transition: opacity 260ms ease, transform 620ms ease;
+  }
+
+  .method-section:hover {
+    border-color: rgba(53, 229, 139, 0.26);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 1.4rem 3.8rem rgba(0, 0, 0, 0.26),
+      0 0 2.6rem rgba(53, 229, 139, 0.08);
+    transform: translateY(-4px);
+  }
+
+  .method-section:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .method-section:hover::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .workflow {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .workflow::before {
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    right: 8%;
+    z-index: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(53, 229, 139, 0.48), rgba(124, 60, 255, 0.58), transparent);
+    content: '';
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: opacity 220ms ease, transform 700ms ease;
+  }
+
+  .method-section:hover .workflow::before {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .workflow article {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.7rem;
+    place-items: center;
+    min-height: 8.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  }
+
+  .workflow article::before {
+    position: absolute;
+    inset: -55% auto auto -30%;
+    width: 50%;
+    height: 190%;
+    background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-30%) rotate(16deg);
+  }
+
+  .method-section:hover .workflow article {
+    animation: whatsapp-workflow-card 560ms cubic-bezier(0.2, 0.82, 0.2, 1) both;
+    animation-delay: var(--workflow-delay, 0ms);
+    border-color: rgba(53, 229, 139, 0.26);
+    background:
+      radial-gradient(circle at 50% 18%, rgba(53, 229, 139, 0.08), transparent 48%),
+      rgba(255, 255, 255, 0.045);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.18);
+  }
+
+  .method-section:hover .workflow article::before,
+  .workflow article:hover::before {
+    animation: whatsapp-workflow-sweep 900ms ease both;
+    animation-delay: var(--workflow-delay, 0ms);
+  }
+
+  .workflow article:hover {
+    animation: none;
+    border-color: rgba(53, 229, 139, 0.58);
+    background:
+      radial-gradient(circle at 50% 18%, rgba(53, 229, 139, 0.16), transparent 54%),
+      rgba(53, 229, 139, 0.055);
+    box-shadow:
+      0 1.2rem 2.4rem rgba(0, 0, 0, 0.24),
+      0 0 1.8rem rgba(53, 229, 139, 0.1);
+    transform: translateY(-6px);
+  }
+
+  .workflow article:nth-child(1) {
+    --workflow-delay: 0ms;
+  }
+
+  .workflow article:nth-child(2) {
+    --workflow-delay: 70ms;
+  }
+
+  .workflow article:nth-child(3) {
+    --workflow-delay: 140ms;
+  }
+
+  .workflow article:nth-child(4) {
+    --workflow-delay: 210ms;
+  }
+
+  .workflow article:nth-child(5) {
+    --workflow-delay: 280ms;
+  }
+
+  .workflow article:nth-child(6) {
+    --workflow-delay: 350ms;
+  }
+
+  .workflow i {
+    color: var(--green);
+    font-size: 2rem;
+    transition: color 220ms ease, text-shadow 220ms ease, transform 220ms ease;
+  }
+
+  .method-section:hover .workflow i {
+    color: #6effb0;
+    text-shadow: 0 0 1.15rem rgba(53, 229, 139, 0.28);
+    transform: translateY(-3px) scale(1.08);
+  }
+
+  .workflow article:hover i {
+    transform: translateY(-4px) scale(1.18) rotate(-5deg);
+  }
+
+  .workflow span {
+    font-weight: 900;
+    transition: color 220ms ease, transform 220ms ease;
+  }
+
+  .workflow article:hover span {
+    color: #f3fff9;
+    transform: translateY(2px);
+  }
+
+  .capability-grid {
+    display: flex;
+    grid-column: 1 / -1;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .capability-grid span {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.55rem 0.75rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: rgba(255, 255, 255, 0.76);
+    font-weight: 900;
+    overflow: hidden;
+    transition: transform 190ms ease, border-color 190ms ease, background 190ms ease, color 190ms ease, box-shadow 190ms ease;
+  }
+
+  .capability-grid span::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(124, 60, 255, 0.22), rgba(53, 229, 139, 0.12));
+    content: '';
+    opacity: 0;
+    transition: opacity 190ms ease;
+  }
+
+  .capability-grid span {
+    animation-delay: var(--chip-delay, 0ms);
+  }
+
+  .method-section:hover .capability-grid span {
+    animation: whatsapp-chip-rise 420ms cubic-bezier(0.2, 0.82, 0.2, 1) both;
+    animation-delay: var(--chip-delay, 0ms);
+  }
+
+  .capability-grid span:hover {
+    animation: none;
+    border-color: rgba(53, 229, 139, 0.42);
+    background: rgba(53, 229, 139, 0.055);
+    color: #fff;
+    box-shadow: 0 0 1.4rem rgba(53, 229, 139, 0.08);
+    transform: translateY(-3px);
+  }
+
+  .capability-grid span:hover::before {
+    opacity: 1;
+  }
+
+  .capability-grid span:nth-child(1) {
+    --chip-delay: 0ms;
+  }
+
+  .capability-grid span:nth-child(2) {
+    --chip-delay: 35ms;
+  }
+
+  .capability-grid span:nth-child(3) {
+    --chip-delay: 70ms;
+  }
+
+  .capability-grid span:nth-child(4) {
+    --chip-delay: 105ms;
+  }
+
+  .capability-grid span:nth-child(5) {
+    --chip-delay: 140ms;
+  }
+
+  .capability-grid span:nth-child(6) {
+    --chip-delay: 175ms;
+  }
+
+  .capability-grid span:nth-child(7) {
+    --chip-delay: 210ms;
+  }
+
+  .capability-grid span:nth-child(8) {
+    --chip-delay: 245ms;
+  }
+
+  .capability-grid span:nth-child(9) {
+    --chip-delay: 280ms;
+  }
+
+  .estimate-request {
+    grid-template-columns: minmax(0, 0.78fr) minmax(340px, 0.6fr);
+    background:
+      radial-gradient(circle at 12% 8%, rgba(53, 229, 139, 0.1), transparent 18rem),
+      radial-gradient(circle at 75% 0%, rgba(124, 60, 255, 0.18), transparent 20rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.93), rgba(7, 8, 12, 0.95));
+  }
+
+  .disclaimer {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: start;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .disclaimer i {
+    color: var(--purple-soft);
+    font-size: 1.25rem;
+  }
+
+  .estimate-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .estimate-form .full-field,
+  .estimate-form button,
+  .estimate-form .form-status {
+    grid-column: 1 / -1;
+  }
+
+  .form-honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @keyframes whatsapp-status-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 1.4rem rgba(53, 229, 139, 0.7);
+      transform: scale(1);
+    }
+
+    50% {
+      box-shadow: 0 0 2.2rem rgba(53, 229, 139, 0.95);
+      transform: scale(1.16);
+    }
+  }
+
+  @keyframes whatsapp-grid-drift {
+    0% {
+      background-position: 0 0, 0 0, 0 0;
+    }
+
+    100% {
+      background-position: 0 0, 34px 0, 0 34px;
+    }
+  }
+
+  @keyframes whatsapp-media-sweep {
+    0% {
+      opacity: 0;
+      transform: translateX(-45%);
+    }
+
+    45% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateX(70%);
+    }
+  }
+
+  @keyframes whatsapp-stat-card {
+    0% {
+      opacity: 0.78;
+      transform: translateY(8px);
+    }
+
+    72% {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes whatsapp-stat-sweep {
+    0% {
+      opacity: 0;
+      transform: translateX(-35%) rotate(12deg);
+    }
+
+    42% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateX(245%) rotate(12deg);
+    }
+  }
+
+  @keyframes whatsapp-workflow-card {
+    0% {
+      opacity: 0.78;
+      transform: translateY(10px) scale(0.985);
+    }
+
+    70% {
+      opacity: 1;
+      transform: translateY(-3px) scale(1);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes whatsapp-workflow-sweep {
+    0% {
+      opacity: 0;
+      transform: translateX(-30%) rotate(16deg);
+    }
+
+    45% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateX(260%) rotate(16deg);
+    }
+  }
+
+  @keyframes whatsapp-chip-rise {
+    0% {
+      opacity: 0.78;
+      transform: translateY(8px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .phone-shell,
+    .phone-shell::before,
+    .phone-shell::after,
+    .phone-shell *,
+    .benchmark-strip,
+    .benchmark-strip *,
+    .phone-shell:hover .phone-top span,
+    .phone-shell:hover .media-card,
+    .phone-shell:hover .media-card::after,
+    .benchmark-strip:hover article,
+    .benchmark-strip:hover article::after,
+    .benchmark-strip article:hover::after,
+    .method-section,
+    .method-section::before,
+    .method-section::after,
+    .method-section *,
+    .method-section:hover .workflow article,
+    .method-section:hover .workflow article::before,
+    .workflow article:hover::before,
+    .method-section:hover .capability-grid span {
+      animation: none;
+      transition: none;
+    }
+  }
+
+  @media (max-width: 980px) {
+    .tool-hero,
+    .estimator-shell,
+    .method-section,
+    .estimate-request {
+      grid-template-columns: 1fr;
+    }
+
+    .tool-hero {
+      min-height: 0;
+      padding-top: 1rem;
+    }
+
+    .phone-shell {
+      max-width: none;
+      margin-left: 0;
+    }
+
+    .benchmark-strip,
+    .result-topline,
+    .metric-grid,
+    .workflow,
+    .estimate-form {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .whatsapp-estimator {
+      width: min(100% - 1rem, 100%);
+      padding-top: 5.2rem;
+    }
+
+    .hero-copy h1 {
+      --h1-size: 2.35rem;
+      max-width: 11ch;
+      font-size: 2.35rem;
+      line-height: 0.95;
+    }
+
+    .hero-actions,
+    .internal-links {
+      display: grid;
+    }
+
+    .tool-button,
+    .internal-links a {
+      width: 100%;
+    }
+
+    .phone-shell,
+    .settings-panel,
+    .result-panel,
+    .method-section,
+    .estimate-request {
+      padding: 1rem;
+    }
+
+    .benchmark-strip,
+    .result-topline,
+    .metric-grid,
+    .workflow,
+    .funnel-visual,
+    .estimate-form {
+      grid-template-columns: 1fr;
+    }
+
+    .benchmark-strip article {
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .benchmark-strip article:last-child {
+      border-bottom: 0;
+    }
+
+    .mode-tabs {
+      grid-template-columns: 1fr;
+    }
+
+    .funnel-visual {
+      gap: 0.4rem;
+    }
+
+    .funnel-visual i {
+      display: grid;
+      place-items: center;
+      color: var(--green);
+    }
+
+    .funnel-visual article:not(:last-of-type)::after {
+      display: none;
+    }
+
+    .panel-heading h2,
+    .result-head h2,
+    .method-section h2,
+    .estimate-request h2 {
+      font-size: 2rem;
+    }
+  }
+</style>

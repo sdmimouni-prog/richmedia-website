@@ -2,7 +2,28 @@
 const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/');
 const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const homeHref = isEnglish ? '/en' : '/';
-const englishDetailExpertiseSlugs = ['strategie-digitale', 'brand-content', 'web-si', 'achat-media', 'influence', 'phygital', 'evenementiel', 'ia-automation', 'media-performance', 'seo-geo'];
+const englishDetailExpertiseSlugs = [
+  'strategie-digitale',
+  'brand-content',
+  'web-si',
+  'achat-media',
+  'influence',
+  'phygital',
+  'evenementiel',
+  'ia-automation',
+  'media-performance',
+  'seo-geo',
+  'google-ads-morocco',
+  'meta-ads-morocco',
+  'lead-generation-morocco',
+  'social-media-morocco',
+  'tiktok-ads-morocco',
+  'whatsapp-marketing-morocco',
+  'crm-marketing-automation-morocco',
+  'influencer-marketing-morocco',
+  'social-listening-morocco',
+  'geofencing-drive-to-store-morocco',
+];
 const glossarySlugPairs: Record<string, string> = {
   'acquisition-digitale': 'digital-acquisition',
   attribution: 'attribution',
@@ -74,11 +95,26 @@ const languagePairs: Record<string, string> = {
   '/insights/contenu-qualite-seo-perenne': '/en/insights/quality-content-durable-seo',
   '/insights/crm-automation-aligner-marketing-sales': '/en/insights/crm-automation-marketing-sales-alignment',
   '/insights/cout-campagne-google-ads-maroc': '/en/insights/google-ads-campaign-cost-morocco',
+  '/insights/barometre-marketing-digital-maroc-2026': '/en/insights/morocco-digital-marketing-barometer-2026',
+  '/outils': '/en/tools',
+  '/outils/calculateur-budget-media-leads': '/en/tools/media-budget-leads-calculator',
+  '/outils/estimateur-campagne-whatsapp': '/en/tools/whatsapp-campaign-estimator',
+  '/outils/template-plan-media-digital': '/en/tools/digital-media-plan-template',
   '/glossaire': '/en/glossary',
   ...glossaryLanguagePairs,
   '/realisations/uir-campagnes-digitales': '/en/case-studies/uir-digital-campaigns',
   '/expertises/media-performance': '/en/expertises/media-performance',
   '/expertises/referencement-seo': '/en/expertises/seo-geo',
+  '/expertises/google-ads-maroc': '/en/expertises/google-ads-morocco',
+  '/expertises/meta-ads-maroc': '/en/expertises/meta-ads-morocco',
+  '/expertises/generation-leads-maroc': '/en/expertises/lead-generation-morocco',
+  '/expertises/social-media-maroc': '/en/expertises/social-media-morocco',
+  '/expertises/tiktok-ads-maroc': '/en/expertises/tiktok-ads-morocco',
+  '/expertises/whatsapp-marketing-maroc': '/en/expertises/whatsapp-marketing-morocco',
+  '/expertises/marketing-automation-crm-maroc': '/en/expertises/crm-marketing-automation-morocco',
+  '/expertises/influence-marketing-maroc': '/en/expertises/influencer-marketing-morocco',
+  '/expertises/social-listening-maroc': '/en/expertises/social-listening-morocco',
+  '/expertises/geofencing-drive-to-store-maroc': '/en/expertises/geofencing-drive-to-store-morocco',
   '/secteurs': '/en/sectors',
   '/secteurs/education': '/en/sectors/education',
   '/secteurs/immobilier': '/en/sectors/real-estate',
@@ -269,6 +305,8 @@ const sectorLinks = isEnglish
 const insightLinks = isEnglish
   ? [
       { href: '/en/insights', label: 'All insights', text: 'Guides, analysis and methods.' },
+      { href: '/en/insights/morocco-digital-marketing-barometer-2026', label: '2026 Barometer', text: 'Richmedia benchmarks from campaigns in Morocco.' },
+      { href: '/en/tools', label: 'Tools & resources', text: 'Marketing calculators, templates and checklists.' },
       { href: '/en/insights/digital-acquisition-plan-2026', label: 'Marketing guides', text: 'Methods and frameworks.' },
       { href: '/en/insights/meta-campaigns-2026-best-practices', label: 'Media & performance', text: 'Budgets, acquisition and tracking.' },
       { href: '/en/insights/seo-vs-geo-2026', label: 'SEO / GEO', text: 'Search and AI visibility.' },
@@ -279,6 +317,7 @@ const insightLinks = isEnglish
   : [
       { href: '/insights', label: 'Tous les insights', text: 'Guides, analyses et méthodes.' },
       { href: '/insights/barometre-marketing-digital-maroc-2026', label: 'Baromètre 2026', text: 'Benchmarks Richmedia sur 400 campagnes au Maroc.' },
+      { href: '/outils', label: 'Outils & ressources', text: 'Calculateurs, templates et checklists marketing.' },
       { href: '/insights/plan-acquisition-digital-2026', label: 'Guides marketing', text: 'Méthodes et cadrages.' },
       { href: '/insights/campagnes-meta-2026-bonnes-pratiques', label: 'Média & performance', text: 'Budgets, acquisition et tracking.' },
       { href: '/insights/seo-vs-geo-enjeux-2026', label: 'SEO / GEO', text: 'Référencement et visibilité IA.' },

@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleDetailPage from '../../components/ArticleDetailPage.astro';
 import { articleSchema, authorCanonicalUrl, authorPersonId, breadcrumbs } from '../../lib/schema';
-import { getEditorialAuthor, getEditorialAuthorPath, SITE } from '../../consts';
+import { CONTACT_FORM, getEditorialAuthor, getEditorialAuthorPath, SITE } from '../../consts';
 
 const pageUrl = `${SITE.url}/insights/barometre-marketing-digital-maroc-2026/`;
 const pageTitle = 'Baromètre du Marketing Digital au Maroc 2026';
@@ -11,6 +11,8 @@ const metaDescription =
   '400 campagnes, 25 M MAD de média et 553 000 leads analysés. Benchmarks Meta, Google, WhatsApp et acquisition au Maroc.';
 const image = '/assets/richmedia-case-study/proof-dashboard.webp';
 const absoluteImage = `${SITE.url}${image}`;
+const barometerPdfHref = '/downloads/barometre-marketing-digital-maroc-2026-richmedia.pdf';
+const barometerPdfFilename = 'Barometre Marketing Digital Maroc 2026 - Richmedia.pdf';
 const publishedDate = new Date('2026-08-23');
 const modifiedDate = new Date('2026-08-23');
 const authorProfile = getEditorialAuthor('Salah Eddine MIMOUNI');
@@ -140,6 +142,10 @@ const serviceLinks = [
   { href: '/expertises/referencement-seo', label: 'SEO / GEO' },
   { href: '/expertises/influence', label: 'Influence & social media' },
   { href: '/produits/whatsapp', label: 'WhatsApp Business' },
+  { href: '/outils', label: 'Outils & ressources' },
+  { href: '/outils/calculateur-budget-media-leads', label: 'Calculateur Budget Média & Leads' },
+  { href: '/outils/estimateur-campagne-whatsapp', label: 'Estimateur campagne WhatsApp' },
+  { href: '/outils/template-plan-media-digital', label: 'Template Plan Média Digital' },
 ];
 
 const faq = [
@@ -250,6 +256,64 @@ const schema = [
         </article>
       ))}
     </div>
+
+    <section class="barometer-download" aria-labelledby="barometer-download-title">
+      <div class="barometer-download-copy">
+        <span>Téléchargement PDF</span>
+        <h2 id="barometer-download-title">Recevoir le Baromètre 2026 complet</h2>
+        <p>
+          Remplissez le formulaire avec une adresse email professionnelle et le nom de votre société. Le PDF se
+          téléchargera automatiquement après validation.
+        </p>
+        <ul>
+          <li>Benchmarks média et acquisition au Maroc</li>
+          <li>Repères CPL, CPC, CTR et conversion</li>
+          <li>Données observées sur les campagnes Richmedia 2022-2026</li>
+        </ul>
+      </div>
+
+      <form
+        class="barometer-download-form"
+        action={CONTACT_FORM.action}
+        method="post"
+        data-contact-endpoint={CONTACT_FORM.ajaxAction}
+        data-barometer-download-form
+        data-pdf-href={barometerPdfHref}
+        data-pdf-name={barometerPdfFilename}
+        novalidate
+      >
+        <input type="hidden" name="_form" value="Téléchargement Baromètre Marketing Digital Maroc 2026" />
+        <input type="hidden" name="_subject" value="[Richmedia] Téléchargement Baromètre Marketing Digital Maroc 2026" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="Source" value={pageUrl} />
+        <label class="form-honeypot" aria-hidden="true">
+          Site web
+          <input type="text" name="company_url" tabindex="-1" autocomplete="off" />
+        </label>
+        <label>
+          <span>Nom et prénom</span>
+          <input type="text" name="Nom et prénom" autocomplete="name" required />
+        </label>
+        <label>
+          <span>Email professionnel</span>
+          <input type="email" name="Email professionnel" autocomplete="email" required data-business-email />
+          <small>Les adresses Gmail et emails personnels ne sont pas acceptés.</small>
+        </label>
+        <label>
+          <span>Société</span>
+          <input type="text" name="Société" autocomplete="organization" required data-company-input />
+        </label>
+        <button type="submit">
+          Télécharger le PDF
+          <i class="ph ph-download-simple" aria-hidden="true"></i>
+        </button>
+        <p class="barometer-form-status" data-form-status role="status" aria-live="polite"></p>
+        <a class="barometer-download-link" href={barometerPdfHref} download={barometerPdfFilename} hidden data-download-link>
+          Télécharger à nouveau le PDF
+        </a>
+      </form>
+    </section>
 
     <h2>Répartition de l’échantillon</h2>
     <p>
@@ -539,6 +603,149 @@ const schema = [
   </ArticleDetailPage>
 </BaseLayout>
 
+<script is:inline>
+  (() => {
+    const form = document.querySelector('[data-barometer-download-form]');
+    if (!form) return;
+
+    const freeEmailDomains = new Set([
+      'gmail.com',
+      'googlemail.com',
+      'hotmail.com',
+      'hotmail.fr',
+      'outlook.com',
+      'outlook.fr',
+      'live.com',
+      'live.fr',
+      'msn.com',
+      'yahoo.com',
+      'yahoo.fr',
+      'icloud.com',
+      'me.com',
+      'mac.com',
+      'aol.com',
+      'proton.me',
+      'protonmail.com',
+      'mail.com',
+      'gmx.com',
+      'gmx.fr',
+      'wanadoo.fr',
+      'orange.fr',
+      'laposte.net',
+    ]);
+
+    const status = form.querySelector('[data-form-status]');
+    const submit = form.querySelector('button[type="submit"]');
+    const emailInput = form.querySelector('[data-business-email]');
+    const companyInput = form.querySelector('[data-company-input]');
+    const downloadLink = form.querySelector('[data-download-link]');
+    const pdfHref = form.dataset.pdfHref;
+    const pdfName = form.dataset.pdfName || 'Barometre Richmedia 2026.pdf';
+
+    const setStatus = (state, message) => {
+      if (!status) return;
+      status.dataset.state = state;
+      status.textContent = message;
+    };
+
+    const getEmailDomain = (email) => {
+      const parts = String(email || '').trim().toLowerCase().split('@');
+      return parts.length === 2 ? parts[1] : '';
+    };
+
+    const isProfessionalEmail = (email) => {
+      const domain = getEmailDomain(email);
+      return domain && domain.includes('.') && !freeEmailDomains.has(domain);
+    };
+
+    const triggerDownload = () => {
+      if (!pdfHref) return;
+      const link = document.createElement('a');
+      link.href = pdfHref;
+      link.download = pdfName;
+      link.rel = 'noopener';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      if (downloadLink) downloadLink.hidden = false;
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      setStatus('', '');
+
+      if (!companyInput.value.trim()) {
+        companyInput.setCustomValidity('Merci de renseigner votre société.');
+      } else {
+        companyInput.setCustomValidity('');
+      }
+
+      if (!isProfessionalEmail(emailInput.value)) {
+        emailInput.setCustomValidity('Merci d’utiliser une adresse email professionnelle, pas Gmail ni email personnel.');
+      } else {
+        emailInput.setCustomValidity('');
+      }
+
+      if (!form.reportValidity()) return;
+
+      const formData = new FormData(form);
+      if (String(formData.get('company_url') || '').trim()) {
+        form.reset();
+        setStatus('success', 'Merci, le téléchargement commence.');
+        triggerDownload();
+        return;
+      }
+
+      const body = new URLSearchParams();
+      formData.forEach((value, key) => {
+        body.append(key, String(value));
+      });
+      body.set('_page', window.location.href);
+      body.set('_replyto', String(emailInput.value || '').trim());
+
+      form.classList.add('is-submitting');
+      if (submit) {
+        submit.disabled = true;
+        submit.setAttribute('aria-busy', 'true');
+      }
+      setStatus('loading', 'Validation en cours...');
+
+      try {
+        const response = await fetch(form.dataset.contactEndpoint || form.action, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          },
+          body,
+        });
+        const contentType = response.headers.get('content-type') || '';
+        const result = contentType.includes('application/json') ? await response.json().catch(() => ({})) : {};
+        const failed = !response.ok || response.redirected || result.error || result.success === false || result.success === 'false';
+
+        if (failed) {
+          throw new Error(result.message || 'Le formulaire n’a pas pu être envoyé. Merci de réessayer.');
+        }
+
+        form.reset();
+        emailInput.setCustomValidity('');
+        companyInput.setCustomValidity('');
+        setStatus('success', 'Merci, le téléchargement commence.');
+        triggerDownload();
+      } catch (error) {
+        setStatus('error', error.message || 'Le formulaire n’a pas pu être envoyé. Merci de réessayer.');
+      } finally {
+        form.classList.remove('is-submitting');
+        if (submit) {
+          submit.disabled = false;
+          submit.removeAttribute('aria-busy');
+        }
+      }
+    });
+  })();
+</script>
+
 <style>
   .benchmark-stat-grid,
   .benchmark-metric-grid,
@@ -550,6 +757,180 @@ const schema = [
   .service-link-grid {
     display: grid;
     gap: 0.85rem;
+  }
+
+  .barometer-download {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.72fr);
+    gap: clamp(1rem, 3vw, 1.5rem);
+    align-items: stretch;
+    border: 1px solid rgba(169, 133, 255, 0.28);
+    border-radius: 8px;
+    margin: clamp(1rem, 3vw, 1.6rem) 0;
+    padding: clamp(1rem, 3vw, 1.35rem);
+    background:
+      radial-gradient(circle at 12% 12%, rgba(137, 76, 255, 0.22), transparent 17rem),
+      radial-gradient(circle at 92% 88%, rgba(53, 229, 139, 0.09), transparent 15rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.92), rgba(7, 8, 12, 0.96));
+    box-shadow: 0 1.4rem 3.4rem rgba(0, 0, 0, 0.24);
+  }
+
+  .barometer-download-copy {
+    display: grid;
+    align-content: center;
+    gap: 0.75rem;
+  }
+
+  .barometer-download-copy > span {
+    color: #a985ff;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .barometer-download-copy h2 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.7rem, 3vw, 2.55rem);
+    line-height: 1;
+  }
+
+  .barometer-download-copy p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.56;
+  }
+
+  .barometer-download-copy ul {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0.2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .barometer-download-copy li {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.78);
+    font-weight: 800;
+  }
+
+  .barometer-download-copy li::before {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #8b4cff, #35e58b);
+    box-shadow: 0 0 1rem rgba(137, 76, 255, 0.35);
+    content: '';
+    flex: 0 0 auto;
+  }
+
+  .barometer-download-form {
+    display: grid;
+    gap: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.24);
+  }
+
+  .barometer-download-form label {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .barometer-download-form label span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.83rem;
+    font-weight: 900;
+  }
+
+  .barometer-download-form input {
+    width: 100%;
+    min-height: 3.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.32);
+    color: #fff;
+    font: inherit;
+    font-weight: 800;
+    outline: none;
+    padding: 0 0.9rem;
+  }
+
+  .barometer-download-form input:focus {
+    border-color: rgba(169, 133, 255, 0.68);
+    box-shadow: 0 0 0 3px rgba(137, 76, 255, 0.15);
+  }
+
+  .barometer-download-form small {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.78rem;
+  }
+
+  .barometer-download-form button,
+  .barometer-download-link {
+    display: inline-flex;
+    min-height: 3.1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 7px;
+    color: #fff;
+    font: inherit;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .barometer-download-form button {
+    border: 1px solid rgba(169, 133, 255, 0.68);
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1rem 2.2rem rgba(124, 60, 255, 0.22);
+  }
+
+  .barometer-download-form button:hover,
+  .barometer-download-form button:focus-visible,
+  .barometer-download-link:hover,
+  .barometer-download-link:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .barometer-download-form button:disabled {
+    cursor: wait;
+    opacity: 0.7;
+    transform: none;
+  }
+
+  .barometer-download-link {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.045);
+  }
+
+  .barometer-form-status {
+    min-height: 1.2rem;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.66);
+    font-weight: 850;
+  }
+
+  .barometer-form-status[data-state='success'] {
+    color: #35e58b;
+  }
+
+  .barometer-form-status[data-state='error'] {
+    color: #ff9f9f;
+  }
+
+  .form-honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .benchmark-stat-grid {
@@ -790,6 +1171,7 @@ const schema = [
   }
 
   @media (max-width: 900px) {
+    .barometer-download,
     .benchmark-stat-grid,
     .benchmark-metric-grid,
     .range-grid,

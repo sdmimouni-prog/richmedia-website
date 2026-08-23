@@ -1,0 +1,600 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { CONTACT_FORM, SITE } from '../../../consts';
+import { breadcrumbs, localBusiness } from '../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/tools/digital-media-plan-template/`;
+const pageDescription =
+  'Download the free Richmedia Excel template to plan media budgets, forecast KPIs and compare forecast with actual results.';
+const downloadHref = '/downloads/template_plan_media_digital_2026_richmedia.xlsx';
+const assetBase = '/assets/richmedia-tools/template-plan-media';
+
+const previews = [
+  { title: 'Media Plan', image: `${assetBase}/plan-media.webp`, alt: 'Real preview of the Media Plan sheet in the Richmedia Excel file' },
+  { title: 'Forecasts', image: `${assetBase}/previsions.webp`, alt: 'Real preview of the Forecasts sheet in the Richmedia Excel file' },
+  { title: 'Actual Results', image: `${assetBase}/resultats-reels.webp`, alt: 'Real preview of the Actual Results sheet in the Richmedia Excel file' },
+  { title: 'Dashboard', image: `${assetBase}/dashboard.webp`, alt: 'Real preview of the Dashboard sheet in the Richmedia Excel file' },
+];
+
+const tabs = [
+  { name: '01 Brief', text: 'Campaign framing, objectives, sector, timing and geographic scope.' },
+  { name: '02 Media Plan', text: 'Budget by channel, CPM, CPC, CTR, CPL, impressions, clicks and planned leads.' },
+  { name: '03 Forecasts', text: 'Forecast summary to compare channels, volumes and objectives.' },
+  { name: '04 Actual Results', text: 'Actuals versus forecast: real budget, gaps, ROAS and KPIs.' },
+  { name: '05 Dashboard', text: 'A control view to read performance, budget and efficiency quickly.' },
+  { name: '06 Benchmarks 2026', text: 'Richmedia reference ranges included to guide assumptions.' },
+];
+
+const audiences = ['Marketing Director', 'Digital Manager', 'Media Manager', 'Growth Manager', 'Agency / Consultant'];
+
+const schema = [
+  {
+    ...localBusiness(),
+    url: pageUrl,
+    inLanguage: 'en',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    '@id': `${pageUrl}#template`,
+    name: 'Digital Media Plan Template 2026 — Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    encodingFormat: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    inLanguage: 'en',
+    publisher: { '@id': `${SITE.url}/#organization` },
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'MAD',
+      availability: 'https://schema.org/InStock',
+    },
+  },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Tools & resources', url: `${SITE.url}/en/tools` },
+    { name: 'Digital Media Plan Template 2026', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  lang="en"
+  title="Digital Media Plan Excel Template 2026 | Richmedia"
+  description={pageDescription}
+  canonical={pageUrl}
+  schema={schema}
+>
+  <div class="template-page" data-template-download-page>
+    <section class="template-hero" aria-labelledby="template-title">
+      <div class="hero-copy">
+        <span class="section-kicker">Richmedia resource</span>
+        <h1 id="template-title">Digital Media Plan Template 2026</h1>
+        <p>
+          Plan media investments, estimate performance and compare forecasts with actual results using a ready-to-use
+          Excel template.
+        </p>
+        <span class="file-badge">Excel • Free • Editable</span>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#download-template">
+            Download the template
+            <i class="ph ph-download-simple" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/en/tools/">
+            View all tools
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <figure class="hero-visual">
+        <img
+          src={`${assetBase}/hero-template-plan-media.webp`}
+          alt="Composition based on real previews of the Digital Media Plan Excel Template 2026"
+          width="1600"
+          height="920"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </figure>
+    </section>
+
+    <section class="preview-section" aria-labelledby="preview-title">
+      <div class="section-heading">
+        <span class="section-kicker">Template preview</span>
+        <h2 id="preview-title">The real file, not a fake interface.</h2>
+        <p>The visuals below are generated from the supplied Excel file, without changing its content.</p>
+      </div>
+      <div class="preview-grid">
+        {previews.map((preview) => (
+          <article class="preview-card">
+            <figure>
+              <img src={preview.image} alt={preview.alt} width="909" height="1300" loading="lazy" decoding="async" />
+            </figure>
+            <h3>{preview.title}</h3>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="tabs-section" aria-labelledby="tabs-title">
+      <div class="section-heading">
+        <span class="section-kicker">Inside the file</span>
+        <h2 id="tabs-title">Six tabs from budget planning to performance control.</h2>
+        <p>
+          Budgets by channel, CPM, CPC, CTR, CPL, impressions, clicks, leads, forecast versus actuals, ROAS, dashboard
+          and Richmedia benchmarks.
+        </p>
+      </div>
+      <div class="tab-grid">
+        {tabs.map((tab) => (
+          <article>
+            <span>{tab.name}</span>
+            <p>{tab.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="audience-section" aria-labelledby="audience-title">
+      <div class="section-heading">
+        <span class="section-kicker">Who is it for?</span>
+        <h2 id="audience-title">One file to move from planned budget to real performance management.</h2>
+      </div>
+      <div class="audience-grid">
+        {audiences.map((audience) => (
+          <article>
+            <i class="ph ph-users" aria-hidden="true"></i>
+            <span>{audience}</span>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="download-section" id="download-template" aria-labelledby="download-title">
+      <div class="download-copy">
+        <span class="section-kicker">Download</span>
+        <h2 id="download-title">Download the Excel file for free</h2>
+        <p>Fill in the form. After validation, the real Excel file download starts automatically.</p>
+        <nav class="internal-links" aria-label="Related resources">
+          <a href="/en/tools/">Tools & resources</a>
+          <a href="/en/tools/media-budget-leads-calculator/">Media Budget & Leads Calculator</a>
+          <a href="/en/tools/whatsapp-campaign-estimator/">WhatsApp Campaign Estimator</a>
+          <a href="/en/insights/morocco-digital-marketing-barometer-2026/">Morocco Digital Marketing Barometer 2026</a>
+        </nav>
+      </div>
+
+      <form
+        class="download-form"
+        data-template-download-form
+        data-download-url={downloadHref}
+        data-contact-endpoint={CONTACT_FORM.ajaxAction}
+        data-file-name="template_plan_media_digital_2026_richmedia.xlsx"
+      >
+        <input type="hidden" name="_form" value="Digital Media Plan Template 2026 download" />
+        <input type="hidden" name="Requested resource" value="Digital Media Plan Template 2026 — Richmedia" />
+        <input type="hidden" name="CRM preparation" value="lead_download_digital_media_plan_template_2026" />
+        <label class="form-honeypot" aria-hidden="true">
+          Website
+          <input type="text" name="company_url" tabindex="-1" autocomplete="off" />
+        </label>
+        <label>
+          <span>Full name *</span>
+          <input type="text" name="Full name" autocomplete="name" required />
+        </label>
+        <label>
+          <span>Professional email *</span>
+          <input type="email" name="Professional email" autocomplete="email" required />
+        </label>
+        <label>
+          <span>Company *</span>
+          <input type="text" name="Company" autocomplete="organization" required />
+        </label>
+        <label>
+          <span>Job title *</span>
+          <input type="text" name="Job title" autocomplete="organization-title" required />
+        </label>
+        <button type="submit">
+          Download the free Excel file
+          <i class="ph ph-download-simple" aria-hidden="true"></i>
+        </button>
+        <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
+
+  <script is:inline>
+  (() => {
+    const form = document.querySelector('[data-template-download-form]');
+    if (!form) return;
+
+    const status = form.querySelector('[data-form-status]');
+    const submit = form.querySelector('button[type="submit"]');
+    const setStatus = (state, message) => {
+      status.textContent = message;
+      status.dataset.state = state;
+    };
+
+    const triggerDownload = () => {
+      const link = document.createElement('a');
+      link.href = form.dataset.downloadUrl;
+      link.download = form.dataset.fileName || '';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(form);
+      if (String(formData.get('company_url') || '').trim()) {
+        form.reset();
+        triggerDownload();
+        setStatus('success', 'Download started. Thank you.');
+        return;
+      }
+
+      const body = new URLSearchParams();
+      formData.forEach((value, key) => body.append(key, String(value)));
+      body.set('_page', window.location.href);
+      body.set('_subject', '[Richmedia] Digital Media Plan Template 2026 download');
+      body.set('_template', 'table');
+      body.set('_captcha', 'false');
+      const email = String(formData.get('Professional email') || '').trim();
+      if (email) body.set('_replyto', email);
+
+      submit.disabled = true;
+      submit.setAttribute('aria-busy', 'true');
+      setStatus('loading', 'Validation in progress...');
+
+      try {
+        const response = await fetch(form.dataset.contactEndpoint, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          },
+          body,
+        });
+        const contentType = response.headers.get('content-type') || '';
+        const result = contentType.includes('application/json') ? await response.json().catch(() => ({})) : {};
+        const failed = !response.ok || response.redirected || result.error || result.success === false || result.success === 'false';
+
+        if (failed) throw new Error(result.message || 'The form could not be sent.');
+
+        form.reset();
+        triggerDownload();
+        setStatus('success', 'Download started. Thank you.');
+      } catch (error) {
+        setStatus('error', error.message || 'The form could not be sent. Please try again.');
+      } finally {
+        submit.disabled = false;
+        submit.removeAttribute('aria-busy');
+      }
+    });
+  })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .template-page {
+    --purple: #7c3cff;
+    --purple-soft: #aa7cff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(255, 255, 255, 0.68);
+    width: min(100% - 3rem, 1180px);
+    margin: 0 auto;
+    padding: clamp(7rem, 10vw, 9rem) 0 clamp(3rem, 6vw, 5.5rem);
+    color: #fff;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--purple-soft);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2.1rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-soft));
+    content: '';
+  }
+
+  .template-hero,
+  .download-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1fr);
+    gap: clamp(1.4rem, 4vw, 3rem);
+    align-items: center;
+  }
+
+  .hero-copy,
+  .section-heading,
+  .download-copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .hero-copy h1 {
+    max-width: 780px;
+    font-size: clamp(3.1rem, 6vw, 5.4rem);
+    font-weight: 900;
+    line-height: 0.92;
+  }
+
+  .hero-copy p,
+  .section-heading p,
+  .download-copy p,
+  .tab-grid p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .file-badge {
+    width: fit-content;
+    border: 1px solid rgba(53, 229, 139, 0.22);
+    border-radius: 999px;
+    padding: 0.5rem 0.75rem;
+    background: rgba(53, 229, 139, 0.06);
+    color: rgba(220, 255, 235, 0.86);
+    font-weight: 900;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .button,
+  .download-form button {
+    display: inline-flex;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 1.2rem;
+    color: #fff;
+    font: inherit;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  }
+
+  .button:hover,
+  .download-form button:hover,
+  .preview-card:hover,
+  .tab-grid article:hover,
+  .audience-grid article:hover {
+    transform: translateY(-4px);
+  }
+
+  .button-primary,
+  .download-form button {
+    border-color: rgba(169, 133, 255, 0.68);
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1.2rem 2.8rem rgba(124, 60, 255, 0.28);
+  }
+
+  .button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .hero-visual,
+  .preview-card,
+  .tab-grid article,
+  .audience-grid article,
+  .download-section {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 16% 0%, rgba(124, 60, 255, 0.13), transparent 14rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.92), rgba(7, 8, 12, 0.92));
+  }
+
+  .hero-visual {
+    overflow: hidden;
+    margin: 0;
+    aspect-ratio: 1.55;
+    box-shadow: 0 2rem 5.5rem rgba(0, 0, 0, 0.34);
+  }
+
+  .hero-visual img,
+  .preview-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .preview-section,
+  .tabs-section,
+  .audience-section,
+  .download-section {
+    margin-top: clamp(2rem, 5vw, 4rem);
+  }
+
+  .preview-grid,
+  .tab-grid,
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin-top: 1rem;
+  }
+
+  .preview-card {
+    overflow: hidden;
+    transition: transform 200ms ease, border-color 200ms ease;
+  }
+
+  .preview-card figure {
+    height: 18rem;
+    margin: 0;
+  }
+
+  .preview-card h3 {
+    padding: 0.9rem;
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .tab-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tab-grid article,
+  .audience-grid article {
+    display: grid;
+    gap: 0.55rem;
+    min-height: 8.5rem;
+    padding: 1rem;
+    transition: transform 200ms ease, border-color 200ms ease;
+  }
+
+  .tab-grid article:hover,
+  .audience-grid article:hover,
+  .preview-card:hover {
+    border-color: rgba(169, 133, 255, 0.48);
+  }
+
+  .tab-grid span,
+  .audience-grid span {
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .audience-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .audience-grid i {
+    color: var(--purple-soft);
+    font-size: 1.7rem;
+  }
+
+  .download-section {
+    padding: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .internal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .internal-links a {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.45rem 0.7rem;
+    color: #d8caff;
+    font-weight: 850;
+    text-decoration: none;
+  }
+
+  .download-form {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .download-form label {
+    display: grid;
+    gap: 0.38rem;
+  }
+
+  .download-form span {
+    color: rgba(255, 255, 255, 0.72);
+    font-weight: 850;
+  }
+
+  .download-form input {
+    width: 100%;
+    min-height: 3.15rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.28);
+    color: #fff;
+    font: inherit;
+    padding: 0 0.9rem;
+  }
+
+  .download-form input:focus {
+    border-color: rgba(169, 133, 255, 0.68);
+    box-shadow: 0 0 0 3px rgba(137, 76, 255, 0.15);
+    outline: none;
+  }
+
+  .form-status {
+    min-height: 1.2rem;
+    color: rgba(255, 255, 255, 0.66);
+    font-weight: 850;
+  }
+
+  .form-status[data-state='success'] {
+    color: #35e58b;
+  }
+
+  .form-status[data-state='error'] {
+    color: #ff9f9f;
+  }
+
+  .form-honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (max-width: 980px) {
+    .template-hero,
+    .download-section,
+    .preview-grid,
+    .tab-grid,
+    .audience-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .template-page {
+      width: min(100% - 1rem, 1180px);
+    }
+
+    .hero-actions,
+    .button {
+      width: 100%;
+    }
+  }
+</style>

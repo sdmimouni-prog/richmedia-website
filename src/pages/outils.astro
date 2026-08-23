@@ -1,0 +1,1305 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+import { breadcrumbs, collectionPageSchema, faqSchema, localBusiness } from '../lib/schema';
+
+const pageUrl = `${SITE.url}/outils`;
+const assetBase = '/assets/richmedia-tools';
+
+type ResourceItem = {
+  title: string;
+  text: string;
+  href: string;
+  icon: string;
+  action: string;
+  badge?: string;
+};
+
+type ResourceCategory = {
+  id: string;
+  title: string;
+  eyebrow: string;
+  summary: string;
+  icon: string;
+  count: string;
+  items: ResourceItem[];
+};
+
+const categories: ResourceCategory[] = [
+  {
+    id: 'calculateurs',
+    title: 'Calculateurs',
+    eyebrow: 'Estimer',
+    summary: 'Des repères rapides pour cadrer budget, leads et rentabilité.',
+    icon: 'ph-chart-bar',
+    count: '3',
+    items: [
+      {
+        title: 'Calculateur Budget Média & Leads',
+        text: 'Budget, volume de leads et mix média à cadrer avant lancement.',
+        href: '/outils/calculateur-budget-media-leads',
+        icon: 'ph-chart-line-up',
+        action: 'Ouvrir',
+      },
+      {
+        title: 'Calculateur CPL / CAC rentable',
+        text: 'Seuil de rentabilité, CPL cible et marge de décision.',
+        href: '/outils/calculateur-cpl-cac-rentable',
+        icon: 'ph-target',
+        action: 'Ouvrir',
+      },
+      {
+        title: 'Estimateur campagne WhatsApp',
+        text: 'Volumes, coûts et scénarios de campagne conversationnelle.',
+        href: '/outils/estimateur-campagne-whatsapp/',
+        icon: 'ph-whatsapp-logo',
+        action: 'Estimer',
+      },
+    ],
+  },
+  {
+    id: 'templates',
+    title: 'Templates',
+    eyebrow: 'Structurer',
+    summary: 'Des supports prêts à adapter pour mieux aligner les équipes.',
+    icon: 'ph-note-pencil',
+    count: '3',
+    items: [
+      {
+        title: 'Template Plan Média Digital',
+        text: 'Objectifs, canaux, budgets, périodes et KPI.',
+        href: '/outils/template-plan-media-digital/',
+        icon: 'ph-note-pencil',
+        action: 'Voir le template',
+        badge: 'Excel',
+      },
+      {
+        title: 'Template Dashboard KPI Marketing',
+        text: 'Lecture simple des KPI utiles pour piloter.',
+        href: '/outils/template-dashboard-kpi-marketing',
+        icon: 'ph-chart-donut',
+        action: 'Voir',
+        badge: 'Dashboard',
+      },
+      {
+        title: 'Template Brief de campagne digitale',
+        text: 'Cadrage clair pour créa, média, tracking et validation.',
+        href: '/outils/template-brief-campagne-digitale',
+        icon: 'ph-briefcase',
+        action: 'Voir',
+        badge: 'Brief',
+      },
+    ],
+  },
+  {
+    id: 'checklists',
+    title: 'Checklists',
+    eyebrow: 'Vérifier',
+    summary: 'Des listes courtes pour éviter les oublis qui coûtent cher.',
+    icon: 'ph-check-circle',
+    count: '3',
+    items: [
+      {
+        title: 'Checklist Tracking avant lancement',
+        text: 'Événements, pixels, UTMs et conversions.',
+        href: '/outils/checklist-tracking-avant-lancement',
+        icon: 'ph-check-circle',
+        action: 'Voir',
+      },
+      {
+        title: 'Checklist Landing Page conversion',
+        text: 'Message, preuve, CTA, vitesse et friction.',
+        href: '/outils/checklist-landing-page-conversion',
+        icon: 'ph-cursor-click',
+        action: 'Voir',
+      },
+      {
+        title: 'Checklist Meta Ads 2026',
+        text: 'Créa, structure, audiences, signaux et reporting.',
+        href: '/outils/checklist-meta-ads-2026',
+        icon: 'ph-shield-check',
+        action: 'Voir',
+      },
+    ],
+  },
+];
+
+const usageSteps = [
+  { title: 'Choisir', text: 'Prenez la ressource adaptée au chantier du moment.', icon: 'ph-cursor-click' },
+  { title: 'Adapter', text: 'Remplacez les hypothèses par vos vrais chiffres.', icon: 'ph-note-pencil' },
+  { title: 'Décider', text: 'Transformez le résultat en prochaine action claire.', icon: 'ph-rocket-launch' },
+];
+
+const faq = [
+  {
+    question: 'Les outils sont-ils gratuits ?',
+    answer:
+      'Oui, le hub centralise des ressources pratiques mises à disposition par Richmedia. Certaines versions personnalisées pourront passer par un échange avec l’équipe.',
+  },
+  {
+    question: 'Puis-je télécharger et modifier les templates ?',
+    answer:
+      'Les fichiers téléchargeables seront ajoutés dans une prochaine étape. Ils seront pensés pour être adaptés facilement selon vos objectifs, vos canaux et vos KPI.',
+  },
+  {
+    question: 'Faut-il créer un compte pour accéder aux ressources ?',
+    answer:
+      'Non. La page hub est accessible sans compte. Les futures ressources avancées pourront rediriger vers un formulaire lorsqu’une personnalisation est nécessaire.',
+  },
+  {
+    question: 'Richmedia peut-il interpréter mes résultats ?',
+    answer:
+      'Oui. L’équipe peut analyser vos données, comparer vos KPI à votre contexte marché et prioriser les actions média, CRM, social ou SEO/GEO.',
+  },
+];
+
+const resourceItems = categories.flatMap((category) =>
+  category.items.map((item) => ({
+    name: item.title,
+    url: `${SITE.url}${item.href}`,
+  })),
+);
+
+const schema = [
+  localBusiness(),
+  collectionPageSchema({
+    name: 'Outils et ressources marketing digital Richmedia',
+    description:
+      'Calculateurs, templates et checklists pour planifier vos campagnes, mesurer vos performances et optimiser votre marketing digital.',
+    url: pageUrl,
+    items: resourceItems,
+    inLanguage: 'fr',
+  }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Outils & ressources', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Outils & Ressources Marketing Digital | Richmedia"
+  description="Calculateurs, templates et checklists pour planifier vos campagnes, mesurer vos performances et optimiser votre marketing digital."
+  canonical={pageUrl}
+  schema={schema}
+>
+  <div class="tools-page">
+    <section class="tools-hero" aria-labelledby="tools-title">
+      <div class="hero-copy">
+        <span class="section-kicker">Outils & ressources</span>
+        <h1 id="tools-title">Outils marketing, sans usine à gaz.</h1>
+        <p>
+          Des calculateurs marketing, templates marketing digital et checklists pensés pour décider vite, cadrer mieux et
+          passer à l’action sans multiplier les fichiers.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#calculateurs">
+            Explorer les outils
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/reserver-un-audit">
+            Benchmark personnalisé
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <figure class="hero-visual">
+        <img
+          src={`${assetBase}/hero-dashboard.webp`}
+          alt="Interface visuelle de ressources marketing avec dashboards, graphiques et calculateur"
+          width="1717"
+          height="916"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <figcaption class="visual-caption">
+          <span>Hub marketing</span>
+          <strong>9 ressources prêtes</strong>
+        </figcaption>
+        <div class="visual-floating visual-floating-top" aria-hidden="true">
+          <span>Budget</span>
+          <span>Leads</span>
+          <span>KPI</span>
+        </div>
+        <div class="visual-floating visual-floating-bottom" aria-hidden="true">
+          <strong>Décision</strong>
+          <span>moins d’hypothèses floues</span>
+        </div>
+      </figure>
+    </section>
+
+    <nav class="category-rail" aria-label="Catégories d’outils">
+      {categories.map((category) => (
+        <a href={`#${category.id}`}>
+          <i class={`ph ${category.icon}`} aria-hidden="true"></i>
+          <span>{category.title}</span>
+          <strong>{category.count}</strong>
+        </a>
+      ))}
+    </nav>
+
+    <section class="featured-band" aria-labelledby="featured-band-title">
+      <figure>
+        <img
+          src={`${assetBase}/calculator-focus.webp`}
+          alt="Calculateur marketing sombre avec graphiques et budget média"
+          width="1536"
+          height="1024"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div>
+        <span class="section-kicker">Ressource à la une</span>
+        <h2 id="featured-band-title">Calculateur Budget Média & Leads</h2>
+        <p>
+          Une première version pour cadrer votre budget média, estimer les leads attendus et vérifier si les objectifs
+          restent cohérents avec le tunnel.
+        </p>
+        <a class="button button-primary" href="/outils/calculateur-budget-media-leads">
+          Prévisualiser
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="resource-hub" aria-labelledby="resource-hub-title">
+      <div class="hub-heading">
+        <span class="section-kicker">Bibliothèque courte</span>
+        <h2 id="resource-hub-title">Neuf ressources, trois usages.</h2>
+      </div>
+
+      {categories.map((category) => (
+        <section class="resource-category" id={category.id} aria-labelledby={`${category.id}-title`}>
+          <div class="category-heading">
+            <span>{category.eyebrow}</span>
+            <h3 id={`${category.id}-title`}>{category.title}</h3>
+            <p>{category.summary}</p>
+          </div>
+          <div class="resource-grid">
+            {category.items.map((item) => (
+              <article class="resource-card">
+                <i class={`ph ${item.icon}`} aria-hidden="true"></i>
+                <div>
+                  {item.badge && <span class="resource-badge">{item.badge}</span>}
+                  <h4>{item.title}</h4>
+                  <p>{item.text}</p>
+                </div>
+                <a href={item.href}>
+                  {item.action}
+                  <i class="ph ph-arrow-right" aria-hidden="true"></i>
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </section>
+
+    <section class="visual-break" aria-labelledby="visual-break-title">
+      <div>
+        <span class="section-kicker">Templates & checklists</span>
+        <h2 id="visual-break-title">Moins de théorie, plus de supports utilisables.</h2>
+        <p>
+          L’objectif n’est pas d’empiler des ressources. Chaque format doit aider une équipe à prendre une décision,
+          cadrer une campagne ou vérifier un point critique avant d’investir.
+        </p>
+      </div>
+      <figure>
+        <img
+          src={`${assetBase}/templates-checklists.webp`}
+          alt="Supports marketing, templates, checklists et tableaux de bord sur un bureau sombre"
+          width="1536"
+          height="1024"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </section>
+
+    <section class="usage-section" aria-labelledby="usage-title">
+      <div class="compact-heading">
+        <span class="section-kicker">Mode d’emploi</span>
+        <h2 id="usage-title">Trois étapes, puis action.</h2>
+      </div>
+      <div class="usage-grid">
+        {usageSteps.map((step, index) => (
+          <article>
+            <span>{index + 1}</span>
+            <i class={`ph ${step.icon}`} aria-hidden="true"></i>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="compact-heading">
+        <span class="section-kicker">FAQ</span>
+        <h2 id="faq-title">Questions fréquentes</h2>
+      </div>
+      <div class="faq-grid">
+        {faq.map((item) => (
+          <details>
+            <summary>
+              <span>{item.question}</span>
+              <i class="ph ph-caret-down" aria-hidden="true"></i>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="cta-title">
+      <div>
+        <span class="section-kicker">Sur-mesure</span>
+        <h2 id="cta-title">Besoin d’un benchmark personnalisé ?</h2>
+        <p>On analyse vos chiffres, vos canaux et vos objectifs pour prioriser les prochaines actions.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="button button-primary" href="/reserver-un-audit">
+          Comparer mes KPI
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href="/contact">
+          Contacter Richmedia
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+  </div>
+
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .tools-page {
+    --purple: #7c3cff;
+    --purple-soft: #aa7cff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(255, 255, 255, 0.66);
+    width: min(100% - 3rem, 1240px);
+    margin: 0 auto;
+    padding: clamp(7rem, 10vw, 9rem) 0 clamp(3rem, 6vw, 5.5rem);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  .tools-page::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 70% 8%, rgba(124, 60, 255, 0.14), transparent 26rem),
+      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: auto, 84px 84px, 84px 84px;
+    content: '';
+    pointer-events: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    margin: 0;
+  }
+
+  .tools-page,
+  .tools-page * {
+    box-sizing: border-box;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--purple-soft);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2.1rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-soft));
+    content: '';
+  }
+
+  .tools-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(520px, 0.9fr) minmax(420px, 1fr);
+    gap: clamp(1.4rem, 3.8vw, 3.5rem);
+    align-items: center;
+    min-height: 540px;
+    isolation: isolate;
+  }
+
+  .tools-hero::before {
+    position: absolute;
+    inset: 8% -3% 6% -3%;
+    z-index: -1;
+    background:
+      linear-gradient(110deg, rgba(124, 60, 255, 0.1), transparent 40%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: auto, 76px 76px, 76px 76px;
+    content: '';
+    mask-image: linear-gradient(90deg, #000 0%, #000 72%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 1.05rem;
+  }
+
+  .hero-copy h1 {
+    --h1-size: clamp(3.3rem, 6vw, 5.75rem);
+    max-width: 720px;
+    font-size: clamp(3.3rem, 6vw, 5.75rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: 0;
+  }
+
+  .hero-copy p {
+    max-width: 600px;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.35vw, 1.16rem);
+    line-height: 1.62;
+  }
+
+  .hero-actions,
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 0.35rem;
+  }
+
+  .hero-actions {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 1.2rem;
+    color: #fff;
+    font-weight: 900;
+    text-decoration: none;
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+    white-space: nowrap;
+  }
+
+  .hero-actions .button {
+    flex: 0 1 auto;
+    min-width: 0;
+    padding-inline: 1rem;
+    font-size: 0.96rem;
+  }
+
+  .button:hover,
+  .button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1.2rem 2.8rem rgba(124, 60, 255, 0.28);
+  }
+
+  .button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .hero-visual,
+  .featured-band figure,
+  .visual-break figure {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #05060a;
+    box-shadow: 0 2rem 5.5rem rgba(0, 0, 0, 0.34);
+  }
+
+  .hero-visual {
+    isolation: isolate;
+    aspect-ratio: 1.68;
+    transform: translateZ(0);
+    transition:
+      transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 320ms ease,
+      box-shadow 420ms ease;
+    will-change: transform;
+  }
+
+  .hero-visual::before {
+    position: absolute;
+    inset: -1px;
+    z-index: 1;
+    border-radius: inherit;
+    background:
+      linear-gradient(115deg, rgba(124, 60, 255, 0.24), transparent 34%),
+      radial-gradient(circle at 80% 20%, rgba(170, 124, 255, 0.2), transparent 16rem);
+    content: '';
+    mix-blend-mode: screen;
+    pointer-events: none;
+    opacity: 0.86;
+    transition: opacity 320ms ease, transform 520ms ease;
+  }
+
+  .hero-visual img,
+  .featured-band img,
+  .visual-break img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 420ms ease;
+    will-change: transform;
+  }
+
+  .hero-visual::after,
+  .featured-band figure::after,
+  .visual-break figure::after {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.16) 46%, transparent 58%),
+      linear-gradient(180deg, transparent 40%, rgba(3, 4, 7, 0.38));
+    background-size: 220% 100%, 100% 100%;
+    background-position: -140% 0, 0 0;
+    content: '';
+    pointer-events: none;
+    transition: background-position 760ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 320ms ease;
+  }
+
+  .visual-caption,
+  .visual-floating {
+    position: absolute;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    background: rgba(8, 9, 14, 0.72);
+    box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(16px);
+    transition:
+      transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 300ms ease,
+      background 300ms ease,
+      box-shadow 420ms ease;
+  }
+
+  .visual-caption {
+    left: 1rem;
+    bottom: 1rem;
+    display: grid;
+    gap: 0.2rem;
+    margin: 0;
+    padding: 0.85rem 1rem;
+  }
+
+  .visual-caption span,
+  .visual-floating span {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .visual-caption strong,
+  .visual-floating strong {
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .visual-floating-top {
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.45rem;
+    padding: 0.55rem;
+  }
+
+  .visual-floating-top span {
+    border-radius: 999px;
+    padding: 0.42rem 0.58rem;
+    background: rgba(124, 60, 255, 0.2);
+    color: #d9ccff;
+    transition: transform 360ms ease, background 300ms ease, color 300ms ease;
+  }
+
+  .visual-floating-bottom {
+    right: 1rem;
+    bottom: 1rem;
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+    text-align: right;
+  }
+
+  .hero-visual:hover {
+    border-color: rgba(170, 124, 255, 0.52);
+    box-shadow:
+      0 2.6rem 6.8rem rgba(0, 0, 0, 0.42),
+      0 0 0 1px rgba(124, 60, 255, 0.16),
+      0 0 4.5rem rgba(124, 60, 255, 0.22);
+    transform: translateY(-8px) perspective(1000px) rotateX(2deg) rotateY(-3deg);
+  }
+
+  .hero-visual:hover::before {
+    opacity: 1;
+    transform: scale(1.04) translate3d(0.5rem, -0.35rem, 0);
+  }
+
+  .hero-visual:hover::after {
+    background-position: 120% 0, 0 0;
+  }
+
+  .hero-visual:hover img {
+    filter: saturate(1.16) contrast(1.06);
+    transform: scale(1.045) translate3d(0.35rem, -0.25rem, 0);
+  }
+
+  .hero-visual:hover .visual-caption {
+    border-color: rgba(170, 124, 255, 0.42);
+    background: rgba(12, 10, 20, 0.82);
+    box-shadow: 0 1.6rem 3.4rem rgba(0, 0, 0, 0.34);
+    transform: translate3d(0.45rem, -0.45rem, 0);
+  }
+
+  .hero-visual:hover .visual-floating-top {
+    border-color: rgba(170, 124, 255, 0.45);
+    background: rgba(13, 10, 23, 0.82);
+    transform: translate3d(-0.55rem, 0.5rem, 0);
+  }
+
+  .hero-visual:hover .visual-floating-top span {
+    background: rgba(124, 60, 255, 0.34);
+    color: #fff;
+  }
+
+  .hero-visual:hover .visual-floating-top span:nth-child(1) {
+    transform: translateY(-2px);
+  }
+
+  .hero-visual:hover .visual-floating-top span:nth-child(2) {
+    transform: translateY(2px);
+  }
+
+  .hero-visual:hover .visual-floating-top span:nth-child(3) {
+    transform: translateY(-3px);
+  }
+
+  .hero-visual:hover .visual-floating-bottom {
+    border-color: rgba(170, 124, 255, 0.42);
+    background: rgba(12, 10, 20, 0.84);
+    box-shadow: 0 1.6rem 3.4rem rgba(0, 0, 0, 0.34);
+    transform: translate3d(-0.45rem, -0.45rem, 0);
+  }
+
+  .category-rail,
+  .featured-band,
+  .resource-hub,
+  .visual-break,
+  .usage-section,
+  .faq-section,
+  .final-cta {
+    margin-top: clamp(1.6rem, 4vw, 3.2rem);
+  }
+
+  .category-rail {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .category-rail a,
+  .resource-card,
+  .featured-band,
+  .resource-hub,
+  .visual-break,
+  .usage-grid article,
+  .faq-grid details,
+  .final-cta {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 16% 0%, rgba(124, 60, 255, 0.13), transparent 14rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.92), rgba(7, 8, 12, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  }
+
+  .category-rail a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.9rem;
+    align-items: center;
+    min-height: 4.7rem;
+    padding: 1rem;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+  }
+
+  .category-rail a:hover,
+  .resource-card:hover {
+    border-color: rgba(155, 124, 255, 0.58);
+    background:
+      radial-gradient(circle at 18% 0%, rgba(124, 60, 255, 0.22), transparent 16rem),
+      linear-gradient(145deg, rgba(25, 24, 38, 0.96), rgba(8, 9, 14, 0.94));
+    transform: translateY(-4px);
+  }
+
+  .category-rail i,
+  .resource-card > i,
+  .usage-grid i {
+    display: inline-grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid rgba(155, 124, 255, 0.35);
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.16);
+    color: var(--purple-soft);
+    font-size: 1.5rem;
+  }
+
+  .category-rail span {
+    font-size: 1.08rem;
+    font-weight: 900;
+  }
+
+  .category-rail strong {
+    display: inline-grid;
+    width: 2.2rem;
+    height: 2.2rem;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    color: #d7c9ff;
+  }
+
+  .featured-band,
+  .visual-break {
+    display: grid;
+    grid-template-columns: minmax(420px, 1.05fr) minmax(0, 0.8fr);
+    gap: clamp(1.2rem, 3vw, 2rem);
+    align-items: center;
+    padding: clamp(1rem, 2vw, 1.2rem);
+  }
+
+  .featured-band figure,
+  .visual-break figure {
+    aspect-ratio: 1.6;
+  }
+
+  .featured-band > div,
+  .visual-break > div {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  .featured-band h2,
+  .visual-break h2,
+  .final-cta h2 {
+    font-size: clamp(2rem, 3.6vw, 3.55rem);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .featured-band p,
+  .visual-break p,
+  .final-cta p {
+    max-width: 58ch;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.58;
+  }
+
+  .resource-hub {
+    padding: clamp(1.15rem, 2vw, 1.5rem);
+  }
+
+  .hub-heading,
+  .compact-heading {
+    display: grid;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .hub-heading h2,
+  .compact-heading h2 {
+    font-size: clamp(2rem, 4vw, 4.1rem);
+    line-height: 0.98;
+  }
+
+  .resource-category {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1fr);
+    gap: 1rem;
+    padding: clamp(1rem, 2vw, 1.35rem) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .category-heading {
+    display: grid;
+    align-content: start;
+    gap: 0.45rem;
+    padding-right: 1rem;
+  }
+
+  .category-heading span,
+  .resource-badge {
+    width: fit-content;
+    border: 1px solid rgba(155, 124, 255, 0.3);
+    border-radius: 999px;
+    padding: 0.22rem 0.55rem;
+    color: #d6c8ff;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .category-heading h3 {
+    font-size: clamp(1.45rem, 2.2vw, 2rem);
+  }
+
+  .category-heading p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .resource-card {
+    display: grid;
+    min-height: 15rem;
+    align-content: start;
+    gap: 0.95rem;
+    padding: 1.15rem;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  }
+
+  .resource-card h4 {
+    margin-top: 0.4rem;
+    font-size: clamp(1.12rem, 1.55vw, 1.35rem);
+    line-height: 1.12;
+  }
+
+  .resource-card p {
+    margin-top: 0.55rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .resource-card a {
+    align-self: end;
+    display: inline-flex;
+    width: fit-content;
+    min-height: 2.4rem;
+    align-items: center;
+    gap: 0.42rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    padding: 0 0.8rem;
+    color: #fff;
+    font-size: 0.84rem;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .visual-break {
+    grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1fr);
+  }
+
+  .usage-grid,
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .usage-grid article {
+    position: relative;
+    display: grid;
+    gap: 0.8rem;
+    min-height: 11rem;
+    overflow: hidden;
+    padding: 1.15rem;
+    isolation: isolate;
+    transition:
+      transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 260ms ease,
+      background 300ms ease,
+      box-shadow 320ms ease;
+  }
+
+  .usage-grid article::before,
+  .usage-grid article::after {
+    position: absolute;
+    content: '';
+    pointer-events: none;
+  }
+
+  .usage-grid article::before {
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 12% 14%, rgba(124, 60, 255, 0.28), transparent 10rem),
+      linear-gradient(115deg, rgba(255, 255, 255, 0.09), transparent 52%);
+    opacity: 0;
+    transform: translate3d(-8%, 6%, 0);
+    transition: opacity 280ms ease, transform 380ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .usage-grid article::after {
+    left: 1.15rem;
+    right: 1.15rem;
+    top: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-soft), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .usage-grid article:hover {
+    border-color: rgba(170, 124, 255, 0.58);
+    background:
+      radial-gradient(circle at 14% 0%, rgba(124, 60, 255, 0.2), transparent 14rem),
+      linear-gradient(145deg, rgba(24, 22, 37, 0.98), rgba(7, 8, 12, 0.94));
+    box-shadow:
+      0 1.4rem 3.4rem rgba(0, 0, 0, 0.26),
+      inset 0 0 0 1px rgba(170, 124, 255, 0.14);
+    transform: translateY(-6px);
+  }
+
+  .usage-grid article:hover::before {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .usage-grid article:hover::after {
+    transform: scaleX(1);
+  }
+
+  .usage-grid span {
+    display: inline-grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    border: 1px solid rgba(155, 124, 255, 0.5);
+    border-radius: 999px;
+    color: var(--purple-soft);
+    font-size: 0.78rem;
+    font-weight: 900;
+    transition:
+      transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      background 240ms ease,
+      color 240ms ease,
+      border-color 240ms ease,
+      box-shadow 260ms ease;
+  }
+
+  .usage-grid article:hover span {
+    border-color: rgba(170, 124, 255, 0.85);
+    background: rgba(124, 60, 255, 0.22);
+    color: #fff;
+    box-shadow: 0 0 1.2rem rgba(124, 60, 255, 0.28);
+    transform: scale(1.08);
+  }
+
+  .usage-grid i {
+    transition:
+      transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 240ms ease,
+      background 240ms ease,
+      color 240ms ease,
+      box-shadow 320ms ease;
+  }
+
+  .usage-grid article:hover i {
+    border-color: rgba(170, 124, 255, 0.72);
+    background: rgba(124, 60, 255, 0.28);
+    color: #fff;
+    box-shadow: 0 1rem 2rem rgba(124, 60, 255, 0.2);
+    transform: translateY(-4px) rotate(-4deg);
+  }
+
+  .usage-grid h3 {
+    font-size: 1.12rem;
+    transition: color 220ms ease, transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .usage-grid article:hover h3 {
+    color: #fff;
+    transform: translateX(0.25rem);
+  }
+
+  .usage-grid p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.48;
+    transition: color 220ms ease, transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .usage-grid article:hover p {
+    color: rgba(255, 255, 255, 0.76);
+    transform: translateX(0.25rem);
+  }
+
+  .faq-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .faq-grid details {
+    overflow: hidden;
+  }
+
+  .faq-grid summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    min-height: 4rem;
+    padding: 1rem 1.1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq-grid summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-grid summary span {
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .faq-grid summary i {
+    color: var(--purple-soft);
+    transition: transform 180ms ease;
+  }
+
+  .faq-grid details[open] summary i {
+    transform: rotate(180deg);
+  }
+
+  .faq-grid details p {
+    padding: 0 1.1rem 1.1rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .final-cta {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.4rem;
+    align-items: end;
+    overflow: hidden;
+    padding: clamp(1.5rem, 4vw, 2.4rem);
+    background:
+      linear-gradient(90deg, rgba(42, 22, 82, 0.96), rgba(8, 9, 14, 0.9)),
+      url('/assets/richmedia-tools/hero-dashboard.webp') center right / cover;
+  }
+
+  .final-cta::after {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 75% 45%, rgba(124, 60, 255, 0.32), transparent 24rem);
+    content: '';
+    pointer-events: none;
+  }
+
+  .final-cta > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 1080px) {
+    .tools-hero,
+    .featured-band,
+    .visual-break,
+    .final-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .tools-hero {
+      min-height: 0;
+    }
+
+    .category-rail,
+    .usage-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .resource-category {
+      grid-template-columns: 1fr;
+    }
+
+    .resource-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .tools-page {
+      width: calc(100% - 1rem);
+      max-width: 100%;
+      padding-top: 6.2rem;
+    }
+
+    .hero-copy h1 {
+      --h1-size: 2.35rem;
+      max-width: 9ch;
+      font-size: clamp(2.45rem, 10vw, 3.15rem);
+      line-height: 0.92;
+    }
+
+    .hero-copy p,
+    .featured-band p,
+    .visual-break p,
+    .final-cta p,
+    .category-heading p,
+    .resource-card p,
+    .usage-grid p,
+    .faq-grid details p {
+      max-width: 100%;
+      overflow-wrap: break-word;
+    }
+
+    .hero-copy p {
+      max-width: 31ch;
+      font-size: 0.98rem;
+    }
+
+    .hero-actions,
+    .cta-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      flex-wrap: initial;
+    }
+
+    .category-rail,
+    .resource-grid,
+    .usage-grid,
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .button,
+    .resource-card a {
+      width: 100%;
+    }
+
+    .hero-actions .button {
+      justify-content: center;
+    }
+
+    .featured-band,
+    .visual-break,
+    .resource-hub,
+    .final-cta {
+      padding: 1rem;
+    }
+
+    .featured-band > div,
+    .visual-break > div {
+      padding: 0.25rem;
+    }
+
+    .resource-card {
+      min-height: auto;
+    }
+
+    .visual-floating-top {
+      display: none;
+    }
+
+    .visual-caption,
+    .visual-floating-bottom {
+      right: 0.65rem;
+      left: 0.65rem;
+      bottom: 0.65rem;
+      text-align: left;
+    }
+
+    .visual-caption {
+      bottom: 4.7rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-visual,
+    .hero-visual::before,
+    .hero-visual::after,
+    .hero-visual img,
+    .visual-caption,
+    .visual-floating,
+    .visual-floating-top span,
+    .usage-grid article,
+    .usage-grid article::before,
+    .usage-grid article::after,
+    .usage-grid span,
+    .usage-grid i,
+    .usage-grid h3,
+    .usage-grid p {
+      transition: none;
+    }
+
+    .hero-visual:hover,
+    .hero-visual:hover::before,
+    .hero-visual:hover img,
+    .hero-visual:hover .visual-caption,
+    .hero-visual:hover .visual-floating-top,
+    .hero-visual:hover .visual-floating-top span,
+    .hero-visual:hover .visual-floating-bottom,
+    .usage-grid article:hover,
+    .usage-grid article:hover::before,
+    .usage-grid article:hover::after,
+    .usage-grid article:hover span,
+    .usage-grid article:hover i,
+    .usage-grid article:hover h3,
+    .usage-grid article:hover p {
+      transform: none;
+    }
+  }
+</style>

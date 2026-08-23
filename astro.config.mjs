@@ -125,6 +125,48 @@ const getCollectionLastmodMap = () => {
   return map;
 };
 const collectionLastmodByUrl = getCollectionLastmodMap();
+const staticLastmod = '2026-08-23T00:00:00.000Z';
+const staticLastmodRoutes = [
+  '/outils/',
+  '/outils/calculateur-budget-media-leads/',
+  '/outils/estimateur-campagne-whatsapp/',
+  '/outils/template-plan-media-digital/',
+  '/insights/barometre-marketing-digital-maroc-2026/',
+  '/expertises/google-ads-maroc/',
+  '/expertises/meta-ads-maroc/',
+  '/expertises/generation-leads-maroc/',
+  '/expertises/social-media-maroc/',
+  '/expertises/tiktok-ads-maroc/',
+  '/expertises/whatsapp-marketing-maroc/',
+  '/expertises/marketing-automation-crm-maroc/',
+  '/expertises/influence-marketing-maroc/',
+  '/expertises/social-listening-maroc/',
+  '/expertises/geofencing-drive-to-store-maroc/',
+  '/en/tools/',
+  '/en/tools/media-budget-leads-calculator/',
+  '/en/tools/whatsapp-campaign-estimator/',
+  '/en/tools/digital-media-plan-template/',
+  '/en/insights/morocco-digital-marketing-barometer-2026/',
+  '/en/expertises/google-ads-morocco/',
+  '/en/expertises/meta-ads-morocco/',
+  '/en/expertises/lead-generation-morocco/',
+  '/en/expertises/social-media-morocco/',
+  '/en/expertises/tiktok-ads-morocco/',
+  '/en/expertises/whatsapp-marketing-morocco/',
+  '/en/expertises/crm-marketing-automation-morocco/',
+  '/en/expertises/influencer-marketing-morocco/',
+  '/en/expertises/social-listening-morocco/',
+  '/en/expertises/geofencing-drive-to-store-morocco/',
+];
+const staticLastmodByUrl = new Map(
+  staticLastmodRoutes.flatMap((route) => {
+    const cleanRoute = route.endsWith('/') ? route.slice(0, -1) : route;
+    return [
+      [toAbsoluteUrl(route), staticLastmod],
+      [toAbsoluteUrl(cleanRoute || '/'), staticLastmod],
+    ];
+  })
+);
 
 const contactApiDevPlugin = () => ({
   name: 'richmedia-contact-api-dev',
@@ -165,7 +207,7 @@ export default defineConfig({
       filter: (page) => !redirectedEnglishInsightUrls.has(page),
       serialize: (item) => ({
         ...item,
-        lastmod: collectionLastmodByUrl.get(item.url) ?? item.lastmod,
+        lastmod: collectionLastmodByUrl.get(item.url) ?? staticLastmodByUrl.get(item.url) ?? item.lastmod,
       }),
     }),
   ],

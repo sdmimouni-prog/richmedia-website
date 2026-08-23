@@ -811,10 +811,16 @@ const storyCards =
       <h2 id="final-cta-title">{t.finalTitle}</h2>
       <p>{t.finalText}</p>
     </div>
-    <a class="button button-primary" href={platformUrl} target="_blank" rel="noopener">
-      {t.platformCta}
-      <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
-    </a>
+    <div class="final-cta-actions">
+      <a class="button button-primary" href={platformUrl} target="_blank" rel="noopener">
+        {t.platformCta}
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+      <a class="button button-secondary" href={lang === 'fr' ? '/outils/estimateur-campagne-whatsapp/' : '/en/tools/media-budget-leads-calculator/'}>
+        {lang === 'fr' ? 'Estimer une campagne' : 'Estimate a budget'}
+        <i class="ph ph-calculator" aria-hidden="true"></i>
+      </a>
+    </div>
   </section>
 </div>
 
@@ -2899,10 +2905,17 @@ const storyCards =
     scroll-margin-top: 6rem;
   }
 
-  .final-cta > div {
+  .final-cta > div:first-child {
     display: grid;
     gap: 0.75rem;
     max-width: 760px;
+  }
+
+  .final-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
   }
 
   .final-cta .button {
