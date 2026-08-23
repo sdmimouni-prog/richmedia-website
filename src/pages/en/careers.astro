@@ -114,7 +114,7 @@ const quickLinks = [
         </div>
       </div>
 
-      <div class="founder-panel" aria-label="Founder Richmedia">
+      <a class="founder-panel founder-panel-link" href="/en/authors/salah-eddine-mimouni/" aria-label="Open Salah-Eddine Mimouni's author page">
         <div class="founder-photo">
           <img
             src={founder.image}
@@ -135,7 +135,7 @@ const quickLinks = [
             {founder.facts.map((fact) => <span>{fact}</span>)}
           </div>
         </div>
-      </div>
+      </a>
     </section>
 
     <nav class="mobile-page-nav" aria-label="Team page navigation">
@@ -378,6 +378,25 @@ const quickLinks = [
     box-shadow: 0 2rem 5rem rgba(0,0,0,0.42);
   }
 
+  .founder-panel-link {
+    color: inherit;
+    text-decoration: none;
+    transition: transform 320ms ease, border-color 320ms ease, box-shadow 320ms ease;
+  }
+
+  .founder-panel-link:hover,
+  .founder-panel-link:focus-visible {
+    border-color: rgba(124,60,255,0.66);
+    box-shadow: 0 2.4rem 5rem rgba(0,0,0,0.48), 0 0 2rem rgba(124,60,255,0.2);
+    transform: translateY(-6px);
+    outline: none;
+  }
+
+  .founder-panel-link:hover .founder-photo img,
+  .founder-panel-link:focus-visible .founder-photo img {
+    transform: scale(1.035);
+  }
+
   .founder-photo {
     position: relative;
     align-self: center;
@@ -393,6 +412,7 @@ const quickLinks = [
     object-fit: cover;
     object-position: center top;
     filter: grayscale(1);
+    transition: transform 520ms ease;
   }
 
   .founder-photo::after {

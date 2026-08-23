@@ -96,6 +96,54 @@ const toIsoString = (value?: Date | string) => {
 const articlePublishedTimeIso = toIsoString(articlePublishedTime);
 const articleModifiedTimeIso = toIsoString(articleModifiedTime);
 const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const glossarySlugPairs: Record<string, string> = {
+  'acquisition-digitale': 'digital-acquisition',
+  attribution: 'attribution',
+  audience: 'audience',
+  'brand-content': 'brand-content',
+  cpc: 'cpc',
+  cpl: 'cpl',
+  cpm: 'cpm',
+  crm: 'crm',
+  cro: 'cro',
+  cta: 'cta',
+  ctr: 'ctr',
+  'donnees-structurees': 'structured-data',
+  'e-e-a-t': 'e-e-a-t',
+  'featured-snippet': 'featured-snippet',
+  'first-party-data': 'first-party-data',
+  funnel: 'funnel',
+  geo: 'geo',
+  'google-ads': 'google-ads',
+  'influence-marketing': 'influencer-marketing',
+  kpi: 'kpi',
+  'landing-page': 'landing-page',
+  lead: 'lead',
+  'lead-scoring': 'lead-scoring',
+  'maillage-interne': 'internal-linking',
+  'marketing-automation': 'marketing-automation',
+  'meta-ads': 'meta-ads',
+  notoriete: 'brand-awareness',
+  persona: 'persona',
+  phygital: 'phygital',
+  pixel: 'tracking-pixel',
+  programmatique: 'programmatic-buying',
+  reporting: 'marketing-reporting',
+  retargeting: 'retargeting',
+  roas: 'roas',
+  roi: 'roi',
+  'seo-local': 'local-seo',
+  'seo-technique': 'technical-seo',
+  seo: 'seo',
+  serp: 'serp',
+  'taux-de-conversion': 'conversion-rate',
+  tracking: 'tracking',
+  ugc: 'ugc',
+  'whatsapp-business': 'whatsapp-business',
+};
+const glossaryRoutePairs = Object.entries(glossarySlugPairs).map(
+  ([frSlug, enSlug]) => [`/glossaire/${frSlug}`, `/en/glossary/${enSlug}`] as const
+);
 const bilingualRoutes = [
   ['/', '/en'],
   ['/agence', '/en/agency'],
@@ -115,6 +163,9 @@ const bilingualRoutes = [
   ['/expertises/referencement-seo', '/en/expertises/seo-geo'],
   ['/expertises/strategie-digitale', '/en/expertises/strategie-digitale'],
   ['/expertises/web-si', '/en/expertises/web-si'],
+  ['/auteurs/salah-eddine-mimouni', '/en/authors/salah-eddine-mimouni'],
+  ['/auteurs/amal-amazouz', '/en/authors/amal-amazouz'],
+  ['/auteurs/tarik-el-abbadi', '/en/authors/tarik-el-abbadi'],
   ['/insights', '/en/insights'],
   ['/insights/priorites-digitales-2026-croissance-rentable', '/en/insights/digital-priorities-2026-profitable-growth'],
   ['/insights/plan-acquisition-digital-2026', '/en/insights/digital-acquisition-plan-2026'],
@@ -127,6 +178,8 @@ const bilingualRoutes = [
   ['/insights/contenu-qualite-seo-perenne', '/en/insights/quality-content-durable-seo'],
   ['/insights/crm-automation-aligner-marketing-sales', '/en/insights/crm-automation-marketing-sales-alignment'],
   ['/insights/cout-campagne-google-ads-maroc', '/en/insights/google-ads-campaign-cost-morocco'],
+  ['/glossaire', '/en/glossary'],
+  ...glossaryRoutePairs,
   ['/mentions-legales', '/en/legal-notice'],
   ['/produits/carter-blake', '/en/products/carter-blake'],
   ['/produits/hypeo', '/en/products/hypeo'],
@@ -149,7 +202,15 @@ const bilingualRoutes = [
   ['/sitemap', '/en/sitemap'],
 ] as const;
 const absoluteUrl = (pathname: string) => (pathname === '/' ? SITE.url : `${SITE.url}${pathname}`);
-const routePair = bilingualRoutes.find(([frPath, enPath]) => normalizedPath === frPath || normalizedPath === enPath);
+const glossaryRoutePair =
+  normalizedPath === '/glossaire' || normalizedPath === '/en/glossary'
+    ? (['/glossaire', '/en/glossary'] as const)
+    : normalizedPath.startsWith('/glossaire/')
+    ? ([normalizedPath, normalizedPath.replace('/glossaire/', '/en/glossary/')] as const)
+    : normalizedPath.startsWith('/en/glossary/')
+    ? ([normalizedPath.replace('/en/glossary/', '/glossaire/'), normalizedPath] as const)
+    : null;
+const routePair = bilingualRoutes.find(([frPath, enPath]) => normalizedPath === frPath || normalizedPath === enPath) ?? glossaryRoutePair;
 const frAlternate = routePair ? absoluteUrl(routePair[0]) : lang === 'fr' ? url : null;
 const enAlternate = routePair ? absoluteUrl(routePair[1]) : lang === 'en' ? url : null;
 const defaultAlternate = routePair ? absoluteUrl(routePair[0]) : frAlternate ?? enAlternate ?? url;

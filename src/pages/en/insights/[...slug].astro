@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ArticleDetailPage from '../../../components/ArticleDetailPage.astro';
 import { articleSchema, breadcrumbs } from '../../../lib/schema';
-import { getEditorialAuthor, SITE } from '../../../consts';
+import { getEditorialAuthor, getEditorialAuthorPath, SITE } from '../../../consts';
 
 const categoryLabels: Record<string, string> = {
   Growth: 'Strategy',
@@ -107,6 +107,7 @@ const schema = [
     authorRole={authorProfile.role.en}
     authorBio={authorProfile.bio.en}
     authorImage={authorProfile.image}
+    authorUrl={getEditorialAuthorPath(entry.data.auteur, 'en')}
     date={entry.data.datePublication}
     readingTime={entry.data.tempsLecture ?? 6}
     image={image}

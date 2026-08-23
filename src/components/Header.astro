@@ -3,6 +3,54 @@ const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith(
 const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const homeHref = isEnglish ? '/en' : '/';
 const englishDetailExpertiseSlugs = ['strategie-digitale', 'brand-content', 'web-si', 'achat-media', 'influence', 'phygital', 'evenementiel', 'ia-automation', 'media-performance', 'seo-geo'];
+const glossarySlugPairs: Record<string, string> = {
+  'acquisition-digitale': 'digital-acquisition',
+  attribution: 'attribution',
+  audience: 'audience',
+  'brand-content': 'brand-content',
+  cpc: 'cpc',
+  cpl: 'cpl',
+  cpm: 'cpm',
+  crm: 'crm',
+  cro: 'cro',
+  cta: 'cta',
+  ctr: 'ctr',
+  'donnees-structurees': 'structured-data',
+  'e-e-a-t': 'e-e-a-t',
+  'featured-snippet': 'featured-snippet',
+  'first-party-data': 'first-party-data',
+  funnel: 'funnel',
+  geo: 'geo',
+  'google-ads': 'google-ads',
+  'influence-marketing': 'influencer-marketing',
+  kpi: 'kpi',
+  'landing-page': 'landing-page',
+  lead: 'lead',
+  'lead-scoring': 'lead-scoring',
+  'maillage-interne': 'internal-linking',
+  'marketing-automation': 'marketing-automation',
+  'meta-ads': 'meta-ads',
+  notoriete: 'brand-awareness',
+  persona: 'persona',
+  phygital: 'phygital',
+  pixel: 'tracking-pixel',
+  programmatique: 'programmatic-buying',
+  reporting: 'marketing-reporting',
+  retargeting: 'retargeting',
+  roas: 'roas',
+  roi: 'roi',
+  'seo-local': 'local-seo',
+  'seo-technique': 'technical-seo',
+  seo: 'seo',
+  serp: 'serp',
+  'taux-de-conversion': 'conversion-rate',
+  tracking: 'tracking',
+  ugc: 'ugc',
+  'whatsapp-business': 'whatsapp-business',
+};
+const glossaryLanguagePairs = Object.fromEntries(
+  Object.entries(glossarySlugPairs).map(([frSlug, enSlug]) => [`/glossaire/${frSlug}`, `/en/glossary/${enSlug}`])
+);
 const languagePairs: Record<string, string> = {
   '/agence': '/en/agency',
   '/carrieres': '/en/careers',
@@ -11,6 +59,9 @@ const languagePairs: Record<string, string> = {
   '/mentions-legales': '/en/legal-notice',
   '/references': '/en/references',
   '/sitemap': '/en/sitemap',
+  '/auteurs/salah-eddine-mimouni': '/en/authors/salah-eddine-mimouni',
+  '/auteurs/amal-amazouz': '/en/authors/amal-amazouz',
+  '/auteurs/tarik-el-abbadi': '/en/authors/tarik-el-abbadi',
   '/insights': '/en/insights',
   '/insights/priorites-digitales-2026-croissance-rentable': '/en/insights/digital-priorities-2026-profitable-growth',
   '/insights/plan-acquisition-digital-2026': '/en/insights/digital-acquisition-plan-2026',
@@ -23,6 +74,8 @@ const languagePairs: Record<string, string> = {
   '/insights/contenu-qualite-seo-perenne': '/en/insights/quality-content-durable-seo',
   '/insights/crm-automation-aligner-marketing-sales': '/en/insights/crm-automation-marketing-sales-alignment',
   '/insights/cout-campagne-google-ads-maroc': '/en/insights/google-ads-campaign-cost-morocco',
+  '/glossaire': '/en/glossary',
+  ...glossaryLanguagePairs,
   '/realisations/uir-campagnes-digitales': '/en/case-studies/uir-digital-campaigns',
   '/expertises/media-performance': '/en/expertises/media-performance',
   '/expertises/referencement-seo': '/en/expertises/seo-geo',
@@ -543,16 +596,14 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
       </section>
     )}
 
-    {!isEnglish && (
-      <section class="mobile-menu-section">
-        <span>{labels.insights}</span>
-        <div class="mobile-menu-chip-grid">
-          {insightLinks.map((item) => (
-            <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
-          ))}
-        </div>
-      </section>
-    )}
+    <section class="mobile-menu-section">
+      <span>{labels.insights}</span>
+      <div class="mobile-menu-chip-grid">
+        {insightLinks.map((item) => (
+          <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
+        ))}
+      </div>
+    </section>
 
     <section class="mobile-menu-section">
       <span>{labels.agency}</span>

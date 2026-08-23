@@ -36,9 +36,9 @@ const founder = {
 };
 
 const team = [
-  { image: 'salah.webp', name: 'Salah-Eddine Mimouni', role: 'CEO & CTO', group: 'Executive' },
-  { image: 'amal.webp', name: 'Amal Amazouz', role: 'COO & CDO', group: 'Executive' },
-  { image: 'tarik.webp', name: 'Tarik El Abbadi', role: 'Communication & Event Director', group: 'Executive' },
+  { image: 'salah.webp', name: 'Salah-Eddine Mimouni', role: 'CEO & CTO', group: 'Executive', authorHref: '/en/authors/salah-eddine-mimouni/' },
+  { image: 'amal.webp', name: 'Amal Amazouz', role: 'COO & CDO', group: 'Executive', authorHref: '/en/authors/amal-amazouz/' },
+  { image: 'tarik.webp', name: 'Tarik El Abbadi', role: 'Communication & Event Director', group: 'Executive', authorHref: '/en/authors/tarik-el-abbadi/' },
   { image: 'elhoussine-bw.webp', name: 'Elhoussine Essmami', role: 'Strategic Planner', group: 'Strategy' },
   { image: 'ikram-bw.webp', name: 'Ikram Dehiri', role: 'Senior Account Manager', group: 'Account Management' },
   { image: 'oussama.webp', name: 'Oussama TAHTAH', role: 'Senior Account Manager', group: 'Account Management' },
@@ -114,7 +114,7 @@ const quickLinks = [
         </div>
       </div>
 
-      <div class="founder-panel" aria-label="Founder Richmedia">
+      <a class="founder-panel founder-panel-link" href="/en/authors/salah-eddine-mimouni/" aria-label="Open Salah-Eddine Mimouni's author page">
         <div class="founder-photo">
           <img
             src={founder.image}
@@ -135,7 +135,7 @@ const quickLinks = [
             {founder.facts.map((fact) => <span>{fact}</span>)}
           </div>
         </div>
-      </div>
+      </a>
     </section>
 
     <nav class="mobile-page-nav" aria-label="Team page navigation">
@@ -205,16 +205,29 @@ const quickLinks = [
 
       <div class="team-grid">
         {team.map((member, index) => (
-          <article class:list={['member-card', index < 3 && 'member-card-featured']}>
-            <div class="member-image">
-              <img src={`${assetBase}/${member.image}`} alt={member.name} width="640" height="800" loading="lazy" decoding="async" />
-            </div>
-            <div class="member-info">
-              <span>{member.group}</span>
-              <h3>{member.name}</h3>
-              <p>{member.role}</p>
-            </div>
-          </article>
+          member.authorHref ? (
+            <a class:list={['member-card', 'member-card-link', index < 3 && 'member-card-featured']} href={member.authorHref} aria-label={`Open ${member.name}'s author page`}>
+              <div class="member-image">
+                <img src={`${assetBase}/${member.image}`} alt={member.name} width="640" height="800" loading="lazy" decoding="async" />
+              </div>
+              <div class="member-info">
+                <span>{member.group}</span>
+                <h3>{member.name}</h3>
+                <p>{member.role}</p>
+              </div>
+            </a>
+          ) : (
+            <article class:list={['member-card', index < 3 && 'member-card-featured']}>
+              <div class="member-image">
+                <img src={`${assetBase}/${member.image}`} alt={member.name} width="640" height="800" loading="lazy" decoding="async" />
+              </div>
+              <div class="member-info">
+                <span>{member.group}</span>
+                <h3>{member.name}</h3>
+                <p>{member.role}</p>
+              </div>
+            </article>
+          )
         ))}
       </div>
     </section>
@@ -378,6 +391,25 @@ const quickLinks = [
     box-shadow: 0 2rem 5rem rgba(0,0,0,0.42);
   }
 
+  .founder-panel-link {
+    color: inherit;
+    text-decoration: none;
+    transition: transform 320ms ease, border-color 320ms ease, box-shadow 320ms ease;
+  }
+
+  .founder-panel-link:hover,
+  .founder-panel-link:focus-visible {
+    border-color: rgba(124,60,255,0.66);
+    box-shadow: 0 2.4rem 5rem rgba(0,0,0,0.48), 0 0 2rem rgba(124,60,255,0.2);
+    transform: translateY(-6px);
+    outline: none;
+  }
+
+  .founder-panel-link:hover .founder-photo img,
+  .founder-panel-link:focus-visible .founder-photo img {
+    transform: scale(1.035);
+  }
+
   .founder-photo {
     position: relative;
     align-self: center;
@@ -393,6 +425,7 @@ const quickLinks = [
     object-fit: cover;
     object-position: center top;
     filter: grayscale(1);
+    transition: transform 520ms ease;
   }
 
   .founder-photo::after {
@@ -686,17 +719,26 @@ const quickLinks = [
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: 8px;
     background: rgba(255,255,255,0.035);
+    color: inherit;
+    text-decoration: none;
     transition: transform 320ms ease, border-color 320ms ease, box-shadow 320ms ease;
+  }
+
+  .member-card-link {
+    display: block;
+    cursor: pointer;
   }
 
   .member-card-featured {
     grid-column: span 4;
   }
 
-  .member-card:hover {
+  .member-card:hover,
+  .member-card-link:focus-visible {
     border-color: rgba(124,60,255,0.66);
     box-shadow: 0 1.2rem 3rem rgba(0,0,0,0.38), 0 0 2rem rgba(124,60,255,0.18);
     transform: translateY(-7px);
+    outline: none;
   }
 
   .member-image {
@@ -714,7 +756,8 @@ const quickLinks = [
     transition: filter 320ms ease, transform 520ms ease;
   }
 
-  .member-card:hover .member-image img {
+  .member-card:hover .member-image img,
+  .member-card-link:focus-visible .member-image img {
     filter: grayscale(1);
     transform: scale(1.035);
   }

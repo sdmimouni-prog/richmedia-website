@@ -25,6 +25,7 @@ interface Props {
   authorRole: string;
   authorBio: string;
   authorImage?: string;
+  authorUrl?: string;
   date: Date | string;
   readingTime: number;
   image: string;
@@ -57,6 +58,7 @@ const {
   authorRole,
   authorBio,
   authorImage,
+  authorUrl,
   date,
   readingTime,
   image,
@@ -83,6 +85,7 @@ const readLabel = lang === 'en' ? 'min read' : 'min de lecture';
 const emailPlaceholder = lang === 'en' ? 'your@email.com' : 'votre@email.com';
 const noSpam = lang === 'en' ? 'No spam. Unsubscribe in one click.' : 'Pas de spam. Désabonnement en 1 clic.';
 const linkedInLabel = lang === 'en' ? 'LinkedIn profile' : 'Profil LinkedIn';
+const authorLinkLabel = lang === 'en' ? `Open ${author}'s author page` : `Voir la page auteur de ${author}`;
 const articleSiloLinks = lang === 'en' ? enSiloLinks.articleBusiness : frSiloLinks.articleBusiness;
 const formatDate = (value: Date | string) =>
   new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(value));
@@ -101,19 +104,35 @@ const formatDate = (value: Date | string) =>
       <h1>{title}</h1>
       <p>{description}</p>
       <div class="article-meta">
-        <span class="author-chip">
-          <span class="author-avatar" aria-hidden="true">
-            {authorImage ? (
-              <img src={authorImage} alt="" width="64" height="64" loading="eager" decoding="async" />
-            ) : (
-              author.slice(0, 1)
-            )}
+        {authorUrl ? (
+          <a class="author-chip" href={authorUrl} aria-label={authorLinkLabel}>
+            <span class="author-avatar" aria-hidden="true">
+              {authorImage ? (
+                <img src={authorImage} alt="" width="64" height="64" loading="eager" decoding="async" />
+              ) : (
+                author.slice(0, 1)
+              )}
+            </span>
+            <span>
+              <strong>{author}</strong>
+              <small>{authorRole}</small>
+            </span>
+          </a>
+        ) : (
+          <span class="author-chip">
+            <span class="author-avatar" aria-hidden="true">
+              {authorImage ? (
+                <img src={authorImage} alt="" width="64" height="64" loading="eager" decoding="async" />
+              ) : (
+                author.slice(0, 1)
+              )}
+            </span>
+            <span>
+              <strong>{author}</strong>
+              <small>{authorRole}</small>
+            </span>
           </span>
-          <span>
-            <strong>{author}</strong>
-            <small>{authorRole}</small>
-          </span>
-        </span>
+        )}
         <span><i class="ph ph-calendar-blank" aria-hidden="true"></i>{formatDate(date)}</span>
         <span><i class="ph ph-clock" aria-hidden="true"></i>{readingTime} {readLabel}</span>
       </div>
@@ -180,19 +199,35 @@ const formatDate = (value: Date | string) =>
     <aside class="article-sidebar" aria-label={lang === 'en' ? 'Article sidebar' : 'Compléments de l’article'}>
       <section class="sidebar-card author-card">
         <h2>{authorTitle}</h2>
-        <div class="author-line">
-          <span class="author-photo">
-            {authorImage ? (
-              <img src={authorImage} alt={author} width="160" height="160" loading="lazy" decoding="async" />
-            ) : (
-              author.slice(0, 1)
-            )}
-          </span>
-          <div>
-            <strong>{author}</strong>
-            <small>{authorRole}</small>
+        {authorUrl ? (
+          <a class="author-line author-line-link" href={authorUrl} aria-label={authorLinkLabel}>
+            <span class="author-photo">
+              {authorImage ? (
+                <img src={authorImage} alt="" width="160" height="160" loading="lazy" decoding="async" />
+              ) : (
+                author.slice(0, 1)
+              )}
+            </span>
+            <span class="author-identity">
+              <strong>{author}</strong>
+              <small>{authorRole}</small>
+            </span>
+          </a>
+        ) : (
+          <div class="author-line">
+            <span class="author-photo">
+              {authorImage ? (
+                <img src={authorImage} alt={author} width="160" height="160" loading="lazy" decoding="async" />
+              ) : (
+                author.slice(0, 1)
+              )}
+            </span>
+            <span class="author-identity">
+              <strong>{author}</strong>
+              <small>{authorRole}</small>
+            </span>
           </div>
-        </div>
+        )}
         <p>{authorBio}</p>
         <a href="https://www.linkedin.com/company/richmedia-ma/" target="_blank" rel="noreferrer" aria-label={linkedInLabel}>
           <i class="ph ph-linkedin-logo" aria-hidden="true"></i>
@@ -338,6 +373,25 @@ const formatDate = (value: Date | string) =>
     align-items: center;
   }
 
+  a.author-chip {
+    border-radius: 999px;
+    color: inherit;
+    text-decoration: none;
+    transition: color 180ms ease, transform 180ms ease;
+  }
+
+  a.author-chip:hover,
+  a.author-chip:focus-visible {
+    color: #fff;
+    transform: translateY(-1px);
+    outline: none;
+  }
+
+  a.author-chip:focus-visible .author-avatar,
+  .author-photo-link:focus-visible {
+    box-shadow: 0 0 0 3px rgba(124, 60, 255, 0.28);
+  }
+
   .author-chip small,
   .author-line small {
     display: block;
@@ -357,6 +411,18 @@ const formatDate = (value: Date | string) =>
     background: radial-gradient(circle at 35% 25%, rgba(185, 119, 255, 0.72), rgba(87, 39, 221, 0.95));
     color: #fff;
     font-weight: 900;
+  }
+
+  .author-photo-link {
+    text-decoration: none;
+    transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  .author-photo-link:hover,
+  .author-photo-link:focus-visible {
+    border-color: rgba(168, 108, 255, 0.85);
+    transform: translateY(-2px);
+    outline: none;
   }
 
   .author-avatar {
@@ -632,7 +698,39 @@ const formatDate = (value: Date | string) =>
     align-items: center;
   }
 
-  .author-card > a {
+  .author-line-link {
+    width: fit-content;
+    max-width: 100%;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 999px 0.75rem 0.75rem 999px;
+    transition: color 180ms ease, transform 180ms ease;
+  }
+
+  .author-line-link:hover,
+  .author-line-link:focus-visible {
+    color: #fff;
+    transform: translateX(3px);
+    outline: none;
+  }
+
+  .author-line-link:hover .author-photo,
+  .author-line-link:focus-visible .author-photo {
+    border-color: rgba(168, 108, 255, 0.85);
+    box-shadow: 0 0 0 3px rgba(124, 60, 255, 0.18);
+  }
+
+  .author-line-link:hover strong,
+  .author-line-link:focus-visible strong {
+    color: #fff;
+  }
+
+  .author-line-link:hover small,
+  .author-line-link:focus-visible small {
+    color: rgba(255, 255, 255, 0.76);
+  }
+
+  .author-card > a:not(.author-line-link) {
     display: grid;
     width: 2.4rem;
     height: 2.4rem;

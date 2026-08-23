@@ -61,10 +61,20 @@ export const BUSINESS = {
 
 export const EDITORIAL_AUTHOR = {
   name: 'Salah Eddine MIMOUNI',
+  slug: 'salah-eddine-mimouni',
   image: '/assets/richmedia-home/team-carousel/salah.webp',
+  portrait: '/assets/richmedia-home/team-carousel/salah.webp',
+  linkedIn: 'https://www.linkedin.com/company/richmedia-ma/',
+  email: BUSINESS.email,
   role: {
     fr: 'Fondateur & CEO de Richmedia',
     en: 'Founder & CEO of Richmedia',
+  },
+  hero: {
+    fr:
+      'Stratège de la croissance digitale, Salah Eddine accompagne les marques au Maroc et à l’international sur des dispositifs performants et durables : média, SEO/GEO, WhatsApp, CRM, data et automatisation.',
+    en:
+      'A digital growth strategist, Salah Eddine supports brands in Morocco and internationally across durable performance systems: media, SEO/GEO, WhatsApp, CRM, data and automation.',
   },
   bio: {
     fr:
@@ -72,16 +82,71 @@ export const EDITORIAL_AUTHOR = {
     en:
       'Salah Eddine MIMOUNI, founder and CEO of Richmedia, supports brands in Morocco and internationally across digital strategy, media, SEO/GEO, content, WhatsApp, CRM and automation.',
   },
+  about: {
+    fr: [
+      'Passionné par la data, la technologie et l’impact business, Salah Eddine MIMOUNI a fondé Richmedia pour aider les entreprises à accélérer leur croissance digitale avec des stratégies solides, des canaux bien choisis et une exécution rigoureuse.',
+      'Il intervient régulièrement sur des sujets de marketing digital moderne, de tendances SEO & GEO, de marketing conversationnel et de mesure de la performance.',
+      'Sa conviction : la croissance durable repose sur la combinaison d’une stratégie claire, de la donnée bien exploitée et d’équipes alignées autour d’objectifs mesurables.',
+    ],
+    en: [
+      'Driven by data, technology and business impact, Salah Eddine MIMOUNI founded Richmedia to help companies accelerate digital growth with solid strategies, well-chosen channels and disciplined execution.',
+      'He regularly works on modern digital marketing, SEO & GEO trends, conversational marketing and performance measurement.',
+      'His belief: durable growth comes from a clear strategy, well-used data and teams aligned around measurable objectives.',
+    ],
+  },
+  credentials: {
+    fr: [
+      'Ingénieur d’état en informatique',
+      'Doctorant en intelligence artificielle',
+      'Fondateur de l’agence Richmedia digital',
+      'Co-fondateur de Lemon Mind Agency',
+      'Co-fondateur et CTO de Hypeo',
+      'Co-fondateur de InTalks',
+      'Co-fondateur de Oxima AI school',
+      'Expert certifié Meta Ads, Google Ads et Google Analytics',
+      'Écrivain et conférencier',
+    ],
+    en: [
+      'State engineer in computer science',
+      'PhD candidate in artificial intelligence',
+      'Founder of Richmedia digital agency',
+      'Co-founder of Lemon Mind Agency',
+      'Co-founder and CTO of Hypeo',
+      'Co-founder of InTalks',
+      'Co-founder of Oxima AI school',
+      'Certified expert in Meta Ads, Google Ads and Google Analytics',
+      'Writer and speaker',
+    ],
+  },
+  expertise: {
+    fr: ['Stratégie digitale', 'Média & performance', 'SEO / GEO', 'WhatsApp & automation', 'Data & CRM', 'IA & automatisation'],
+    en: ['Digital strategy', 'Media & performance', 'SEO / GEO', 'WhatsApp & automation', 'Data & CRM', 'AI & automation'],
+  },
+  topics: {
+    fr: ['Stratégie digitale', 'Média & performance', 'SEO / GEO', 'WhatsApp & automation', 'Data & CRM'],
+    en: ['Digital strategy', 'Media & performance', 'SEO / GEO', 'WhatsApp & automation', 'Data & CRM'],
+  },
+  experience: '15+',
 } as const;
 
 export const EDITORIAL_AUTHORS = {
   [EDITORIAL_AUTHOR.name]: EDITORIAL_AUTHOR,
   'Amal AMAZOUZ': {
     name: 'Amal AMAZOUZ',
+    slug: 'amal-amazouz',
     image: '/assets/richmedia-home/team-carousel/amal.webp',
+    portrait: '/assets/richmedia-home/team-carousel/amal.webp',
+    linkedIn: 'https://www.linkedin.com/company/richmedia-ma/',
+    email: BUSINESS.email,
     role: {
       fr: 'COO & CDO de Richmedia',
       en: 'COO & CDO at Richmedia',
+    },
+    hero: {
+      fr:
+        'Amal structure les stratégies digitales, les contenus et les dispositifs social media pour transformer les idées en plans d’action mesurables.',
+      en:
+        'Amal structures digital strategy, content and social media programs to turn ideas into measurable action plans.',
     },
     bio: {
       fr:
@@ -89,13 +154,48 @@ export const EDITORIAL_AUTHORS = {
       en:
         'Amal AMAZOUZ supports digital strategy, content and social media programs to turn ideas into measurable action plans.',
     },
+    about: {
+      fr: [
+        'Amal AMAZOUZ accompagne les équipes dans la transformation des objectifs marketing en dispositifs éditoriaux clairs, activables et mesurables.',
+        'Son travail relie la stratégie de contenu, le social media, l’influence et la coordination opérationnelle pour garder une cohérence entre idée, message et exécution.',
+        'Elle privilégie les formats qui clarifient le positionnement d’une marque et facilitent la lecture de ses preuves par ses audiences.',
+      ],
+      en: [
+        'Amal AMAZOUZ helps teams turn marketing objectives into clear, actionable and measurable editorial systems.',
+        'Her work connects content strategy, social media, influence and operational coordination to keep ideas, messages and execution consistent.',
+        'She favors formats that clarify a brand position and make its proof easier for audiences to understand.',
+      ],
+    },
+    credentials: {
+      fr: ['Stratégie de contenu', 'Coordination social media', 'Pilotage éditorial', 'Structuration de plans d’action'],
+      en: ['Content strategy', 'Social media coordination', 'Editorial planning', 'Action plan structuring'],
+    },
+    expertise: {
+      fr: ['Stratégie digitale', 'Influence & social media', 'Brand content', 'Planning éditorial', 'Activation de marque', 'Pilotage opérationnel'],
+      en: ['Digital strategy', 'Influence & social media', 'Brand content', 'Editorial planning', 'Brand activation', 'Operations'],
+    },
+    topics: {
+      fr: ['Influence & social media', 'Brand content', 'Stratégie digitale', 'Activation de marque'],
+      en: ['Influence & social media', 'Brand content', 'Digital strategy', 'Brand activation'],
+    },
+    experience: '10+',
   },
   'Tarik EL ABBADI': {
     name: 'Tarik EL ABBADI',
+    slug: 'tarik-el-abbadi',
     image: '/assets/richmedia-home/team-carousel/tarik.webp',
+    portrait: '/assets/richmedia-home/team-carousel/tarik.webp',
+    linkedIn: 'https://www.linkedin.com/company/richmedia-ma/',
+    email: BUSINESS.email,
     role: {
       fr: 'Directeur Communication & Event de Richmedia',
       en: 'Communication & Event Director at Richmedia',
+    },
+    hero: {
+      fr:
+        'Tarik pilote les sujets communication, événementiel et marque employeur pour aligner message, expérience et impact terrain.',
+      en:
+        'Tarik leads communication, events and employer-brand topics to align message, experience and field impact.',
     },
     bio: {
       fr:
@@ -103,8 +203,43 @@ export const EDITORIAL_AUTHORS = {
       en:
         'Tarik EL ABBADI leads communication, events and employer-brand topics, with a strong focus on message and experience consistency.',
     },
+    about: {
+      fr: [
+        'Tarik EL ABBADI travaille sur les dispositifs où la communication doit être tangible : événements, marque employeur, prises de parole et expériences de marque.',
+        'Il veille à la cohérence entre la promesse, les supports, le déroulé terrain et la perception des publics internes ou externes.',
+        'Son approche privilégie les messages simples, les expériences maîtrisées et les preuves visibles plutôt que les effets de style isolés.',
+      ],
+      en: [
+        'Tarik EL ABBADI works on systems where communication must become tangible: events, employer brand, public speaking and brand experiences.',
+        'He keeps the promise, assets, field execution and internal or external perception consistent.',
+        'His approach favors simple messages, controlled experiences and visible proof over isolated stylistic effects.',
+      ],
+    },
+    credentials: {
+      fr: ['Communication de marque', 'Événementiel', 'Marque employeur', 'Expérience terrain'],
+      en: ['Brand communication', 'Events', 'Employer brand', 'Field experience'],
+    },
+    expertise: {
+      fr: ['Communication', 'Événementiel', 'Marque employeur', 'Brand content', 'Expérience de marque', 'Activation terrain'],
+      en: ['Communication', 'Events', 'Employer brand', 'Brand content', 'Brand experience', 'Field activation'],
+    },
+    topics: {
+      fr: ['Marque employeur', 'Communication', 'Événementiel', 'Brand content'],
+      en: ['Employer brand', 'Communication', 'Events', 'Brand content'],
+    },
+    experience: '12+',
   },
 } as const;
 
 export const getEditorialAuthor = (name?: string) =>
   name && name in EDITORIAL_AUTHORS ? EDITORIAL_AUTHORS[name as keyof typeof EDITORIAL_AUTHORS] : EDITORIAL_AUTHOR;
+
+export const EDITORIAL_AUTHOR_LIST = Object.values(EDITORIAL_AUTHORS);
+
+export const getEditorialAuthorBySlug = (slug?: string) =>
+  EDITORIAL_AUTHOR_LIST.find((author) => author.slug === slug) ?? EDITORIAL_AUTHOR;
+
+export const getEditorialAuthorPath = (name?: string, lang: 'fr' | 'en' = 'fr') => {
+  const author = getEditorialAuthor(name);
+  return lang === 'en' ? `/en/authors/${author.slug}` : `/auteurs/${author.slug}`;
+};

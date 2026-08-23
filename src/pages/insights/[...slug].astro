@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleDetailPage from '../../components/ArticleDetailPage.astro';
 import { articleSchema, breadcrumbs } from '../../lib/schema';
-import { getEditorialAuthor, SITE } from '../../consts';
+import { getEditorialAuthor, getEditorialAuthorPath, SITE } from '../../consts';
 
 const categoryLabels: Record<string, string> = {
   Growth: 'Stratégie',
@@ -160,6 +160,7 @@ if (!redirectTo) {
       authorRole={authorProfile.role.fr}
       authorBio={authorProfile.bio.fr}
       authorImage={authorProfile.image}
+      authorUrl={getEditorialAuthorPath(pageEntry.data.auteur, 'fr')}
       date={pageEntry.data.datePublication}
       readingTime={pageEntry.data.tempsLecture ?? 6}
       image={image}
