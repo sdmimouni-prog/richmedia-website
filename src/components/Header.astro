@@ -278,6 +278,7 @@ const insightLinks = isEnglish
     ]
   : [
       { href: '/insights', label: 'Tous les insights', text: 'Guides, analyses et méthodes.' },
+      { href: '/insights/barometre-marketing-digital-maroc-2026', label: 'Baromètre 2026', text: 'Benchmarks Richmedia sur 400 campagnes au Maroc.' },
       { href: '/insights/plan-acquisition-digital-2026', label: 'Guides marketing', text: 'Méthodes et cadrages.' },
       { href: '/insights/campagnes-meta-2026-bonnes-pratiques', label: 'Média & performance', text: 'Budgets, acquisition et tracking.' },
       { href: '/insights/seo-vs-geo-enjeux-2026', label: 'SEO / GEO', text: 'Référencement et visibilité IA.' },
@@ -379,34 +380,10 @@ const mobileNavItems = [
     icon: 'ph ph-house-line',
   },
   {
-    href: expertiseHref(),
-    label: isEnglish ? 'Expertise' : 'Expertises',
-    kicker: 'Services',
-    icon: 'ph ph-sparkle',
-  },
-  {
-    href: isEnglish ? '/en/sectors' : '/secteurs',
-    label: labels.sectors,
-    kicker: isEnglish ? 'Markets' : 'Marchés',
-    icon: 'ph ph-briefcase',
-  },
-  {
     href: isEnglish ? '/en/case-studies' : '/realisations',
     label: labels.caseStudies,
     kicker: isEnglish ? 'Proof' : 'Preuves',
     icon: 'ph ph-images-square',
-  },
-  {
-    href: isEnglish ? '/en/insights' : '/insights',
-    label: labels.insights,
-    kicker: isEnglish ? 'Ideas' : 'Idées',
-    icon: 'ph ph-lightbulb',
-  },
-  {
-    href: agencyHref,
-    label: labels.agency,
-    kicker: isEnglish ? 'Agency' : 'Agence',
-    icon: 'ph ph-users-three',
   },
   {
     href: isEnglish ? '/en/contact' : '/contact',
@@ -417,6 +394,53 @@ const mobileNavItems = [
 ];
 
 const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
+const mobileSubmenus = [
+  {
+    href: expertiseHref(),
+    label: isEnglish ? 'Expertise' : 'Expertises',
+    kicker: 'Services',
+    icon: 'ph ph-sparkle',
+    action: labels.allExpertise,
+    links: mobileExpertiseLinks,
+    kind: 'chips',
+  },
+  {
+    href: isEnglish ? '/en/sectors' : '/secteurs',
+    label: labels.sectors,
+    kicker: isEnglish ? 'Markets' : 'Marchés',
+    icon: 'ph ph-briefcase',
+    action: isEnglish ? 'View all sectors' : 'Voir tous les secteurs',
+    links: sectorLinks,
+    kind: 'chips',
+  },
+  {
+    href: isEnglish ? '/en/insights' : '/insights',
+    label: labels.insights,
+    kicker: isEnglish ? 'Ideas' : 'Idées',
+    icon: 'ph ph-lightbulb',
+    action: isEnglish ? 'View all insights' : 'Voir tous les insights',
+    links: insightLinks,
+    kind: 'chips',
+  },
+  {
+    href: agencyHref,
+    label: labels.agency,
+    kicker: isEnglish ? 'Agency' : 'Agence',
+    icon: 'ph ph-users-three',
+    action: isEnglish ? 'Discover the agency' : "Découvrir l’agence",
+    links: agencyLinks,
+    kind: 'chips',
+  },
+  {
+    href: isEnglish ? '/en/book-audit' : '/contact',
+    label: labels.products,
+    kicker: isEnglish ? 'Tools' : 'Outils',
+    icon: 'ph ph-package',
+    action: labels.productCta,
+    links: productLinks,
+    kind: 'products',
+  },
+];
 ---
 <header class="site-header" data-site-header>
   <a href={homeHref} class="brand-lockup" aria-label={labels.brandHome}>
@@ -569,63 +593,62 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
     <div class="mobile-menu-links">
       {mobileNavItems.map((item) => (
         <a class="mobile-menu-link" href={item.href}>
-          <small>{item.kicker}</small>
-          <span>{item.label}</span>
-          <i class={item.icon} aria-hidden="true"></i>
+          <span class="mobile-dropdown-icon" aria-hidden="true">
+            <i class={item.icon}></i>
+          </span>
+          <span class="mobile-dropdown-title">
+            <small>{item.kicker}</small>
+            <strong>{item.label}</strong>
+          </span>
+          <i class="ph ph-arrow-up-right mobile-link-chevron" aria-hidden="true"></i>
         </a>
       ))}
     </div>
 
-    <section class="mobile-menu-section">
-      <span>{isEnglish ? 'Expertise' : 'Expertises'}</span>
-      <div class="mobile-menu-chip-grid">
-        {mobileExpertiseLinks.map((item) => (
-          <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
-        ))}
-      </div>
-    </section>
-
-    {!isEnglish && (
-      <section class="mobile-menu-section">
-        <span>{labels.sectors}</span>
-        <div class="mobile-menu-chip-grid">
-          {sectorLinks.map((item) => (
-            <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
-          ))}
-        </div>
-      </section>
-    )}
-
-    <section class="mobile-menu-section">
-      <span>{labels.insights}</span>
-      <div class="mobile-menu-chip-grid">
-        {insightLinks.map((item) => (
-          <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
-        ))}
-      </div>
-    </section>
-
-    <section class="mobile-menu-section">
-      <span>{labels.agency}</span>
-      <div class="mobile-menu-chip-grid">
-        {agencyLinks.map((item) => (
-          <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
-        ))}
-      </div>
-    </section>
-
-    <section class="mobile-menu-section">
-      <span>{labels.products}</span>
-      <div class="mobile-product-list">
-        {productLinks.map((item) => (
-          <a href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener' : undefined}>
-            <span>{item.label}</span>
-            <small>{item.text}</small>
-            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
-          </a>
-        ))}
-      </div>
-    </section>
+    <div class="mobile-dropdown-stack">
+      {mobileSubmenus.map((section) => (
+        <details class="mobile-menu-section mobile-menu-dropdown" data-mobile-dropdown>
+          <summary>
+            <span class="mobile-dropdown-icon" aria-hidden="true">
+              <i class={section.icon}></i>
+            </span>
+            <span class="mobile-dropdown-title">
+              <small>{section.kicker}</small>
+              <strong>{section.label}</strong>
+            </span>
+            <span class="mobile-dropdown-count">{section.links.length}</span>
+            <i class="ph ph-caret-down mobile-dropdown-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="mobile-dropdown-panel">
+            <a class="mobile-dropdown-main" href={section.href}>
+              <span>{section.action}</span>
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            {section.kind === 'products' ? (
+              <div class="mobile-product-list">
+                {section.links.map((item) => (
+                  <a
+                    href={item.href}
+                    target={'external' in item && item.external ? '_blank' : undefined}
+                    rel={'external' in item && item.external ? 'noopener' : undefined}
+                  >
+                    <span>{item.label}</span>
+                    <small>{item.text}</small>
+                    <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div class="mobile-menu-chip-grid">
+                {section.links.map((item) => (
+                  <a class="mobile-menu-chip" href={item.href}>{item.label}</a>
+                ))}
+              </div>
+            )}
+          </div>
+        </details>
+      ))}
+    </div>
 
     <div class="mobile-menu-actions">
       <a href={languageHref}>{labels.langLabel}</a>
@@ -645,6 +668,8 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
 
     if (!header || !toggle || !menu || !backdrop) return;
 
+    const mobileDropdowns = [...menu.querySelectorAll('[data-mobile-dropdown]')];
+
     const setMenuState = (open, restoreFocus = true) => {
       header.classList.toggle('is-menu-open', open);
       toggle.setAttribute('aria-expanded', String(open));
@@ -657,7 +682,10 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
           menu.querySelector(focusableSelector)?.focus();
         });
       } else if (restoreFocus) {
+        mobileDropdowns.forEach((dropdown) => dropdown.removeAttribute('open'));
         toggle.focus();
+      } else {
+        mobileDropdowns.forEach((dropdown) => dropdown.removeAttribute('open'));
       }
     };
 
@@ -670,6 +698,15 @@ const mobileExpertiseLinks = expertiseColumns.flatMap((column) => column.items);
 
     menu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => setMenuState(false, false));
+    });
+
+    mobileDropdowns.forEach((dropdown) => {
+      dropdown.addEventListener('toggle', () => {
+        if (!dropdown.open) return;
+        mobileDropdowns.forEach((item) => {
+          if (item !== dropdown) item.removeAttribute('open');
+        });
+      });
     });
 
     const desktopQuery = window.matchMedia('(min-width: 1241px)');

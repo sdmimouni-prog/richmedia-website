@@ -425,6 +425,41 @@ export function getStaticPaths() {
 const { page } = Astro.props;
 const slug = Astro.params.slug;
 const pageUrl = `${SITE.url}/en/sectors/${slug}`;
+const sectorSeo: Record<string, { title: string; description: string }> = {
+  education: {
+    title: 'Education Digital Marketing in Morocco | Richmedia',
+    description: 'Attract qualified candidates with landing pages, WhatsApp, SEO/GEO, paid media campaigns and admissions reporting.',
+  },
+  'real-estate': {
+    title: 'Real Estate Digital Marketing in Morocco | Richmedia',
+    description: 'Generate qualified property leads with local SEO, landing pages, WhatsApp, CRM, visits and commercial reporting.',
+  },
+  'retail-ecommerce': {
+    title: 'Retail & E-commerce Marketing in Morocco | Richmedia',
+    description: 'Grow traffic, sales and loyalty with acquisition, social commerce, local SEO, WhatsApp, CRM and conversion campaigns.',
+  },
+  'grocery-retail': {
+    title: 'Grocery Retail Marketing in Morocco | Richmedia',
+    description: 'Activate promotions, digital catalogues, drive-to-store, WhatsApp, CRM, couponing, retail media and reporting for grocery retail.',
+  },
+  institutional: {
+    title: 'Institutional Communication in Morocco | Richmedia',
+    description: 'Structure public campaigns, educational content, SEO/GEO, web platforms, social media and reporting for institutions.',
+  },
+  'tourism-hospitality': {
+    title: 'Tourism Marketing in Morocco | Richmedia',
+    description: 'Grow bookings and destination image with SEO, immersive content, travel influence, media campaigns, CRM and reporting.',
+  },
+  automotive: {
+    title: 'Automotive Marketing in Morocco | Richmedia',
+    description: 'Launch models and offers with qualified leads, test-drive requests, showroom visibility, WhatsApp, CRM and local SEO.',
+  },
+  fmcg: {
+    title: 'FMCG Marketing in Morocco | Richmedia',
+    description: 'Build preference and product launches with brand content, social media, influence, UGC, retail activation and reporting.',
+  },
+};
+const seo = sectorSeo[page.slug] ?? { title: `${page.title} | Richmedia`, description: page.description };
 const sectorSiloLinks = sectorSiloLinksEn[page.slug as keyof typeof sectorSiloLinksEn] ?? enSiloLinks.sectorsHub;
 const schema = [
   {
@@ -444,7 +479,7 @@ const schema = [
 ];
 ---
 
-<BaseLayout title={`${page.title} | Richmedia`} description={page.description} canonical={pageUrl} lang="en" schema={schema}>
+<BaseLayout title={seo.title} description={seo.description} canonical={pageUrl} lang="en" schema={schema}>
   <article class="sector-detail">
     <section class="sector-hero" aria-labelledby="sector-title">
       <div class="sector-hero-copy">

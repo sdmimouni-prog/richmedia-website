@@ -7,6 +7,76 @@ import { BRAND_ASSETS, BUSINESS, SITE } from '../consts';
  */
 
 const absoluteUrl = (source: string) => (source.startsWith('http') ? source : `${SITE.url}${source}`);
+const withTrailingSlash = (url: string) => (url.endsWith('/') ? url : `${url}/`);
+const ORGANIZATION_ID = `${SITE.url}/#organization`;
+
+type LocalizedText = { fr: string; en: string };
+type AuthorSchemaSource = {
+  slug: string;
+  name: string;
+  role: LocalizedText;
+  bio: LocalizedText;
+  portrait?: string;
+  image?: string;
+  linkedIn?: string;
+  expertise: { fr: readonly string[]; en: readonly string[] };
+};
+
+type ArticleAuthorEntity = {
+  '@type'?: 'Person' | 'Organization';
+  '@id'?: string;
+  name: string;
+  url?: string;
+  image?: string;
+};
+
+export const authorCanonicalUrl = (slug: string) => `${SITE.url}/auteurs/${slug}/`;
+export const authorPersonId = (slug: string) => `${authorCanonicalUrl(slug)}#person`;
+export const authorProfilePageId = (slug: string, lang: 'fr' | 'en' = 'fr') =>
+  `${lang === 'en' ? `${SITE.url}/en/authors/${slug}/` : authorCanonicalUrl(slug)}#profilepage`;
+
+const isPersonalLinkedIn = (url?: string) => Boolean(url && /^https?:\/\/(www\.)?linkedin\.com\/in\//i.test(url));
+
+export function authorProfileSchema(opts: {
+  author: AuthorSchemaSource;
+  lang: 'fr' | 'en';
+  profileUrl?: string;
+  profileName?: string;
+}) {
+  const profileUrl = withTrailingSlash(
+    opts.profileUrl ?? (opts.lang === 'en' ? `${SITE.url}/en/authors/${opts.author.slug}` : authorCanonicalUrl(opts.author.slug)),
+  );
+  const image = absoluteUrl(opts.author.portrait ?? opts.author.image ?? BRAND_ASSETS.image.path);
+  const sameAs = isPersonalLinkedIn(opts.author.linkedIn) ? [opts.author.linkedIn] : undefined;
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ProfilePage',
+        '@id': `${profileUrl}#profilepage`,
+        url: profileUrl,
+        name:
+          opts.profileName ??
+          (opts.lang === 'en' ? `${opts.author.name} | Richmedia author` : `${opts.author.name} | Auteur Richmedia`),
+        inLanguage: opts.lang,
+        mainEntity: { '@id': authorPersonId(opts.author.slug) },
+      },
+      {
+        '@type': 'Person',
+        '@id': authorPersonId(opts.author.slug),
+        name: opts.author.name,
+        url: authorCanonicalUrl(opts.author.slug),
+        image,
+        jobTitle: opts.author.role[opts.lang],
+        description: opts.author.bio[opts.lang],
+        knowsAbout: opts.author.expertise[opts.lang],
+        worksFor: { '@id': ORGANIZATION_ID },
+        ...(sameAs ? { sameAs } : {}),
+      },
+    ],
+  };
+}
 
 export function localBusiness() {
   const logoUrl = absoluteUrl(BRAND_ASSETS.logo.path);
@@ -15,7 +85,7 @@ export function localBusiness() {
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    '@id': `${SITE.url}/#organization`,
+    '@id': ORGANIZATION_ID,
     name: SITE.name,
     legalName: BUSINESS.legalName,
     description: SITE.description,
@@ -79,7 +149,7 @@ export function webSiteSchema() {
     description: SITE.description,
     url: SITE.url,
     inLanguage: [...SITE.locales],
-    publisher: { '@id': `${SITE.url}/#organization` },
+    publisher: { '@id': ORGANIZATION_ID },
   };
 }
 
@@ -90,7 +160,7 @@ export function serviceSchema(opts: { name: string; description: string; url: st
     name: opts.name,
     description: opts.description,
     url: opts.url,
-    provider: { '@id': `${SITE.url}/#organization` },
+    provider: { '@id': ORGANIZATION_ID },
     areaServed: BUSINESS.areaServed,
   };
 }
@@ -108,7 +178,7 @@ export function collectionPageSchema(opts: {
     name: opts.name,
     description: opts.description,
     url: opts.url,
-    publisher: { '@id': `${SITE.url}/#organization` },
+    publisher: { '@id': ORGANIZATION_ID },
     ...(opts.inLanguage ? { inLanguage: opts.inLanguage } : {}),
     mainEntity: {
       '@type': 'ItemList',
@@ -126,33 +196,53 @@ export function articleSchema(opts: {
   title: string;
   description: string;
   url: string;
-  author: string;
+  author: string | ArticleAuthorEntity;
   authorType?: 'Person' | 'Organization';
   authorImage?: string;
   datePublished: Date;
   dateModified: Date;
   image?: string;
+  citation?: string[];
 }) {
-  const author =
-    opts.authorType === 'Person'
-      ? {
-          '@type': 'Person',
-          name: opts.author,
-          ...(opts.authorImage ? { image: opts.authorImage } : {}),
-        }
-      : { '@type': 'Organization', name: opts.author };
+  const pageUrl = withTrailingSlash(opts.url);
+  let author: Record<string, unknown>;
+
+  if (typeof opts.author === 'string') {
+    author =
+      opts.authorType === 'Person'
+        ? {
+            '@type': 'Person',
+            name: opts.author,
+            ...(opts.authorImage ? { image: absoluteUrl(opts.authorImage) } : {}),
+          }
+        : { '@type': 'Organization', name: opts.author };
+  } else {
+    author = {
+      '@type': opts.author['@type'] ?? 'Person',
+      ...(opts.author['@id'] ? { '@id': opts.author['@id'] } : {}),
+      name: opts.author.name,
+      ...(opts.author.url ? { url: absoluteUrl(opts.author.url) } : {}),
+      ...(opts.author.image ? { image: absoluteUrl(opts.author.image) } : {}),
+    };
+  }
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
+    '@id': `${pageUrl}#article`,
     headline: opts.title,
     description: opts.description,
-    url: opts.url,
+    url: pageUrl,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': pageUrl,
+    },
     author,
-    publisher: { '@id': `${SITE.url}/#organization` },
+    publisher: { '@id': ORGANIZATION_ID },
     datePublished: opts.datePublished.toISOString(),
     dateModified: opts.dateModified.toISOString(),
-    ...(opts.image ? { image: opts.image } : {}),
+    ...(opts.image ? { image: absoluteUrl(opts.image) } : {}),
+    ...(opts.citation?.length ? { citation: opts.citation.map(absoluteUrl) } : {}),
   };
 }
 

@@ -1,17 +1,27 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getInsightFilters, getInsightTopicCounts } from '../../../lib/insights';
 import { breadcrumbs } from '../../../lib/schema';
 import { SITE } from '../../../consts';
 
 const pageUrl = `${SITE.url}/en/insights`;
 const contentEntries = await getCollection('articles', ({ data }) => !data.draft && data.lang === 'en');
+const caseEntries = await getCollection('cas', ({ data }) => !data.draft && data.lang === 'en');
 const articleBySlug = new Map(
   contentEntries.map((entry) => [entry.data.slug ?? entry.id, {
     slug: entry.data.slug ?? entry.id,
     title: entry.data.title,
     description: entry.data.metaDescription,
     category: entry.data.categorie,
+    filterGroups: getInsightFilters(entry),
+    searchText: [
+      entry.data.title,
+      entry.data.metaDescription,
+      entry.data.categorie,
+      entry.data.keywordPrincipal,
+      ...entry.data.keywordsSecondaires,
+    ].join(' '),
     date: entry.data.datePublication,
     readingTime: entry.data.tempsLecture ?? 6,
   }])
@@ -75,16 +85,17 @@ const chips = [
   { label: 'WhatsApp & automation', filter: 'Automation' },
   { label: 'Influence & social media', filter: 'Social' },
   { label: 'Guides', filter: 'Secteur' },
-  { label: 'Case studies', filter: 'Case' },
+  { label: 'Case studies', href: '/en/case-studies' },
 ];
+const topicCounts = getInsightTopicCounts(contentEntries, caseEntries);
 const topics = [
-  ['Digital strategy', 24],
-  ['Media & performance', 22],
-  ['SEO / GEO', 18],
-  ['WhatsApp & automation', 14],
-  ['Influence & social media', 13],
-  ['Guides', 11],
-  ['Case studies', 9],
+  ['Digital strategy', topicCounts.Growth],
+  ['Media & performance', topicCounts.Media],
+  ['SEO / GEO', topicCounts.SEO],
+  ['WhatsApp & automation', topicCounts.Automation],
+  ['Influence & social media', topicCounts.Social],
+  ['Guides', topicCounts.Secteur],
+  ['Case studies', topicCounts.Case],
 ];
 const formatDate = (date: Date) => new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'short', year: 'numeric' }).format(date);
 const schema = [breadcrumbs([
@@ -94,8 +105,8 @@ const schema = [breadcrumbs([
 ---
 
 <BaseLayout
-  title="Richmedia Insights — Digital marketing articles, guides and analysis"
-  description="Richmedia editorial hub: digital strategy, media, SEO/GEO, WhatsApp, automation, influence, social media and growth in Morocco."
+  title="Digital Marketing Insights in Morocco | Richmedia"
+  description="Guides and analysis on digital strategy, media, SEO/GEO, WhatsApp, automation, influence, social media and growth in Morocco."
   canonical={pageUrl}
   lang="en"
   schema={schema}
@@ -115,7 +126,15 @@ const schema = [breadcrumbs([
         </div>
       </div>
 
-      <a class="top-feature" href={topArticle.href} aria-label={`Read ${topArticle.title}`}>
+      <a
+        class="top-feature"
+        href={topArticle.href}
+        aria-label={`Read ${topArticle.title}`}
+        data-article-card
+        data-category={topArticle.category}
+        data-filters={topArticle.filterGroups.join(' ')}
+        data-title={topArticle.searchText}
+      >
         <figure><img src={topArticle.image} alt="" width="620" height="420" loading="eager" decoding="async" fetchpriority="high" /></figure>
         <div>
           <span>{topArticle.displayCategory}</span>
@@ -135,10 +154,24 @@ const schema = [breadcrumbs([
     </section>
 
     <nav class="chip-row" aria-label="Insight categories">
-      {chips.map((chip) => <button type="button" class:list={['chip', chip.filter === 'all' && 'is-active']} data-filter={chip.filter}>{chip.label}</button>)}
+      {chips.map((chip) => (
+        'href' in chip ? (
+          <a class="chip" href={chip.href}>{chip.label}</a>
+        ) : (
+          <button type="button" class:list={['chip', chip.filter === 'all' && 'is-active']} data-filter={chip.filter}>{chip.label}</button>
+        )
+      ))}
     </nav>
 
-    <section class="editorial-feature" id="featured" aria-labelledby="featured-title">
+    <section
+      class="editorial-feature"
+      id="featured"
+      aria-labelledby="featured-title"
+      data-article-card
+      data-category={featuredArticle.category}
+      data-filters={featuredArticle.filterGroups.join(' ')}
+      data-title={featuredArticle.searchText}
+    >
       <img src={featuredArticle.image} alt="" width="560" height="330" loading="lazy" decoding="async" />
       <div>
         <span class="section-kicker">Featured article</span>
@@ -156,7 +189,7 @@ const schema = [breadcrumbs([
       </div>
       <div class="article-grid">
         {gridArticles.map((article) => (
-          <a class="article-card" href={article.href} data-article-card data-category={article.category} data-title={`${article.title} ${article.description} ${article.displayCategory}`}>
+          <a class="article-card" href={article.href} data-article-card data-category={article.category} data-filters={article.filterGroups.join(' ')} data-title={article.searchText}>
             <img src={article.image} alt="" width="420" height="230" loading="lazy" decoding="async" />
             <div>
               <span>{article.displayCategory}</span>
@@ -176,7 +209,7 @@ const schema = [breadcrumbs([
           <h2>More articles</h2>
         </div>
         {listArticles.map((article) => (
-          <a class="more-row" href={article.href} data-article-card data-category={article.category} data-title={`${article.title} ${article.description} ${article.displayCategory}`}>
+          <a class="more-row" href={article.href} data-article-card data-category={article.category} data-filters={article.filterGroups.join(' ')} data-title={article.searchText}>
             <img src={article.image} alt="" width="128" height="82" loading="lazy" decoding="async" />
             <div>
               <span>{article.displayCategory}</span>
@@ -251,7 +284,7 @@ const schema = [breadcrumbs([
   .search-field input { width: 100%; border: 0; outline: 0; background: transparent; color: #fff; font: inherit; }
   .search-field input::placeholder { color: rgba(255,255,255,.45); }
   .chip-row { display: flex; flex-wrap: wrap; gap: .7rem; }
-  .chip { min-height: 2.5rem; border: 1px solid var(--line); border-radius: 8px; padding: 0 1rem; background: rgba(255,255,255,.04); color: rgba(255,255,255,.78); cursor: pointer; font: inherit; font-size: .86rem; font-weight: 800; white-space: nowrap; transition: background .18s ease, border-color .18s ease, transform .18s ease; }
+  .chip { display: inline-flex; align-items: center; justify-content: center; min-height: 2.5rem; border: 1px solid var(--line); border-radius: 8px; padding: 0 1rem; background: rgba(255,255,255,.04); color: rgba(255,255,255,.78); cursor: pointer; font: inherit; font-size: .86rem; font-weight: 800; line-height: 1; text-decoration: none; white-space: nowrap; transition: background .18s ease, border-color .18s ease, transform .18s ease; }
   .chip:hover, .chip.is-active { border-color: rgba(168,108,255,.75); background: linear-gradient(135deg,rgba(139,76,255,.95),rgba(100,38,244,.95)); color: #fff; transform: translateY(-1px); }
   .editorial-feature { display: grid; grid-template-columns: .44fr minmax(0,1fr) auto; gap: clamp(1.2rem,3vw,3rem); align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: clamp(1rem,2vw,1.55rem); background: radial-gradient(circle at 88% 18%,rgba(139,76,255,.13),transparent 20rem), var(--panel); transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
   .editorial-feature > img { height: clamp(220px,22vw,330px); aspect-ratio: 16 / 9; border-radius: 6px; }
@@ -305,9 +338,9 @@ const schema = [breadcrumbs([
   const applyFilters = () => {
     const term = normalize(searchInput?.value ?? '');
     cards.forEach((card) => {
-      const category = card.getAttribute('data-category') ?? '';
+      const filters = (card.getAttribute('data-filters') ?? card.getAttribute('data-category') ?? '').split(' ');
       const haystack = normalize(card.getAttribute('data-title') ?? '');
-      const matchesFilter = activeFilter === 'all' || category === activeFilter || (activeFilter === 'Case' && haystack.includes('case'));
+      const matchesFilter = activeFilter === 'all' || filters.includes(activeFilter);
       const matchesSearch = !term || haystack.includes(term);
       card.classList.toggle('is-hidden', !(matchesFilter && matchesSearch));
     });

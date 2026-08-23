@@ -2,24 +2,36 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
+import ServiceLandingPage from '../../components/ServiceLandingPage.astro';
 import QuickAnswer from '../../components/QuickAnswer.astro';
 import Faq from '../../components/Faq.astro';
-import { serviceSchema, breadcrumbs } from '../../lib/schema';
+import { serviceSchema, breadcrumbs, faqSchema } from '../../lib/schema';
 import { frSiloLinks } from '../../lib/seo-silos';
+import { serviceLandings } from '../../lib/service-landings';
 import { SITE } from '../../consts';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('expertises', ({ data }) => !data.draft);
-  return entries.map((entry) => ({
+  const staticExpertiseSlugs = new Set(['referencement-seo']);
+  const entries = await getCollection('expertises', ({ data, id }) => {
+    const slug = data.slug ?? id;
+    return !data.draft && !staticExpertiseSlugs.has(slug);
+  });
+  const expertisePaths = entries.map((entry) => ({
     params: { slug: entry.data.slug ?? entry.id },
     props: { entry },
   }));
+  const serviceLandingPaths = serviceLandings.map((landing) => ({
+    params: { slug: landing.slug },
+    props: { landing },
+  }));
+
+  return [...expertisePaths, ...serviceLandingPaths];
 }
 
-const { entry } = Astro.props;
-const { Content } = await render(entry);
-const slug = entry.data.slug ?? entry.id;
-const url = `${SITE.url}/expertises/${slug}`;
+const { entry, landing } = Astro.props;
+const Content = entry ? (await render(entry)).Content : null;
+const slug = landing ? landing.slug : entry.data.slug ?? entry.id;
+const url = landing ? `${SITE.url}/expertises/${slug}/` : `${SITE.url}/expertises/${slug}`;
 const siloConfig = slug === 'media-performance'
   ? {
       title: 'Relier performance, média et conversion',
@@ -32,29 +44,52 @@ const siloConfig = slug === 'media-performance'
       links: frSiloLinks.seo,
     };
 
-const schema = [
-  serviceSchema({ name: entry.data.title, description: entry.data.metaDescription, url }),
-  breadcrumbs([
-    { name: 'Accueil', url: SITE.url },
-    { name: 'Expertises', url: `${SITE.url}/expertises` },
-    { name: entry.data.title, url },
-  ]),
-];
+const schema = landing
+  ? [
+      serviceSchema({ name: landing.title, description: landing.metaDescription, url }),
+      faqSchema(landing.faq.map(({ question, answer }) => ({ question, answer }))),
+      breadcrumbs([
+        { name: 'Accueil', url: SITE.url },
+        { name: 'Expertises', url: `${SITE.url}/expertises` },
+        { name: landing.parent.label, url: `${SITE.url}${landing.parent.href}` },
+        { name: landing.title, url },
+      ]),
+    ]
+  : [
+      serviceSchema({ name: entry.data.title, description: entry.data.metaDescription, url }),
+      breadcrumbs([
+        { name: 'Accueil', url: SITE.url },
+        { name: 'Expertises', url: `${SITE.url}/expertises` },
+        { name: entry.data.title, url },
+      ]),
+    ];
 ---
-<BaseLayout
-  title={entry.data.metaTitle ?? entry.data.title}
-  description={entry.data.metaDescription}
-  canonical={url}
-  schema={schema}
->
-  <h1>{entry.data.title}</h1>
-  <QuickAnswer text={entry.data.quickAnswer} />
-  <Content />
-  <Faq faq={entry.data.faq} />
-  <SeoSiloLinks
-    title={siloConfig.title}
-    intro={siloConfig.intro}
-    links={siloConfig.links}
-    variant="compact"
-  />
-</BaseLayout>
+{landing ? (
+  <BaseLayout
+    title={landing.metaTitle}
+    description={landing.metaDescription}
+    canonical={url}
+    ogImage={landing.heroImage}
+    schema={schema}
+  >
+    <ServiceLandingPage landing={landing} />
+  </BaseLayout>
+) : (
+  <BaseLayout
+    title={entry.data.metaTitle ?? entry.data.title}
+    description={entry.data.metaDescription}
+    canonical={url}
+    schema={schema}
+  >
+    <h1>{entry.data.title}</h1>
+    <QuickAnswer text={entry.data.quickAnswer} />
+    {Content && <Content />}
+    <Faq faq={entry.data.faq} />
+    <SeoSiloLinks
+      title={siloConfig.title}
+      intro={siloConfig.intro}
+      links={siloConfig.links}
+      variant="compact"
+    />
+  </BaseLayout>
+)}

@@ -30,6 +30,10 @@ export const frSiloLinks = {
   media: [
     { href: "/expertises/strategie-digitale", label: "Stratégie digitale", text: "Cadrer les objectifs, audiences, budgets et indicateurs." },
     { href: "/expertises/achat-media", label: "Paid social & achat média", text: "Transformer Meta, TikTok et LinkedIn en leviers de leads et de ventes." },
+    { href: "/expertises/google-ads-maroc", label: "Google Ads Maroc", text: "Capter les intentions actives avec Search, PMax, tracking et landing pages." },
+    { href: "/expertises/meta-ads-maroc", label: "Meta Ads Maroc", text: "Relier Facebook, Instagram, créatifs, Pixel, CAPI et CRM." },
+    { href: "/expertises/tiktok-ads-maroc", label: "TikTok Ads Maroc", text: "Tester des contenus natifs, Spark Ads, UGC et retargeting." },
+    { href: "/expertises/generation-leads-maroc", label: "Génération de leads Maroc", text: "Connecter trafic, landing pages, WhatsApp, CRM et qualification." },
     { href: "/insights/cout-campagne-google-ads-maroc", label: "Prix campagne Google Ads Maroc", text: "Comprendre budget média, honoraires, tracking et coûts par secteur." },
     { href: "/expertises/referencement-seo", label: "SEO / GEO", text: "Compléter le média paid par un socle organique." },
     { href: "/expertises/ia-automation", label: "IA & automation", text: "Relier leads, scoring, WhatsApp et reporting." },
@@ -61,6 +65,8 @@ export const frSiloLinks = {
     { href: "/contact", label: "Créer une activation de marque", text: "Cadrer une campagne brand content, influence ou UGC avec Richmedia." },
   ],
   conversion: [
+    { href: "/expertises/whatsapp-marketing-maroc", label: "WhatsApp Marketing Maroc", text: "Structurer opt-in, templates, scénarios, CRM et reporting conversationnel." },
+    { href: "/expertises/marketing-automation-crm-maroc", label: "Marketing Automation & CRM", text: "Relier capture, scoring, routing, relances et conversion commerciale." },
     { href: "/produits/whatsapp", label: "WhatsApp Business Maroc", text: "Activer conversations, notifications, relances et conversion WhatsApp." },
     { href: "/insights/whatsapp-business-canal-conversion", label: "Conversion WhatsApp", text: "Comprendre comment WhatsApp devient un canal de qualification et de vente." },
     { href: "/insights/crm-automation-aligner-marketing-sales", label: "CRM marketing", text: "Aligner marketing, sales, lead nurturing, scoring et reporting commercial." },
@@ -76,6 +82,9 @@ export const frSiloLinks = {
     { href: "/produits/hypeo", label: "Hypeo", text: "Découvrir un produit orienté performance et activation." },
   ],
   influence: [
+    { href: "/expertises/influence-marketing-maroc", label: "Influence Marketing Maroc", text: "Structurer casting, brief, UGC, amplification paid et mesure." },
+    { href: "/expertises/social-media-maroc", label: "Social Media Maroc", text: "Relier stratégie éditoriale, community management, contenus et performance." },
+    { href: "/expertises/social-listening-maroc", label: "Social Listening Maroc", text: "Transformer conversations, réputation et tendances en décisions." },
     { href: "/expertises/brand-content", label: "Brand content Maroc", text: "Transformer les messages de marque en contenus activables et social-first." },
     { href: "/expertises/achat-media", label: "Achat média", text: "Amplifier les contenus créateurs en social ads." },
     { href: "/insights/createurs-marques-collaborations-durables", label: "Créateurs UGC", text: "Structurer des collaborations créateurs utiles et durables." },
@@ -83,6 +92,7 @@ export const frSiloLinks = {
     { href: "/realisations", label: "Réalisations", text: "Voir des campagnes de marque et d’engagement." },
   ],
   phygital: [
+    { href: "/expertises/geofencing-drive-to-store-maroc", label: "Géofencing & drive-to-store", text: "Relier zone de chalandise, audiences locales, contenu et trafic magasin." },
     { href: "/expertises/achat-media", label: "Achat média", text: "Générer trafic, visites et conversions magasin." },
     { href: "/expertises/ia-automation", label: "IA & automation", text: "Relier QR, WhatsApp, CRM et coupons." },
     { href: "/secteurs/retail-ecommerce", label: "Retail & e-commerce", text: "Connecter drive-to-store, social commerce et vente." },

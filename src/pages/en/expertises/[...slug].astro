@@ -33,7 +33,7 @@ export function getStaticPaths() {
       slug: 'media-performance',
       fr: '/expertises/media-performance',
       title: 'Media & performance',
-      metaTitle: 'Media buying agency in Morocco - Google, Meta, TikTok | Richmedia',
+      metaTitle: 'Performance Marketing Agency in Morocco | Richmedia',
       h1: 'Media & performance',
       description: 'Media buying agency in Morocco: data-led acquisition across Google, Meta, TikTok and LinkedIn, focused on ROI and qualified leads.',
       quick: 'Richmedia is a media performance agency based in Casablanca. We manage your paid campaigns on Google, Meta, TikTok and LinkedIn to generate qualified leads and measurable ROI.',
@@ -81,7 +81,7 @@ export function getStaticPaths() {
       slug: 'seo-geo',
       fr: '/expertises/referencement-seo',
       title: 'Search engine optimization (SEO)',
-      metaTitle: 'SEO agency in Morocco - Natural search in Casablanca | Richmedia',
+      metaTitle: 'SEO & GEO Agency in Morocco | Richmedia',
       h1: 'Search engine optimization (SEO)',
       description: 'SEO agency in Morocco: audit, content and authority building to rank sustainably on Google and be cited by AI engines.',
       quick: 'An SEO agency in Morocco optimizes your website for Google and generative engines such as ChatGPT and Perplexity through technical audits, content and authority. Richmedia manages all three levers from Casablanca.',
@@ -131,6 +131,9 @@ export function getStaticPaths() {
 const { page } = Astro.props;
 const slug = Astro.params.slug;
 const pageUrl = `${SITE.url}/en/expertises/${slug}`;
+const metaDescription = slug === 'media-performance'
+  ? 'Improve acquisition with Google Ads, Social Ads, SEO/GEO, tracking, CRM and optimization focused on leads, sales and ROI.'
+  : 'Improve organic visibility on Google and AI engines through technical SEO, content, authority building and structured answers.';
 const siloConfig = slug === 'media-performance'
   ? {
       title: 'Connect performance, media and conversion',
@@ -152,7 +155,7 @@ const schema = [
 ];
 ---
 
-<BaseLayout title={page.metaTitle} description={page.description} canonical={pageUrl} lang="en" schema={schema}>
+<BaseLayout title={page.metaTitle} description={metaDescription} canonical={pageUrl} lang="en" schema={schema}>
   <section class="expertise-hero">
     <span class="section-kicker">Expertise</span>
     <h1>{page.h1}</h1>

@@ -14,6 +14,11 @@ type ArticleCard = {
   date: Date | string;
 };
 
+type ArticleSource = {
+  label: string;
+  url: string;
+};
+
 interface Props {
   lang?: 'fr' | 'en';
   breadcrumbLabel: string;
@@ -34,6 +39,7 @@ interface Props {
   recentArticles: ArticleCard[];
   relatedArticles: ArticleCard[];
   faq: { question: string; answer: string }[];
+  sources?: ArticleSource[];
   ctaTitle: string;
   ctaPrimary: string;
   ctaPrimaryHref: string;
@@ -67,6 +73,7 @@ const {
   recentArticles,
   relatedArticles,
   faq,
+  sources = [],
   ctaTitle,
   ctaPrimary,
   ctaPrimaryHref,
@@ -149,6 +156,18 @@ const formatDate = (value: Date | string) =>
         <div class="article-body">
           <slot />
         </div>
+        {sources.length > 0 && (
+          <section class="article-sources" aria-labelledby="article-sources-title">
+            <h2 id="article-sources-title">{lang === 'en' ? 'Sources & references' : 'Sources & références'}</h2>
+            <ul>
+              {sources.map((source) => (
+                <li>
+                  <a href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         {tags.length > 0 && (
           <div class="tag-row" aria-label={lang === 'en' ? 'Tags' : 'Mots-clés'}>
             {tags.map((tag) => <span>{tag}</span>)}
@@ -651,6 +670,33 @@ const formatDate = (value: Date | string) =>
     color: #a985ff;
     font-size: 2rem;
     line-height: 0;
+  }
+
+  .article-sources {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 1.8rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.3rem;
+  }
+
+  .article-sources h2 {
+    color: #fff;
+    font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+    line-height: 1.15;
+  }
+
+  .article-sources ul {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+    padding-left: 1.1rem;
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  .article-sources a {
+    color: #a985ff;
+    font-weight: 800;
   }
 
   .tag-row {

@@ -1,0 +1,1324 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoSiloLinks from '../../components/SeoSiloLinks.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, faqSchema, serviceSchema } from '../../lib/schema';
+import { frSiloLinks } from '../../lib/seo-silos';
+
+const pageUrl = `${SITE.url}/expertises/referencement-seo`;
+const assetBase = '/assets/richmedia-influence/trends';
+const logoBase = '/assets/richmedia-digital-strategy/logos';
+
+const seoTitle = 'Agence SEO & GEO au Maroc | Richmedia';
+const seoDescription =
+  'Développez votre visibilité sur Google et les moteurs IA grâce à une stratégie SEO/GEO pilotée par la technique, le contenu et l’autorité.';
+
+const mobileQuickLinks = [
+  { href: '#audit', label: 'Audit', value: 'Technique' },
+  { href: '#method', label: 'Méthode', value: 'SEO/GEO' },
+  { href: '#deliverables', label: 'Livrables', value: 'Clairs' },
+  { href: '#seo-cta', label: 'Projet', value: 'Audit' },
+];
+
+const proofCards = [
+  {
+    metric: 'Google',
+    title: 'Visibilité organique durable',
+    text: 'Architecture, contenus, performances et autorité sont alignés pour capter les intentions utiles.',
+  },
+  {
+    metric: 'IA',
+    title: 'Pages compréhensibles par les moteurs génératifs',
+    text: 'Réponses directes, entités, FAQ et données structurées facilitent la reprise par ChatGPT, Gemini ou Perplexity.',
+  },
+  {
+    metric: 'Local',
+    title: 'Requêtes business au Maroc',
+    text: 'Les pages services, secteurs et preuves aident à se positionner sur les recherches à forte intention.',
+  },
+];
+
+const methodPillars = [
+  {
+    kicker: 'Technique',
+    title: 'Un site lisible, rapide et indexable',
+    text: 'Audit d’indexation, structure HTML, Core Web Vitals, canonical, maillage, sitemap, robots et données structurées.',
+    items: ['Crawl', 'Indexation', 'CWV', 'Schema'],
+  },
+  {
+    kicker: 'Contenu',
+    title: 'Des pages qui répondent aux vraies intentions',
+    text: 'Cartographie mots-clés, briefs, contenus services, pages secteurs, glossaire, FAQ et preuves éditoriales.',
+    items: ['Intentions', 'Briefs', 'FAQ', 'Preuves'],
+  },
+  {
+    kicker: 'Autorité',
+    title: 'Des signaux de confiance reliés à la marque',
+    text: 'Expertise auteur, citations, sources, réalisations, réputation locale, liens entrants et cohérence de l’entité Richmedia.',
+    items: ['E-E-A-T', 'Sources', 'Auteurs', 'Liens'],
+  },
+  {
+    kicker: 'GEO',
+    title: 'Des contenus structurés pour être cités par l’IA',
+    text: 'Réponses courtes, définitions, tableaux utiles, JSON-LD, maillage interne et informations faciles à extraire.',
+    items: ['Réponses', 'Entités', 'JSON-LD', 'Citations'],
+  },
+];
+
+const roadmap = [
+  {
+    step: '01',
+    title: 'Diagnostic',
+    text: 'Crawl, indexation, performances, architecture, contenus, cannibalisation, concurrence et priorités business.',
+  },
+  {
+    step: '02',
+    title: 'Cartographie',
+    text: 'Mots-clés, intentions, pages à créer, pages à renforcer, contenus preuve et maillage interne.',
+  },
+  {
+    step: '03',
+    title: 'Optimisation',
+    text: 'Balises, contenus, FAQ, données structurées, vitesse, liens internes et signaux d’expertise.',
+  },
+  {
+    step: '04',
+    title: 'Publication',
+    text: 'Pages services, pages secteurs, articles insights, glossaire et contenus adaptés au marché marocain.',
+  },
+  {
+    step: '05',
+    title: 'Mesure',
+    text: 'Positions, impressions, clics, leads, conversions, snippets, citations IA et décisions mensuelles.',
+  },
+];
+
+const deliverables = [
+  'Audit technique SEO',
+  'Audit GEO & réponses IA',
+  'Cartographie mots-clés Maroc',
+  'Plan éditorial priorisé',
+  'Briefs de contenus',
+  'Optimisations on-page',
+  'Plan de maillage interne',
+  'Données structurées JSON-LD',
+  'Recommandations Core Web Vitals',
+  'Suivi Search Console',
+  'Tableau de bord SEO',
+  'Roadmap trimestrielle',
+];
+
+const tools = [
+  { name: 'Ahrefs', logo: 'ahrefs.png', note: 'Recherche & concurrence' },
+  { name: 'Google Trends', logo: 'google-trends.png', note: 'Signaux de demande' },
+  { name: 'Google Analytics', logo: 'google-analytics.svg', note: 'Trafic & conversions' },
+  { name: 'Google Tag Manager', logo: 'google-tag-manager.svg', note: 'Mesure & événements' },
+  { name: 'Looker Studio', logo: 'looker-studio.svg', note: 'Reporting SEO' },
+  { name: 'Microsoft Clarity', logo: 'microsoft-clarity.png', note: 'UX post-clic' },
+];
+
+const faq = [
+  {
+    question: 'Combien de temps pour voir des résultats SEO ?',
+    answer:
+      'Les premiers signaux apparaissent souvent après quelques semaines sur les corrections techniques, mais une progression durable demande généralement plusieurs mois de contenus, maillage, autorité et mesure continue.',
+  },
+  {
+    question: 'Le SEO et le GEO, est-ce la même chose ?',
+    answer:
+      'Non. Le SEO vise la visibilité dans les résultats Google. Le GEO vise la compréhension et la citation par les moteurs de réponse IA. Les deux reposent sur des contenus fiables, structurés et cohérents.',
+  },
+  {
+    question: 'Quelles pages créer en priorité pour une marque au Maroc ?',
+    answer:
+      'Les priorités sont les pages services, les pages secteurs, les pages de preuve, les guides de prix, les FAQ et les contenus qui répondent à une intention business précise.',
+  },
+  {
+    question: 'Pourquoi les données structurées comptent-elles pour le SEO/GEO ?',
+    answer:
+      'Les données structurées aident les moteurs à identifier l’entreprise, les services, les auteurs, les FAQ, les articles et les relations entre les pages. Elles renforcent la compréhension machine du site.',
+  },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Référencement naturel SEO/GEO',
+    description: seoDescription,
+    url: pageUrl,
+  }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Expertises', url: `${SITE.url}/expertises` },
+    { name: 'Référencement naturel', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${assetBase}/trend-seo-geo.webp`}
+  schema={schema}
+>
+  <div class="seo-page">
+    <section class="seo-hero" aria-labelledby="seo-title">
+      <div class="hero-copy">
+        <span class="eyebrow">Expertise Richmedia</span>
+        <h1 id="seo-title">SEO & GEO pour être trouvé, compris et cité.</h1>
+        <p class="hero-lead">
+          Richmedia structure votre visibilité organique sur Google et les moteurs IA avec un socle
+          technique propre, des contenus utiles, un maillage clair et des preuves lisibles.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/reserver-un-audit">
+            Réserver un audit SEO
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/insights/seo-vs-geo-enjeux-2026">
+            Comprendre SEO vs GEO
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Pilotage SEO et GEO Richmedia">
+        <img
+          src={`${assetBase}/trend-seo-geo.webp`}
+          alt="Interface visuelle SEO et GEO avec signaux de recherche et moteurs IA"
+          width="1672"
+          height="941"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <div class="signal-card signal-card-top">
+          <span>Audit</span>
+          <strong>Crawl & indexation</strong>
+        </div>
+        <div class="signal-card signal-card-middle">
+          <span>Contenu</span>
+          <strong>Intentions business</strong>
+        </div>
+        <div class="signal-card signal-card-bottom">
+          <span>GEO</span>
+          <strong>Citations IA</strong>
+        </div>
+      </div>
+    </section>
+
+    <nav class="mobile-seo-nav" aria-label="Navigation de la page SEO">
+      {mobileQuickLinks.map((link) => (
+        <a href={link.href}>
+          <span>{link.label}</span>
+          <strong>{link.value}</strong>
+        </a>
+      ))}
+    </nav>
+
+    <section class="seo-cockpit" id="audit" aria-labelledby="audit-title">
+      <div class="cockpit-main">
+        <div class="cockpit-topline">
+          <span></span>
+          <strong>SEO/GEO cockpit</strong>
+          <small>priorités actives</small>
+        </div>
+        <div class="cockpit-zero">
+          <span>3</span>
+          <div>
+            <p>fondations</p>
+            <h2 id="audit-title">Technique, contenu et autorité reliés à la conversion.</h2>
+          </div>
+        </div>
+        <div class="cockpit-bars" aria-hidden="true">
+          <div style="--value: 92%">
+            <span>Indexation & structure</span>
+            <i></i>
+          </div>
+          <div style="--value: 84%">
+            <span>Contenus business</span>
+            <i></i>
+          </div>
+          <div style="--value: 78%">
+            <span>Signaux GEO</span>
+            <i></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="cockpit-feed">
+        {proofCards.map((card, index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <div>
+              <strong>{card.metric}</strong>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="quick-answer" id="answer" aria-labelledby="quick-answer-title">
+      <div>
+        <span class="eyebrow">Réponse rapide</span>
+        <h2 id="quick-answer-title">Une agence SEO/GEO transforme votre site en actif de visibilité durable.</h2>
+      </div>
+      <p>
+        L’objectif n’est pas seulement de produire des textes. Il faut relier les pages, clarifier les réponses,
+        prouver l’expertise et aider Google comme les IA à comprendre votre marque, vos offres et vos marchés.
+      </p>
+    </section>
+
+    <section class="method-section" id="method" aria-labelledby="method-title">
+      <div class="section-heading">
+        <span class="eyebrow">Méthode Richmedia</span>
+        <h2 id="method-title">Un système SEO/GEO complet, pas une liste de mots-clés.</h2>
+      </div>
+      <div class="method-grid">
+        {methodPillars.map((pillar) => (
+          <article>
+            <span>{pillar.kicker}</span>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.text}</p>
+            <div>
+              {pillar.items.map((item) => <small>{item}</small>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="split-section" aria-labelledby="market-title">
+      <div class="split-visual">
+        <img
+          src="/assets/richmedia-sector-immobilier/campaigns/seo-local-immobilier.webp"
+          alt="Analyse de visibilité locale et de recherche pour le marché marocain"
+          width="1672"
+          height="941"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="split-copy">
+        <span class="eyebrow">Marché marocain</span>
+        <h2 id="market-title">Les requêtes locales doivent avoir des pages dédiées et reliées.</h2>
+        <p>
+          Les recherches comme agence SEO Maroc, agence digitale Casablanca, prix campagne Google Ads Maroc
+          ou SEO local immobilier demandent des contenus précis. Chaque page doit répondre à une intention,
+          montrer une preuve et ouvrir un chemin vers le contact.
+        </p>
+        <a class="text-link" href="/secteurs">
+          Voir les pages secteurs
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="roadmap-section" aria-labelledby="roadmap-title">
+      <div class="section-heading">
+        <span class="eyebrow">Roadmap</span>
+        <h2 id="roadmap-title">De l’audit aux positions, chaque action reste priorisée.</h2>
+      </div>
+      <div class="roadmap">
+        {roadmap.map((item) => (
+          <article>
+            <span>{item.step}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="tool-stack" aria-labelledby="tools-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">Stack SEO</span>
+        <h2 id="tools-title">Les outils utilisés pour auditer, mesurer et décider.</h2>
+      </div>
+      <div class="tool-grid">
+        {tools.map((tool) => (
+          <figure>
+            <span>
+              <img src={`${logoBase}/${tool.logo}`} alt={`Logo ${tool.name}`} loading="lazy" decoding="async" />
+            </span>
+            <figcaption>
+              <strong>{tool.name}</strong>
+              <small>{tool.note}</small>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section class="deliverables-section" id="deliverables" aria-labelledby="deliverables-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">Livrables</span>
+        <h2 id="deliverables-title">Ce que vous recevez pour piloter la visibilité sans flou.</h2>
+      </div>
+      <div class="deliverables-grid">
+        {deliverables.map((item) => <span>{item}</span>)}
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">FAQ SEO/GEO</span>
+        <h2 id="faq-title">Questions fréquentes.</h2>
+      </div>
+      <div class="faq-list">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="seo-cta" id="seo-cta" aria-labelledby="cta-title">
+      <div>
+        <span class="eyebrow">Besoin d’un plan clair ?</span>
+        <h2 id="cta-title">Auditons votre visibilité Google et IA, puis priorisons les actions utiles.</h2>
+      </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href="/reserver-un-audit">
+          Réserver un audit
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href="/contact">Parler à Richmedia</a>
+      </div>
+    </section>
+  </div>
+
+  <SeoSiloLinks
+    title="Relier SEO, contenu et performance"
+    intro="Le référencement travaille mieux avec un socle web solide, une stratégie claire et des contenus pensés pour les intentions de recherche."
+    links={frSiloLinks.seo}
+    variant="compact"
+  />
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .seo-page {
+    --container: min(100% - 3rem, 1360px);
+    --purple: #7c3cff;
+    --purple-2: #a977ff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(255, 255, 255, 0.68);
+    min-height: 100vh;
+    overflow: hidden;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.034) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.034) 1px, transparent 1px),
+      linear-gradient(135deg, rgba(124, 60, 255, 0.13), transparent 28rem),
+      #030407;
+    background-size: 88px 88px, 88px 88px, auto, auto;
+    color: #fff;
+  }
+
+  .seo-hero,
+  .mobile-seo-nav,
+  .seo-cockpit,
+  .quick-answer,
+  .method-section,
+  .split-section,
+  .roadmap-section,
+  .tool-stack,
+  .deliverables-section,
+  .faq-section,
+  .seo-cta {
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .seo-cockpit,
+  .quick-answer,
+  .method-section,
+  .split-section,
+  .roadmap-section,
+  .tool-stack,
+  .deliverables-section,
+  .faq-section,
+  .seo-cta {
+    scroll-margin-top: 6rem;
+  }
+
+  .seo-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
+    min-height: 92vh;
+    padding: clamp(7rem, 11vw, 10rem) 0 5rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--purple-2);
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    width: 2.1rem;
+    height: 2px;
+    content: "";
+    background: var(--purple-2);
+  }
+
+  .hero-copy h1,
+  .section-heading h2,
+  .quick-answer h2,
+  .split-copy h2,
+  .seo-cta h2 {
+    text-wrap: balance;
+  }
+
+  .hero-copy h1 {
+    max-width: 780px;
+    margin-top: 1.1rem;
+    font-size: clamp(2.75rem, 5.2vw, 5.8rem);
+    line-height: 0.96;
+  }
+
+  .hero-lead,
+  .quick-answer p,
+  .split-copy p,
+  .seo-cta p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(1rem, 1.15vw, 1.12rem);
+    line-height: 1.7;
+  }
+
+  .hero-lead {
+    max-width: 690px;
+    margin-top: 1.45rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  .button,
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3.1rem;
+    border-radius: 8px;
+    font-weight: 850;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .button {
+    padding: 0.9rem 1.25rem;
+    font-size: 0.98rem;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .text-link:hover,
+  .text-link:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #9655ff, #6425f4);
+    box-shadow: 0 1.1rem 2.8rem rgba(124, 60, 255, 0.32);
+  }
+
+  .button-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .text-link {
+    justify-content: flex-start;
+    width: max-content;
+    min-height: auto;
+    margin-top: 1.3rem;
+    color: var(--purple-2);
+  }
+
+  .hero-visual {
+    position: relative;
+    isolation: isolate;
+    justify-self: end;
+    overflow: hidden;
+    width: min(100%, 780px);
+    min-height: clamp(420px, 35vw, 560px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    background: #07080d;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.42);
+    transform: perspective(1100px) rotateX(0deg) rotateY(0deg) translateZ(0);
+    transform-style: preserve-3d;
+    transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 520ms ease, box-shadow 520ms ease;
+  }
+
+  .hero-visual::before,
+  .hero-visual::after {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    content: "";
+    pointer-events: none;
+  }
+
+  .hero-visual::before {
+    background: linear-gradient(115deg, transparent 0 42%, rgba(255, 255, 255, 0.16) 48%, transparent 55%);
+    opacity: 0;
+    transform: translate3d(-8%, 4%, 0);
+    transition: opacity 520ms ease, transform 720ms ease;
+    mix-blend-mode: screen;
+  }
+
+  .hero-visual::after {
+    inset: -18% auto -18% -30%;
+    width: 28%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    opacity: 0;
+    transform: skewX(-18deg) translateX(0);
+  }
+
+  .hero-visual:hover,
+  .hero-visual:focus-within {
+    border-color: rgba(169, 119, 255, 0.48);
+    box-shadow:
+      0 1.5rem 4.2rem rgba(0, 0, 0, 0.46),
+      0 0 4rem rgba(124, 60, 255, 0.18);
+    transform: perspective(1100px) rotateX(2.2deg) rotateY(-4.2deg) translate3d(0, -0.45rem, 0);
+  }
+
+  .hero-visual:hover::before,
+  .hero-visual:focus-within::before {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .hero-visual:hover::after,
+  .hero-visual:focus-within::after {
+    animation: light-pass 980ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .hero-visual img {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    object-fit: cover;
+    object-position: center;
+    filter: saturate(1.05) contrast(1.04);
+    transform: scale(1.01);
+    transition: transform 720ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 520ms ease;
+  }
+
+  .hero-visual:hover img,
+  .hero-visual:focus-within img {
+    filter: saturate(1.12) contrast(1.08) brightness(1.06);
+    transform: scale(1.055) translate3d(0.45rem, -0.35rem, 0);
+  }
+
+  .signal-card {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    gap: 0.25rem;
+    width: min(15rem, 44%);
+    border: 1px solid rgba(169, 119, 255, 0.35);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    background: rgba(4, 6, 14, 0.76);
+    box-shadow: 0 1rem 2.8rem rgba(0, 0, 0, 0.38);
+    backdrop-filter: blur(12px);
+    transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 520ms ease, background 520ms ease;
+  }
+
+  .signal-card span {
+    color: var(--purple-2);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .signal-card strong {
+    font-size: clamp(0.96rem, 1.2vw, 1.12rem);
+  }
+
+  .signal-card-top {
+    top: 8%;
+    left: 7%;
+  }
+
+  .signal-card-middle {
+    right: 7%;
+    bottom: 28%;
+  }
+
+  .signal-card-bottom {
+    bottom: 8%;
+    left: 9%;
+  }
+
+  .hero-visual:hover .signal-card-top,
+  .hero-visual:focus-within .signal-card-top {
+    transform: translate3d(-0.55rem, -0.45rem, 2rem);
+  }
+
+  .hero-visual:hover .signal-card-middle,
+  .hero-visual:focus-within .signal-card-middle {
+    transform: translate3d(0.65rem, -0.35rem, 2rem);
+  }
+
+  .hero-visual:hover .signal-card-bottom,
+  .hero-visual:focus-within .signal-card-bottom {
+    transform: translate3d(0.4rem, 0.55rem, 2rem);
+  }
+
+  .mobile-seo-nav {
+    display: none;
+  }
+
+  .seo-cockpit {
+    position: relative;
+    z-index: 4;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 0.9rem;
+    align-items: stretch;
+    margin-top: -2.7rem;
+  }
+
+  .cockpit-main,
+  .cockpit-feed article,
+  .quick-answer,
+  .method-grid article,
+  .split-section,
+  .roadmap article,
+  .tool-grid figure,
+  .deliverables-grid span,
+  .faq-list details,
+  .seo-cta {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+  }
+
+  .cockpit-main,
+  .cockpit-feed article {
+    position: relative;
+    overflow: hidden;
+    background: rgba(6, 7, 13, 0.84);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  }
+
+  .cockpit-main {
+    min-height: 24rem;
+    padding: clamp(1.15rem, 2.4vw, 1.75rem);
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.22), rgba(255, 255, 255, 0.012)),
+      rgba(5, 7, 15, 0.9);
+  }
+
+  .cockpit-main::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.052) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.044) 1px, transparent 1px);
+    background-size: 52px 52px;
+    opacity: 0.58;
+    pointer-events: none;
+  }
+
+  .cockpit-topline,
+  .cockpit-zero,
+  .cockpit-bars {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cockpit-topline {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 0.74rem;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .cockpit-topline span {
+    width: 0.58rem;
+    height: 0.58rem;
+    border-radius: 50%;
+    background: #9f6bff;
+    box-shadow: 0 0 0 0 rgba(159, 107, 255, 0.52);
+    animation: live-pulse 2.4s ease-out infinite;
+  }
+
+  .cockpit-topline small {
+    margin-left: auto;
+    color: rgba(255, 255, 255, 0.44);
+    font-size: 0.68rem;
+  }
+
+  .cockpit-zero {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(1rem, 2vw, 1.5rem);
+    align-items: end;
+    margin-top: clamp(2rem, 4vw, 3.6rem);
+  }
+
+  .cockpit-zero > span {
+    color: var(--purple-2);
+    font-size: clamp(6.2rem, 12vw, 9.4rem);
+    font-weight: 950;
+    line-height: 0.78;
+    letter-spacing: 0;
+    text-shadow: 0 1rem 3rem rgba(124, 60, 255, 0.36);
+  }
+
+  .cockpit-zero p {
+    margin: 0 0 0.6rem;
+    color: var(--purple-2);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .cockpit-zero h2 {
+    max-width: 27rem;
+    font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+    line-height: 1.04;
+  }
+
+  .cockpit-bars {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: clamp(2rem, 4vw, 3.1rem);
+  }
+
+  .cockpit-bars div {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .cockpit-bars span {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .cockpit-bars i {
+    position: relative;
+    overflow: hidden;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .cockpit-bars i::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--value);
+    content: "";
+    border-radius: inherit;
+    background: linear-gradient(90deg, #ffffff, #a977ff 46%, #6a35ff);
+    box-shadow: 0 0 1.4rem rgba(169, 119, 255, 0.45);
+  }
+
+  .cockpit-feed {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .cockpit-feed article {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: 1rem;
+    min-height: 7.55rem;
+    padding: 1rem;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  }
+
+  .cockpit-feed article:hover {
+    border-color: rgba(169, 119, 255, 0.5);
+    background: linear-gradient(135deg, rgba(124, 60, 255, 0.13), rgba(255, 255, 255, 0.026));
+    transform: translateX(5px);
+  }
+
+  .cockpit-feed article > span {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgba(169, 119, 255, 0.38);
+    border-radius: 50%;
+    color: var(--purple-2);
+    font-size: 0.78rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+  }
+
+  .cockpit-feed strong {
+    display: block;
+    color: var(--purple-2);
+    font-size: clamp(1.2rem, 1.75vw, 1.55rem);
+    line-height: 1;
+  }
+
+  .cockpit-feed h3 {
+    margin-top: 0.55rem;
+    font-size: clamp(1rem, 1.25vw, 1.16rem);
+    line-height: 1.12;
+  }
+
+  .cockpit-feed p,
+  .method-grid p,
+  .roadmap p,
+  .faq-list p,
+  .tool-grid small {
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .cockpit-feed p {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .quick-answer {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.68fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
+    margin-top: clamp(3.8rem, 7vw, 6.8rem);
+    padding: clamp(1.5rem, 3vw, 2.4rem);
+  }
+
+  .quick-answer h2,
+  .section-heading h2,
+  .split-copy h2,
+  .seo-cta h2 {
+    margin-top: 0.8rem;
+    font-size: clamp(2rem, 3.6vw, 3.65rem);
+    line-height: 1;
+  }
+
+  .method-section,
+  .split-section,
+  .roadmap-section,
+  .tool-stack,
+  .deliverables-section,
+  .faq-section,
+  .seo-cta {
+    margin-top: clamp(3.8rem, 7vw, 6.8rem);
+  }
+
+  .section-heading.compact {
+    max-width: 760px;
+  }
+
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin-top: 1.6rem;
+  }
+
+  .method-grid article {
+    display: flex;
+    min-height: 19rem;
+    flex-direction: column;
+    padding: 1.2rem;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  }
+
+  .method-grid article:hover,
+  .roadmap article:hover,
+  .tool-grid figure:hover,
+  .deliverables-grid span:hover,
+  .faq-list details:hover {
+    border-color: rgba(169, 119, 255, 0.52);
+    background: linear-gradient(135deg, rgba(124, 60, 255, 0.14), rgba(255, 255, 255, 0.025));
+    transform: translateY(-4px);
+  }
+
+  .method-grid article > span {
+    color: var(--purple-2);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .method-grid h3 {
+    margin-top: 0.95rem;
+    font-size: clamp(1.25rem, 1.6vw, 1.55rem);
+    line-height: 1.05;
+  }
+
+  .method-grid p {
+    margin-top: 0.8rem;
+    font-size: 0.94rem;
+  }
+
+  .method-grid article div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: auto;
+    padding-top: 1.2rem;
+  }
+
+  .method-grid small {
+    border: 1px solid rgba(169, 119, 255, 0.28);
+    border-radius: 999px;
+    padding: 0.35rem 0.55rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.72rem;
+    font-weight: 850;
+  }
+
+  .split-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+    gap: clamp(1.2rem, 3vw, 3rem);
+    align-items: center;
+    overflow: hidden;
+    padding: clamp(1rem, 2vw, 1.4rem);
+  }
+
+  .split-visual {
+    overflow: hidden;
+    min-height: clamp(280px, 32vw, 440px);
+    border-radius: 8px;
+  }
+
+  .split-visual img {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    object-fit: cover;
+    filter: saturate(0.95) contrast(1.05);
+  }
+
+  .split-copy {
+    padding: clamp(1rem, 2vw, 2rem);
+  }
+
+  .split-copy p {
+    margin-top: 1.1rem;
+  }
+
+  .roadmap {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin-top: 1.6rem;
+  }
+
+  .roadmap article {
+    min-height: 13rem;
+    padding: 1rem;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  }
+
+  .roadmap span {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.2);
+    color: var(--purple-2);
+    font-weight: 950;
+  }
+
+  .roadmap h3 {
+    margin-top: 1.1rem;
+    font-size: 1.2rem;
+  }
+
+  .roadmap p {
+    margin-top: 0.65rem;
+    font-size: 0.9rem;
+  }
+
+  .tool-grid,
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.6rem;
+  }
+
+  .tool-grid figure {
+    display: grid;
+    gap: 0.85rem;
+    min-height: 10rem;
+    margin: 0;
+    padding: 1rem;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  }
+
+  .tool-grid figure > span {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .tool-grid img {
+    max-width: 2rem;
+    max-height: 2rem;
+    object-fit: contain;
+  }
+
+  .tool-grid figcaption {
+    display: grid;
+    gap: 0.28rem;
+  }
+
+  .deliverables-grid span {
+    display: flex;
+    min-height: 4.4rem;
+    align-items: center;
+    padding: 0.9rem;
+    color: rgba(255, 255, 255, 0.82);
+    font-weight: 850;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.6rem;
+  }
+
+  .faq-list details {
+    padding: 1.05rem 1.2rem;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    font-size: 1.08rem;
+    font-weight: 900;
+  }
+
+  .faq-list p {
+    max-width: 860px;
+    margin-top: 0.85rem;
+  }
+
+  .seo-cta {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: clamp(4rem, 7vw, 7rem);
+    padding: clamp(1.5rem, 3vw, 2.4rem);
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.28), rgba(255, 255, 255, 0.028)),
+      rgba(7, 7, 14, 0.92);
+  }
+
+  .seo-cta > div:first-child {
+    max-width: 780px;
+  }
+
+  @keyframes light-pass {
+    0% {
+      opacity: 0;
+      transform: skewX(-18deg) translateX(0);
+    }
+
+    24% {
+      opacity: 0.9;
+    }
+
+    100% {
+      opacity: 0;
+      transform: skewX(-18deg) translateX(520%);
+    }
+  }
+
+  @keyframes live-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(159, 107, 255, 0.52);
+    }
+
+    80% {
+      box-shadow: 0 0 0 1rem rgba(159, 107, 255, 0);
+    }
+
+    100% {
+      box-shadow: 0 0 0 0 rgba(159, 107, 255, 0);
+    }
+  }
+
+  @media (max-width: 1120px) {
+    .seo-page {
+      --container: min(100% - 2rem, 960px);
+    }
+
+    .seo-hero,
+    .seo-cockpit,
+    .quick-answer,
+    .split-section,
+    .seo-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .seo-hero {
+      min-height: auto;
+      padding-top: 7rem;
+    }
+
+    .hero-visual {
+      justify-self: stretch;
+    }
+
+    .method-grid,
+    .roadmap,
+    .tool-grid,
+    .deliverables-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .seo-cta {
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .seo-page {
+      --container: min(100% - 1.15rem, 42rem);
+      background-size: 64px 64px, 64px 64px, auto, auto;
+    }
+
+    .seo-hero {
+      gap: 1.4rem;
+      padding: 6.2rem 0 2.2rem;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.35rem, 14vw, 4.2rem);
+    }
+
+    .hero-actions,
+    .seo-cta .hero-actions {
+      width: 100%;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    .hero-visual {
+      min-height: 22rem;
+    }
+
+    .signal-card {
+      width: min(13rem, 58%);
+      padding: 0.75rem 0.8rem;
+    }
+
+    .mobile-seo-nav {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.5rem;
+    }
+
+    .mobile-seo-nav a {
+      display: grid;
+      gap: 0.18rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.8rem;
+      background: rgba(255, 255, 255, 0.04);
+      text-decoration: none;
+    }
+
+    .mobile-seo-nav span {
+      color: var(--purple-2);
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .mobile-seo-nav strong {
+      font-size: 0.95rem;
+    }
+
+    .seo-cockpit {
+      margin-top: 2rem;
+    }
+
+    .cockpit-zero {
+      grid-template-columns: 1fr;
+    }
+
+    .quick-answer,
+    .seo-cta {
+      padding: 1.1rem;
+    }
+
+    .quick-answer h2,
+    .section-heading h2,
+    .split-copy h2,
+    .seo-cta h2 {
+      font-size: clamp(2rem, 9vw, 3rem);
+    }
+
+    .method-grid,
+    .roadmap,
+    .tool-grid,
+    .deliverables-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .method-grid article,
+    .roadmap article,
+    .tool-grid figure {
+      min-height: auto;
+    }
+
+    .split-section {
+      padding: 0.7rem;
+    }
+
+    .split-copy {
+      padding: 0.6rem;
+    }
+  }
+</style>

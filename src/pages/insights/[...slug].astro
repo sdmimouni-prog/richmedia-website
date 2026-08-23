@@ -2,8 +2,8 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleDetailPage from '../../components/ArticleDetailPage.astro';
-import { articleSchema, breadcrumbs } from '../../lib/schema';
-import { getEditorialAuthor, getEditorialAuthorPath, SITE } from '../../consts';
+import { articleSchema, authorCanonicalUrl, authorPersonId, breadcrumbs } from '../../lib/schema';
+import { getEditorialAuthor, getEditorialAuthorPath, getEditorialAuthorStrict, SITE } from '../../consts';
 
 const categoryLabels: Record<string, string> = {
   Growth: 'Stratégie',
@@ -97,19 +97,24 @@ if (!redirectTo) {
   fallbackRelated = relatedArticles.length > 0 ? relatedArticles : recentArticles.slice(0, 4);
   categoryLabel = categoryLabels[pageEntry.data.categorie] ?? pageEntry.data.categorie;
   schemaImage = image.startsWith('/') ? `${SITE.url}${image}` : image;
-  authorProfile = getEditorialAuthor(pageEntry.data.auteur);
+  authorProfile = getEditorialAuthorStrict(pageEntry.data.auteur, `article "${slug}"`) ?? getEditorialAuthor();
   const authorImage = authorProfile.image.startsWith('/') ? `${SITE.url}${authorProfile.image}` : authorProfile.image;
   schema = [
     articleSchema({
       title: pageEntry.data.title,
       description: pageEntry.data.metaDescription,
       url,
-      author: authorProfile.name,
-      authorType: 'Person',
-      authorImage,
+      author: {
+        '@type': 'Person',
+        '@id': authorPersonId(authorProfile.slug),
+        name: authorProfile.name,
+        url: authorCanonicalUrl(authorProfile.slug),
+        image: authorImage,
+      },
       datePublished: pageEntry.data.datePublication,
       dateModified: pageEntry.data.dateModification,
       image: schemaImage,
+      citation: pageEntry.data.sources.map((source) => source.url),
     }),
     breadcrumbs([
       { name: 'Accueil', url: SITE.url },
@@ -169,6 +174,7 @@ if (!redirectTo) {
       recentArticles={recentArticles}
       relatedArticles={fallbackRelated}
       faq={pageEntry.data.faq}
+      sources={pageEntry.data.sources}
       ctaTitle="Des questions sur votre stratégie digitale ? Échangeons avec nos experts."
       ctaPrimary="Discuter d'un projet"
       ctaPrimaryHref="/contact"

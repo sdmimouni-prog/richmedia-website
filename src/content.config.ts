@@ -34,6 +34,9 @@ const seo = z.object({
 
   // — GEO : FAQ extractible (alimente FAQPage + featured snippets) —
   faq: z.array(z.object({ question: z.string(), answer: z.string() })).default([]),
+
+  // — E-E-A-T : sources éditoriales vérifiées, réutilisées en JSON-LD citation —
+  sources: z.array(z.object({ label: z.string(), url: z.string().url() })).default([]),
 });
 
 /** EXPERTISES — piliers (terme large) + clusters (requête d'achat précise). */

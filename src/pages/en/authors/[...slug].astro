@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { breadcrumbs } from '../../../lib/schema';
+import { authorProfileSchema, breadcrumbs } from '../../../lib/schema';
 import { EDITORIAL_AUTHOR_LIST, SITE, getEditorialAuthorBySlug } from '../../../consts';
 
 const categoryLabels: Record<string, string> = {
@@ -38,6 +38,12 @@ export async function getStaticPaths() {
 const { authorSlug } = Astro.props;
 const author = getEditorialAuthorBySlug(authorSlug);
 const pageUrl = `${SITE.url}/en/authors/${author.slug}`;
+const authorSeoDescriptions: Record<string, string> = {
+  'salah-eddine-mimouni': 'Salah Eddine MIMOUNI shares insights on digital strategy, media, SEO/GEO, WhatsApp, CRM and automation for growing brands.',
+  'amal-amazouz': 'Amal AMAZOUZ shares insights on digital strategy, content, social media and influence to turn ideas into measurable action plans.',
+  'tarik-el-abbadi': 'Tarik EL ABBADI shares insights on communication, events, employer brand and consistent brand experiences.',
+};
+const seoDescription = authorSeoDescriptions[author.slug] ?? author.bio.en;
 const allEntries = (await getCollection('articles', ({ data }) => !data.draft && data.lang === 'en'))
   .sort((a, b) => b.data.datePublication.getTime() - a.data.datePublication.getTime());
 const authorEntries = allEntries.filter((entry) => entry.data.auteur === author.name);
@@ -64,22 +70,12 @@ const topicRows = author.topics.en.map((topic) => ({
   count: authorEntries.filter((entry) => (categoryLabels[entry.data.categorie] ?? entry.data.categorie) === topic).length,
 }));
 const schema = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    name: `${author.name} - Richmedia author`,
-    url: pageUrl,
-    mainEntity: {
-      '@type': 'Person',
-      '@id': `${pageUrl}#person`,
-      name: author.name,
-      jobTitle: author.role.en,
-      description: author.bio.en,
-      image: `${SITE.url}${author.portrait}`,
-      worksFor: { '@id': `${SITE.url}/#organization` },
-      sameAs: [author.linkedIn],
-    },
-  },
+  authorProfileSchema({
+    author,
+    lang: 'en',
+    profileUrl: pageUrl,
+    profileName: `${author.name} | Richmedia author`,
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
     { name: 'Insights', url: `${SITE.url}/en/insights` },
@@ -90,7 +86,7 @@ const schema = [
 
 <BaseLayout
   title={`${author.name} - Richmedia author`}
-  description={author.bio.en}
+  description={seoDescription}
   canonical={pageUrl}
   ogImage={`${SITE.url}${author.portrait}`}
   lang="en"
@@ -500,6 +496,7 @@ const schema = [
     grid-template-columns: minmax(0, 1fr) minmax(320px, 0.34fr);
     gap: 1.2rem;
     align-items: start;
+    margin-top: clamp(-0.45rem, -0.9vw, -0.15rem);
   }
 
   .author-main,
@@ -512,8 +509,7 @@ const schema = [
   }
 
   .author-sidebar {
-    position: sticky;
-    top: 6rem;
+    align-self: start;
   }
 
   .author-panel {

@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WhatsAppLegacyLanding from '../../components/WhatsAppLegacyLanding.astro';
+import whatsappLegacyStylesheet from '../../styles/whatsapp-legacy.css?url';
 import { SITE } from '../../consts';
 import { breadcrumbs, localBusiness, serviceSchema } from '../../lib/schema';
 
 const pageDescription =
-  'Découvrez la solution de push WhatsApp Richmedia : campagnes, relances, ciblage data, chatbots, reporting et activation conforme pour convertir plus vite.';
+  'Activez des campagnes WhatsApp pour relancer, qualifier et convertir vos contacts avec un dispositif connecté au CRM et au reporting.';
 
 const schema = [
   localBusiness(),
@@ -23,9 +24,10 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Solution de push WhatsApp - Richmedia"
+  title="Push WhatsApp pour campagnes | Richmedia"
   description={pageDescription}
   canonical={`${SITE.url}/produits/whatsapp`}
+  extraStylesheets={[whatsappLegacyStylesheet]}
   schema={schema}
 >
   <WhatsAppLegacyLanding />

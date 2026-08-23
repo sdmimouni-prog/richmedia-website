@@ -208,7 +208,7 @@ const officeMarkers = [
 const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4');
 ---
 <BaseLayout
-  title="Richmedia — Digital performance agency in Casablanca | We build digital growth"
+  title="Digital Growth Agency in Morocco | Richmedia"
   description={pageDescription}
   canonical={`${SITE.url}/en`}
   lang="en"
@@ -224,7 +224,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
             Start a project
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
-          <a class="button button-secondary" href={brochureHref} download="Richmedia Agency Brochure.pdf">
+          <a class="button button-secondary button-brochure" href={brochureHref} download="Richmedia Agency Brochure.pdf">
             Download brochure
             <i class="ph ph-download-simple" aria-hidden="true"></i>
           </a>
@@ -451,7 +451,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
             Start a project
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
-          <a class="button button-secondary" href={brochureHref} download="Richmedia Agency Brochure.pdf">
+          <a class="button button-secondary button-brochure" href={brochureHref} download="Richmedia Agency Brochure.pdf">
             Download brochure
             <i class="ph ph-download-simple" aria-hidden="true"></i>
           </a>
@@ -803,6 +803,19 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     padding: 0 1.35rem;
     border: 1px solid transparent;
     font-weight: 700;
+  }
+
+  .button-brochure {
+    gap: 0.42rem;
+    padding-inline: 0.95rem;
+    font-size: clamp(0.82rem, 1vw, 0.96rem);
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  .button-brochure .ph {
+    flex: 0 0 auto;
+    font-size: 1.18em;
   }
 
   .button-primary {
@@ -2483,6 +2496,12 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
       width: 100%;
       min-height: 3.35rem;
       border-radius: 8px;
+    }
+
+    .button-brochure {
+      gap: 0.38rem;
+      padding-inline: 0.78rem;
+      font-size: clamp(0.78rem, 3.6vw, 0.9rem);
     }
 
     .contact-actions .button {

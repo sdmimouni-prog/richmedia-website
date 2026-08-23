@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import WhatsAppLegacyLandingEn from '../../../../components/WhatsAppLegacyLandingEn.astro';
+import whatsappLegacyStylesheet from '../../../../styles/whatsapp-legacy.css?url';
 import { SITE } from '../../../../consts';
 import { breadcrumbs, localBusiness, serviceSchema } from '../../../../lib/schema';
 
@@ -31,10 +32,11 @@ const schema = [
 ---
 
 <BaseLayout
-  title="WhatsApp push solution - Richmedia"
+  title="WhatsApp Campaign Push Solution | Richmedia"
   description={pageDescription}
   canonical={`${SITE.url}/en/products/whatsapp`}
   lang="en"
+  extraStylesheets={[whatsappLegacyStylesheet]}
   schema={schema}
 >
   <WhatsAppLegacyLandingEn />

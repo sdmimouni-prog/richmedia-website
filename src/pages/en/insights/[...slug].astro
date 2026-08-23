@@ -2,8 +2,8 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ArticleDetailPage from '../../../components/ArticleDetailPage.astro';
-import { articleSchema, breadcrumbs } from '../../../lib/schema';
-import { getEditorialAuthor, getEditorialAuthorPath, SITE } from '../../../consts';
+import { articleSchema, authorCanonicalUrl, authorPersonId, breadcrumbs } from '../../../lib/schema';
+import { getEditorialAuthor, getEditorialAuthorPath, getEditorialAuthorStrict, SITE } from '../../../consts';
 
 const categoryLabels: Record<string, string> = {
   Growth: 'Strategy',
@@ -61,19 +61,24 @@ const relatedArticles = otherEntries
 const fallbackRelated = relatedArticles.length > 0 ? relatedArticles : recentArticles.slice(0, 4);
 const categoryLabel = categoryLabels[entry.data.categorie] ?? entry.data.categorie;
 const schemaImage = image.startsWith('/') ? `${SITE.url}${image}` : image;
-const authorProfile = getEditorialAuthor(entry.data.auteur);
+const authorProfile = getEditorialAuthorStrict(entry.data.auteur, `article "${slug}"`) ?? getEditorialAuthor();
 const authorImage = authorProfile.image.startsWith('/') ? `${SITE.url}${authorProfile.image}` : authorProfile.image;
 const schema = [
   articleSchema({
     title: entry.data.title,
     description: entry.data.metaDescription,
     url,
-    author: authorProfile.name,
-    authorType: 'Person',
-    authorImage,
+    author: {
+      '@type': 'Person',
+      '@id': authorPersonId(authorProfile.slug),
+      name: authorProfile.name,
+      url: authorCanonicalUrl(authorProfile.slug),
+      image: authorImage,
+    },
     datePublished: entry.data.datePublication,
     dateModified: entry.data.dateModification,
     image: schemaImage,
+    citation: entry.data.sources.map((source) => source.url),
   }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
@@ -116,6 +121,7 @@ const schema = [
     recentArticles={recentArticles}
     relatedArticles={fallbackRelated}
     faq={entry.data.faq}
+    sources={entry.data.sources}
     ctaTitle="Questions about your digital strategy? Let’s talk with our experts."
     ctaPrimary="Discuss a project"
     ctaPrimaryHref="/en/contact"

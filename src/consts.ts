@@ -4,7 +4,7 @@ export const SITE = {
   url: import.meta.env.PUBLIC_SITE_URL ?? 'https://richmedia.ma',
   tagline: 'We build digital growth',
   description:
-    "Agence de performance digitale au Maroc basée à Casablanca : stratégie, média, SEO/GEO, social ads, web, CRM et IA pour générer une croissance mesurable.",
+    "Richmedia accompagne les marques au Maroc depuis Casablanca : stratégie, média, SEO/GEO, contenus, web, CRM et IA pour une croissance mesurable.",
   defaultLocale: 'fr' as const,
   locales: ['fr', 'en'] as const,
 };
@@ -231,15 +231,30 @@ export const EDITORIAL_AUTHORS = {
   },
 } as const;
 
-export const getEditorialAuthor = (name?: string) =>
-  name && name in EDITORIAL_AUTHORS ? EDITORIAL_AUTHORS[name as keyof typeof EDITORIAL_AUTHORS] : EDITORIAL_AUTHOR;
-
 export const EDITORIAL_AUTHOR_LIST = Object.values(EDITORIAL_AUTHORS);
+
+export type EditorialAuthor = (typeof EDITORIAL_AUTHOR_LIST)[number];
+
+export const getEditorialAuthorMaybe = (value?: string) => {
+  if (!value) return undefined;
+  if (value in EDITORIAL_AUTHORS) return EDITORIAL_AUTHORS[value as keyof typeof EDITORIAL_AUTHORS];
+  return EDITORIAL_AUTHOR_LIST.find((author) => author.slug === value);
+};
+
+export const getEditorialAuthor = (value?: string) => getEditorialAuthorMaybe(value) ?? EDITORIAL_AUTHOR;
 
 export const getEditorialAuthorBySlug = (slug?: string) =>
   EDITORIAL_AUTHOR_LIST.find((author) => author.slug === slug) ?? EDITORIAL_AUTHOR;
 
+export const getEditorialAuthorStrict = (value?: string, context?: string) => {
+  const author = getEditorialAuthorMaybe(value);
+  if (!author) {
+    console.warn(`[Richmedia authors] Unknown author "${value ?? 'undefined'}"${context ? ` in ${context}` : ''}`);
+  }
+  return author;
+};
+
 export const getEditorialAuthorPath = (name?: string, lang: 'fr' | 'en' = 'fr') => {
   const author = getEditorialAuthor(name);
-  return lang === 'en' ? `/en/authors/${author.slug}` : `/auteurs/${author.slug}`;
+  return lang === 'en' ? `/en/authors/${author.slug}/` : `/auteurs/${author.slug}/`;
 };

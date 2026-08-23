@@ -1,0 +1,918 @@
+---
+import Faq from './Faq.astro';
+import type { ServiceLanding } from '../lib/service-landings';
+
+interface Props {
+  landing: ServiceLanding;
+}
+
+const { landing } = Astro.props;
+const faq = landing.faq.map(({ question, answer }) => ({ question, answer }));
+const serviceNames = landing.services.map((service) => service.title).join(', ');
+const useCaseLabels = landing.useCases.map((useCase) => useCase.label).join(', ');
+const kpiLabels = landing.kpis.map((kpi) => kpi.label).join(', ');
+const primaryProblem = landing.problems[0].replace(/\.$/, '').toLowerCase();
+const secondaryProblem = landing.problems[1].replace(/\.$/, '').toLowerCase();
+---
+
+<article class="service-landing">
+  <nav class="service-breadcrumb" aria-label="Fil d'Ariane">
+    <a href="/">Accueil</a>
+    <span>/</span>
+    <a href="/expertises">Expertises</a>
+    <span>/</span>
+    <a href={landing.parent.href}>{landing.parent.label}</a>
+    <span>/</span>
+    <strong>{landing.title}</strong>
+  </nav>
+
+  <section class="service-hero">
+    <div class="hero-copy">
+      <span class="service-kicker">{landing.eyebrow}</span>
+      <h1>{landing.h1}</h1>
+      <p>{landing.intro}</p>
+      <div class="hero-actions">
+        <a class="primary-action" href="/reserver-un-audit">Parler à un expert <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <a class="secondary-action" href="/realisations">Voir nos réalisations</a>
+      </div>
+    </div>
+
+    <figure class="hero-visual">
+      <img src={landing.heroImage} alt={landing.heroAlt} width="1180" height="820" loading="eager" decoding="async" fetchpriority="high" />
+      <figcaption>
+        <span>{landing.keywordPrincipal}</span>
+        <strong>{landing.parent.label}</strong>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="proof-strip" aria-label="Points de crédibilité">
+    {landing.proof.map((item) => (
+      <div>
+        <strong>{item.value}</strong>
+        <span>{item.label}</span>
+      </div>
+    ))}
+  </section>
+
+  <section class="split-section">
+    <div class="section-heading">
+      <span class="service-kicker">Problèmes résolus</span>
+      <h2>Ce que nous corrigeons avant de scaler.</h2>
+      <p>Une campagne rentable commence par les frictions qu'elle supprime : ciblage, page, tracking, suivi commercial ou cohérence créative.</p>
+    </div>
+    <div class="problem-list">
+      {landing.problems.map((problem) => (
+        <div class="problem-item">
+          <i class="ph ph-warning-circle" aria-hidden="true"></i>
+          <span>{problem}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <span class="service-kicker">Ce que nous faisons</span>
+      <h2>Un périmètre précis, connecté au business.</h2>
+    </div>
+    <div class="service-grid">
+      {landing.services.map((service) => (
+        <article class="service-card">
+          <h3>{service.title}</h3>
+          <p>{service.text}</p>
+          <ul>
+            {service.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="method-section">
+    <div class="section-heading">
+      <span class="service-kicker">Méthodologie</span>
+      <h2>La méthode change selon le levier.</h2>
+    </div>
+    <div class="method-rail">
+      {landing.methodology.map((step) => (
+        <article>
+          <span>{step.step}</span>
+          <h3>{step.title}</h3>
+          <p>{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="editorial-section">
+    <div class="section-heading">
+      <span class="service-kicker">Lecture business</span>
+      <h2>Quand ce levier mérite d'être travaillé.</h2>
+    </div>
+
+    <div class="editorial-layout">
+      <div class="editorial-copy">
+        <p>
+          {landing.title} devient pertinent lorsque le sujet n'est plus seulement de publier, diffuser ou acheter du trafic,
+          mais de relier ce levier à une intention commerciale claire. Richmedia commence par vérifier l'offre, le parcours,
+          la mesure et la capacité de suivi avant de recommander un volume d'activation.
+        </p>
+        <p>
+          Le périmètre couvre notamment {serviceNames}. Ces briques ne valent que si elles se répondent : un message clair,
+          une audience utile, une page ou conversation exploitable, puis un retour terrain qui permet d'améliorer la campagne
+          au lieu de répéter les mêmes hypothèses.
+        </p>
+        <p>
+          La lecture de performance se fait à travers {kpiLabels}. Ces indicateurs servent à arbitrer, pas à promettre des
+          benchmarks universels. La bonne décision dépend du secteur, de l'offre, du délai de conversion, de la qualité des
+          leads et des signaux réellement disponibles.
+        </p>
+      </div>
+
+      <div class="decision-grid">
+        <article>
+          <span>À activer quand</span>
+          <p>Vous voyez apparaître un problème comme : {primaryProblem}, ou {secondaryProblem}.</p>
+        </article>
+        <article>
+          <span>À éviter</span>
+          <p>Isoler ce levier du CRM, du contenu, du tracking ou de la page de conversion. C'est souvent là que la performance se perd.</p>
+        </article>
+        <article>
+          <span>À relier à</span>
+          <p>Des cas d'usage concrets comme {useCaseLabels}, avec un objectif mesurable et un responsable du suivi.</p>
+        </article>
+        <article>
+          <span>À trancher avant budget</span>
+          <p>Quelle action vaut vraiment une conversion, qui traite les demandes et quelle donnée remonte pour améliorer la prochaine vague.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="quality-section">
+    <div class="section-heading">
+      <span class="service-kicker">Avant de lancer</span>
+      <h2>Les décisions qui évitent de gaspiller le budget.</h2>
+      <p>
+        Une landing service doit aider à choisir, pas seulement à présenter. Cette grille sert de cadrage avant activation :
+        elle clarifie ce qui doit être prêt, mesuré et relié aux autres leviers du site.
+      </p>
+    </div>
+
+    <div class="quality-grid">
+      <article>
+        <strong>Intention</strong>
+        <p>
+          Le levier {landing.title} doit répondre à une intention identifiable : demande immédiate, notoriété utile,
+          relance, trafic qualifié ou activation locale. Sans intention claire, le budget devient un test permanent sans
+          apprentissage exploitable.
+        </p>
+      </article>
+      <article>
+        <strong>Parcours</strong>
+        <p>
+          Le clic, le message ou la visite doit tomber sur un parcours lisible. Richmedia vérifie la cohérence entre
+          {serviceNames}, la promesse de la campagne, les preuves visibles, le formulaire, WhatsApp et la suite commerciale.
+        </p>
+      </article>
+      <article>
+        <strong>Mesure</strong>
+        <p>
+          Les indicateurs {kpiLabels} ne suffisent pas seuls. Ils doivent être reliés à une qualité de demande, un statut
+          CRM, une relance ou un signal terrain, sinon l'optimisation risque de favoriser le volume le moins utile.
+        </p>
+      </article>
+      <article>
+        <strong>Maillage</strong>
+        <p>
+          Cette page renvoie vers {landing.parent.label}, des secteurs comme {useCaseLabels}, des insights et des expertises
+          associées. Le maillage aide Google à comprendre le rôle de la page et aide l'utilisateur à continuer son parcours.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="usage-kpi-grid">
+    <div class="linked-panel">
+      <span class="service-kicker">Cas d'usage</span>
+      <h2>Où ce service devient utile.</h2>
+      <div class="link-stack">
+        {landing.useCases.map((link) => (
+          <a href={link.href}>
+            <strong>{link.label}</strong>
+            {link.text && <span>{link.text}</span>}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="linked-panel">
+      <span class="service-kicker">KPIs à suivre</span>
+      <h2>Les bons indicateurs, sans faux benchmark.</h2>
+      <div class="kpi-list">
+        {landing.kpis.map((kpi) => (
+          <div>
+            <strong>{kpi.label}</strong>
+            <span>{kpi.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {landing.caseStudy && (
+    <section class="case-band">
+      <div>
+        <span class="service-kicker">Preuve réelle</span>
+        <h2>{landing.caseStudy.title}</h2>
+        <p>{landing.caseStudy.text}</p>
+      </div>
+      <a href={landing.caseStudy.href}>{landing.caseStudy.label} <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+    </section>
+  )}
+
+  <section class="related-section">
+    <div class="section-heading">
+      <span class="service-kicker">Maillage interne</span>
+      <h2>Pour approfondir le sujet.</h2>
+    </div>
+    <div class="related-grid">
+      <div class="linked-panel compact-panel">
+        <h3>Insights liés</h3>
+        <div class="link-stack">
+          {landing.relatedInsights.map((link) => (
+            <a href={link.href}>
+              <strong>{link.label}</strong>
+              {link.text && <span>{link.text}</span>}
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="linked-panel compact-panel">
+        <h3>Secteurs utiles</h3>
+        <div class="link-stack">
+          {landing.relatedSectors.map((link) => (
+            <a href={link.href}>
+              <strong>{link.label}</strong>
+              {link.text && <span>{link.text}</span>}
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="linked-panel compact-panel">
+        <h3>Expertises associées</h3>
+        <div class="link-stack">
+          {landing.relatedServices.map((link) => (
+            <a href={link.href}>
+              <strong>{link.label}</strong>
+              {link.text && <span>{link.text}</span>}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Faq faq={faq} emitSchema={false} />
+
+  <section class="service-cta">
+    <div>
+      <span>Parlons de votre croissance</span>
+      <h2>Vous voulez transformer ce levier en dispositif mesurable ?</h2>
+    </div>
+    <a href="/reserver-un-audit">Réserver un audit <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+  </section>
+</article>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+  }
+
+  .service-landing {
+    --panel: rgba(16, 17, 27, 0.9);
+    --panel-soft: rgba(255, 255, 255, 0.045);
+    --line: rgba(255, 255, 255, 0.12);
+    --muted: rgba(255, 255, 255, 0.68);
+    --accent: #9b6cff;
+    color: #fff;
+    display: grid;
+    gap: clamp(2rem, 4vw, 4.5rem);
+    width: min(calc(100% - 3rem), 1320px);
+    margin: 0 auto;
+    padding: clamp(1rem, 3vw, 2.5rem) 0 clamp(3rem, 6vw, 6rem);
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .service-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.56);
+    font-size: 0.92rem;
+    font-weight: 750;
+  }
+
+  .service-breadcrumb a {
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+  }
+
+  .service-breadcrumb strong {
+    color: #a985ff;
+  }
+
+  .service-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.78fr);
+    gap: clamp(1rem, 4vw, 3rem);
+    align-items: center;
+    min-height: 620px;
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: clamp(1.2rem, 2.4vw, 1.8rem);
+    max-width: 760px;
+  }
+
+  .service-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #a985ff;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .service-kicker::before {
+    content: "";
+    width: 3rem;
+    height: 2px;
+    background: currentColor;
+  }
+
+  .hero-copy h1 {
+    max-width: 920px;
+    font-size: clamp(3.1rem, 7vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: 0;
+  }
+
+  .hero-copy p,
+  .section-heading p,
+  .editorial-copy p,
+  .service-card p,
+  .decision-grid p,
+  .quality-grid p,
+  .method-rail p,
+  .case-band p {
+    color: var(--muted);
+    font-size: clamp(1rem, 1.45vw, 1.2rem);
+    line-height: 1.65;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .hero-actions a,
+  .case-band a,
+  .service-cta a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 3.25rem;
+    padding: 0.95rem 1.15rem;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 850;
+    text-decoration: none;
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .primary-action,
+  .service-cta a {
+    border: 1px solid rgba(180, 134, 255, 0.72);
+    background: linear-gradient(135deg, #8a4dff, #6d31f4);
+    box-shadow: 0 18px 45px rgba(111, 57, 239, 0.34);
+  }
+
+  .secondary-action,
+  .case-band a {
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.045);
+  }
+
+  .hero-actions a:hover,
+  .hero-actions a:focus-visible,
+  .case-band a:hover,
+  .case-band a:focus-visible,
+  .service-cta a:hover,
+  .service-cta a:focus-visible {
+    transform: translateY(-3px);
+    border-color: rgba(169, 133, 255, 0.82);
+    box-shadow: 0 22px 58px rgba(111, 57, 239, 0.24);
+    outline: none;
+  }
+
+  .hero-visual {
+    position: relative;
+    overflow: hidden;
+    min-height: 560px;
+    margin: 0;
+    border: 1px solid rgba(169, 133, 255, 0.28);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(138, 77, 255, 0.25), transparent 22rem),
+      #08080e;
+  }
+
+  .hero-visual img {
+    width: 100%;
+    height: 100%;
+    min-height: 560px;
+    object-fit: cover;
+    filter: saturate(0.9) contrast(1.05);
+  }
+
+  .hero-visual::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 48%;
+    background: linear-gradient(0deg, rgba(5, 5, 10, 0.92), transparent);
+    pointer-events: none;
+  }
+
+  .hero-visual figcaption {
+    position: absolute;
+    z-index: 1;
+    inset: auto 1rem 1rem;
+    display: grid;
+    gap: 0.25rem;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    background: rgba(8, 8, 14, 0.74);
+    backdrop-filter: blur(14px);
+  }
+
+  .hero-visual figcaption span {
+    color: #a985ff;
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .hero-visual figcaption strong {
+    font-size: 1.05rem;
+  }
+
+  .proof-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(139, 92, 246, 0.16), rgba(7, 7, 12, 0.94) 44%),
+      rgba(255, 255, 255, 0.035);
+  }
+
+  .proof-strip div {
+    display: grid;
+    gap: 0.28rem;
+    min-height: 145px;
+    padding: clamp(1rem, 2vw, 1.5rem);
+    border-right: 1px solid var(--line);
+  }
+
+  .proof-strip div:last-child {
+    border-right: 0;
+  }
+
+  .proof-strip strong {
+    font-size: clamp(1.6rem, 3vw, 3rem);
+    line-height: 1;
+  }
+
+  .proof-strip span {
+    color: var(--muted);
+    line-height: 1.35;
+  }
+
+  .split-section,
+  .usage-kpi-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: start;
+  }
+
+  .section-heading {
+    display: grid;
+    gap: 0.85rem;
+    max-width: 820px;
+  }
+
+  .section-heading h2,
+  .linked-panel h2,
+  .case-band h2,
+  .service-cta h2 {
+    font-size: clamp(2rem, 4.5vw, 4.2rem);
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  .problem-list,
+  .service-grid,
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .problem-item,
+  .service-card,
+  .linked-panel,
+  .method-rail article {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 12% 0%, rgba(138, 77, 255, 0.16), transparent 18rem),
+      var(--panel);
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .problem-item:hover,
+  .service-card:hover,
+  .linked-panel:hover,
+  .method-rail article:hover {
+    transform: translateY(-4px);
+    border-color: rgba(169, 133, 255, 0.55);
+    box-shadow: 0 24px 70px rgba(89, 48, 210, 0.16);
+  }
+
+  .problem-item {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    min-height: 96px;
+    padding: 1rem;
+  }
+
+  .problem-item i {
+    color: #a985ff;
+    font-size: 1.35rem;
+  }
+
+  .problem-item span {
+    color: rgba(255, 255, 255, 0.82);
+    font-weight: 760;
+    line-height: 1.45;
+  }
+
+  .content-section,
+  .method-section,
+  .editorial-section,
+  .quality-section,
+  .related-section {
+    display: grid;
+    gap: clamp(1rem, 2.4vw, 1.6rem);
+  }
+
+  .editorial-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: start;
+  }
+
+  .editorial-copy {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1rem, 2vw, 1.35rem);
+    border-left: 3px solid rgba(169, 133, 255, 0.72);
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.08), transparent);
+  }
+
+  .decision-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .decision-grid article {
+    display: grid;
+    gap: 0.65rem;
+    min-height: 180px;
+    padding: clamp(1rem, 2vw, 1.2rem);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 8% 0%, rgba(138, 77, 255, 0.16), transparent 14rem),
+      var(--panel);
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .decision-grid article:hover {
+    transform: translateY(-4px);
+    border-color: rgba(169, 133, 255, 0.55);
+    box-shadow: 0 24px 70px rgba(89, 48, 210, 0.16);
+  }
+
+  .decision-grid span {
+    color: #b892ff;
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .quality-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .quality-grid article {
+    display: grid;
+    gap: 0.75rem;
+    min-height: 260px;
+    padding: clamp(1rem, 2vw, 1.2rem);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+      var(--panel);
+  }
+
+  .quality-grid strong {
+    color: #fff;
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+  }
+
+  .service-card {
+    display: grid;
+    gap: 0.85rem;
+    min-height: 260px;
+    padding: clamp(1rem, 2vw, 1.25rem);
+  }
+
+  .service-card h3,
+  .method-rail h3,
+  .linked-panel h3 {
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    line-height: 1.1;
+  }
+
+  .service-card ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    align-self: end;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .service-card li {
+    border: 1px solid rgba(169, 133, 255, 0.24);
+    border-radius: 999px;
+    padding: 0.42rem 0.62rem;
+    background: rgba(169, 133, 255, 0.08);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .method-rail {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .method-rail article {
+    display: grid;
+    gap: 0.65rem;
+    min-height: 230px;
+    padding: 1rem;
+  }
+
+  .method-rail article > span {
+    display: inline-grid;
+    width: 2.7rem;
+    height: 2.7rem;
+    place-items: center;
+    border: 1px solid rgba(169, 133, 255, 0.42);
+    border-radius: 999px;
+    color: #b892ff;
+    font-weight: 900;
+  }
+
+  .linked-panel {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1rem, 2vw, 1.25rem);
+  }
+
+  .link-stack {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .link-stack a {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      border-color 180ms ease,
+      background 180ms ease,
+      transform 180ms ease;
+  }
+
+  .link-stack a:hover,
+  .link-stack a:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(169, 133, 255, 0.6);
+    background: rgba(169, 133, 255, 0.1);
+    outline: none;
+  }
+
+  .link-stack span,
+  .kpi-list span {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .kpi-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .kpi-list div {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .case-band,
+  .service-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    padding: clamp(1.1rem, 2.6vw, 1.8rem);
+    border: 1px solid rgba(169, 133, 255, 0.34);
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(124, 74, 255, 0.2), rgba(7, 7, 12, 0.95) 50%, rgba(255, 255, 255, 0.04)),
+      #08080e;
+  }
+
+  .case-band div,
+  .service-cta div {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .related-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .compact-panel h3 {
+    margin: 0;
+  }
+
+  .service-cta span {
+    color: #a985ff;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 1060px) {
+    .service-hero,
+    .split-section,
+    .editorial-layout,
+    .usage-kpi-grid {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .hero-visual,
+    .hero-visual img {
+      min-height: 420px;
+    }
+
+    .method-rail,
+    .quality-grid,
+    .related-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .service-landing {
+      width: min(calc(100% - 1.25rem), 1320px);
+      gap: 2rem;
+    }
+
+    .service-hero {
+      gap: 1.2rem;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.55rem, 13vw, 4.1rem);
+    }
+
+    .hero-copy p {
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: grid;
+    }
+
+    .hero-actions a,
+    .case-band a,
+    .service-cta a {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .hero-visual,
+    .hero-visual img {
+      min-height: 360px;
+    }
+
+    .proof-strip,
+    .problem-list,
+    .service-grid,
+    .decision-grid,
+    .method-rail,
+    .quality-grid,
+    .related-grid,
+    .kpi-list,
+    .case-band,
+    .service-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-strip div {
+      min-height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .proof-strip div:last-child {
+      border-bottom: 0;
+    }
+
+    .service-card,
+    .method-rail article {
+      min-height: auto;
+    }
+  }
+</style>
