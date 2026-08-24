@@ -106,11 +106,11 @@ const cases = [
     image: `${realizationAssets}/milka-back-to-school.webp`,
     width: 1556,
     height: 1158,
-    category: 'FMCG',
+    category: 'Packaging',
     client: 'Milka',
-    campaignType: 'Back to School KV & launch',
-    visibility: '24.2M impressions',
-    engagement: '7.2%',
+    campaignType: 'Packaging & key visual',
+    visibility: 'Shelf impact',
+    engagement: 'Appetizing universe',
     href: '/en/case-studies#milka-back-to-school',
   },
   {
@@ -804,7 +804,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     max-width: 420px;
     margin: 1.7rem 0 0;
     color: rgba(255, 255, 255, 0.78);
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
     line-height: 1.45;
   }
 
@@ -843,7 +843,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     gap: 0.38rem;
     max-width: 100%;
     padding-inline: 0.78rem;
-    font-size: clamp(0.74rem, 0.86vw, 0.86rem);
+    font-size: 1.0625rem;
     line-height: 1.1;
     letter-spacing: 0;
     white-space: nowrap;
@@ -1004,12 +1004,12 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     z-index: 1;
     display: block;
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: 1.0625rem;
     transition: color 220ms ease;
   }
 
   .stat-item:last-child span {
-    font-size: clamp(0.74rem, 0.9vw, 0.82rem);
+    font-size: 1.0625rem;
     white-space: nowrap;
   }
 
@@ -1061,14 +1061,14 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     max-width: 520px;
     margin: 0.75rem 0 0;
     color: rgba(255, 255, 255, 0.76);
-    font-size: 0.88rem;
+    font-size: 1.0625rem;
     line-height: 1.6;
   }
 
   .text-link {
     margin-top: 0.75rem;
     color: #a978ff;
-    font-size: 0.82rem;
+    font-size: 1.0625rem;
     font-weight: 700;
   }
 
@@ -1077,7 +1077,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     align-items: center;
     gap: 0.8rem;
     color: var(--muted);
-    font-size: 0.72rem;
+    font-size: 1.0625rem;
   }
 
   .circle-button {
@@ -1241,19 +1241,19 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   }
 
   .story-avatar i {
-    font-size: 0.9rem;
+    font-size: 1.0625rem;
   }
 
   .story-meta strong {
     overflow: hidden;
-    font-size: 0.66rem;
+    font-size: 1.0625rem;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .story-meta small {
     color: rgba(255, 255, 255, 0.72);
-    font-size: 0.54rem;
+    font-size: 1.0625rem;
     font-weight: 700;
   }
 
@@ -1277,9 +1277,9 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     width: fit-content;
     border-radius: 4px;
     background: linear-gradient(135deg, #8d55ff, #5f28e9);
-    padding: 0.25rem 0.42rem;
+    padding: 0.2rem 0.36rem;
     color: #fff;
-    font-size: 0.54rem;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -1287,9 +1287,9 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
   .story-content h3 {
     max-width: 18ch;
-    margin: 0.6rem 0 0;
-    font-size: 1rem;
-    line-height: 1.15;
+    margin: 0.48rem 0 0;
+    font-size: 14px;
+    line-height: 1.12;
   }
 
   .chips {
@@ -1302,23 +1302,27 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     padding: 0.35rem 0.48rem;
     background: rgba(0, 0, 0, 0.38);
     color: rgba(255, 255, 255, 0.84);
-    font-size: 0.72rem;
+    font-size: 1.0625rem;
     font-weight: 700;
   }
 
   .outcome {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.34rem;
     width: fit-content;
-    margin-top: 0.85rem;
+    margin-top: 0.68rem;
     border: 1px solid rgba(124, 60, 255, 0.72);
     border-radius: 6px;
-    padding: 0.45rem 0.58rem;
+    padding: 0.34rem 0.48rem;
     background: rgba(124, 60, 255, 0.13);
     color: #fff;
-    font-size: 0.66rem;
+    font-size: 13px;
     transition: border-color 220ms ease, background 220ms ease, transform 220ms ease;
+  }
+
+  .outcome i {
+    font-size: 14px;
   }
 
   .story-card:hover .outcome {
@@ -1509,6 +1513,11 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     margin-bottom: 0;
   }
 
+  .case-head .eyebrow {
+    padding: 0.25rem 0.42rem;
+    font-size: 0.54rem;
+  }
+
   .case-overlay h3 {
     margin: 0;
     font-size: clamp(1.08rem, 1.32vw, 1.42rem);
@@ -1655,14 +1664,14 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   .team-card-copy h3 {
     max-width: 13ch;
     color: #fff;
-    font-size: 0.68rem;
+    font-size: 1.0625rem;
     line-height: 1.08;
   }
 
   .team-card-copy p {
     margin-top: 0.26rem;
     color: rgba(255, 255, 255, 0.72);
-    font-size: 0.5rem;
+    font-size: 1.0625rem;
     line-height: 1.2;
   }
 
@@ -1713,7 +1722,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   }
 
   .contact-kicker {
-    font-size: 0.95rem;
+    font-size: 1.0625rem;
     font-weight: 600;
   }
 
@@ -1729,7 +1738,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     max-width: 560px;
     margin: 1.1rem 0 0;
     color: rgba(255, 255, 255, 0.72);
-    font-size: clamp(0.95rem, 1.3vw, 1.08rem);
+    font-size: clamp(1.0625rem, 1.3vw, 1.08rem);
     line-height: 1.6;
   }
 
@@ -1750,12 +1759,12 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
   .contact-actions .button-brochure {
     padding-inline: 0.72rem;
-    font-size: clamp(0.72rem, 0.82vw, 0.82rem);
+    font-size: 1.0625rem;
   }
 
   .contact-band address {
     display: grid;
-    gap: 0.75rem;
+    gap: 0.62rem;
     align-content: center;
     font-style: normal;
   }
@@ -1763,14 +1772,14 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   .contact-line {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
-    gap: 0.85rem;
+    gap: 0.66rem;
     align-items: center;
-    min-height: 4.25rem;
+    min-height: 3.35rem;
     margin: 0;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-left-color: rgba(124, 60, 255, 0.52);
     border-radius: 8px;
-    padding: 0.8rem 0.95rem;
+    padding: 0.62rem 0.78rem;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
     color: rgba(255, 255, 255, 0.82);
     text-decoration: none;
@@ -1785,8 +1794,8 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
   .contact-icon {
     display: inline-grid;
-    width: 2.35rem;
-    height: 2.35rem;
+    width: 2rem;
+    height: 2rem;
     place-items: center;
     border: 1px solid rgba(124, 60, 255, 0.38);
     border-radius: 8px;
@@ -1795,25 +1804,25 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
   .contact-icon i {
     color: var(--purple);
-    font-size: 1.15rem;
+    font-size: 0.96rem;
   }
 
   .contact-line small,
   .map-label {
     display: block;
     color: var(--muted);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
   .contact-line strong {
     display: block;
-    margin-top: 0.2rem;
+    margin-top: 0.14rem;
     color: #fff;
-    font-size: 0.95rem;
-    line-height: 1.28;
+    font-size: 0.88rem;
+    line-height: 1.22;
   }
 
   .contact-map-panel {
@@ -1921,7 +1930,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     padding: 0.28rem 0.52rem;
     background: rgba(3, 4, 7, 0.76);
     color: #fff;
-    font-size: 0.76rem;
+    font-size: 11px;
     font-weight: 600;
     line-height: 1;
     backdrop-filter: blur(12px);
@@ -1968,12 +1977,12 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
   .map-label {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
+    top: 0.85rem;
+    left: 0.85rem;
     z-index: 6;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 999px;
-    padding: 0.45rem 0.65rem;
+    padding: 0.36rem 0.55rem;
     background: rgba(3, 4, 7, 0.72);
     backdrop-filter: blur(12px);
     transition:
@@ -1993,26 +2002,26 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
   .office-pills {
     position: absolute;
-    right: 1rem;
-    bottom: 1rem;
-    left: 1rem;
+    right: 0.85rem;
+    bottom: 0.85rem;
+    left: 0.85rem;
     z-index: 6;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.38rem;
   }
 
   .office-pills span {
     display: inline-flex;
-    gap: 0.4rem;
+    gap: 0.32rem;
     align-items: center;
-    min-height: 2.05rem;
+    min-height: 1.55rem;
     border: 1px solid rgba(255, 255, 255, 0.13);
     border-radius: 999px;
-    padding: 0 0.7rem;
+    padding: 0 0.52rem;
     background: rgba(3, 4, 7, 0.72);
     color: rgba(255, 255, 255, 0.9);
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 600;
     backdrop-filter: blur(12px);
     transition:
@@ -2025,8 +2034,8 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   }
 
   .office-pills span::before {
-    width: 0.4rem;
-    height: 0.4rem;
+    width: 0.32rem;
+    height: 0.32rem;
     border-radius: 999px;
     background: var(--purple);
     box-shadow: 0 0 0.8rem rgba(124, 60, 255, 0.75);
@@ -2071,7 +2080,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   .proof-panel-copy span {
     display: block;
     color: var(--purple);
-    font-size: 0.72rem;
+    font-size: 1.0625rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -2093,7 +2102,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     max-width: 650px;
     margin: 0;
     color: var(--muted);
-    font-size: 0.95rem;
+    font-size: 1.0625rem;
     line-height: 1.55;
   }
 
@@ -2140,7 +2149,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     max-width: 245px;
     margin: 0.55rem 0 0;
     color: var(--muted);
-    font-size: 0.78rem;
+    font-size: 1.0625rem;
     line-height: 1.45;
   }
 
@@ -2229,7 +2238,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     align-items: center;
     gap: 0.8rem;
     color: #b58cff;
-    font-size: 0.72rem;
+    font-size: 1.0625rem;
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -2256,7 +2265,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     max-width: 900px;
     margin: 0.32rem 0 0;
     color: rgba(255, 255, 255, 0.7);
-    font-size: clamp(0.76rem, 0.92vw, 0.88rem);
+    font-size: 1.0625rem;
     line-height: 1.28;
   }
 
@@ -2469,7 +2478,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   .cert-card figcaption span {
     display: block;
     color: #fff;
-    font-size: 0.68rem;
+    font-size: 1.0625rem;
     line-height: 1.15;
   }
 
@@ -2728,7 +2737,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .contact-actions .button-brochure {
-      font-size: clamp(0.7rem, 1.45vw, 0.78rem);
+      font-size: 1.0625rem;
     }
 
     .contact-card {
@@ -2736,7 +2745,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .contact-line {
-      min-height: 4rem;
+      min-height: 3.35rem;
     }
 
     .contact-map-panel {
@@ -2791,7 +2800,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     .hero-copy p {
       max-width: 32ch;
       margin-top: 1rem;
-      font-size: 0.98rem;
+      font-size: 1.0625rem;
       line-height: 1.55;
     }
 
@@ -2812,13 +2821,13 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     .button-brochure {
       gap: 0.38rem;
       padding-inline: 0.7rem;
-      font-size: clamp(0.74rem, 3.3vw, 0.84rem);
+      font-size: 1.0625rem;
     }
 
     .contact-actions .button {
       min-height: 3.35rem;
       border-radius: 8px;
-      font-size: 0.9rem;
+      font-size: 1.0625rem;
     }
 
     .hero-visual {
@@ -2866,7 +2875,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .stat-item span {
-      font-size: 0.78rem;
+      font-size: 1.0625rem;
       line-height: 1.25;
     }
 
@@ -2994,7 +3003,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .contact-copy p {
-      font-size: 0.95rem;
+      font-size: 1.0625rem;
       line-height: 1.55;
     }
 
@@ -3009,12 +3018,12 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .contact-line {
-      min-height: 4.35rem;
-      padding: 0.75rem 0.82rem;
+      min-height: 3.35rem;
+      padding: 0.62rem 0.74rem;
     }
 
     .contact-line strong {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
 
     .contact-map-panel {
@@ -3034,9 +3043,9 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .office-pills span {
-      min-height: 1.9rem;
-      padding-inline: 0.56rem;
-      font-size: 0.7rem;
+      min-height: 1.45rem;
+      padding-inline: 0.46rem;
+      font-size: 0.66rem;
     }
 
     .proof-zone {
@@ -3045,7 +3054,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .proof-intro p {
-      font-size: 0.92rem;
+      font-size: 1.0625rem;
       line-height: 1.55;
     }
 

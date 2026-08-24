@@ -11,9 +11,9 @@ export const SITE = {
 
 export const BRAND_ASSETS = {
   logo: {
-    path: '/assets/richmedia-whatsapp-lp/hero-logo.png',
-    width: 240,
-    height: 72,
+    path: '/assets/richmedia-brand/logo-richmedia-wordmark.png',
+    width: 1248,
+    height: 232,
     alt: 'Logo Richmedia',
   },
   image: {
@@ -70,7 +70,7 @@ export const EDITORIAL_AUTHOR = {
   slug: 'salah-eddine-mimouni',
   image: '/assets/richmedia-home/team-carousel/salah.webp',
   portrait: '/assets/richmedia-home/team-carousel/salah.webp',
-  linkedIn: 'https://www.linkedin.com/company/richmedia-ma/',
+  linkedIn: 'https://www.linkedin.com/in/salah-eddine-mimouni/',
   email: BUSINESS.email,
   role: {
     fr: 'Fondateur & CEO de Richmedia',
@@ -142,7 +142,7 @@ export const EDITORIAL_AUTHORS = {
     slug: 'amal-amazouz',
     image: '/assets/richmedia-home/team-carousel/amal.webp',
     portrait: '/assets/richmedia-home/team-carousel/amal.webp',
-    linkedIn: 'https://www.linkedin.com/company/richmedia-ma/',
+    linkedIn: 'https://www.linkedin.com/in/amal-amazouz-40a67b14a/',
     email: BUSINESS.email,
     role: {
       fr: 'COO & CDO de Richmedia',
@@ -191,7 +191,7 @@ export const EDITORIAL_AUTHORS = {
     slug: 'tarik-el-abbadi',
     image: '/assets/richmedia-home/team-carousel/tarik.webp',
     portrait: '/assets/richmedia-home/team-carousel/tarik.webp',
-    linkedIn: 'https://www.linkedin.com/company/richmedia-ma/',
+    linkedIn: 'https://www.linkedin.com/in/tarik-el-abbadi-68b47b34/',
     email: BUSINESS.email,
     role: {
       fr: 'Directeur Communication & Event de Richmedia',

@@ -1,8 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import SeoSiloLinks from '../../../components/SeoSiloLinks.astro';
-import QuickAnswer from '../../../components/QuickAnswer.astro';
-import Faq from '../../../components/Faq.astro';
 import { breadcrumbs, faqSchema, serviceSchema } from '../../../lib/schema';
 import { enSiloLinks, sectorSiloLinksEn } from '../../../lib/seo-silos';
 import { SITE } from '../../../consts';
@@ -461,6 +459,41 @@ const sectorSeo: Record<string, { title: string; description: string }> = {
 };
 const seo = sectorSeo[page.slug] ?? { title: `${page.title} | Richmedia`, description: page.description };
 const sectorSiloLinks = sectorSiloLinksEn[page.slug as keyof typeof sectorSiloLinksEn] ?? enSiloLinks.sectorsHub;
+const sectorThemeClassBySlug: Record<string, string | undefined> = {
+  'real-estate': 'immobilier-sector',
+  'retail-ecommerce': 'retail-sector',
+  'grocery-retail': 'gms-sector',
+  institutional: 'institutionnel-sector',
+  'tourism-hospitality': 'hotellerie-sector',
+  automotive: 'automobile-sector',
+  fmcg: 'fmcg-sector',
+};
+const sectorSecondaryLinks: Record<string, { href: string; label: string }> = {
+  education: { href: '/en/sectors', label: 'All sectors' },
+  'real-estate': { href: '/en/expertises/achat-media', label: 'Media expertise' },
+  'retail-ecommerce': { href: '/en/expertises/web-si', label: 'Web expertise' },
+  'grocery-retail': { href: '/en/expertises/phygital', label: 'Phygital expertise' },
+  institutional: { href: '/en/expertises/brand-content', label: 'Content expertise' },
+  'tourism-hospitality': { href: '/en/expertises/influence', label: 'Influence expertise' },
+  automotive: { href: '/en/expertises/achat-media', label: 'Media expertise' },
+  fmcg: { href: '/en/expertises/brand-content', label: 'Brand content expertise' },
+};
+const sectorCtaIcons: Record<string, string> = {
+  education: 'ph-graduation-cap',
+  'real-estate': 'ph-buildings',
+  'retail-ecommerce': 'ph-shopping-bag',
+  'grocery-retail': 'ph-storefront',
+  institutional: 'ph-bank',
+  'tourism-hospitality': 'ph-suitcase-rolling',
+  automotive: 'ph-car-profile',
+  fmcg: 'ph-package',
+};
+const articleClasses = ['education-sector', sectorThemeClassBySlug[page.slug]].filter(Boolean);
+const secondaryLink = sectorSecondaryLinks[page.slug] ?? { href: '/en/sectors', label: 'All sectors' };
+const ctaIcon = sectorCtaIcons[page.slug] ?? 'ph-arrow-up-right';
+const heroLead = page.h1.startsWith('Digital communication') ? 'Digital communication' : 'Digital marketing';
+const heroRest = page.h1.startsWith(heroLead) ? page.h1.slice(heroLead.length).trim() : page.h1;
+const caseMetrics = page.levers.slice(0, 3);
 const schema = [
   {
     ...serviceSchema({ name: page.title, description: page.quick || page.description, url: pageUrl }),
@@ -480,59 +513,80 @@ const schema = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} canonical={pageUrl} lang="en" schema={schema}>
-  <article class="sector-detail">
-    <section class="sector-hero" aria-labelledby="sector-title">
-      <div class="sector-hero-copy">
-        <span class="section-kicker">Sector / {page.label}</span>
-        <h1 id="sector-title">{page.h1}</h1>
+  <article class:list={articleClasses}>
+    <section class="education-hero" aria-labelledby={`${page.slug}-title`}>
+      <div class="education-hero-copy">
+        <span class="education-kicker">Sector / {page.label}</span>
+        <h1 id={`${page.slug}-title`}>
+          <strong>{heroLead}</strong>
+          {heroRest}
+        </h1>
+        <div class="education-underline" aria-hidden="true"></div>
         <p>{page.description}</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="/en/contact">
+        <div class="education-actions">
+          <a class="education-button education-button-primary" href="/en/contact">
             Talk to an expert
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
-          <a class="button button-secondary" href="/en/sectors">
-            All sectors
+          <a class="education-button education-button-secondary" href={secondaryLink.href}>
+            {secondaryLink.label}
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
         </div>
       </div>
-      <figure class="sector-hero-visual">
-        <img src={page.heroImage} alt={`${page.label} digital marketing in Morocco`} width="1280" height="900" loading="eager" decoding="async" fetchpriority="high" />
-        <figcaption>
-          <span>References</span>
-          <div>{page.clients.map((client) => <strong>{client}</strong>)}</div>
+
+      <figure class="education-hero-visual">
+        <img
+          src={page.heroImage}
+          alt={`${page.label} digital marketing in Morocco`}
+          width="1100"
+          height="1074"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <figcaption class="education-trust-panel">
+          <div class="education-trust-heading">
+            <span>Trusted by</span>
+            <strong>
+              {page.clients.length}
+              <small>references</small>
+            </strong>
+          </div>
+          <div class="education-trust-grid" style={`--trust-count: ${page.clients.length}`} aria-label={`${page.label} references`}>
+            {page.clients.map((client, index) => (
+              <strong class="education-trust-logo" style={`--logo-index: ${index + 1}`}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <b>
+                  {client}
+                  <small>{page.label}</small>
+                </b>
+              </strong>
+            ))}
+          </div>
         </figcaption>
       </figure>
     </section>
 
-    <QuickAnswer text={page.quick} />
-
-    <section class="sector-section" aria-labelledby="challenges-title">
-      <div class="section-heading">
-        <span class="section-kicker">Challenges</span>
-        <h2 id="challenges-title">Priority sector challenges.</h2>
-      </div>
-      <div class="card-grid">
-        {page.challenges.map((item) => (
-          <article class="motion-card">
-            <i class={`ph ${item.icon}`} aria-hidden="true"></i>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
+    <section class="education-section" aria-labelledby={`${page.slug}-challenges-title`}>
+      <h2 id={`${page.slug}-challenges-title`}>Priority sector challenges</h2>
+      <div class="education-challenge-grid">
+        {page.challenges.map((challenge) => (
+          <article>
+            <i class={`ph ${challenge.icon}`} aria-hidden="true"></i>
+            <h3>{challenge.title}</h3>
+            <p>{challenge.text}</p>
           </article>
         ))}
       </div>
     </section>
 
-    <section class="sector-section method-section" aria-labelledby="method-title">
-      <div class="section-heading">
-        <span class="section-kicker">Method</span>
-        <h2 id="method-title">{page.methodTitle}.</h2>
-      </div>
-      <div class="method-layout">
-        <div class="method-timeline">
+    <section class="education-section education-method" aria-labelledby={`${page.slug}-method-title`}>
+      <h2 id={`${page.slug}-method-title`}>{page.methodTitle}</h2>
+      <div class="education-method-layout">
+        <div class="education-timeline" aria-label={`${page.label} method in four steps`}>
           {page.method.map((step, index) => (
-            <article class="motion-card">
+            <article>
               <span>{String(index + 1).padStart(2, '0')}</span>
               <i class={`ph ${step.icon}`} aria-hidden="true"></i>
               <h3>{step.title}</h3>
@@ -542,55 +596,98 @@ const schema = [
             </article>
           ))}
         </div>
-        <aside class="levers-panel motion-card" aria-label={`${page.label} key levers`}>
-          <i class="ph ph-lightning" aria-hidden="true"></i>
+        <aside class="education-levers" aria-label={`${page.label} key levers`}>
           <h3>Key levers</h3>
-          <ul>{page.levers.map((lever) => <li>{lever}</li>)}</ul>
+          <ul>
+            {page.levers.map((lever) => (
+              <li>
+                <i class="ph ph-check-circle" aria-hidden="true"></i>
+                {lever}
+              </li>
+            ))}
+          </ul>
         </aside>
       </div>
     </section>
 
-    <section class="sector-section" aria-labelledby="campaigns-title">
-      <div class="section-heading">
-        <span class="section-kicker">Campaigns</span>
-        <h2 id="campaigns-title">Campaigns we know how to run.</h2>
-      </div>
-      <div class="campaign-grid">
+    <section class="education-section" aria-labelledby={`${page.slug}-campaigns-title`}>
+      <h2 id={`${page.slug}-campaigns-title`}>Campaigns we know how to run</h2>
+      <div class="education-campaign-grid">
         {page.campaigns.map((campaign) => (
-          <article class="campaign-card">
-            <img src={campaign.image} alt={`${campaign.title} campaign for ${page.label}`} width="800" height="520" loading="lazy" decoding="async" />
-            <div>
-              <i class={`ph ${campaign.icon}`} aria-hidden="true"></i>
-              <h3>{campaign.title}</h3>
-              <p>{campaign.text}</p>
-            </div>
+          <article style={`--campaign-image: url('${campaign.image}')`}>
+            <i class={`ph ${campaign.icon}`} aria-hidden="true"></i>
+            <h3>{campaign.title}</h3>
+            <p>{campaign.text}</p>
           </article>
         ))}
       </div>
     </section>
 
-    <section class="case-panel" aria-labelledby="case-title">
-      <img src={page.caseImage} alt={`${page.caseTitle} - ${page.label}`} width="1280" height="720" loading="lazy" decoding="async" />
-      <div>
-        <span class="section-kicker">References</span>
-        <h2 id="case-title">{page.caseTitle}.</h2>
-        <p>{page.caseText}</p>
-        <div class="reference-pills">{page.clients.map((client) => <span>{client}</span>)}</div>
+    <section class="education-trust-case" aria-labelledby={`${page.slug}-trust-title`}>
+      <div class="education-trust-copy">
+        <h2 id={`${page.slug}-trust-title`}>Trusted references</h2>
+        <div class="education-logo-row" aria-label={`${page.label} references`}>
+          {page.clients.map((client) => (
+            <span class="education-logo-item">
+              <b>
+                {client}
+                <small>{page.label}</small>
+              </b>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <article class="education-case-card">
+        <img src={page.caseImage} alt={`${page.caseTitle} - ${page.label}`} width="1280" height="720" loading="lazy" decoding="async" />
+        <div class="education-case-content">
+          <div class="education-case-main">
+            <span>Sector case</span>
+            <h3>{page.caseTitle}</h3>
+            <p>{page.caseText}</p>
+            <a class="education-button education-button-primary" href="/en/contact">
+              Start the discussion
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="education-case-metrics" aria-label={`${page.label} campaign levers`}>
+            {caseMetrics.map((metric, index) => (
+              <strong>
+                {String(index + 1).padStart(2, '0')}
+                <span>{metric}</span>
+              </strong>
+            ))}
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="education-section education-faq-section" aria-labelledby={`${page.slug}-faq-title`}>
+      <h2 id={`${page.slug}-faq-title`}>FAQ - {page.label}</h2>
+      <div class="education-faq-grid">
+        {page.faq.map((item, index) => (
+          <details>
+            <summary>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              {item.question}
+              <i class="ph ph-caret-down" aria-hidden="true"></i>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
       </div>
     </section>
 
-    <section class="sector-cta" aria-labelledby="cta-title">
+    <section class="education-bottom-cta" aria-labelledby={`${page.slug}-cta-title`}>
+      <i class={`ph ${ctaIcon}`} aria-hidden="true"></i>
       <div>
-        <span class="section-kicker">Next step</span>
-        <h2 id="cta-title">{page.cta}?</h2>
+        <h2 id={`${page.slug}-cta-title`}>{page.cta}?</h2>
       </div>
-      <a class="button button-primary" href="/en/contact">
-        Start the discussion
+      <a class="education-button education-button-primary" href="/en/contact">
+        Talk to an expert
         <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
       </a>
     </section>
-
-    <Faq faq={page.faq} lang="en" emitSchema={false} />
   </article>
   <SeoSiloLinks
     title="Connect this sector to the right levers"
@@ -600,400 +697,1626 @@ const schema = [
   />
 </BaseLayout>
 
-<style>
-  :global(main) {
-    max-width: 1280px;
-  }
+<script is:inline>
+  (() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+    if (prefersReducedMotion || !supportsHover) return;
+
+    document.querySelectorAll('.education-challenge-grid article, .education-timeline article, .education-levers').forEach((card) => {
+      const resetCard = () => {
+        card.style.setProperty('--mx', '50%');
+        card.style.setProperty('--my', '24%');
+        card.style.setProperty('--tilt-x', '0deg');
+        card.style.setProperty('--tilt-y', '0deg');
+      };
+
+      card.addEventListener('pointermove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const px = x / rect.width - 0.5;
+        const py = y / rect.height - 0.5;
+
+        card.style.setProperty('--mx', `${x}px`);
+        card.style.setProperty('--my', `${y}px`);
+        card.style.setProperty('--tilt-x', `${px * 4}deg`);
+        card.style.setProperty('--tilt-y', `${py * -4}deg`);
+      });
+
+      card.addEventListener('pointerleave', resetCard);
+      resetCard();
+    });
+  })();
+</script>
+
+<style>
   .sector-detail {
     display: grid;
-    gap: clamp(2rem, 5vw, 4.6rem);
+    max-width: 880px;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    padding-top: clamp(1rem, 4vw, 3rem);
   }
 
-  .sector-hero {
+  .sector-detail-hero {
     display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
-    align-items: center;
-    gap: clamp(1.5rem, 4vw, 4rem);
-    padding-top: clamp(1rem, 4vw, 3.5rem);
+    gap: 1rem;
   }
 
-  .sector-hero-copy,
-  .sector-section,
-  .method-layout,
-  .sector-cta {
+  .sector-detail-hero > a {
+    width: fit-content;
+    color: #a985ff;
+    font-size: 1.0625rem;
+    font-weight: 850;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .sector-detail h1 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2.6rem, 6vw, 5.4rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 0.96;
+  }
+
+  .sector-detail-content {
     display: grid;
-    gap: clamp(1rem, 2vw, 1.4rem);
+    gap: 1.3rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1.0625rem;
+    line-height: 1.8;
   }
 
-  h1,
-  h2,
-  h3,
-  p {
+  .sector-detail-content :global(h2) {
+    margin: 1.3rem 0 0;
+    color: #fff;
+    font-size: clamp(1.55rem, 2.6vw, 2.2rem);
+    line-height: 1.08;
+  }
+
+  .sector-detail-content :global(p),
+  .sector-detail-content :global(ul) {
     margin: 0;
   }
 
-  h1 {
-    color: #fff;
-    font-size: clamp(2.7rem, 6.5vw, 5.9rem);
-    font-weight: 900;
-    letter-spacing: 0;
-    line-height: 0.95;
-    text-wrap: balance;
+  .sector-detail-content :global(ul) {
+    display: grid;
+    gap: 0.55rem;
+    padding-left: 1.2rem;
   }
 
-  h2 {
-    color: #fff;
-    font-size: clamp(2rem, 4.5vw, 4.2rem);
-    font-weight: 900;
-    letter-spacing: 0;
-    line-height: 1;
-    text-wrap: balance;
+  .sector-detail-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
   }
 
-  h3 {
+  .sector-detail-links a {
+    display: flex;
+    min-height: 4.4rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(255, 255, 255, 0.035);
     color: #fff;
-    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    font-weight: 800;
+    line-height: 1.12;
+    text-decoration: none;
+    transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  }
+
+  .sector-detail-links i {
+    color: #a985ff;
+    flex: 0 0 auto;
+  }
+
+  .sector-detail-links a:hover,
+  .sector-detail-links a:focus-visible {
+    border-color: rgba(156, 109, 255, 0.48);
+    background: rgba(124, 60, 255, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .education-sector {
+    display: grid;
+    min-width: 0;
+    gap: clamp(2rem, 4.4vw, 3.75rem);
+    padding-bottom: 1rem;
+  }
+
+  :global(main:has(.education-sector)) {
+    width: min(calc(100% - 3rem), 1320px);
+  }
+
+  .education-sector h2,
+  .education-sector h3,
+  .education-sector p {
+    margin: 0;
+  }
+
+  .education-kicker {
+    width: fit-content;
+    color: #a985ff;
+    font-size: 1.0625rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .education-button {
+    display: inline-flex;
+    box-sizing: border-box;
+    min-height: 2.7rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.48rem;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 0.72rem 1.05rem;
+    color: #fff;
+    font-size: 1.0625rem;
     font-weight: 850;
-    letter-spacing: 0;
-    line-height: 1.14;
+    line-height: 1;
+    text-decoration: none;
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
   }
 
-  p {
-    color: rgba(255, 255, 255, 0.68);
+  .education-button:hover,
+  .education-button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .education-button-primary {
+    background: linear-gradient(135deg, #8e55ff, #6726ee);
+    box-shadow: 0 1rem 2.2rem rgba(124, 60, 255, 0.26);
+  }
+
+  .education-button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .education-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.91fr) minmax(520px, 1.09fr);
+    min-width: 0;
+    gap: clamp(1.5rem, 4.2vw, 3.2rem);
+    align-items: center;
+    padding-top: clamp(1.1rem, 3vw, 2.2rem);
+  }
+
+  .education-hero-copy {
+    display: grid;
+    min-width: 0;
+    align-content: center;
+    gap: 1rem;
+  }
+
+  .education-hero h1 {
+    --h1-size: clamp(2.55rem, 4.6vw, 3.125rem);
+    max-width: min(100%, 11.7em);
+    color: #fff;
+    font-weight: 520;
+    letter-spacing: 0;
+    line-height: 0.96;
+  }
+
+  .education-hero h1 strong {
+    display: block;
+    font-weight: 930;
+  }
+
+  .institutionnel-sector .education-hero h1 {
+    max-width: min(100%, 13.4em);
+    text-align: justify;
+    text-align-last: left;
+  }
+
+  .institutionnel-sector .education-hero h1 span {
+    display: block;
+  }
+
+  .education-underline {
+    width: min(16rem, 48vw);
+    height: 2.1rem;
+    margin-top: -0.9rem;
+    background: url("/assets/richmedia-case-study/purple-underline.png") left center / contain no-repeat;
+  }
+
+  .education-hero-copy p {
+    max-width: 58ch;
+    color: rgba(255, 255, 255, 0.73);
+    font-size: 1.0625rem;
     line-height: 1.7;
   }
 
-  .sector-hero-copy > p {
-    max-width: 65ch;
-    font-size: clamp(1rem, 1.6vw, 1.15rem);
-  }
-
-  .hero-actions {
+  .education-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
-    margin-top: 0.4rem;
+    gap: 0.75rem;
+    margin-top: 0.55rem;
   }
 
-  .sector-hero-visual {
+  .education-hero-visual {
     position: relative;
-    min-height: clamp(23rem, 36vw, 34rem);
-    margin: 0;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    min-width: 0;
+    min-height: clamp(27rem, 38vw, 32rem);
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.13);
     border-radius: 8px;
-    background: #07070c;
-    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.32);
+    background: #070910;
   }
 
-  .sector-hero-visual::after {
+  .education-hero-visual > img {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(180deg, transparent 44%, rgba(3, 3, 8, 0.9)),
-      radial-gradient(circle at 15% 10%, rgba(139, 88, 255, 0.18), transparent 18rem);
-    content: "";
-    pointer-events: none;
-  }
-
-  .sector-hero-visual > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.9;
+    object-position: center;
   }
 
-  .sector-hero-visual figcaption {
-    position: absolute;
-    right: 1rem;
-    bottom: 1rem;
-    left: 1rem;
-    z-index: 1;
-    display: grid;
-    gap: 0.85rem;
-  }
-
-  .sector-hero-visual figcaption > span {
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 0.78rem;
-    font-weight: 850;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-
-  .sector-hero-visual figcaption div,
-  .reference-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-  }
-
-  .sector-hero-visual strong,
-  .reference-pills span {
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 999px;
-    background: rgba(5, 5, 10, 0.62);
-    color: #fff;
-    font-size: 0.78rem;
-    font-weight: 900;
-    letter-spacing: 0.08em;
-    padding: 0.58rem 0.72rem;
-    text-transform: uppercase;
-  }
-
-  .section-heading {
-    display: grid;
-    gap: 0.7rem;
-    max-width: 820px;
-  }
-
-  .card-grid,
-  .campaign-grid,
-  .method-timeline {
-    display: grid;
-    gap: 0.9rem;
-  }
-
-  .card-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .motion-card,
-  .campaign-card,
-  .case-panel,
-  .sector-cta {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 8px;
-    background:
-      radial-gradient(circle at 12% 0%, rgba(124, 60, 255, 0.18), transparent 14rem),
-      rgba(255, 255, 255, 0.035);
-  }
-
-  .motion-card,
-  .campaign-card {
-    position: relative;
-    overflow: hidden;
-    transform: translateZ(0);
-    transition:
-      transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-color 280ms ease,
-      box-shadow 280ms ease,
-      background 280ms ease;
-  }
-
-  .motion-card {
-    display: grid;
-    align-content: start;
-    gap: 0.85rem;
-    min-height: 12.5rem;
-    padding: 1.15rem;
-  }
-
-  .motion-card::before,
-  .campaign-card::before {
+  .education-hero-visual::after,
+  .education-case-card::after {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(115deg, transparent 4%, rgba(255, 255, 255, 0.14) 42%, transparent 68%),
-      radial-gradient(circle at 86% 18%, rgba(154, 93, 255, 0.22), transparent 38%);
+    background: linear-gradient(90deg, rgba(3, 4, 7, 0.2), rgba(3, 4, 7, 0.62));
     content: "";
-    opacity: 0;
-    transform: translateX(-24%);
-    transition: opacity 240ms ease, transform 520ms ease;
     pointer-events: none;
   }
 
-  .motion-card:hover,
-  .motion-card:focus-within,
-  .campaign-card:hover,
-  .campaign-card:focus-within {
-    border-color: rgba(174, 112, 255, 0.7);
+  .education-trust-panel {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    z-index: 1;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    width: min(18.75rem, 45%);
+    gap: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 1rem;
     background:
-      radial-gradient(circle at 12% 0%, rgba(124, 60, 255, 0.26), transparent 14rem),
-      rgba(255, 255, 255, 0.055);
-    box-shadow: 0 1.1rem 2.35rem rgba(0, 0, 0, 0.3), 0 0 2.2rem rgba(124, 60, 255, 0.2);
-    transform: translateY(-7px) scale(1.018);
+      linear-gradient(145deg, rgba(140, 86, 255, 0.12), transparent 34%),
+      linear-gradient(180deg, rgba(8, 9, 15, 0.9), rgba(6, 7, 12, 0.78));
+    backdrop-filter: blur(18px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1rem 2.6rem rgba(0, 0, 0, 0.32);
   }
 
-  .motion-card:hover::before,
-  .motion-card:focus-within::before,
-  .campaign-card:hover::before,
-  .campaign-card:focus-within::before {
-    opacity: 1;
-    transform: translateX(0);
+  .education-trust-panel::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 3.4rem 3.4rem;
+    content: "";
+    mask-image: linear-gradient(140deg, rgba(0, 0, 0, 0.72), transparent 64%);
+    pointer-events: none;
   }
 
-  .motion-card > *,
-  .campaign-card > * {
+  .education-trust-heading,
+  .education-trust-grid {
     position: relative;
     z-index: 1;
   }
 
-  .motion-card i,
-  .campaign-card i,
-  .levers-panel i {
-    color: #a985ff;
-    font-size: 1.9rem;
+  .education-trust-heading {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+    justify-content: space-between;
   }
 
-  .method-layout {
-    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
-    align-items: start;
+  .education-trust-heading > span {
+    color: #fff;
+    font-size: 1.0625rem;
+    font-weight: 850;
   }
 
-  .method-timeline {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .education-trust-heading strong {
+    display: none;
+    justify-items: end;
+    color: #fff;
+    font-size: 2.15rem;
+    font-weight: 850;
+    line-height: 0.88;
   }
 
-  .method-timeline article > span {
-    color: #a985ff;
-    font-size: 0.86rem;
-    font-weight: 900;
-    letter-spacing: 0.16em;
+  .education-trust-heading small {
+    color: rgba(255, 255, 255, 0.54);
+    font-size: 1.0625rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    line-height: 1.1;
+    text-transform: uppercase;
   }
 
-  .method-timeline ul,
-  .levers-panel ul {
+  .education-trust-grid {
     display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(var(--trust-count, 5), minmax(0, 1fr));
+    gap: 0.5rem;
+    min-height: 0;
+  }
+
+  .education-trust-logo {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    overflow: visible;
+    background: transparent;
+    transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease, background 220ms ease;
+  }
+
+  .education-trust-logo::before {
+    display: none;
+  }
+
+  .education-trust-logo > span {
+    display: none;
+  }
+
+  .education-trust-logo:hover {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+    transform: translateY(-4px) scale(1.04);
+  }
+
+  .education-trust-logo:hover::before {
+    opacity: 1;
+    transform: translateX(85%);
+  }
+
+  .education-trust-logo img {
+    width: 8.5rem;
+    height: 2.35rem;
+    max-width: 78%;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    object-fit: contain;
+    object-position: center;
+    opacity: 0.96;
+    transform: translateZ(0);
+    filter: drop-shadow(0 0 0.45rem rgba(255, 255, 255, 0.1));
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
+
+  .education-trust-logo b,
+  .education-logo-row b {
+    display: grid;
+    min-width: 0;
+    max-width: 100%;
+    gap: 0.12rem;
+    justify-items: center;
+    color: #fff;
+    font-size: clamp(0.78rem, 0.95vw, 1rem);
+    font-weight: 920;
+    letter-spacing: 0;
+    line-height: 1;
+    overflow-wrap: anywhere;
+    text-align: center;
+    text-transform: none;
+  }
+
+  .education-trust-logo b small,
+  .education-logo-row b small {
+    color: rgba(255, 255, 255, 0.58);
+    font-size: clamp(0.56rem, 0.75vw, 0.7rem);
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    line-height: 1.15;
+    overflow-wrap: normal;
+    text-transform: uppercase;
+  }
+
+  .education-trust-logo:hover img {
+    opacity: 1;
+    filter: drop-shadow(0 0 1rem rgba(255, 255, 255, 0.22)) drop-shadow(0 0 1.4rem rgba(154, 93, 255, 0.18));
+    transform: scale(1.08);
+  }
+
+  .education-section {
+    display: grid;
+    min-width: 0;
+    gap: 1.35rem;
+  }
+
+  .education-section > h2,
+  .education-trust-copy h2,
+  .education-bottom-cta h2 {
+    color: #fff;
+    font-size: clamp(1.55rem, 2.5vw, 2rem);
+    font-weight: 760;
+    letter-spacing: 0;
+    line-height: 1.08;
+  }
+
+  .education-challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    min-width: 0;
     gap: 0.55rem;
+    perspective: 1000px;
+  }
+
+  .education-challenge-grid article,
+  .education-timeline article,
+  .education-levers,
+  .education-faq-grid details,
+  .education-bottom-cta {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.09), transparent 46%),
+      rgba(10, 12, 18, 0.82);
+  }
+
+  .education-challenge-grid article {
+    display: grid;
+    min-height: 13.1rem;
+    gap: 0.8rem;
+    align-content: start;
+    overflow: hidden;
+    padding: 1.05rem 0.9rem;
+  }
+
+  .education-challenge-grid article,
+  .education-timeline article,
+  .education-levers {
+    --mx: 50%;
+    --my: 24%;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    position: relative;
+    isolation: isolate;
+    transform: translateY(0) rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
+    transform-style: preserve-3d;
+    transition:
+      border-color 220ms ease,
+      box-shadow 220ms ease,
+      background 220ms ease,
+      transform 220ms ease;
+    will-change: transform;
+  }
+
+  .education-challenge-grid article::before,
+  .education-challenge-grid article::after,
+  .education-timeline article::before,
+  .education-timeline article::after,
+  .education-levers::before,
+  .education-levers::after {
+    position: absolute;
+    content: "";
+    pointer-events: none;
+  }
+
+  .education-challenge-grid article::before,
+  .education-timeline article::before,
+  .education-levers::before {
+    inset: -1px;
+    z-index: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at var(--mx) var(--my), rgba(154, 93, 255, 0.28), transparent 34%),
+      linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.16) 42%, transparent 62%);
+    opacity: 0;
+    transform: translateX(-18%) scale(0.98);
+    transition: opacity 220ms ease, transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .education-challenge-grid article::after,
+  .education-timeline article::after,
+  .education-levers::after {
+    right: 0.85rem;
+    bottom: 0.85rem;
+    left: 0.85rem;
+    z-index: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, #9a5dff, transparent);
+    opacity: 0;
+    transform: scaleX(0.16);
+    transform-origin: left center;
+    transition: opacity 220ms ease, transform 360ms ease;
+  }
+
+  .education-challenge-grid article > *,
+  .education-timeline article > *,
+  .education-levers > * {
+    position: relative;
+    z-index: 1;
+    transition: transform 220ms ease, color 220ms ease, filter 220ms ease;
+  }
+
+  .education-challenge-grid article:hover,
+  .education-challenge-grid article:focus-within,
+  .education-timeline article:hover,
+  .education-timeline article:focus-within,
+  .education-levers:hover,
+  .education-levers:focus-within {
+    border-color: rgba(154, 93, 255, 0.58);
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.18), transparent 48%),
+      rgba(12, 14, 22, 0.94);
+    box-shadow:
+      0 1rem 2.2rem rgba(0, 0, 0, 0.3),
+      0 0 2.6rem rgba(124, 60, 255, 0.18);
+    transform: translateY(-7px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
+  }
+
+  .education-challenge-grid article:hover::before,
+  .education-challenge-grid article:focus-within::before,
+  .education-timeline article:hover::before,
+  .education-timeline article:focus-within::before,
+  .education-levers:hover::before,
+  .education-levers:focus-within::before {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  .education-challenge-grid article:hover::after,
+  .education-challenge-grid article:focus-within::after,
+  .education-timeline article:hover::after,
+  .education-timeline article:focus-within::after,
+  .education-levers:hover::after,
+  .education-levers:focus-within::after {
+    opacity: 0.88;
+    transform: scaleX(1);
+  }
+
+  .education-challenge-grid article:hover i,
+  .education-challenge-grid article:focus-within i,
+  .education-timeline article:hover i,
+  .education-timeline article:focus-within i,
+  .education-levers:hover i,
+  .education-levers:focus-within i {
+    filter: drop-shadow(0 0 0.8rem rgba(154, 93, 255, 0.58));
+    transform: translate3d(0, -3px, 18px) scale(1.08) rotate(-3deg);
+  }
+
+  .education-challenge-grid article:hover h3,
+  .education-challenge-grid article:focus-within h3,
+  .education-timeline article:hover h3,
+  .education-timeline article:focus-within h3,
+  .education-levers:hover h3,
+  .education-levers:focus-within h3 {
+    transform: translate3d(0, -2px, 14px);
+  }
+
+  .education-challenge-grid article:hover p,
+  .education-challenge-grid article:focus-within p,
+  .education-timeline article:hover li,
+  .education-timeline article:focus-within li,
+  .education-levers:hover li,
+  .education-levers:focus-within li {
+    color: rgba(255, 255, 255, 0.82);
+    transform: translate3d(0, -1px, 10px);
+  }
+
+  .education-challenge-grid i,
+  .education-timeline i,
+  .education-campaign-grid i,
+  .education-bottom-cta > i {
+    color: #9a5dff;
+    font-size: 2rem;
+    text-shadow: 0 0 1.1rem rgba(124, 60, 255, 0.48);
+  }
+
+  .education-challenge-grid i:is(.ph-car-profile, .ph-tag, .ph-wrench, .ph-shopping-bag, .ph-storefront, .ph-buildings, .ph-package, .ph-calendar-check, .ph-coupon)::before,
+  .education-timeline i:is(.ph-car-profile, .ph-tag, .ph-wrench, .ph-shopping-bag, .ph-storefront, .ph-buildings, .ph-package, .ph-calendar-check, .ph-coupon)::before,
+  .education-campaign-grid i:is(.ph-car-profile, .ph-tag, .ph-wrench, .ph-shopping-bag, .ph-storefront, .ph-buildings, .ph-package, .ph-calendar-check, .ph-coupon)::before {
+    display: block;
+    width: 1em;
+    height: 1em;
+    content: "";
+    background: currentColor;
+    -webkit-mask: var(--sector-icon-mask) center / contain no-repeat;
+    mask: var(--sector-icon-mask) center / contain no-repeat;
+  }
+
+  .education-challenge-grid i.ph-car-profile,
+  .education-timeline i.ph-car-profile,
+  .education-campaign-grid i.ph-car-profile {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M5.5%2016.5h13l-.7-4.1A2%202%200%200%200%2015.8%2011H8.2a2%202%200%200%200-2%201.4l-.7%204.1Zm1.2-7.3A3.5%203.5%200%200%201%2010%207h4a3.5%203.5%200%200%201%203.3%202.2l.8%202.1%201.4.5A2.3%202.3%200%200%201%2021%2014v4.8a1%201%200%200%201-1%201h-1.5a1%201%200%200%201-1-1v-.8h-9v.8a1%201%200%200%201-1%201H5a1%201%200%200%201-1-1V14a2.3%202.3%200%200%201%201.5-2.2l1.4-.5.8-2.1ZM7%2015.5a1.2%201.2%200%201%200%200-2.4%201.2%201.2%200%200%200%200%202.4Zm10%200a1.2%201.2%200%201%200%200-2.4%201.2%201.2%200%200%200%200%202.4Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-tag,
+  .education-timeline i.ph-tag,
+  .education-campaign-grid i.ph-tag {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M20.6%2013.4 13.4%2020.6a2%202%200%200%201-2.8%200L3.4%2013.4A2%202%200%200%201%202.8%2012V5a2%202%200%200%201%202-2h7a2%202%200%200%201%201.4.6l7.4%207.4a2%202%200%200%201%200%202.8ZM7.2%208.8a1.6%201.6%200%201%200%200-3.2%201.6%201.6%200%200%200%200%203.2Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-wrench,
+  .education-timeline i.ph-wrench,
+  .education-campaign-grid i.ph-wrench {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M21%206.5a6.5%206.5%200%200%201-8.7%206.1l-6.9%206.9a2.6%202.6%200%200%201-3.7-3.7l6.9-6.9A6.5%206.5%200%200%201%2016%201.2l-3.5%203.5%201.1%203%203%201.1L20%205.4c.6-.6%201-.2%201%201.1Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-shopping-bag,
+  .education-timeline i.ph-shopping-bag,
+  .education-campaign-grid i.ph-shopping-bag {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M7%208V7a5%205%200%200%201%2010%200v1h2a1%201%200%200%201%201%201.1l-1%2011A2%202%200%200%201%2017%2022H7a2%202%200%200%201-2-1.9l-1-11A1%201%200%200%201%205%208h2Zm2%200h6V7a3%203%200%200%200-6%200v1Zm-2%204a1%201%200%201%200%202%200%201%201%200%200%200-2%200Zm8%200a1%201%200%201%200%202%200%201%201%200%200%200-2%200Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-storefront,
+  .education-timeline i.ph-storefront,
+  .education-campaign-grid i.ph-storefront {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M4%2010.5A3%203%200%200%201%202.2%206l1.2-2.4A1%201%200%200%201%204.3%203h15.4a1%201%200%200%201%20.9.6L21.8%206A3%203%200%200%201%2020%2010.5V20a1%201%200%200%201-1%201H5a1%201%200%200%201-1-1v-9.5Zm2%202V19h3v-5h6v5h3v-6.5a3.8%203.8%200%200%201-3-1.1%203.8%203.8%200%200%201-6%200%203.8%203.8%200%200%201-3%201.1Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-buildings,
+  .education-timeline i.ph-buildings,
+  .education-campaign-grid i.ph-buildings {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M4%2021V5a2%202%200%200%201%202-2h7a2%202%200%200%201%202%202v4h3a2%202%200%200%201%202%202v10h-6v-4h-4v4H4Zm3-14v2h2V7H7Zm0%204v2h2v-2H7Zm4-4v2h2V7h-2Zm0%204v2h2v-2h-2Zm5%202v2h2v-2h-2Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-package,
+  .education-timeline i.ph-package,
+  .education-campaign-grid i.ph-package {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='m12%202%209%204.7v10.6L12%2022l-9-4.7V6.7L12%202Zm0%202.2L6.1%207.3%2012%2010.4l5.9-3.1L12%204.2ZM5%209v7.1l6%203.1v-7.1L5%209Zm14%200-6%203.1v7.1l6-3.1V9Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-calendar-check,
+  .education-timeline i.ph-calendar-check,
+  .education-campaign-grid i.ph-calendar-check {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M7%202a1%201%200%200%201%201%201v1h8V3a1%201%200%201%201%202%200v1h1a3%203%200%200%201%203%203v12a3%203%200%200%201-3%203H5a3%203%200%200%201-3-3V7a3%203%200%200%201%203-3h1V3a1%201%200%200%201%201-1Zm9.7%209.3a1%201%200%200%200-1.4-1.4L11%2014.2l-1.8-1.8a1%201%200%201%200-1.4%201.4l2.5%202.5a1%201%200%200%200%201.4%200l5-5ZM4%208h16V7a1%201%200%200%200-1-1H5a1%201%200%200%200-1%201v1Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid i.ph-coupon,
+  .education-timeline i.ph-coupon,
+  .education-campaign-grid i.ph-coupon {
+    --sector-icon-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M3%207a2%202%200%200%201%202-2h14a2%202%200%200%201%202%202v3a2%202%200%200%200%200%204v3a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2v-3a2%202%200%200%200%200-4V7Zm6%201.5a1%201%200%201%200%200%202%201%201%200%200%200%200-2Zm6.7.8a1%201%200%200%200-1.4%200l-6%206a1%201%200%201%200%201.4%201.4l6-6a1%201%200%200%200%200-1.4ZM15%2013.5a1%201%200%201%200%200%202%201%201%200%200%200%200-2Z'/%3E%3C/svg%3E");
+  }
+
+  .education-challenge-grid h3,
+  .education-timeline h3,
+  .education-campaign-grid h3 {
+    color: #fff;
+    font-size: 1.0625rem;
+    font-weight: 850;
+    line-height: 1.16;
+  }
+
+  .education-challenge-grid p,
+  .education-timeline li,
+  .education-campaign-grid p,
+  .education-trust-copy p,
+  .education-faq-grid p,
+  .education-bottom-cta p {
+    color: rgba(255, 255, 255, 0.67);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+
+  .education-method-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 0.3fr);
+    min-width: 0;
+    gap: 1rem;
+    align-items: end;
+    perspective: 1000px;
+  }
+
+  .education-timeline {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding-top: 2.8rem;
+  }
+
+  .education-timeline::before {
+    position: absolute;
+    top: 1.25rem;
+    right: 12.5%;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(157, 91, 255, 0.25), #9a5dff);
+    content: "";
+  }
+
+  .education-timeline article {
+    position: relative;
+    display: grid;
+    gap: 0.75rem;
+    min-height: 14.5rem;
+    padding: 1.1rem 1rem;
+  }
+
+  .education-timeline article > span {
+    position: absolute;
+    top: -3.15rem;
+    left: 50%;
+    display: grid;
+    width: 3.2rem;
+    height: 3.2rem;
+    place-items: center;
+    border: 1px solid #9a5dff;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(124, 60, 255, 0.42), rgba(18, 10, 38, 0.96));
+    box-shadow: 0 0 1.8rem rgba(124, 60, 255, 0.42);
+    color: #fff;
+    font-family: var(--font-numeric);
+    font-size: 1.0625rem;
+    font-weight: 900;
+    transform: translateX(-50%);
+    transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+  }
+
+  .education-timeline article:hover > span,
+  .education-timeline article:focus-within > span {
+    border-color: rgba(255, 255, 255, 0.42);
+    box-shadow:
+      0 0 2.2rem rgba(124, 60, 255, 0.62),
+      0 0 0 0.45rem rgba(124, 60, 255, 0.1);
+    transform: translateX(-50%) scale(1.07);
+  }
+
+  .education-timeline ul,
+  .education-levers ul {
+    display: grid;
+    gap: 0.45rem;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .method-timeline li,
-  .levers-panel li {
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.5;
+  .education-timeline li {
+    position: relative;
+    padding-left: 0.75rem;
   }
 
-  .method-timeline li::before,
-  .levers-panel li::before {
-    color: #a985ff;
-    content: "+ ";
-    font-weight: 900;
+  .education-timeline li::before {
+    position: absolute;
+    top: 0.62em;
+    left: 0;
+    width: 3px;
+    height: 3px;
+    border-radius: 999px;
+    background: #fff;
+    content: "";
   }
 
-  .levers-panel {
-    min-height: 100%;
+  .education-levers {
+    display: grid;
+    gap: 0.9rem;
+    padding: 1.05rem;
   }
 
-  .campaign-grid {
+  .education-levers h3 {
+    color: #fff;
+    font-size: 1.0625rem;
+  }
+
+  .education-levers li {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.5rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1.0625rem;
+  }
+
+  .education-levers li:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .education-levers i {
+    color: #9a5dff;
+  }
+
+  .education-campaign-grid {
+    display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .campaign-card {
-    display: grid;
-    min-height: 22rem;
-  }
-
-  .campaign-card img {
-    width: 100%;
-    height: 13rem;
-    object-fit: cover;
-    opacity: 0.84;
-    transition: opacity 260ms ease, transform 420ms ease;
-  }
-
-  .campaign-card:hover img,
-  .campaign-card:focus-within img {
-    opacity: 1;
-    transform: scale(1.04);
-  }
-
-  .campaign-card div {
-    display: grid;
+    min-width: 0;
     gap: 0.75rem;
-    padding: 1rem;
   }
 
-  .case-panel {
+  .education-campaign-grid article {
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-    align-items: stretch;
+    min-height: 11.2rem;
+    align-content: end;
+    gap: 0.55rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--campaign-image) center / cover no-repeat;
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  }
+
+  .education-campaign-grid article::before {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 58%;
+    background:
+      linear-gradient(180deg, rgba(3, 4, 7, 0), rgba(3, 4, 7, 0.18) 48%, rgba(3, 4, 7, 0.36)),
+      linear-gradient(90deg, rgba(3, 4, 7, 0.34), rgba(3, 4, 7, 0.08) 72%);
+    content: "";
+  }
+
+  .education-campaign-grid article > * {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0.18rem 0.9rem rgba(0, 0, 0, 0.72);
+  }
+
+  .education-campaign-grid article:hover,
+  .education-campaign-grid article:focus-within {
+    border-color: rgba(154, 93, 255, 0.54);
+    box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .education-trust-case {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(420px, 1.25fr);
+    min-width: 0;
+    gap: clamp(1rem, 4vw, 3rem);
+    align-items: center;
+  }
+
+  .education-trust-copy {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .education-logo-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    max-width: 27rem;
+  }
+
+  .education-logo-row span {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    width: 100%;
+    height: 4.1rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+    opacity: 0.9;
+    transform: translateZ(0);
+    transition: transform 280ms cubic-bezier(.2,.8,.2,1), border-color 280ms ease, box-shadow 280ms ease, background 280ms ease, opacity 280ms ease;
+    will-change: transform;
+  }
+
+  .education-logo-row span::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.16) 42%, transparent 72%),
+      radial-gradient(circle at 50% 100%, rgba(154, 93, 255, 0.18), transparent 54%);
+    content: "";
+    opacity: 0;
+    transform: translateX(-28%);
+    transition: opacity 240ms ease, transform 460ms ease;
+  }
+
+  .education-logo-row span:hover,
+  .education-logo-row span:focus-within {
+    border-color: rgba(174, 112, 255, 0.72);
+    background:
+      radial-gradient(circle at 50% 0%, rgba(154, 93, 255, 0.16), transparent 58%),
+      rgba(154, 93, 255, 0.075);
+    box-shadow:
+      0 1.1rem 2.35rem rgba(0, 0, 0, 0.3),
+      0 0 2.2rem rgba(124, 60, 255, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    opacity: 1;
+    transform: translateY(-7px) scale(1.025);
+  }
+
+  .education-logo-row span:hover::before,
+  .education-logo-row span:focus-within::before {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .education-logo-row img {
+    position: relative;
+    z-index: 1;
+    width: 8.25rem;
+    height: 2.35rem;
+    max-width: 78%;
+    object-fit: contain;
+    object-position: center;
+    filter: drop-shadow(0 0 0.55rem rgba(255, 255, 255, 0.08));
+    transition: transform 240ms ease, filter 240ms ease;
+  }
+
+  .education-logo-row span:hover img,
+  .education-logo-row span:focus-within img {
+    filter: drop-shadow(0 0 1rem rgba(255, 255, 255, 0.24)) drop-shadow(0 0 1.35rem rgba(154, 93, 255, 0.22));
+    transform: scale(1.1) rotate(-0.8deg);
+  }
+
+  .education-logo-row b {
+    max-width: 90%;
+    font-size: 1.0625rem;
+  }
+
+  .retail-sector .education-hero-visual > img,
+  .immobilier-sector .education-hero-visual > img,
+  .gms-sector .education-hero-visual > img,
+  .fmcg-sector .education-hero-visual > img,
+  .hotellerie-sector .education-hero-visual > img {
+    object-position: center;
+  }
+
+  .immobilier-sector .education-trust-logo img,
+  .immobilier-sector .education-logo-row img {
+    width: 12.75rem;
+    height: 3.7rem;
+    max-width: 84%;
+    padding: 0.32rem 0.58rem;
+    border-radius: 8px;
+    background: rgba(246, 244, 239, 0.94);
+    box-shadow: 0 0.75rem 1.7rem rgba(0, 0, 0, 0.22);
+    filter: none;
+  }
+
+  .immobilier-sector .education-logo-row span {
+    height: 5rem;
+  }
+
+  .immobilier-sector .education-logo-row span,
+  .immobilier-sector .education-case-metrics strong {
+    will-change: transform;
+  }
+
+  .immobilier-sector .education-logo-row span:hover,
+  .immobilier-sector .education-logo-row span:focus-within {
+    border-color: rgba(196, 153, 86, 0.58);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(124, 60, 255, 0.1));
+    box-shadow:
+      0 1.1rem 2.4rem rgba(0, 0, 0, 0.3),
+      0 0 2.1rem rgba(196, 153, 86, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-6px) scale(1.022);
+  }
+
+  .immobilier-sector .education-case-metrics strong:hover,
+  .immobilier-sector .education-case-metrics strong:focus-within {
+    border-color: rgba(196, 153, 86, 0.62);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 1rem 2rem rgba(0, 0, 0, 0.28),
+      0 0 2.3rem rgba(196, 153, 86, 0.16),
+      0 0 2.2rem rgba(124, 60, 255, 0.12);
+    transform: translateX(-5px) scale(1.03);
+  }
+
+  .institutionnel-sector .education-trust-logo img,
+  .institutionnel-sector .education-logo-row img {
+    width: 11.5rem;
+    height: 3.95rem;
+    max-width: 84%;
+    padding: 0.38rem 0.62rem;
+    border-radius: 8px;
+    background: rgba(248, 247, 252, 0.95);
+    box-shadow: 0 0.75rem 1.8rem rgba(0, 0, 0, 0.18);
+    filter: none;
+  }
+
+  .institutionnel-sector .education-logo-row span {
+    height: 5rem;
+  }
+
+  .automobile-sector .education-trust-logo img,
+  .automobile-sector .education-logo-row img {
+    width: 12.5rem;
+    height: 3.65rem;
+    max-width: 86%;
+    filter: drop-shadow(0 0 0.65rem rgba(255, 255, 255, 0.12));
+  }
+
+  .automobile-sector .education-logo-row span {
+    height: 5rem;
+  }
+
+  .retail-sector .education-trust-logo img,
+  .retail-sector .education-logo-row img {
+    width: 14.5rem;
+    height: 4.25rem;
+    max-width: 86%;
+  }
+
+  .retail-sector .education-logo-row span {
+    height: 5rem;
+  }
+
+  .gms-sector .education-trust-logo img,
+  .gms-sector .education-logo-row img,
+  .fmcg-sector .education-trust-logo img,
+  .fmcg-sector .education-logo-row img,
+  .hotellerie-sector .education-trust-logo img,
+  .hotellerie-sector .education-logo-row img {
+    width: 12.75rem;
+    height: 3.7rem;
+    max-width: 84%;
+    padding: 0.34rem 0.6rem;
+    border-radius: 8px;
+    background: rgba(246, 244, 239, 0.94);
+    box-shadow: 0 0.75rem 1.7rem rgba(0, 0, 0, 0.22);
+    filter: none;
+  }
+
+  .gms-sector .education-logo-row span,
+  .fmcg-sector .education-logo-row span,
+  .hotellerie-sector .education-logo-row span {
+    height: 5rem;
+  }
+
+  .gms-sector .education-trust-logo img,
+  .gms-sector .education-logo-row img {
+    width: 12.75rem;
+    height: 3.7rem;
+    max-width: 84%;
+    padding: 0.34rem 0.72rem;
+    border-radius: 8px;
+    background: rgba(5, 6, 10, 0.9);
+    box-shadow: 0 0.75rem 1.7rem rgba(0, 0, 0, 0.24), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    filter: drop-shadow(0 0 0.85rem rgba(255, 255, 255, 0.08));
+  }
+
+  .fmcg-sector .education-trust-logo img,
+  .fmcg-sector .education-logo-row img,
+  .hotellerie-sector .education-trust-logo img,
+  .hotellerie-sector .education-logo-row img {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .education-case-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 18.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #080a10;
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.28);
+  }
+
+  .education-case-card > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .education-case-card::after {
+    background:
+      linear-gradient(90deg, rgba(3, 4, 8, 0.36), rgba(3, 4, 8, 0.16) 48%, rgba(3, 4, 8, 0.28)),
+      linear-gradient(180deg, rgba(3, 4, 8, 0.08), rgba(3, 4, 8, 0.36));
+  }
+
+  .education-case-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    min-height: 18.5rem;
+    grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.42fr);
+    align-items: end;
+    gap: 1.1rem;
+    max-width: none;
+    padding: 1.2rem;
+  }
+
+  .education-case-main {
+    display: grid;
+    max-width: 28rem;
+    gap: 1rem;
+    align-content: end;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(10, 12, 20, 0.68), rgba(10, 12, 20, 0.38));
+    backdrop-filter: blur(10px);
+  }
+
+  .education-case-main > span {
+    color: #a985ff;
+    font-size: 1.0625rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .education-case-main h3 {
+    color: #fff;
+    font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+    line-height: 1.08;
+  }
+
+  .education-case-main p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+
+  .education-case-main .education-button {
+    width: fit-content;
+    min-height: 2.55rem;
+    padding-inline: 1rem;
+  }
+
+  .education-case-metrics {
+    display: grid;
+    gap: 0.6rem;
+    align-self: stretch;
+  }
+
+  .education-case-metrics strong {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    align-content: center;
+    gap: 0.12rem;
+    min-height: 4.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.72rem 0.8rem;
+    background: rgba(3, 4, 8, 0.46);
+    color: #fff;
+    font-family: var(--font-numeric);
+    font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+    font-weight: 900;
+    line-height: 1;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    transform: translateZ(0);
+    transition: transform 280ms cubic-bezier(.2,.8,.2,1), border-color 280ms ease, box-shadow 280ms ease, background 280ms ease;
+    will-change: transform;
+  }
+
+  .education-case-metrics strong::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(115deg, transparent 4%, rgba(255, 255, 255, 0.14) 42%, transparent 68%),
+      radial-gradient(circle at 88% 20%, rgba(154, 93, 255, 0.24), transparent 34%);
+    content: "";
+    opacity: 0;
+    transform: translateX(-22%);
+    transition: opacity 240ms ease, transform 520ms ease;
+  }
+
+  .education-case-metrics strong:hover,
+  .education-case-metrics strong:focus-within {
+    border-color: rgba(174, 112, 255, 0.74);
+    background:
+      radial-gradient(circle at 18% 20%, rgba(154, 93, 255, 0.18), transparent 52%),
+      rgba(10, 11, 18, 0.7);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.13),
+      0 1.05rem 2.2rem rgba(0, 0, 0, 0.3),
+      0 0 2.4rem rgba(124, 60, 255, 0.22);
+    transform: translateX(-6px) scale(1.035);
+  }
+
+  .education-case-metrics strong:hover::before,
+  .education-case-metrics strong:focus-within::before {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .education-case-metrics strong > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .education-case-metrics span {
+    color: rgba(255, 255, 255, 0.68);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    font-weight: 760;
+    line-height: 1.2;
+  }
+
+  .education-faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem 1rem;
+  }
+
+  .education-faq-grid details {
     overflow: hidden;
   }
 
-  .case-panel > img {
-    width: 100%;
-    height: 100%;
-    min-height: 24rem;
-    object-fit: cover;
-    opacity: 0.88;
-  }
-
-  .case-panel > div {
+  .education-faq-grid summary {
     display: grid;
-    align-content: center;
-    gap: 1rem;
-    padding: clamp(1.25rem, 4vw, 3rem);
-  }
-
-  .case-panel p {
-    max-width: 64ch;
-  }
-
-  .sector-cta {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.75rem;
     align-items: center;
-    padding: clamp(1.25rem, 4vw, 2.5rem);
+    padding: 0.78rem 0.9rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.0625rem;
+    font-weight: 780;
+    list-style: none;
   }
 
-  .sector-cta h2 {
-    max-width: 780px;
-    font-size: clamp(2rem, 4vw, 3.7rem);
+  .education-faq-grid summary::-webkit-details-marker {
+    display: none;
   }
 
-  @media (max-width: 1000px) {
-    .sector-hero,
-    .method-layout,
-    .case-panel,
-    .sector-cta {
+  .education-faq-grid summary span {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border: 1px solid #9a5dff;
+    border-radius: 999px;
+    background: rgba(124, 60, 255, 0.24);
+    color: #fff;
+    font-family: var(--font-numeric);
+  }
+
+  .education-faq-grid summary i {
+    color: #9a5dff;
+    transition: transform 180ms ease;
+  }
+
+  .education-faq-grid details[open] summary i {
+    transform: rotate(180deg);
+  }
+
+  .education-faq-grid p {
+    padding: 0 0.9rem 0.9rem 3.65rem;
+  }
+
+  .education-bottom-cta {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    min-width: 0;
+    gap: 1.2rem;
+    align-items: center;
+    padding: 1.15rem;
+  }
+
+  .education-bottom-cta > i {
+    display: grid;
+    width: 4.2rem;
+    height: 4.2rem;
+    place-items: center;
+    border: 1px solid #9a5dff;
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.12);
+  }
+
+  .education-bottom-cta > i::before {
+    width: 2.05rem;
+    height: 2.05rem;
+    content: "";
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20256%20256'%3E%3Cpath%20d='M223.7%2030.3a8%208%200%200%200-8-2.1L136.3%2051a8%208%200%200%200-5%204.1l-35.7%2062.4-58.7%2023.5a8%208%200%200%200-2.7%2013.1l67.7%2067.7a8%208%200%200%200%2013.1-2.7l23.5-58.7%2062.4-35.7a8%208%200%200%200%204.1-5l22.8-79.4a8%208%200%200%200-2.1-8.1ZM190.1%20112.3l-57.4%2032.8a8%208%200%200%200-3.5%204l-20.1%2050.4-52.6-52.6%2050.4-20.1a8%208%200%200%200%204-3.5l32.8-57.4%2065.6-18.8-18.8%2065.2ZM88%2072a8%208%200%200%201-8%208H56v24a8%208%200%200%201-16%200V80H16a8%208%200%200%201%200-16h24V40a8%208%200%200%201%2016%200v24h24a8%208%200%200%201%208%208Zm56%20128a8%208%200%200%201-8%208h-16v16a8%208%200%200%201-16%200v-16H88a8%208%200%200%201%200-16h16v-16a8%208%200%200%201%2016%200v16h16a8%208%200%200%201%208%208Z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20256%20256'%3E%3Cpath%20d='M223.7%2030.3a8%208%200%200%200-8-2.1L136.3%2051a8%208%200%200%200-5%204.1l-35.7%2062.4-58.7%2023.5a8%208%200%200%200-2.7%2013.1l67.7%2067.7a8%208%200%200%200%2013.1-2.7l23.5-58.7%2062.4-35.7a8%208%200%200%200%204.1-5l22.8-79.4a8%208%200%200%200-2.1-8.1ZM190.1%20112.3l-57.4%2032.8a8%208%200%200%200-3.5%204l-20.1%2050.4-52.6-52.6%2050.4-20.1a8%208%200%200%200%204-3.5l32.8-57.4%2065.6-18.8-18.8%2065.2ZM88%2072a8%208%200%200%201-8%208H56v24a8%208%200%200%201-16%200V80H16a8%208%200%200%201%200-16h24V40a8%208%200%200%201%2016%200v24h24a8%208%200%200%201%208%208Zm56%20128a8%208%200%200%201-8%208h-16v16a8%208%200%200%201-16%200v-16H88a8%208%200%200%201%200-16h16v-16a8%208%200%200%201%2016%200v16h16a8%208%200%200%201%208%208Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  .education-bottom-cta > div {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  @media (max-width: 760px) {
+    .sector-detail-links {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 980px) {
+    .education-hero,
+    .education-method-layout,
+    .education-trust-case,
+    .education-bottom-cta {
       grid-template-columns: 1fr;
     }
 
-    .sector-hero {
+    .education-challenge-grid,
+    .education-campaign-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .education-method-layout {
       align-items: stretch;
     }
 
-    .sector-hero-visual {
-      min-height: 24rem;
-    }
-
-    .card-grid,
-    .campaign-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .education-case-content {
+      grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.36fr);
     }
   }
 
-  @media (max-width: 680px) {
-    .card-grid,
-    .campaign-grid,
-    .method-timeline {
-      grid-template-columns: 1fr;
+  @media (max-width: 620px) {
+    :global(main:has(.education-sector)) {
+      width: min(calc(100% - 2rem), 1320px);
     }
 
-    h1 {
-      font-size: clamp(2.35rem, 14vw, 3.6rem);
+    .education-sector {
+      gap: 2.4rem;
     }
 
-    h2 {
-      font-size: clamp(1.85rem, 11vw, 2.9rem);
+    .education-hero {
+      gap: 1.4rem;
     }
 
-    .button,
-    .hero-actions {
+    .education-hero h1 {
+      max-width: 12ch;
+      font-size: clamp(2.2rem, 12.8vw, 3.35rem);
+    }
+
+    .education-actions,
+    .education-button,
+    .education-bottom-cta .education-button {
       width: 100%;
     }
 
-    .sector-hero-visual,
-    .case-panel > img {
-      min-height: 18rem;
+    .education-hero-visual {
+      min-height: 25rem;
     }
 
-    .campaign-card {
+    .education-trust-panel {
+      top: auto;
+      right: 0.8rem;
+      bottom: 0.8rem;
+      left: 0.8rem;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      width: auto;
+      gap: 0.55rem;
+      padding: 0.85rem;
+    }
+
+    .education-trust-heading {
+      align-items: center;
+    }
+
+    .education-trust-heading strong {
+      font-size: 1.75rem;
+    }
+
+    .education-trust-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(2, 2.95rem);
+      gap: 0.4rem;
+    }
+
+    .education-trust-logo {
       min-height: 0;
+    }
+
+    .education-trust-logo b {
+      font-size: 0.68rem;
+      line-height: 1.05;
+    }
+
+    .education-trust-logo b small {
+      font-size: 0.52rem;
+      letter-spacing: 0.08em;
+    }
+
+    .education-trust-logo:first-child,
+    .education-trust-logo:nth-child(5) {
+      grid-row: auto;
+      grid-column: auto;
+    }
+
+    .education-trust-logo > span {
+      top: 0.3rem;
+      left: 0.35rem;
+      font-size: 1.0625rem;
+    }
+
+    .education-trust-logo img {
+      width: 6.5rem;
+      height: 1.75rem;
+      max-width: 78%;
+    }
+
+    .retail-sector .education-trust-logo img {
+      width: 6.8rem;
+      height: 2.15rem;
+      max-width: 82%;
+    }
+
+    .immobilier-sector .education-trust-logo img {
+      width: 7.4rem;
+      height: 2.3rem;
+      max-width: 84%;
+      padding: 0.22rem 0.38rem;
+    }
+
+    .immobilier-sector .education-logo-row img {
+      width: 8.8rem;
+      height: 2.8rem;
+      max-width: 84%;
+      padding: 0.26rem 0.45rem;
+    }
+
+    .immobilier-sector .education-logo-row span {
+      height: 4.3rem;
+    }
+
+    .institutionnel-sector .education-trust-logo img {
+      width: 7rem;
+      height: 2.45rem;
+      max-width: 82%;
+      padding: 0.25rem 0.4rem;
+    }
+
+    .institutionnel-sector .education-logo-row img {
+      width: 8.5rem;
+      height: 3rem;
+      max-width: 84%;
+      padding: 0.28rem 0.45rem;
+    }
+
+    .institutionnel-sector .education-logo-row span {
+      height: 4.35rem;
+    }
+
+    .automobile-sector .education-trust-logo img {
+      width: 7.3rem;
+      height: 2.35rem;
+      max-width: 84%;
+    }
+
+    .automobile-sector .education-logo-row img {
+      width: 8.8rem;
+      height: 2.8rem;
+      max-width: 84%;
+    }
+
+    .automobile-sector .education-logo-row span {
+      height: 4.3rem;
+    }
+
+    .retail-sector .education-logo-row img {
+      width: 8.4rem;
+      height: 2.65rem;
+      max-width: 84%;
+    }
+
+    .retail-sector .education-logo-row span {
+      height: 4.25rem;
+    }
+
+    .gms-sector .education-trust-logo img,
+    .fmcg-sector .education-trust-logo img,
+    .hotellerie-sector .education-trust-logo img {
+      width: 7.4rem;
+      height: 2.3rem;
+      max-width: 84%;
+      padding: 0.22rem 0.38rem;
+    }
+
+    .gms-sector .education-logo-row img,
+    .fmcg-sector .education-logo-row img,
+    .hotellerie-sector .education-logo-row img {
+      width: 8.8rem;
+      height: 2.8rem;
+      max-width: 84%;
+      padding: 0.26rem 0.45rem;
+    }
+
+    .gms-sector .education-trust-logo img,
+    .gms-sector .education-logo-row img {
+      background: rgba(5, 6, 10, 0.9);
+      box-shadow: 0 0.7rem 1.4rem rgba(0, 0, 0, 0.24), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+      filter: drop-shadow(0 0 0.7rem rgba(255, 255, 255, 0.08));
+    }
+
+    .gms-sector .education-logo-row span,
+    .fmcg-sector .education-logo-row span,
+    .hotellerie-sector .education-logo-row span {
+      height: 4.3rem;
+    }
+
+    .education-challenge-grid,
+    .education-timeline,
+    .education-campaign-grid,
+    .education-faq-grid,
+    .education-case-content {
+      grid-template-columns: 1fr;
+    }
+
+    .education-timeline {
+      gap: 2rem;
+      padding-top: 0;
+    }
+
+    .education-timeline::before {
+      display: none;
+    }
+
+    .education-timeline article > span {
+      top: -1.65rem;
+      left: 1rem;
+      width: 2.8rem;
+      height: 2.8rem;
+      transform: none;
+    }
+
+    .education-timeline article:hover > span,
+    .education-timeline article:focus-within > span {
+      transform: scale(1.07);
+    }
+
+    .education-case-card {
+      min-height: 33rem;
+    }
+
+    .education-case-content {
+      min-height: 33rem;
+      padding: 1rem;
+    }
+
+    .education-case-main {
+      max-width: none;
+    }
+
+    .education-logo-row {
+      gap: 0.9rem;
+    }
+
+    .education-bottom-cta {
+      justify-items: stretch;
+      text-align: left;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .education-challenge-grid article,
+    .education-challenge-grid article::before,
+    .education-challenge-grid article::after,
+    .education-challenge-grid article > *,
+    .education-timeline article,
+    .education-timeline article::before,
+    .education-timeline article::after,
+    .education-timeline article > *,
+    .education-levers,
+    .education-levers::before,
+    .education-levers::after,
+    .education-levers > * {
+      transition: none;
+    }
+
+    .education-challenge-grid article:hover,
+    .education-challenge-grid article:focus-within,
+    .education-timeline article:hover,
+    .education-timeline article:focus-within,
+    .education-levers:hover,
+    .education-levers:focus-within {
+      transform: none;
     }
   }
 </style>

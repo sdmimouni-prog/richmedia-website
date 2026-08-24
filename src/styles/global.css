@@ -27,6 +27,7 @@ body {
   background: #030407;
   color: #fff;
   font-family: var(--font-body);
+  font-size: 17px;
   font-weight: 400;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -68,6 +69,7 @@ h6 {
 p,
 li,
 a,
+span,
 small,
 address,
 button,
@@ -75,6 +77,10 @@ input,
 textarea,
 select {
   font-family: var(--font-body);
+}
+
+:where(p, li, a, span, small, label, input, textarea, select, button, summary, figcaption, blockquote, td, th, dt, dd, address, time, strong, b, em) {
+  font-size: max(17px, 1em);
 }
 
 strong {
@@ -137,6 +143,56 @@ select {
   font: inherit;
 }
 
+:where(
+  a.button,
+  button.button,
+  .button-primary,
+  .button-secondary,
+  .button-light,
+  .tool-button,
+  .education-button,
+  .calculate-button,
+  .filter-button,
+  .cookie-button,
+  .phone-cta,
+  .barometer-download-cta
+) {
+  min-height: 2.75rem !important;
+  padding-block: 0.66rem !important;
+  padding-inline: 1rem !important;
+  font-size: 14px !important;
+  line-height: 1.1 !important;
+}
+
+:where(
+  a.button,
+  button.button,
+  .tool-button,
+  .education-button,
+  .calculate-button,
+  .filter-button,
+  .cookie-button,
+  .phone-cta,
+  .barometer-download-cta
+) :where(span, strong, small, em) {
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+:where(
+  a.button,
+  button.button,
+  .tool-button,
+  .education-button,
+  .calculate-button,
+  .filter-button,
+  .cookie-button,
+  .phone-cta,
+  .barometer-download-cta
+) :where(i, .ph) {
+  font-size: 1em !important;
+}
+
 main {
   width: min(100% - 2rem, 1120px);
   margin-inline: auto;
@@ -157,14 +213,24 @@ main {
 }
 
 .brand-lockup {
+  position: relative;
   display: inline-grid;
-  gap: 0.12rem;
-  min-width: max-content;
+  width: clamp(8.8rem, 11vw, 10.8rem);
+  min-width: 0;
+  padding-bottom: 0.9rem;
   text-decoration: none;
+}
+
+.brand-logo-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .brand-word {
   position: relative;
+  display: block;
   width: fit-content;
   font-size: clamp(1.65rem, 2.2vw, 2.15rem);
   font-weight: 700;
@@ -184,15 +250,29 @@ main {
 }
 
 .brand-tagline {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
   color: rgba(255, 255, 255, 0.78);
-  font-size: 0.52rem;
-  font-weight: 500;
-  letter-spacing: 0.36em;
+  font-size: clamp(0.46rem, 0.62vw, 0.56rem);
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-align: justify;
+  text-align-last: justify;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .brand-tagline strong {
-  color: var(--color-purple);
+  color: #fff;
+  font-family: inherit;
+  font-size: inherit;
   font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
 }
 
 .primary-nav,
@@ -217,9 +297,13 @@ main {
 .primary-nav > .nav-dropdown > .nav-dropdown-trigger,
 .lang-switch {
   color: rgba(255, 255, 255, 0.82);
-  font-size: 0.93rem;
   font-weight: 600;
   white-space: nowrap;
+}
+
+.primary-nav > a,
+.primary-nav > .nav-dropdown > .nav-dropdown-trigger {
+  font-size: 14px;
 }
 
 .primary-nav button {
@@ -238,6 +322,7 @@ main {
   border-radius: 999px;
   padding: 0.3rem 0.42rem;
   background: rgba(255, 255, 255, 0.035);
+  font-size: 1.0625rem;
   transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
 }
 
@@ -308,7 +393,7 @@ main {
 }
 
 .nav-dropdown-trigger i {
-  font-size: 0.82rem;
+  font-size: 14px;
   transition: transform 220ms ease;
 }
 
@@ -599,7 +684,7 @@ main {
 .agency-menu-grid a span {
   min-width: 0;
   color: rgba(255, 255, 255, 0.95);
-  font-size: 0.88rem;
+  font-size: 1.0625rem;
   font-weight: 700;
   line-height: 1.15;
   overflow-wrap: break-word;
@@ -610,7 +695,7 @@ main {
 .sector-menu-grid a span,
 .insight-menu-grid a span,
 .agency-menu-grid a span {
-  font-size: 0.86rem;
+  font-size: 1.0625rem;
 }
 
 .product-menu-grid a small,
@@ -620,7 +705,7 @@ main {
 .agency-menu-grid a small {
   min-width: 0;
   color: rgba(255, 255, 255, 0.56);
-  font-size: 0.72rem;
+  font-size: 11px;
   font-weight: 500;
   line-height: 1.32;
   overflow-wrap: break-word;
@@ -632,7 +717,7 @@ main {
 .insight-menu-grid a small,
 .agency-menu-grid a small {
   max-width: 9rem;
-  font-size: 0.68rem;
+  font-size: 11px;
   line-height: 1.2;
 }
 
@@ -644,7 +729,7 @@ main {
   right: 0.72rem;
   top: 50%;
   color: #9f72ff;
-  font-size: 0.92rem;
+  font-size: 1.0625rem;
   transform: translateY(-50%);
 }
 
@@ -759,6 +844,7 @@ main {
 .footer-brand p {
   max-width: 280px;
   margin-top: 1rem;
+  font-size: 0.9rem;
   line-height: 1.55;
 }
 
@@ -772,7 +858,14 @@ main {
 
 .site-footer a {
   color: rgba(255, 255, 255, 0.78);
+  font-size: 0.9rem;
+  line-height: 1.35;
   text-decoration: none;
+}
+
+.footer-offices p {
+  font-size: 0.9rem;
+  line-height: 1.35;
 }
 
 .site-footer a:hover,
@@ -786,6 +879,7 @@ main {
   align-items: center;
   margin-top: 0.55rem;
   color: #fff;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
@@ -939,7 +1033,7 @@ main {
   .mobile-menu-top > span,
   .mobile-menu-section > span {
     color: #a985ff;
-    font-size: 0.72rem;
+    font-size: 1.0625rem;
     font-weight: 800;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -1005,7 +1099,7 @@ main {
 
   .mobile-link-chevron {
     color: #a985ff;
-    font-size: 1rem;
+    font-size: 1.0625rem;
   }
 
   .mobile-menu-section {
@@ -1067,7 +1161,7 @@ main {
     border-radius: 8px;
     background: rgba(124, 60, 255, 0.18);
     color: #b997ff;
-    font-size: 1.04rem;
+    font-size: 1.0625rem;
   }
 
   .mobile-dropdown-title {
@@ -1078,7 +1172,7 @@ main {
 
   .mobile-dropdown-title small {
     color: rgba(255, 255, 255, 0.5);
-    font-size: 0.64rem;
+    font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.12em;
     line-height: 1;
@@ -1087,7 +1181,7 @@ main {
 
   .mobile-dropdown-title strong {
     color: #fff;
-    font-size: 1rem;
+    font-size: 1.0625rem;
     font-weight: 800;
     line-height: 1.08;
     overflow-wrap: anywhere;
@@ -1102,13 +1196,13 @@ main {
     border-radius: 999px;
     background: rgba(124, 60, 255, 0.12);
     color: rgba(255, 255, 255, 0.78);
-    font-size: 0.72rem;
+    font-size: 1.0625rem;
     font-weight: 800;
   }
 
   .mobile-dropdown-chevron {
     color: #a985ff;
-    font-size: 1rem;
+    font-size: 1.0625rem;
     transition: transform 180ms ease;
   }
 
@@ -1178,7 +1272,7 @@ main {
     padding: 0.62rem 0.7rem;
     background: rgba(18, 20, 31, 0.86);
     color: rgba(255, 255, 255, 0.88);
-    font-size: 0.82rem;
+    font-size: 1.0625rem;
     font-weight: 700;
     line-height: 1.18;
     text-decoration: none;
@@ -1204,7 +1298,7 @@ main {
 
   .mobile-product-list span {
     color: rgba(255, 255, 255, 0.88);
-    font-size: 0.82rem;
+    font-size: 1.0625rem;
     font-weight: 700;
     line-height: 1.18;
   }
@@ -1218,7 +1312,7 @@ main {
     top: 50%;
     right: 0.7rem;
     color: #a985ff;
-    font-size: 0.88rem;
+    font-size: 1.0625rem;
     transform: translateY(-50%);
   }
 
@@ -1237,7 +1331,7 @@ main {
     padding: 0 0.7rem;
     background: rgba(255, 255, 255, 0.055);
     color: #fff;
-    font-size: 0.86rem;
+    font-size: 1.0625rem;
     font-weight: 800;
     line-height: 1.1;
     text-align: center;
@@ -1273,7 +1367,7 @@ main {
   min-height: 1.2rem;
   margin: -0.15rem 0 0;
   color: rgba(255, 255, 255, 0.72);
-  font-size: 0.88rem;
+  font-size: 1.0625rem;
   font-weight: 700;
   line-height: 1.35;
 }
@@ -1308,6 +1402,7 @@ form.is-submitting button[type='submit'] {
   .brand-lockup {
     flex: 0 1 auto;
     min-width: 0;
+    padding-bottom: 0;
   }
 
   .brand-tagline,
@@ -1336,7 +1431,7 @@ form.is-submitting button[type='submit'] {
 
   .header-cta i {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.0625rem;
   }
 
   .mobile-menu {

@@ -30,12 +30,6 @@ const categories = [
   'Institutionnel',
 ];
 
-const featuredStats = [
-  { value: '18+', label: 'réalisations sélectionnées' },
-  { value: '9', label: 'secteurs activés' },
-  { value: '360°', label: 'formats média, social, WhatsApp, terrain et CRM' },
-];
-
 const caseStudies = [
   {
     slug: 'maserati-levante-push-whatsapp',
@@ -61,10 +55,11 @@ const caseStudies = [
     type: 'Conception & emballage',
     image: `${realizationAssets}/chergui-conception-emballage.webp`,
     format: 'creative',
-    visibility: '18,6M impressions',
-    engagement: '4,9% engagement',
-    year: 'Food & beverage',
-    status: '',
+    visibility: 'Présence rayon renforcée',
+    engagement: 'Perception premium',
+    year: '2021',
+    status: 'Cas client disponible',
+    href: '/realisations/chergui-packaging-2021',
     accent: 'cyan',
   },
   {
@@ -97,17 +92,18 @@ const caseStudies = [
     accent: 'red',
   },
   {
-    slug: 'milka-back-to-school',
+    slug: 'milka-packaging-key-visual-2019',
     client: 'Milka',
-    title: 'KV et lancement de campagne Back to School',
-    category: 'FMCG',
-    type: 'Key visual & lancement de campagne',
+    title: 'Packaging & Key Visual Muffins + Donuts',
+    category: 'Packaging',
+    type: 'Packaging & Key Visual',
     image: `${realizationAssets}/milka-back-to-school.webp`,
     format: 'creative',
-    visibility: '24,2M impressions',
-    engagement: '7,2% engagement',
-    year: 'Back to School',
-    status: '',
+    visibility: 'Impact rayon renforcé',
+    engagement: 'Univers gourmand',
+    year: '2019',
+    status: 'Cas client disponible',
+    href: '/realisations/milka-packaging-key-visual-2019',
     accent: 'magenta',
   },
   {
@@ -200,7 +196,7 @@ const caseStudies = [
   },
   {
     slug: 'ryad-al-andalous-rabat',
-    client: 'Ryad Al Andalous',
+    client: 'Prestigia - Ryad Al Andalous',
     title: 'Le plaisir d’être chez soi',
     category: 'Immobilier',
     type: 'Campagne immobilière',
@@ -210,6 +206,7 @@ const caseStudies = [
     engagement: 'Génération de leads',
     year: 'Prestigia',
     status: '',
+    href: '/realisations/prestigia-riad-al-andalous-acquisition-2026',
     accent: 'sand',
   },
   {
@@ -299,21 +296,6 @@ const caseStudies = [
     accent: 'sand',
   },
   {
-    slug: 'prestigia-riad-al-andalous-acquisition-2026',
-    client: 'Prestigia',
-    title: 'Riad Al Andalous',
-    category: 'Immobilier premium',
-    type: 'Acquisition multicanale & qualification',
-    image: `${realizationAssets}/prestigia-riad-al-andalous-acquisition-2026-hero.png`,
-    format: 'wide',
-    visibility: '800 leads',
-    engagement: '45 MAD CPL',
-    year: '2026',
-    status: 'Cas client disponible',
-    href: '/realisations/prestigia-riad-al-andalous-acquisition-2026',
-    accent: 'sand',
-  },
-  {
     slug: 'beed-brand-identity',
     client: 'BED',
     title: 'Créer le confort, inspirer le luxe',
@@ -365,7 +347,7 @@ const caseImageDimensions: Record<string, { width: number; height: number }> = {
   [`${realizationAssets}/moul-pounj-world-cup.webp`]: { width: 1600, height: 887 },
   [`${realizationAssets}/tbs-casablanca.webp`]: { width: 1536, height: 1024 },
   [`${realizationAssets}/tbs-master-acquisition-2025-hero.webp`]: { width: 1536, height: 1024 },
-  [`${realizationAssets}/cmr-retirement.webp`]: { width: 1108, height: 502 },
+  [`${realizationAssets}/cmr-retirement.webp`]: { width: 1600, height: 707 },
   [`${realizationAssets}/rabat-riviera-wide.webp`]: { width: 1862, height: 1056 },
   [`${realizationAssets}/prestigia-riad-al-andalous-acquisition-2026-hero.png`]: { width: 1862, height: 1056 },
   [`${realizationAssets}/beed-wide.webp`]: { width: 1099, height: 507 },
@@ -493,15 +475,6 @@ const quickLinks = [
         </a>
       ))}
     </nav>
-
-    <section class="proof-strip" id="case-proof" aria-label="Indicateurs du portfolio">
-      {featuredStats.map((stat) => (
-        <article>
-          <strong>{stat.value}</strong>
-          <span>{stat.label}</span>
-        </article>
-      ))}
-    </section>
 
     <section class="case-board" id="case-board" aria-labelledby="case-board-title" data-case-board>
       <div class="case-board-head">
@@ -800,7 +773,7 @@ const quickLinks = [
     align-items: center;
     gap: 0.7rem;
     color: var(--purple-soft);
-    font-size: 0.72rem;
+    font-size: 1.0625rem;
     font-weight: 900;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -843,7 +816,7 @@ const quickLinks = [
     max-width: 560px;
     margin: 1.35rem 0 0;
     color: rgba(255, 255, 255, 0.72);
-    font-size: clamp(1rem, 1.22vw, 1.14rem);
+    font-size: clamp(1.0625rem, 1.22vw, 1.14rem);
     line-height: 1.58;
   }
 
@@ -959,7 +932,7 @@ const quickLinks = [
 
   .featured-work-copy > span {
     color: var(--purple-soft);
-    font-size: 0.68rem;
+    font-size: 1.0625rem;
     font-weight: 900;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -980,7 +953,7 @@ const quickLinks = [
     margin: 0;
     max-width: 34rem;
     color: var(--muted);
-    font-size: 0.84rem;
+    font-size: 1.0625rem;
     line-height: 1.5;
     overflow-wrap: break-word;
   }
@@ -1000,9 +973,10 @@ const quickLinks = [
   .featured-work-copy dt,
   .work-copy dt {
     color: rgba(255, 255, 255, 0.52);
-    font-size: 0.62rem;
+    font-size: 11px;
     font-weight: 900;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
+    line-height: 1;
     text-transform: uppercase;
   }
 
@@ -1011,10 +985,10 @@ const quickLinks = [
     min-width: 0;
     margin: 0.25rem 0 0;
     color: #fff;
-    font-size: 0.83rem;
+    font-size: 11px;
     font-weight: 850;
-    line-height: 1.25;
-    overflow-wrap: break-word;
+    line-height: 1.18;
+    overflow-wrap: anywhere;
   }
 
   .hero-mini-grid {
@@ -1084,13 +1058,13 @@ const quickLinks = [
   }
 
   .hero-mini-grid strong {
-    font-size: 0.82rem;
+    font-size: 1.0625rem;
     line-height: 1;
   }
 
   .hero-mini-grid span {
     color: rgba(255, 255, 255, 0.62);
-    font-size: 0.66rem;
+    font-size: 1.0625rem;
     font-weight: 750;
   }
 
@@ -1135,7 +1109,7 @@ const quickLinks = [
     top: 1.15rem;
     right: 1.2rem;
     color: rgba(255, 255, 255, 0.18);
-    font-size: 0.72rem;
+    font-size: 1.0625rem;
     font-weight: 850;
   }
 
@@ -1151,7 +1125,7 @@ const quickLinks = [
     display: block;
     max-width: 310px;
     color: var(--muted);
-    font-size: clamp(0.82rem, 1.05vw, 1rem);
+    font-size: 1.0625rem;
     font-weight: 650;
     line-height: 1.35;
   }
@@ -1194,7 +1168,7 @@ const quickLinks = [
     padding: 0 1.05rem;
     background: rgba(255, 255, 255, 0.035);
     color: rgba(255, 255, 255, 0.74);
-    font-size: clamp(0.78rem, 0.9vw, 0.92rem);
+    font-size: 1.0625rem;
     font-weight: 850;
     line-height: 1;
     white-space: nowrap;
@@ -1432,7 +1406,7 @@ const quickLinks = [
     max-width: 390px;
     margin: 0;
     color: var(--muted);
-    font-size: 0.86rem;
+    font-size: 1.0625rem;
     line-height: 1.45;
     text-align: right;
   }
@@ -1604,7 +1578,7 @@ const quickLinks = [
 
     .works-hero p {
       margin-top: 1rem;
-      font-size: 0.96rem;
+      font-size: 1.0625rem;
       line-height: 1.55;
     }
 
@@ -1634,7 +1608,7 @@ const quickLinks = [
     }
 
     .featured-work-copy > span {
-      font-size: 0.62rem;
+      font-size: 1.0625rem;
     }
 
     .featured-work-copy h2 {
@@ -1643,7 +1617,7 @@ const quickLinks = [
     }
 
     .featured-work-copy p {
-      font-size: 0.78rem;
+      font-size: 1.0625rem;
     }
 
     .featured-work-copy dl {
@@ -1715,7 +1689,7 @@ const quickLinks = [
 
     .mobile-page-nav span {
       color: rgba(255, 255, 255, 0.62);
-      font-size: 0.62rem;
+      font-size: 1.0625rem;
       font-weight: 850;
       letter-spacing: 0.08em;
       line-height: 1;
@@ -1723,7 +1697,7 @@ const quickLinks = [
     }
 
     .mobile-page-nav strong {
-      font-size: 0.92rem;
+      font-size: 1.0625rem;
       font-weight: 900;
       line-height: 1.05;
     }
@@ -1755,7 +1729,7 @@ const quickLinks = [
     }
 
     .proof-strip span {
-      font-size: 0.74rem;
+      font-size: 1.0625rem;
       line-height: 1.26;
     }
 
@@ -1789,7 +1763,7 @@ const quickLinks = [
       flex: 0 0 auto;
       min-height: 2.55rem;
       padding-inline: 0.92rem;
-      font-size: 0.7rem;
+      font-size: 1.0625rem;
       scroll-snap-align: start;
     }
 
@@ -1840,12 +1814,12 @@ const quickLinks = [
 
     .featured-work-copy dt,
     .work-copy dt {
-      font-size: 0.55rem;
+      font-size: 11px;
     }
 
     .featured-work-copy dd,
     .work-copy dd {
-      font-size: 0.72rem;
+      font-size: 11px;
       line-height: 1.22;
       overflow-wrap: anywhere;
     }

@@ -514,7 +514,7 @@ img {
     inset 0 0 0 1px rgba(225, 222, 216, 0.82),
     0 1.5cqw 2.8cqw rgba(28, 32, 40, 0.04);
   color: #666a72;
-  font-size: clamp(9px, 3.25cqw, 12px);
+  font-size: 1.0625rem;
   font-weight: 700;
   line-height: 1;
   text-align: center;
@@ -560,7 +560,7 @@ img {
 
 .phone-message-copy strong {
   margin-bottom: 2.7cqw;
-  font-size: clamp(12px, 4.45cqw, 17px);
+  font-size: clamp(1.0625rem, 4.45cqw, 17px);
   font-weight: 850;
   letter-spacing: -0.03em;
   line-height: 1.08;
@@ -568,7 +568,7 @@ img {
 
 .phone-message-copy p {
   margin: 0 0 3.3cqw;
-  font-size: clamp(10px, 3.72cqw, 15px);
+  font-size: 1.0625rem;
   font-weight: 480;
   line-height: 1.42;
 }
@@ -581,7 +581,7 @@ img {
 .phone-message-copy a,
 .phone-message-copy b {
   margin-top: 3cqw;
-  font-size: clamp(10px, 3.58cqw, 14px);
+  font-size: 1.0625rem;
   font-weight: 760;
   line-height: 1.18;
 }
@@ -594,7 +594,7 @@ img {
 .phone-message-copy small,
 .phone-reply small {
   color: #989da5;
-  font-size: clamp(7px, 2.4cqw, 10px);
+  font-size: 1.0625rem;
   font-weight: 520;
 }
 
@@ -616,7 +616,7 @@ img {
     0 1.2cqw 2.4cqw rgba(28, 32, 40, 0.055),
     inset 0 0 0 1px rgba(230, 227, 221, 0.72);
   color: #05a852;
-  font-size: clamp(11px, 3.85cqw, 15px);
+  font-size: 1.0625rem;
   font-weight: 820;
   letter-spacing: -0.02em;
 }
@@ -906,7 +906,7 @@ img {
 .references-intro p {
   margin: 0;
   color: #f8f6ff;
-  font-size: clamp(12px, 0.96vw, 18.5px);
+  font-size: clamp(1.0625rem, 0.96vw, 18.5px);
   font-weight: 800;
   letter-spacing: 0.16em;
   line-height: 1;
@@ -979,7 +979,7 @@ img {
 .reference-brand-lockup {
   gap: clamp(8px, 0.62vw, 12px);
   color: #fff;
-  font-size: clamp(16px, 1.22vw, 24px);
+  font-size: clamp(1.0625rem, 1.22vw, 24px);
   font-weight: 800;
   letter-spacing: -0.025em;
   white-space: nowrap;
@@ -1080,7 +1080,7 @@ img {
 .stories-heading p {
   margin: 0;
   color: #5b2fff;
-  font-size: clamp(13px, 1.02cqw, 18px);
+  font-size: clamp(1.0625rem, 1.02cqw, 18px);
   font-weight: 900;
   letter-spacing: 0.42em;
   line-height: 1;
@@ -1237,7 +1237,7 @@ img {
   align-items: center;
   gap: 0.36cqw;
   color: rgba(255, 255, 255, 0.95);
-  font-size: clamp(9px, 0.7cqw, 13px);
+  font-size: 1.0625rem;
   font-weight: 750;
 }
 
@@ -1256,7 +1256,7 @@ img {
 .story-meta i {
   margin-left: auto;
   color: rgba(255, 255, 255, 0.88);
-  font-size: clamp(13px, 0.92cqw, 18px);
+  font-size: clamp(1.0625rem, 0.92cqw, 18px);
   font-style: normal;
   letter-spacing: 0.02em;
   writing-mode: vertical-rl;
@@ -1311,7 +1311,7 @@ img {
 
 .story-title h3 {
   margin: 0.6cqw 0 0;
-  font-size: clamp(16px, 1.25cqw, 23px);
+  font-size: clamp(1.0625rem, 1.25cqw, 23px);
   font-weight: 900;
   letter-spacing: 0;
   line-height: 1.08;
@@ -1336,7 +1336,7 @@ img {
 .story-result strong {
   display: block;
   color: #5b2fff;
-  font-size: clamp(16px, 1.32cqw, 24px);
+  font-size: clamp(1.0625rem, 1.32cqw, 24px);
   font-weight: 950;
   line-height: 1;
 }
@@ -1345,7 +1345,7 @@ img {
   display: block;
   margin-top: 0.44cqw;
   color: #111322;
-  font-size: clamp(10px, 0.76cqw, 14px);
+  font-size: 1.0625rem;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -1366,7 +1366,7 @@ img {
 
 .story-result-inline span {
   margin-top: 0;
-  font-size: clamp(10px, 0.82cqw, 15px);
+  font-size: 1.0625rem;
   font-weight: 760;
 }
 
@@ -1595,7 +1595,7 @@ img {
 .possibilities-header p {
   margin: 0 0 9px;
   color: #5a2cff;
-  font-size: 14px;
+  font-size: 1.0625rem;
   font-weight: 850;
   letter-spacing: 6px;
   line-height: 1.2;
@@ -1618,7 +1618,7 @@ img {
 .possibilities-header > span {
   display: block;
   color: #1b2147;
-  font-size: 16px;
+  font-size: 1.0625rem;
   font-weight: 500;
   line-height: 1.35;
 }
@@ -1666,7 +1666,7 @@ img {
   max-width: 286px;
   margin: 0 0 16px;
   color: #161a39;
-  font-size: 13px;
+  font-size: 1.0625rem;
   font-weight: 500;
   letter-spacing: 0;
   line-height: 1.45;
@@ -1765,7 +1765,7 @@ img {
 .possibility-point h4 {
   margin: 0 0 4px;
   color: #080a16;
-  font-size: 13px;
+  font-size: 1.0625rem;
   font-weight: 850;
   line-height: 1.1;
 }
@@ -1773,7 +1773,7 @@ img {
 .possibility-point p {
   margin: 0;
   color: #151936;
-  font-size: 10.5px;
+  font-size: 1.0625rem;
   font-weight: 500;
   line-height: 1.34;
 }
@@ -1891,7 +1891,7 @@ img {
 .possibility-card h3 {
   margin: 0 0 6px;
   color: #111426;
-  font-size: 15px;
+  font-size: 1.0625rem;
   font-weight: 850;
   line-height: 1.1;
 }
@@ -1899,7 +1899,7 @@ img {
 .possibility-card p {
   margin: 0;
   color: #1f2345;
-  font-size: 11px;
+  font-size: 1.0625rem;
   font-weight: 500;
   line-height: 1.42;
 }
@@ -1991,7 +1991,7 @@ img {
   position: relative;
   z-index: 2;
   color: #4821e8;
-  font-size: 16px;
+  font-size: 1.0625rem;
   font-weight: 900;
   letter-spacing: 0;
   line-height: 1.12;
@@ -2003,7 +2003,7 @@ img {
   z-index: 2;
   margin: 4px 0 0;
   color: #151936;
-  font-size: 11px;
+  font-size: 1.0625rem;
   font-weight: 500;
   line-height: 1.35;
   transition: color 260ms ease, transform 360ms cubic-bezier(.2, .82, .22, 1);
@@ -2257,7 +2257,7 @@ img {
 .platform-player-copy p {
   margin: 0;
   color: rgba(255, 255, 255, 0.68);
-  font-size: clamp(15px, 0.97vw, 21px);
+  font-size: clamp(1.0625rem, 0.97vw, 21px);
   font-weight: 520;
   line-height: 1.44;
 }
@@ -2275,7 +2275,7 @@ img {
   align-items: center;
   gap: clamp(14px, 1.12vw, 26px);
   color: rgba(255, 255, 255, 0.78);
-  font-size: clamp(15px, 0.93vw, 20px);
+  font-size: clamp(1.0625rem, 0.93vw, 20px);
   font-weight: 750;
 }
 
@@ -2384,7 +2384,7 @@ img {
   gap: clamp(20px, 1.48vw, 34px);
   align-items: center;
   color: rgba(255, 255, 255, 0.78);
-  font-size: clamp(14px, 0.99vw, 23px);
+  font-size: clamp(1.0625rem, 0.99vw, 23px);
   font-weight: 700;
 }
 
@@ -2528,7 +2528,7 @@ img {
   max-width: 650px;
   margin: 0;
   color: #4e556b;
-  font-size: clamp(13px, 0.72vw, 16.5px);
+  font-size: 1.0625rem;
   font-weight: 560;
   line-height: 1.3;
 }
@@ -2762,7 +2762,7 @@ img {
   max-width: 590px;
   margin: 0;
   color: #151821;
-  font-size: clamp(16px, 1.06vw, 20px);
+  font-size: clamp(1.0625rem, 1.06vw, 20px);
   font-weight: 700;
   line-height: 1.5;
 }
@@ -2773,7 +2773,7 @@ img {
   gap: 10px;
   margin-top: clamp(16px, 1.28vw, 24px);
   color: #6133ff;
-  font-size: clamp(16px, 1.08vw, 20px);
+  font-size: clamp(1.0625rem, 1.08vw, 20px);
   font-weight: 850;
   letter-spacing: 0;
   text-decoration: none;
@@ -2931,7 +2931,7 @@ img {
   gap: 14px;
   margin: 0 0 15px;
   color: #5528ff;
-  font-size: 13px;
+  font-size: 1.0625rem;
   font-weight: 900;
   letter-spacing: 4px;
   line-height: 1.1;
@@ -2984,7 +2984,7 @@ img {
 .final-results-copy {
   margin: 17px 0 0;
   color: #38405d;
-  font-size: 14px;
+  font-size: 1.0625rem;
   font-weight: 520;
   line-height: 1.5;
 }
@@ -3122,7 +3122,7 @@ img {
   z-index: 2;
   margin: 7px 0 0;
   color: #121936;
-  font-size: 12.5px;
+  font-size: 1.0625rem;
   font-weight: 530;
   line-height: 1.28;
   transition:
@@ -3269,7 +3269,7 @@ img {
 .final-card-title p {
   margin: 0;
   color: #363d59;
-  font-size: 14px;
+  font-size: 1.0625rem;
   font-weight: 520;
   line-height: 1.4;
 }
@@ -3370,14 +3370,14 @@ img {
 
 .geo-zone strong {
   color: #10b866;
-  font-size: 16px;
+  font-size: 1.0625rem;
   font-weight: 900;
 }
 
 .geo-zone p {
   margin: 5px 0 0;
   color: #5f6680;
-  font-size: 12px;
+  font-size: 1.0625rem;
   font-weight: 600;
   line-height: 1.4;
 }
@@ -3396,7 +3396,7 @@ img {
   display: flex;
   justify-content: space-between;
   color: #151a2c;
-  font-size: 13px;
+  font-size: 1.0625rem;
   font-weight: 800;
 }
 
@@ -3405,7 +3405,7 @@ img {
   border-radius: 8px;
   background: #f4f6fb;
   color: #7a8195;
-  font-size: 11px;
+  font-size: 1.0625rem;
 }
 
 .mini-stats {
@@ -3418,7 +3418,7 @@ img {
 .mini-stats p {
   margin: 0;
   color: #6f778c;
-  font-size: 12px;
+  font-size: 1.0625rem;
 }
 
 .mini-stats strong {
@@ -3433,7 +3433,7 @@ img {
   display: block;
   margin-top: 4px;
   color: #13bf6c;
-  font-size: 12px;
+  font-size: 1.0625rem;
   font-style: normal;
   font-weight: 800;
 }
@@ -3477,7 +3477,7 @@ img {
   display: flex;
   justify-content: space-between;
   color: #7c8396;
-  font-size: 11px;
+  font-size: 1.0625rem;
   font-weight: 600;
 }
 
@@ -3516,7 +3516,7 @@ img {
   align-items: center;
   gap: 8px;
   color: #101625;
-  font-size: 13px;
+  font-size: 1.0625rem;
   font-weight: 900;
 }
 
@@ -3539,14 +3539,14 @@ img {
   border-radius: 9px;
   background: #f0f1f4;
   color: #32394f;
-  font-size: 13px;
+  font-size: 1.0625rem;
   line-height: 1.45;
 }
 
 .chat-bubble small {
   margin-left: 12px;
   color: #82899a;
-  font-size: 10px;
+  font-size: 1.0625rem;
 }
 
 .chat-window button {
@@ -3558,7 +3558,7 @@ img {
   border-radius: 5px;
   background: #fff;
   color: #08b65f;
-  font-size: 12px;
+  font-size: 1.0625rem;
   font-weight: 800;
 }
 
@@ -3568,7 +3568,7 @@ img {
   gap: 9px;
   margin-top: 13px;
   color: #adb3c1;
-  font-size: 12px;
+  font-size: 1.0625rem;
 }
 
 .chat-input span {
@@ -3628,7 +3628,7 @@ img {
 .whatsapp-price p,
 .sms-price p {
   margin: 8px 0 0;
-  font-size: 12px;
+  font-size: 1.0625rem;
 }
 
 .whatsapp-price b {
@@ -3694,7 +3694,7 @@ img {
   background: #fff;
   box-shadow: 0 10px 24px rgba(35, 48, 78, 0.14);
   color: #111827;
-  font-size: 12px;
+  font-size: 1.0625rem;
   font-weight: 900;
   transform: translate(-50%, -50%);
 }
@@ -3820,14 +3820,14 @@ img {
   max-width: 430px;
   margin: 7px 0 0;
   color: rgba(255, 255, 255, 0.86);
-  font-size: 12px;
+  font-size: 1.0625rem;
   line-height: 1.38;
 }
 
 .data-strip article p {
   margin: 0;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 14px;
+  font-size: 1.0625rem;
   font-weight: 600;
   line-height: 1.45;
   transform: translateX(0);
@@ -4008,7 +4008,7 @@ img {
     height: 44px;
     padding-inline: 18px;
     border-radius: 7px;
-    font-size: 14px;
+    font-size: 1.0625rem;
   }
 
   .hero-kicker {
@@ -4017,7 +4017,7 @@ img {
     margin-top: 76px;
     padding: 9px 14px;
     border-radius: 10px;
-    font-size: 13px;
+    font-size: 1.0625rem;
   }
 
   .hero-title {
@@ -4044,7 +4044,7 @@ img {
   .benefit span {
     width: 24px;
     height: 24px;
-    font-size: 15px;
+    font-size: 1.0625rem;
   }
 
   .phone-mockup {
@@ -4132,7 +4132,7 @@ img {
   }
 
   .possibilities-header p {
-    font-size: 13px;
+    font-size: 1.0625rem;
     letter-spacing: 5px;
   }
 
@@ -4141,7 +4141,7 @@ img {
   }
 
   .possibilities-header > span {
-    font-size: 15px;
+    font-size: 1.0625rem;
   }
 
   .possibilities-body {
@@ -4161,7 +4161,7 @@ img {
   .possibilities-copy > p {
     max-width: 230px;
     margin-bottom: 24px;
-    font-size: 13px;
+    font-size: 1.0625rem;
   }
 
   .possibility-point {
@@ -4185,11 +4185,11 @@ img {
   }
 
   .possibility-point h4 {
-    font-size: 14px;
+    font-size: 1.0625rem;
   }
 
   .possibility-point p {
-    font-size: 11px;
+    font-size: 1.0625rem;
   }
 
   .possibility-card-grid {
@@ -4224,11 +4224,11 @@ img {
 
   .possibility-card h3 {
     margin-bottom: 6px;
-    font-size: 14px;
+    font-size: 1.0625rem;
   }
 
   .possibility-card p {
-    font-size: 10.5px;
+    font-size: 1.0625rem;
   }
 
   .possibility-metrics {
@@ -4254,11 +4254,11 @@ img {
   }
 
   .possibility-metric strong {
-    font-size: 15px;
+    font-size: 1.0625rem;
   }
 
   .possibility-metric p {
-    font-size: 10.5px;
+    font-size: 1.0625rem;
   }
 
   .platform-section {
@@ -4289,7 +4289,7 @@ img {
   }
 
   .platform-player-copy p {
-    font-size: 13px;
+    font-size: 1.0625rem;
     line-height: 1.36;
   }
 
@@ -4300,7 +4300,7 @@ img {
 
   .platform-player-copy li {
     gap: 12px;
-    font-size: 12px;
+    font-size: 1.0625rem;
   }
 
   .platform-player-copy li span {
@@ -4320,7 +4320,7 @@ img {
     left: 26px;
     grid-template-columns: 19px auto minmax(0, 1fr) repeat(3, 22px);
     gap: 16px;
-    font-size: 14px;
+    font-size: 1.0625rem;
   }
 
   .platform-feature-list {
@@ -4372,12 +4372,12 @@ img {
 
   .compliance-copy p {
     max-width: 390px;
-    font-size: 15px;
+    font-size: 1.0625rem;
   }
 
   .compliance-copy a {
     margin-top: 12px;
-    font-size: 15px;
+    font-size: 1.0625rem;
   }
 
   .final-results-section {
@@ -4502,11 +4502,11 @@ img {
 
   .compliance-copy p {
     max-width: 350px;
-    font-size: 13px;
+    font-size: 1.0625rem;
   }
 
   .compliance-copy a {
-    font-size: 13px;
+    font-size: 1.0625rem;
   }
 
   .final-results-stage {
@@ -4558,7 +4558,7 @@ img {
     flex: 0 0 88px;
     gap: 12px;
     padding-left: 0;
-    font-size: 9px;
+    font-size: 1.0625rem;
     letter-spacing: 1.8px;
     justify-content: center;
     white-space: normal;
@@ -4577,7 +4577,7 @@ img {
   .references-intro::after {
     color: #9461ff;
     content: "+250";
-    font-size: 11px;
+    font-size: 1.0625rem;
     font-weight: 900;
     letter-spacing: 1.2px;
   }
@@ -4613,7 +4613,7 @@ img {
   }
 
   .stories-heading p {
-    font-size: 10px;
+    font-size: 1.0625rem;
     letter-spacing: 3.2px;
   }
 
@@ -4651,7 +4651,7 @@ img {
     right: 14px;
     left: 14px;
     gap: 6px;
-    font-size: 12px;
+    font-size: 1.0625rem;
   }
 
   .story-meta img {
@@ -4660,7 +4660,7 @@ img {
   }
 
   .story-meta i {
-    font-size: 15px;
+    font-size: 1.0625rem;
   }
 
   .story-icon {
@@ -4699,7 +4699,7 @@ img {
 
   .story-result span {
     margin-top: 5px;
-    font-size: 12px;
+    font-size: 1.0625rem;
   }
 
   .story-result-split {
@@ -4722,7 +4722,7 @@ img {
   }
 
   .possibilities-header p {
-    font-size: 10px;
+    font-size: 1.0625rem;
     letter-spacing: 3px;
   }
 
@@ -4734,7 +4734,7 @@ img {
   .possibilities-header > span {
     max-width: 330px;
     margin: 0 auto;
-    font-size: 13px;
+    font-size: 1.0625rem;
   }
 
   .possibilities-body {
@@ -4762,7 +4762,7 @@ img {
 
   .possibilities-copy > p {
     max-width: none;
-    font-size: 13px;
+    font-size: 1.0625rem;
   }
 
   .possibility-point {
@@ -4776,11 +4776,11 @@ img {
   }
 
   .possibility-point h4 {
-    font-size: 14px;
+    font-size: 1.0625rem;
   }
 
   .possibility-point p {
-    font-size: 11.5px;
+    font-size: 1.0625rem;
   }
 
   .possibility-card-grid {
@@ -4814,7 +4814,7 @@ img {
   }
 
   .possibility-card p {
-    font-size: 12.5px;
+    font-size: 1.0625rem;
   }
 
   .possibility-metrics {
@@ -4852,7 +4852,7 @@ img {
 
   .platform-header p {
     gap: 10px;
-    font-size: 10px;
+    font-size: 1.0625rem;
     letter-spacing: 3.2px;
   }
 
@@ -4864,7 +4864,7 @@ img {
   .platform-header > span {
     max-width: 330px;
     margin: 12px auto 0;
-    font-size: 14px;
+    font-size: 1.0625rem;
   }
 
   .platform-content {
@@ -4902,7 +4902,7 @@ img {
     left: 12px;
     grid-template-columns: 14px auto minmax(0, 1fr) repeat(3, 16px);
     gap: 8px;
-    font-size: 10px;
+    font-size: 1.0625rem;
   }
 
   .platform-feature-list {
@@ -4924,12 +4924,12 @@ img {
   }
 
   .platform-feature h3 {
-    font-size: 16px;
+    font-size: 1.0625rem;
     line-height: 1.15;
   }
 
   .platform-feature p {
-    font-size: 12px;
+    font-size: 1.0625rem;
     line-height: 1.35;
   }
 
@@ -4981,13 +4981,13 @@ img {
 
   .compliance-copy p {
     max-width: none;
-    font-size: 12px;
+    font-size: 1.0625rem;
     line-height: 1.45;
   }
 
   .compliance-copy a {
     margin-top: 10px;
-    font-size: 13px;
+    font-size: 1.0625rem;
   }
 
   .final-results-stage {
@@ -5011,7 +5011,7 @@ img {
 
   .final-results-hero > p:first-child {
     gap: 10px;
-    font-size: 9px;
+    font-size: 1.0625rem;
     letter-spacing: 2px;
   }
 
@@ -5026,7 +5026,7 @@ img {
 
   .final-results-copy {
     max-width: 100%;
-    font-size: 12.5px;
+    font-size: 1.0625rem;
   }
 
   .final-arrow {
@@ -5079,7 +5079,7 @@ img {
 
   .final-metric p {
     margin-top: 5px;
-    font-size: 10.5px;
+    font-size: 1.0625rem;
   }
 
   .final-card-grid {
@@ -5114,7 +5114,7 @@ img {
   }
 
   .final-card-title p {
-    font-size: 12px;
+    font-size: 1.0625rem;
   }
 
   .geo-map {
@@ -5172,7 +5172,7 @@ img {
   }
 
   .mini-stats strong {
-    font-size: 16px;
+    font-size: 1.0625rem;
   }
 
   .mini-chart svg {
@@ -5257,7 +5257,7 @@ img {
   }
 
   .data-strip article p {
-    font-size: 12px;
+    font-size: 1.0625rem;
   }
 }
 
@@ -5287,7 +5287,7 @@ img {
   .references-intro p {
     min-width: 0;
     overflow: hidden;
-    font-size: clamp(10px, 1.55vw, 14px);
+    font-size: 1.0625rem;
     letter-spacing: 0.13em;
     line-height: 1.12;
     text-overflow: ellipsis;
@@ -5330,7 +5330,7 @@ img {
     display: block;
     color: #9461ff;
     content: "+250";
-    font-size: 12px;
+    font-size: 1.0625rem;
     font-weight: 900;
     letter-spacing: 2px;
     line-height: 1;
@@ -5376,7 +5376,7 @@ img {
   .story-title h3 {
     max-width: 100%;
     margin-top: 5px;
-    font-size: clamp(16px, 5.2vw, 19px);
+    font-size: clamp(1.0625rem, 5.2vw, 19px);
     line-height: 1.06;
   }
 
@@ -5394,7 +5394,7 @@ img {
 
   .story-result span {
     margin-top: 3px;
-    font-size: clamp(10px, 3.5vw, 12px);
+    font-size: 1.0625rem;
   }
 
   .story-result-split {
@@ -5427,7 +5427,7 @@ img {
     padding: 0 14px !important;
     border-radius: 8px;
     overflow: hidden;
-    font-size: 14px;
+    font-size: 1.0625rem;
     line-height: 1;
     white-space: nowrap;
   }

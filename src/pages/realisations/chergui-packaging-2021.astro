@@ -1,0 +1,196 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../components/CaseStudyModel.astro';
+import { SITE } from '../../consts';
+import { articleSchema, breadcrumbs } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/realisations/chergui-packaging-2021`;
+const heroImage = '/assets/richmedia-realizations/chergui-conception-emballage.webp';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Chergui — Conception Packaging 2021 | Case Study Richmedia';
+const pageDescription =
+  'Découvrez le packaging Chergui conçu par Richmedia : concept créatif, direction artistique et design graphique pour visibilité rayon et perception premium.';
+
+const content = {
+  backHref: '/realisations',
+  backLabel: 'Retour aux cas clients',
+  eyebrow: 'Une approche branding et packaging pensée pour faire émerger le produit dans les environnements retail.',
+  client: 'Chergui',
+  clientLong: 'Chergui',
+  category: 'Food & Beverage / Produits laitiers',
+  period: '2021',
+  scope: 'Conception & design packaging',
+  title: 'Le Résultat',
+  subtitle:
+    'En 2021, Chergui a confié à Richmedia la conception graphique d’un nouveau packaging destiné à renforcer l’impact du produit en rayon et à faire évoluer sa perception vers un univers plus premium. Le travail a porté sur le concept créatif, la direction artistique, le design graphique ainsi que les choix de couleurs et de typographies.',
+  heroImage,
+  heroAlt: 'Packaging Chergui Le Nature conçu par Richmedia en 2021',
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'Chergui' },
+    { label: 'Projet', value: 'Conception & design packaging' },
+    { label: 'Secteur', value: 'Food & Beverage / Produits laitiers' },
+    { label: 'Période', value: '2021' },
+    { label: 'Format', value: 'Pot' },
+    { label: 'Références', value: '1 référence' },
+    { label: 'Distribution', value: 'GMS / supermarchés / épiceries / Maroc entier' },
+  ],
+  metrics: [
+    {
+      value: 'Plus visible',
+      label: 'Meilleure présence en rayon',
+      note: 'Impact commercial observé : augmentation des ventes',
+      noteTrend: false,
+      qualitative: true,
+      icon: 'ph ph-eye',
+    },
+    {
+      value: 'Plus premium',
+      label: 'Perception qualité renforcée',
+      qualitative: true,
+      icon: 'ph ph-sparkle',
+    },
+    {
+      value: 'Plus désirable',
+      label: 'Amélioration de la préférence / prise en main',
+      qualitative: true,
+      icon: 'ph ph-heart',
+    },
+    {
+      value: 'Mieux accueilli',
+      label: 'Retours distributeurs positifs',
+      qualitative: true,
+      icon: 'ph ph-handshake',
+    },
+  ],
+  deliverables: [
+    'Concept créatif',
+    'Direction artistique',
+    'Design graphique packaging',
+    'Choix couleurs',
+    'Choix typographiques',
+    'Hiérarchie de l’information',
+    'Territoire visuel premium',
+    'Design retail',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Territoire créatif',
+      text: 'Définition d’un univers visuel plus premium.',
+      bullets: [
+        'Définition d’un univers visuel plus premium.',
+        'Modernisation du packaging tout en conservant les codes de la marque.',
+        'Recherche d’un impact plus fort en environnement retail.',
+      ],
+      icon: 'ph ph-lightbulb',
+    },
+    {
+      eyebrow: '02',
+      title: 'Direction artistique',
+      text: 'Construction d’une expression plus épurée.',
+      bullets: [
+        'Construction d’une expression plus épurée.',
+        'Hiérarchisation visuelle plus claire.',
+        'Mise en avant immédiate de la marque et du produit.',
+      ],
+      icon: 'ph ph-palette',
+    },
+    {
+      eyebrow: '03',
+      title: 'Codes visuels',
+      text: 'Palette plus visible en rayon.',
+      bullets: [
+        'Palette plus visible en rayon.',
+        'Typographies pensées pour améliorer la lisibilité.',
+        'Équilibre entre modernité, qualité et reconnaissance de marque.',
+      ],
+      icon: 'ph ph-text-aa',
+    },
+    {
+      eyebrow: '04',
+      title: 'Pensé pour le rayon',
+      text: 'Design conçu pour fonctionner en GMS et épiceries.',
+      bullets: [
+        'Design conçu pour fonctionner en GMS et épiceries.',
+        'Travail sur la capacité du packaging à émerger face aux produits concurrents.',
+        'Simplification du message pour faciliter la lecture au moment du choix.',
+      ],
+      icon: 'ph ph-storefront',
+    },
+  ],
+  proof: {
+    eyebrow: 'Bloc 3',
+    title: 'Les Preuves',
+    intro:
+      'Le visuel réel Chergui montre le packaging final, le logo, le traitement typographique, l’univers de marque et l’identité graphique du produit.',
+    items: [
+      { image: heroImage, label: 'Packaging final Chergui', format: 'Visuel réel packaging', size: 'banner' as const },
+      { image: heroImage, label: 'Détail identité de marque', format: 'Crop du visuel réel', size: 'feed' as const },
+      { image: heroImage, label: 'Détail univers produit', format: 'Crop du visuel réel', size: 'story' as const },
+      { image: heroImage, label: 'Détail typographie et pot', format: 'Crop du visuel réel', size: 'quote' as const },
+    ],
+    kpi: {
+      value: 'Impact commercial observé',
+      label: 'augmentation des ventes',
+      breakdown: [
+        'Meilleure présence rayon',
+        'Perception qualité renforcée',
+        'Retours distributeurs positifs',
+      ],
+      note: 'Observation qualitative, sans pourcentage public.',
+    },
+    conclusion:
+      'Le redesign a permis de renforcer la présence de Chergui en rayon en combinant montée en gamme visuelle, meilleure lisibilité et respect des codes de marque, avec un design spécifiquement pensé pour les environnements GMS et épiceries.',
+    links: [
+      { href: '/expertises/brand-content/', label: 'Brand content' },
+      { href: '/secteurs/fmcg/', label: 'Secteur FMCG' },
+      { href: '/secteurs/gms/', label: 'GMS & retail' },
+      { href: '/realisations/', label: 'Autres réalisations' },
+    ],
+  },
+  quote:
+    'Vous souhaitez rendre votre marque plus visible et plus désirable en rayon ?',
+  ctaLabel: 'Parler à un expert',
+  ctaHref: '/contact',
+  secondaryLabel: 'Découvrir nos expertises Branding',
+  secondaryHref: '/expertises/brand-content/',
+  ui: {
+    resultLabel: 'Résultats qualitatifs du projet packaging',
+    metaLabel: 'Informations du projet packaging',
+    workLabel: 'Bloc 2',
+    workTitle: 'Ce Qu’on A Fait',
+    proofLabel: 'Preuves visuelles du packaging Chergui',
+    quoteLabel: 'Maillage du cas client',
+    deliverablesTitle: 'Livrables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Cas clients', url: `${SITE.url}/realisations` },
+    { name: 'Chergui — Conception Packaging 2021', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

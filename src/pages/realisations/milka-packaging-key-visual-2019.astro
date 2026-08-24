@@ -1,0 +1,204 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../components/CaseStudyModel.astro';
+import { SITE } from '../../consts';
+import { articleSchema, breadcrumbs } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/realisations/milka-packaging-key-visual-2019`;
+const heroImage = '/assets/richmedia-realizations/milka-back-to-school.webp';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Milka — Packaging & Key Visual 2019 | Case Study Richmedia';
+const pageDescription =
+  'Case study Milka par Richmedia : packaging et key visual Muffins & Donuts pour renforcer gourmandise, cohérence de marque et impact rayon.';
+
+const content = {
+  backHref: '/realisations',
+  backLabel: 'Retour aux cas clients',
+  eyebrow:
+    'Un univers de lancement complet, pensé pour relier packaging, key visual et impact retail autour des codes iconiques Milka.',
+  client: 'Milka',
+  clientLong: 'Milka',
+  category: 'Food & Beverage / Snacking sucré',
+  period: '2019',
+  scope: 'Packaging & Key Visual',
+  title: 'Le Résultat',
+  subtitle:
+    'En 2019, Richmedia a accompagné Milka sur la création du packaging et du key visual de la gamme Muffins & Donuts, avec un objectif clair : lancer la gamme avec un univers visuel cohérent, gourmand et immédiatement reconnaissable. Le projet a couvert le concept créatif, la direction artistique, le design packaging, la déclinaison produit ainsi que le travail sur les typographies et les couleurs, afin d’assurer une cohérence forte entre packaging et communication.',
+  heroImage,
+  heroAlt: 'Packaging et key visual Milka Muffins et Donuts réalisés par Richmedia en 2019',
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'Milka' },
+    { label: 'Projet', value: 'Packaging & Key Visual' },
+    { label: 'Produits', value: 'Muffins + Donuts' },
+    { label: 'Secteur', value: 'Food & Beverage / Snacking sucré' },
+    { label: 'Marché', value: 'France' },
+    { label: 'Période', value: '2019' },
+    { label: 'Cible', value: 'Jeunes adultes, familles, acheteurs GMS, fans Milka' },
+  ],
+  metrics: [
+    {
+      value: 'Lancement réussi',
+      label: 'Mise en marché cohérente d’une nouvelle gamme',
+      note: 'Impact commercial observé : augmentation des ventes',
+      noteTrend: false,
+      qualitative: true,
+      icon: 'ph ph-rocket-launch',
+    },
+    {
+      value: 'Plus visible',
+      label: 'Meilleur impact visuel en rayon',
+      qualitative: true,
+      icon: 'ph ph-eye',
+    },
+    {
+      value: 'Plus gourmand',
+      label: 'Univers produit plus désirable et appétissant',
+      qualitative: true,
+      icon: 'ph ph-heart',
+    },
+    {
+      value: 'Plus cohérent',
+      label: 'Alignement fort entre packaging et key visual',
+      qualitative: true,
+      icon: 'ph ph-check-circle',
+    },
+    {
+      value: 'Retours positifs',
+      label: 'Bon accueil distributeurs / retail',
+      qualitative: true,
+      icon: 'ph ph-handshake',
+    },
+  ],
+  deliverables: [
+    'Concept créatif',
+    'Key visual',
+    'Design packaging',
+    'Déclinaisons produits',
+    'Direction artistique',
+    'Couleurs & typographies',
+    'Cohérence gamme',
+    'Design pensé retail',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Concept',
+      text: 'Création d’un territoire visuel de lancement pour la gamme Muffins & Donuts.',
+      bullets: [
+        'Création d’un territoire visuel de lancement pour la gamme Muffins & Donuts.',
+        'Construction d’un univers distinctif capable de porter à la fois le packaging et la communication.',
+        'Travail autour d’une promesse de gourmandise visible dès le premier regard.',
+      ],
+      icon: 'ph ph-lightbulb',
+    },
+    {
+      eyebrow: '02',
+      title: 'Direction artistique',
+      text: 'Mise en place d’une direction cohérente entre produit, marque et communication.',
+      bullets: [
+        'Mise en place d’une direction cohérente entre produit, marque et communication.',
+        'Respect des codes iconiques Milka.',
+        'Recherche d’un rendu premium, gourmand et accessible.',
+      ],
+      icon: 'ph ph-palette',
+    },
+    {
+      eyebrow: '03',
+      title: 'Packaging',
+      text: 'Design des packagings Muffins + Donuts.',
+      bullets: [
+        'Design des packagings Muffins + Donuts.',
+        'Déclinaison par produit tout en gardant une unité de gamme.',
+        'Travail sur la hiérarchie visuelle, la lisibilité et la présence en rayon.',
+      ],
+      icon: 'ph ph-package',
+    },
+    {
+      eyebrow: '04',
+      title: 'Key visual',
+      text: 'Création d’un key visual aligné avec les packagings.',
+      bullets: [
+        'Création d’un key visual aligné avec les packagings.',
+        'Mise en scène forte du produit.',
+        'Valorisation de la texture, du cœur fondant et de la gourmandise perçue.',
+      ],
+      icon: 'ph ph-images-square',
+    },
+  ],
+  proof: {
+    eyebrow: 'Bloc 3',
+    title: 'Les Preuves',
+    intro:
+      'Le visuel réel Milka montre le packaging Muffin, le bloc Muffins & Donut, les produits et l’univers violet immédiatement associé à la marque.',
+    items: [
+      { image: heroImage, label: 'Visuel central Milka Muffins & Donuts', format: 'Visuel réel', size: 'banner' as const },
+      { image: heroImage, label: 'Packaging Muffin Milka', format: 'Crop du visuel réel', size: 'feed' as const },
+      { image: heroImage, label: 'Bloc Muffins & Donut', format: 'Crop du visuel réel', size: 'story' as const },
+      { image: heroImage, label: 'Détail produits et codes Milka', format: 'Crop du visuel réel', size: 'quote' as const },
+    ],
+    kpi: {
+      value: 'Parti pris créatif',
+      label: 'packaging + key visual',
+      breakdown: [
+        'Gourmandise : accent fort sur l’appétence',
+        'Codes de marque : respect fort des codes Milka',
+        'Produit : mise en avant claire des Muffins & Donuts',
+        'Cohérence : alignement packaging + key visual',
+      ],
+      note: 'Un seul asset réel utilisé, sans faux mockup ni faux support additionnel.',
+    },
+    conclusion:
+      'Ce projet illustre la capacité de Richmedia à concevoir un univers de lancement complet, où le packaging et le key visual travaillent ensemble pour renforcer la reconnaissance de marque, la gourmandise perçue et l’impact retail.',
+    links: [
+      { href: '/expertises/brand-content/', label: 'Brand content' },
+      { href: '/secteurs/fmcg/', label: 'Secteur FMCG' },
+      { href: '/secteurs/gms/', label: 'GMS & retail' },
+      { href: '/realisations/', label: 'Autres réalisations' },
+    ],
+  },
+  quote:
+    'Vous souhaitez lancer une gamme avec un univers visuel fort ?',
+  ctaLabel: 'Parler à un expert',
+  ctaHref: '/contact',
+  secondaryLabel: 'Découvrir nos expertises Branding',
+  secondaryHref: '/expertises/brand-content/',
+  ui: {
+    resultLabel: 'Résultats qualitatifs du projet Milka',
+    metaLabel: 'Informations du projet Milka',
+    workLabel: 'Bloc 2',
+    workTitle: 'Ce Qu’on A Fait',
+    proofLabel: 'Preuves visuelles du packaging et key visual Milka',
+    quoteLabel: 'Maillage du cas client',
+    deliverablesTitle: 'Livrables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Cas clients', url: `${SITE.url}/realisations` },
+    { name: 'Milka — Packaging & Key Visual 2019', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>
