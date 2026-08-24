@@ -46,7 +46,7 @@ export const BUSINESS = {
   areaServed: ['Casablanca', 'Dubaï', 'Montréal', 'Strasbourg'],
   sameAs: [
     'https://linkedin.com/company/richmediadigitalagency',
-    'http://instagram.com/richmedia.agency/',
+    'https://instagram.com/richmedia.agency/',
     'https://www.facebook.com/richmedia.ma/?locale=fr_FR',
   ],
   accreditations: [
