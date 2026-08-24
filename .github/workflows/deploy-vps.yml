@@ -69,12 +69,46 @@ jobs:
             set -e
             chown -R www-data:www-data '$release_path'
             ln -sfn '$release_path' '$VPS_WEBROOT/current'
-            for nginx_file in \$(grep -Rsl 'richmedia-seo-cache-headers.conf' /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null || true); do
-              perl -0pi -e 's/^.*richmedia-seo-cache-headers\.conf.*\n?//mg' \"\$nginx_file\"
+            install -d -m 755 /etc/nginx/snippets
+          "
+
+          ssh $ssh_opts "$VPS_USER@$VPS_HOST" "cat > /etc/nginx/snippets/richmedia-seo-cache-headers.conf" < deploy/nginx/seo-cache-headers.conf
+
+          ssh $ssh_opts "$VPS_USER@$VPS_HOST" "
+            set -e
+            nginx_files=\$(grep -RslE 'server_name[^;]*richmedia\.ma' /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null || true)
+            if [ -z \"\$nginx_files\" ]; then
+              echo 'Could not find the active Nginx server block for richmedia.ma.' >&2
+              exit 1
+            fi
+
+            for nginx_file in \$nginx_files; do
+              perl -0pi -e 's/^\s*include\s+\/etc\/nginx\/snippets\/richmedia-seo-cache-headers\.conf;\s*\n?//mg' \"\$nginx_file\"
+              perl -0pi -e 's/(server_name\s+[^;]*richmedia\.ma[^;]*;\s*)/\$1\n  include \/etc\/nginx\/snippets\/richmedia-seo-cache-headers.conf;\n/gs' \"\$nginx_file\"
             done
+
             nginx -t
+            systemctl reload nginx
           "
           echo "RICHMEDIA_RELEASE_PATH=$release_path" >> "$GITHUB_ENV"
+
+      - name: Purge SEO files from Cloudflare
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID || vars.CLOUDFLARE_ZONE_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${CLOUDFLARE_API_TOKEN:-}" ] || [ -z "${CLOUDFLARE_ZONE_ID:-}" ]; then
+            echo "::notice::Cloudflare purge skipped. Configure CLOUDFLARE_API_TOKEN and CLOUDFLARE_ZONE_ID to purge SEO files automatically."
+            exit 0
+          fi
+
+          curl -fsS \
+            -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/purge_cache" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data '{"files":["https://richmedia.ma/robots.txt","https://richmedia.ma/sitemap-index.xml","https://richmedia.ma/sitemap-0.xml"]}'
 
       - name: Configure contact API
         continue-on-error: true
