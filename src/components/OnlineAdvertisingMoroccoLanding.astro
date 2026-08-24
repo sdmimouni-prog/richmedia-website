@@ -1,0 +1,1298 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeoSiloLinks from './SeoSiloLinks.astro';
+import { SITE } from '../consts';
+import { breadcrumbs, faqSchema, localBusiness, serviceSchema } from '../lib/schema';
+
+interface Props {
+  lang: 'fr' | 'en';
+}
+
+const { lang: pageLang } = Astro.props as Props;
+const isEnglish = pageLang === 'en';
+
+const pagePath = isEnglish ? '/online-advertising-morocco' : '/publicite-en-ligne-maroc';
+const pageUrl = `${SITE.url}${pagePath}`;
+const contactHref = isEnglish ? '/en/contact' : '/contact';
+const workHref = isEnglish ? '/en/case-studies' : '/realisations';
+const mediaHref = isEnglish ? '/en/expertises/media-performance' : '/expertises/media-performance';
+const mediaBuyingHref = isEnglish ? '/en/expertises/achat-media' : '/expertises/achat-media';
+const googleAdsHref = isEnglish ? '/en/expertises/google-ads-morocco' : '/expertises/google-ads-maroc';
+const metaAdsHref = isEnglish ? '/en/expertises/meta-ads-morocco' : '/expertises/meta-ads-maroc';
+const tiktokAdsHref = isEnglish ? '/en/expertises/tiktok-ads-morocco' : '/expertises/tiktok-ads-maroc';
+const leadGenHref = isEnglish ? '/en/expertises/lead-generation-morocco' : '/expertises/generation-leads-maroc';
+const landingHref = isEnglish ? '/en/expertises/web-si' : '/expertises/web-si';
+const socialHref = isEnglish ? '/social-media-management-morocco' : '/gestion-reseaux-sociaux-maroc';
+const brandHref = isEnglish ? '/en/expertises/brand-content' : '/expertises/brand-content';
+const geoHref = isEnglish ? '/en/expertises/geofencing-drive-to-store-morocco' : '/expertises/geofencing-drive-to-store-maroc';
+const acquisitionInsightHref = isEnglish ? '/en/insights/digital-acquisition-plan-2026' : '/insights/plan-acquisition-digital-2026';
+const googleCostHref = isEnglish ? '/en/insights/google-ads-campaign-cost-morocco' : '/insights/cout-campagne-google-ads-maroc';
+const metaInsightHref = isEnglish ? '/en/insights/meta-campaigns-2026-best-practices' : '/insights/campagnes-meta-2026-bonnes-pratiques';
+const heroImage = '/assets/richmedia-achat-media/achat-media-hero.webp';
+const trafficImage = '/assets/richmedia-achat-media/media-traffic-manager.webp';
+const creativeImage = '/assets/richmedia-achat-media/media-creative-tests.webp';
+const scalingImage = '/assets/richmedia-achat-media/media-scaling-room.webp';
+
+const copy = isEnglish
+  ? {
+      title: 'Online Advertising in Morocco | Richmedia',
+      description:
+        'Richmedia manages online advertising campaigns in Morocco across Google, Meta, TikTok and other digital channels with a performance and ROI-driven approach.',
+      h1: 'Online Advertising in Morocco',
+      eyebrow: 'Online advertising Morocco',
+      lead:
+        'Richmedia plans, manages and optimises digital advertising campaigns across major platforms to generate awareness, traffic, leads and sales.',
+      line: 'Google Ads · Meta Ads · TikTok Ads · Display · Performance',
+      primaryCta: 'Talk to an expert',
+      secondaryCta: 'View our campaigns',
+      introTitle: 'Digital advertising is not about buying impressions. It is about buying the right attention.',
+      introText:
+        'Performance comes from a clear objective, the right audience, the right platform, relevant creative, a strong landing experience, clean tracking, budget arbitration and continuous optimisation. The best channel is not the one with the most impressions, but the one that contributes most clearly to the business outcome.',
+      platformsTitle: 'The right media mix for each objective',
+      objectivesTitle: 'Different objectives require different campaign strategies',
+      methodTitle: 'From media strategy to continuous optimisation',
+      dataTitle: 'Performance is managed through data',
+      dataText:
+        'Depending on the goal, campaign reporting can track CPM, CPC, CTR, CPL, CPA, conversion rate, ROAS when measurable, leads, sales, reach or frequency. These indicators are decision tools, not vanity metrics.',
+      reportingTitle: 'Reporting built for decisions, not vanity metrics',
+      reportingText:
+        'A useful report explains where budget goes, which campaigns work, which audiences respond, which creatives perform, what cost per result is obtained and where investment should be reallocated.',
+      creativeTitle: 'High-performing campaigns start with media-fit creative',
+      creativeText:
+        'A message designed for Instagram should not automatically be copied to Search, TikTok or Display. Richmedia connects concept, format, message, audience and platform so creative can be tested as a performance lever.',
+      landingTitle: 'The click is only the beginning of the journey',
+      landingText:
+        'Slow pages, unclear promises, long forms, poor mobile experience, weak proof or incorrect tracking can limit campaign performance. We connect ad, landing page, conversion, CRM or lead handling and measurement.',
+      marketTitle: 'Digital advertising built for the Moroccan market',
+      marketText:
+        'Media management in Morocco requires attention to audience diversity, geography, language, mobile usage, platform behavior, sector maturity and the way online and offline journeys connect. For international brands, the challenge is also localisation: adapting campaign setup, creative, targeting and reporting to the Moroccan market without losing global standards.',
+      geoTitle: 'From national campaigns to local geo-targeting',
+      geoText:
+        'When the business case requires it, media can be adapted by region, city, area or store proximity for retail, food service, real estate, automotive, events, openings and local services, within the targeting limits of each platform.',
+      proofTitle: 'Campaigns built around measurable outcomes',
+      whyTitle: 'Why work with Richmedia for online advertising in Morocco?',
+      internationalTitle: 'Your paid media partner in Morocco',
+      internationalText:
+        'For international brands advertising in Morocco, Richmedia combines local market expertise, media planning, campaign execution and performance reporting through one local partner.',
+      faqTitle: 'Frequently asked questions about online advertising in Morocco',
+      finalTitle: 'Looking to improve your digital advertising performance in Morocco?',
+      finalText:
+        'Let’s build a media strategy around your audience, your budget and your business objectives.',
+      finalCta: 'Talk to an expert',
+      serviceName: 'Online advertising in Morocco',
+      breadcrumbHome: 'Home',
+      breadcrumbName: 'Online Advertising in Morocco',
+      siloTitle: 'Connect paid media, creative and conversion',
+      siloIntro:
+        'Online advertising performs better when media buying, creative testing, landing pages, CRM and reporting move together.',
+    }
+  : {
+      title: 'Publicité en ligne au Maroc | Richmedia',
+      description:
+        'Richmedia pilote vos campagnes de publicité en ligne au Maroc sur Google, Meta, TikTok et autres canaux digitaux avec une approche orientée performance et ROI.',
+      h1: 'Publicité en ligne au Maroc',
+      eyebrow: 'Publicité digitale Maroc',
+      lead:
+        'Richmedia conçoit, pilote et optimise des campagnes publicitaires digitales sur les principales plateformes afin de générer visibilité, trafic, leads et ventes.',
+      line: 'Google Ads · Meta Ads · TikTok Ads · Display · Performance',
+      primaryCta: 'Parler à un expert',
+      secondaryCta: 'Voir nos campagnes',
+      introTitle: 'Acheter de la visibilité ne suffit pas. Il faut acheter la bonne attention.',
+      introText:
+        'Une publicité digitale performante repose sur des objectifs clairs, le bon ciblage, la plateforme adaptée, la création, la landing page, le tracking, l’optimisation, l’allocation budgétaire et la mesure. Le bon canal n’est pas celui qui génère le plus d’impressions, mais celui qui contribue le mieux à l’objectif business.',
+      platformsTitle: 'Un mix média adapté à chaque objectif',
+      objectivesTitle: 'Une campagne différente pour chaque objectif',
+      methodTitle: 'De la stratégie média à l’optimisation quotidienne',
+      dataTitle: 'La performance se pilote par la donnée',
+      dataText:
+        'Selon l’objectif, le reporting peut suivre CPM, CPC, CTR, CPL, CPA, taux de conversion, ROAS lorsque mesurable, leads, ventes, reach ou fréquence. Ces indicateurs servent à décider, pas à empiler des métriques.',
+      reportingTitle: 'Des rapports qui permettent de décider, pas seulement de compter',
+      reportingText:
+        'Un bon reporting explique où part le budget, quelles campagnes fonctionnent, quelles audiences répondent, quelles créations performent, quel coût par résultat est obtenu et où réallouer les investissements.',
+      creativeTitle: 'Une campagne performante commence par une création adaptée au média',
+      creativeText:
+        'Une créa conçue pour Instagram ne doit pas nécessairement être utilisée telle quelle sur Search, TikTok ou Display. Richmedia relie concept, format, message, audience et plateforme pour tester la création comme un levier média.',
+      landingTitle: 'Le clic n’est que le début du parcours',
+      landingText:
+        'Une page lente, un message incohérent, un formulaire trop long, une mauvaise expérience mobile, un manque de preuve ou un tracking incorrect peuvent limiter une campagne. Nous relions annonce, landing page, conversion, CRM ou lead et mesure.',
+      marketTitle: 'Piloter des campagnes digitales sur le marché marocain',
+      marketText:
+        'Le pilotage média au Maroc demande de tenir compte de la diversité des audiences, des zones géographiques, des langues, du mobile, des plateformes, du secteur, de la maturité digitale et des parcours online/offline. La bonne structure dépend autant du canal que de l’offre, du niveau d’intention et de la capacité commerciale à traiter les demandes.',
+      geoTitle: 'Du ciblage national au géotargeting local',
+      geoText:
+        'Lorsque le cas business le justifie, une campagne peut être adaptée par région, ville, zone ou proximité d’un point de vente pour le retail, la restauration, l’immobilier, l’automobile, les événements, les ouvertures et les services locaux, dans les limites de ciblage propres à chaque plateforme.',
+      proofTitle: 'Des campagnes pilotées par la performance',
+      whyTitle: 'Pourquoi confier vos campagnes digitales à Richmedia ?',
+      internationalTitle: '',
+      internationalText: '',
+      faqTitle: 'Questions fréquentes sur la publicité en ligne au Maroc',
+      finalTitle: 'Vous voulez améliorer la performance de vos campagnes digitales ?',
+      finalText:
+        'Construisons un dispositif média adapté à votre audience, votre budget et vos objectifs business.',
+      finalCta: 'Parler à un expert',
+      serviceName: 'Publicité en ligne au Maroc',
+      breadcrumbHome: 'Accueil',
+      breadcrumbName: 'Publicité en ligne au Maroc',
+      siloTitle: 'Relier média, création et conversion',
+      siloIntro:
+        'La publicité en ligne performe mieux lorsque achat média, tests créatifs, landing pages, CRM et reporting avancent ensemble.',
+    };
+
+const platforms = isEnglish
+  ? [
+      { title: 'Google Ads', text: 'Search, Performance Max, YouTube, Display and remarketing to capture intent, traffic, leads, sales and visibility.', href: googleAdsHref, label: 'Google Ads Morocco' },
+      { title: 'Meta Ads', text: 'Facebook and Instagram campaigns for acquisition, engagement, lead generation, traffic, conversion and retargeting.', href: metaAdsHref, label: 'Meta Ads Morocco' },
+      { title: 'TikTok Ads', text: 'Native vertical videos, creator-style formats, reach, engagement, acquisition and retargeting when the audience fit is strong.', href: tiktokAdsHref, label: 'TikTok Ads Morocco' },
+      { title: 'Display & programmatic', text: 'Reach, retargeting, contextual targeting, audience planning, coverage and frequency management.', href: mediaBuyingHref, label: 'Media buying' },
+    ]
+  : [
+      { title: 'Google Ads', text: 'Search, Performance Max, YouTube, Display et remarketing pour capter intention forte, trafic, leads, ventes et visibilité.', href: googleAdsHref, label: 'Google Ads Maroc' },
+      { title: 'Meta Ads', text: 'Facebook et Instagram pour acquisition, engagement, lead generation, trafic, conversion et retargeting.', href: metaAdsHref, label: 'Meta Ads Maroc' },
+      { title: 'TikTok Ads', text: 'Vidéos verticales natives, formats créateurs, reach, engagement, acquisition et retargeting lorsque l’audience s’y prête.', href: tiktokAdsHref, label: 'TikTok Ads Maroc' },
+      { title: 'Display & programmatique', text: 'Reach, retargeting, ciblage contextuel, audience planning, couverture et maîtrise de la fréquence.', href: mediaBuyingHref, label: 'Achat média' },
+    ];
+
+const objectives = isEnglish
+  ? [
+      ['Awareness', 'Reach, impressions, video views and coverage.'],
+      ['Traffic', 'Qualified clicks and useful visits.'],
+      ['Lead generation', 'Forms, landing pages, WhatsApp and calls when relevant.'],
+      ['Sales', 'Conversion, e-commerce, retargeting and offer clarity.'],
+      ['Drive-to-store', 'Geo-targeting and local campaigns when measurable.'],
+    ]
+  : [
+      ['Notoriété', 'Reach, impressions, vidéo et couverture.'],
+      ['Trafic', 'Clics qualifiés et visites utiles.'],
+      ['Génération de leads', 'Formulaires, landing pages, WhatsApp et appels lorsque pertinent.'],
+      ['Ventes', 'Conversion, e-commerce, retargeting et clarté de l’offre.'],
+      ['Drive-to-store', 'Ciblage géographique et campagnes locales lorsque mesurable.'],
+    ];
+
+const methodSteps = isEnglish
+  ? [
+      ['01', 'Objectives', 'Business objective, target audience, KPI, geography and budget.'],
+      ['02', 'Media planning', 'Platforms, formats, audiences, budget split and campaign phases.'],
+      ['03', 'Creative', 'Visuals and messages adapted to each platform so creative and media work together.'],
+      ['04', 'Tracking', 'Pixels, conversions, GA4, UTMs, events and CRM when technically and legally possible.'],
+      ['05', 'Activation', 'Launch, QA and campaign monitoring.'],
+      ['06', 'Optimisation', 'Audiences, placements, formats, creatives, bidding, budgets and landing pages when relevant.'],
+    ]
+  : [
+      ['01', 'Objectifs', 'Objectif business, cible, KPI, géographie et budget.'],
+      ['02', 'Media planning', 'Plateformes, formats, audiences, répartition budgétaire et phases de campagne.'],
+      ['03', 'Création', 'Visuels et messages adaptés aux plateformes afin de connecter création et média.'],
+      ['04', 'Tracking', 'Pixels, conversions, GA4, UTMs, événements et CRM lorsque c’est possible techniquement et réglementairement.'],
+      ['05', 'Activation', 'Lancement, QA et suivi des campagnes.'],
+      ['06', 'Optimisation', 'Audiences, placements, formats, créas, enchères, budgets et landing pages lorsque pertinent.'],
+    ];
+
+const kpis = ['CPM', 'CPC', 'CTR', 'CPL', 'CPA', 'ROAS', 'Leads', 'Reach'];
+
+const proofCases = isEnglish
+  ? [
+      {
+        client: 'UIR',
+        image: '/assets/richmedia-case-study/result-hero-clean-hq.webp',
+        width: 1600,
+        height: 900,
+        objective: 'Full-funnel admissions acquisition',
+        levers: 'Meta, Google Search, PMax, YouTube, LinkedIn, WhatsApp and CRM',
+        result: '70,000 leads generated across Bachelor, Master and Continuing Education segments.',
+        href: '/en/case-studies/uir-acquisition-campaign-2023-2024',
+      },
+      {
+        client: 'TBS Education',
+        image: '/assets/richmedia-realizations/tbs-master-acquisition-2025-hero.webp',
+        width: 1536,
+        height: 1024,
+        objective: 'Master program acquisition',
+        levers: 'Meta, Google Search, PMax, LinkedIn, TikTok, WhatsApp and CRM',
+        result: '3,000 leads, 40-80 MAD CPL and 70% qualification.',
+        href: '/en/case-studies/tbs-master-acquisition-2025',
+      },
+      {
+        client: 'Prestigia',
+        image: '/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-triptych.webp',
+        width: 1894,
+        height: 1074,
+        objective: 'Premium real estate acquisition',
+        levers: 'Meta, Google Search, Performance Max, LinkedIn, WhatsApp and CRM',
+        result: '800 leads, 45 MAD average CPL, 331 appointments and 66% qualification.',
+        href: '/en/case-studies/prestigia-riad-al-andalous-acquisition-2026',
+      },
+      {
+        client: 'Amana',
+        image: '/assets/richmedia-home/campaign-wide-amana-tram.webp',
+        width: 1600,
+        height: 900,
+        objective: 'Phygital activation and measurable lead generation',
+        levers: 'Tramway, QR code, landing page, Meta Ads, Display and email',
+        result: '29M estimated audience, 8,418 QR scans and 4,183 leads.',
+        href: '/en/case-studies/amana-tramway-phygital-2022',
+      },
+    ]
+  : [
+      {
+        client: 'UIR',
+        image: '/assets/richmedia-case-study/result-hero-clean-hq.webp',
+        width: 1600,
+        height: 900,
+        objective: 'Acquisition admissions full-funnel',
+        levers: 'Meta, Google Search, PMax, YouTube, LinkedIn, WhatsApp et CRM',
+        result: '70 000 leads générés sur Bacheliers, Master et Formation Continue.',
+        href: '/realisations/uir-campagne-acquisition-2023-2024',
+      },
+      {
+        client: 'TBS Education',
+        image: '/assets/richmedia-realizations/tbs-master-acquisition-2025-hero.webp',
+        width: 1536,
+        height: 1024,
+        objective: 'Acquisition programmes Master',
+        levers: 'Meta, Google Search, PMax, LinkedIn, TikTok, WhatsApp et CRM',
+        result: '3 000 leads, 40-80 MAD de CPL et 70 % de qualification.',
+        href: '/realisations/tbs-master-acquisition-2025',
+      },
+      {
+        client: 'Prestigia',
+        image: '/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-triptych.webp',
+        width: 1894,
+        height: 1074,
+        objective: 'Acquisition immobilière premium',
+        levers: 'Meta, Google Search, Performance Max, LinkedIn, WhatsApp et CRM',
+        result: '800 leads, 45 MAD de CPL moyen, 331 rendez-vous et 66 % de qualification.',
+        href: '/realisations/prestigia-riad-al-andalous-acquisition-2026',
+      },
+      {
+        client: 'Amana',
+        image: '/assets/richmedia-home/campaign-wide-amana-tram.webp',
+        width: 1600,
+        height: 900,
+        objective: 'Activation phygitale et acquisition mesurable',
+        levers: 'Tramway, QR code, landing page, Meta Ads, Display et emailing',
+        result: '29 M audience estimée, 8 418 scans QR et 4 183 leads.',
+        href: '/realisations/amana-tramway-phygital-2022',
+      },
+    ];
+
+const whyCards = isEnglish
+  ? [
+      ['Creative + media', 'Creative and traffic teams can work from the same performance brief.'],
+      ['Data-driven optimisation', 'Decisions are based on delivery, conversion quality and sales feedback.'],
+      ['Moroccan market knowledge', 'Audience, local context and platform behavior are factored into media planning.'],
+      ['Full-funnel view', 'Awareness, traffic, leads and conversion are designed as one system.'],
+    ]
+  : [
+      ['Media + création', 'Les équipes créatives et media peuvent travailler à partir du même brief de performance.'],
+      ['Pilotage data-driven', 'Les arbitrages partent de la diffusion, de la qualité de conversion et du retour commercial.'],
+      ['Expertise du marché marocain', 'Audiences, contexte local et usages plateformes sont intégrés au plan média.'],
+      ['Vision full funnel', 'Notoriété, trafic, leads et conversion sont pensés comme un même dispositif.'],
+    ];
+
+const faq = isEnglish
+  ? [
+      {
+        question: 'Which online advertising platforms are most relevant in Morocco?',
+        answer:
+          'Google Ads, Meta, TikTok, LinkedIn, Display and remarketing can all be relevant depending on the goal, audience, sector, budget and conversion path.',
+      },
+      {
+        question: 'How much should a brand spend on digital advertising in Morocco?',
+        answer:
+          'There is no standard budget. It depends on the objective, sector, audience, geography, competition, platform, campaign duration and expected cost per result.',
+      },
+      {
+        question: 'Should I use Google Ads or Meta Ads?',
+        answer:
+          'Google Ads captures active intent. Meta can create demand, generate leads and retarget audiences. The right answer often depends on the objective and available tracking.',
+      },
+      {
+        question: 'How do you measure digital advertising ROI?',
+        answer:
+          'ROI measurement connects media spend, conversion events, CRM feedback, sales data when available and campaign costs. Not every project can measure the same level of attribution.',
+      },
+      {
+        question: 'Can Richmedia manage both creative and media buying?',
+        answer:
+          'Yes. Richmedia can connect creative concepts, platform formats, media buying, landing pages, tracking and reporting so the campaign is easier to learn from.',
+      },
+      {
+        question: 'Can campaigns target specific cities or locations in Morocco?',
+        answer:
+          'Yes, within each platform’s targeting limits. Geo-targeting can support local campaigns, store openings, events, real estate projects or regional offers.',
+      },
+    ]
+  : [
+      {
+        question: 'Quels sont les principaux canaux de publicité en ligne au Maroc ?',
+        answer:
+          'Google Ads, Meta, TikTok, LinkedIn, Display et remarketing peuvent être pertinents selon l’objectif, l’audience, le secteur, le budget et le parcours de conversion.',
+      },
+      {
+        question: 'Quel budget prévoir pour une campagne digitale au Maroc ?',
+        answer:
+          'Il n’existe pas de budget standard. Il dépend de l’objectif, du secteur, de l’audience, de la géographie, de la concurrence, de la plateforme, de la durée et du coût par résultat attendu.',
+      },
+      {
+        question: 'Faut-il choisir Google Ads ou Meta Ads ?',
+        answer:
+          'Google Ads capte une intention active. Meta peut créer de la demande, générer des leads et recibler les audiences. Le bon choix dépend de l’objectif et du tracking disponible.',
+      },
+      {
+        question: 'Comment mesurer la rentabilité d’une campagne publicitaire digitale ?',
+        answer:
+          'La mesure relie budget média, événements de conversion, retour CRM, ventes lorsque disponibles et coûts de gestion. Tous les projets ne permettent pas le même niveau d’attribution.',
+      },
+      {
+        question: 'Richmedia peut-elle gérer la création et le media ?',
+        answer:
+          'Oui. Richmedia peut connecter concept créatif, formats plateformes, achat média, landing pages, tracking et reporting pour rendre la campagne plus lisible et plus optimisable.',
+      },
+      {
+        question: 'Peut-on cibler une ville ou une zone précise au Maroc ?',
+        answer:
+          'Oui, dans les limites de ciblage propres à chaque plateforme. Le géotargeting peut soutenir des campagnes locales, ouvertures, événements, projets immobiliers ou offres régionales.',
+      },
+    ];
+
+const schema = [
+  localBusiness(),
+  serviceSchema({
+    name: copy.serviceName,
+    description: copy.description,
+    url: pageUrl,
+  }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: copy.breadcrumbHome, url: isEnglish ? `${SITE.url}/en` : SITE.url },
+    { name: isEnglish ? 'Expertise' : 'Expertises', url: isEnglish ? `${SITE.url}/en/expertises` : `${SITE.url}/expertises` },
+    { name: copy.breadcrumbName, url: pageUrl },
+  ]),
+];
+
+const siloLinks = isEnglish
+  ? [
+      { href: mediaHref, label: 'Media & Performance', text: 'Understand the broader acquisition and performance system.' },
+      { href: mediaBuyingHref, label: 'Media buying', text: 'Manage Google Ads, Meta Ads, programmatic and performance campaigns.' },
+      { href: googleAdsHref, label: 'Google Ads Morocco', text: 'Capture active intent with Search, PMax and tracking.' },
+      { href: metaAdsHref, label: 'Meta Ads Morocco', text: 'Connect Facebook, Instagram, creative testing, Pixel and CAPI.' },
+      { href: tiktokAdsHref, label: 'TikTok Ads Morocco', text: 'Test native creative, Spark Ads, UGC and retargeting.' },
+      { href: leadGenHref, label: 'Lead generation Morocco', text: 'Connect traffic, landing pages, WhatsApp, CRM and qualification.' },
+      { href: landingHref, label: 'Landing pages & tracking', text: 'Improve conversion paths, forms, performance and measurement.' },
+      { href: socialHref, label: 'Social media management', text: 'Align always-on content, communities and paid amplification.' },
+      { href: acquisitionInsightHref, label: 'Digital acquisition plan', text: 'Structure channel mix, budget, tracking and weekly decisions.' },
+      { href: googleCostHref, label: 'Google Ads cost', text: 'Understand budget, fees, tracking and sector cost factors.' },
+      { href: metaInsightHref, label: 'Meta Ads best practices', text: 'Connect creative diversification, automation and measurement.' },
+      { href: workHref, label: 'Case studies', text: 'See campaigns and documented outcomes.' },
+      { href: contactHref, label: 'Contact Richmedia', text: 'Frame your paid media objectives with a local team.' },
+    ]
+  : [
+      { href: mediaHref, label: 'Media & Performance', text: 'Comprendre le système global d’acquisition et de performance.' },
+      { href: mediaBuyingHref, label: 'Achat média', text: 'Piloter Google Ads, Meta Ads, programmatique et campagnes de performance.' },
+      { href: googleAdsHref, label: 'Google Ads Maroc', text: 'Capter les intentions actives avec Search, PMax et tracking.' },
+      { href: metaAdsHref, label: 'Meta Ads Maroc', text: 'Relier Facebook, Instagram, tests créatifs, Pixel et CAPI.' },
+      { href: tiktokAdsHref, label: 'TikTok Ads Maroc', text: 'Tester des créas natives, Spark Ads, UGC et retargeting.' },
+      { href: leadGenHref, label: 'Génération de leads Maroc', text: 'Connecter trafic, landing pages, WhatsApp, CRM et qualification.' },
+      { href: landingHref, label: 'Landing pages & tracking', text: 'Améliorer parcours, formulaires, performance et mesure.' },
+      { href: socialHref, label: 'Gestion réseaux sociaux', text: 'Aligner contenu always-on, communautés et amplification paid.' },
+      { href: acquisitionInsightHref, label: 'Plan acquisition digitale', text: 'Structurer channel mix, budget, tracking et décisions hebdomadaires.' },
+      { href: googleCostHref, label: 'Coût Google Ads Maroc', text: 'Comprendre budget, honoraires, tracking et facteurs sectoriels.' },
+      { href: metaInsightHref, label: 'Bonnes pratiques Meta Ads', text: 'Relier diversification créative, automatisation et mesure.' },
+      { href: workHref, label: 'Réalisations', text: 'Voir les campagnes et résultats documentés.' },
+      { href: contactHref, label: 'Contacter Richmedia', text: 'Cadrer vos objectifs paid media avec une équipe locale.' },
+    ];
+---
+
+<BaseLayout
+  title={copy.title}
+  description={copy.description}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+  lang={pageLang}
+>
+  <div class="online-ads-page">
+    <section class="ads-hero" aria-labelledby="ads-title">
+      <div class="hero-copy">
+        <span class="eyebrow">{copy.eyebrow}</span>
+        <h1 id="ads-title">{copy.h1}</h1>
+        <p>{copy.lead}</p>
+        <div class="hero-line" aria-label={isEnglish ? 'Advertising channels' : 'Canaux publicitaires'}>
+          {copy.line.split(' · ').map((item) => <span>{item}</span>)}
+        </div>
+        <div class="hero-actions">
+          <a class="button button-primary" href={contactHref}>
+            {copy.primaryCta}
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href={workHref}>
+            {copy.secondaryCta}
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="media-dashboard" aria-label={isEnglish ? 'Digital advertising cockpit' : 'Cockpit publicité digitale'}>
+        <figure class="dashboard-main">
+          <img
+            src={heroImage}
+            alt={isEnglish ? 'Digital advertising dashboard and media planning visual' : 'Dashboard publicité digitale et plan média'}
+            width="1586"
+            height="992"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </figure>
+        <div class="metric-card metric-top">
+          <span>{isEnglish ? 'Budget' : 'Budget'}</span>
+          <strong>{isEnglish ? 'Pacing by channel' : 'Pacing par canal'}</strong>
+        </div>
+        <div class="metric-card metric-mid">
+          <span>{isEnglish ? 'Creative' : 'Créa'}</span>
+          <strong>{isEnglish ? 'Test learn scale' : 'Tester apprendre scaler'}</strong>
+        </div>
+        <div class="kpi-panel">
+          {kpis.slice(0, 5).map((item, index) => (
+            <div><span>{item}</span><i style={`--value: ${84 - index * 8}%`}></i></div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="intro-panel" aria-labelledby="intro-title">
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Point of view' : 'Point de vue'}</span>
+        <h2 id="intro-title">{copy.introTitle}</h2>
+      </div>
+      <p>{copy.introText}</p>
+    </section>
+
+    <section class="platform-section" aria-labelledby="platforms-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">{isEnglish ? 'Platforms' : 'Plateformes'}</span>
+        <h2 id="platforms-title">{copy.platformsTitle}</h2>
+      </div>
+      <div class="platform-grid">
+        {platforms.map((platform) => (
+          <article>
+            <h3>{platform.title}</h3>
+            <p>{platform.text}</p>
+            <a href={platform.href}>{platform.label}<i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="objectives-section" aria-labelledby="objectives-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">{isEnglish ? 'Business goals' : 'Objectifs business'}</span>
+        <h2 id="objectives-title">{copy.objectivesTitle}</h2>
+      </div>
+      <div class="objectives-grid">
+        {objectives.map(([title, text]) => (
+          <article>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="method-section" id="method" aria-labelledby="method-title">
+      <div class="section-heading">
+        <span class="eyebrow">{isEnglish ? 'Method' : 'Méthode'}</span>
+        <h2 id="method-title">{copy.methodTitle}</h2>
+      </div>
+      <div class="method-grid">
+        {methodSteps.map(([step, title, text]) => (
+          <article>
+            <span>{step}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="data-section" aria-labelledby="data-title">
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Data' : 'Data'}</span>
+        <h2 id="data-title">{copy.dataTitle}</h2>
+        <p>{copy.dataText}</p>
+      </div>
+      <div class="kpi-cloud" aria-label={isEnglish ? 'Advertising KPIs' : 'KPI publicité digitale'}>
+        {kpis.map((item) => <span>{item}</span>)}
+      </div>
+    </section>
+
+    <section class="visual-split" aria-labelledby="reporting-title">
+      <figure>
+        <img
+          src={trafficImage}
+          alt={isEnglish ? 'Traffic manager dashboard and campaign reporting' : 'Dashboard traffic manager et reporting campagne'}
+          width="1024"
+          height="1536"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Reporting' : 'Reporting'}</span>
+        <h2 id="reporting-title">{copy.reportingTitle}</h2>
+        <p>{copy.reportingText}</p>
+      </div>
+    </section>
+
+    <section class="split-cards" aria-label={isEnglish ? 'Creative and landing page' : 'Création et landing page'}>
+      <article>
+        <img src={creativeImage} alt={isEnglish ? 'Creative tests for digital advertising' : 'Tests créatifs pour publicité digitale'} width="1024" height="1536" loading="lazy" decoding="async" />
+        <div>
+          <h2>{copy.creativeTitle}</h2>
+          <p>{copy.creativeText}</p>
+          <a href={brandHref}>{isEnglish ? 'Brand content and creative' : 'Brand content et création'}<i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </article>
+      <article>
+        <img src={scalingImage} alt={isEnglish ? 'Media scaling and campaign optimization room' : 'Pilotage du scaling média et optimisation campagne'} width="1024" height="1536" loading="lazy" decoding="async" />
+        <div>
+          <h2>{copy.landingTitle}</h2>
+          <p>{copy.landingText}</p>
+          <a href={leadGenHref}>{isEnglish ? 'Lead generation and conversion' : 'Génération de leads et conversion'}<i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </article>
+    </section>
+
+    <section class="market-section" aria-labelledby="market-title">
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Morocco' : 'Marché marocain'}</span>
+        <h2 id="market-title">{copy.marketTitle}</h2>
+        <p>{copy.marketText}</p>
+      </div>
+      <article>
+        <h3>{copy.geoTitle}</h3>
+        <p>{copy.geoText}</p>
+        <a href={geoHref}>{isEnglish ? 'Geo-targeting expertise' : 'Expertise géotargeting'}<i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+      </article>
+    </section>
+
+    <section class="proof-section" aria-labelledby="proof-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">{isEnglish ? 'Proof' : 'Preuves'}</span>
+        <h2 id="proof-title">{copy.proofTitle}</h2>
+      </div>
+      <div class="proof-grid">
+        {proofCases.map((item) => (
+          <a class="proof-card" href={item.href}>
+            <img src={item.image} alt={`${item.client} - ${item.objective}`} width={item.width} height={item.height} loading="lazy" decoding="async" />
+            <div>
+              <span>{item.client}</span>
+              <h3>{item.objective}</h3>
+              <p>{item.levers}</p>
+              <strong>{item.result}</strong>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="why-section" aria-labelledby="why-title">
+      <div class="section-heading">
+        <span class="eyebrow">Richmedia</span>
+        <h2 id="why-title">{copy.whyTitle}</h2>
+      </div>
+      <div class="why-grid">
+        {whyCards.map(([title, text], index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    {isEnglish && (
+      <section class="international-panel" aria-labelledby="international-title">
+        <div>
+          <span class="eyebrow">International</span>
+          <h2 id="international-title">{copy.internationalTitle}</h2>
+          <p>{copy.internationalText}</p>
+        </div>
+        <ul>
+          <li>Market localisation</li>
+          <li>Campaign setup</li>
+          <li>Audience strategy</li>
+          <li>Creative adaptation</li>
+          <li>Reporting</li>
+          <li>International coordination</li>
+        </ul>
+      </section>
+    )}
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">FAQ</span>
+        <h2 id="faq-title">{copy.faqTitle}</h2>
+      </div>
+      <div class="faq-list">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="final-title">
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Next step' : 'Prochaine étape'}</span>
+        <h2 id="final-title">{copy.finalTitle}</h2>
+        <p>{copy.finalText}</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href={contactHref}>
+          {copy.finalCta}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href={mediaHref}>
+          {isEnglish ? 'Explore Media & Performance' : 'Voir Media & Performance'}
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <SeoSiloLinks title={copy.siloTitle} intro={copy.siloIntro} links={siloLinks} variant="compact" />
+</BaseLayout>
+
+<style>
+  :global(main) {
+    max-width: none;
+    padding: 0;
+  }
+
+  .online-ads-page {
+    color: #fff;
+    background:
+      radial-gradient(circle at 18% 10%, rgba(124, 73, 255, .18), transparent 30%),
+      radial-gradient(circle at 82% 22%, rgba(255, 255, 255, .08), transparent 28%),
+      #050508;
+  }
+
+  .online-ads-page :global(a) {
+    color: inherit;
+  }
+
+  .ads-hero,
+  .intro-panel,
+  .platform-section,
+  .objectives-section,
+  .method-section,
+  .data-section,
+  .visual-split,
+  .split-cards,
+  .market-section,
+  .proof-section,
+  .why-section,
+  .international-panel,
+  .faq-section,
+  .final-cta {
+    width: min(100% - 3rem, 1320px);
+    margin-inline: auto;
+  }
+
+  .ads-hero {
+    display: grid;
+    grid-template-columns: minmax(0, .88fr) minmax(480px, 1.12fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    min-height: calc(100svh - 86px);
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    color: #a77aff;
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 52px;
+    height: 2px;
+    background: currentColor;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h1 {
+    max-width: 780px;
+    font-size: clamp(3rem, 6.6vw, 6.6rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: .94;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 4.2vw, 4.8rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: .98;
+  }
+
+  h3 {
+    font-size: clamp(1.05rem, 1.55vw, 1.35rem);
+    line-height: 1.16;
+  }
+
+  p {
+    color: rgba(255, 255, 255, .7);
+    font-size: clamp(1.02rem, 1.45vw, 1.2rem);
+    line-height: 1.72;
+  }
+
+  .hero-copy > p {
+    max-width: 720px;
+    font-size: clamp(1.08rem, 1.55vw, 1.28rem);
+  }
+
+  .hero-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .7rem;
+    margin-top: .25rem;
+  }
+
+  .hero-line span,
+  .kpi-cloud span {
+    border: 1px solid rgba(151, 89, 255, .55);
+    border-radius: 999px;
+    background: rgba(151, 89, 255, .09);
+    padding: .58rem .9rem;
+    color: rgba(255, 255, 255, .86);
+    font-size: .86rem;
+    font-weight: 800;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .85rem;
+    margin-top: .75rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+    min-height: 46px;
+    border-radius: 8px;
+    padding: .88rem 1.1rem;
+    font-weight: 900;
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #9651ff, #6428ff);
+    box-shadow: 0 18px 44px rgba(117, 57, 255, .32);
+  }
+
+  .button-secondary {
+    border: 1px solid rgba(255, 255, 255, .22);
+    background: rgba(255, 255, 255, .035);
+  }
+
+  .media-dashboard {
+    position: relative;
+    min-height: 520px;
+  }
+
+  .dashboard-main {
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, .05);
+    box-shadow: 0 38px 90px rgba(0, 0, 0, .44);
+  }
+
+  .dashboard-main img {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 420px;
+    object-fit: cover;
+    filter: saturate(1.04) contrast(1.03);
+  }
+
+  .metric-card,
+  .kpi-panel {
+    position: absolute;
+    border: 1px solid rgba(151, 89, 255, .58);
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(29, 16, 55, .92), rgba(9, 8, 16, .95));
+    box-shadow: 0 20px 56px rgba(0, 0, 0, .38);
+  }
+
+  .metric-card {
+    display: grid;
+    gap: .35rem;
+    padding: 1rem;
+  }
+
+  .metric-card span,
+  .proof-card span,
+  .method-grid span,
+  .why-grid span {
+    color: #a77aff;
+    font-size: .74rem;
+    font-weight: 900;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+
+  .metric-card strong {
+    font-size: 1rem;
+  }
+
+  .metric-top {
+    top: -44px;
+    right: 6%;
+    min-width: 220px;
+  }
+
+  .metric-mid {
+    bottom: 4%;
+    left: 0;
+    min-width: 230px;
+  }
+
+  .kpi-panel {
+    right: 2%;
+    bottom: -42px;
+    display: grid;
+    gap: .75rem;
+    width: min(300px, 46%);
+    padding: 1rem;
+  }
+
+  .kpi-panel div {
+    display: grid;
+    gap: .35rem;
+  }
+
+  .kpi-panel span {
+    color: rgba(255, 255, 255, .72);
+    font-size: .8rem;
+    font-weight: 800;
+  }
+
+  .kpi-panel i {
+    overflow: hidden;
+    display: block;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .12);
+  }
+
+  .kpi-panel i::before {
+    content: "";
+    display: block;
+    width: var(--value);
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #7f35ff, #d9b2ff);
+  }
+
+  .intro-panel,
+  .data-section,
+  .market-section,
+  .international-panel,
+  .final-cta {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: clamp(1.4rem, 4vw, 4rem);
+    align-items: start;
+    border-top: 1px solid rgba(255, 255, 255, .12);
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+
+  .section-heading {
+    display: grid;
+    gap: 1rem;
+    max-width: 880px;
+  }
+
+  .section-heading.compact {
+    max-width: 720px;
+  }
+
+  .platform-section,
+  .objectives-section,
+  .method-section,
+  .proof-section,
+  .why-section,
+  .faq-section {
+    border-top: 1px solid rgba(255, 255, 255, .12);
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+
+  .platform-grid,
+  .objectives-grid,
+  .method-grid,
+  .why-grid,
+  .proof-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: clamp(1.4rem, 3vw, 2.3rem);
+  }
+
+  .platform-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .objectives-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .method-grid,
+  .why-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .proof-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .platform-grid article,
+  .objectives-grid article,
+  .method-grid article,
+  .why-grid article,
+  .market-section article,
+  .international-panel,
+  .faq-list details {
+    border: 1px solid rgba(255, 255, 255, .13);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, .035);
+  }
+
+  .platform-grid article,
+  .objectives-grid article,
+  .method-grid article,
+  .why-grid article,
+  .market-section article {
+    display: grid;
+    gap: .85rem;
+    padding: 1.2rem;
+  }
+
+  .platform-grid p,
+  .objectives-grid p,
+  .method-grid p,
+  .why-grid p,
+  .market-section article p,
+  .split-cards p {
+    font-size: .96rem;
+    line-height: 1.58;
+  }
+
+  .platform-grid a,
+  .market-section a,
+  .split-cards a {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    color: #b58aff;
+    font-size: .88rem;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .kpi-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+  }
+
+  .visual-split {
+    display: grid;
+    grid-template-columns: minmax(320px, .74fr) minmax(0, 1fr);
+    gap: clamp(1.4rem, 4vw, 4rem);
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, .12);
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+
+  .visual-split figure,
+  .split-cards img,
+  .proof-card img {
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, .13);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, .04);
+  }
+
+  .visual-split img,
+  .split-cards img,
+  .proof-card img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .visual-split img {
+    aspect-ratio: 4 / 5;
+    height: auto;
+  }
+
+  .split-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, .12);
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+
+  .split-cards article {
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: .46fr .54fr;
+    gap: 1rem;
+    align-items: stretch;
+    border: 1px solid rgba(255, 255, 255, .13);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, .035);
+    padding: 1rem;
+  }
+
+  .split-cards img {
+    height: 100%;
+    min-height: 300px;
+  }
+
+  .split-cards article > div {
+    display: grid;
+    gap: .9rem;
+    align-content: center;
+  }
+
+  .proof-card {
+    overflow: hidden;
+    display: grid;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, .13);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, .035);
+  }
+
+  .proof-card img {
+    aspect-ratio: 16 / 10;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .proof-card div {
+    display: grid;
+    gap: .55rem;
+    padding: 1rem;
+  }
+
+  .proof-card p {
+    font-size: .9rem;
+    line-height: 1.45;
+  }
+
+  .proof-card strong {
+    color: rgba(255, 255, 255, .92);
+    font-size: .92rem;
+    line-height: 1.45;
+  }
+
+  .international-panel {
+    padding: clamp(1.2rem, 3vw, 2rem);
+  }
+
+  .international-panel ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .international-panel li {
+    border: 1px solid rgba(151, 89, 255, .35);
+    border-radius: 8px;
+    padding: .8rem;
+    color: rgba(255, 255, 255, .78);
+    font-weight: 800;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: .8rem;
+    margin-top: 1.5rem;
+  }
+
+  .faq-list details {
+    padding: 1rem 1.1rem;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .faq-list p {
+    margin-top: .8rem;
+    font-size: .98rem;
+  }
+
+  .final-cta {
+    align-items: center;
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+  }
+
+  @media (max-width: 1180px) {
+    .ads-hero,
+    .intro-panel,
+    .data-section,
+    .market-section,
+    .international-panel,
+    .final-cta,
+    .visual-split {
+      grid-template-columns: 1fr;
+    }
+
+    .ads-hero {
+      min-height: auto;
+    }
+
+    .platform-grid,
+    .objectives-grid,
+    .method-grid,
+    .why-grid,
+    .proof-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .split-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .ads-hero,
+    .intro-panel,
+    .platform-section,
+    .objectives-section,
+    .method-section,
+    .data-section,
+    .visual-split,
+    .split-cards,
+    .market-section,
+    .proof-section,
+    .why-section,
+    .international-panel,
+    .faq-section,
+    .final-cta {
+      width: min(100% - 1.25rem, 1320px);
+    }
+
+    .ads-hero {
+      gap: 2.2rem;
+      padding-block: 2.5rem 3.25rem;
+    }
+
+    h1 {
+      font-size: clamp(2.42rem, 10.4vw, 3rem);
+      line-height: 1;
+    }
+
+    h2 {
+      font-size: clamp(1.9rem, 9vw, 2.6rem);
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    .hero-actions,
+    .hero-actions .button {
+      width: 100%;
+    }
+
+    .media-dashboard {
+      min-height: auto;
+      padding-bottom: 4rem;
+    }
+
+    .dashboard-main img {
+      min-height: 260px;
+    }
+
+    .metric-top {
+      top: auto;
+      right: .75rem;
+      bottom: 5.4rem;
+      min-width: 0;
+      max-width: 52%;
+    }
+
+    .metric-mid {
+      left: .75rem;
+      bottom: 1rem;
+      min-width: 0;
+      max-width: 50%;
+    }
+
+    .kpi-panel {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      width: 100%;
+      margin-top: .8rem;
+    }
+
+    .platform-grid,
+    .objectives-grid,
+    .method-grid,
+    .why-grid,
+    .proof-grid,
+    .international-panel ul {
+      grid-template-columns: 1fr;
+    }
+
+    .split-cards article {
+      grid-template-columns: 1fr;
+    }
+
+    .split-cards img {
+      min-height: 240px;
+      max-height: 360px;
+    }
+  }
+</style>

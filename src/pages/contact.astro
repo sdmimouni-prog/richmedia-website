@@ -857,19 +857,19 @@ const faqs = [
     bottom: 8%;
     z-index: 5;
     display: grid;
-    width: min(390px, 47%);
-    gap: 1.05rem;
+    width: min(340px, 43%);
+    gap: 0.78rem;
     align-content: center;
   }
 
   .hero-contact-card {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    min-height: 116px;
+    gap: 0.72rem;
+    min-height: 92px;
     border: 1px solid rgba(255, 255, 255, 0.17);
     border-radius: 8px;
-    padding: 1.1rem;
+    padding: 0.82rem 0.92rem;
     background:
       linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.02)),
       rgba(14, 13, 29, 0.84);
@@ -885,9 +885,22 @@ const faqs = [
   }
 
   .hero-contact-card .icon-box {
-    width: 2.95rem;
-    height: 2.95rem;
-    font-size: 1.34rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.18rem;
+  }
+
+  .hero-contact-card .icon-box i {
+    display: grid;
+    width: 1em;
+    height: 1em;
+    place-items: center;
+    line-height: 1;
+  }
+
+  .hero-contact-card .icon-box i::before {
+    display: block;
+    line-height: 1;
   }
 
   .hero-contact-card > div {
@@ -900,13 +913,13 @@ const faqs = [
   }
 
   .hero-contact-card strong {
-    font-size: 0.98rem;
+    font-size: 0.9rem;
   }
 
   .hero-contact-card span {
     margin-top: 0.25rem;
     color: var(--soft);
-    font-size: clamp(0.78rem, 0.8vw, 0.9rem);
+    font-size: clamp(0.74rem, 0.74vw, 0.82rem);
     line-height: 1.36;
     white-space: nowrap;
     word-break: normal;
@@ -914,7 +927,7 @@ const faqs = [
   }
 
   .hero-contact-card:first-child span {
-    font-size: clamp(0.78rem, 0.72vw, 0.82rem);
+    font-size: clamp(0.72rem, 0.68vw, 0.78rem);
   }
 
   .contact-strip {

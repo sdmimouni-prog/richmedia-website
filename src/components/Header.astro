@@ -1,5 +1,6 @@
 ---
-const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/');
+const englishRootPaths = ['/rich-media-agency-morocco', '/influencer-marketing-morocco', '/social-media-management-morocco', '/seo-agency-morocco', '/online-advertising-morocco', '/website-development-morocco'];
+const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/') || englishRootPaths.includes(Astro.url.pathname.replace(/\/$/, ''));
 const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const homeHref = isEnglish ? '/en' : '/';
 const englishDetailExpertiseSlugs = [
@@ -73,6 +74,12 @@ const glossaryLanguagePairs = Object.fromEntries(
   Object.entries(glossarySlugPairs).map(([frSlug, enSlug]) => [`/glossaire/${frSlug}`, `/en/glossary/${enSlug}`])
 );
 const languagePairs: Record<string, string> = {
+  '/agence-de-communication-maroc': '/rich-media-agency-morocco',
+  '/marketing-influence-maroc': '/influencer-marketing-morocco',
+  '/gestion-reseaux-sociaux-maroc': '/social-media-management-morocco',
+  '/agence-seo-maroc': '/seo-agency-morocco',
+  '/publicite-en-ligne-maroc': '/online-advertising-morocco',
+  '/creation-site-web-maroc': '/website-development-morocco',
   '/agence': '/en/agency',
   '/carrieres': '/en/careers',
   '/confidentialite': '/en/privacy',
@@ -84,6 +91,7 @@ const languagePairs: Record<string, string> = {
   '/auteurs/amal-amazouz': '/en/authors/amal-amazouz',
   '/auteurs/tarik-el-abbadi': '/en/authors/tarik-el-abbadi',
   '/insights': '/en/insights',
+  '/insights/comment-choisir-agence-communication': '/en/insights/how-to-choose-communication-agency',
   '/insights/priorites-digitales-2026-croissance-rentable': '/en/insights/digital-priorities-2026-profitable-growth',
   '/insights/plan-acquisition-digital-2026': '/en/insights/digital-acquisition-plan-2026',
   '/insights/campagnes-meta-2026-bonnes-pratiques': '/en/insights/meta-campaigns-2026-best-practices',

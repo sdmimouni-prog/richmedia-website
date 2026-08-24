@@ -1,0 +1,1277 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeoSiloLinks from './SeoSiloLinks.astro';
+import { SITE } from '../consts';
+import { breadcrumbs, faqSchema, localBusiness, serviceSchema } from '../lib/schema';
+
+interface Props {
+  lang: 'fr' | 'en';
+}
+
+const { lang: pageLang } = Astro.props as Props;
+const isEnglish = pageLang === 'en';
+
+const pagePath = isEnglish ? '/seo-agency-morocco' : '/agence-seo-maroc';
+const pageUrl = `${SITE.url}${pagePath}`;
+const contactHref = isEnglish ? '/en/contact' : '/contact';
+const workHref = isEnglish ? '/en/case-studies' : '/realisations';
+const seoExpertiseHref = isEnglish ? '/en/expertises/seo-geo' : '/expertises/referencement-seo';
+const mediaHref = isEnglish ? '/en/expertises/media-performance' : '/expertises/media-performance';
+const webHref = isEnglish ? '/en/expertises/web-si' : '/expertises/web-si';
+const contentHref = isEnglish ? '/en/expertises/brand-content' : '/expertises/brand-content';
+const sectorsHref = isEnglish ? '/en/sectors' : '/secteurs';
+const insightsHref = isEnglish ? '/en/insights/seo-vs-geo-2026' : '/insights/seo-vs-geo-enjeux-2026';
+const contentInsightHref = isEnglish ? '/en/insights/quality-content-durable-seo' : '/insights/contenu-qualite-seo-perenne';
+const heroImage = '/assets/richmedia-influence/trends/trend-seo-geo.webp';
+const dashboardImage = '/assets/richmedia-tools/hero-dashboard.webp';
+const proofImage = '/assets/richmedia-realizations/euromed-refonte-site-web-2025.webp';
+
+const copy = isEnglish
+  ? {
+      title: 'SEO Agency in Morocco | Richmedia',
+      description:
+        'Richmedia helps brands grow their organic visibility in Morocco through technical SEO, content strategy, on-page optimisation, internal linking and search performance.',
+      h1: 'SEO Agency in Morocco',
+      eyebrow: 'SEO agency Morocco',
+      lead:
+        'Richmedia helps brands improve their long-term organic visibility through technical SEO, content strategy, site architecture, authority building and search performance analysis.',
+      line: 'Audit · Technical SEO · Content · On-page · Authority · Data',
+      primaryCta: 'Talk to an SEO expert',
+      secondaryCta: 'Explore our approach',
+      introTitle: 'Modern SEO goes far beyond keywords',
+      introText:
+        'A durable SEO strategy needs technical quality, useful content, search intent, information architecture, internal linking, authority, performance and continuous measurement. Visibility only matters when it reaches the right queries, the right audiences and pages that can convert.',
+      methodTitle: 'From SEO audit to sustainable organic growth',
+      technicalTitle: 'Technical SEO built for crawlability, speed and clarity',
+      intentTitle: 'Content should match intent, not just keywords',
+      intentText:
+        'Every query expresses a role: learn, compare, buy, find a brand or solve a precise issue. Strong SEO maps query, intent, page type, useful content and conversion path instead of sending every search to the homepage.',
+      aiTitle: 'Built for search today and AI discovery tomorrow',
+      aiText:
+        'Clear structure, verifiable information, entities, FAQ, structured data, expert content and brand consistency help search engines understand a site and can also support discovery in AI search environments.',
+      localTitle: 'Local SEO for the Moroccan market',
+      localText:
+        'For local brands or networks in Morocco, SEO can connect Google Business Profile, relevant local pages, NAP consistency, reviews, structured data and city-level content when it truly helps the user.',
+      ecommerceTitle: 'E-commerce SEO: turning visibility into revenue',
+      ecommerceText:
+        'When the business model requires it, SEO can improve category structure, product pages, filters, internal links, product data and page performance so organic traffic supports conversion.',
+      reportingTitle: 'SEO reporting focused on business outcomes',
+      reportingText:
+        'Good reporting shows which queries progress, which pages gain or lose visibility, where impressions do not become clicks and which content clusters contribute to qualified traffic and conversion.',
+      proofTitle: 'SEO built around measurable progress',
+      whyTitle: 'Why work with Richmedia for SEO in Morocco?',
+      internationalTitle: 'SEO for international brands targeting Morocco',
+      internationalText:
+        'For international brands entering or growing in Morocco, Richmedia combines local search behaviour, multilingual SEO and market knowledge with international technical and content standards.',
+      workflowTitle: 'How we work',
+      faqTitle: 'Frequently asked questions about SEO in Morocco',
+      finalTitle: 'Want to grow your organic visibility in Morocco?',
+      finalText:
+        'Let’s build an SEO strategy around your market, your website and your business objectives.',
+      finalCta: 'Talk to an SEO expert',
+      serviceName: 'SEO agency in Morocco',
+      breadcrumbHome: 'Home',
+      breadcrumbName: 'SEO Agency in Morocco',
+      proofClient: 'Euromed University',
+      proofMission: 'Drupal website redesign, performance and SEO foundations',
+      proofResult: '+40% organic traffic and +20% applications documented in the case study.',
+      proofAlt: 'Euromed University website redesign case study by Richmedia',
+      siloTitle: 'Connect SEO, content and performance',
+      siloIntro:
+        'SEO performs better when technical foundations, useful content, paid acquisition and sector proof work together.',
+    }
+  : {
+      title: 'Agence SEO au Maroc | Richmedia',
+      description:
+        'Richmedia accompagne les marques dans leur stratégie SEO au Maroc : audit technique, contenu, référencement naturel, maillage interne, performance et visibilité sur Google.',
+      h1: 'Agence SEO au Maroc',
+      eyebrow: 'Agence SEO Maroc',
+      lead:
+        'Richmedia accompagne les entreprises et les marques dans l’amélioration durable de leur visibilité sur Google grâce à une approche combinant SEO technique, contenu, architecture, autorité et analyse de performance.',
+      line: 'Audit · SEO technique · Contenu · On-page · Autorité · Data',
+      primaryCta: 'Parler à un expert SEO',
+      secondaryCta: 'Découvrir notre approche',
+      introTitle: 'Le SEO ne consiste plus à placer des mots-clés dans une page',
+      introText:
+        'Une stratégie SEO moderne repose sur la qualité technique, la pertinence du contenu, l’architecture, le maillage interne, l’expérience utilisateur, la performance, l’autorité, la compréhension de l’intention de recherche et la mesure continue. Être visible sur Google ne suffit pas : il faut apparaître sur les bonnes recherches, devant les bonnes audiences et sur des pages capables de convertir.',
+      methodTitle: 'Notre approche SEO : de l’audit à la croissance organique',
+      technicalTitle: 'Une base technique que Google peut comprendre et explorer',
+      intentTitle: 'Créer du contenu pour répondre à une intention, pas pour remplir un mot-clé',
+      intentText:
+        'Chaque requête exprime un rôle : s’informer, comparer, acheter, retrouver une marque ou résoudre une question précise. Une bonne stratégie relie requête, intention, page adaptée, contenu utile et conversion au lieu de renvoyer toutes les recherches vers la homepage.',
+      aiTitle: 'Préparer les contenus pour la recherche classique et les moteurs IA',
+      aiText:
+        'Une structure claire, des informations vérifiables, des entités cohérentes, des FAQ, des données structurées et des contenus experts aident les moteurs à comprendre le site et soutiennent aussi la découvrabilité dans les nouveaux environnements de recherche.',
+      localTitle: 'SEO local au Maroc',
+      localText:
+        'Pour une marque locale ou un réseau, le référencement naturel peut relier Google Business Profile, pages locales pertinentes, cohérence NAP, avis, données structurées et contenus par ville lorsque cela apporte une vraie valeur.',
+      ecommerceTitle: 'SEO e-commerce : transformer la visibilité en chiffre d’affaires',
+      ecommerceText:
+        'Lorsque le modèle le nécessite, le SEO peut améliorer les catégories, fiches produits, facettes, filtres, indexation, maillage, données produit et performance afin que le trafic organique soutienne la conversion.',
+      reportingTitle: 'Mesurer ce qui progresse réellement',
+      reportingText:
+        'Un reporting utile montre quelles requêtes progressent, quelles pages gagnent ou perdent en visibilité, où des impressions ne deviennent pas des clics et quels clusters contribuent au trafic qualifié et aux conversions.',
+      proofTitle: 'Des stratégies SEO ancrées dans des résultats',
+      whyTitle: 'Pourquoi confier votre SEO à Richmedia ?',
+      internationalTitle: '',
+      internationalText: '',
+      workflowTitle: 'Comment travaillons-nous ?',
+      faqTitle: 'Questions fréquentes sur le SEO au Maroc',
+      finalTitle: 'Vous voulez gagner en visibilité sur Google ?',
+      finalText:
+        'Construisons une stratégie SEO adaptée à votre marché, votre site et vos objectifs business.',
+      finalCta: 'Parler à un expert SEO',
+      serviceName: 'Agence SEO au Maroc',
+      breadcrumbHome: 'Accueil',
+      breadcrumbName: 'Agence SEO au Maroc',
+      proofClient: 'Université Euromed',
+      proofMission: 'Refonte Drupal, performance web et fondations SEO',
+      proofResult: '+40 % de trafic organique et +20 % de candidatures documentés dans le case study.',
+      proofAlt: 'Case study refonte site web Université Euromed par Richmedia',
+      siloTitle: 'Relier SEO, contenu et performance',
+      siloIntro:
+        'Le référencement performe mieux lorsqu’il connecte technique, contenu utile, acquisition, preuves et pages secteurs.',
+    };
+
+const methodSteps = isEnglish
+  ? [
+      ['01', 'SEO audit', 'Crawlability, indexation, architecture, duplication, canonical, hreflang, sitemap, robots, Core Web Vitals, mobile, structured data and content quality.'],
+      ['02', 'Research & intent', 'Keywords, SERPs, competition, opportunities, long-tail questions and user intent without inventing search volumes.'],
+      ['03', 'Architecture & on-page', 'URL structure, pillar pages, clusters, titles, headings, metadata, breadcrumbs, internal links and cannibalization risks.'],
+      ['04', 'SEO content', 'Service pages, sector pages, landing pages, case studies, insights, evergreen guides and useful FAQs.'],
+      ['05', 'Authority', 'Digital PR, relevant editorial mentions, brand citations and content that can naturally earn references.'],
+      ['06', 'Measurement', 'Organic clicks, impressions, CTR, positions, landing pages, conversions, non-brand growth and cluster visibility.'],
+    ]
+  : [
+      ['01', 'Audit SEO', 'Crawlabilité, indexation, architecture, duplication, canonical, hreflang, sitemap, robots, Core Web Vitals, mobile, données structurées et qualité des contenus.'],
+      ['02', 'Recherche & intention', 'Mots-clés, SERP, concurrence, opportunités, longue traîne, questions utilisateurs et intention sans inventer de volumes de recherche.'],
+      ['03', 'Architecture & on-page', 'Structure des URLs, pages piliers, clusters, titles, H1/H2, metas, breadcrumbs, maillage interne et risques de cannibalisation.'],
+      ['04', 'Contenu SEO', 'Pages services, pages secteurs, landing pages, case studies, articles, guides evergreen et FAQ utiles.'],
+      ['05', 'Autorité', 'Digital PR, mentions éditoriales pertinentes, citations de marque et contenus capables de générer naturellement des références.'],
+      ['06', 'Mesure', 'Clics organiques, impressions, CTR, positions, landing pages, conversions, croissance non-brand et visibilité par cluster.'],
+    ];
+
+const technicalPillars = isEnglish
+  ? [
+      ['Indexation', 'Pages are accessible, indexable and correctly canonicalized.'],
+      ['Performance', 'Core Web Vitals, page weight, images and scripts.'],
+      ['Architecture', 'Clear hierarchy and controlled crawl depth.'],
+      ['Mobile', 'Consistent experience and content across screens.'],
+      ['Structured data', 'Relevant schema without over-optimization.'],
+      ['International SEO', 'Hreflang and multilingual architecture when needed.'],
+    ]
+  : [
+      ['Indexation', 'Pages accessibles, indexables et correctement canonicalisées.'],
+      ['Performance', 'Core Web Vitals, poids des pages, images et scripts.'],
+      ['Architecture', 'Hiérarchie claire et profondeur de crawl maîtrisée.'],
+      ['Mobile', 'Expérience et contenu cohérents sur tous les écrans.'],
+      ['Données structurées', 'Schemas pertinents sans sur-optimisation.'],
+      ['SEO international', 'Hreflang et architecture multilingue lorsque nécessaire.'],
+    ];
+
+const intentCards = isEnglish
+  ? [
+      ['Informational', 'Explain, define, compare and help users understand.'],
+      ['Commercial', 'Help users choose an option, provider or method.'],
+      ['Transactional', 'Support a request, quote, booking or purchase.'],
+      ['Navigational', 'Make brand, product and official pages easy to find.'],
+    ]
+  : [
+      ['Informationnelle', 'Expliquer, définir, comparer et aider à comprendre.'],
+      ['Commerciale', 'Aider à choisir une option, une méthode ou un prestataire.'],
+      ['Transactionnelle', 'Soutenir une demande, un devis, une réservation ou un achat.'],
+      ['Navigationnelle', 'Rendre les pages marque, produit ou officielles faciles à retrouver.'],
+    ];
+
+const whyCards = isEnglish
+  ? [
+      ['SEO + technology', 'Technical, web and performance issues are handled as part of the growth system.'],
+      ['SEO + content', 'Editorial strategy is connected to search intent, useful pages and proof.'],
+      ['SEO + data', 'Priorities come from performance signals, not impressions or generic checklists.'],
+      ['360° view', 'SEO is connected to media, social, creative, CRM and digital experience.'],
+    ]
+  : [
+      ['SEO + technologie', 'Les enjeux techniques, web et performance sont traités comme un système de croissance.'],
+      ['SEO + contenu', 'La stratégie éditoriale est reliée aux intentions, aux pages utiles et aux preuves.'],
+      ['SEO + data', 'Les priorités partent des signaux de performance, pas d’impressions ou de checklists génériques.'],
+      ['Vision 360°', 'Le SEO est connecté au media, au social, à la création, au CRM et à l’expérience digitale.'],
+    ];
+
+const workflow = isEnglish
+  ? [
+      ['01', 'Diagnostic', 'Website, competition and available data analysis.'],
+      ['02', 'Prioritization', 'Quick wins and structural projects ranked by business value.'],
+      ['03', 'Roadmap', 'SEO plan prioritized by impact and effort.'],
+      ['04', 'Implementation', 'Technical fixes, content production and on-page optimization.'],
+      ['05', 'Measurement', 'Monitoring, reporting and continuous improvement.'],
+    ]
+  : [
+      ['01', 'Diagnostic', 'Analyse du site, de la concurrence et des données disponibles.'],
+      ['02', 'Priorisation', 'Identification des quick wins et des chantiers structurants.'],
+      ['03', 'Roadmap', 'Plan SEO priorisé selon impact et effort.'],
+      ['04', 'Implémentation', 'Technique, contenu et optimisation on-page.'],
+      ['05', 'Mesure', 'Suivi, reporting et amélioration continue.'],
+    ];
+
+const faq = isEnglish
+  ? [
+      {
+        question: 'What does an SEO agency in Morocco do?',
+        answer:
+          'An SEO agency audits the website, identifies search opportunities, improves technical foundations, plans content, optimizes pages, structures internal linking and measures organic visibility and conversions.',
+      },
+      {
+        question: 'How much does SEO cost in Morocco?',
+        answer:
+          'Cost depends on website size, technical complexity, content volume, competition, languages, local needs and reporting scope. A serious estimate requires an audit or a clear brief.',
+      },
+      {
+        question: 'How long does SEO take?',
+        answer:
+          'Some technical improvements can be visible quickly, but durable organic growth usually takes several months of fixes, content, internal linking, authority signals and measurement.',
+      },
+      {
+        question: 'What is the difference between SEO and Google Ads?',
+        answer:
+          'SEO builds organic visibility over time. Google Ads buys visibility through media budget. The two channels can work together when search intent, landing pages and tracking are aligned.',
+      },
+      {
+        question: 'Does my website need an SEO audit?',
+        answer:
+          'An audit is useful when pages are not indexed, traffic has dropped, the site is slow, content is duplicated, migrations are planned, or organic traffic is not converting.',
+      },
+      {
+        question: 'Can an SEO agency guarantee first position on Google?',
+        answer:
+          'No. A serious agency cannot guarantee a precise Google ranking. SEO can improve quality, visibility, traffic, positions and conversions, but outcomes depend on many factors and algorithms.',
+      },
+    ]
+  : [
+      {
+        question: 'Que fait une agence SEO au Maroc ?',
+        answer:
+          'Une agence SEO audite le site, identifie les opportunités de recherche, améliore les fondations techniques, planifie les contenus, optimise les pages, structure le maillage interne et mesure la visibilité organique ainsi que les conversions.',
+      },
+      {
+        question: 'Combien coûte une prestation SEO au Maroc ?',
+        answer:
+          'Le coût dépend de la taille du site, de la complexité technique, du volume de contenus, de la concurrence, des langues, du besoin local et du niveau de reporting. Un chiffrage sérieux nécessite un audit ou un brief clair.',
+      },
+      {
+        question: 'Combien de temps faut-il pour obtenir des résultats SEO ?',
+        answer:
+          'Certaines améliorations techniques peuvent produire des signaux rapides, mais une croissance organique durable demande généralement plusieurs mois de corrections, contenus, maillage, autorité et mesure.',
+      },
+      {
+        question: 'Quelle est la différence entre SEO et Google Ads ?',
+        answer:
+          'Le SEO construit une visibilité organique dans le temps. Google Ads achète de la visibilité via un budget média. Les deux canaux peuvent travailler ensemble lorsque l’intention, les pages et le tracking sont alignés.',
+      },
+      {
+        question: 'Comment savoir si mon site a besoin d’un audit SEO ?',
+        answer:
+          'Un audit est utile si des pages ne sont pas indexées, si le trafic baisse, si le site est lent, si les contenus se dupliquent, si une migration est prévue ou si le trafic organique ne convertit pas.',
+      },
+      {
+        question: 'Peut-on garantir la première position sur Google ?',
+        answer:
+          'Non. Une agence sérieuse ne peut pas garantir une position précise sur Google. La stratégie peut améliorer la qualité, la visibilité, le trafic, les positions et les conversions, mais les résultats dépendent de nombreux facteurs et des algorithmes.',
+      },
+    ];
+
+const schema = [
+  localBusiness(),
+  serviceSchema({
+    name: copy.serviceName,
+    description: copy.description,
+    url: pageUrl,
+  }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: copy.breadcrumbHome, url: isEnglish ? `${SITE.url}/en` : SITE.url },
+    { name: isEnglish ? 'Expertise' : 'Expertises', url: isEnglish ? `${SITE.url}/en/expertises` : `${SITE.url}/expertises` },
+    { name: copy.breadcrumbName, url: pageUrl },
+  ]),
+];
+
+const siloLinks = isEnglish
+  ? [
+      { href: seoExpertiseHref, label: 'SEO / GEO expertise', text: 'Explore the service page for technical SEO, content and AI visibility.' },
+      { href: mediaHref, label: 'Media & Performance', text: 'Connect organic visibility with acquisition and reporting.' },
+      { href: webHref, label: 'Web & systems', text: 'Improve site foundations, performance and tracking.' },
+      { href: contentHref, label: 'Brand content', text: 'Create content that answers real search intent.' },
+      { href: contentInsightHref, label: 'Quality SEO content', text: 'Read the method behind durable SEO content.' },
+      { href: workHref, label: 'Case studies', text: 'See work where web, content and performance are documented.' },
+      { href: sectorsHref, label: 'Sector pages', text: 'Adapt SEO to education, real estate, retail and institutions.' },
+      { href: contactHref, label: 'Contact Richmedia', text: 'Frame your SEO audit or growth roadmap.' },
+    ]
+  : [
+      { href: seoExpertiseHref, label: 'Expertise SEO / GEO', text: 'Explorer la page service SEO technique, contenu et visibilité IA.' },
+      { href: mediaHref, label: 'Media & Performance', text: 'Relier visibilité organique, acquisition et reporting.' },
+      { href: webHref, label: 'Web & SI', text: 'Optimiser le socle technique, la performance et le tracking.' },
+      { href: contentHref, label: 'Brand content', text: 'Créer des contenus qui répondent aux vraies intentions de recherche.' },
+      { href: contentInsightHref, label: 'Contenu SEO durable', text: 'Lire la méthode derrière un contenu SEO utile et pérenne.' },
+      { href: workHref, label: 'Réalisations', text: 'Voir des dispositifs web, contenu et performance documentés.' },
+      { href: sectorsHref, label: 'Pages secteurs', text: 'Adapter le SEO à l’éducation, l’immobilier, le retail ou l’institutionnel.' },
+      { href: contactHref, label: 'Contacter Richmedia', text: 'Cadrer votre audit SEO ou votre roadmap organique.' },
+    ];
+---
+
+<BaseLayout
+  title={copy.title}
+  description={copy.description}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+  lang={pageLang}
+>
+  <div class="seo-agency-page">
+    <section class="seo-agency-hero" aria-labelledby="seo-agency-title">
+      <div class="hero-copy">
+        <span class="eyebrow">{copy.eyebrow}</span>
+        <h1 id="seo-agency-title">{copy.h1}</h1>
+        <p>{copy.lead}</p>
+        <div class="hero-line" aria-label={isEnglish ? 'SEO scope' : 'Périmètre SEO'}>
+          {copy.line.split(' · ').map((item) => <span>{item}</span>)}
+        </div>
+        <div class="hero-actions">
+          <a class="button button-primary" href={contactHref}>
+            {copy.primaryCta}
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="#method">
+            {copy.secondaryCta}
+            <i class="ph ph-arrow-down" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="seo-dashboard" aria-label={isEnglish ? 'SEO performance cockpit' : 'Cockpit de performance SEO'}>
+        <figure class="dashboard-main">
+          <img
+            src={heroImage}
+            alt={isEnglish ? 'SEO and AI visibility dashboard visual' : 'Visuel dashboard SEO et visibilité IA'}
+            width="1672"
+            height="941"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </figure>
+        <div class="metric-card metric-top">
+          <span>GSC</span>
+          <strong>{isEnglish ? 'Queries by intent' : 'Requêtes par intention'}</strong>
+        </div>
+        <div class="metric-card metric-mid">
+          <span>{isEnglish ? 'Cluster' : 'Cluster'}</span>
+          <strong>{isEnglish ? 'Non-brand growth' : 'Croissance non-brand'}</strong>
+        </div>
+        <div class="serp-panel">
+          <div><span>{isEnglish ? 'Crawl' : 'Crawl'}</span><i style="--value: 91%"></i></div>
+          <div><span>{isEnglish ? 'Content' : 'Contenu'}</span><i style="--value: 84%"></i></div>
+          <div><span>{isEnglish ? 'Links' : 'Maillage'}</span><i style="--value: 79%"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro-panel" aria-labelledby="intro-title">
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Point of view' : 'Point de vue'}</span>
+        <h2 id="intro-title">{copy.introTitle}</h2>
+      </div>
+      <div>
+        <p>{copy.introText}</p>
+        <div class="logic-flow" aria-label={isEnglish ? 'SEO content logic' : 'Logique contenu SEO'}>
+          {(isEnglish ? ['Query', 'Intent', 'Page', 'Useful content', 'Conversion'] : ['Requête', 'Intention', 'Page adaptée', 'Contenu utile', 'Conversion']).map((item) => <span>{item}</span>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="method-section" id="method" aria-labelledby="method-title">
+      <div class="section-heading">
+        <span class="eyebrow">{isEnglish ? 'Method' : 'Méthode'}</span>
+        <h2 id="method-title">{copy.methodTitle}</h2>
+      </div>
+      <div class="method-grid">
+        {methodSteps.map(([step, title, text]) => (
+          <article>
+            <span>{step}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="technical-section" aria-labelledby="technical-title">
+      <div class="section-heading">
+        <span class="eyebrow">Technical SEO</span>
+        <h2 id="technical-title">{copy.technicalTitle}</h2>
+      </div>
+      <div class="technical-grid">
+        {technicalPillars.map(([title, text]) => (
+          <article>
+            <i class="ph ph-check-circle" aria-hidden="true"></i>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="intent-section" aria-labelledby="intent-title">
+      <div>
+        <span class="eyebrow">Search intent</span>
+        <h2 id="intent-title">{copy.intentTitle}</h2>
+        <p>{copy.intentText}</p>
+      </div>
+      <div class="intent-grid">
+        {intentCards.map(([title, text]) => (
+          <article>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="split-section" aria-label={isEnglish ? 'SEO focus areas' : 'Axes SEO'}>
+      <article>
+        <span class="eyebrow">AI Search</span>
+        <h2>{copy.aiTitle}</h2>
+        <p>{copy.aiText}</p>
+        <a href={insightsHref}>{isEnglish ? 'Read SEO vs GEO' : 'Lire SEO vs GEO'}</a>
+      </article>
+      <article>
+        <span class="eyebrow">Local SEO</span>
+        <h2>{copy.localTitle}</h2>
+        <p>{copy.localText}</p>
+      </article>
+    </section>
+
+    <section class="data-panel" aria-labelledby="reporting-title">
+      <figure>
+        <img
+          src={dashboardImage}
+          alt={isEnglish ? 'Marketing performance dashboard used for reporting' : 'Dashboard de performance marketing pour reporting'}
+          width="1717"
+          height="916"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div>
+        <span class="eyebrow">Reporting</span>
+        <h2 id="reporting-title">{copy.reportingTitle}</h2>
+        <p>{copy.reportingText}</p>
+        <ul>
+          {(isEnglish
+            ? ['Organic clicks', 'Impressions without clicks', 'Landing pages', 'Conversions', 'Cluster visibility']
+            : ['Clics organiques', 'Impressions sans clics', 'Landing pages', 'Conversions', 'Visibilité par cluster']
+          ).map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="ecommerce-panel" aria-labelledby="ecommerce-title">
+      <div>
+        <span class="eyebrow">E-commerce SEO</span>
+        <h2 id="ecommerce-title">{copy.ecommerceTitle}</h2>
+      </div>
+      <p>{copy.ecommerceText}</p>
+    </section>
+
+    <section class="proof-section" aria-labelledby="proof-title">
+      <div class="section-heading">
+        <span class="eyebrow">{isEnglish ? 'Proof' : 'Preuve'}</span>
+        <h2 id="proof-title">{copy.proofTitle}</h2>
+      </div>
+      <a class="proof-card" href={isEnglish ? '/en/case-studies/euromed-university-drupal-website-redesign-2025' : '/realisations/universite-euromed-refonte-site-web-2025'}>
+        <img src={proofImage} alt={copy.proofAlt} width="1200" height="675" loading="lazy" decoding="async" />
+        <div>
+          <span>{copy.proofClient}</span>
+          <h3>{copy.proofMission}</h3>
+          <p>{copy.proofResult}</p>
+        </div>
+      </a>
+    </section>
+
+    <section class="why-section" aria-labelledby="why-title">
+      <div class="section-heading">
+        <span class="eyebrow">Richmedia</span>
+        <h2 id="why-title">{copy.whyTitle}</h2>
+      </div>
+      <div class="why-grid">
+        {whyCards.map(([title, text], index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    {isEnglish && (
+      <section class="international-panel" aria-labelledby="international-title">
+        <div>
+          <span class="eyebrow">International SEO</span>
+          <h2 id="international-title">{copy.internationalTitle}</h2>
+          <p>{copy.internationalText}</p>
+        </div>
+        <ul>
+          {['French / English content', 'Local search intent', 'Morocco landing pages', 'International architecture', 'Hreflang'].map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+    )}
+
+    <section class="workflow-section" aria-labelledby="workflow-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">{isEnglish ? 'Workflow' : 'Process'}</span>
+        <h2 id="workflow-title">{copy.workflowTitle}</h2>
+      </div>
+      <div class="workflow-grid">
+        {workflow.map(([step, title, text]) => (
+          <article>
+            <span>{step}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">FAQ</span>
+        <h2 id="faq-title">{copy.faqTitle}</h2>
+      </div>
+      <div class="faq-list">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="final-title">
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Next step' : 'Prochaine étape'}</span>
+        <h2 id="final-title">{copy.finalTitle}</h2>
+        <p>{copy.finalText}</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href={contactHref}>
+          {copy.finalCta}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href={seoExpertiseHref}>
+          {isEnglish ? 'Explore SEO / GEO' : 'Voir l’expertise SEO / GEO'}
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <SeoSiloLinks title={copy.siloTitle} intro={copy.siloIntro} links={siloLinks} variant="compact" />
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .seo-agency-page {
+    --container: min(100% - 3rem, 1360px);
+    --h1-size: 50px;
+    --purple: #7c3cff;
+    --purple-soft: #a977ff;
+    --line: rgba(255, 255, 255, 0.13);
+    overflow: hidden;
+    color: #fff;
+    background:
+      radial-gradient(circle at 16% 0%, rgba(124, 60, 255, 0.22), transparent 34rem),
+      linear-gradient(180deg, #050509 0%, #080713 58%, #050509 100%);
+  }
+
+  .seo-agency-hero,
+  .intro-panel,
+  .method-section,
+  .technical-section,
+  .intent-section,
+  .split-section,
+  .data-panel,
+  .ecommerce-panel,
+  .proof-section,
+  .why-section,
+  .international-panel,
+  .workflow-section,
+  .faq-section,
+  .final-cta {
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .seo-agency-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(520px, 1.12fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    min-height: calc(100vh - 98px);
+    padding: clamp(5rem, 8vw, 8rem) 0 5rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--purple-soft);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 3.4rem;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--purple), transparent);
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .hero-copy h1 {
+    --h1-size: 50px;
+    max-width: 760px;
+    margin: 1.3rem 0 1.2rem;
+    font-size: clamp(3.25rem, 6.4vw, 6.8rem);
+    line-height: 0.92;
+    letter-spacing: 0;
+  }
+
+  .hero-copy p,
+  .intro-panel p,
+  .intent-section > div > p,
+  .split-section p,
+  .data-panel p,
+  .ecommerce-panel p,
+  .proof-card p,
+  .why-grid p,
+  .workflow-grid p,
+  .international-panel p,
+  .final-cta p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(1rem, 1.45vw, 1.22rem);
+    line-height: 1.75;
+  }
+
+  .hero-copy {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 1.9rem 0 2rem;
+  }
+
+  .hero-line span,
+  .data-panel li,
+  .international-panel li {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.1rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid rgba(124, 60, 255, 0.35);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.84);
+    background: rgba(124, 60, 255, 0.09);
+    font-size: 0.78rem;
+    font-weight: 850;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 3.3rem;
+    padding: 0.9rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 900;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    color: #fff;
+    background: linear-gradient(135deg, #9851ff, #6f2cff);
+    box-shadow: 0 22px 52px rgba(124, 60, 255, 0.25);
+  }
+
+  .button-secondary {
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .seo-dashboard {
+    position: relative;
+    min-height: 640px;
+  }
+
+  .dashboard-main {
+    position: absolute;
+    inset: 7% 0 auto 0;
+    overflow: hidden;
+    margin: 0;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #0b0a12;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.42);
+  }
+
+  .dashboard-main img,
+  .data-panel img,
+  .proof-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .dashboard-main::after,
+  .proof-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 42%, rgba(5, 5, 9, 0.78));
+  }
+
+  .metric-card,
+  .serp-panel {
+    position: absolute;
+    z-index: 2;
+    border: 1px solid rgba(124, 60, 255, 0.35);
+    border-radius: 14px;
+    background: rgba(12, 10, 23, 0.84);
+    box-shadow: 0 22px 58px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(18px);
+  }
+
+  .metric-card {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 196px;
+    padding: 1rem;
+  }
+
+  .metric-card span,
+  .method-grid article > span,
+  .why-grid article > span,
+  .workflow-grid article > span,
+  .proof-card span {
+    color: var(--purple-soft);
+    font-weight: 900;
+  }
+
+  .metric-card span {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .metric-card strong {
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .metric-top {
+    right: 5%;
+    top: 0;
+  }
+
+  .metric-mid {
+    left: 0;
+    bottom: 18%;
+  }
+
+  .serp-panel {
+    right: 2%;
+    bottom: 5%;
+    display: grid;
+    gap: 0.9rem;
+    width: min(320px, 54%);
+    padding: 1rem;
+  }
+
+  .serp-panel div {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .serp-panel span {
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.76rem;
+    font-weight: 850;
+  }
+
+  .serp-panel i {
+    position: relative;
+    overflow: hidden;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .serp-panel i::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--value);
+    border-radius: inherit;
+    background: linear-gradient(90deg, #9851ff, #d7c2ff);
+  }
+
+  .intro-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+    padding: 4.5rem 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .intro-panel h2,
+  .section-heading h2,
+  .intent-section h2,
+  .split-section h2,
+  .data-panel h2,
+  .ecommerce-panel h2,
+  .final-cta h2,
+  .international-panel h2 {
+    margin: 0.9rem 0 0;
+    font-size: clamp(2.05rem, 4vw, 4.25rem);
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  .logic-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .logic-flow span {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.045);
+    font-size: 0.85rem;
+    font-weight: 900;
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(260px, 0.58fr);
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 2rem;
+  }
+
+  .section-heading.compact {
+    display: block;
+    max-width: 860px;
+  }
+
+  .method-section,
+  .technical-section,
+  .proof-section,
+  .why-section,
+  .workflow-section,
+  .faq-section {
+    padding: 4.5rem 0;
+  }
+
+  .method-grid,
+  .technical-grid,
+  .intent-grid,
+  .why-grid,
+  .workflow-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .method-grid,
+  .technical-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .intent-grid,
+  .why-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .workflow-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .method-grid article,
+  .technical-grid article,
+  .intent-grid article,
+  .split-section article,
+  .data-panel,
+  .ecommerce-panel,
+  .proof-card,
+  .why-grid article,
+  .workflow-grid article,
+  .international-panel,
+  .faq-list details,
+  .final-cta {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.025));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .method-grid article,
+  .technical-grid article,
+  .intent-grid article,
+  .why-grid article,
+  .workflow-grid article {
+    min-height: 210px;
+    padding: 1.25rem;
+  }
+
+  .method-grid h3,
+  .technical-grid h3,
+  .intent-grid h3,
+  .proof-card h3,
+  .why-grid h3,
+  .workflow-grid h3 {
+    margin: 0.95rem 0 0.65rem;
+    color: #fff;
+    font-size: clamp(1.1rem, 1.45vw, 1.42rem);
+    line-height: 1.16;
+  }
+
+  .method-grid p,
+  .technical-grid p,
+  .intent-grid p,
+  .faq-list p {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .technical-grid i {
+    color: var(--purple-soft);
+    font-size: 1.35rem;
+  }
+
+  .intent-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+    padding: 1rem 0 4.5rem;
+  }
+
+  .split-section {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .split-section article,
+  .ecommerce-panel {
+    padding: clamp(1.4rem, 3vw, 2.4rem);
+  }
+
+  .split-section article:first-child,
+  .ecommerce-panel,
+  .international-panel {
+    background:
+      radial-gradient(circle at 25% 20%, rgba(124, 60, 255, 0.28), transparent 18rem),
+      linear-gradient(145deg, rgba(124, 60, 255, 0.13), rgba(255, 255, 255, 0.03));
+  }
+
+  .split-section a {
+    display: inline-flex;
+    margin-top: 1rem;
+    color: var(--purple-soft);
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .data-panel,
+  .ecommerce-panel,
+  .international-panel,
+  .final-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .data-panel {
+    padding: clamp(1rem, 2vw, 1.4rem);
+  }
+
+  .data-panel figure {
+    overflow: hidden;
+    margin: 0;
+    aspect-ratio: 16 / 10;
+    border-radius: 14px;
+    background: #0b0a12;
+  }
+
+  .data-panel ul,
+  .international-panel ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 1.2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ecommerce-panel {
+    margin-top: 1rem;
+  }
+
+  .proof-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .proof-card img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .proof-card div {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    align-content: center;
+    gap: 0.8rem;
+    padding: clamp(1.4rem, 3vw, 2.2rem);
+  }
+
+  .international-panel {
+    padding: clamp(1.5rem, 3vw, 2.6rem);
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .faq-list details {
+    overflow: hidden;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    padding: 1.25rem 1.4rem;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 900;
+  }
+
+  .faq-list p {
+    margin: 0;
+    padding: 0 1.4rem 1.35rem;
+  }
+
+  .final-cta {
+    margin-bottom: 5rem;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background:
+      radial-gradient(circle at 10% 20%, rgba(124, 60, 255, 0.32), transparent 19rem),
+      linear-gradient(145deg, rgba(124, 60, 255, 0.16), rgba(255, 255, 255, 0.03));
+  }
+
+  @media (max-width: 1180px) {
+    .seo-agency-hero,
+    .intro-panel,
+    .intent-section,
+    .split-section,
+    .data-panel,
+    .ecommerce-panel,
+    .international-panel,
+    .final-cta,
+    .proof-card {
+      grid-template-columns: 1fr;
+    }
+
+    .seo-agency-hero {
+      min-height: 0;
+      padding-top: 4rem;
+    }
+
+    .seo-dashboard {
+      min-height: 560px;
+    }
+
+    .method-grid,
+    .technical-grid,
+    .intent-grid,
+    .why-grid,
+    .workflow-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .section-heading {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .seo-agency-page {
+      --container: min(100% - 1.25rem, 100%);
+    }
+
+    .seo-agency-hero {
+      padding: 2.6rem 0 3rem;
+      gap: 1.8rem;
+    }
+
+    .eyebrow {
+      max-width: 100%;
+      gap: 0.5rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      line-height: 1.35;
+      white-space: normal;
+    }
+
+    .eyebrow::before {
+      width: 2.2rem;
+      flex: 0 0 2.2rem;
+    }
+
+    .hero-copy h1 {
+      --h1-size: clamp(2.1rem, 9.7vw, 2.45rem);
+      max-width: 100%;
+      overflow-wrap: break-word;
+      white-space: normal;
+      line-height: 1.02;
+    }
+
+    .hero-copy p {
+      max-width: 100%;
+      overflow-wrap: break-word;
+    }
+
+    .button {
+      width: 100%;
+      white-space: normal;
+      text-align: center;
+    }
+
+    .seo-dashboard {
+      min-height: clamp(360px, 72vw, 460px);
+      margin-top: 0.8rem;
+    }
+
+    .dashboard-main {
+      inset: 0 0 auto 0;
+    }
+
+    .metric-card {
+      min-width: 0;
+      max-width: min(190px, 52%);
+      padding: 0.8rem;
+    }
+
+    .metric-card strong {
+      font-size: 0.88rem;
+      overflow-wrap: break-word;
+    }
+
+    .metric-top {
+      right: 0;
+      top: 44%;
+    }
+
+    .metric-mid {
+      left: 0;
+      bottom: 14%;
+    }
+
+    .serp-panel {
+      right: 0;
+      bottom: 0;
+      width: min(230px, 66%);
+      padding: 0.8rem;
+    }
+
+    .intro-panel,
+    .method-section,
+    .technical-section,
+    .proof-section,
+    .why-section,
+    .workflow-section,
+    .faq-section {
+      padding: 3.3rem 0;
+    }
+
+    .method-grid,
+    .technical-grid,
+    .intent-grid,
+    .why-grid,
+    .workflow-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .method-grid article,
+    .technical-grid article,
+    .intent-grid article,
+    .why-grid article,
+    .workflow-grid article {
+      min-height: 0;
+    }
+  }
+</style>

@@ -178,6 +178,18 @@ const schema = [
     <h1>{page.h1}</h1>
     <p>{page.description}</p>
     <a class="button button-primary" href="/en/contact">Talk to an expert <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+    {slug === 'seo-geo' && (
+      <p class="context-link">
+        For a market-oriented landing about audit, local SEO and choosing a partner, see our
+        <a href="/seo-agency-morocco"> SEO agency in Morocco</a>.
+      </p>
+    )}
+    {slug === 'media-performance' && (
+      <p class="context-link">
+        For a national landing about paid media planning and campaign management, see our
+        <a href="/online-advertising-morocco"> online advertising in Morocco</a>.
+      </p>
+    )}
   </section>
   <QuickAnswer text={page.quick} />
   <article class="expertise-content">
@@ -214,6 +226,15 @@ const schema = [
   h1 { color: #fff; font-size: clamp(3rem, 7vw, 6.3rem); font-weight: 900; line-height: .94; }
   h2 { color: #fff; font-size: 1.25rem; }
   p { color: rgba(255,255,255,.72); line-height: 1.7; }
+  .context-link {
+    max-width: 720px;
+    color: rgba(255,255,255,.64);
+  }
+  .context-link a {
+    color: #a977ff;
+    font-weight: 900;
+    text-decoration: none;
+  }
   .expertise-content {
     display: grid;
     gap: 1rem;

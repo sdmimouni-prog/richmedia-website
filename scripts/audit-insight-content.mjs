@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const articleFiles = [
   'campagnes-meta-2026-bonnes-pratiques.mdx',
+  'comment-choisir-agence-communication.mdx',
   'contenu-qualite-seo-perenne.mdx',
   'cout-campagne-google-ads-maroc.mdx',
   'createurs-marques-collaborations-durables.mdx',

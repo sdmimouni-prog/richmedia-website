@@ -1,0 +1,1417 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeoSiloLinks from './SeoSiloLinks.astro';
+import { SITE } from '../consts';
+import { breadcrumbs, faqSchema, localBusiness, serviceSchema } from '../lib/schema';
+
+type Lang = 'fr' | 'en';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'fr' } = Astro.props;
+const isEnglish = lang === 'en';
+const pagePath = isEnglish ? '/website-development-morocco' : '/creation-site-web-maroc';
+const pageUrl = `${SITE.url}${pagePath}`;
+
+const links = isEnglish
+  ? {
+      contact: '/en/contact',
+      work: '/en/case-studies',
+      web: '/en/expertises/web-si',
+      seo: '/seo-agency-morocco',
+      media: '/en/expertises/media-performance',
+      crm: '/en/expertises/crm-marketing-automation-morocco',
+      whatsapp: '/en/products/whatsapp',
+      strategy: '/en/expertises/strategie-digitale',
+      euromed: '/en/case-studies/euromed-university-drupal-website-redesign-2025',
+      nescafe: '/en/case-studies/nescafe-nadi-nescafe-2019',
+      amana: '/en/case-studies/amana-tramway-phygital-2022',
+      insight: '/en/insights/quality-content-durable-seo',
+    }
+  : {
+      contact: '/contact',
+      work: '/realisations',
+      web: '/expertises/web-si',
+      seo: '/agence-seo-maroc',
+      media: '/expertises/media-performance',
+      crm: '/expertises/marketing-automation-crm-maroc',
+      whatsapp: '/produits/whatsapp',
+      strategy: '/expertises/strategie-digitale',
+      euromed: '/realisations/universite-euromed-refonte-site-web-2025',
+      nescafe: '/realisations/nescafe-nadi-nescafe-2019',
+      amana: '/realisations/amana-tramway-phygital-2022',
+      insight: '/insights/contenu-qualite-seo-perenne',
+    };
+
+const meta = isEnglish
+  ? {
+      title: 'Website Development in Morocco | Richmedia',
+      description:
+        'Richmedia designs and develops websites in Morocco combining strategy, UX/UI, web design, development, SEO, performance, mobile experience and conversion.',
+      h1: 'Website Development in Morocco',
+      eyebrow: 'Web agency Morocco',
+      hero:
+        'Richmedia designs and develops modern, fast and conversion-focused websites, from strategy and UX to design, development, SEO and performance optimisation.',
+      signature: 'Strategy · UX/UI · Design · Development · SEO · Performance',
+      primaryCta: 'Talk to an expert',
+      secondaryCta: 'View our work',
+    }
+  : {
+      title: 'Création de site web au Maroc | Richmedia',
+      description:
+        'Richmedia conçoit des sites web au Maroc combinant stratégie, UX/UI, design, développement, SEO, performance, mobile et conversion. Découvrez notre approche.',
+      h1: 'Création de site web au Maroc',
+      eyebrow: 'Agence web au Maroc',
+      hero:
+        'Richmedia conçoit des sites web modernes, rapides et orientés conversion, de la stratégie et l’UX jusqu’au design, au développement et à l’optimisation SEO.',
+      signature: 'Stratégie · UX/UI · Design · Développement · SEO · Performance',
+      primaryCta: 'Parler à un expert',
+      secondaryCta: 'Voir nos réalisations',
+    };
+
+const intro = isEnglish
+  ? {
+      title: 'A website should do more than look good',
+      text:
+        'A high-performing website communicates the brand clearly, helps visitors understand the offer, works smoothly on mobile, loads quickly, supports SEO and gives each audience a clear next step. Design attracts attention. Experience, content and technology turn that attention into action.',
+      bullets: ['Clarity', 'Trust', 'Mobile UX', 'Speed', 'Search visibility', 'Conversion', 'Scalability'],
+    }
+  : {
+      title: 'Un site web ne doit pas seulement être beau. Il doit servir le business.',
+      text:
+        'Un site performant présente clairement la marque, rassure, reste simple à utiliser, fonctionne parfaitement sur mobile, charge vite, soutient le SEO et guide chaque visiteur vers une action. Le design attire l’attention. L’expérience, le contenu et la technologie transforment cette attention en action.',
+      bullets: ['Clarté', 'Confiance', 'UX mobile', 'Vitesse', 'Visibilité Google', 'Conversion', 'Évolution'],
+    };
+
+const approach = isEnglish
+  ? [
+      { step: '01', title: 'Discovery & strategy', text: 'Business goals, audiences, journeys, competitors, content, features, KPIs and technical constraints.' },
+      { step: '02', title: 'Architecture & UX', text: 'Sitemap, navigation, user journeys, content hierarchy, wireframes and SEO-aware conversion logic.' },
+      { step: '03', title: 'UI design', text: 'Visual direction, design system, components, responsive interfaces and interactions aligned with the brand.' },
+      { step: '04', title: 'Development', text: 'Corporate websites, landing pages, CMS, forms, CRM links, APIs or e-commerce blocks according to the project.' },
+      { step: '05', title: 'QA, SEO & performance', text: 'Responsive QA, forms, links, accessibility, technical SEO, image performance, Core Web Vitals and analytics.' },
+      { step: '06', title: 'Launch & optimisation', text: 'Deployment, monitoring, fixes, analysis and continuous improvements after launch.' },
+    ]
+  : [
+      { step: '01', title: 'Cadrage & stratégie', text: 'Objectifs business, audiences, parcours, concurrence, contenus, fonctionnalités, KPI et contraintes techniques.' },
+      { step: '02', title: 'Architecture & UX', text: 'Arborescence, navigation, parcours utilisateurs, hiérarchie de l’information, wireframes et logique SEO/conversion.' },
+      { step: '03', title: 'UI design', text: 'Direction visuelle, design system, composants, responsive et interactions cohérentes avec l’identité de marque.' },
+      { step: '04', title: 'Développement', text: 'Sites corporate, landing pages, CMS, formulaires, CRM, APIs ou briques e-commerce selon le périmètre réel du projet.' },
+      { step: '05', title: 'QA, SEO & performance', text: 'Recette responsive, formulaires, liens, accessibilité, SEO technique, images, Core Web Vitals et analytics.' },
+      { step: '06', title: 'Mise en ligne & optimisation', text: 'Déploiement, monitoring, corrections, analyse et évolutions après lancement.' },
+    ];
+
+const siteTypes = isEnglish
+  ? [
+      { title: 'Corporate websites', text: 'For companies, institutions, groups and brands that need credibility, information, recruitment and acquisition.' },
+      { title: 'Lead generation websites', text: 'Offer pages, forms, WhatsApp paths and contact journeys designed to capture qualified requests.' },
+      { title: 'E-commerce', text: 'Product catalogues, purchase journeys, analytics and integrations when commerce is part of the project scope.' },
+      { title: 'Landing pages', text: 'Campaign pages for acquisition, real estate, education, product launches and measurable lead generation.' },
+      { title: 'Digital platforms', text: 'Client spaces, portals, dashboards or web applications connected to operational and marketing systems.' },
+    ]
+  : [
+      { title: 'Site corporate', text: 'Pour entreprises, institutions, groupes et marques qui doivent informer, rassurer, recruter et renforcer leur crédibilité.' },
+      { title: 'Site vitrine / génération de leads', text: 'Pages d’offre, formulaires, parcours WhatsApp et prises de contact pensés pour capter des demandes qualifiées.' },
+      { title: 'E-commerce', text: 'Catalogue, parcours produit, analytics et intégrations lorsque la vente en ligne fait partie du périmètre.' },
+      { title: 'Landing pages', text: 'Pages de campagne pour acquisition, immobilier, éducation, lancement produit et génération de leads mesurable.' },
+      { title: 'Plateformes digitales', text: 'Espaces clients, portails, dashboards ou applications web connectés aux systèmes marketing et métier.' },
+    ];
+
+const focusBlocks = isEnglish
+  ? [
+      {
+        kicker: 'UX/UI',
+        title: 'User experience before decoration',
+        text:
+          'A good interface helps visitors understand where they are, what the brand offers, why it matters and what to do next. Navigation, hierarchy, readability, responsive design and accessibility reduce friction before conversion.',
+        href: links.web,
+        label: 'Explore Web & IS',
+      },
+      {
+        kicker: 'Mobile & performance',
+        title: 'Designed for every screen',
+        text:
+          'Mobile journeys need readable content, touch-friendly actions, short forms, fast images and stable layouts. Performance also depends on scripts, fonts, caching, tracking, hosting and third-party tools.',
+        href: links.media,
+        label: 'Connect media and landing pages',
+      },
+      {
+        kicker: 'SEO by design',
+        title: 'SEO should be built into the website, not added afterwards',
+        text:
+          'Architecture, UX, content, development, technical SEO and indexation must be considered before launch to avoid weak URLs, duplication, poor hierarchy, slow pages or migration issues.',
+        href: links.seo,
+        label: 'See SEO agency approach',
+      },
+      {
+        kicker: 'Conversion',
+        title: 'Built to turn visits into action',
+        text:
+          'A website should help visitors understand, trust and act: contact request, lead, call, WhatsApp, download, appointment, purchase or application. CTAs, forms, proof and content work together.',
+        href: links.crm,
+        label: 'Connect CRM and automation',
+      },
+    ]
+  : [
+      {
+        kicker: 'UX/UI',
+        title: 'L’expérience utilisateur avant la décoration',
+        text:
+          'Une bonne interface permet de comprendre où l’on est, ce que propose la marque, pourquoi elle est pertinente et où cliquer. Navigation, hiérarchie, lisibilité, responsive et accessibilité réduisent la friction avant la conversion.',
+        href: links.web,
+        label: 'Explorer Web & SI',
+      },
+      {
+        kicker: 'Mobile & performance',
+        title: 'Pensé pour le mobile dès le départ',
+        text:
+          'Les parcours mobiles exigent contenus lisibles, boutons tactiles, formulaires courts, images rapides et stabilité visuelle. La performance dépend aussi des scripts, fonts, cache, tracking, hébergement et outils tiers.',
+        href: links.media,
+        label: 'Relier média et landing pages',
+      },
+      {
+        kicker: 'SEO by design',
+        title: 'Le SEO doit être pensé avant la mise en ligne',
+        text:
+          'Architecture, UX, contenu, développement, SEO technique et indexation doivent être cadrés avant le lancement pour éviter URLs faibles, duplication, mauvaise hiérarchie, pages lentes ou pertes de migration.',
+        href: links.seo,
+        label: 'Voir l’approche SEO',
+      },
+      {
+        kicker: 'Conversion',
+        title: 'Transformer les visites en actions',
+        text:
+          'Un site doit aider à comprendre, faire confiance et agir : demande de contact, lead, appel, WhatsApp, téléchargement, rendez-vous, achat ou candidature. CTA, formulaires, preuves et contenus travaillent ensemble.',
+        href: links.crm,
+        label: 'Connecter CRM et automation',
+      },
+    ];
+
+const connectedBlocks = isEnglish
+  ? [
+      { title: 'Editable content', text: 'Pages, news, media, SEO fields, forms and user permissions can be framed around team autonomy.' },
+      { title: 'Digital ecosystem', text: 'CRM, analytics, pixels, WhatsApp, automation, APIs, payments or business tools can be connected when relevant.' },
+      { title: 'Website redesign', text: 'A redesign can modernize UX, speed and conversion, but SEO can drop if redirects, content and indexing are not handled carefully.' },
+    ]
+  : [
+      { title: 'Un site administrable', text: 'Pages, actualités, médias, champs SEO, formulaires et droits utilisateurs peuvent être cadrés pour donner de l’autonomie aux équipes.' },
+      { title: 'Écosystème digital connecté', text: 'CRM, analytics, pixels, WhatsApp, automation, APIs, paiement ou outils métier peuvent être reliés lorsque le projet le nécessite.' },
+      { title: 'Refonte maîtrisée', text: 'Une refonte peut moderniser l’UX, la vitesse et la conversion, mais le SEO peut chuter si redirections, contenus et indexation sont mal gérés.' },
+    ];
+
+const marketText = isEnglish
+  ? 'For international companies launching or expanding in Morocco, a website often has to balance global brand standards with local usage. Content, UX, languages, forms, WhatsApp journeys, points of sale, local SEO and market-specific landing pages can change how people understand and contact the brand. Richmedia frames these elements without forcing a generic recipe: the right structure depends on the audience, the offer, the business model and the operational follow-up available after each request.'
+  : 'Créer un site adapté au marché marocain demande parfois de relier standards de marque, usages locaux et parcours commerciaux réels. Selon le secteur, il faut prendre en compte les audiences, le mobile, les langues, les formulaires, WhatsApp, les points de vente, le contenu, le SEO local et les chemins de conversion. Richmedia cadre ces sujets sans généralisation artificielle : la bonne structure dépend de l’audience, de l’offre, du modèle business et de la capacité opérationnelle à traiter chaque demande après le formulaire ou le clic.';
+
+const projects = isEnglish
+  ? [
+      {
+        client: 'Euromed University',
+        type: 'Drupal website redesign',
+        image: '/assets/richmedia-realizations/euromed-refonte-site-web-2025.webp',
+        width: 1920,
+        height: 1080,
+        alt: 'Real screenshot of the Euromed University website redesigned by Richmedia',
+        text: 'Multilingual institutional website with UX/UI, Drupal CMS, technical SEO, performance and tracking.',
+        result: '+40% organic traffic, +80% loading time improvement and +20% applications.',
+        href: links.euromed,
+      },
+      {
+        client: 'Nescafé',
+        type: 'Community platform',
+        image: '/assets/richmedia-realizations/nescafe-nadi-nescafe.webp',
+        width: 1572,
+        height: 1162,
+        alt: 'Nadi Nescafé community platform campaign visual',
+        text: 'Digital platform and community experience with gamification, coupons and member acquisition.',
+        result: '100K platform visits, 5K members and 2,500 downloaded or used coupons.',
+        href: links.nescafe,
+      },
+      {
+        client: 'Amana',
+        type: 'Campaign landing page',
+        image: '/assets/richmedia-home/campaign-wide-amana-tram.webp',
+        width: 1600,
+        height: 900,
+        alt: 'Amana tramway phygital campaign with QR and landing page journey',
+        text: 'Phygital activation connecting outdoor visibility, QR code, dedicated landing page and acquisition form.',
+        result: '14,881 landing page visits, 8,418 QR scans and 4,183 leads.',
+        href: links.amana,
+      },
+    ]
+  : [
+      {
+        client: 'Université Euromed',
+        type: 'Refonte site Drupal',
+        image: '/assets/richmedia-realizations/euromed-refonte-site-web-2025.webp',
+        width: 1920,
+        height: 1080,
+        alt: 'Screenshot réel du site Université Euromed refondu par Richmedia',
+        text: 'Site institutionnel multilingue avec UX/UI, CMS Drupal, SEO technique, performance et tracking.',
+        result: '+40 % trafic organique, +80 % amélioration du temps de chargement et +20 % candidatures.',
+        href: links.euromed,
+      },
+      {
+        client: 'Nescafé',
+        type: 'Plateforme communautaire',
+        image: '/assets/richmedia-realizations/nescafe-nadi-nescafe.webp',
+        width: 1572,
+        height: 1162,
+        alt: 'Visuel de la plateforme communautaire Nadi Nescafé',
+        text: 'Plateforme digitale et expérience communautaire avec gamification, coupons et acquisition de membres.',
+        result: '100 K visites plateforme, 5 K membres et 2 500 coupons téléchargés ou utilisés.',
+        href: links.nescafe,
+      },
+      {
+        client: 'Amana',
+        type: 'Landing page campagne',
+        image: '/assets/richmedia-home/campaign-wide-amana-tram.webp',
+        width: 1600,
+        height: 900,
+        alt: 'Campagne phygitale Amana avec QR code et landing page',
+        text: 'Activation phygitale reliant visibilité terrain, QR code, landing page dédiée et formulaire d’acquisition.',
+        result: '14 881 visites landing page, 8 418 scans QR et 4 183 leads.',
+        href: links.amana,
+      },
+    ];
+
+const why = isEnglish
+  ? [
+      { title: 'Strategy + UX', text: 'The project starts with goals and users, not with a decorative mockup.' },
+      { title: 'Design + technology', text: 'Creative and technical teams work around the same user experience.' },
+      { title: 'SEO + performance', text: 'Architecture, speed and search visibility are integrated from the design phase.' },
+      { title: 'Business focus', text: 'The website is framed as a communication, acquisition or conversion tool.' },
+    ]
+  : [
+      { title: 'Stratégie + UX', text: 'Le projet commence par les objectifs et les utilisateurs, pas par une maquette décorative.' },
+      { title: 'Design + technologie', text: 'Les équipes créatives et techniques travaillent autour de la même expérience.' },
+      { title: 'SEO + performance', text: 'Architecture, vitesse et visibilité sont intégrées dès la conception.' },
+      { title: 'Vision business', text: 'Le site est pensé comme un outil de communication, d’acquisition ou de conversion.' },
+    ];
+
+const collaboration = isEnglish
+  ? [
+      { step: '01', title: 'Discovery', text: 'Goals, audiences, scope and constraints.' },
+      { step: '02', title: 'UX', text: 'Architecture, journeys and wireframes.' },
+      { step: '03', title: 'Design', text: 'UI, components and responsive states.' },
+      { step: '04', title: 'Development & QA', text: 'Development, integrations, technical SEO and testing.' },
+      { step: '05', title: 'Launch', text: 'Deployment, monitoring and optimisation.' },
+    ]
+  : [
+      { step: '01', title: 'Cadrage', text: 'Objectifs, audiences, périmètre et contraintes.' },
+      { step: '02', title: 'UX', text: 'Architecture, parcours et wireframes.' },
+      { step: '03', title: 'Design', text: 'UI, composants et responsive.' },
+      { step: '04', title: 'Développement & QA', text: 'Développement, intégrations, SEO technique et tests.' },
+      { step: '05', title: 'Mise en ligne', text: 'Déploiement, monitoring et optimisation.' },
+    ];
+
+const faq = isEnglish
+  ? [
+      {
+        question: 'How much does website development cost in Morocco?',
+        answer:
+          'There is no useful standard package. Budget depends on the number of pages, UX/UI depth, features, CMS, languages, content, e-commerce, integrations, animations, customisation level and maintenance needs.',
+      },
+      {
+        question: 'How long does it take to build a website?',
+        answer:
+          'Timing depends on scope, content readiness, technical complexity and validation cycles. A clear discovery phase helps define a realistic schedule before design and development start.',
+      },
+      {
+        question: 'What is the difference between a corporate website and an e-commerce website?',
+        answer:
+          'A corporate website mainly informs, reassures and generates contact or application requests. An e-commerce website adds product catalogue, cart, payment, stock or operational integrations.',
+      },
+      {
+        question: 'Does Richmedia handle both design and development?',
+        answer:
+          'Yes, when the project scope requires it. Richmedia can frame strategy, UX, UI design, development, content structure, tracking, SEO foundations and launch QA.',
+      },
+      {
+        question: 'Is SEO included in website development?',
+        answer:
+          'SEO should be considered from the start: structure, URLs, headings, performance, internal links, schema and migration rules. The depth depends on the project and may connect with a dedicated SEO mission.',
+      },
+      {
+        question: 'Can a website be redesigned without losing SEO performance?',
+        answer:
+          'Yes, but the migration must be planned carefully. Existing pages, content, metadata, redirects, indexing signals and performance must be audited before launch to reduce SEO risk.',
+      },
+    ]
+  : [
+      {
+        question: 'Combien coûte la création d’un site web au Maroc ?',
+        answer:
+          'Il n’existe pas de forfait standard utile. Le budget dépend du nombre de pages, de l’UX/UI, des fonctionnalités, du CMS, des langues, des contenus, de l’e-commerce, des intégrations, des animations, du niveau de personnalisation et de la maintenance.',
+      },
+      {
+        question: 'Combien de temps faut-il pour créer un site web ?',
+        answer:
+          'Le délai dépend du périmètre, de la disponibilité des contenus, de la complexité technique et du processus de validation. Un cadrage clair permet de définir un planning réaliste avant le design et le développement.',
+      },
+      {
+        question: 'Quelle est la différence entre un site vitrine et un site e-commerce ?',
+        answer:
+          'Un site vitrine présente l’entreprise, rassure et génère des demandes de contact. Un site e-commerce ajoute catalogue produit, panier, paiement, stock ou intégrations opérationnelles.',
+      },
+      {
+        question: 'Richmedia prend-elle en charge le design et le développement ?',
+        answer:
+          'Oui, lorsque le périmètre le nécessite. Richmedia peut cadrer la stratégie, l’UX, l’UI design, le développement, la structure de contenu, le tracking, les fondations SEO et la recette de lancement.',
+      },
+      {
+        question: 'Le SEO est-il inclus dans la création du site ?',
+        answer:
+          'Le SEO doit être intégré dès le départ : structure, URLs, titres, performance, maillage, schema et règles de migration. La profondeur dépend du projet et peut être reliée à une mission SEO dédiée.',
+      },
+      {
+        question: 'Peut-on refaire un site existant sans perdre son référencement ?',
+        answer:
+          'Oui, mais la migration doit être préparée. Pages existantes, contenus, métadonnées, redirections, signaux d’indexation et performance doivent être audités avant la mise en ligne pour limiter le risque SEO.',
+      },
+    ];
+
+const siloLinks = isEnglish
+  ? [
+      { href: links.web, label: 'Web & IS expertise', text: 'Understand Richmedia capabilities around websites, platforms and connected systems.' },
+      { href: links.seo, label: 'SEO Agency Morocco', text: 'Connect website architecture with SEO, content and technical visibility.' },
+      { href: links.media, label: 'Media & Performance', text: 'Build campaign landing pages that support acquisition and measurement.' },
+      { href: links.crm, label: 'CRM & marketing automation', text: 'Connect forms, leads, qualification and commercial follow-up.' },
+      { href: links.whatsapp, label: 'WhatsApp Business Morocco', text: 'Add conversational paths when WhatsApp is the right conversion channel.' },
+      { href: links.euromed, label: 'Euromed web redesign case study', text: 'See a real Drupal website redesign with validated UX, SEO and performance results.' },
+      { href: links.insight, label: 'Durable SEO content', text: 'Read how useful content supports search visibility over time.' },
+      { href: links.contact, label: isEnglish ? 'Talk to an expert' : 'Parler à un expert', text: 'Frame a website creation or redesign project with Richmedia.' },
+    ]
+  : [
+      { href: links.web, label: 'Expertise Web & SI', text: 'Comprendre les capacités Richmedia autour des sites, plateformes et systèmes connectés.' },
+      { href: links.seo, label: 'Agence SEO au Maroc', text: 'Relier architecture du site, contenu et visibilité technique.' },
+      { href: links.media, label: 'Média & Performance', text: 'Créer des landing pages de campagne utiles à l’acquisition et à la mesure.' },
+      { href: links.crm, label: 'CRM & marketing automation', text: 'Connecter formulaires, leads, qualification et suivi commercial.' },
+      { href: links.whatsapp, label: 'WhatsApp Business Maroc', text: 'Ajouter des parcours conversationnels lorsque WhatsApp est le bon canal de conversion.' },
+      { href: links.euromed, label: 'Case study refonte web Euromed', text: 'Voir une refonte Drupal réelle avec résultats UX, SEO et performance validés.' },
+      { href: links.insight, label: 'Contenu SEO durable', text: 'Lire comment les contenus utiles soutiennent la visibilité organique.' },
+      { href: links.contact, label: 'Parler à un expert', text: 'Cadrer un projet de création ou de refonte de site avec Richmedia.' },
+    ];
+
+const schema = [
+  localBusiness(),
+  serviceSchema({
+    name: isEnglish ? 'Website development in Morocco' : 'Création de site web au Maroc',
+    description: meta.description,
+    url: pageUrl,
+  }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: isEnglish ? 'Home' : 'Accueil', url: isEnglish ? `${SITE.url}/en` : SITE.url },
+    { name: isEnglish ? 'Website Development in Morocco' : 'Création de site web au Maroc', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}/assets/richmedia-realizations/euromed-refonte-site-web-2025.webp`}
+  lang={lang}
+  schema={schema}
+>
+  <article class="website-dev-page">
+    <section class="web-dev-hero" aria-labelledby="website-dev-title">
+      <div class="hero-copy">
+        <span class="section-kicker">{meta.eyebrow}</span>
+        <h1 id="website-dev-title">{meta.h1}</h1>
+        <p>{meta.hero}</p>
+        <strong>{meta.signature}</strong>
+        <div class="hero-actions">
+          <a class="button button-primary" href={links.contact}>
+            {meta.primaryCta}
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href={links.work}>
+            {meta.secondaryCta}
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label={isEnglish ? 'Real Richmedia web project screens' : 'Écrans réels de projets web Richmedia'}>
+        <figure class="browser-frame">
+          <div class="browser-top" aria-hidden="true"><span></span><span></span><span></span></div>
+          <img
+            src="/assets/richmedia-realizations/euromed-refonte-site-web-2025.webp"
+            alt={isEnglish ? 'Real Euromed University website homepage redesigned by Richmedia' : 'Homepage réelle du site Université Euromed refondu par Richmedia'}
+            width="1920"
+            height="1080"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <figcaption>
+            <span>{isEnglish ? 'Real project' : 'Projet réel'}</span>
+            <strong>{isEnglish ? 'Euromed University website' : 'Site Université Euromed'}</strong>
+          </figcaption>
+        </figure>
+        <figure class="mobile-screen">
+          <img
+            src="/assets/richmedia-case-study/proof-parcours.webp"
+            alt={isEnglish ? 'Real mobile journey proof screen from a Richmedia case study' : 'Écran réel de parcours mobile issu d’un case study Richmedia'}
+            width="202"
+            height="282"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <figure class="dashboard-screen">
+          <img
+            src="/assets/richmedia-case-study/proof-dashboard.webp"
+            alt={isEnglish ? 'Real dashboard proof screen from a Richmedia project' : 'Écran réel de dashboard issu d’un projet Richmedia'}
+            width="461"
+            height="263"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </div>
+    </section>
+
+    <section class="intro-panel" aria-labelledby="intro-title">
+      <div>
+        <span class="section-kicker">{isEnglish ? 'Business first' : 'Business first'}</span>
+        <h2 id="intro-title">{intro.title}</h2>
+        <p>{intro.text}</p>
+      </div>
+      <ul>
+        {intro.bullets.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+
+    <section class="approach-section" aria-labelledby="approach-title">
+      <div class="section-heading">
+        <span class="section-kicker">{isEnglish ? 'Method' : 'Méthode'}</span>
+        <h2 id="approach-title">{isEnglish ? 'From strategy to launch' : 'De la stratégie au lancement'}</h2>
+      </div>
+      <div class="process-grid">
+        {approach.map((item) => (
+          <article>
+            <span>{item.step}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="types-section" aria-labelledby="types-title">
+      <div class="section-heading">
+        <span class="section-kicker">{isEnglish ? 'Use cases' : 'Formats'}</span>
+        <h2 id="types-title">{isEnglish ? 'Digital experiences built around business objectives' : 'Des expériences digitales adaptées à chaque objectif'}</h2>
+      </div>
+      <div class="types-grid">
+        {siteTypes.map((item) => (
+          <article>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="focus-grid" aria-label={isEnglish ? 'Website development pillars' : 'Piliers de création de site web'}>
+      {focusBlocks.map((item) => (
+        <article>
+          <span>{item.kicker}</span>
+          <h2>{item.title}</h2>
+          <p>{item.text}</p>
+          <a href={item.href}>{item.label}<i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </article>
+      ))}
+    </section>
+
+    <section class="conversion-flow" aria-labelledby="flow-title">
+      <div class="section-heading">
+        <span class="section-kicker">{isEnglish ? 'Conversion logic' : 'Logique de conversion'}</span>
+        <h2 id="flow-title">{isEnglish ? 'A clear path from visit to action' : 'Un chemin clair entre visite et action'}</h2>
+      </div>
+      <ol>
+        {(isEnglish ? ['Visitor', 'Understanding', 'Trust', 'Action'] : ['Visiteur', 'Compréhension', 'Confiance', 'Action']).map((item) => (
+          <li>{item}</li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="connected-section" aria-labelledby="connected-title">
+      <div class="section-heading">
+        <span class="section-kicker">CMS · CRM · SEO</span>
+        <h2 id="connected-title">{isEnglish ? 'Connected to your digital ecosystem' : 'Connecter le site à votre écosystème digital'}</h2>
+      </div>
+      <div class="connected-grid">
+        {connectedBlocks.map((item) => (
+          <article>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="inline-links" aria-label={isEnglish ? 'Related capabilities' : 'Expertises associées'}>
+        <a href={links.web}>{isEnglish ? 'Web & IS' : 'Web & SI'}</a>
+        <a href={links.crm}>{isEnglish ? 'CRM & automation' : 'CRM & automation'}</a>
+        <a href={links.whatsapp}>WhatsApp</a>
+        <a href={links.strategy}>{isEnglish ? 'Digital strategy' : 'Stratégie digitale'}</a>
+      </div>
+    </section>
+
+    <section class="market-panel" aria-labelledby="market-title">
+      <div>
+        <span class="section-kicker">{isEnglish ? 'Morocco market' : 'Marché marocain'}</span>
+        <h2 id="market-title">{isEnglish ? 'Web experiences built for the Moroccan market' : 'Créer un site adapté au marché marocain'}</h2>
+        <p>{marketText}</p>
+      </div>
+      {isEnglish && (
+        <aside>
+          <h3>Your web partner in Morocco</h3>
+          <p>
+            For international companies launching or expanding in Morocco, Richmedia can design and develop locally
+            relevant digital experiences while respecting global brand standards and technical requirements.
+          </p>
+        </aside>
+      )}
+    </section>
+
+    <section class="projects-section" aria-labelledby="projects-title">
+      <div class="section-heading">
+        <span class="section-kicker">{isEnglish ? 'Real work' : 'Réalisations'}</span>
+        <h2 id="projects-title">{isEnglish ? 'Digital experiences built for real brands' : 'Des expériences digitales conçues pour de vraies marques'}</h2>
+      </div>
+      <div class="project-grid">
+        {projects.map((project) => (
+          <a href={project.href} class="project-card">
+            <img
+              src={project.image}
+              alt={project.alt}
+              width={project.width}
+              height={project.height}
+              loading="lazy"
+              decoding="async"
+            />
+            <div>
+              <span>{project.type}</span>
+              <h3>{project.client}</h3>
+              <p>{project.text}</p>
+              <strong>{project.result}</strong>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="why-section" aria-labelledby="why-title">
+      <div class="section-heading">
+        <span class="section-kicker">{isEnglish ? 'Why Richmedia' : 'Pourquoi Richmedia'}</span>
+        <h2 id="why-title">
+          {isEnglish ? 'Why work with Richmedia for website development in Morocco?' : 'Pourquoi confier votre site web à Richmedia ?'}
+        </h2>
+      </div>
+      <div class="why-grid">
+        {why.map((item) => (
+          <article>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="collab-section" aria-labelledby="collab-title">
+      <div class="section-heading">
+        <span class="section-kicker">{isEnglish ? 'Collaboration' : 'Collaboration'}</span>
+        <h2 id="collab-title">{isEnglish ? 'How we build websites' : 'Comment se déroule un projet web ?'}</h2>
+      </div>
+      <ol class="collab-list">
+        {collaboration.map((item) => (
+          <li>
+            <span>{item.step}</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="section-heading">
+        <span class="section-kicker">FAQ</span>
+        <h2 id="faq-title">
+          {isEnglish ? 'Frequently asked questions about website development in Morocco' : 'Questions fréquentes sur la création de site web au Maroc'}
+        </h2>
+      </div>
+      <div class="faq-list">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="final-cta-title">
+      <span class="section-kicker">{isEnglish ? 'Next step' : 'Prochaine étape'}</span>
+      <h2 id="final-cta-title">{isEnglish ? 'Planning a new website in Morocco?' : 'Vous avez un projet de site web ?'}</h2>
+      <p>
+        {isEnglish
+          ? 'Let’s build a digital experience around your brand, your users and your business objectives.'
+          : 'Construisons une expérience digitale adaptée à votre marque, vos utilisateurs et vos objectifs business.'}
+      </p>
+      <a class="button button-primary" href={links.contact}>
+        {meta.primaryCta}
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <SeoSiloLinks
+      title={isEnglish ? 'Continue exploring web, SEO and conversion topics' : 'Continuer sur les sujets web, SEO et conversion'}
+      links={siloLinks}
+    />
+  </article>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    background: #020308;
+  }
+
+  .website-dev-page,
+  .website-dev-page * {
+    box-sizing: border-box;
+  }
+
+  .website-dev-page {
+    --bg: #020308;
+    --panel: rgba(16, 16, 25, 0.78);
+    --panel-strong: rgba(24, 21, 36, 0.92);
+    --line: rgba(255, 255, 255, 0.12);
+    --line-strong: rgba(137, 79, 255, 0.5);
+    --text: #ffffff;
+    --muted: rgba(255, 255, 255, 0.7);
+    --soft: rgba(255, 255, 255, 0.52);
+    --purple: #7c3cff;
+    --purple-light: #aa7bff;
+    --max: 1180px;
+    color: var(--text);
+    background:
+      linear-gradient(180deg, rgba(124, 60, 255, 0.14), rgba(2, 3, 8, 0) 420px),
+      radial-gradient(circle at 50% 0%, rgba(124, 60, 255, 0.16), transparent 42%),
+      var(--bg);
+    overflow: hidden;
+  }
+
+  .web-dev-hero,
+  .intro-panel,
+  .approach-section,
+  .types-section,
+  .focus-grid,
+  .conversion-flow,
+  .connected-section,
+  .market-panel,
+  .projects-section,
+  .why-section,
+  .collab-section,
+  .faq-section,
+  .final-cta {
+    width: min(var(--max), calc(100% - 40px));
+    margin-inline: auto;
+  }
+
+  .web-dev-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+    gap: clamp(28px, 5vw, 72px);
+    align-items: center;
+    min-height: calc(100svh - 78px);
+    padding: clamp(70px, 9vw, 128px) 0 clamp(44px, 7vw, 92px);
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--purple-light);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    content: "";
+    width: 54px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple-light), transparent);
+  }
+
+  .hero-copy h1 {
+    max-width: 720px;
+    margin: 22px 0 18px;
+    font-size: clamp(46px, 8vw, 92px);
+    line-height: 0.92;
+    letter-spacing: 0;
+  }
+
+  .hero-copy p {
+    max-width: 680px;
+    margin: 0;
+    color: var(--muted);
+    font-size: clamp(17px, 2vw, 21px);
+    line-height: 1.65;
+  }
+
+  .hero-copy strong {
+    display: block;
+    margin-top: 22px;
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .hero-actions,
+  .inline-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-actions {
+    margin-top: 30px;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 22px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .project-card:hover,
+  .project-card:focus-visible,
+  .focus-grid a:hover,
+  .focus-grid a:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    color: #fff;
+    background: linear-gradient(135deg, #9a58ff, #6c20ff);
+    box-shadow: 0 18px 50px rgba(124, 60, 255, 0.28);
+  }
+
+  .button-secondary {
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .hero-visual {
+    position: relative;
+    min-height: 540px;
+  }
+
+  .browser-frame,
+  .mobile-screen,
+  .dashboard-screen {
+    margin: 0;
+    border: 1px solid var(--line-strong);
+    background: rgba(9, 9, 15, 0.88);
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+  }
+
+  .browser-frame {
+    position: relative;
+    border-radius: 16px;
+  }
+
+  .browser-top {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    height: 38px;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .browser-top span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.32);
+  }
+
+  .browser-frame img,
+  .project-card img,
+  .mobile-screen img,
+  .dashboard-screen img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .browser-frame img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .browser-frame figcaption {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    display: grid;
+    gap: 4px;
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    background: rgba(2, 3, 8, 0.72);
+    backdrop-filter: blur(16px);
+  }
+
+  .browser-frame figcaption span,
+  .focus-grid span,
+  .project-card span {
+    color: var(--purple-light);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .browser-frame figcaption strong {
+    font-size: 15px;
+  }
+
+  .mobile-screen {
+    position: absolute;
+    right: -18px;
+    bottom: 54px;
+    width: min(34%, 170px);
+    border-radius: 22px;
+    aspect-ratio: 202 / 282;
+  }
+
+  .dashboard-screen {
+    position: absolute;
+    left: -22px;
+    bottom: 2px;
+    width: min(48%, 290px);
+    border-radius: 12px;
+    aspect-ratio: 461 / 263;
+  }
+
+  .section-heading {
+    display: grid;
+    gap: 14px;
+    max-width: 820px;
+    margin-bottom: 28px;
+  }
+
+  .section-heading h2,
+  .intro-panel h2,
+  .focus-grid h2,
+  .market-panel h2,
+  .final-cta h2 {
+    margin: 0;
+    font-size: clamp(30px, 5vw, 56px);
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  .intro-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.58fr);
+    gap: 32px;
+    align-items: end;
+    padding: clamp(28px, 4vw, 44px);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(29, 23, 48, 0.88), rgba(7, 8, 13, 0.92));
+  }
+
+  .intro-panel p,
+  .focus-grid p,
+  .connected-section p,
+  .market-panel p,
+  .why-grid p,
+  .collab-list p,
+  .faq-list p,
+  .final-cta p,
+  .types-grid p,
+  .process-grid p,
+  .project-card p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .intro-panel p {
+    max-width: 840px;
+    font-size: 17px;
+  }
+
+  .intro-panel ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .intro-panel li,
+  .inline-links a {
+    border: 1px solid rgba(124, 60, 255, 0.42);
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(124, 60, 255, 0.1);
+    text-decoration: none;
+  }
+
+  .intro-panel li {
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .approach-section,
+  .types-section,
+  .focus-grid,
+  .conversion-flow,
+  .connected-section,
+  .market-panel,
+  .projects-section,
+  .why-section,
+  .collab-section,
+  .faq-section,
+  .final-cta {
+    padding-top: clamp(64px, 9vw, 110px);
+  }
+
+  .process-grid,
+  .types-grid,
+  .connected-grid,
+  .why-grid,
+  .project-grid {
+    display: grid;
+    gap: 14px;
+  }
+
+  .process-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .types-grid,
+  .why-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .process-grid article,
+  .types-grid article,
+  .focus-grid article,
+  .connected-grid article,
+  .why-grid article,
+  .collab-list li,
+  .faq-list details,
+  .market-panel,
+  .final-cta {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+  }
+
+  .process-grid article,
+  .types-grid article,
+  .connected-grid article,
+  .why-grid article {
+    padding: 22px;
+  }
+
+  .process-grid article > span {
+    display: inline-block;
+    margin-bottom: 48px;
+    color: var(--purple-light);
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+  }
+
+  .process-grid h3,
+  .types-grid h3,
+  .connected-grid h3,
+  .why-grid h3,
+  .collab-list h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    line-height: 1.15;
+  }
+
+  .types-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .focus-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .focus-grid article {
+    display: grid;
+    gap: 18px;
+    padding: clamp(24px, 4vw, 38px);
+    min-height: 310px;
+  }
+
+  .focus-grid a {
+    align-self: end;
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform 180ms ease;
+  }
+
+  .conversion-flow {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1fr);
+    gap: 28px;
+    align-items: center;
+  }
+
+  .conversion-flow ol {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .conversion-flow li {
+    min-height: 120px;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(124, 60, 255, 0.22), rgba(255, 255, 255, 0.04));
+    text-align: center;
+    font-weight: 900;
+  }
+
+  .connected-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .inline-links {
+    margin-top: 18px;
+  }
+
+  .inline-links a {
+    padding: 9px 13px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .market-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+    gap: 24px;
+    padding: clamp(28px, 4vw, 44px);
+    background:
+      linear-gradient(135deg, rgba(124, 60, 255, 0.18), rgba(255, 255, 255, 0.02)),
+      var(--panel-strong);
+  }
+
+  .market-panel aside {
+    align-self: stretch;
+    padding: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    background: rgba(2, 3, 8, 0.44);
+  }
+
+  .market-panel h3 {
+    margin: 0 0 12px;
+    font-size: 22px;
+  }
+
+  .project-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .project-card {
+    display: grid;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: #fff;
+    background: rgba(12, 12, 18, 0.88);
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  .project-card:hover,
+  .project-card:focus-visible {
+    border-color: var(--line-strong);
+  }
+
+  .project-card img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .project-card div {
+    display: grid;
+    gap: 10px;
+    padding: 18px;
+  }
+
+  .project-card h3 {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1;
+  }
+
+  .project-card strong {
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .collab-list,
+  .faq-list {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .collab-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .collab-list li {
+    padding: 20px;
+  }
+
+  .collab-list span {
+    display: inline-block;
+    margin-bottom: 42px;
+    color: var(--purple-light);
+    font-weight: 900;
+    letter-spacing: 0.16em;
+  }
+
+  .faq-list details {
+    padding: 0;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    padding: 20px 22px;
+    font-size: 18px;
+    font-weight: 900;
+    list-style: none;
+  }
+
+  .faq-list summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-list p {
+    padding: 0 22px 20px;
+  }
+
+  .final-cta {
+    display: grid;
+    justify-items: start;
+    gap: 18px;
+    margin-bottom: clamp(56px, 8vw, 96px);
+    padding: clamp(28px, 5vw, 48px);
+    background: linear-gradient(135deg, rgba(74, 25, 150, 0.78), rgba(19, 18, 30, 0.92));
+  }
+
+  .final-cta p {
+    max-width: 780px;
+    font-size: 18px;
+  }
+
+  @media (max-width: 1100px) {
+    .web-dev-hero,
+    .intro-panel,
+    .conversion-flow,
+    .market-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .web-dev-hero {
+      min-height: auto;
+    }
+
+    .hero-visual {
+      min-height: 460px;
+    }
+
+    .process-grid,
+    .types-grid,
+    .project-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .why-grid,
+    .connected-grid,
+    .collab-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .web-dev-hero,
+    .intro-panel,
+    .approach-section,
+    .types-section,
+    .focus-grid,
+    .conversion-flow,
+    .connected-section,
+    .market-panel,
+    .projects-section,
+    .why-section,
+    .collab-section,
+    .faq-section,
+    .final-cta {
+      width: min(100% - 28px, var(--max));
+    }
+
+    .web-dev-hero {
+      padding-top: 42px;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(42px, 15vw, 64px);
+    }
+
+    .hero-actions,
+    .hero-actions .button {
+      width: 100%;
+    }
+
+    .hero-visual {
+      min-height: 355px;
+    }
+
+    .mobile-screen {
+      right: 8px;
+      bottom: 22px;
+      width: 24%;
+      min-width: 78px;
+      border-radius: 14px;
+    }
+
+    .dashboard-screen {
+      left: 10px;
+      bottom: 0;
+      width: 48%;
+    }
+
+    .browser-frame figcaption {
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+    }
+
+    .intro-panel {
+      padding: 22px;
+    }
+
+    .intro-panel ul {
+      justify-content: flex-start;
+    }
+
+    .process-grid,
+    .types-grid,
+    .focus-grid,
+    .project-grid,
+    .why-grid,
+    .connected-grid,
+    .collab-list,
+    .conversion-flow ol {
+      grid-template-columns: 1fr;
+    }
+
+    .focus-grid article {
+      min-height: 0;
+    }
+
+    .conversion-flow li {
+      min-height: 78px;
+    }
+
+    .project-card h3 {
+      font-size: 22px;
+    }
+
+    .faq-list summary {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .hero-copy strong {
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .hero-visual {
+      min-height: 310px;
+    }
+
+    .browser-top {
+      height: 30px;
+    }
+
+    .section-kicker {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+    }
+
+    .section-kicker::before {
+      width: 36px;
+    }
+
+    .section-heading h2,
+    .intro-panel h2,
+    .focus-grid h2,
+    .market-panel h2,
+    .final-cta h2 {
+      font-size: 30px;
+    }
+  }
+</style>

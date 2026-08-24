@@ -1,0 +1,994 @@
+---
+import Faq from '../components/Faq.astro';
+import ParticleLogoSlide from '../components/ParticleLogoSlide.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { BUSINESS, BUSINESS_ADDRESS, SITE } from '../consts';
+import { breadcrumbs, faqSchema, localBusiness, serviceSchema } from '../lib/schema';
+
+const pagePath = '/agence-de-communication-casablanca';
+const pageUrl = `${SITE.url}${pagePath}`;
+const title = 'Agence de communication à Casablanca | Richmedia';
+const description =
+  'Richmedia, agence de communication à Casablanca : stratégie, branding, social media, influence, media, web, data et IA. Découvrez nos réalisations.';
+
+const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4');
+
+const heroImages = [
+  {
+    src: '/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-triptych.webp',
+    alt: 'Campagne Prestigia Riad Al Andalous par Richmedia',
+    width: 1894,
+    height: 1074,
+  },
+  {
+    src: '/assets/richmedia-home/campaign-wide-donsimon.webp',
+    alt: 'Campagne Don Simon par Richmedia',
+    width: 1600,
+    height: 900,
+  },
+  {
+    src: '/assets/richmedia-realizations/maserati-levante-push-whatsapp.webp',
+    alt: 'Campagne Maserati Levante WhatsApp par Richmedia',
+    width: 960,
+    height: 1200,
+  },
+];
+
+const metrics = [
+  { icon: 'ph ph-chart-line-up', value: '+156', label: 'projets réalisés', text: 'pour des marques locales, nationales et internationales.' },
+  { icon: 'ph ph-users-three', value: '+117', label: 'clients accompagnés', text: 'dans des secteurs exigeants.' },
+  { icon: 'ph ph-certificate', value: String(BUSINESS.accreditations.length), label: 'accréditations', text: 'Google, Meta, HubSpot, IAB, Semrush et Analytics.' },
+];
+
+const expertises = [
+  {
+    href: '/expertises/strategie-digitale',
+    icon: 'ph ph-target',
+    label: 'Stratégie & Branding',
+    text: 'Positionnement de marque, campagnes créatives, identité visuelle, brand content et production.',
+  },
+  {
+    href: '/expertises/influence',
+    icon: 'ph ph-users-three',
+    label: 'Social, Influence & UGC',
+    text: 'Stratégie social media, community management, contenu, influence, UGC, e-réputation et social listening.',
+  },
+  {
+    href: '/expertises/media-performance',
+    icon: 'ph ph-chart-line-up',
+    label: 'Media & Performance',
+    text: 'Meta Ads, Google Ads, TikTok Ads, génération de leads, acquisition et optimisation du ROI.',
+  },
+  {
+    href: '/expertises/ia-automation',
+    icon: 'ph ph-cpu',
+    label: 'Tech, IA & Expérience',
+    text: 'Sites web, UX/UI, CRM, WhatsApp Business, chatbots, marketing automation et IA.',
+  },
+];
+
+const whyRichmedia = [
+  {
+    icon: 'ph ph-sparkle',
+    title: 'Créativité + performance',
+    text: 'Chaque dispositif relie idée créative, parcours et objectifs mesurables.',
+  },
+  {
+    icon: 'ph ph-circles-three-plus',
+    title: 'Une équipe intégrée',
+    text: 'Stratégie, création, media, influence, technologie et data avancent ensemble.',
+  },
+  {
+    icon: 'ph ph-map-pin',
+    title: 'Marché marocain',
+    text: 'Les usages, plateformes et spécificités locales nourrissent nos recommandations.',
+  },
+  {
+    icon: 'ph ph-brain',
+    title: 'Data & technologie',
+    text: 'Automatisation, IA et reporting renforcent la performance des activations.',
+  },
+];
+
+const works = [
+  {
+    href: '/realisations/prestigia-riad-al-andalous-acquisition-2026',
+    image: '/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-triptych.webp',
+    width: 1894,
+    height: 1074,
+    category: 'Immobilier',
+    client: 'Prestigia',
+    title: 'Riad Al Andalous',
+  },
+  {
+    href: '/realisations/don-simon-back-to-school-2025',
+    image: '/assets/richmedia-home/campaign-wide-donsimon.webp',
+    width: 1600,
+    height: 900,
+    category: 'Food & Beverage',
+    client: 'Don Simon',
+    title: 'Back to School',
+  },
+  {
+    href: '/realisations/maserati-levante-whatsapp-leads-2025',
+    image: '/assets/richmedia-realizations/maserati-levante-push-whatsapp.webp',
+    width: 960,
+    height: 1200,
+    category: 'Automobile',
+    client: 'Maserati',
+    title: 'Levante WhatsApp leads',
+  },
+  {
+    href: '/realisations/amana-tramway-phygital-2022',
+    image: '/assets/richmedia-home/campaign-wide-amana-tram.webp',
+    width: 1600,
+    height: 900,
+    category: 'Mobilité',
+    client: 'Amana / Tramway',
+    title: 'Activation phygitale',
+  },
+];
+
+const process = [
+  { number: '01', title: 'Comprendre', text: 'Objectifs, marché, audiences et concurrence.' },
+  { number: '02', title: 'Concevoir', text: 'Stratégie, concept, contenus et parcours.' },
+  { number: '03', title: 'Déployer', text: 'Media, social, influence, web et activations.' },
+  { number: '04', title: 'Mesurer & optimiser', text: 'Data, reporting, optimisation et ROI.' },
+];
+
+const faq = [
+  {
+    question: 'Quels services propose une agence de communication à Casablanca ?',
+    answer:
+      'Une agence accompagne généralement la stratégie, l’identité de marque, la création de contenu, le social media, l’influence, l’achat média, le web et la mesure des performances.',
+  },
+  {
+    question: 'Comment choisir une agence de communication à Casablanca ?',
+    answer:
+      'Regardez la qualité des réalisations, la clarté de la méthode, la capacité à mesurer les résultats et la compréhension de votre marché, de vos audiences et de vos objectifs business.',
+  },
+  {
+    question: 'Quelle est la différence entre une agence de communication et une agence digitale ?',
+    answer:
+      'Une agence de communication travaille la marque, les messages et les campagnes. Une agence digitale ajoute les leviers web, data, media, CRM, automation et performance en ligne.',
+  },
+  {
+    question: 'Richmedia accompagne-t-elle les entreprises en dehors de Casablanca ?',
+    answer:
+      'Oui. Richmedia accompagne des marques au Maroc et à l’international, avec une présence à Casablanca, Dubaï, Montréal et Strasbourg.',
+  },
+  {
+    question: 'Richmedia gère-t-elle les campagnes Meta Ads et Google Ads ?',
+    answer:
+      'Oui. Les équipes Richmedia pilotent les campagnes Meta Ads, Google Ads et autres leviers media avec tracking, optimisation continue et reporting.',
+  },
+];
+
+const schema = [
+  localBusiness(),
+  serviceSchema({ name: 'Agence de communication à Casablanca', description, url: pageUrl }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: "L'agence", url: `${SITE.url}/agence` },
+    { name: 'Agence de communication à Casablanca', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={pageUrl}
+  ogImage="/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-triptych.webp"
+  schema={schema}
+>
+  <article class="casablanca-page">
+    <section class="casablanca-hero" aria-labelledby="casablanca-title">
+      <div class="casablanca-hero-copy">
+        <span class="section-kicker">Agence locale, impact mesurable</span>
+        <h1 id="casablanca-title">Agence de communication à Casablanca</h1>
+        <p>
+          Richmedia accompagne les marques et entreprises à Casablanca dans leur stratégie de communication, leur
+          acquisition digitale, leur création de contenu et leur transformation digitale.
+        </p>
+        <strong class="hero-signature">Stratégie · Création · Social Media · Influence · Media · Tech & IA</strong>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/contact">
+            Parler à un expert
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/realisations">
+            Voir nos réalisations
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-gallery" aria-label="Réalisations Richmedia">
+        {heroImages.map((image, index) => (
+          <figure class:list={['hero-card', index === 0 && 'hero-card-main']}>
+            <img
+              src={image.src}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              fetchpriority={index === 0 ? 'high' : 'low'}
+              sizes="(max-width: 760px) 88vw, (max-width: 1100px) 42vw, 360px"
+            />
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section class="proof-section" aria-labelledby="proof-title">
+      <div class="section-intro">
+        <span class="section-kicker">Depuis Casablanca</span>
+        <h2 id="proof-title">Une agence de communication basée à Casablanca</h2>
+        <p>
+          Depuis Casablanca, Richmedia accompagne entreprises, institutions et marques dans la conception et le
+          déploiement de stratégies de communication orientées croissance. Notre approche réunit conseil, création,
+          média, influence, technologie et data au sein d'une même équipe.
+        </p>
+      </div>
+      <div class="metrics-grid" aria-label="Preuves Richmedia">
+        {metrics.map((metric) => (
+          <article>
+            <i class={metric.icon} aria-hidden="true"></i>
+            <strong>{metric.value}</strong>
+            <span>{metric.label}</span>
+            <p>{metric.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="expertise-section" aria-labelledby="expertise-title">
+      <div class="section-intro compact">
+        <span class="section-kicker">Expertises</span>
+        <h2 id="expertise-title">Une agence de communication 360° à Casablanca</h2>
+      </div>
+      <div class="expertise-grid">
+        {expertises.map((expertise) => (
+          <a class="expertise-card" href={expertise.href}>
+            <i class={expertise.icon} aria-hidden="true"></i>
+            <h3>{expertise.label}</h3>
+            <p>{expertise.text}</p>
+            <span>Découvrir <i class="ph ph-arrow-up-right" aria-hidden="true"></i></span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="why-section" aria-labelledby="why-title">
+      <div class="section-intro">
+        <span class="section-kicker">Pourquoi Richmedia</span>
+        <h2 id="why-title">Plus qu'une agence de communication. Un partenaire de croissance.</h2>
+      </div>
+      <div class="why-grid">
+        {whyRichmedia.map((item) => (
+          <article>
+            <i class={item.icon} aria-hidden="true"></i>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="work-section" aria-labelledby="work-title">
+      <div class="section-intro compact">
+        <span class="section-kicker">Réalisations</span>
+        <h2 id="work-title">Des campagnes qui parlent mieux que nous</h2>
+      </div>
+      <div class="work-grid">
+        {works.map((work) => (
+          <a class="work-card" href={work.href} aria-label={`Voir la réalisation ${work.client}`}>
+            <img
+              src={work.image}
+              alt={`Campagne ${work.client} — ${work.title}`}
+              width={work.width}
+              height={work.height}
+              loading="lazy"
+              decoding="async"
+              sizes="(max-width: 760px) 92vw, (max-width: 1100px) 45vw, 25vw"
+            />
+            <span>{work.category}</span>
+            <div>
+              <strong>{work.client}</strong>
+              <small>{work.title}</small>
+            </div>
+          </a>
+        ))}
+      </div>
+      <a class="text-link" href="/realisations">
+        Voir toutes les réalisations
+        <i class="ph ph-arrow-right" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <section class="editorial-section" aria-labelledby="local-title">
+      <div>
+        <span class="section-kicker">Marché local</span>
+        <h2 id="local-title">Communiquer à Casablanca : un marché aussi stratégique que concurrentiel</h2>
+        <div class="editorial-particle-logo" aria-hidden="true">
+          <ParticleLogoSlide />
+        </div>
+      </div>
+      <p>
+        Casablanca concentre une grande partie des sièges sociaux, enseignes, startups, institutions et directions
+        marketing du Maroc. Dans cet environnement dense, capter l'attention ne dépend plus seulement d'une bonne idée :
+        il faut une stratégie capable de relier la création, la connaissance des audiences, le ciblage, les canaux média
+        et la mesure des résultats. Une campagne efficace doit comprendre les usages réels des consommateurs, adapter les
+        messages aux plateformes, produire des contenus utiles et piloter les budgets avec précision. Pour une marque qui
+        cherche à émerger, la cohérence entre identité, social media, influence, web, data et performance devient un
+        avantage décisif. C'est dans cette logique que Richmedia construit ses dispositifs : partir du marché, clarifier
+        les objectifs, choisir les bons leviers, puis optimiser en continu ce qui crée de la visibilité, de la confiance
+        et des opportunités commerciales.
+      </p>
+    </section>
+
+    <section class="method-section" aria-labelledby="method-title">
+      <div class="section-intro compact">
+        <span class="section-kicker">Méthode</span>
+        <h2 id="method-title">De la stratégie aux résultats</h2>
+      </div>
+      <ol class="method-grid">
+        {process.map((step) => (
+          <li>
+            <span>{step.number}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="faq-section">
+      <Faq faq={faq} title="Questions fréquentes sur les agences de communication à Casablanca" emitSchema={false} />
+    </section>
+
+    <section class="contact-section" aria-labelledby="contact-title">
+      <div class="section-intro">
+        <span class="section-kicker">Contact local</span>
+        <h2 id="contact-title">Votre agence de communication à Casablanca</h2>
+        <p>
+          Rencontrons-nous pour cadrer votre stratégie, vos campagnes et les leviers prioritaires selon vos objectifs.
+        </p>
+      </div>
+      <address class="contact-panel">
+        <strong>{SITE.name}</strong>
+        <span>{BUSINESS_ADDRESS.street}</span>
+        <span>{BUSINESS_ADDRESS.city} {BUSINESS_ADDRESS.postalCode} — Maroc</span>
+        <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
+        <a href={`tel:${BUSINESS.tels[0]}`}>{formatPhone(BUSINESS.tels[0])}</a>
+      </address>
+      <a class="button button-primary" href="/contact">
+        Parler à un expert
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <section class="final-cta" aria-labelledby="final-cta-title">
+      <div>
+        <h2 id="final-cta-title">Vous avez un projet de communication à Casablanca ?</h2>
+        <p>Parlons de vos objectifs, de votre marché et des résultats que vous souhaitez atteindre.</p>
+      </div>
+      <a class="button button-primary" href="/contact">
+        Parler à un expert
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .casablanca-page {
+    --purple: #8c52ff;
+    --purple-soft: #b985ff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(232, 237, 245, 0.72);
+    width: min(100% - 3rem, 1320px);
+    margin: 0 auto;
+    padding: clamp(8rem, 9vw, 9.8rem) 0 clamp(3rem, 6vw, 5rem);
+    color: #fff;
+  }
+
+  .casablanca-hero,
+  .proof-section,
+  .why-section,
+  .editorial-section,
+  .contact-section,
+  .final-cta {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 12% 0%, rgba(140, 82, 255, 0.25), transparent 28rem),
+      linear-gradient(145deg, rgba(13, 14, 23, 0.9), rgba(7, 8, 13, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .casablanca-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+    min-height: clamp(34rem, 54vw, 45rem);
+    padding: clamp(1.2rem, 4vw, 3.6rem);
+    overflow: hidden;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.1rem;
+    color: var(--purple-soft);
+    font-size: 1.0625rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    display: inline-block;
+    width: 1.55rem;
+    height: 1px;
+    background: var(--purple);
+    content: "";
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    letter-spacing: 0;
+  }
+
+  .casablanca-hero h1 {
+    max-width: 40rem;
+    font-size: clamp(3.05rem, 6.1vw, 6rem);
+    line-height: 0.96;
+  }
+
+  .casablanca-hero-copy p {
+    max-width: 36rem;
+    margin: 1.45rem 0 0;
+    color: var(--muted);
+    font-size: 1.0625rem;
+    line-height: 1.78;
+  }
+
+  .hero-signature {
+    display: block;
+    max-width: 34rem;
+    margin-top: 1.4rem;
+    color: #fff;
+    font-size: 0.86rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    line-height: 1.6;
+    text-transform: uppercase;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3.4rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0.95rem 1.35rem;
+    color: #fff;
+    font-weight: 900;
+    line-height: 1.1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    box-shadow: 0 1rem 2.5rem rgba(124, 60, 255, 0.28);
+  }
+
+  .button-secondary {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .hero-gallery {
+    display: grid;
+    grid-template-columns: 1fr 0.78fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .hero-card {
+    position: relative;
+    min-height: 13rem;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    background: #050609;
+    box-shadow: 0 1.4rem 4rem rgba(0, 0, 0, 0.35);
+  }
+
+  .hero-card-main {
+    grid-row: span 2;
+    min-height: 29rem;
+  }
+
+  .hero-card img,
+  .work-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-card::after,
+  .work-card::after {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.72)),
+      radial-gradient(circle at 22% 20%, rgba(124, 60, 255, 0.18), transparent 42%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .proof-section,
+  .why-section,
+  .contact-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+    margin-top: 1.35rem;
+    padding: clamp(1.35rem, 4vw, 3rem);
+  }
+
+  .section-intro h2,
+  .editorial-section h2,
+  .final-cta h2 {
+    max-width: 54rem;
+    font-size: clamp(2.1rem, 4.6vw, 4.5rem);
+    line-height: 0.98;
+  }
+
+  .section-intro p,
+  .editorial-section p,
+  .contact-section p,
+  .final-cta p {
+    max-width: 48rem;
+    margin: 1.2rem 0 0;
+    color: var(--muted);
+    font-size: 1.0625rem;
+    line-height: 1.78;
+  }
+
+  .compact {
+    margin-bottom: clamp(1.2rem, 3vw, 2rem);
+  }
+
+  .metrics-grid,
+  .expertise-grid,
+  .why-grid,
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .metrics-grid article,
+  .expertise-card,
+  .why-grid article,
+  .method-grid li {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(140, 82, 255, 0.18), transparent 16rem),
+      rgba(255, 255, 255, 0.025);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .metrics-grid article {
+    padding: 1.15rem;
+  }
+
+  .metrics-grid i,
+  .expertise-card > i,
+  .why-grid i {
+    display: grid;
+    width: 2.55rem;
+    height: 2.55rem;
+    place-items: center;
+    border: 1px solid rgba(140, 82, 255, 0.45);
+    border-radius: 8px;
+    background: rgba(140, 82, 255, 0.12);
+    color: var(--purple-soft);
+    font-size: 1.15rem;
+  }
+
+  .metrics-grid strong {
+    display: block;
+    margin-top: 1.6rem;
+    color: var(--purple);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.7rem);
+    line-height: 0.8;
+  }
+
+  .metrics-grid span {
+    display: block;
+    margin-top: 0.8rem;
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .metrics-grid p,
+  .expertise-card p,
+  .why-grid p,
+  .method-grid p {
+    margin: 0.6rem 0 0;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.96rem;
+    line-height: 1.62;
+  }
+
+  .expertise-section,
+  .work-section,
+  .method-section,
+  .faq-section {
+    margin-top: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  .expertise-card {
+    display: grid;
+    min-height: 17rem;
+    padding: 1.25rem;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .expertise-card:hover,
+  .work-card:hover,
+  .text-link:hover {
+    border-color: rgba(185, 133, 255, 0.5);
+    transform: translateY(-3px);
+  }
+
+  .expertise-card h3,
+  .why-grid h3,
+  .method-grid h3 {
+    margin-top: 1rem;
+    color: #fff;
+    font-size: 1.35rem;
+    line-height: 1.15;
+  }
+
+  .expertise-card span,
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    align-self: end;
+    margin-top: 1.2rem;
+    color: var(--purple-soft);
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .why-grid article {
+    min-height: 13rem;
+    padding: 1.25rem;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .work-card {
+    position: relative;
+    min-height: 24rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #050609;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  .work-card > span,
+  .work-card > div {
+    position: absolute;
+    z-index: 1;
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .work-card > span {
+    top: 1rem;
+    width: fit-content;
+    max-width: calc(100% - 2rem);
+    border-radius: 6px;
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    padding: 0.55rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .work-card > div {
+    bottom: 1rem;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .work-card strong {
+    font-size: 1.45rem;
+    line-height: 1.1;
+  }
+
+  .work-card small {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.92rem;
+  }
+
+  .work-section > .text-link {
+    margin-top: 1.3rem;
+  }
+
+  .editorial-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: clamp(3.5rem, 7vw, 6rem);
+    padding: clamp(1.35rem, 4vw, 3rem);
+  }
+
+  .editorial-section p {
+    margin: 0;
+  }
+
+  .editorial-particle-logo {
+    position: relative;
+    min-height: clamp(9rem, 16vw, 13rem);
+    margin-top: clamp(1.15rem, 2.4vw, 1.8rem);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #000;
+  }
+
+  .method-grid {
+    padding: 0;
+    list-style: none;
+  }
+
+  .method-grid li {
+    min-height: 14rem;
+    padding: 1.3rem;
+  }
+
+  .method-grid span {
+    color: var(--purple-soft);
+    font-size: 0.96rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+  }
+
+  .contact-panel {
+    display: grid;
+    gap: 0.4rem;
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.025);
+    font-style: normal;
+  }
+
+  .contact-panel strong {
+    color: #fff;
+    font-size: 1.2rem;
+  }
+
+  .contact-panel span,
+  .contact-panel a {
+    color: rgba(255, 255, 255, 0.72);
+    overflow-wrap: anywhere;
+    text-decoration: none;
+  }
+
+  .contact-panel a:hover {
+    color: #fff;
+  }
+
+  .contact-section .button {
+    width: fit-content;
+    align-self: end;
+  }
+
+  .final-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: clamp(3.5rem, 7vw, 6rem);
+    padding: clamp(1.35rem, 4vw, 3rem);
+  }
+
+  .final-cta p {
+    max-width: 44rem;
+  }
+
+  @media (max-width: 1100px) {
+    .casablanca-hero,
+    .proof-section,
+    .why-section,
+    .editorial-section,
+    .contact-section,
+    .final-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-gallery,
+    .expertise-grid,
+    .why-grid,
+    .work-grid,
+    .method-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .metrics-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .hero-card-main {
+      min-height: 22rem;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .casablanca-page {
+      width: min(100% - 1rem, 1320px);
+      padding-top: 5.9rem;
+    }
+
+    .casablanca-hero {
+      gap: 1.35rem;
+      min-height: 0;
+      padding: 1rem;
+    }
+
+    .section-kicker {
+      gap: 0.55rem;
+      margin-bottom: 0.85rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+    }
+
+    .section-kicker::before {
+      width: 1.2rem;
+    }
+
+    .casablanca-hero h1 {
+      font-size: clamp(2.55rem, 13vw, 3.85rem);
+      line-height: 0.98;
+    }
+
+    .casablanca-hero-copy p,
+    .section-intro p,
+    .editorial-section p,
+    .contact-section p,
+    .final-cta p {
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .hero-signature {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-actions,
+    .final-cta .button,
+    .contact-section .button {
+      display: grid;
+      width: 100%;
+    }
+
+    .button {
+      width: 100%;
+      min-height: 3.35rem;
+      padding-inline: 0.95rem;
+      white-space: normal;
+      text-align: center;
+    }
+
+    .hero-gallery,
+    .metrics-grid,
+    .expertise-grid,
+    .why-grid,
+    .work-grid,
+    .method-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-card,
+    .hero-card-main {
+      min-height: 14rem;
+    }
+
+    .proof-section,
+    .why-section,
+    .editorial-section,
+    .contact-section,
+    .final-cta {
+      padding: 1rem;
+    }
+
+    .section-intro h2,
+    .editorial-section h2,
+    .final-cta h2 {
+      font-size: clamp(2rem, 10vw, 3rem);
+      line-height: 1;
+    }
+
+    .work-card {
+      min-height: 18rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .casablanca-page {
+      width: min(100% - 0.75rem, 1320px);
+    }
+
+    .casablanca-hero,
+    .proof-section,
+    .why-section,
+    .editorial-section,
+    .contact-section,
+    .final-cta {
+      padding: 0.85rem;
+    }
+  }
+</style>

@@ -145,6 +145,9 @@ const staticLastmodRoutes = [
   '/expertises/influence-marketing-maroc/',
   '/expertises/social-listening-maroc/',
   '/expertises/geofencing-drive-to-store-maroc/',
+  '/agence-seo-maroc/',
+  '/publicite-en-ligne-maroc/',
+  '/creation-site-web-maroc/',
   '/en/tools/',
   '/en/tools/media-budget-leads-calculator/',
   '/en/tools/whatsapp-campaign-estimator/',
@@ -163,6 +166,9 @@ const staticLastmodRoutes = [
   '/en/expertises/influencer-marketing-morocco/',
   '/en/expertises/social-listening-morocco/',
   '/en/expertises/geofencing-drive-to-store-morocco/',
+  '/seo-agency-morocco/',
+  '/online-advertising-morocco/',
+  '/website-development-morocco/',
 ];
 const staticLastmodByUrl = new Map(
   staticLastmodRoutes.flatMap((route) => {

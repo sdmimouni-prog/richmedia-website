@@ -28,6 +28,7 @@ export const frSiloLinks = {
     { href: "/secteurs", label: "Secteurs", text: "Décliner la feuille de route selon votre marché." },
   ],
   media: [
+    { href: "/publicite-en-ligne-maroc", label: "Publicité en ligne au Maroc", text: "Landing nationale pour cadrer Google Ads, Meta Ads, TikTok, display, tracking et reporting." },
     { href: "/expertises/strategie-digitale", label: "Stratégie digitale", text: "Cadrer les objectifs, audiences, budgets et indicateurs." },
     { href: "/expertises/achat-media", label: "Paid social & achat média", text: "Transformer Meta, TikTok et LinkedIn en leviers de leads et de ventes." },
     { href: "/expertises/google-ads-maroc", label: "Google Ads Maroc", text: "Capter les intentions actives avec Search, PMax, tracking et landing pages." },
@@ -40,6 +41,7 @@ export const frSiloLinks = {
     { href: "/realisations", label: "Réalisations média", text: "Parcourir les campagnes et résultats visibles." },
   ],
   seo: [
+    { href: "/agence-seo-maroc", label: "Agence SEO au Maroc", text: "Approche agence pour audit, SEO local, reporting et croissance organique au Maroc." },
     { href: "/expertises/strategie-digitale", label: "Stratégie digitale", text: "Aligner SEO, GEO, contenu et acquisition." },
     { href: "/agence", label: "Agence digitale Casablanca", text: "Relier référencement, marque, acquisition et preuve locale." },
     { href: "/expertises/web-si", label: "Web & SI", text: "Optimiser les socles techniques et les parcours." },
@@ -76,12 +78,16 @@ export const frSiloLinks = {
     { href: "/contact", label: "Démarrer une automation IA", text: "Cadrer vos workflows, triggers et scénarios de conversion." },
   ],
   web: [
+    { href: "/creation-site-web-maroc", label: "Création de site web au Maroc", text: "Landing nationale pour cadrer UX/UI, design, développement, SEO, performance et conversion." },
     { href: "/expertises/referencement-seo", label: "SEO / GEO", text: "Construire des pages visibles, rapides et indexables." },
     { href: "/expertises/ia-automation", label: "IA & automation", text: "Brancher le site aux outils métier et CRM." },
     { href: "/expertises/strategie-digitale", label: "Stratégie digitale", text: "Prioriser les parcours et les contenus à créer." },
     { href: "/produits/hypeo", label: "Hypeo", text: "Découvrir un produit orienté performance et activation." },
   ],
   influence: [
+    { href: "/gestion-reseaux-sociaux-maroc", label: "Gestion des réseaux sociaux au Maroc", text: "Piloter stratégie éditoriale, contenus, community management, modération et reporting." },
+    { href: "/marketing-influence-maroc", label: "Marketing d’influence au Maroc", text: "Comprendre l’approche marché : créateurs, micro/nano, UGC, villes et amplification." },
+    { href: "/expertises/influence", label: "Social, Influence & UGC", text: "Page service pour casting créateurs, UGC, briefs et pilotage de campagne." },
     { href: "/expertises/influence-marketing-maroc", label: "Influence Marketing Maroc", text: "Structurer casting, brief, UGC, amplification paid et mesure." },
     { href: "/expertises/social-media-maroc", label: "Social Media Maroc", text: "Relier stratégie éditoriale, community management, contenus et performance." },
     { href: "/expertises/social-listening-maroc", label: "Social Listening Maroc", text: "Transformer conversations, réputation et tendances en décisions." },
@@ -148,6 +154,7 @@ export const enSiloLinks = {
     { href: "/en/sectors", label: "Industries", text: "Adapt the roadmap to your market." },
   ],
   media: [
+    { href: "/online-advertising-morocco", label: "Online Advertising Morocco", text: "National landing for Google Ads, Meta Ads, TikTok, display, tracking and reporting." },
     { href: "/en/expertises/strategie-digitale", label: "Digital strategy", text: "Frame objectives, audiences, budgets and KPIs." },
     { href: "/en/expertises/achat-media", label: "Paid social & media buying", text: "Turn Meta, TikTok and LinkedIn into lead and sales levers." },
     { href: "/en/insights/google-ads-campaign-cost-morocco", label: "Google Ads campaign cost in Morocco", text: "Understand media budget, fees, tracking and sector cost factors." },
@@ -156,6 +163,7 @@ export const enSiloLinks = {
     { href: "/en/case-studies", label: "Media case studies", text: "Browse campaigns and visible results." },
   ],
   seo: [
+    { href: "/seo-agency-morocco", label: "SEO Agency Morocco", text: "Agency approach for audits, local SEO, reporting and organic growth in Morocco." },
     { href: "/en/expertises/strategie-digitale", label: "Digital strategy", text: "Align SEO, GEO, content and acquisition." },
     { href: "/en/agency", label: "Digital agency in Casablanca", text: "Connect search, brand, acquisition and local proof." },
     { href: "/en/expertises/web-si", label: "Web & systems", text: "Optimize technical foundations and user journeys." },
@@ -190,12 +198,16 @@ export const enSiloLinks = {
     { href: "/en/contact", label: "Start an AI automation", text: "Frame workflows, triggers and conversion scenarios." },
   ],
   web: [
+    { href: "/website-development-morocco", label: "Website Development Morocco", text: "National landing for UX/UI, web design, development, SEO, performance and conversion." },
     { href: "/en/expertises/seo-geo", label: "SEO / GEO", text: "Build fast, indexable and visible pages." },
     { href: "/en/expertises/ia-automation", label: "AI & automation", text: "Connect the website to business tools and CRM." },
     { href: "/en/expertises/strategie-digitale", label: "Digital strategy", text: "Prioritize journeys and content to produce." },
     { href: "/en/products/hypeo", label: "Hypeo", text: "Discover a performance and activation product." },
   ],
   influence: [
+    { href: "/social-media-management-morocco", label: "Social media management in Morocco", text: "Manage editorial strategy, content, community management, moderation and reporting." },
+    { href: "/influencer-marketing-morocco", label: "Influencer marketing in Morocco", text: "Understand the market approach: creators, micro/nano, UGC, local cities and amplification." },
+    { href: "/en/expertises/influence", label: "Social, Influence & UGC", text: "Service page for creator selection, UGC, briefs and campaign management." },
     { href: "/en/expertises/brand-content", label: "Brand content in Morocco", text: "Turn brand messages into activatable social-first content." },
     { href: "/en/expertises/achat-media", label: "Media buying", text: "Amplify creator content through social ads." },
     { href: "/en/insights/creators-brands-durable-collaborations", label: "UGC creators", text: "Structure useful and durable creator collaborations." },

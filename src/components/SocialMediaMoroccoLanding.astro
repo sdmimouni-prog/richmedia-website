@@ -1,0 +1,1300 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeoSiloLinks from './SeoSiloLinks.astro';
+import { SITE } from '../consts';
+import { breadcrumbs, faqSchema, localBusiness, serviceSchema } from '../lib/schema';
+
+interface Props {
+  lang: 'fr' | 'en';
+}
+
+const { lang: pageLang } = Astro.props as Props;
+const isEnglish = pageLang === 'en';
+
+const pagePath = isEnglish ? '/social-media-management-morocco' : '/gestion-reseaux-sociaux-maroc';
+const pageUrl = `${SITE.url}${pagePath}`;
+const contactHref = isEnglish ? '/en/contact' : '/contact';
+const workHref = isEnglish ? '/en/case-studies' : '/realisations';
+const socialMediaHref = isEnglish ? '/en/expertises/social-media-morocco' : '/expertises/social-media-maroc';
+const brandContentHref = isEnglish ? '/en/expertises/brand-content' : '/expertises/brand-content';
+const influenceHref = isEnglish ? '/influencer-marketing-morocco' : '/marketing-influence-maroc';
+const socialListeningHref = isEnglish ? '/en/expertises/social-listening-morocco' : '/expertises/social-listening-maroc';
+const mediaHref = isEnglish ? '/en/expertises/media-performance' : '/expertises/media-performance';
+const heroImage = '/assets/richmedia-home/campaign-wide-amana-social.webp';
+const heroPortrait = '/assets/richmedia-home/optimized/expertise-story-social.webp';
+
+const copy = isEnglish
+  ? {
+      title: 'Social Media Management in Morocco | Richmedia',
+      description:
+        'Richmedia manages social media for brands in Morocco through strategy, content creation, community management, moderation, reporting and performance optimisation.',
+      h1: 'Social Media Management in Morocco',
+      eyebrow: 'Social media management Morocco',
+      lead:
+        'Richmedia helps brands build stronger social media presence in Morocco through strategy, content creation, community management, moderation and performance optimisation.',
+      line: 'Strategy · Content · Community Management · Moderation · Reporting',
+      primaryCta: 'Talk to an expert',
+      secondaryCta: 'View our work',
+      introTitle: 'Being present on social media is no longer enough',
+      introText:
+        'Posting regularly is not a strategy. A strong social presence needs audience understanding, an editorial position, platform-native formats, consistency, community engagement, measurement and continuous optimisation.',
+      introQuote: 'Every post should have a role: attract, engage, inform, convert or strengthen the brand.',
+      approachTitle: 'From social strategy to measurable performance',
+      contentTitle: 'Platform-native content, not one-size-fits-all publishing',
+      communityTitle: 'Social media is a conversation, not a broadcast channel',
+      communityText:
+        'Community management covers publishing, moderation, replies, useful interactions, customer feedback and escalation when the scope requires it. The goal is to make the brand present, clear and responsive without promising unrealistic 24/7 support.',
+      listeningTitle: 'Listen to the market, not just your own channels',
+      listeningText:
+        'Social listening can support social media management by monitoring mentions, conversations, emerging topics, competitor signals, reputation and content opportunities.',
+      marketTitle: 'Social media in Morocco requires local relevance',
+      marketText:
+        'Brands operating in Morocco need more than translated content. Social media must respect local culture, multilingual audiences, platform behaviours, Moroccan creators, city-level realities and the expectations people have from brands on mobile-first channels.',
+      ugcTitle: 'From brand content to creator content',
+      ugcText:
+        'Depending on the objective, social media management can connect brand-owned content, creator collaborations, UGC assets and paid media amplification. The point is not to duplicate influencer marketing, but to make each content source play the right role.',
+      casesTitle: 'Social content built for real brands',
+      whyTitle: 'Why work with Richmedia for social media management in Morocco?',
+      internationalTitle: 'Your local social media partner in Morocco',
+      internationalText:
+        'For international brands operating in Morocco, Richmedia provides local content strategy, platform management, community understanding and campaign execution while respecting global brand guidelines.',
+      workflowTitle: 'How we work',
+      faqTitle: 'Frequently asked questions about social media management in Morocco',
+      finalTitle: 'Looking for a social media agency in Morocco?',
+      finalText:
+        'Let’s build a social presence designed around your brand, your audience and your business objectives.',
+      finalCta: 'Talk to an expert',
+      serviceName: 'Social media management in Morocco',
+      breadcrumbHome: 'Home',
+      breadcrumbName: 'Social Media Management in Morocco',
+      siloTitle: 'Connect social media, content and performance',
+      siloIntro:
+        'Social media management performs better when content, creators, paid media, listening and case studies work together.',
+    }
+  : {
+      title: 'Gestion des réseaux sociaux au Maroc | Richmedia',
+      description:
+        'Richmedia accompagne les marques dans la gestion de leurs réseaux sociaux au Maroc : stratégie, contenu, community management, modération, reporting et social media performance.',
+      h1: 'Gestion des réseaux sociaux au Maroc',
+      eyebrow: 'Gestion réseaux sociaux Maroc',
+      lead:
+        'Richmedia accompagne les marques dans la stratégie, la création de contenu et la gestion quotidienne de leurs réseaux sociaux afin de construire des communautés actives et renforcer leur performance digitale.',
+      line: 'Stratégie · Contenu · Community Management · Modération · Reporting',
+      primaryCta: 'Parler à un expert',
+      secondaryCta: 'Voir nos réalisations',
+      introTitle: 'Être présent sur les réseaux sociaux ne suffit plus',
+      introText:
+        'Publier régulièrement n’est pas une stratégie. Une présence social media performante repose sur un positionnement éditorial, une compréhension des audiences, des formats adaptés, de la régularité, de l’interaction, de la mesure et une optimisation continue.',
+      introQuote: 'Chaque publication doit avoir un rôle : attirer, engager, informer, convertir ou renforcer la marque.',
+      approachTitle: 'Une gestion social media de la stratégie à la performance',
+      contentTitle: 'Des contenus pensés pour chaque plateforme',
+      communityTitle: 'Une marque qui publie. Mais surtout une marque qui répond.',
+      communityText:
+        'Le community management couvre la publication, les réponses, la modération, les conversations utiles, les retours clients et les remontées d’alertes lorsque le périmètre le prévoit. L’objectif est de rendre la marque présente, claire et réactive, sans promettre un service client 24/7.',
+      listeningTitle: 'Écouter les conversations pour mieux piloter la marque',
+      listeningText:
+        'Le social listening peut compléter la gestion des réseaux sociaux en suivant mentions, conversations, sujets émergents, signaux concurrents, réputation et opportunités de contenu.',
+      marketTitle: 'Les réseaux sociaux au Maroc : des usages qui évoluent vite',
+      marketText:
+        'Au Maroc, les marques doivent adapter leurs contenus aux audiences, aux langues, aux villes, aux références culturelles, aux formats et aux plateformes. Le mobile impose des contenus plus lisibles, plus directs et plus contextualisés, capables de parler aux usages locaux sans perdre la cohérence de marque.',
+      ugcTitle: 'Du contenu de marque au contenu créateur',
+      ugcText:
+        'Selon l’objectif, une stratégie social media peut combiner contenus produits par la marque, influenceurs, créateurs UGC et amplification paid media. L’enjeu n’est pas de dupliquer l’influence, mais de donner à chaque source de contenu le bon rôle.',
+      casesTitle: 'Des marques, des contenus, des communautés',
+      whyTitle: 'Pourquoi confier vos réseaux sociaux à Richmedia ?',
+      internationalTitle: '',
+      internationalText: '',
+      workflowTitle: 'Comment travaillons-nous ?',
+      faqTitle: 'Questions fréquentes sur la gestion des réseaux sociaux au Maroc',
+      finalTitle: 'Besoin de mieux gérer vos réseaux sociaux ?',
+      finalText:
+        'Construisons une présence social media cohérente, créative et orientée performance.',
+      finalCta: 'Parler à un expert',
+      serviceName: 'Gestion des réseaux sociaux au Maroc',
+      breadcrumbHome: 'Accueil',
+      breadcrumbName: 'Gestion des réseaux sociaux au Maroc',
+      siloTitle: 'Relier social media, contenu et performance',
+      siloIntro:
+        'La gestion social media fonctionne mieux lorsqu’elle relie contenu, communautés, influence, média paid et écoute du marché.',
+    };
+
+const approachSteps = isEnglish
+  ? [
+      ['01', 'Strategy', 'Objectives, audiences, positioning, platforms, editorial territories, tone of voice and KPIs.'],
+      ['02', 'Editorial planning', 'Content pillars, calendar, key moments, campaigns and relevant activations.'],
+      ['03', 'Content creation', 'Posts, carousels, Reels, stories, videos, motion, UGC and brand content.'],
+      ['04', 'Community management', 'Publishing, community animation, replies, interactions, moderation and useful alerts.'],
+      ['05', 'Paid social amplification', 'Selected content can be amplified to increase reach, engagement, traffic, leads or conversions.'],
+      ['06', 'Reporting & optimisation', 'Measurement by objective: reach, impressions, engagement, views, clicks, growth, traffic or leads.'],
+    ]
+  : [
+      ['01', 'Stratégie', 'Objectifs, audiences, positionnement, plateformes, territoires éditoriaux, tonalité et KPI.'],
+      ['02', 'Planning éditorial', 'Piliers de contenu, calendrier, temps forts, marronniers pertinents, campagnes et activations.'],
+      ['03', 'Création de contenu', 'Posts, carrousels, Reels, stories, vidéos, motion, UGC et contenus de marque.'],
+      ['04', 'Community management', 'Publication, animation, réponses, interactions, modération et remontée des signaux utiles.'],
+      ['05', 'Amplification paid social', 'Certains contenus peuvent être amplifiés pour augmenter reach, engagement, trafic, leads ou conversions.'],
+      ['06', 'Reporting & optimisation', 'Mesure selon les objectifs : reach, impressions, engagement, vues, clics, croissance, trafic ou leads.'],
+    ];
+
+const platforms = isEnglish
+  ? [
+      ['Instagram', 'Brand identity, Reels, stories, carousels and community engagement.'],
+      ['TikTok', 'Native formats, rhythm, creators, relevant trends and short storytelling.'],
+      ['Facebook', 'Community, brand content, information, activation and paid social.'],
+      ['LinkedIn', 'Corporate communication, employer brand, expertise, B2B and thought leadership.'],
+      ['YouTube', 'Video, long and short formats, evergreen content when relevant.'],
+    ]
+  : [
+      ['Instagram', 'Identité de marque, Reels, stories, carrousels et engagement communautaire.'],
+      ['TikTok', 'Formats natifs, rythme, créateurs, tendances pertinentes et storytelling court.'],
+      ['Facebook', 'Communauté, contenus de marque, information, activation et paid social.'],
+      ['LinkedIn', 'Communication corporate, marque employeur, expertise, B2B et thought leadership.'],
+      ['YouTube', 'Vidéo, formats longs ou courts et contenus evergreen lorsque pertinent.'],
+    ];
+
+const workflow = isEnglish
+  ? [
+      ['01', 'Immersion', 'Brand, market, audiences and business objectives.'],
+      ['02', 'Strategy', 'Positioning, platforms, content pillars and KPIs.'],
+      ['03', 'Production', 'Planning, creation, review and validation.'],
+      ['04', 'Publishing & animation', 'Distribution, community management and moderation.'],
+      ['05', 'Measurement', 'Reporting, learnings and optimisation.'],
+    ]
+  : [
+      ['01', 'Immersion', 'Marque, marché, audiences et objectifs.'],
+      ['02', 'Stratégie', 'Positionnement, plateformes, piliers de contenu et KPI.'],
+      ['03', 'Production', 'Planning, création et validation.'],
+      ['04', 'Publication & animation', 'Diffusion, communauté et modération.'],
+      ['05', 'Mesure', 'Reporting, apprentissages et optimisation.'],
+    ];
+
+const whyCards = isEnglish
+  ? [
+      ['Strategy-first approach', 'Every content piece belongs to a brand logic, audience need and business objective.'],
+      ['Integrated content capabilities', 'Social media, video, creator content, influence and paid media can work together.'],
+      ['Moroccan market knowledge', 'We adapt to local audiences, platform behaviours, cities and cultural nuances.'],
+      ['Measurable performance', 'Reporting focuses on the KPIs that matter for the objective, not vanity metrics alone.'],
+    ]
+  : [
+      ['Stratégie avant publication', 'Chaque contenu s’inscrit dans une logique de marque, d’audience et d’objectif.'],
+      ['Création intégrée', 'Social media, création, vidéo, influence et media peuvent travailler ensemble.'],
+      ['Connaissance du marché marocain', 'Nous tenons compte des audiences, usages, villes et spécificités locales.'],
+      ['Performance mesurable', 'Le reporting suit les KPI définis, sans réduire le social media aux vanity metrics.'],
+    ];
+
+const cases = isEnglish
+  ? [
+      {
+        client: 'Tramway Rabat-Salé',
+        image: '/assets/richmedia-realizations/tramway-rabat-sale-community-management-2026-blassty.webp',
+        width: 3600,
+        height: 1388,
+        mission: 'Content creation & Community Management',
+        text: 'Editorial planning, Reels, stories, carousels, social care, moderation and reputation monitoring.',
+        result: '500K video views, 339K interactions and more than 5K new followers.',
+        href: '/en/case-studies/tramway-rabat-sale-community-management-2026',
+      },
+      {
+        client: 'Don Simon',
+        image: '/assets/richmedia-home/campaign-wide-donsimon.webp',
+        width: 1600,
+        height: 900,
+        mission: 'Social media campaign',
+        text: 'Back-to-school campaign combining social content, video, influence, display and measurable traffic.',
+        result: '25M impressions, 2M video views, 200K engagements and 30K clicks.',
+        href: '/en/case-studies/don-simon-back-to-school-2025',
+      },
+      {
+        client: 'Nescafé',
+        image: '/assets/richmedia-realizations/nescafe-nadi-nescafe.webp',
+        width: 1572,
+        height: 1162,
+        mission: 'Community platform & social activation',
+        text: 'Social media, gamification, coupons and field activation connected digital engagement to offline action.',
+        result: '100K platform visits, 5K members and 2,500 downloaded or used coupons.',
+        href: '/en/case-studies/nescafe-nadi-nescafe-2019',
+      },
+    ]
+  : [
+      {
+        client: 'Tramway Rabat-Salé',
+        image: '/assets/richmedia-realizations/tramway-rabat-sale-community-management-2026-blassty.webp',
+        width: 3600,
+        height: 1388,
+        mission: 'Création de contenu & Community Management',
+        text: 'Planning éditorial, Reels, stories, carrousels, social care, modération et veille réputationnelle.',
+        result: '500 K vues vidéo, 339 K interactions et plus de 5 K nouveaux abonnés.',
+        href: '/realisations/tramway-rabat-sale-community-management-2026',
+      },
+      {
+        client: 'Don Simon',
+        image: '/assets/richmedia-home/campaign-wide-donsimon.webp',
+        width: 1600,
+        height: 900,
+        mission: 'Campagne réseaux sociaux',
+        text: 'Campagne Back to School combinant social content, vidéo, influence, display et trafic mesurable.',
+        result: '25 M impressions, 2 M vues vidéo, 200 K engagements et 30 K clics.',
+        href: '/realisations/don-simon-back-to-school-2025',
+      },
+      {
+        client: 'Nescafé',
+        image: '/assets/richmedia-realizations/nescafe-nadi-nescafe.webp',
+        width: 1572,
+        height: 1162,
+        mission: 'Plateforme communautaire & activation social media',
+        text: 'Social media, gamification, coupons et activation terrain reliaient engagement digital et action offline.',
+        result: '100 K visites plateforme, 5 K membres et 2 500 coupons téléchargés ou utilisés.',
+        href: '/realisations/nescafe-nadi-nescafe-2019',
+      },
+    ];
+
+const faq = isEnglish
+  ? [
+      {
+        question: 'What does social media management include?',
+        answer:
+          'It can include strategy, editorial planning, content creation, publishing, community management, moderation, reporting, optimisation and coordination with paid media or creators depending on the scope.',
+      },
+      {
+        question: 'How much does social media management cost in Morocco?',
+        answer:
+          'Cost depends on the number of platforms, posting frequency, content volume, video production, moderation scope, languages, paid media, reporting and the level of support required. A useful quote needs a brief.',
+      },
+      {
+        question: 'Which social platforms should brands use in Morocco?',
+        answer:
+          'The choice depends on the audience, brand role, content resources and objective. Instagram, TikTok, Facebook, LinkedIn and YouTube do not serve the same purpose or require the same format.',
+      },
+      {
+        question: 'What is the difference between social media management and community management?',
+        answer:
+          'Social media management covers the broader strategy, content and performance system. Community management focuses more specifically on publishing, replies, interactions, moderation and community signals.',
+      },
+      {
+        question: 'Can Richmedia create and publish social content?',
+        answer:
+          'Yes. Richmedia can work on editorial strategy, content creation, visuals, Reels, stories, carousels, calendars, validation workflows and publishing according to the agreed scope.',
+      },
+      {
+        question: 'How is social media performance measured?',
+        answer:
+          'Measurement can include reach, impressions, engagement quality, video views, clicks, traffic, follower growth, messages, assisted conversions, leads and creative learnings depending on the objective.',
+      },
+    ]
+  : [
+      {
+        question: 'Que comprend la gestion des réseaux sociaux ?',
+        answer:
+          'Elle peut inclure stratégie, planning éditorial, création de contenu, publication, community management, modération, reporting, optimisation et coordination avec le paid media ou les créateurs selon le périmètre.',
+      },
+      {
+        question: 'Combien coûte la gestion des réseaux sociaux au Maroc ?',
+        answer:
+          'Le coût dépend du nombre de plateformes, de la fréquence, du volume de contenus, de la production vidéo, de la modération, des langues, du paid media, du reporting et du niveau d’accompagnement. Un prix utile nécessite un brief.',
+      },
+      {
+        question: 'Quels réseaux sociaux faut-il privilégier pour une marque au Maroc ?',
+        answer:
+          'Le choix dépend de la cible, du rôle de la marque, des ressources de contenu et de l’objectif. Instagram, TikTok, Facebook, LinkedIn et YouTube n’ont pas le même rôle ni les mêmes formats.',
+      },
+      {
+        question: 'Quelle est la différence entre social media management et community management ?',
+        answer:
+          'Le social media management couvre la stratégie, le contenu et la performance globale. Le community management se concentre davantage sur publication, réponses, interactions, modération et signaux communautaires.',
+      },
+      {
+        question: 'Richmedia peut-elle créer les contenus et gérer leur publication ?',
+        answer:
+          'Oui. Richmedia peut travailler la stratégie éditoriale, les visuels, Reels, stories, carrousels, calendriers, workflows de validation et publication selon le périmètre défini.',
+      },
+      {
+        question: 'Comment mesurer les performances des réseaux sociaux ?',
+        answer:
+          'La mesure peut inclure reach, impressions, qualité d’engagement, vues vidéo, clics, trafic, croissance, messages, conversions assistées, leads et apprentissages créatifs selon l’objectif.',
+      },
+    ];
+
+const schema = [
+  localBusiness(),
+  serviceSchema({
+    name: copy.serviceName,
+    description: copy.description,
+    url: pageUrl,
+  }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: copy.breadcrumbHome, url: isEnglish ? `${SITE.url}/en` : SITE.url },
+    { name: isEnglish ? 'Expertise' : 'Expertises', url: isEnglish ? `${SITE.url}/en/expertises` : `${SITE.url}/expertises` },
+    { name: copy.breadcrumbName, url: pageUrl },
+  ]),
+];
+
+const siloLinks = isEnglish
+  ? [
+      { href: socialMediaHref, label: 'Social Media Morocco', text: 'Explore the service page for social strategy and community management.' },
+      { href: brandContentHref, label: 'Brand content', text: 'Build social-first content, short-form video and creative assets.' },
+      { href: influenceHref, label: 'Influencer marketing in Morocco', text: 'Connect social content to creators, UGC and amplification.' },
+      { href: socialListeningHref, label: 'Social listening', text: 'Turn public conversations into useful market signals.' },
+      { href: mediaHref, label: 'Media & Performance', text: 'Amplify content through paid social and performance campaigns.' },
+      { href: workHref, label: 'Case studies', text: 'See real social and content campaigns.' },
+      { href: contactHref, label: 'Contact Richmedia', text: 'Frame your social media management scope.' },
+    ]
+  : [
+      { href: socialMediaHref, label: 'Social Media Maroc', text: 'Explorer la page service stratégie social media et community management.' },
+      { href: brandContentHref, label: 'Brand content', text: 'Créer des contenus social-first, vidéos courtes et assets créatifs.' },
+      { href: influenceHref, label: 'Marketing d’influence au Maroc', text: 'Relier social content, créateurs, UGC et amplification.' },
+      { href: socialListeningHref, label: 'Social Listening Maroc', text: 'Transformer les conversations publiques en signaux utiles.' },
+      { href: mediaHref, label: 'Media & Performance', text: 'Amplifier les contenus via paid social et campagnes de performance.' },
+      { href: workHref, label: 'Réalisations', text: 'Voir des campagnes social media et contenu réelles.' },
+      { href: contactHref, label: 'Contacter Richmedia', text: 'Cadrer votre périmètre de gestion social media.' },
+    ];
+---
+
+<BaseLayout
+  title={copy.title}
+  description={copy.description}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+  lang={pageLang}
+>
+  <div class="social-market-page">
+    <section class="social-hero" aria-labelledby="social-hero-title">
+      <div class="hero-copy">
+        <span class="eyebrow">{copy.eyebrow}</span>
+        <h1 id="social-hero-title">{copy.h1}</h1>
+        <p>{copy.lead}</p>
+        <div class="hero-line" aria-label={isEnglish ? 'Social media scope' : 'Périmètre social media'}>
+          {copy.line.split(' · ').map((item) => <span>{item}</span>)}
+        </div>
+        <div class="hero-actions">
+          <a class="button button-primary" href={contactHref}>
+            {copy.primaryCta}
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href={workHref}>
+            {copy.secondaryCta}
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-board" aria-label={isEnglish ? 'Richmedia social media visuals' : 'Visuels social media Richmedia'}>
+        <figure class="hero-main-card">
+          <img
+            src={heroImage}
+            alt={isEnglish ? 'Richmedia social media campaign visual for Amana' : 'Visuel campagne social media Amana par Richmedia'}
+            width="1600"
+            height="900"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </figure>
+        <figure class="hero-portrait-card">
+          <img
+            src={heroPortrait}
+            alt={isEnglish ? 'Social-first content story visual' : 'Visuel story de contenu social-first'}
+            width="560"
+            height="996"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <div class="hero-signal signal-a">
+          <span>{isEnglish ? 'Planning' : 'Planning'}</span>
+          <strong>{isEnglish ? 'Editorial rhythm' : 'Rythme éditorial'}</strong>
+        </div>
+        <div class="hero-signal signal-b">
+          <span>{isEnglish ? 'Community' : 'Communauté'}</span>
+          <strong>{isEnglish ? 'Replies, care, alerts' : 'Réponses, care, alertes'}</strong>
+        </div>
+        <div class="social-mini-feed" aria-hidden="true">
+          {[
+            ['/assets/richmedia-case-study/proof-social-feed.webp', '369', '444'],
+            ['/assets/richmedia-home/optimized/influence-reels-reel-01.webp', '255', '404'],
+            ['/assets/richmedia-home/optimized/influence-reels-reel-02.webp', '255', '404'],
+          ].map(([src, width, height]) => (
+            <img src={src} alt="" width={width} height={height} loading="lazy" decoding="async" />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="market-intro" aria-labelledby="intro-title">
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Point of view' : 'Point de vue'}</span>
+        <h2 id="intro-title">{copy.introTitle}</h2>
+      </div>
+      <div>
+        <p>{copy.introText}</p>
+        <blockquote>{copy.introQuote}</blockquote>
+      </div>
+    </section>
+
+    <section class="process-section" aria-labelledby="approach-title">
+      <div class="section-heading">
+        <span class="eyebrow">{isEnglish ? 'Method' : 'Méthode'}</span>
+        <h2 id="approach-title">{copy.approachTitle}</h2>
+      </div>
+      <div class="process-grid">
+        {approachSteps.map(([step, title, text]) => (
+          <article>
+            <span>{step}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="visual-strip" aria-label={isEnglish ? 'Social content examples' : 'Exemples de contenus social media'}>
+      {[
+        ['/assets/richmedia-realizations/tramway-rabat-sale-community-management-2026-summer.webp', 'Tramway Rabat-Salé', '1080', '1350'],
+        ['/assets/richmedia-case-study/don-simon-back-to-school-2025/don-simon-proof-social-feed.webp', 'Don Simon', '1254', '1254'],
+        ['/assets/richmedia-realizations/moul-pounj-carousel.webp', 'Moul Pounj', '1133', '513'],
+        ['/assets/richmedia-sector-fmcg/campaigns/brand-content-social-first.webp', 'Brand content social-first', '1280', '720'],
+      ].map(([src, label, width, height]) => (
+        <figure>
+          <img src={src} alt={label} width={width} height={height} loading="lazy" decoding="async" />
+          <figcaption>{label}</figcaption>
+        </figure>
+      ))}
+    </section>
+
+    <section class="platform-section" aria-labelledby="platform-title">
+      <div class="section-heading">
+        <span class="eyebrow">{isEnglish ? 'Content creation' : 'Création de contenu'}</span>
+        <h2 id="platform-title">{copy.contentTitle}</h2>
+      </div>
+      <div class="platform-grid">
+        {platforms.map(([title, text]) => (
+          <article>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="split-section" aria-labelledby="community-title">
+      <article class="split-card">
+        <span class="eyebrow">Community management</span>
+        <h2 id="community-title">{copy.communityTitle}</h2>
+        <p>{copy.communityText}</p>
+      </article>
+      <article class="split-card highlight-card">
+        <span class="eyebrow">Social listening</span>
+        <h2>{copy.listeningTitle}</h2>
+        <p>{copy.listeningText}</p>
+        <a href={socialListeningHref}>{isEnglish ? 'Explore social listening' : 'Voir Social Listening'}</a>
+      </article>
+    </section>
+
+    <section class="market-panel" aria-labelledby="market-title">
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Moroccan market' : 'Marché marocain'}</span>
+        <h2 id="market-title">{copy.marketTitle}</h2>
+      </div>
+      <p>{copy.marketText}</p>
+    </section>
+
+    <section class="ugc-panel" aria-labelledby="ugc-title">
+      <div>
+        <span class="eyebrow">Social · UGC · Influence</span>
+        <h2 id="ugc-title">{copy.ugcTitle}</h2>
+        <p>{copy.ugcText}</p>
+      </div>
+      <div class="inline-links">
+        <a href={socialMediaHref}>{isEnglish ? 'Social Media service page' : 'Page service Social Media'}</a>
+        <a href={influenceHref}>{isEnglish ? 'Influencer marketing Morocco' : 'Marketing d’influence au Maroc'}</a>
+        <a href={brandContentHref}>Brand content</a>
+        <a href={mediaHref}>Media & Performance</a>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="cases-title">
+      <div class="section-heading">
+        <span class="eyebrow">{isEnglish ? 'Real work' : 'Réalisations'}</span>
+        <h2 id="cases-title">{copy.casesTitle}</h2>
+      </div>
+      <div class="case-grid">
+        {cases.map((caseItem) => (
+          <a class="case-card" href={caseItem.href}>
+            <img src={caseItem.image} alt={`${caseItem.client} - ${caseItem.mission}`} width={caseItem.width} height={caseItem.height} loading="lazy" decoding="async" />
+            <div>
+              <span>{caseItem.client}</span>
+              <h3>{caseItem.mission}</h3>
+              <p>{caseItem.text}</p>
+              <strong>{caseItem.result}</strong>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="why-section" aria-labelledby="why-title">
+      <div class="section-heading">
+        <span class="eyebrow">Richmedia</span>
+        <h2 id="why-title">{copy.whyTitle}</h2>
+      </div>
+      <div class="why-grid">
+        {whyCards.map(([title, text], index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    {isEnglish && (
+      <section class="international-panel" aria-labelledby="international-title">
+        <div>
+          <span class="eyebrow">International brands</span>
+          <h2 id="international-title">{copy.internationalTitle}</h2>
+          <p>{copy.internationalText}</p>
+        </div>
+        <ul>
+          {['Localisation', 'Content adaptation', 'Community management', 'Reporting'].map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+    )}
+
+    <section class="workflow-section" aria-labelledby="workflow-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">{isEnglish ? 'Workflow' : 'Process opérationnel'}</span>
+        <h2 id="workflow-title">{copy.workflowTitle}</h2>
+      </div>
+      <div class="workflow-grid">
+        {workflow.map(([step, title, text]) => (
+          <article>
+            <span>{step}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">FAQ</span>
+        <h2 id="faq-title">{copy.faqTitle}</h2>
+      </div>
+      <div class="faq-list">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="final-title">
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Next step' : 'Prochaine étape'}</span>
+        <h2 id="final-title">{copy.finalTitle}</h2>
+        <p>{copy.finalText}</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href={contactHref}>
+          {copy.finalCta}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href={socialMediaHref}>
+          {isEnglish ? 'Explore Social Media' : 'Voir l’expertise Social Media'}
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <SeoSiloLinks title={copy.siloTitle} intro={copy.siloIntro} links={siloLinks} variant="compact" />
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .social-market-page {
+    --container: min(100% - 3rem, 1360px);
+    --purple: #7c3cff;
+    --purple-soft: #a977ff;
+    --line: rgba(255, 255, 255, 0.13);
+    overflow: hidden;
+    color: #fff;
+    background:
+      radial-gradient(circle at 14% 0%, rgba(124, 60, 255, 0.22), transparent 34rem),
+      linear-gradient(180deg, #050509 0%, #080713 58%, #050509 100%);
+  }
+
+  .social-hero,
+  .market-intro,
+  .process-section,
+  .visual-strip,
+  .platform-section,
+  .split-section,
+  .market-panel,
+  .ugc-panel,
+  .case-section,
+  .why-section,
+  .international-panel,
+  .workflow-section,
+  .faq-section,
+  .final-cta {
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .social-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.86fr) minmax(520px, 1.14fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    min-height: calc(100vh - 98px);
+    padding: clamp(5rem, 8vw, 8rem) 0 5rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--purple-soft);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 3.4rem;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--purple), transparent);
+  }
+
+  .hero-copy h1 {
+    max-width: 760px;
+    margin: 1.3rem 0 1.2rem;
+    font-size: clamp(3.25rem, 6.4vw, 6.8rem);
+    line-height: 0.92;
+    letter-spacing: 0;
+  }
+
+  .hero-copy p,
+  .market-intro p,
+  .market-panel p,
+  .ugc-panel p,
+  .split-card p,
+  .case-card p,
+  .why-grid p,
+  .workflow-grid p,
+  .international-panel p,
+  .final-cta p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(1rem, 1.45vw, 1.22rem);
+    line-height: 1.75;
+  }
+
+  .hero-line,
+  .inline-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .hero-line {
+    margin: 1.9rem 0 2rem;
+  }
+
+  .hero-line span,
+  .inline-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.1rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid rgba(124, 60, 255, 0.35);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.84);
+    background: rgba(124, 60, 255, 0.09);
+    font-size: 0.78rem;
+    font-weight: 850;
+    text-decoration: none;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 3.3rem;
+    padding: 0.9rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 900;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    color: #fff;
+    background: linear-gradient(135deg, #9851ff, #6f2cff);
+    box-shadow: 0 22px 52px rgba(124, 60, 255, 0.25);
+  }
+
+  .button-secondary {
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .hero-board {
+    position: relative;
+    min-height: 640px;
+  }
+
+  .hero-main-card,
+  .hero-portrait-card {
+    position: absolute;
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #0b0a12;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.42);
+  }
+
+  .hero-main-card {
+    inset: 5% 3% auto 0;
+    aspect-ratio: 16 / 9;
+  }
+
+  .hero-portrait-card {
+    right: 0;
+    bottom: 6%;
+    width: clamp(150px, 22vw, 240px);
+    aspect-ratio: 560 / 996;
+  }
+
+  .hero-main-card img,
+  .hero-portrait-card img,
+  .visual-strip img,
+  .case-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-main-card::after,
+  .hero-portrait-card::after,
+  .visual-strip figure::after,
+  .case-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 45%, rgba(5, 5, 9, 0.76));
+  }
+
+  .hero-signal {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    gap: 0.2rem;
+    min-width: 182px;
+    padding: 1rem;
+    border: 1px solid rgba(124, 60, 255, 0.35);
+    border-radius: 14px;
+    background: rgba(12, 10, 23, 0.82);
+    box-shadow: 0 22px 58px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(18px);
+  }
+
+  .hero-signal span,
+  .case-card span,
+  .case-card strong,
+  .process-grid article > span,
+  .workflow-grid article > span,
+  .why-grid article > span {
+    color: var(--purple-soft);
+    font-weight: 900;
+  }
+
+  .hero-signal span {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .hero-signal strong {
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .signal-a {
+    left: 0;
+    bottom: 18%;
+  }
+
+  .signal-b {
+    right: 5%;
+    top: 0;
+  }
+
+  .social-mini-feed {
+    position: absolute;
+    left: 4%;
+    bottom: 2%;
+    display: flex;
+    gap: 0.7rem;
+    z-index: 2;
+  }
+
+  .social-mini-feed img {
+    width: clamp(54px, 6vw, 86px);
+    aspect-ratio: 3 / 4;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.36);
+  }
+
+  .market-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+    padding: 4.5rem 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .market-intro h2,
+  .section-heading h2,
+  .split-card h2,
+  .market-panel h2,
+  .ugc-panel h2,
+  .final-cta h2,
+  .international-panel h2 {
+    margin: 0.9rem 0 0;
+    font-size: clamp(2.05rem, 4vw, 4.25rem);
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  blockquote {
+    margin: 1.6rem 0 0;
+    padding: 1.25rem 1.4rem;
+    border-left: 3px solid var(--purple);
+    border-radius: 0 12px 12px 0;
+    color: #fff;
+    background: rgba(124, 60, 255, 0.11);
+    font-size: clamp(1.05rem, 1.65vw, 1.38rem);
+    font-weight: 900;
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(260px, 0.58fr);
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 2rem;
+  }
+
+  .section-heading.compact {
+    display: block;
+    max-width: 860px;
+  }
+
+  .process-section,
+  .platform-section,
+  .case-section,
+  .why-section,
+  .workflow-section,
+  .faq-section {
+    padding: 4.5rem 0;
+  }
+
+  .process-grid,
+  .platform-grid,
+  .case-grid,
+  .why-grid,
+  .workflow-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .process-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .platform-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .case-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .workflow-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .process-grid article,
+  .platform-grid article,
+  .split-card,
+  .market-panel,
+  .ugc-panel,
+  .case-card,
+  .why-grid article,
+  .workflow-grid article,
+  .international-panel,
+  .faq-list details,
+  .final-cta {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.025));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .process-grid article,
+  .platform-grid article,
+  .why-grid article,
+  .workflow-grid article {
+    min-height: 210px;
+    padding: 1.25rem;
+  }
+
+  .process-grid h3,
+  .platform-grid h3,
+  .case-card h3,
+  .why-grid h3,
+  .workflow-grid h3 {
+    margin: 0.95rem 0 0.65rem;
+    color: #fff;
+    font-size: clamp(1.1rem, 1.45vw, 1.42rem);
+    line-height: 1.16;
+  }
+
+  .process-grid p,
+  .platform-grid p,
+  .faq-list p {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .visual-strip {
+    display: grid;
+    grid-template-columns: 0.78fr 0.64fr 0.9fr 0.9fr;
+    gap: 1rem;
+    padding: 2rem 0 4.5rem;
+  }
+
+  .visual-strip figure {
+    position: relative;
+    min-height: 300px;
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #0a0910;
+  }
+
+  .visual-strip figcaption {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 1;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 900;
+  }
+
+  .split-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1rem 0 4rem;
+  }
+
+  .split-card,
+  .market-panel,
+  .ugc-panel {
+    padding: clamp(1.4rem, 3vw, 2.4rem);
+  }
+
+  .highlight-card,
+  .ugc-panel {
+    background:
+      radial-gradient(circle at 25% 20%, rgba(124, 60, 255, 0.28), transparent 18rem),
+      linear-gradient(145deg, rgba(124, 60, 255, 0.13), rgba(255, 255, 255, 0.03));
+  }
+
+  .split-card a {
+    display: inline-flex;
+    margin-top: 1rem;
+    color: var(--purple-soft);
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .market-panel,
+  .ugc-panel,
+  .international-panel,
+  .final-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .ugc-panel .inline-links {
+    align-content: center;
+  }
+
+  .case-card {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .case-card img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .case-card div {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.65rem;
+    padding: 1.2rem;
+  }
+
+  .international-panel {
+    padding: clamp(1.5rem, 3vw, 2.6rem);
+    background:
+      radial-gradient(circle at 86% 22%, rgba(124, 60, 255, 0.26), transparent 18rem),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.025));
+  }
+
+  .international-panel ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .international-panel li {
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(124, 60, 255, 0.28);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.83);
+    background: rgba(124, 60, 255, 0.08);
+    font-weight: 800;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .faq-list details {
+    overflow: hidden;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    padding: 1.25rem 1.4rem;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 900;
+  }
+
+  .faq-list p {
+    margin: 0;
+    padding: 0 1.4rem 1.35rem;
+  }
+
+  .final-cta {
+    margin-bottom: 5rem;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background:
+      radial-gradient(circle at 10% 20%, rgba(124, 60, 255, 0.32), transparent 19rem),
+      linear-gradient(145deg, rgba(124, 60, 255, 0.16), rgba(255, 255, 255, 0.03));
+  }
+
+  @media (max-width: 1180px) {
+    .social-hero,
+    .market-intro,
+    .split-section,
+    .market-panel,
+    .ugc-panel,
+    .international-panel,
+    .final-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .social-hero {
+      min-height: 0;
+      padding-top: 4rem;
+    }
+
+    .hero-board {
+      min-height: 560px;
+    }
+
+    .process-grid,
+    .platform-grid,
+    .case-grid,
+    .why-grid,
+    .workflow-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .visual-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .section-heading {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .social-market-page {
+      --container: min(100% - 1.25rem, 100%);
+    }
+
+    .social-hero {
+      padding: 2.6rem 0 3rem;
+      gap: 1.8rem;
+    }
+
+    .eyebrow {
+      max-width: 100%;
+      gap: 0.5rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      line-height: 1.35;
+      white-space: normal;
+    }
+
+    .eyebrow::before {
+      width: 2.2rem;
+      flex: 0 0 2.2rem;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.8rem, 14vw, 4.45rem);
+    }
+
+    .button {
+      width: 100%;
+      white-space: normal;
+      text-align: center;
+    }
+
+    .hero-board {
+      min-height: clamp(360px, 72vw, 460px);
+      margin-top: 0.8rem;
+    }
+
+    .hero-main-card {
+      inset: 0 0 auto 0;
+    }
+
+    .hero-portrait-card {
+      width: 29%;
+      right: 2%;
+      bottom: 0;
+    }
+
+    .hero-signal {
+      min-width: 145px;
+      padding: 0.8rem;
+    }
+
+    .signal-a {
+      left: 2%;
+      bottom: 12%;
+    }
+
+    .signal-b {
+      display: none;
+    }
+
+    .social-mini-feed {
+      left: 4%;
+      bottom: 0;
+      gap: 0.45rem;
+    }
+
+    .social-mini-feed img {
+      width: 46px;
+      border-radius: 10px;
+    }
+
+    .market-intro,
+    .process-section,
+    .platform-section,
+    .case-section,
+    .why-section,
+    .workflow-section,
+    .faq-section {
+      padding: 3.3rem 0;
+    }
+
+    .process-grid,
+    .platform-grid,
+    .case-grid,
+    .why-grid,
+    .workflow-grid,
+    .visual-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .visual-strip figure {
+      min-height: 260px;
+    }
+
+    .process-grid article,
+    .platform-grid article,
+    .why-grid article,
+    .workflow-grid article {
+      min-height: 0;
+    }
+
+    .international-panel ul {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,1338 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeoSiloLinks from './SeoSiloLinks.astro';
+import InfluenceVideoStrip from './InfluenceVideoStrip.astro';
+import { SITE } from '../consts';
+import { breadcrumbs, faqSchema, localBusiness, serviceSchema } from '../lib/schema';
+import { enSiloLinks, frSiloLinks } from '../lib/seo-silos';
+
+interface Props {
+  lang: 'fr' | 'en';
+}
+
+const { lang: pageLang } = Astro.props as Props;
+const isEnglish = pageLang === 'en';
+
+const heroImage = '/assets/richmedia-home/campaign-wide-donsimon.webp';
+const heroSecondaryImage = '/assets/richmedia-sector-fmcg/campaigns/influence-ugc.webp';
+const pagePath = isEnglish ? '/influencer-marketing-morocco' : '/marketing-influence-maroc';
+const pageUrl = `${SITE.url}${pagePath}`;
+const workHref = isEnglish ? '/en/case-studies' : '/realisations';
+const contactHref = isEnglish ? '/en/contact' : '/contact';
+const expertiseHref = isEnglish ? '/en/expertises/influence' : '/expertises/influence';
+const mediaHref = isEnglish ? '/en/expertises/media-performance' : '/expertises/media-performance';
+const socialListeningHref = isEnglish ? '/en/expertises/social-listening-morocco' : '/expertises/social-listening-maroc';
+const brandContentHref = isEnglish ? '/en/expertises/brand-content' : '/expertises/brand-content';
+const fmcgHref = isEnglish ? '/en/sectors/fmcg' : '/secteurs/fmcg';
+
+const copy = isEnglish
+  ? {
+      title: 'Influencer Marketing in Morocco | Richmedia',
+      description:
+        'Richmedia builds influencer marketing campaigns in Morocco combining creators, micro and nano-influencers, UGC, paid amplification, social listening and performance measurement.',
+      h1: 'Influencer Marketing in Morocco',
+      eyebrow: 'Influencer marketing Morocco',
+      lead:
+        'Richmedia helps brands build influencer campaigns around the right creators, the right audiences and measurable business outcomes.',
+      shortline: 'Influence · UGC · Micro & Nano Creators · Paid Amplification · Social Listening',
+      primaryCta: 'Talk to an expert',
+      secondaryCta: 'View our campaigns',
+      heroAlt: 'Don Simon campaign visual used by Richmedia for a Morocco social and influence activation',
+      introTitle: 'Influence is about relevance, not just reach',
+      intro:
+        'Follower count alone does not prove that a creator is right for a brand. A strong campaign looks at audience fit, engagement quality, location, content relevance, brand affinity, credibility and the business objective behind the activation.',
+      introQuote: 'The right creator is not always the most famous one.',
+      approachEyebrow: 'Method',
+      approachTitle: 'A data-driven approach to influencer marketing',
+      microTitle: 'Micro and nano-influencers: relevance at a local scale',
+      microText:
+        'Smaller creators can be powerful when the objective is proximity, credibility, a niche community, geographic relevance, drive-to-store or a local activation. They are not automatically better than macro-profiles: the right mix depends on the campaign goal.',
+      localTitle: 'Activate the right communities, city by city',
+      localText:
+        'A national campaign in Morocco can combine Casablanca, Rabat, Marrakech, Tangier, Fez, Agadir, Oujda, Tetouan or Kenitra with creators who understand their local communities. When relevant, creator content can be combined with geo-targeted media around priority areas.',
+      ugcTitle: 'Creator content built to work beyond organic reach',
+      ugcText:
+        'Influencer marketing, UGC and brand-owned content do not play the same role. Creator assets can support Reels, TikTok, social ads, landing pages, ecommerce, CRM journeys and sales material when rights and formats are framed from the start.',
+      platformTitle: 'Strategies adapted to each platform',
+      listeningTitle: 'Listen before, during and after the campaign',
+      listeningText:
+        'Social listening helps detect trends, conversations, perception, mentions and reputation signals before activation. During and after a campaign, it supports monitoring, creator identification and useful reporting.',
+      casesTitle: 'Influencer campaigns built for real brands',
+      whyTitle: 'Why work with Richmedia for influencer marketing in Morocco?',
+      internationalTitle: 'A local influencer marketing partner for international brands',
+      internationalText:
+        'For international brands activating in Morocco, Richmedia provides local market knowledge, creator sourcing, campaign management, content supervision and performance measurement through one local partner.',
+      faqTitle: 'Frequently asked questions about influencer marketing in Morocco',
+      finalTitle: 'Planning an influencer campaign in Morocco?',
+      finalText:
+        'Let’s build a creator strategy around the audience, the content and the business outcomes you want to achieve.',
+      finalCta: 'Talk to an expert',
+      serviceName: 'Influencer marketing in Morocco',
+      breadcrumbHome: 'Home',
+      breadcrumbName: 'Influencer Marketing in Morocco',
+      siloTitle: 'Connect influence, content and amplification',
+      siloIntro:
+        'Influencer marketing works harder when it connects creator content, brand content, paid media and sector objectives.',
+      language: 'en',
+    }
+  : {
+      title: 'Marketing d’influence au Maroc | Richmedia',
+      description:
+        'Richmedia conçoit des stratégies de marketing d’influence au Maroc : créateurs, micro et nano-influenceurs, UGC, amplification média, social listening et mesure de performance.',
+      h1: 'Marketing d’influence au Maroc',
+      eyebrow: 'Marketing d’influence Maroc',
+      lead:
+        'Richmedia accompagne les marques dans la conception de campagnes d’influence basées sur les bons créateurs, les bonnes audiences et des objectifs business mesurables.',
+      shortline: 'Influence · UGC · Micro & Nano · Paid Amplification · Social Listening',
+      primaryCta: 'Parler à un expert',
+      secondaryCta: 'Voir nos campagnes',
+      heroAlt: 'Visuel Don Simon utilisé par Richmedia pour une campagne social media et influence au Maroc',
+      introTitle: 'L’influence ne se résume pas au nombre de followers',
+      intro:
+        'Le choix d’un créateur doit tenir compte de la pertinence de son audience, de son affinité avec la marque, de sa localisation, de son engagement réel, de la qualité de son contenu, de sa crédibilité et du contexte de campagne.',
+      introQuote: 'Le meilleur influenceur n’est pas forcément le plus connu.',
+      approachEyebrow: 'Méthode',
+      approachTitle: 'Une stratégie d’influence pilotée par la data',
+      microTitle: 'Micro et nano-influenceurs : la proximité comme levier de performance',
+      microText:
+        'Les profils plus petits peuvent être très utiles quand l’objectif est la proximité, la crédibilité, une niche, l’ancrage géographique, le drive-to-store ou une activation locale. Ils ne sont pas systématiquement supérieurs aux macro-influenceurs : le bon niveau dépend du rôle de la campagne.',
+      localTitle: 'Activer les bonnes communautés, ville par ville',
+      localText:
+        'Une campagne nationale au Maroc peut combiner Casablanca, Rabat, Marrakech, Tanger, Fès, Agadir, Oujda, Tétouan ou Kénitra avec des créateurs implantés dans leurs communautés. Lorsque c’est pertinent, l’influence peut être associée à une amplification média géociblée autour des zones prioritaires.',
+      ugcTitle: 'Du contenu créateur qui dépasse la publication organique',
+      ugcText:
+        'Une campagne influence, une création UGC et un contenu brand-owned n’ont pas le même rôle. Les contenus créateurs peuvent nourrir Reels, TikTok, social ads, landing pages, e-commerce, CRM ou supports commerciaux si les droits et les formats sont cadrés dès le départ.',
+      platformTitle: 'Des stratégies adaptées à chaque plateforme',
+      listeningTitle: 'Écouter avant, pendant et après la campagne',
+      listeningText:
+        'Le social listening aide à identifier les tendances, conversations, perceptions, mentions et signaux de réputation avant activation. Pendant et après la campagne, il soutient le suivi, l’identification de créateurs et le reporting utile.',
+      casesTitle: 'Nos campagnes d’influence',
+      whyTitle: 'Pourquoi confier votre marketing d’influence à Richmedia ?',
+      internationalTitle: '',
+      internationalText: '',
+      faqTitle: 'Questions fréquentes sur le marketing d’influence au Maroc',
+      finalTitle: 'Vous préparez une campagne d’influence au Maroc ?',
+      finalText:
+        'Construisons une stratégie autour des créateurs, des audiences et des résultats que vous souhaitez atteindre.',
+      finalCta: 'Parler à un expert',
+      serviceName: 'Marketing d’influence au Maroc',
+      breadcrumbHome: 'Accueil',
+      breadcrumbName: 'Marketing d’influence au Maroc',
+      siloTitle: 'Relier influence, contenu et amplification',
+      siloIntro:
+        'Une campagne influence devient plus forte lorsqu’elle s’intègre au brand content, au média paid et aux objectifs sectoriels.',
+      language: 'fr',
+    };
+
+const process = isEnglish
+  ? [
+      {
+        step: '01',
+        title: 'Strategy',
+        text: 'Goals, audiences, platforms, content territories and KPIs define the creator role before casting starts.',
+        items: ['Goals', 'Audiences', 'Platforms', 'KPIs'],
+      },
+      {
+        step: '02',
+        title: 'Creator Selection',
+        text: 'Profiles are selected by audience, location, engagement, content quality, affinity, credibility and brand safety.',
+        items: ['Audience', 'Location', 'Engagement', 'Brand safety'],
+      },
+      {
+        step: '03',
+        title: 'Activation',
+        text: 'Briefs, casting, negotiation, planning, content, approvals and publication are managed with clear rules.',
+        items: ['Brief', 'Planning', 'Content', 'Publication'],
+      },
+      {
+        step: '04',
+        title: 'Paid Amplification',
+        text: 'Strong creator content can be amplified through Meta, TikTok or other relevant paid social platforms.',
+        items: ['Meta', 'TikTok', 'Social ads', 'Rights'],
+      },
+      {
+        step: '05',
+        title: 'Measurement',
+        text: 'Reporting tracks reach, impressions, engagement, video views, clicks, leads, conversions and learnings when available.',
+        items: ['Reach', 'Engagement', 'Clicks', 'Leads'],
+      },
+    ]
+  : [
+      {
+        step: '01',
+        title: 'Stratégie',
+        text: 'Objectifs, audiences, plateformes, territoires de contenu et KPI cadrent le rôle des créateurs avant le casting.',
+        items: ['Objectifs', 'Audiences', 'Plateformes', 'KPI'],
+      },
+      {
+        step: '02',
+        title: 'Identification',
+        text: 'Les profils sont sélectionnés selon audience, localisation, engagement, contenu, affinité, crédibilité et brand safety.',
+        items: ['Audience', 'Localisation', 'Engagement', 'Brand safety'],
+      },
+      {
+        step: '03',
+        title: 'Activation',
+        text: 'Brief, casting, négociation, planning, contenus, validation et publication sont pilotés avec des règles claires.',
+        items: ['Brief', 'Planning', 'Contenus', 'Publication'],
+      },
+      {
+        step: '04',
+        title: 'Amplification média',
+        text: 'Un bon contenu créateur peut être amplifié via Meta, TikTok ou d’autres plateformes sociales pertinentes.',
+        items: ['Meta', 'TikTok', 'Social ads', 'Droits'],
+      },
+      {
+        step: '05',
+        title: 'Mesure',
+        text: 'Le reporting suit reach, impressions, engagement, vues vidéo, clics, leads, conversions et apprentissages disponibles.',
+        items: ['Reach', 'Engagement', 'Clics', 'Leads'],
+      },
+    ];
+
+const platforms = isEnglish
+  ? ['Instagram', 'TikTok', 'Facebook', 'YouTube', 'LinkedIn when relevant for B2B']
+  : ['Instagram', 'TikTok', 'Facebook', 'YouTube', 'LinkedIn lorsque pertinent en B2B'];
+
+const cases = isEnglish
+  ? [
+      {
+        client: 'Don Simon',
+        image: heroImage,
+        width: 1600,
+        height: 900,
+        mission: 'Back-to-school national campaign combining video, social media, influence and display.',
+        mechanic: 'Creator proximity supported awareness, engagement and traffic around a strong retail moment.',
+        result: '25M impressions, 2M video views, 200K engagements and 30K clicks.',
+        href: '/en/case-studies/don-simon-back-to-school-2025',
+      },
+      {
+        client: 'Tramway Rabat-Salé',
+        image: '/assets/richmedia-realizations/tramway-rabat-sale-community-management-2026-blassty.webp',
+        width: 3600,
+        height: 1388,
+        mission: 'Social media and community management designed to inform, support and build proximity.',
+        mechanic: 'Editorial production, Reels, stories, carousels, social care and reputation monitoring.',
+        result: '500K video views, 339K interactions and more than 5K new followers.',
+        href: '/en/case-studies/tramway-rabat-sale-community-management-2026',
+      },
+      {
+        client: 'Nescafé',
+        image: '/assets/richmedia-realizations/nescafe-nadi-nescafe.webp',
+        width: 1572,
+        height: 1162,
+        mission: 'Community platform built to recruit, engage and retain a young audience around the brand.',
+        mechanic: 'Social media, gamification, coupons and field activation connected digital engagement to offline action.',
+        result: '100K platform visits, 5K members and 2,500 downloaded or used coupons.',
+        href: '/en/case-studies/nescafe-nadi-nescafe-2019',
+      },
+    ]
+  : [
+      {
+        client: 'Don Simon',
+        image: heroImage,
+        width: 1600,
+        height: 900,
+        mission: 'Campagne Back to School nationale combinant vidéo, social media, influence et display.',
+        mechanic: 'L’influence a apporté une proximité créateur au service de la notoriété, de l’engagement et du trafic.',
+        result: '25 M impressions, 2 M vues vidéo, 200 K engagements et 30 K clics.',
+        href: '/realisations/don-simon-back-to-school-2025',
+      },
+      {
+        client: 'Tramway Rabat-Salé',
+        image: '/assets/richmedia-realizations/tramway-rabat-sale-community-management-2026-blassty.webp',
+        width: 3600,
+        height: 1388,
+        mission: 'Social media et community management pour informer, accompagner et créer de la proximité.',
+        mechanic: 'Production éditoriale, Reels, stories, carrousels, social care et veille réputationnelle.',
+        result: '500 K vues vidéo, 339 K interactions et plus de 5 K nouveaux abonnés.',
+        href: '/realisations/tramway-rabat-sale-community-management-2026',
+      },
+      {
+        client: 'Nescafé',
+        image: '/assets/richmedia-realizations/nescafe-nadi-nescafe.webp',
+        width: 1572,
+        height: 1162,
+        mission: 'Plateforme communautaire pour recruter, engager et fidéliser une audience jeune.',
+        mechanic: 'Social media, gamification, coupons et activation terrain reliaient engagement digital et action offline.',
+        result: '100 K visites plateforme, 5 K membres et 2 500 coupons téléchargés ou utilisés.',
+        href: '/realisations/nescafe-nadi-nescafe-2019',
+      },
+    ];
+
+const whyCards = isEnglish
+  ? [
+      ['Strategy before casting', 'Creator choice starts with objectives, audiences and the role each profile plays in the funnel.'],
+      ['Moroccan market knowledge', 'We understand local communities, cities, content codes and activation contexts.'],
+      ['Influence + media', 'Creator content can be connected to paid amplification when the objective requires scale.'],
+      ['Performance measurement', 'Reporting is adapted to the campaign goal, from reach to traffic, leads or conversions.'],
+    ]
+  : [
+      ['Stratégie avant casting', 'Le choix des créateurs part des objectifs, des audiences et du rôle de chaque profil dans le funnel.'],
+      ['Connaissance du marché marocain', 'Nous tenons compte des communautés locales, des villes, des codes de contenu et des contextes d’activation.'],
+      ['Influence + media', 'Les contenus créateurs peuvent être reliés à une amplification paid quand l’objectif demande plus d’échelle.'],
+      ['Mesure de performance', 'Le reporting s’adapte à l’objectif : reach, trafic, leads, conversions ou apprentissages créatifs.'],
+    ];
+
+const faq = isEnglish
+  ? [
+      {
+        question: 'How do you choose influencers in Morocco?',
+        answer:
+          'We look at audience fit, location, engagement quality, content relevance, brand affinity, credibility, past collaborations, brand safety and the objective of the campaign.',
+      },
+      {
+        question: 'How much does influencer marketing cost in Morocco?',
+        answer:
+          'Cost depends on the profile, audience, platform, format, usage rights, exclusivity, number of assets, duration, campaign management and any paid amplification. There is no useful standard price without a brief.',
+      },
+      {
+        question: 'Should brands use macro, micro or nano-influencers?',
+        answer:
+          'It depends on the objective. Macro-profiles can support reach, while micro and nano-creators can help with proximity, credibility, niche audiences or local activations. Many campaigns use a mix.',
+      },
+      {
+        question: 'What is UGC?',
+        answer:
+          'UGC is creator or user-generated content that can be used by the brand beyond one organic post, for example in social ads, product pages, landing pages, CRM or social channels when rights are defined.',
+      },
+      {
+        question: 'Can influencer content be used in paid advertising?',
+        answer:
+          'Yes, when usage rights, formats, duration and platform rules are framed in advance. Paid amplification can help strong creator content reach more qualified audiences.',
+      },
+      {
+        question: 'How do you measure influencer campaign performance?',
+        answer:
+          'Depending on the campaign, measurement can include reach, impressions, views, engagement, clicks, UTM traffic, leads, conversions, promo codes, content performance and qualitative insights.',
+      },
+    ]
+  : [
+      {
+        question: 'Comment choisir un influenceur au Maroc ?',
+        answer:
+          'Nous analysons la pertinence de l’audience, la localisation, la qualité d’engagement, le contenu, l’affinité marque, la crédibilité, les collaborations passées, la brand safety et l’objectif de campagne.',
+      },
+      {
+        question: 'Combien coûte une campagne d’influence au Maroc ?',
+        answer:
+          'Le coût dépend du profil, de l’audience, de la plateforme, du format, des droits d’usage, de l’exclusivité, du nombre de contenus, de la durée, de la gestion de campagne et de l’amplification média éventuelle. Il n’existe pas de tarif standard utile sans brief.',
+      },
+      {
+        question: 'Faut-il choisir un macro, micro ou nano-influenceur ?',
+        answer:
+          'Tout dépend de l’objectif. Les macro-profils peuvent soutenir la portée, tandis que les micro et nano-créateurs peuvent aider sur la proximité, la crédibilité, les niches ou les activations locales. Beaucoup de campagnes combinent plusieurs niveaux.',
+      },
+      {
+        question: 'Qu’est-ce qu’une campagne UGC ?',
+        answer:
+          'Une campagne UGC produit des contenus créateurs ou utilisateurs que la marque peut réutiliser au-delà d’un post organique, par exemple en social ads, pages produit, landing pages, CRM ou réseaux sociaux lorsque les droits sont définis.',
+      },
+      {
+        question: 'Peut-on amplifier les contenus des influenceurs en publicité ?',
+        answer:
+          'Oui, si les droits d’usage, formats, durées et règles de plateforme sont cadrés en amont. L’amplification paid permet d’étendre les meilleurs contenus créateurs auprès d’audiences plus qualifiées.',
+      },
+      {
+        question: 'Comment mesurer les performances d’une campagne d’influence ?',
+        answer:
+          'Selon la campagne, la mesure peut inclure reach, impressions, vues, engagement, clics, trafic UTM, leads, conversions, codes promo, performance des contenus et insights qualitatifs.',
+      },
+    ];
+
+const schema = [
+  localBusiness(),
+  serviceSchema({
+    name: copy.serviceName,
+    description: copy.description,
+    url: pageUrl,
+  }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: copy.breadcrumbHome, url: isEnglish ? `${SITE.url}/en` : SITE.url },
+    { name: isEnglish ? 'Expertise' : 'Expertises', url: isEnglish ? `${SITE.url}/en/expertises` : `${SITE.url}/expertises` },
+    { name: copy.breadcrumbName, url: pageUrl },
+  ]),
+];
+
+const siloLinks = isEnglish ? enSiloLinks.influence : frSiloLinks.influence;
+---
+
+<BaseLayout
+  title={copy.title}
+  description={copy.description}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+  lang={pageLang}
+>
+  <div class="influence-market-page">
+    <section class="influence-market-hero" aria-labelledby="market-hero-title">
+      <div class="hero-copy">
+        <span class="eyebrow">{copy.eyebrow}</span>
+        <h1 id="market-hero-title">{copy.h1}</h1>
+        <p>{copy.lead}</p>
+        <div class="hero-line" aria-label={isEnglish ? 'Campaign levers' : 'Leviers de campagne'}>
+          {copy.shortline.split(' · ').map((item) => <span>{item}</span>)}
+        </div>
+        <div class="hero-actions">
+          <a class="button button-primary" href={contactHref}>
+            {copy.primaryCta}
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href={workHref}>
+            {copy.secondaryCta}
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-board" aria-label={isEnglish ? 'Richmedia influencer marketing visuals' : 'Visuels marketing d’influence Richmedia'}>
+        <figure class="hero-main-card">
+          <img
+            src={heroImage}
+            alt={copy.heroAlt}
+            width="1600"
+            height="900"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </figure>
+        <figure class="hero-side-card">
+          <img
+            src={heroSecondaryImage}
+            alt={isEnglish ? 'FMCG influence and UGC campaign visual' : 'Visuel influence et UGC pour une campagne FMCG'}
+            width="1280"
+            height="720"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <div class="hero-signal signal-a">
+          <span>{isEnglish ? 'Creator fit' : 'Casting'}</span>
+          <strong>{isEnglish ? 'Audience before reach' : 'Audience avant portée'}</strong>
+        </div>
+        <div class="hero-signal signal-b">
+          <span>UGC</span>
+          <strong>{isEnglish ? 'Rights-ready content' : 'Contenus avec droits'}</strong>
+        </div>
+        <div class="reel-stack" aria-hidden="true">
+          {['01', '02', '03'].map((item) => (
+            <img
+              src={`/assets/richmedia-home/optimized/influence-reels-reel-${item}.webp`}
+              alt=""
+              width="255"
+              height="404"
+              loading="lazy"
+              decoding="async"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="market-intro" aria-labelledby="market-intro-title">
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Point of view' : 'Point de vue'}</span>
+        <h2 id="market-intro-title">{copy.introTitle}</h2>
+      </div>
+      <div>
+        <p>{copy.intro}</p>
+        <blockquote>{copy.introQuote}</blockquote>
+      </div>
+    </section>
+
+    <InfluenceVideoStrip lang={pageLang} />
+
+    <section class="market-process" aria-labelledby="market-process-title">
+      <div class="section-heading">
+        <span class="eyebrow">{copy.approachEyebrow}</span>
+        <h2 id="market-process-title">{copy.approachTitle}</h2>
+      </div>
+      <div class="process-grid">
+        {process.map((item) => (
+          <article>
+            <span>{item.step}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <div>
+              {item.items.map((chip) => <small>{chip}</small>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="market-split" aria-labelledby="micro-title">
+      <div class="split-card highlight-card">
+        <span class="eyebrow">{isEnglish ? 'Micro & Nano' : 'Micro & Nano'}</span>
+        <h2 id="micro-title">{copy.microTitle}</h2>
+        <p>{copy.microText}</p>
+      </div>
+      <div class="split-card locality-card">
+        <span class="eyebrow">{isEnglish ? 'Local activation' : 'Activation locale'}</span>
+        <h2>{copy.localTitle}</h2>
+        <p>{copy.localText}</p>
+        <div class="city-cloud" aria-label={isEnglish ? 'Moroccan cities' : 'Villes marocaines'}>
+          {['Casablanca', 'Rabat', 'Marrakech', 'Tanger', 'Fès', 'Agadir', 'Oujda', 'Tétouan', 'Kénitra'].map((city) => (
+            <span>{city}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="market-capabilities" aria-labelledby="capability-title">
+      <div class="section-heading">
+        <span class="eyebrow">{isEnglish ? 'Content system' : 'Système contenu'}</span>
+        <h2 id="capability-title">{copy.ugcTitle}</h2>
+        <p>{copy.ugcText}</p>
+      </div>
+      <div class="capability-grid">
+        <article>
+          <img
+            src="/assets/richmedia-home/expertise-card-influence-ai.webp"
+            alt={isEnglish ? 'Social content and influence planning visual' : 'Visuel planification influence et contenu social'}
+            width="1120"
+            height="630"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3>{copy.platformTitle}</h3>
+          <ul>
+            {platforms.map((platform) => <li>{platform}</li>)}
+          </ul>
+        </article>
+        <article>
+          <img
+            src="/assets/richmedia-sector-hotellerie/campaigns/influence-travel-ugc.webp"
+            alt={isEnglish ? 'Travel influence and UGC campaign visual' : 'Visuel influence travel et UGC'}
+            width="1280"
+            height="720"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3>{copy.listeningTitle}</h3>
+          <p>{copy.listeningText}</p>
+          <div class="inline-links">
+            <a href={socialListeningHref}>{isEnglish ? 'Social listening' : 'Social Listening'}</a>
+            <a href={mediaHref}>{isEnglish ? 'Media & Performance' : 'Media & Performance'}</a>
+            <a href={brandContentHref}>Brand content</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="case-strip" aria-labelledby="case-strip-title">
+      <div class="section-heading">
+        <span class="eyebrow">{isEnglish ? 'Real work' : 'Réalisations'}</span>
+        <h2 id="case-strip-title">{copy.casesTitle}</h2>
+      </div>
+      <div class="case-grid">
+        {cases.map((caseItem) => (
+          <a class="case-card" href={caseItem.href}>
+            <img
+              src={caseItem.image}
+              alt={`${caseItem.client} — ${caseItem.mission}`}
+              width={caseItem.width}
+              height={caseItem.height}
+              loading="lazy"
+              decoding="async"
+            />
+            <div>
+              <span>{caseItem.client}</span>
+              <h3>{caseItem.mission}</h3>
+              <p>{caseItem.mechanic}</p>
+              <strong>{caseItem.result}</strong>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="why-section" aria-labelledby="why-title">
+      <div class="section-heading">
+        <span class="eyebrow">Richmedia</span>
+        <h2 id="why-title">{copy.whyTitle}</h2>
+      </div>
+      <div class="why-grid">
+        {whyCards.map(([title, text], index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    {isEnglish && (
+      <section class="international-panel" aria-labelledby="international-title">
+        <div>
+          <span class="eyebrow">International brands</span>
+          <h2 id="international-title">{copy.internationalTitle}</h2>
+          <p>{copy.internationalText}</p>
+        </div>
+        <ul>
+          {['Cultural relevance', 'Local creator ecosystem', 'Campaign coordination', 'Global brand guidelines', 'Reporting'].map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section class="market-faq" aria-labelledby="faq-title">
+      <div class="section-heading compact">
+        <span class="eyebrow">FAQ</span>
+        <h2 id="faq-title">{copy.faqTitle}</h2>
+      </div>
+      <div class="faq-list">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="final-cta-title">
+      <div>
+        <span class="eyebrow">{isEnglish ? 'Next campaign' : 'Prochaine campagne'}</span>
+        <h2 id="final-cta-title">{copy.finalTitle}</h2>
+        <p>{copy.finalText}</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href={contactHref}>
+          {copy.finalCta}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href={expertiseHref}>
+          {isEnglish ? 'Explore the expertise' : 'Voir l’expertise Influence'}
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <SeoSiloLinks
+    title={copy.siloTitle}
+    intro={copy.siloIntro}
+    links={[
+      ...siloLinks,
+      { href: fmcgHref, label: isEnglish ? 'FMCG campaigns' : 'Campagnes FMCG', text: isEnglish ? 'Adapt influence to product launches and retail moments.' : 'Adapter l’influence aux lancements produit et temps forts retail.' },
+      { href: workHref, label: isEnglish ? 'Case studies' : 'Réalisations', text: isEnglish ? 'See real Richmedia campaigns.' : 'Voir des campagnes réelles Richmedia.' },
+    ]}
+    variant="compact"
+  />
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .influence-market-page {
+    --container: min(100% - 3rem, 1360px);
+    --purple: #7c3cff;
+    --purple-soft: #a977ff;
+    --line: rgba(255, 255, 255, 0.13);
+    min-height: 100vh;
+    overflow: hidden;
+    color: #fff;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(124, 60, 255, 0.2), transparent 34rem),
+      linear-gradient(180deg, #050509 0%, #080713 58%, #050509 100%);
+  }
+
+  .influence-market-page :global(.influence-video-section) {
+    width: var(--container);
+    margin: 0 auto 7rem;
+  }
+
+  .influence-market-hero,
+  .market-intro,
+  .market-process,
+  .market-split,
+  .market-capabilities,
+  .case-strip,
+  .why-section,
+  .international-panel,
+  .market-faq,
+  .final-cta {
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .influence-market-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.86fr) minmax(520px, 1.14fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    min-height: calc(100vh - 98px);
+    padding: clamp(5rem, 8vw, 8rem) 0 5rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--purple-soft);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 3.4rem;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--purple), transparent);
+  }
+
+  .hero-copy h1 {
+    max-width: 760px;
+    margin: 1.3rem 0 1.2rem;
+    font-size: clamp(3.4rem, 7vw, 7.2rem);
+    line-height: 0.9;
+    letter-spacing: 0;
+  }
+
+  .hero-copy p,
+  .section-heading p,
+  .market-intro p,
+  .split-card p,
+  .capability-grid p,
+  .why-grid p,
+  .international-panel p,
+  .final-cta p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.75;
+  }
+
+  .hero-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 1.9rem 0 2rem;
+  }
+
+  .hero-line span,
+  .process-grid small,
+  .city-cloud span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.1rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid rgba(124, 60, 255, 0.35);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.82);
+    background: rgba(124, 60, 255, 0.09);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 3.3rem;
+    padding: 0.9rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 900;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    color: #fff;
+    background: linear-gradient(135deg, #9851ff, #6f2cff);
+    box-shadow: 0 22px 52px rgba(124, 60, 255, 0.25);
+  }
+
+  .button-secondary {
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .hero-board {
+    position: relative;
+    min-height: 640px;
+  }
+
+  .hero-main-card,
+  .hero-side-card {
+    position: absolute;
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #0b0a12;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.42);
+  }
+
+  .hero-main-card {
+    inset: 4% 6% auto 4%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .hero-side-card {
+    right: 0;
+    bottom: 8%;
+    width: 46%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .hero-main-card img,
+  .hero-side-card img,
+  .case-card img,
+  .capability-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-main-card::after,
+  .hero-side-card::after,
+  .case-card::after,
+  .capability-grid article::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 45%, rgba(5, 5, 9, 0.76));
+  }
+
+  .hero-side-card,
+  .case-card,
+  .capability-grid article {
+    position: relative;
+  }
+
+  .hero-signal {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    gap: 0.2rem;
+    min-width: 190px;
+    padding: 1rem;
+    border: 1px solid rgba(124, 60, 255, 0.35);
+    border-radius: 14px;
+    background: rgba(12, 10, 23, 0.82);
+    box-shadow: 0 22px 58px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(18px);
+  }
+
+  .hero-signal span {
+    color: var(--purple-soft);
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .hero-signal strong {
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .signal-a {
+    left: 0;
+    bottom: 21%;
+  }
+
+  .signal-b {
+    right: 8%;
+    top: 0;
+  }
+
+  .reel-stack {
+    position: absolute;
+    left: 5%;
+    bottom: 3%;
+    display: flex;
+    gap: 0.7rem;
+    z-index: 2;
+  }
+
+  .reel-stack img {
+    width: clamp(56px, 6vw, 86px);
+    aspect-ratio: 255 / 404;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.36);
+  }
+
+  .market-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+    padding: 4.5rem 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .market-intro h2,
+  .section-heading h2,
+  .split-card h2,
+  .final-cta h2,
+  .international-panel h2 {
+    margin: 0.9rem 0 0;
+    font-size: clamp(2.1rem, 4vw, 4.4rem);
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  blockquote {
+    margin: 1.6rem 0 0;
+    padding: 1.25rem 1.4rem;
+    border-left: 3px solid var(--purple);
+    border-radius: 0 12px 12px 0;
+    color: #fff;
+    background: rgba(124, 60, 255, 0.11);
+    font-size: clamp(1.1rem, 1.7vw, 1.45rem);
+    font-weight: 900;
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(260px, 0.58fr);
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 2rem;
+  }
+
+  .section-heading.compact {
+    display: block;
+    max-width: 840px;
+  }
+
+  .market-process,
+  .market-capabilities,
+  .case-strip,
+  .why-section,
+  .market-faq {
+    padding: 4.5rem 0;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .process-grid article,
+  .split-card,
+  .capability-grid article,
+  .case-card,
+  .why-grid article,
+  .international-panel,
+  .faq-list details,
+  .final-cta {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.025));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .process-grid article {
+    min-height: 310px;
+    padding: 1.25rem;
+  }
+
+  .process-grid article > span,
+  .why-grid article > span {
+    color: var(--purple-soft);
+    font-weight: 900;
+    letter-spacing: 0.16em;
+  }
+
+  .process-grid h3,
+  .capability-grid h3,
+  .case-card h3,
+  .why-grid h3 {
+    margin: 1rem 0 0.65rem;
+    color: #fff;
+    font-size: clamp(1.18rem, 1.6vw, 1.55rem);
+    line-height: 1.15;
+  }
+
+  .process-grid p,
+  .case-card p,
+  .faq-list p {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .process-grid article div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1rem;
+  }
+
+  .market-split {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: 1rem;
+    padding: 2rem 0 4rem;
+  }
+
+  .split-card {
+    padding: clamp(1.4rem, 3vw, 2.4rem);
+  }
+
+  .highlight-card {
+    background:
+      radial-gradient(circle at 25% 20%, rgba(124, 60, 255, 0.3), transparent 18rem),
+      linear-gradient(145deg, rgba(124, 60, 255, 0.13), rgba(255, 255, 255, 0.03));
+  }
+
+  .city-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1.4rem;
+  }
+
+  .capability-grid,
+  .case-grid,
+  .why-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .capability-grid {
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  }
+
+  .capability-grid article {
+    overflow: hidden;
+  }
+
+  .capability-grid img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .capability-grid article > h3,
+  .capability-grid article > p,
+  .capability-grid article > ul,
+  .inline-links {
+    position: relative;
+    z-index: 1;
+    margin-inline: clamp(1.1rem, 2vw, 1.6rem);
+  }
+
+  .capability-grid article > h3 {
+    margin-top: 1.4rem;
+  }
+
+  .capability-grid ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    padding: 0 0 1.5rem;
+    list-style: none;
+  }
+
+  .capability-grid li {
+    padding: 0.48rem 0.78rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+  .inline-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .inline-links a {
+    color: var(--purple-soft);
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .case-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .case-card {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .case-card img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .case-card div {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.65rem;
+    padding: 1.2rem;
+  }
+
+  .case-card span,
+  .case-card strong {
+    color: var(--purple-soft);
+    font-weight: 900;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .why-grid article {
+    min-height: 230px;
+    padding: 1.25rem;
+  }
+
+  .international-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    gap: 2rem;
+    align-items: center;
+    padding: clamp(1.5rem, 3vw, 2.6rem);
+    background:
+      radial-gradient(circle at 86% 22%, rgba(124, 60, 255, 0.26), transparent 18rem),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.025));
+  }
+
+  .international-panel ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .international-panel li {
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(124, 60, 255, 0.28);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.83);
+    background: rgba(124, 60, 255, 0.08);
+    font-weight: 800;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .faq-list details {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    padding: 1.25rem 1.4rem;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 900;
+  }
+
+  .faq-list p {
+    margin: 0;
+    padding: 0 1.4rem 1.35rem;
+  }
+
+  .final-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 5rem;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background:
+      radial-gradient(circle at 10% 20%, rgba(124, 60, 255, 0.32), transparent 19rem),
+      linear-gradient(145deg, rgba(124, 60, 255, 0.16), rgba(255, 255, 255, 0.03));
+  }
+
+  .final-cta > div:first-child {
+    max-width: 780px;
+  }
+
+  @media (max-width: 1180px) {
+    .influence-market-hero,
+    .market-intro,
+    .market-split,
+    .capability-grid,
+    .international-panel,
+    .final-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .influence-market-hero {
+      min-height: 0;
+      padding-top: 4rem;
+    }
+
+    .hero-board {
+      min-height: 560px;
+    }
+
+    .process-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .case-grid,
+    .why-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .section-heading {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .influence-market-page {
+      --container: min(100% - 1.25rem, 100%);
+    }
+
+    .influence-market-page :global(.influence-video-section) {
+      margin-bottom: 4rem;
+    }
+
+    .influence-market-hero {
+      padding: 2.6rem 0 3rem;
+      gap: 1.8rem;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(3rem, 15vw, 4.7rem);
+    }
+
+    .hero-copy p,
+    .section-heading p,
+    .market-intro p,
+    .split-card p,
+    .capability-grid p,
+    .why-grid p,
+    .international-panel p,
+    .final-cta p {
+      font-size: 1rem;
+    }
+
+    .button {
+      width: 100%;
+      white-space: normal;
+      text-align: center;
+    }
+
+    .hero-board {
+      min-height: clamp(340px, 58vw, 430px);
+      margin-top: 1.2rem;
+    }
+
+    .hero-main-card {
+      inset: 0;
+      border-radius: 14px;
+    }
+
+    .hero-side-card {
+      right: 0.4rem;
+      bottom: 3.2rem;
+      width: 58%;
+      border-radius: 12px;
+    }
+
+    .hero-signal {
+      min-width: 154px;
+      padding: 0.75rem;
+    }
+
+    .signal-a {
+      left: 0.4rem;
+      bottom: 1rem;
+    }
+
+    .signal-b {
+      right: 0.4rem;
+      top: 0.6rem;
+    }
+
+    .reel-stack {
+      display: none;
+    }
+
+    .market-intro,
+    .market-process,
+    .market-capabilities,
+    .case-strip,
+    .why-section,
+    .market-faq {
+      padding: 3.4rem 0;
+    }
+
+    .market-intro h2,
+    .section-heading h2,
+    .split-card h2,
+    .final-cta h2,
+    .international-panel h2 {
+      font-size: clamp(2rem, 9vw, 3.1rem);
+    }
+
+    .process-grid,
+    .case-grid,
+    .why-grid,
+    .international-panel ul {
+      grid-template-columns: 1fr;
+    }
+
+    .process-grid article,
+    .why-grid article {
+      min-height: auto;
+    }
+
+    .market-split {
+      padding-bottom: 2rem;
+    }
+
+    .capability-grid img,
+    .case-card img {
+      aspect-ratio: 16 / 11;
+    }
+
+    .final-cta {
+      display: grid;
+      margin-bottom: 3.5rem;
+    }
+  }
+</style>

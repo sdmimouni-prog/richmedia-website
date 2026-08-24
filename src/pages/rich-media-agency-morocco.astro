@@ -1,0 +1,1066 @@
+---
+import Faq from '../components/Faq.astro';
+import ParticleLogoSlide from '../components/ParticleLogoSlide.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { BUSINESS, SITE } from '../consts';
+import { breadcrumbs, faqSchema, localBusiness, serviceSchema } from '../lib/schema';
+
+const pagePath = '/rich-media-agency-morocco';
+const pageUrl = `${SITE.url}${pagePath}`;
+const title = 'Rich Media Agency in Morocco | Richmedia';
+const description =
+  'Richmedia is a digital and communication agency in Morocco combining strategy, creative, social media, influence, performance, technology, data and AI.';
+
+const heroImages = [
+  {
+    src: '/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-triptych.webp',
+    alt: 'Prestigia campaign in Morocco by Richmedia',
+    width: 1894,
+    height: 1074,
+  },
+  {
+    src: '/assets/richmedia-home/campaign-wide-donsimon.webp',
+    alt: 'Don Simon campaign in Morocco by Richmedia',
+    width: 1600,
+    height: 900,
+  },
+  {
+    src: '/assets/richmedia-home/campaign-wide-amana-tram.webp',
+    alt: 'Amana Tramway campaign by Richmedia',
+    width: 1600,
+    height: 900,
+  },
+];
+
+const proofs = [
+  { icon: 'ph ph-chart-line-up', value: '+156', label: 'completed projects', text: 'for local, national and international brands.' },
+  { icon: 'ph ph-users-three', value: '+117', label: 'clients supported', text: 'across demanding sectors.' },
+  { icon: 'ph ph-certificate', value: String(BUSINESS.accreditations.length), label: 'credentials', text: 'Google, Meta, HubSpot, IAB, Semrush and Analytics.' },
+];
+
+const expertises = [
+  {
+    href: '/en/expertises/strategie-digitale',
+    icon: 'ph ph-target',
+    label: 'Strategy & Branding',
+    text: 'Brand strategy, positioning, creative campaigns, visual identity, branded content and production.',
+  },
+  {
+    href: '/en/expertises/influence',
+    icon: 'ph ph-users-three',
+    label: 'Social, Influence & UGC',
+    text: 'Social media strategy, community management, content, influencer marketing, UGC and social listening.',
+  },
+  {
+    href: '/en/expertises/media-performance',
+    icon: 'ph ph-chart-line-up',
+    label: 'Media & Performance',
+    text: 'Meta Ads, Google Ads, TikTok Ads, lead generation, paid media, programmatic and performance marketing.',
+  },
+  {
+    href: '/en/expertises/ia-automation',
+    icon: 'ph ph-cpu',
+    label: 'Tech, AI & Experience',
+    text: 'Web platforms, UX/UI, CRM, WhatsApp Business, chatbots, marketing automation, data and AI.',
+  },
+];
+
+const coverage = ['Casablanca', 'Rabat', 'Marrakech', 'Tangier', 'Agadir', 'Fez', 'Meknes', 'Oujda'];
+
+const nationalLevers = [
+  'national media campaigns',
+  'geo-targeting',
+  'local influence',
+  'drive-to-store',
+  'lead generation',
+  'content & social media',
+];
+
+const whyRichmedia = [
+  {
+    icon: 'ph ph-sparkle',
+    title: 'Creative + performance',
+    text: 'Creative work is designed to support measurable business objectives.',
+  },
+  {
+    icon: 'ph ph-circles-three-plus',
+    title: 'Integrated expertise',
+    text: 'Strategy, creative, media, influence, technology and data work as one team.',
+  },
+  {
+    icon: 'ph ph-map-pin',
+    title: 'Moroccan market knowledge',
+    text: 'A practical understanding of local audiences, platforms, behaviours and decision paths.',
+  },
+  {
+    icon: 'ph ph-brain',
+    title: 'Data & technology',
+    text: 'Automation, AI and reporting help improve campaign performance over time.',
+  },
+];
+
+const partnerPoints = [
+  { title: 'Market understanding', text: 'Local audiences, culture, platforms and consumer behaviours.' },
+  { title: 'Local activation', text: 'Media, creators, influencers, content and digital campaigns.' },
+  { title: 'Centralised execution', text: 'Strategy, creative, media and technology through one partner.' },
+  { title: 'Measurable performance', text: 'KPIs, reporting, optimisation and business results.' },
+];
+
+const works = [
+  {
+    href: '/en/case-studies/prestigia-riad-al-andalous-acquisition-2026',
+    image: '/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-triptych.webp',
+    width: 1894,
+    height: 1074,
+    category: 'Real estate',
+    client: 'Prestigia',
+    title: 'Riad Al Andalous',
+  },
+  {
+    href: '/en/case-studies/don-simon-back-to-school-2025',
+    image: '/assets/richmedia-home/campaign-wide-donsimon.webp',
+    width: 1600,
+    height: 900,
+    category: 'FMCG',
+    client: 'Don Simon',
+    title: 'Back to School',
+  },
+  {
+    href: '/en/case-studies/maserati-levante-whatsapp-leads-2025',
+    image: '/assets/richmedia-realizations/maserati-levante-push-whatsapp.webp',
+    width: 960,
+    height: 1200,
+    category: 'Automotive',
+    client: 'Maserati',
+    title: 'Levante WhatsApp leads',
+  },
+  {
+    href: '/en/case-studies/amana-tramway-phygital-2022',
+    image: '/assets/richmedia-home/campaign-wide-amana-tram.webp',
+    width: 1600,
+    height: 900,
+    category: 'Mobility',
+    client: 'Amana / Tramway',
+    title: 'Phygital activation',
+  },
+];
+
+const sectors = [
+  { href: '/en/sectors/real-estate', label: 'Real estate' },
+  { href: '/en/sectors/education', label: 'Education' },
+  { href: '/en/sectors/automotive', label: 'Automotive' },
+  { href: '/en/sectors/retail-ecommerce', label: 'Retail & e-commerce' },
+  { href: '/en/sectors/fmcg', label: 'FMCG' },
+  { href: '/en/sectors/institutional', label: 'Institutional' },
+];
+
+const process = [
+  { number: '01', title: 'Understand', text: 'Objectives, market, audiences and competition.' },
+  { number: '02', title: 'Build', text: 'Strategy, concept, content and user journeys.' },
+  { number: '03', title: 'Activate', text: 'Media, social, influence, web and activations.' },
+  { number: '04', title: 'Measure & optimise', text: 'Data, reporting, testing and optimisation.' },
+];
+
+const faq = [
+  {
+    question: 'What does a digital agency in Morocco do?',
+    answer:
+      'A digital agency supports strategy, creative, social media, influence, paid media, web platforms, CRM, automation, data and performance measurement.',
+  },
+  {
+    question: 'Why work with a local agency in Morocco?',
+    answer:
+      'A local agency understands Moroccan audiences, languages, media habits, platforms, cities and decision paths, which helps campaigns feel relevant and perform better.',
+  },
+  {
+    question: 'Does Richmedia work with international brands?',
+    answer:
+      'Yes. Richmedia supports Moroccan and international brands that want to enter, grow or scale in Morocco with a local and measurable approach.',
+  },
+  {
+    question: 'Can Richmedia manage campaigns across Morocco?',
+    answer:
+      'Yes. Richmedia can design national, multi-city or geo-targeted campaigns using media, social, influence, content, WhatsApp, CRM and reporting.',
+  },
+  {
+    question: 'Which digital marketing services does Richmedia provide?',
+    answer:
+      'Richmedia provides strategy, branding, content, social media, influencer marketing, Meta Ads, Google Ads, TikTok Ads, web, CRM, automation, data and AI services.',
+  },
+];
+
+const schema = [
+  { ...localBusiness(), url: pageUrl, description, inLanguage: 'en' },
+  serviceSchema({ name: 'Rich Media Agency in Morocco', description, url: pageUrl }),
+  faqSchema(faq),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Agency', url: `${SITE.url}/en/agency` },
+    { name: 'Rich Media Agency in Morocco', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={pageUrl}
+  lang="en"
+  ogImage="/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-triptych.webp"
+  schema={schema}
+>
+  <article class="national-page">
+    <section class="national-hero" aria-labelledby="national-title">
+      <div class="national-hero-copy">
+        <span class="section-kicker">Moroccan market, measurable growth</span>
+        <h1 id="national-title">Rich Media Agency in Morocco</h1>
+        <p>
+          Richmedia helps Moroccan and international brands grow in Morocco through strategy, creativity, media, social,
+          influence, technology and data.
+        </p>
+        <strong class="hero-signature">Strategy · Creative · Social · Influence · Media · Tech & AI</strong>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/en/contact">
+            Talk to an expert
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="button button-secondary" href="/en/case-studies">
+            View our work
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-gallery" aria-label="Richmedia work in Morocco">
+        {heroImages.map((image, index) => (
+          <figure class:list={['hero-card', index === 0 && 'hero-card-main']}>
+            <img
+              src={image.src}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              fetchpriority={index === 0 ? 'high' : 'low'}
+              sizes="(max-width: 760px) 88vw, (max-width: 1100px) 42vw, 360px"
+            />
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section class="proof-section" aria-labelledby="positioning-title">
+      <div class="section-intro">
+        <span class="section-kicker">Positioning</span>
+        <h2 id="positioning-title">A digital and creative agency built for the Moroccan market</h2>
+        <p>
+          Richmedia is a Morocco-based communication and digital agency helping local and international brands connect
+          with Moroccan audiences. We combine strategy, creative, media, social, influence, technology and data to build
+          integrated campaigns focused on measurable growth. Learn more about <a href="/en/agency">Richmedia agency</a> and read our guide on
+          <a href="/en/insights/how-to-choose-communication-agency">how to choose a communication agency</a>.
+        </p>
+      </div>
+      <div class="metrics-grid" aria-label="Richmedia proof points">
+        {proofs.map((proof) => (
+          <article>
+            <i class={proof.icon} aria-hidden="true"></i>
+            <strong>{proof.value}</strong>
+            <span>{proof.label}</span>
+            <p>{proof.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="expertise-section" aria-labelledby="expertise-title">
+      <div class="section-intro compact">
+        <span class="section-kicker">Capabilities</span>
+        <h2 id="expertise-title">One agency. Multiple growth capabilities.</h2>
+      </div>
+      <div class="expertise-grid">
+        {expertises.map((expertise) => (
+          <a class="expertise-card" href={expertise.href}>
+            <i class={expertise.icon} aria-hidden="true"></i>
+            <h3>{expertise.label}</h3>
+            <p>{expertise.text}</p>
+            <span>Explore <i class="ph ph-arrow-up-right" aria-hidden="true"></i></span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="editorial-section" aria-labelledby="market-title">
+      <div>
+        <span class="section-kicker">Market view</span>
+        <h2 id="market-title">Winning in Morocco requires more than translating a campaign</h2>
+        <div class="editorial-particle-logo" aria-hidden="true">
+          <ParticleLogoSlide />
+        </div>
+      </div>
+      <p>
+        Morocco is a diverse, mobile-first market where brands operate across languages, cultures, cities and consumer
+        segments. Successful communication requires more than adapting an international campaign. It requires
+        understanding how Moroccan audiences consume media, discover brands, interact with creators and move between
+        digital platforms and physical experiences. Richmedia combines local market knowledge with international digital
+        standards to build campaigns that feel relevant in Morocco while remaining consistent with brand objectives.
+      </p>
+    </section>
+
+    <section class="coverage-section" aria-labelledby="coverage-title">
+      <div class="section-intro">
+        <span class="section-kicker">National reach</span>
+        <h2 id="coverage-title">Local insight. National reach.</h2>
+        <p>
+          Richmedia designs campaigns that can scale across Morocco while adapting messages, media, audiences and
+          conversion paths to the cities, regions and communities that matter for each brand.
+        </p>
+      </div>
+      <div class="coverage-panel">
+        <div class="city-pills" aria-label="Examples of Moroccan cities covered">
+          {coverage.map((city) => <span>{city}</span>)}
+        </div>
+        <div class="lever-grid">
+          {nationalLevers.map((lever) => <span>{lever}</span>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="why-section" aria-labelledby="why-title">
+      <div class="section-intro">
+        <span class="section-kicker">Why Richmedia</span>
+        <h2 id="why-title">More than an agency. A growth partner.</h2>
+      </div>
+      <div class="why-grid">
+        {whyRichmedia.map((item) => (
+          <article>
+            <i class={item.icon} aria-hidden="true"></i>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="activation-section" aria-labelledby="partner-title">
+      <div class="section-intro">
+        <span class="section-kicker">International brands</span>
+        <h2 id="partner-title">Your agency partner for the Moroccan market</h2>
+        <p>
+          For international brands entering or expanding in Morocco, Richmedia acts as a local strategic and operational
+          partner. We help adapt global strategies to Moroccan audiences while protecting brand consistency and
+          performance objectives.
+        </p>
+      </div>
+      <div class="activation-grid">
+        {partnerPoints.map((item) => (
+          <article>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="work-section" aria-labelledby="work-title">
+      <div class="section-intro compact">
+        <span class="section-kicker">Work</span>
+        <h2 id="work-title">Work that delivers beyond impressions</h2>
+      </div>
+      <div class="work-grid">
+        {works.map((work) => (
+          <a class="work-card" href={work.href} aria-label={`View the ${work.client} case study`}>
+            <img
+              src={work.image}
+              alt={`${work.client} campaign — ${work.title}`}
+              width={work.width}
+              height={work.height}
+              loading="lazy"
+              decoding="async"
+              sizes="(max-width: 760px) 92vw, (max-width: 1100px) 45vw, 25vw"
+            />
+            <span>{work.category}</span>
+            <div>
+              <strong>{work.client}</strong>
+              <small>{work.title}</small>
+            </div>
+          </a>
+        ))}
+      </div>
+      <a class="text-link" href="/en/case-studies">
+        View all work
+        <i class="ph ph-arrow-right" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <section class="sectors-section" aria-labelledby="sectors-title">
+      <div class="section-intro compact">
+        <span class="section-kicker">Industries</span>
+        <h2 id="sectors-title">Experience across industries</h2>
+      </div>
+      <div class="sector-grid">
+        {sectors.map((sector) => (
+          <a href={sector.href}>{sector.label}<i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+        ))}
+      </div>
+    </section>
+
+    <section class="method-section" aria-labelledby="method-title">
+      <div class="section-intro compact">
+        <span class="section-kicker">Method</span>
+        <h2 id="method-title">From strategy to measurable growth</h2>
+      </div>
+      <ol class="method-grid">
+        {process.map((step) => (
+          <li>
+            <span>{step.number}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="faq-section">
+      <Faq faq={faq} lang="en" title="Frequently asked questions about digital agencies in Morocco" emitSchema={false} />
+    </section>
+
+    <section class="final-cta" aria-labelledby="final-cta-title">
+      <div>
+        <h2 id="final-cta-title">Ready to grow in Morocco?</h2>
+        <p>Let's build a strategy designed for the market, the audience and the results you want to achieve.</p>
+      </div>
+      <a class="button button-primary" href="/en/contact">
+        Talk to an expert
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .national-page {
+    --purple: #8c52ff;
+    --purple-soft: #b985ff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(232, 237, 245, 0.72);
+    width: min(100% - 3rem, 1320px);
+    margin: 0 auto;
+    padding: clamp(8rem, 9vw, 9.8rem) 0 clamp(3rem, 6vw, 5rem);
+    color: #fff;
+  }
+
+  .national-hero,
+  .proof-section,
+  .coverage-section,
+  .why-section,
+  .activation-section,
+  .editorial-section,
+  .final-cta {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 12% 0%, rgba(140, 82, 255, 0.25), transparent 28rem),
+      linear-gradient(145deg, rgba(13, 14, 23, 0.9), rgba(7, 8, 13, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .national-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+    min-height: clamp(34rem, 54vw, 45rem);
+    padding: clamp(1.2rem, 4vw, 3.6rem);
+    overflow: hidden;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.1rem;
+    color: var(--purple-soft);
+    font-size: 1.0625rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    display: inline-block;
+    width: 1.55rem;
+    height: 1px;
+    background: var(--purple);
+    content: "";
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    letter-spacing: 0;
+  }
+
+  .national-hero h1 {
+    max-width: 40rem;
+    font-size: clamp(3.05rem, 6.1vw, 6rem);
+    line-height: 0.96;
+  }
+
+  .national-hero-copy p {
+    max-width: 36rem;
+    margin: 1.45rem 0 0;
+    color: var(--muted);
+    font-size: 1.0625rem;
+    line-height: 1.78;
+  }
+
+  .hero-signature {
+    display: block;
+    max-width: 34rem;
+    margin-top: 1.4rem;
+    color: #fff;
+    font-size: 0.86rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    line-height: 1.6;
+    text-transform: uppercase;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3.4rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0.95rem 1.35rem;
+    color: #fff;
+    font-weight: 900;
+    line-height: 1.1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  .button-primary {
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    box-shadow: 0 1rem 2.5rem rgba(124, 60, 255, 0.28);
+  }
+
+  .button-secondary {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .hero-gallery {
+    display: grid;
+    grid-template-columns: 1fr 0.78fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .hero-card {
+    position: relative;
+    min-height: 13rem;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    background: #050609;
+    box-shadow: 0 1.4rem 4rem rgba(0, 0, 0, 0.35);
+  }
+
+  .hero-card-main {
+    grid-row: span 2;
+    min-height: 29rem;
+  }
+
+  .hero-card img,
+  .work-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-card::after,
+  .work-card::after {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.72)),
+      radial-gradient(circle at 22% 20%, rgba(124, 60, 255, 0.18), transparent 42%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .proof-section,
+  .coverage-section,
+  .why-section,
+  .activation-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+    margin-top: 1.35rem;
+    padding: clamp(1.35rem, 4vw, 3rem);
+  }
+
+  .section-intro h2,
+  .editorial-section h2,
+  .final-cta h2 {
+    max-width: 54rem;
+    font-size: clamp(2.1rem, 4.6vw, 4.5rem);
+    line-height: 0.98;
+  }
+
+  .section-intro p,
+  .editorial-section p,
+  .final-cta p {
+    max-width: 48rem;
+    margin: 1.2rem 0 0;
+    color: var(--muted);
+    font-size: 1.0625rem;
+    line-height: 1.78;
+  }
+
+  .section-intro a {
+    color: #fff;
+    font-weight: 800;
+    text-decoration-color: rgba(185, 133, 255, 0.68);
+    text-underline-offset: 0.18em;
+  }
+
+  .compact {
+    margin-bottom: clamp(1.2rem, 3vw, 2rem);
+  }
+
+  .metrics-grid,
+  .expertise-grid,
+  .why-grid,
+  .activation-grid,
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .metrics-grid article,
+  .expertise-card,
+  .why-grid article,
+  .activation-grid article,
+  .method-grid li {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(140, 82, 255, 0.18), transparent 16rem),
+      rgba(255, 255, 255, 0.025);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .metrics-grid article,
+  .why-grid article,
+  .activation-grid article,
+  .method-grid li {
+    padding: 1.2rem;
+  }
+
+  .metrics-grid i,
+  .expertise-card > i,
+  .why-grid i {
+    display: grid;
+    width: 2.55rem;
+    height: 2.55rem;
+    place-items: center;
+    border: 1px solid rgba(140, 82, 255, 0.45);
+    border-radius: 8px;
+    background: rgba(140, 82, 255, 0.12);
+    color: var(--purple-soft);
+    font-size: 1.15rem;
+  }
+
+  .metrics-grid strong {
+    display: block;
+    margin-top: 1.6rem;
+    color: var(--purple);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.7rem);
+    line-height: 0.8;
+  }
+
+  .metrics-grid span {
+    display: block;
+    margin-top: 0.8rem;
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .metrics-grid p,
+  .expertise-card p,
+  .why-grid p,
+  .activation-grid p,
+  .method-grid p {
+    margin: 0.6rem 0 0;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.96rem;
+    line-height: 1.62;
+  }
+
+  .expertise-section,
+  .work-section,
+  .sectors-section,
+  .method-section,
+  .faq-section {
+    margin-top: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  .expertise-card {
+    display: grid;
+    min-height: 17rem;
+    padding: 1.25rem;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  .expertise-card:hover,
+  .work-card:hover,
+  .sector-grid a:hover {
+    border-color: rgba(185, 133, 255, 0.5);
+    transform: translateY(-3px);
+  }
+
+  .expertise-card h3,
+  .why-grid h3,
+  .activation-grid h3,
+  .method-grid h3 {
+    margin-top: 1rem;
+    color: #fff;
+    font-size: 1.35rem;
+    line-height: 1.15;
+  }
+
+  .expertise-card span,
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    align-self: end;
+    margin-top: 1.2rem;
+    color: var(--purple-soft);
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .editorial-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: clamp(3.5rem, 7vw, 6rem);
+    padding: clamp(1.35rem, 4vw, 3rem);
+  }
+
+  .editorial-section p {
+    margin: 0;
+  }
+
+  .editorial-particle-logo {
+    position: relative;
+    min-height: clamp(9rem, 16vw, 13rem);
+    margin-top: clamp(1.15rem, 2.4vw, 1.8rem);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #000;
+  }
+
+  .coverage-panel {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .city-pills,
+  .lever-grid,
+  .sector-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .city-pills span,
+  .lever-grid span,
+  .sector-grid a {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.035);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.72rem 0.9rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .lever-grid span {
+    border-radius: 8px;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .work-card {
+    position: relative;
+    min-height: 24rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #050609;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  .work-card > span,
+  .work-card > div {
+    position: absolute;
+    z-index: 1;
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .work-card > span {
+    top: 1rem;
+    width: fit-content;
+    max-width: calc(100% - 2rem);
+    border-radius: 6px;
+    background: linear-gradient(135deg, #8c52ff, #6224ec);
+    padding: 0.55rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .work-card > div {
+    bottom: 1rem;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .work-card strong {
+    font-size: 1.45rem;
+    line-height: 1.1;
+  }
+
+  .work-card small {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.92rem;
+  }
+
+  .work-section > .text-link {
+    margin-top: 1.3rem;
+  }
+
+  .sector-grid a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-radius: 8px;
+    color: #fff;
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  .method-grid {
+    padding: 0;
+    list-style: none;
+  }
+
+  .method-grid li {
+    min-height: 14rem;
+  }
+
+  .method-grid span {
+    color: var(--purple-soft);
+    font-size: 0.96rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+  }
+
+  .final-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: clamp(3.5rem, 7vw, 6rem);
+    padding: clamp(1.35rem, 4vw, 3rem);
+  }
+
+  .final-cta p {
+    max-width: 44rem;
+  }
+
+  @media (max-width: 1100px) {
+    .national-hero,
+    .proof-section,
+    .coverage-section,
+    .why-section,
+    .activation-section,
+    .editorial-section,
+    .final-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-gallery,
+    .expertise-grid,
+    .why-grid,
+    .activation-grid,
+    .work-grid,
+    .method-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .metrics-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .hero-card-main {
+      min-height: 22rem;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .national-page {
+      width: min(100% - 1rem, 1320px);
+      padding-top: 5.9rem;
+    }
+
+    .national-hero {
+      gap: 1.35rem;
+      min-height: 0;
+      padding: 1rem;
+    }
+
+    .section-kicker {
+      gap: 0.55rem;
+      margin-bottom: 0.85rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+    }
+
+    .section-kicker::before {
+      width: 1.2rem;
+    }
+
+    .national-hero h1 {
+      font-size: clamp(2.55rem, 13vw, 3.85rem);
+      line-height: 0.98;
+    }
+
+    .national-hero-copy p,
+    .section-intro p,
+    .editorial-section p,
+    .final-cta p {
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .hero-signature {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-actions,
+    .final-cta .button {
+      display: grid;
+      width: 100%;
+    }
+
+    .button {
+      width: 100%;
+      min-height: 3.35rem;
+      padding-inline: 0.95rem;
+      white-space: normal;
+      text-align: center;
+    }
+
+    .hero-gallery,
+    .metrics-grid,
+    .expertise-grid,
+    .why-grid,
+    .activation-grid,
+    .work-grid,
+    .method-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-card,
+    .hero-card-main {
+      min-height: 14rem;
+    }
+
+    .proof-section,
+    .coverage-section,
+    .why-section,
+    .activation-section,
+    .editorial-section,
+    .final-cta {
+      padding: 1rem;
+    }
+
+    .section-intro h2,
+    .editorial-section h2,
+    .final-cta h2 {
+      font-size: clamp(2rem, 10vw, 3rem);
+      line-height: 1;
+    }
+
+    .work-card {
+      min-height: 18rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .national-page {
+      width: min(100% - 0.75rem, 1320px);
+    }
+
+    .national-hero,
+    .proof-section,
+    .coverage-section,
+    .why-section,
+    .activation-section,
+    .editorial-section,
+    .final-cta {
+      padding: 0.85rem;
+    }
+  }
+</style>

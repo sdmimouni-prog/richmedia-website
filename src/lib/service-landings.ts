@@ -338,6 +338,7 @@ export const serviceLandings = [
       { href: '/secteurs/tourisme-hotellerie', label: 'Tourisme / hôtellerie' },
     ],
     relatedServices: [
+      { href: '/gestion-reseaux-sociaux-maroc', label: 'Gestion des réseaux sociaux au Maroc' },
       { href: '/expertises/brand-content', label: 'Brand content' },
       { href: '/expertises/influence-marketing-maroc', label: 'Influence Marketing Maroc' },
       { href: '/expertises/meta-ads-maroc', label: 'Meta Ads Maroc' },

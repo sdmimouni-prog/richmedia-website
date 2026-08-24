@@ -1,7 +1,8 @@
 ---
 import { BUSINESS, SITE } from '../consts';
 
-const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/');
+const englishRootPaths = ['/rich-media-agency-morocco', '/influencer-marketing-morocco', '/social-media-management-morocco', '/seo-agency-morocco', '/online-advertising-morocco', '/website-development-morocco'];
+const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/') || englishRootPaths.includes(Astro.url.pathname.replace(/\/$/, ''));
 const homeHref = isEnglish ? '/en' : '/';
 const currentYear = new Date().getFullYear();
 
@@ -9,17 +10,28 @@ const expertiseLinks = isEnglish
   ? [
       { label: 'Strategy & Branding', href: '/en/expertises/strategie-digitale' },
       { label: 'Social, Influence & UGC', href: '/en/expertises/influence' },
+      { label: 'Social Media Management Morocco', href: '/social-media-management-morocco' },
+      { label: 'Influencer Marketing Morocco', href: '/influencer-marketing-morocco' },
       { label: 'Media & Performance', href: '/en/expertises/media-performance' },
+      { label: 'Online Advertising Morocco', href: '/online-advertising-morocco' },
+      { label: 'SEO Agency Morocco', href: '/seo-agency-morocco' },
+      { label: 'Website Development Morocco', href: '/website-development-morocco' },
       { label: 'Tech, AI & Experience', href: '/en/expertises/ia-automation' },
     ]
   : [
       { label: 'Stratégie & Branding', href: '/expertises/strategie-digitale' },
       { label: 'Social, Influence & UGC', href: '/expertises/influence' },
+      { label: 'Gestion des réseaux sociaux au Maroc', href: '/gestion-reseaux-sociaux-maroc' },
+      { label: 'Marketing d’influence au Maroc', href: '/marketing-influence-maroc' },
       { label: 'Media & Performance', href: '/expertises/media-performance' },
+      { label: 'Publicité en ligne au Maroc', href: '/publicite-en-ligne-maroc' },
+      { label: 'Agence SEO au Maroc', href: '/agence-seo-maroc' },
+      { label: 'Création de site web au Maroc', href: '/creation-site-web-maroc' },
       { label: 'Tech, IA & Expérience', href: '/expertises/ia-automation' },
     ];
 const agencyLinks = isEnglish
   ? [
+      { label: 'Rich Media Agency Morocco', href: '/rich-media-agency-morocco' },
       { label: 'Agency', href: '/en/agency' },
       { label: 'Team', href: '/en/team' },
       { label: 'Case studies', href: '/en/case-studies' },
@@ -27,6 +39,8 @@ const agencyLinks = isEnglish
       { label: 'Contact', href: '/en/contact' },
     ]
   : [
+      { label: 'Agence de communication au Maroc', href: '/agence-de-communication-maroc' },
+      { label: 'Agence de communication à Casablanca', href: '/agence-de-communication-casablanca' },
       { label: 'Équipe', href: '/equipe' },
       { label: 'Réalisations', href: '/realisations' },
       { label: 'Carrières', href: '/carrieres' },
