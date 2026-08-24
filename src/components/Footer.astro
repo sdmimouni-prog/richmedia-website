@@ -3,14 +3,21 @@ import { BUSINESS, SITE } from '../consts';
 
 const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/');
 const homeHref = isEnglish ? '/en' : '/';
-const expertiseBaseHref = isEnglish ? '/en/expertises' : '/expertises';
+const currentYear = new Date().getFullYear();
 
-const expertiseLinks = [
-  isEnglish ? 'Strategy & Branding' : 'Stratégie & Branding',
-  'Social, Influence & UGC',
-  'Media & Performance',
-  isEnglish ? 'Tech, AI & Experience' : 'Tech, IA & Expérience',
-];
+const expertiseLinks = isEnglish
+  ? [
+      { label: 'Strategy & Branding', href: '/en/expertises/strategie-digitale' },
+      { label: 'Social, Influence & UGC', href: '/en/expertises/influence' },
+      { label: 'Media & Performance', href: '/en/expertises/media-performance' },
+      { label: 'Tech, AI & Experience', href: '/en/expertises/ia-automation' },
+    ]
+  : [
+      { label: 'Stratégie & Branding', href: '/expertises/strategie-digitale' },
+      { label: 'Social, Influence & UGC', href: '/expertises/influence' },
+      { label: 'Media & Performance', href: '/expertises/media-performance' },
+      { label: 'Tech, IA & Expérience', href: '/expertises/ia-automation' },
+    ];
 const agencyLinks = isEnglish
   ? [
       { label: 'Agency', href: '/en/agency' },
@@ -74,7 +81,7 @@ const labels = isEnglish
 
   <nav aria-label={isEnglish ? 'Expertise' : 'Expertises'}>
     <h2>Expertise</h2>
-    {expertiseLinks.map((label) => <a href={expertiseBaseHref}>{label}</a>)}
+    {expertiseLinks.map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
 
   <nav aria-label={labels.agency}>
@@ -102,7 +109,7 @@ const labels = isEnglish
   </div>
 
   <div class="footer-bottom">
-    <small>© 2025 {SITE.name}. {labels.rights}</small>
+    <small>© {currentYear} {SITE.name}. {labels.rights}</small>
     <a href={isEnglish ? '/en/legal-notice' : '/mentions-legales'}>{labels.legal}</a>
     <a href={isEnglish ? '/en/privacy' : '/confidentialite'}>{labels.privacy}</a>
     <a href={isEnglish ? '/en/cookies' : '/cookies'}>{labels.cookies}</a>

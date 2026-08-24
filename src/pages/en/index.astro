@@ -221,6 +221,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   <div class="home-page">
     <section class="hero-section" aria-labelledby="hero-title">
       <div class="hero-copy">
+        <span class="hero-seo-kicker">Digital agency in Morocco</span>
         <h1 id="hero-title">Nothing is <span>out</span> of reach</h1>
         <p>A performance agency built to create and scale your brands, campaigns and revenue.</p>
         <div class="hero-actions">
@@ -782,6 +783,27 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     align-items: center;
     min-height: 640px;
     padding: 7.5rem 0 3rem;
+  }
+
+  .hero-seo-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.72rem;
+    margin-bottom: 1rem;
+    color: rgba(184, 144, 255, 0.9);
+    font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+    font-weight: 760;
+    letter-spacing: 0.14em;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .hero-seo-kicker::after {
+    width: 3rem;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(124, 60, 255, 0.9), transparent);
+    content: '';
   }
 
   .hero-copy h1 {

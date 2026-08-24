@@ -910,7 +910,7 @@ main {
   margin-left: auto;
 }
 
-@media (max-width: 1240px) {
+@media (max-width: 1380px) {
   html.mobile-menu-lock,
   html.mobile-menu-lock body {
     overflow: hidden;
