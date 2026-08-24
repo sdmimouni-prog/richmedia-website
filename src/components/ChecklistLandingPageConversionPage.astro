@@ -1,0 +1,990 @@
+---
+import { CONTACT_FORM } from '../consts';
+
+interface Props {
+  lang?: 'fr' | 'en';
+  downloadHref: string;
+  downloadFilename: string;
+}
+
+const { lang = 'fr', downloadHref, downloadFilename } = Astro.props;
+const isEnglish = lang === 'en';
+const assetBase = '/assets/richmedia-tools/checklist-landing-page-conversion';
+
+const t = isEnglish
+  ? {
+      eyebrow: 'Richmedia checklist',
+      title: 'Landing Page Conversion Checklist',
+      positioning: '35 checks before sending your media budget to a landing page.',
+      subtitle:
+        'Check that your landing page is ready to convert before activating your media budget: offer, CTA, form, mobile, tracking and CRM.',
+      badge: '35 checks • Free PDF • Conversion',
+      primaryCta: 'Download the checklist',
+      secondaryCta: 'View all tools',
+      secondaryHref: '/en/tools/',
+      heroAlt: 'Real PDF pages from the Richmedia Landing Page Conversion checklist',
+      previewEyebrow: 'Document preview',
+      previewTitle: 'Real PDF pages from the checklist.',
+      previewText: 'These visuals are generated from the exact PDF file used for download, without modifying its content.',
+      controlsEyebrow: 'What it checks',
+      controlsTitle: 'The conversion points to validate before sending paid traffic.',
+      keyMessage:
+        'A high-performing landing page is not just about design. It must make the offer clear, reduce friction and turn traffic into measurable business value.',
+      funnelEyebrow: 'Conversion journey',
+      scoreEyebrow: 'Readiness score',
+      scoreTitle: 'A simple indicator to decide whether the page is ready for acquisition.',
+      scoreNote: 'This score is an educational indicator. It should be interpreted with the business context, traffic, offer and brand maturity.',
+      downloadEyebrow: 'Download',
+      downloadTitle: 'Download the free PDF checklist',
+      downloadText:
+        'Fill in the form. After validation, the exact PDF file attached to this project starts downloading automatically.',
+      submit: 'Download the free PDF checklist',
+      loading: 'Validation in progress...',
+      success: 'Your download has started. The PDF checklist is ready.',
+      error: 'The download could not be started. Please try again.',
+      trapSuccess: 'Download started. Thank you.',
+      subject: '[Richmedia] Landing Page Conversion Checklist download',
+      formName: 'Landing Page Conversion Checklist download',
+      requestedResource: 'Landing Page Conversion Checklist — Richmedia',
+      crmMarker: 'lead_download_landing_page_conversion_checklist',
+      fields: {
+        name: 'Full name *',
+        email: 'Professional email *',
+        company: 'Company *',
+        job: 'Job title *',
+      },
+      fieldNames: {
+        name: 'Full name',
+        email: 'Professional email',
+        company: 'Company',
+        job: 'Job title',
+      },
+      previews: [
+        { title: 'Cover & score', image: `${assetBase}/checklist-landing-page-page-1.webp`, alt: 'Real first page of the Richmedia Landing Page Conversion checklist PDF' },
+        { title: 'Hero, CTA & form', image: `${assetBase}/checklist-landing-page-page-2.webp`, alt: 'Real hero CTA and form page from the Richmedia landing page checklist PDF' },
+        { title: 'Proof, mobile & performance', image: `${assetBase}/checklist-landing-page-page-3.webp`, alt: 'Real proof mobile and performance page from the Richmedia landing page checklist PDF' },
+        { title: 'Tracking, CRM & QA', image: `${assetBase}/checklist-landing-page-page-4.webp`, alt: 'Real tracking CRM and QA page from the Richmedia landing page checklist PDF' },
+      ],
+      controls: [
+        '01 Hero & value proposition',
+        '02 Message',
+        '03 CTA',
+        '04 Form',
+        '05 Proof & reassurance',
+        '06 Page structure',
+        '07 Mobile',
+        '08 Technical performance',
+        '09 Tracking',
+        '10 CRM & lead handling',
+        '11 SEO minimum',
+        '12 Final QA',
+      ],
+      funnel: ['AD', 'LANDING PAGE', 'UNDERSTANDING', 'TRUST', 'ACTION', 'LEAD', 'CRM'],
+      scores: [
+        { range: '90-100%', label: 'Landing page ready to convert' },
+        { range: '75-89%', label: 'Optimizations recommended' },
+        { range: '< 75%', label: 'Important friction before acquisition' },
+      ],
+      relatedLinks: [
+        { href: '/en/tools/', label: 'Tools & resources' },
+        { href: '/en/tools/pre-launch-tracking-checklist/', label: 'Pre-launch Tracking Checklist' },
+        { href: '/en/tools/media-budget-leads-calculator/', label: 'Media Budget & Leads Calculator' },
+        { href: '/en/expertises/lead-generation-morocco/', label: 'Lead generation Morocco' },
+        { href: '/en/expertises/media-performance/', label: 'Media & performance' },
+        { href: '/en/expertises/web-si/', label: 'Web & systems' },
+        { href: '/en/expertises/crm-marketing-automation-morocco/', label: 'CRM & marketing automation' },
+      ],
+      internalLabel: 'Related resources',
+    }
+  : {
+      eyebrow: 'Checklist Richmedia',
+      title: 'Checklist Landing Page Conversion',
+      positioning: '35 points à vérifier avant d’envoyer votre budget média sur une landing page.',
+      subtitle:
+        'Vérifiez que votre landing page est prête à convertir avant d’activer votre budget média : offre, CTA, formulaire, mobile, tracking et CRM.',
+      badge: '35 contrôles • PDF gratuit • Conversion',
+      primaryCta: 'Télécharger la checklist',
+      secondaryCta: 'Voir tous les outils',
+      secondaryHref: '/outils/',
+      heroAlt: 'Pages réelles du PDF Checklist Landing Page Conversion Richmedia',
+      previewEyebrow: 'Aperçu du document',
+      previewTitle: 'Des pages réelles du PDF checklist.',
+      previewText: 'Ces visuels sont générés depuis le fichier PDF exact proposé au téléchargement, sans modification de son contenu.',
+      controlsEyebrow: 'Ce que la checklist contrôle',
+      controlsTitle: 'Les points de conversion à valider avant d’envoyer du trafic payant.',
+      keyMessage:
+        'Une landing page performante ne se limite pas à son design. Elle doit rendre l’offre claire, réduire les frictions et transformer le trafic en valeur business mesurable.',
+      funnelEyebrow: 'Parcours de conversion',
+      scoreEyebrow: 'Score de préparation',
+      scoreTitle: 'Un indicateur simple pour décider si la page est prête pour l’acquisition.',
+      scoreNote: 'Ce score est un indicateur pédagogique. Il doit être interprété avec le contexte business, le trafic, l’offre et la maturité de la marque.',
+      downloadEyebrow: 'Téléchargement',
+      downloadTitle: 'Télécharger gratuitement la checklist PDF',
+      downloadText:
+        'Remplissez le formulaire. Après validation, le fichier PDF exact joint au projet se télécharge automatiquement.',
+      submit: 'Télécharger gratuitement la checklist PDF',
+      loading: 'Validation en cours...',
+      success: 'Votre téléchargement est lancé. La checklist PDF est prête.',
+      error: "Le téléchargement n'a pas pu être lancé. Merci de réessayer.",
+      trapSuccess: 'Téléchargement lancé. Merci.',
+      subject: '[Richmedia] Téléchargement Checklist Landing Page Conversion',
+      formName: 'Téléchargement Checklist Landing Page Conversion',
+      requestedResource: 'Checklist Landing Page Conversion — Richmedia',
+      crmMarker: 'lead_download_checklist_landing_page_conversion',
+      fields: {
+        name: 'Nom et prénom *',
+        email: 'Email professionnel *',
+        company: 'Entreprise *',
+        job: 'Fonction *',
+      },
+      fieldNames: {
+        name: 'Nom et prénom',
+        email: 'Email professionnel',
+        company: 'Entreprise',
+        job: 'Fonction',
+      },
+      previews: [
+        { title: 'Couverture & score', image: `${assetBase}/checklist-landing-page-page-1.webp`, alt: 'Première page réelle du PDF Checklist Landing Page Conversion Richmedia' },
+        { title: 'Hero, CTA & formulaire', image: `${assetBase}/checklist-landing-page-page-2.webp`, alt: 'Page réelle hero CTA et formulaire du PDF checklist landing page Richmedia' },
+        { title: 'Preuves, mobile & performance', image: `${assetBase}/checklist-landing-page-page-3.webp`, alt: 'Page réelle preuves mobile et performance du PDF checklist landing page Richmedia' },
+        { title: 'Tracking, CRM & QA', image: `${assetBase}/checklist-landing-page-page-4.webp`, alt: 'Page réelle tracking CRM et QA du PDF checklist landing page Richmedia' },
+      ],
+      controls: [
+        '01 Hero & proposition de valeur',
+        '02 Message',
+        '03 CTA',
+        '04 Formulaire',
+        '05 Preuves & réassurance',
+        '06 Structure de page',
+        '07 Mobile',
+        '08 Performance technique',
+        '09 Tracking',
+        '10 CRM & traitement du lead',
+        '11 SEO minimum',
+        '12 QA finale',
+      ],
+      funnel: ['ANNONCE', 'LANDING PAGE', 'COMPRÉHENSION', 'CONFIANCE', 'ACTION', 'LEAD', 'CRM'],
+      scores: [
+        { range: '90-100 %', label: 'Landing prête à convertir' },
+        { range: '75-89 %', label: 'Optimisations recommandées' },
+        { range: '< 75 %', label: 'Friction importante avant acquisition' },
+      ],
+      relatedLinks: [
+        { href: '/outils/', label: 'Outils & ressources' },
+        { href: '/outils/checklist-tracking-digital/', label: 'Checklist Tracking Digital' },
+        { href: '/outils/calculateur-budget-media-leads/', label: 'Calculateur Budget Média & Leads' },
+        { href: '/expertises/generation-leads-maroc/', label: 'Génération de leads Maroc' },
+        { href: '/expertises/media-performance/', label: 'Média & performance' },
+        { href: '/expertises/web-si/', label: 'Web & SI' },
+        { href: '/expertises/marketing-automation-crm-maroc/', label: 'CRM & automation' },
+      ],
+      internalLabel: 'Ressources liées',
+    };
+---
+
+<div class="tracking-checklist-page" data-checklist-download-page>
+  <section class="checklist-hero" aria-labelledby="tracking-checklist-title">
+    <div class="hero-copy">
+      <span class="section-kicker">{t.eyebrow}</span>
+      <h1 id="tracking-checklist-title">{t.title}</h1>
+      <p class="positioning">{t.positioning}</p>
+      <p>{t.subtitle}</p>
+      <span class="file-badge">{t.badge}</span>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#download-checklist">
+          {t.primaryCta}
+          <i class="ph ph-download-simple" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href={t.secondaryHref}>
+          {t.secondaryCta}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+    <figure class="hero-visual" aria-label={t.heroAlt}>
+      <img
+        class="hero-sheet hero-sheet-main"
+        src={`${assetBase}/checklist-landing-page-page-1.webp`}
+        alt={t.heroAlt}
+        width="1489"
+        height="2105"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+      <img
+        class="hero-sheet hero-sheet-back"
+        src={`${assetBase}/checklist-landing-page-page-2.webp`}
+        alt=""
+        width="1489"
+        height="2105"
+        loading="eager"
+        decoding="async"
+        aria-hidden="true"
+      />
+    </figure>
+  </section>
+
+  <section class="preview-section" aria-labelledby="tracking-preview-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.previewEyebrow}</span>
+      <h2 id="tracking-preview-title">{t.previewTitle}</h2>
+      <p>{t.previewText}</p>
+    </div>
+    <div class="preview-grid">
+      {t.previews.map((preview) => (
+        <article class="preview-card">
+          <figure>
+            <img src={preview.image} alt={preview.alt} width="1489" height="2105" loading="lazy" decoding="async" />
+          </figure>
+          <h3>{preview.title}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="controls-section" aria-labelledby="tracking-controls-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.controlsEyebrow}</span>
+      <h2 id="tracking-controls-title">{t.controlsTitle}</h2>
+      <p>{t.keyMessage}</p>
+    </div>
+    <div class="control-grid">
+      {t.controls.map((control) => (
+        <article>{control}</article>
+      ))}
+    </div>
+  </section>
+
+  <section class="funnel-section" aria-labelledby="tracking-funnel-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.funnelEyebrow}</span>
+      <h2 id="tracking-funnel-title">{t.keyMessage}</h2>
+    </div>
+    <div class="funnel-list">
+      {t.funnel.map((step, index) => (
+        <div class="funnel-step">
+          <strong>{step}</strong>
+          {index < t.funnel.length - 1 && <i class="ph ph-arrow-right" aria-hidden="true"></i>}
+        </div>
+      ))}
+    </div>
+    <nav class="internal-links" aria-label={t.internalLabel}>
+      {t.relatedLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+  </section>
+
+  <section class="score-section" aria-labelledby="tracking-score-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.scoreEyebrow}</span>
+      <h2 id="tracking-score-title">{t.scoreTitle}</h2>
+      <p>{t.scoreNote}</p>
+    </div>
+    <div class="score-grid">
+      {t.scores.map((score) => (
+        <article>
+          <strong>{score.range}</strong>
+          <span>{score.label}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="download-section" id="download-checklist" aria-labelledby="tracking-download-title">
+    <div class="download-copy">
+      <span class="section-kicker">{t.downloadEyebrow}</span>
+      <h2 id="tracking-download-title">{t.downloadTitle}</h2>
+      <p>{t.downloadText}</p>
+    </div>
+
+    <form
+      class="download-form"
+      action={CONTACT_FORM.action}
+      method="post"
+      data-checklist-download-form
+      data-download-url={downloadHref}
+      data-contact-endpoint={CONTACT_FORM.ajaxAction}
+      data-file-name={downloadFilename}
+      data-subject={t.subject}
+      data-email-field={t.fieldNames.email}
+      data-loading-message={t.loading}
+      data-success-message={t.success}
+      data-error-message={t.error}
+      data-trap-success-message={t.trapSuccess}
+    >
+      <input type="hidden" name="_form" value={t.formName} />
+      <input type="hidden" name={isEnglish ? 'Requested resource' : 'Ressource demandée'} value={t.requestedResource} />
+      <input type="hidden" name={isEnglish ? 'CRM preparation' : 'Préparation CRM'} value={t.crmMarker} />
+      <input type="hidden" name="resource_slug" value="checklist-landing-page-conversion" />
+      <input type="hidden" name="hubspot_ready" value="true" />
+      <label class="form-honeypot" aria-hidden="true">
+        Website
+        <input type="text" name="company_url" tabindex="-1" autocomplete="off" />
+      </label>
+      <label>
+        <span>{t.fields.name}</span>
+        <input type="text" name={t.fieldNames.name} autocomplete="name" required />
+      </label>
+      <label>
+        <span>{t.fields.email}</span>
+        <input type="email" name={t.fieldNames.email} autocomplete="email" required />
+      </label>
+      <label>
+        <span>{t.fields.company}</span>
+        <input type="text" name={t.fieldNames.company} autocomplete="organization" required />
+      </label>
+      <label>
+        <span>{t.fields.job}</span>
+        <input type="text" name={t.fieldNames.job} autocomplete="organization-title" required />
+      </label>
+      <button type="submit">
+        {t.submit}
+        <i class="ph ph-download-simple" aria-hidden="true"></i>
+      </button>
+      <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</div>
+
+<script is:inline>
+  (() => {
+    const form = document.querySelector('[data-checklist-download-form]');
+    if (!form) return;
+
+    const status = form.querySelector('[data-form-status]');
+    const submit = form.querySelector('button[type="submit"]');
+    const setStatus = (state, message) => {
+      status.textContent = message;
+      status.dataset.state = state;
+    };
+
+    const triggerDownload = () => {
+      const link = document.createElement('a');
+      link.href = form.dataset.downloadUrl;
+      link.download = form.dataset.fileName || '';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(form);
+      if (String(formData.get('company_url') || '').trim()) {
+        form.reset();
+        triggerDownload();
+        setStatus('success', form.dataset.trapSuccessMessage || '');
+        return;
+      }
+
+      const body = new URLSearchParams();
+      formData.forEach((value, key) => body.append(key, String(value)));
+      body.set('_page', window.location.href);
+      body.set('_subject', form.dataset.subject || '');
+      body.set('_template', 'table');
+      body.set('_captcha', 'false');
+      const emailField = form.dataset.emailField || '';
+      const email = String(formData.get(emailField) || '').trim();
+      if (email) body.set('_replyto', email);
+
+      submit.disabled = true;
+      submit.setAttribute('aria-busy', 'true');
+      setStatus('loading', form.dataset.loadingMessage || '');
+
+      try {
+        const response = await fetch(form.dataset.contactEndpoint, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          },
+          body,
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || result.error || result.success === false || result.success === 'false') {
+          throw new Error(result.message || form.dataset.errorMessage || '');
+        }
+
+        triggerDownload();
+        form.reset();
+        setStatus('success', form.dataset.successMessage || '');
+      } catch (error) {
+        setStatus('error', error.message || form.dataset.errorMessage || '');
+      } finally {
+        submit.disabled = false;
+        submit.removeAttribute('aria-busy');
+      }
+    });
+  })();
+</script>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  .tracking-checklist-page {
+    --purple: #7c3cff;
+    --purple-soft: #aa7cff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(255, 255, 255, 0.66);
+    width: min(100% - 3rem, 1240px);
+    margin: 0 auto;
+    padding: clamp(7rem, 10vw, 9rem) 0 clamp(3rem, 6vw, 5.5rem);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  .tracking-checklist-page,
+  .tracking-checklist-page * {
+    box-sizing: border-box;
+  }
+
+  .tracking-checklist-page::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 74% 8%, rgba(124, 60, 255, 0.15), transparent 27rem),
+      radial-gradient(circle at 10% 30%, rgba(170, 124, 255, 0.08), transparent 22rem),
+      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: auto, auto, 84px 84px, 84px 84px;
+    content: '';
+    pointer-events: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--purple-soft);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2.1rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-soft));
+    content: '';
+  }
+
+  .checklist-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(380px, 0.86fr);
+    gap: clamp(1.4rem, 4vw, 4rem);
+    align-items: center;
+    min-height: 560px;
+  }
+
+  .hero-copy,
+  .section-heading,
+  .download-copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .hero-copy h1 {
+    max-width: 760px;
+    font-size: clamp(3rem, 5.4vw, 5.1rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: 0;
+  }
+
+  .hero-copy p,
+  .section-heading p,
+  .download-copy p {
+    max-width: 68ch;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.62;
+  }
+
+  .hero-copy .positioning {
+    max-width: 48ch;
+    color: #fff;
+    font-size: clamp(1.08rem, 1.55vw, 1.32rem);
+    font-weight: 900;
+    line-height: 1.32;
+  }
+
+  .file-badge {
+    width: fit-content;
+    border: 1px solid rgba(170, 124, 255, 0.38);
+    border-radius: 999px;
+    padding: 0.52rem 0.72rem;
+    background: rgba(124, 60, 255, 0.12);
+    color: #dfd3ff;
+    font-size: 0.84rem;
+    font-weight: 900;
+  }
+
+  .hero-actions,
+  .internal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .button,
+  .download-form button {
+    display: inline-flex;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 1.15rem;
+    color: #fff;
+    font: inherit;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      transform 200ms ease,
+      border-color 200ms ease,
+      background 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .download-form button:hover,
+  .download-form button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary,
+  .download-form button {
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1.2rem 2.8rem rgba(124, 60, 255, 0.28);
+  }
+
+  .button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .hero-visual,
+  .preview-card,
+  .controls-section,
+  .funnel-section,
+  .score-section,
+  .download-section {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 16% 0%, rgba(124, 60, 255, 0.13), transparent 14rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.92), rgba(7, 8, 12, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  }
+
+  .hero-visual {
+    position: relative;
+    display: grid;
+    min-height: 520px;
+    margin: 0;
+    place-items: center;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 55% 44%, rgba(124, 60, 255, 0.18), transparent 16rem),
+      #05060a;
+    box-shadow: 0 2rem 5.5rem rgba(0, 0, 0, 0.34);
+  }
+
+  .hero-sheet {
+    display: block;
+    width: min(70%, 330px);
+    height: auto;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 1.5rem 3.8rem rgba(0, 0, 0, 0.5);
+    transition:
+      transform 260ms ease,
+      box-shadow 260ms ease;
+  }
+
+  .hero-sheet-main {
+    position: relative;
+    z-index: 2;
+    transform: rotate(-4deg);
+  }
+
+  .hero-sheet-back {
+    position: absolute;
+    z-index: 1;
+    transform: translate(4.4rem, 1rem) rotate(5deg) scale(0.92);
+    opacity: 0.55;
+    filter: saturate(0.85);
+  }
+
+  @media (hover: hover) {
+    .hero-visual:hover .hero-sheet-main {
+      transform: translateY(-8px) rotate(-2deg) scale(1.025);
+      box-shadow: 0 2rem 4.8rem rgba(0, 0, 0, 0.58);
+    }
+
+    .hero-visual:hover .hero-sheet-back {
+      transform: translate(5rem, 0.5rem) rotate(7deg) scale(0.92);
+    }
+  }
+
+  .preview-section,
+  .controls-section,
+  .funnel-section,
+  .score-section,
+  .download-section {
+    margin-top: clamp(1.7rem, 4vw, 3.4rem);
+  }
+
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin-top: 1rem;
+  }
+
+  .preview-card {
+    display: grid;
+    gap: 0.85rem;
+    padding: 0.85rem;
+    transition:
+      transform 220ms ease,
+      border-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .preview-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(170, 124, 255, 0.56);
+    box-shadow: 0 1.2rem 3rem rgba(75, 38, 180, 0.18);
+  }
+
+  .preview-card figure {
+    display: grid;
+    overflow: hidden;
+    min-height: 17rem;
+    margin: 0;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .preview-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .preview-card h3 {
+    font-size: 1rem;
+    line-height: 1.16;
+  }
+
+  .controls-section,
+  .funnel-section,
+  .score-section,
+  .download-section {
+    padding: clamp(1.15rem, 3vw, 2rem);
+  }
+
+  .control-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.72rem;
+    margin-top: 1rem;
+  }
+
+  .control-grid article {
+    min-height: 4.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.9rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: #e7defe;
+    font-weight: 900;
+    line-height: 1.24;
+    transition:
+      transform 200ms ease,
+      border-color 200ms ease,
+      background 200ms ease;
+  }
+
+  .control-grid article:hover {
+    transform: translateY(-3px);
+    border-color: rgba(170, 124, 255, 0.5);
+    background: rgba(124, 60, 255, 0.1);
+  }
+
+  .funnel-list,
+  .score-grid {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .funnel-list {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .funnel-step {
+    display: grid;
+    gap: 0.42rem;
+    place-items: center;
+    min-height: 5.4rem;
+    border: 1px solid rgba(170, 124, 255, 0.26);
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.11);
+    text-align: center;
+  }
+
+  .funnel-step strong {
+    font-size: 0.8rem;
+    font-weight: 950;
+    letter-spacing: 0.1em;
+  }
+
+  .funnel-step i {
+    color: var(--purple-soft);
+    font-size: 1.1rem;
+  }
+
+  .score-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .score-grid article {
+    display: grid;
+    gap: 0.6rem;
+    min-height: 8rem;
+    align-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .score-grid strong {
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 0.95;
+  }
+
+  .score-grid span {
+    color: var(--muted);
+    font-weight: 900;
+  }
+
+  .internal-links {
+    margin-top: 1rem;
+  }
+
+  .internal-links a {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.5rem 0.7rem;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.82rem;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus-visible {
+    border-color: rgba(170, 124, 255, 0.62);
+    color: #fff;
+  }
+
+  .download-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(360px, 0.62fr);
+    gap: clamp(1.2rem, 3vw, 2rem);
+    align-items: start;
+    scroll-margin-top: 7rem;
+  }
+
+  .download-copy h2,
+  .section-heading h2 {
+    font-size: clamp(2rem, 4vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .download-form {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .download-form label {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .download-form span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.84rem;
+    font-weight: 900;
+  }
+
+  .download-form input {
+    min-width: 0;
+    min-height: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    padding: 0 0.9rem;
+    background: rgba(255, 255, 255, 0.045);
+    color: #fff;
+    font: inherit;
+  }
+
+  .download-form input:focus {
+    border-color: rgba(170, 124, 255, 0.72);
+    outline: 2px solid rgba(124, 60, 255, 0.24);
+    outline-offset: 0;
+  }
+
+  .download-form button {
+    width: 100%;
+    margin-top: 0.15rem;
+  }
+
+  .download-form button:disabled {
+    cursor: wait;
+    opacity: 0.72;
+  }
+
+  .form-honeypot {
+    position: absolute;
+    left: -999rem;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-status {
+    min-height: 1.25rem;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.88rem;
+    font-weight: 800;
+  }
+
+  .form-status[data-state='success'] {
+    color: #73e38a;
+  }
+
+  .form-status[data-state='error'] {
+    color: #ff8f8f;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .button,
+    .download-form button,
+    .hero-sheet,
+    .preview-card,
+    .control-grid article {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 1120px) {
+    .checklist-hero,
+    .download-section {
+      grid-template-columns: 1fr;
+    }
+
+    .preview-grid,
+    .control-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .funnel-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .tracking-checklist-page {
+      width: min(100% - 1rem, 1240px);
+      padding-top: 6.2rem;
+    }
+
+    .checklist-hero {
+      min-height: 0;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.45rem, 12vw, 3.45rem);
+    }
+
+    .hero-actions,
+    .button {
+      width: 100%;
+    }
+
+    .hero-visual {
+      min-height: 430px;
+    }
+
+    .hero-sheet {
+      width: min(68%, 270px);
+    }
+
+    .hero-sheet-back {
+      transform: translate(2.3rem, 1rem) rotate(5deg) scale(0.92);
+    }
+
+    .preview-grid,
+    .control-grid,
+    .funnel-list,
+    .score-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .preview-card figure {
+      min-height: 18rem;
+    }
+
+    .download-copy h2,
+    .section-heading h2 {
+      font-size: clamp(2rem, 10vw, 2.8rem);
+    }
+
+    .download-section,
+    .controls-section,
+    .funnel-section,
+    .score-section {
+      padding: 1rem;
+    }
+  }
+</style>

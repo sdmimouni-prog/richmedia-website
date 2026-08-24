@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../components/CaseStudyModel.astro';
+import { SITE } from '../../consts';
+import { articleSchema, breadcrumbs } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/realisations/uir-campagne-acquisition-2023-2024`;
+const assetBase = '/assets/richmedia-case-study';
+const uirProofBase = `${assetBase}/uir-acquisition-2023-2024`;
+const publishedAt = new Date('2026-08-23T00:00:00.000Z');
+const pageTitle = 'UIR — Campagne d’acquisition 2023/2024 | Richmedia';
+const pageDescription =
+  'Découvrez comment Richmedia a accompagné l’UIR avec une stratégie full-funnel multicanal générant 70 000 leads Bacheliers, Master et Formation Continue.';
+
+const content = {
+  backHref: '/realisations',
+  backLabel: 'Retour aux cas clients',
+  eyebrow: 'Une approche full-funnel pensée pour transformer la demande étudiante en leads qualifiés.',
+  client: 'UIR',
+  clientLong: 'UIR — Université Internationale de Rabat',
+  category: 'Éducation',
+  period: '2023–2024',
+  scope: 'Meta Ads / Google Search / Performance Max / YouTube / LinkedIn Ads / WhatsApp / Emailing / CRM',
+  title: 'Le Résultat',
+  subtitle:
+    'Pour la campagne d’acquisition 2023/2024 de l’Université Internationale de Rabat, Richmedia a déployé un dispositif full-funnel destiné à accélérer les candidatures, recruter de nouveaux étudiants et soutenir les programmes prioritaires au Maroc et en Afrique subsaharienne.',
+  heroImage: `${assetBase}/result-hero-clean-hq.webp`,
+  metaItems: [
+    { label: 'Client', value: 'UIR — Université Internationale de Rabat' },
+    { label: 'Secteur', value: 'Éducation' },
+    { label: 'Période', value: '2023–2024' },
+    { label: 'Zone', value: 'Maroc + Afrique subsaharienne' },
+    { label: 'Canal', value: 'Meta / Google Search / PMax / YouTube / LinkedIn / WhatsApp / Emailing / CRM' },
+    { label: 'Budget', value: 'Confidentiel' },
+  ],
+  metrics: [
+    { value: '70 000', label: 'leads générés', icon: 'ph ph-users' },
+    { value: '40 000', label: 'leads Bacheliers', note: 'CPL 20–40 MAD', noteTrend: false, icon: 'ph ph-graduation-cap' },
+    { value: '25 000', label: 'leads Master', note: 'CPL 30–70 MAD', noteTrend: false, icon: 'ph ph-shield-check' },
+    { value: '5 000', label: 'leads FC / MBA', note: 'CPL 40–120 MAD', noteTrend: false, icon: 'ph ph-briefcase' },
+  ],
+  deliverables: [
+    'Stratégie d’acquisition',
+    'Plan média multicanal',
+    'Segmentation des audiences',
+    'Adaptation créative',
+    'Landing pages dédiées',
+    'Tracking & optimisation',
+    'Retargeting',
+    'WhatsApp / CRM',
+    'Reporting de performance',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Funnel & segmentation',
+      text: 'Stratégie full-funnel et segmentation par cible.',
+      bullets: [
+        'Stratégie full-funnel : désir, acquisition, conversion.',
+        'Campagnes séparées pour Bacheliers, Master et Formation Continue / MBA.',
+        'Ciblage Maroc + Afrique subsaharienne.',
+      ],
+      icon: 'ph ph-funnel',
+    },
+    {
+      eyebrow: '02',
+      title: 'Messages & parcours dédiés',
+      text: 'Adaptation par audience, programme et niveau d’intention.',
+      bullets: [
+        'Messages adaptés selon la cible et le programme.',
+        'Landing pages dédiées selon les segments.',
+        'Parcours différenciés selon le niveau d’intention.',
+      ],
+      icon: 'ph ph-path',
+    },
+    {
+      eyebrow: '03',
+      title: 'Déploiement multicanal',
+      text: 'Activation média sur les canaux prioritaires.',
+      bullets: [
+        'Meta Ads, Google Search, Performance Max et YouTube.',
+        'LinkedIn Ads pour les audiences avancées.',
+        'Lookalike et retargeting pour amplifier les signaux chauds.',
+      ],
+      icon: 'ph ph-megaphone',
+    },
+    {
+      eyebrow: '04',
+      title: 'Relance & conversion',
+      text: 'Traitement des audiences chaudes après génération du lead.',
+      bullets: [
+        'Search pour capter les leads les plus qualifiés.',
+        'Retargeting sur les audiences chaudes.',
+        'WhatsApp, emailing et CRM pour relancer et convertir.',
+      ],
+      icon: 'ph ph-chat-circle-dots',
+    },
+  ],
+  proof: {
+    eyebrow: 'Bloc 3',
+    title: 'Les Preuves',
+	    intro: 'Une sélection de visuels réels de la campagne d’acquisition UIR.',
+	    items: [
+	      { image: `${assetBase}/proof-social-feed.webp`, label: 'Inscriptions ouvertes', format: 'Social feed', size: 'feed' as const },
+	      { image: `${assetBase}/proof-story.webp`, label: 'Bacheliers 2023–2024', format: 'Story verticale', size: 'story' as const },
+	      { image: `${assetBase}/proof-banner.webp`, label: 'Campagne concours UIR', format: 'Bannière', size: 'banner' as const },
+	      { image: `${uirProofBase}/uir-caravane-orientation-tanger.jpeg`, label: 'Caravane d’orientation UIR à Tanger', format: 'Créa campagne', size: 'dashboard' as const },
+	      { image: `${assetBase}/proof-event.webp`, label: 'Caravane d’orientation', format: 'Activation', size: 'event' as const },
+	      { image: `${assetBase}/proof-engineering.webp`, label: 'Programme prioritaire', format: 'Format vertical', size: 'engineering' as const },
+	      { image: `${assetBase}/proof-parcours.webp`, label: 'Parcours dédié', format: 'Format vertical', size: 'parcours' as const },
+	      { image: `${assetBase}/proof-ready.png`, label: 'Campagne inscriptions', format: 'Format vertical', size: 'ready' as const },
+	      { image: `${uirProofBase}/uir-inscriptions-ouvertes-concours.jpeg`, label: 'Inscriptions ouvertes aux concours de l’UIR', format: 'Créa campagne', size: 'landing' as const },
+	      { image: `${uirProofBase}/uir-concours-medecine-dentaire.jpeg`, label: 'Concours Médecine et Médecine dentaire', format: 'Créa concours', size: 'quote' as const },
+	    ],
+    kpi: {
+      value: '70 000',
+      label: 'leads générés',
+      breakdown: ['40K Bacheliers', '25K Master', '5K Formation Continue'],
+      note: 'Search = leads les plus qualifiés',
+    },
+    conclusion:
+      'La performance du dispositif repose sur la combinaison de trois leviers : une segmentation claire des audiences, des parcours dédiés par programme et un pilotage continu de la conversion après génération du lead.',
+    links: [
+      { href: '/secteurs/education/', label: 'Secteur Éducation' },
+      { href: '/expertises/generation-leads-maroc/', label: 'Génération de leads' },
+      { href: '/expertises/google-ads-maroc/', label: 'Google Ads' },
+      { href: '/expertises/meta-ads-maroc/', label: 'Meta Ads' },
+      { href: '/expertises/whatsapp-marketing-maroc/', label: 'WhatsApp Marketing' },
+    ],
+  },
+  quote:
+    'La performance repose sur la segmentation, les parcours dédiés et le pilotage continu après génération du lead.',
+  ctaLabel: 'Parler à un expert',
+  ctaHref: '/contact',
+  secondaryLabel: 'Voir nos expertises Éducation',
+  secondaryHref: '/secteurs/education/',
+  ui: {
+    resultsLabel: 'Résultats du cas client',
+    metaLabel: 'Résumé du cas client',
+    workLabel: 'Bloc 2',
+    workTitle: 'Ce Qu’on A Fait',
+    proofLabel: 'Preuves visuelles',
+    quoteLabel: 'Maillage du cas client',
+    deliverablesTitle: 'Livrables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${content.heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Cas clients', url: `${SITE.url}/realisations` },
+    { name: 'UIR — Campagne d’acquisition 2023/2024', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${content.heroImage}`}
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

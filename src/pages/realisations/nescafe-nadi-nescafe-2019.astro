@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../components/CaseStudyModel.astro';
+import { SITE } from '../../consts';
+import { articleSchema, breadcrumbs } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/realisations/nescafe-nadi-nescafe-2019`;
+const heroImage = '/assets/richmedia-realizations/nescafe-nadi-nescafe.webp';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Nescafé — Nadi Nescafé 2019 | Case Study Richmedia';
+const pageDescription =
+  'Découvrez Nadi Nescafé, la plateforme communautaire conçue par Richmedia : 100 000 visites, 5 000 membres et 2 500 coupons.';
+
+const content = {
+  backHref: '/realisations',
+  backLabel: 'Retour aux cas clients',
+  eyebrow: 'Une plateforme communautaire pensée pour recruter, engager et fidéliser une audience jeune autour de Nescafé.',
+  client: 'Nescafé',
+  clientLong: 'Nestlé / Nescafé',
+  category: 'FMCG / Boissons',
+  period: '2019',
+  scope: 'Plateforme web / Espace membre / Social Media / Gamification / Coupons / Bons / Activation terrain',
+  title: 'Le Résultat',
+  subtitle:
+    'Pour Nescafé, Richmedia a développé en 2019 Nadi Nescafé, une plateforme communautaire destinée à recruter, engager et fidéliser une audience jeune autour de la marque. Le dispositif combinait espace membre, gamification, récompenses, coupons et activations terrain afin de relier l’engagement digital à l’expérience produit et à l’achat en point de vente.',
+  heroImage,
+  heroAlt: 'Visuel réel Nadi Nescafé avec mug personnalisé',
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'Nestlé / Nescafé' },
+    { label: 'Projet', value: 'Nadi Nescafé' },
+    { label: 'Secteur', value: 'FMCG / Boissons' },
+    { label: 'Période', value: '2019' },
+    { label: 'Zone', value: 'Maroc' },
+    { label: 'Cible', value: '18–25 ans / étudiants / jeunes actifs / consommateurs café / hommes & femmes / toutes CSP' },
+    { label: 'Dispositif', value: 'Plateforme web / espace membre / social media / gamification / coupons / activation terrain' },
+  ],
+  metrics: [
+    { value: '100 K', label: 'visites plateforme', icon: 'ph ph-browser' },
+    { value: '5 K', label: 'membres inscrits', icon: 'ph ph-users' },
+    { value: '2 500', label: 'coupons téléchargés / utilisés', icon: 'ph ph-ticket' },
+  ],
+  deliverables: [
+    'Stratégie communautaire',
+    'Plateforme web',
+    'Espace membre',
+    'UX / parcours utilisateur',
+    'Gamification',
+    'Système de points',
+    'Jeux & concours',
+    'Coupons / bons',
+    'Social Media activation',
+    'Activation terrain',
+    'Sampling',
+    'Reporting',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Plateforme & communauté',
+      text: 'Création d’un espace digital propriétaire autour de Nescafé.',
+      bullets: [
+        'Création d’un espace digital propriétaire autour de Nescafé.',
+        'Recrutement de membres et animation d’une communauté jeune.',
+        'Relation directe entre la marque et ses consommateurs.',
+      ],
+      icon: 'ph ph-users-three',
+    },
+    {
+      eyebrow: '02',
+      title: 'Engagement par le jeu',
+      text: 'Gamification pour créer une expérience d’engagement récurrent.',
+      bullets: [
+        'Jeux intégrés à la plateforme.',
+        'Système de points.',
+        'Récompenses à débloquer.',
+        'Concours pour maintenir l’engagement dans le temps.',
+      ],
+      icon: 'ph ph-game-controller',
+    },
+    {
+      eyebrow: '03',
+      title: 'Rewards & coupons',
+      text: 'Relier l’activité digitale à une action commerciale concrète.',
+      bullets: [
+        'Coupons / bons destinés à déclencher l’achat en point de vente.',
+        'Récompense de l’engagement des membres.',
+        'Passage de l’interaction digitale à une action commerciale.',
+      ],
+      icon: 'ph ph-ticket',
+    },
+    {
+      eyebrow: '04',
+      title: 'Digital → terrain',
+      text: 'Articulation entre plateforme digitale et expérience produit physique.',
+      bullets: [
+        'Social Media pour soutenir l’animation de la communauté.',
+        'Distribution de coupons.',
+        'Stands et sampling.',
+        'Articulation entre plateforme digitale et expérience produit physique.',
+      ],
+      icon: 'ph ph-storefront',
+    },
+  ],
+  proof: {
+    eyebrow: 'Bloc 3',
+    title: 'Les Preuves',
+    intro:
+      'Le visuel réel Nadi Nescafé et les indicateurs validés du dispositif, sans interface web, coupon ou dashboard inventé.',
+    items: [
+      { image: heroImage, label: 'Nadi Nescafé', format: 'Visuel réel campagne', size: 'banner' as const },
+    ],
+    kpi: {
+      value: '100 K',
+      label: 'visites plateforme',
+      breakdown: ['5 K membres inscrits', '2 500 coupons téléchargés / utilisés'],
+      note: 'Les KPI présentés sont limités aux données validées.',
+    },
+    funnel: {
+      items: [
+        { value: 'Découverte', label: 'Premier contact avec la marque' },
+        { value: 'Inscription', label: 'Création du compte membre' },
+        { value: 'Jeux', label: 'Mécaniques de participation' },
+        { value: 'Points', label: 'Engagement valorisé' },
+        { value: 'Récompenses', label: 'Avantages débloqués' },
+        { value: 'Coupons', label: 'Bons téléchargés / utilisés' },
+        { value: 'Point de vente', label: 'Achat offline encouragé' },
+      ],
+      note: 'Ce parcours représente la mécanique du dispositif, pas un funnel chiffré.',
+    },
+    conclusion:
+      'Nadi Nescafé a permis à la marque de dépasser la logique d’audience sociale pour construire une communauté propriétaire, animée par la gamification et reliée à l’achat en point de vente grâce aux coupons et aux activations terrain.',
+    links: [
+      { href: '/secteurs/fmcg/', label: 'Secteur FMCG' },
+      { href: '/expertises/phygital/', label: 'Phygital' },
+      { href: '/expertises/social-media-maroc/', label: 'Social Media' },
+      { href: '/expertises/marketing-automation-crm-maroc/', label: 'CRM & Automation' },
+    ],
+  },
+  quote:
+    'Vous souhaitez transformer votre audience en communauté propriétaire et engagée ?',
+  ctaLabel: 'Parler à un expert',
+  ctaHref: '/contact',
+  secondaryLabel: 'Découvrir nos expertises Phygital',
+  secondaryHref: '/expertises/phygital/',
+  ui: {
+    resultLabel: 'Résultats du cas client',
+    metaLabel: 'Résumé du cas client',
+    workLabel: 'Bloc 2',
+    workTitle: 'Ce Qu’on A Fait',
+    proofLabel: 'Preuves visuelles',
+    quoteLabel: 'Maillage du cas client',
+    deliverablesTitle: 'Livrables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Cas clients', url: `${SITE.url}/realisations` },
+    { name: 'Nescafé — Nadi Nescafé 2019', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

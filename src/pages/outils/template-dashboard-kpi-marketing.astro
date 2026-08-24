@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TemplateDashboardKpiPage from '../../components/TemplateDashboardKpiPage.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, localBusiness } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/outils/template-dashboard-kpi-marketing/`;
+const pageDescription =
+  'Téléchargez gratuitement le dashboard Excel Richmedia pour suivre budget, CPL, qualité des leads, CAC, chiffre d’affaires et ROAS.';
+const downloadHref = '/downloads/template_dashboard_kpi_marketing_2026_richmedia.xlsx';
+const downloadFilename = 'template_dashboard_kpi_marketing_2026_richmedia.xlsx';
+const ogImage = '/assets/richmedia-tools/template-dashboard-kpi-marketing/hero-dashboard-kpi.webp';
+
+const schema = [
+  localBusiness(),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    '@id': `${pageUrl}#template`,
+    name: 'Template Dashboard KPI Marketing 2026 — Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    encodingFormat: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    inLanguage: 'fr',
+    publisher: { '@id': `${SITE.url}/#organization` },
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'MAD',
+      availability: 'https://schema.org/InStock',
+    },
+  },
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Outils & ressources', url: `${SITE.url}/outils` },
+    { name: 'Template Dashboard KPI Marketing 2026', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Template Dashboard KPI Marketing Excel | Richmedia"
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={ogImage}
+  schema={schema}
+>
+  <TemplateDashboardKpiPage lang="fr" downloadHref={downloadHref} downloadFilename={downloadFilename} />
+</BaseLayout>

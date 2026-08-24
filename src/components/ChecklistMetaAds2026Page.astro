@@ -1,0 +1,1057 @@
+---
+import { CONTACT_FORM } from '../consts';
+
+interface Props {
+  lang?: 'fr' | 'en';
+  downloadHref: string;
+  downloadFilename: string;
+}
+
+const { lang = 'fr', downloadHref, downloadFilename } = Astro.props;
+const isEnglish = lang === 'en';
+const assetBase = '/assets/richmedia-tools/checklist-meta-ads-2026';
+
+const t = isEnglish
+  ? {
+      eyebrow: 'Richmedia checklist',
+      title: 'Meta Ads 2026 Checklist',
+      positioning: '40 checks before launching or scaling your Facebook & Instagram Ads campaigns.',
+      subtitle:
+        'Check your strategy, tracking, audiences, creatives, Lead Ads, landing pages, CRM and reporting before activating your Meta budget.',
+      badge: '40 checks • Free PDF • Meta Ads',
+      primaryCta: 'Download the checklist',
+      secondaryCta: 'View all tools',
+      secondaryHref: '/en/tools/',
+      heroAlt: 'Real PDF pages from the Richmedia Meta Ads 2026 checklist',
+      previewEyebrow: 'Document preview',
+      previewTitle: 'Real PDF pages from the checklist.',
+      previewText: 'These visuals are generated from the exact PDF file used for download, without modifying its content.',
+      controlsEyebrow: 'What it checks',
+      controlsTitle: 'The Meta Ads setup to validate before launch or scale.',
+      keyMessage:
+        'A Meta campaign is not ready when it can be published. It is ready when the objective, measurement, creatives and lead handling work together.',
+      funnelEyebrow: 'Campaign journey',
+      benchmarkEyebrow: 'Richmedia 2026 benchmarks',
+      benchmarkTitle: 'Meta Ads ranges used as planning references.',
+      benchmarkNote:
+        'Ranges observed in Richmedia campaigns from 2022 to 2026. They are reference points, not performance guarantees.',
+      scoreEyebrow: 'Readiness score',
+      scoreTitle: 'A simple indicator to decide whether the campaign can go live.',
+      scoreNote: 'This score is an educational indicator. Results also depend on offer, market, competition, budget and execution quality.',
+      downloadEyebrow: 'Download',
+      downloadTitle: 'Download the free PDF checklist',
+      downloadText:
+        'Fill in the form. After validation, the exact PDF file attached to this project starts downloading automatically.',
+      submit: 'Download the free PDF checklist',
+      loading: 'Validation in progress...',
+      success: 'Your download has started. The PDF checklist is ready.',
+      error: 'The download could not be started. Please try again.',
+      trapSuccess: 'Download started. Thank you.',
+      subject: '[Richmedia] Meta Ads 2026 Checklist download',
+      formName: 'Meta Ads 2026 Checklist download',
+      requestedResource: 'Meta Ads 2026 Checklist — Richmedia',
+      crmMarker: 'lead_download_meta_ads_2026_checklist',
+      fields: {
+        name: 'Full name *',
+        email: 'Professional email *',
+        company: 'Company *',
+        job: 'Job title *',
+      },
+      fieldNames: {
+        name: 'Full name',
+        email: 'Professional email',
+        company: 'Company',
+        job: 'Job title',
+      },
+      previews: [
+        { title: 'Objective & tracking', image: `${assetBase}/checklist-meta-ads-page-2.webp`, alt: 'Real objective and tracking page from the Richmedia Meta Ads 2026 checklist PDF' },
+        { title: 'Structure & audiences', image: `${assetBase}/checklist-meta-ads-page-3.webp`, alt: 'Real structure and audiences page from the Richmedia Meta Ads 2026 checklist PDF' },
+        { title: 'Creatives & testing', image: `${assetBase}/checklist-meta-ads-page-4.webp`, alt: 'Real creative testing page from the Richmedia Meta Ads 2026 checklist PDF' },
+        { title: 'Lead Ads, CRM & QA', image: `${assetBase}/checklist-meta-ads-page-7.webp`, alt: 'Real reporting and final QA page from the Richmedia Meta Ads 2026 checklist PDF' },
+      ],
+      controls: [
+        '01 Business objective',
+        '02 Pixel & Conversions API',
+        '03 Tracking quality',
+        '04 Campaign structure',
+        '05 Audiences & exclusions',
+        '06 Prospecting & retargeting',
+        '07 Creatives',
+        '08 Creative testing',
+        '09 Lead Ads',
+        '10 Landing page',
+        '11 CRM & lead quality',
+        '12 Budget & placements',
+        '13 KPIs & reporting',
+        '14 Pre-launch QA',
+      ],
+      funnel: ['OBJECTIVE', 'TRACKING', 'AUDIENCE', 'CREATIVE', 'CONVERSION', 'CRM', 'BUSINESS'],
+      scores: [
+        { range: '90-100%', label: 'Campaign ready to launch' },
+        { range: '75-89%', label: 'Optimizations recommended' },
+        { range: '< 75%', label: 'Insufficient preparation' },
+      ],
+      relatedLinks: [
+        { href: '/en/tools/', label: 'Tools & resources' },
+        { href: '/en/tools/pre-launch-tracking-checklist/', label: 'Pre-launch Tracking Checklist' },
+        { href: '/en/tools/landing-page-conversion-checklist/', label: 'Landing Page Conversion Checklist' },
+        { href: '/en/tools/media-budget-leads-calculator/', label: 'Media Budget & Leads Calculator' },
+        { href: '/en/expertises/meta-ads-morocco/', label: 'Meta Ads Morocco' },
+        { href: '/en/insights/meta-campaigns-2026-best-practices/', label: 'Meta campaigns 2026' },
+      ],
+      internalLabel: 'Related resources',
+    }
+  : {
+      eyebrow: 'Checklist Richmedia',
+      title: 'Checklist Meta Ads 2026',
+      positioning: '40 points à vérifier avant de lancer ou scaler vos campagnes Facebook & Instagram Ads.',
+      subtitle:
+        'Vérifiez votre stratégie, tracking, audiences, créatifs, Lead Ads, landing pages, CRM et reporting avant d’activer votre budget Meta.',
+      badge: '40 contrôles • PDF gratuit • Meta Ads',
+      primaryCta: 'Télécharger la checklist',
+      secondaryCta: 'Voir tous les outils',
+      secondaryHref: '/outils/',
+      heroAlt: 'Pages réelles du PDF Checklist Meta Ads 2026 Richmedia',
+      previewEyebrow: 'Aperçu du document',
+      previewTitle: 'Des pages réelles du PDF checklist.',
+      previewText: 'Ces visuels sont générés depuis le fichier PDF exact proposé au téléchargement, sans modification de son contenu.',
+      controlsEyebrow: 'Ce que la checklist contrôle',
+      controlsTitle: 'Le setup Meta Ads à valider avant lancement ou scale.',
+      keyMessage:
+        'Une campagne Meta n’est pas prête lorsqu’elle peut être publiée. Elle est prête lorsque l’objectif, la mesure, les créatifs et le traitement des leads fonctionnent ensemble.',
+      funnelEyebrow: 'Parcours campagne',
+      benchmarkEyebrow: 'Benchmarks Richmedia 2026',
+      benchmarkTitle: 'Des fourchettes Meta Ads pour cadrer les repères.',
+      benchmarkNote:
+        'Fourchettes observées dans les campagnes Richmedia 2022–2026. Elles constituent des repères et non des garanties de performance.',
+      scoreEyebrow: 'Score de préparation',
+      scoreTitle: 'Un indicateur simple pour décider si la campagne peut partir en ligne.',
+      scoreNote: 'Ce score est un indicateur pédagogique. Les résultats dépendent aussi de l’offre, du marché, de la concurrence, du budget et de la qualité d’exécution.',
+      downloadEyebrow: 'Téléchargement',
+      downloadTitle: 'Télécharger gratuitement la checklist PDF',
+      downloadText:
+        'Remplissez le formulaire. Après validation, le fichier PDF exact joint au projet se télécharge automatiquement.',
+      submit: 'Télécharger gratuitement la checklist PDF',
+      loading: 'Validation en cours...',
+      success: 'Votre téléchargement est lancé. La checklist PDF est prête.',
+      error: "Le téléchargement n'a pas pu être lancé. Merci de réessayer.",
+      trapSuccess: 'Téléchargement lancé. Merci.',
+      subject: '[Richmedia] Téléchargement Checklist Meta Ads 2026',
+      formName: 'Téléchargement Checklist Meta Ads 2026',
+      requestedResource: 'Checklist Meta Ads 2026 — Richmedia',
+      crmMarker: 'lead_download_checklist_meta_ads_2026',
+      fields: {
+        name: 'Nom et prénom *',
+        email: 'Email professionnel *',
+        company: 'Entreprise *',
+        job: 'Fonction *',
+      },
+      fieldNames: {
+        name: 'Nom et prénom',
+        email: 'Email professionnel',
+        company: 'Entreprise',
+        job: 'Fonction',
+      },
+      previews: [
+        { title: 'Objectif & tracking', image: `${assetBase}/checklist-meta-ads-page-2.webp`, alt: 'Page réelle objectif et tracking du PDF Checklist Meta Ads 2026 Richmedia' },
+        { title: 'Structure & audiences', image: `${assetBase}/checklist-meta-ads-page-3.webp`, alt: 'Page réelle structure et audiences du PDF Checklist Meta Ads 2026 Richmedia' },
+        { title: 'Créatifs & testing', image: `${assetBase}/checklist-meta-ads-page-4.webp`, alt: 'Page réelle créatifs et plan de test du PDF Checklist Meta Ads 2026 Richmedia' },
+        { title: 'Lead Ads, CRM & QA', image: `${assetBase}/checklist-meta-ads-page-7.webp`, alt: 'Page réelle reporting et QA finale du PDF Checklist Meta Ads 2026 Richmedia' },
+      ],
+      controls: [
+        '01 Objectif business',
+        '02 Pixel & Conversions API',
+        '03 Qualité du tracking',
+        '04 Structure de campagne',
+        '05 Audiences & exclusions',
+        '06 Prospecting & retargeting',
+        '07 Créatifs',
+        '08 Testing créatif',
+        '09 Lead Ads',
+        '10 Landing page',
+        '11 CRM & qualité des leads',
+        '12 Budget & placements',
+        '13 KPI & reporting',
+        '14 QA avant lancement',
+      ],
+      funnel: ['OBJECTIF', 'TRACKING', 'AUDIENCE', 'CRÉATIF', 'CONVERSION', 'CRM', 'BUSINESS'],
+      scores: [
+        { range: '90-100 %', label: 'Campagne prête à lancer' },
+        { range: '75-89 %', label: 'Optimisations recommandées' },
+        { range: '< 75 %', label: 'Préparation insuffisante' },
+      ],
+      relatedLinks: [
+        { href: '/outils/', label: 'Outils & ressources' },
+        { href: '/outils/checklist-tracking-digital/', label: 'Checklist Tracking Digital' },
+        { href: '/outils/checklist-landing-page-conversion/', label: 'Checklist Landing Page Conversion' },
+        { href: '/outils/calculateur-budget-media-leads/', label: 'Calculateur Budget Média & Leads' },
+        { href: '/expertises/meta-ads-maroc/', label: 'Meta Ads Maroc' },
+        { href: '/insights/campagnes-meta-2026-bonnes-pratiques/', label: 'Campagnes Meta 2026' },
+      ],
+      internalLabel: 'Ressources liées',
+    };
+
+const benchmarks = [
+  { label: 'CPM', value: '5-18 MAD' },
+  { label: 'CPC', value: isEnglish ? '0.4-2.5 MAD' : '0,4-2,5 MAD' },
+  { label: 'CTR', value: isEnglish ? '0.8-3.2%' : '0,8-3,2 %' },
+  { label: 'CPL', value: '8-180 MAD' },
+];
+---
+
+<div class="meta-checklist-page" data-checklist-download-page>
+  <section class="checklist-hero" aria-labelledby="meta-checklist-title">
+    <div class="hero-copy">
+      <span class="section-kicker">{t.eyebrow}</span>
+      <h1 id="meta-checklist-title">{t.title}</h1>
+      <p class="positioning">{t.positioning}</p>
+      <p>{t.subtitle}</p>
+      <span class="file-badge">{t.badge}</span>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#download-checklist">
+          {t.primaryCta}
+          <i class="ph ph-download-simple" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href={t.secondaryHref}>
+          {t.secondaryCta}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+    <figure class="hero-visual" aria-label={t.heroAlt}>
+      <img
+        class="hero-sheet hero-sheet-main"
+        src={`${assetBase}/checklist-meta-ads-page-1.webp`}
+        alt={t.heroAlt}
+        width="1489"
+        height="2105"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+      <img
+        class="hero-sheet hero-sheet-back"
+        src={`${assetBase}/checklist-meta-ads-page-2.webp`}
+        alt=""
+        width="1489"
+        height="2105"
+        loading="eager"
+        decoding="async"
+        aria-hidden="true"
+      />
+    </figure>
+  </section>
+
+  <section class="preview-section" aria-labelledby="meta-preview-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.previewEyebrow}</span>
+      <h2 id="meta-preview-title">{t.previewTitle}</h2>
+      <p>{t.previewText}</p>
+    </div>
+    <div class="preview-grid">
+      {t.previews.map((preview) => (
+        <article class="preview-card">
+          <figure>
+            <img src={preview.image} alt={preview.alt} width="1489" height="2105" loading="lazy" decoding="async" />
+          </figure>
+          <h3>{preview.title}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="controls-section" aria-labelledby="meta-controls-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.controlsEyebrow}</span>
+      <h2 id="meta-controls-title">{t.controlsTitle}</h2>
+      <p>{t.keyMessage}</p>
+    </div>
+    <div class="control-grid">
+      {t.controls.map((control) => (
+        <article>{control}</article>
+      ))}
+    </div>
+  </section>
+
+  <section class="funnel-section" aria-labelledby="meta-funnel-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.funnelEyebrow}</span>
+      <h2 id="meta-funnel-title">{t.keyMessage}</h2>
+    </div>
+    <div class="funnel-list">
+      {t.funnel.map((step, index) => (
+        <div class="funnel-step">
+          <strong>{step}</strong>
+          {index < t.funnel.length - 1 && <i class="ph ph-arrow-right" aria-hidden="true"></i>}
+        </div>
+      ))}
+    </div>
+    <nav class="internal-links" aria-label={t.internalLabel}>
+      {t.relatedLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+  </section>
+
+  <section class="benchmark-section" aria-labelledby="meta-benchmark-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.benchmarkEyebrow}</span>
+      <h2 id="meta-benchmark-title">{t.benchmarkTitle}</h2>
+      <p>{t.benchmarkNote}</p>
+    </div>
+    <div class="benchmark-grid">
+      {benchmarks.map((item) => (
+        <article>
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="score-section" aria-labelledby="meta-score-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.scoreEyebrow}</span>
+      <h2 id="meta-score-title">{t.scoreTitle}</h2>
+      <p>{t.scoreNote}</p>
+    </div>
+    <div class="score-grid">
+      {t.scores.map((score) => (
+        <article>
+          <strong>{score.range}</strong>
+          <span>{score.label}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="download-section" id="download-checklist" aria-labelledby="meta-download-title">
+    <div class="download-copy">
+      <span class="section-kicker">{t.downloadEyebrow}</span>
+      <h2 id="meta-download-title">{t.downloadTitle}</h2>
+      <p>{t.downloadText}</p>
+    </div>
+
+    <form
+      class="download-form"
+      action={CONTACT_FORM.action}
+      method="post"
+      data-checklist-download-form
+      data-download-url={downloadHref}
+      data-contact-endpoint={CONTACT_FORM.ajaxAction}
+      data-file-name={downloadFilename}
+      data-subject={t.subject}
+      data-email-field={t.fieldNames.email}
+      data-loading-message={t.loading}
+      data-success-message={t.success}
+      data-error-message={t.error}
+      data-trap-success-message={t.trapSuccess}
+    >
+      <input type="hidden" name="_form" value={t.formName} />
+      <input type="hidden" name={isEnglish ? 'Requested resource' : 'Ressource demandée'} value={t.requestedResource} />
+      <input type="hidden" name={isEnglish ? 'CRM preparation' : 'Préparation CRM'} value={t.crmMarker} />
+      <input type="hidden" name="resource_slug" value="checklist-meta-ads-2026" />
+      <input type="hidden" name="hubspot_ready" value="true" />
+      <label class="form-honeypot" aria-hidden="true">
+        Website
+        <input type="text" name="company_url" tabindex="-1" autocomplete="off" />
+      </label>
+      <label>
+        <span>{t.fields.name}</span>
+        <input type="text" name={t.fieldNames.name} autocomplete="name" required />
+      </label>
+      <label>
+        <span>{t.fields.email}</span>
+        <input type="email" name={t.fieldNames.email} autocomplete="email" required />
+      </label>
+      <label>
+        <span>{t.fields.company}</span>
+        <input type="text" name={t.fieldNames.company} autocomplete="organization" required />
+      </label>
+      <label>
+        <span>{t.fields.job}</span>
+        <input type="text" name={t.fieldNames.job} autocomplete="organization-title" required />
+      </label>
+      <button type="submit">
+        {t.submit}
+        <i class="ph ph-download-simple" aria-hidden="true"></i>
+      </button>
+      <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</div>
+
+<script is:inline>
+  (() => {
+    const form = document.querySelector('[data-checklist-download-form]');
+    if (!form) return;
+
+    const status = form.querySelector('[data-form-status]');
+    const submit = form.querySelector('button[type="submit"]');
+    const setStatus = (state, message) => {
+      status.textContent = message;
+      status.dataset.state = state;
+    };
+
+    const triggerDownload = () => {
+      const link = document.createElement('a');
+      link.href = form.dataset.downloadUrl;
+      link.download = form.dataset.fileName || '';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(form);
+      if (String(formData.get('company_url') || '').trim()) {
+        form.reset();
+        triggerDownload();
+        setStatus('success', form.dataset.trapSuccessMessage || '');
+        return;
+      }
+
+      const body = new URLSearchParams();
+      formData.forEach((value, key) => body.append(key, String(value)));
+      body.set('_page', window.location.href);
+      body.set('_subject', form.dataset.subject || '');
+      body.set('_template', 'table');
+      body.set('_captcha', 'false');
+      const emailField = form.dataset.emailField || '';
+      const email = String(formData.get(emailField) || '').trim();
+      if (email) body.set('_replyto', email);
+
+      submit.disabled = true;
+      submit.setAttribute('aria-busy', 'true');
+      setStatus('loading', form.dataset.loadingMessage || '');
+
+      try {
+        const response = await fetch(form.dataset.contactEndpoint, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          },
+          body,
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || result.error || result.success === false || result.success === 'false') {
+          throw new Error(result.message || form.dataset.errorMessage || '');
+        }
+
+        triggerDownload();
+        form.reset();
+        setStatus('success', form.dataset.successMessage || '');
+      } catch (error) {
+        setStatus('error', error.message || form.dataset.errorMessage || '');
+      } finally {
+        submit.disabled = false;
+        submit.removeAttribute('aria-busy');
+      }
+    });
+  })();
+</script>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  .meta-checklist-page {
+    --purple: #7c3cff;
+    --purple-soft: #aa7cff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(255, 255, 255, 0.66);
+    width: min(100% - 3rem, 1240px);
+    margin: 0 auto;
+    padding: clamp(7rem, 10vw, 9rem) 0 clamp(3rem, 6vw, 5.5rem);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  .meta-checklist-page,
+  .meta-checklist-page * {
+    box-sizing: border-box;
+  }
+
+  .meta-checklist-page::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 74% 8%, rgba(124, 60, 255, 0.15), transparent 27rem),
+      radial-gradient(circle at 10% 30%, rgba(170, 124, 255, 0.08), transparent 22rem),
+      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: auto, auto, 84px 84px, 84px 84px;
+    content: '';
+    pointer-events: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--purple-soft);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2.1rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-soft));
+    content: '';
+  }
+
+  .checklist-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(380px, 0.86fr);
+    gap: clamp(1.4rem, 4vw, 4rem);
+    align-items: center;
+    min-height: 560px;
+  }
+
+  .hero-copy,
+  .section-heading,
+  .download-copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .hero-copy h1 {
+    max-width: 760px;
+    font-size: clamp(3rem, 5.4vw, 5.1rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: 0;
+  }
+
+  .hero-copy p,
+  .section-heading p,
+  .download-copy p {
+    max-width: 68ch;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.62;
+  }
+
+  .hero-copy .positioning {
+    max-width: 48ch;
+    color: #fff;
+    font-size: clamp(1.08rem, 1.55vw, 1.32rem);
+    font-weight: 900;
+    line-height: 1.32;
+  }
+
+  .file-badge {
+    width: fit-content;
+    border: 1px solid rgba(170, 124, 255, 0.38);
+    border-radius: 999px;
+    padding: 0.52rem 0.72rem;
+    background: rgba(124, 60, 255, 0.12);
+    color: #dfd3ff;
+    font-size: 0.84rem;
+    font-weight: 900;
+  }
+
+  .hero-actions,
+  .internal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .button,
+  .download-form button {
+    display: inline-flex;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 1.15rem;
+    color: #fff;
+    font: inherit;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      transform 200ms ease,
+      border-color 200ms ease,
+      background 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .download-form button:hover,
+  .download-form button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary,
+  .download-form button {
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1.2rem 2.8rem rgba(124, 60, 255, 0.28);
+  }
+
+  .button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .hero-visual,
+  .preview-card,
+  .controls-section,
+  .funnel-section,
+  .benchmark-section,
+  .score-section,
+  .download-section {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 16% 0%, rgba(124, 60, 255, 0.13), transparent 14rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.92), rgba(7, 8, 12, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  }
+
+  .hero-visual {
+    position: relative;
+    display: grid;
+    min-height: 520px;
+    margin: 0;
+    place-items: center;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 55% 44%, rgba(124, 60, 255, 0.18), transparent 16rem),
+      #05060a;
+    box-shadow: 0 2rem 5.5rem rgba(0, 0, 0, 0.34);
+  }
+
+  .hero-sheet {
+    display: block;
+    width: min(70%, 330px);
+    height: auto;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 1.5rem 3.8rem rgba(0, 0, 0, 0.5);
+    transition:
+      transform 260ms ease,
+      box-shadow 260ms ease;
+  }
+
+  .hero-sheet-main {
+    position: relative;
+    z-index: 2;
+    transform: rotate(-4deg);
+  }
+
+  .hero-sheet-back {
+    position: absolute;
+    z-index: 1;
+    transform: translate(4.4rem, 1rem) rotate(5deg) scale(0.92);
+    opacity: 0.55;
+    filter: saturate(0.85);
+  }
+
+  @media (hover: hover) {
+    .hero-visual:hover .hero-sheet-main {
+      transform: translateY(-8px) rotate(-2deg) scale(1.025);
+      box-shadow: 0 2rem 4.8rem rgba(0, 0, 0, 0.58);
+    }
+
+    .hero-visual:hover .hero-sheet-back {
+      transform: translate(5rem, 0.5rem) rotate(7deg) scale(0.92);
+    }
+  }
+
+  .preview-section,
+  .controls-section,
+  .funnel-section,
+  .benchmark-section,
+  .score-section,
+  .download-section {
+    margin-top: clamp(1.7rem, 4vw, 3.4rem);
+  }
+
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin-top: 1rem;
+  }
+
+  .preview-card {
+    display: grid;
+    gap: 0.85rem;
+    padding: 0.85rem;
+    transition:
+      transform 220ms ease,
+      border-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .preview-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(170, 124, 255, 0.56);
+    box-shadow: 0 1.2rem 3rem rgba(75, 38, 180, 0.18);
+  }
+
+  .preview-card figure {
+    display: grid;
+    overflow: hidden;
+    min-height: 17rem;
+    margin: 0;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .preview-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .preview-card h3 {
+    font-size: 1rem;
+    line-height: 1.16;
+  }
+
+  .controls-section,
+  .funnel-section,
+  .benchmark-section,
+  .score-section,
+  .download-section {
+    padding: clamp(1.15rem, 3vw, 2rem);
+  }
+
+  .control-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.72rem;
+    margin-top: 1rem;
+  }
+
+  .control-grid article,
+  .benchmark-grid article,
+  .score-grid article {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .control-grid article {
+    min-height: 4.7rem;
+    padding: 0.9rem;
+    color: #e7defe;
+    font-weight: 900;
+    line-height: 1.24;
+    transition:
+      transform 200ms ease,
+      border-color 200ms ease,
+      background 200ms ease;
+  }
+
+  .control-grid article:hover {
+    transform: translateY(-3px);
+    border-color: rgba(170, 124, 255, 0.5);
+    background: rgba(124, 60, 255, 0.1);
+  }
+
+  .funnel-list,
+  .benchmark-grid,
+  .score-grid {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .funnel-list {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .funnel-step {
+    display: grid;
+    gap: 0.42rem;
+    place-items: center;
+    min-height: 5.4rem;
+    border: 1px solid rgba(170, 124, 255, 0.26);
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.11);
+    text-align: center;
+  }
+
+  .funnel-step strong {
+    font-size: 0.72rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+  }
+
+  .funnel-step i {
+    color: var(--purple-soft);
+    font-size: 1.1rem;
+  }
+
+  .benchmark-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .benchmark-grid article {
+    display: grid;
+    gap: 0.45rem;
+    min-height: 7rem;
+    align-content: center;
+    padding: 1rem;
+  }
+
+  .benchmark-grid span {
+    color: var(--purple-soft);
+    font-size: 0.8rem;
+    font-weight: 950;
+    letter-spacing: 0.12em;
+  }
+
+  .benchmark-grid strong {
+    color: #fff;
+    font-size: clamp(1.75rem, 3vw, 2.8rem);
+    line-height: 0.95;
+  }
+
+  .score-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .score-grid article {
+    display: grid;
+    gap: 0.6rem;
+    min-height: 8rem;
+    align-content: center;
+    padding: 1rem;
+  }
+
+  .score-grid strong {
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 0.95;
+  }
+
+  .score-grid span {
+    color: var(--muted);
+    font-weight: 900;
+  }
+
+  .internal-links {
+    margin-top: 1rem;
+  }
+
+  .internal-links a {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.5rem 0.7rem;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.82rem;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus-visible {
+    border-color: rgba(170, 124, 255, 0.62);
+    color: #fff;
+  }
+
+  .download-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(360px, 0.62fr);
+    gap: clamp(1.2rem, 3vw, 2rem);
+    align-items: start;
+    scroll-margin-top: 7rem;
+  }
+
+  .download-copy h2,
+  .section-heading h2 {
+    font-size: clamp(2rem, 4vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .download-form {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .download-form label {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .download-form span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.84rem;
+    font-weight: 900;
+  }
+
+  .download-form input {
+    min-width: 0;
+    min-height: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    padding: 0 0.9rem;
+    background: rgba(255, 255, 255, 0.045);
+    color: #fff;
+    font: inherit;
+  }
+
+  .download-form input:focus {
+    border-color: rgba(170, 124, 255, 0.72);
+    outline: 2px solid rgba(124, 60, 255, 0.24);
+    outline-offset: 0;
+  }
+
+  .download-form button {
+    width: 100%;
+    margin-top: 0.15rem;
+  }
+
+  .download-form button:disabled {
+    cursor: wait;
+    opacity: 0.72;
+  }
+
+  .form-honeypot {
+    position: absolute;
+    left: -999rem;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-status {
+    min-height: 1.25rem;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.88rem;
+    font-weight: 800;
+  }
+
+  .form-status[data-state='success'] {
+    color: #73e38a;
+  }
+
+  .form-status[data-state='error'] {
+    color: #ff8f8f;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .button,
+    .download-form button,
+    .hero-sheet,
+    .preview-card,
+    .control-grid article {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 1120px) {
+    .checklist-hero,
+    .download-section {
+      grid-template-columns: 1fr;
+    }
+
+    .preview-grid,
+    .control-grid,
+    .benchmark-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .funnel-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .meta-checklist-page {
+      width: min(100% - 1rem, 1240px);
+      padding-top: 6.2rem;
+    }
+
+    .checklist-hero {
+      min-height: 0;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.45rem, 12vw, 3.45rem);
+    }
+
+    .hero-actions,
+    .button {
+      width: 100%;
+    }
+
+    .hero-visual {
+      min-height: 430px;
+    }
+
+    .hero-sheet {
+      width: min(68%, 270px);
+    }
+
+    .hero-sheet-back {
+      transform: translate(2.3rem, 1rem) rotate(5deg) scale(0.92);
+    }
+
+    .preview-grid,
+    .control-grid,
+    .funnel-list,
+    .benchmark-grid,
+    .score-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .preview-card figure {
+      min-height: 18rem;
+    }
+
+    .download-copy h2,
+    .section-heading h2 {
+      font-size: clamp(2rem, 10vw, 2.8rem);
+    }
+
+    .download-section,
+    .controls-section,
+    .funnel-section,
+    .benchmark-section,
+    .score-section {
+      padding: 1rem;
+    }
+  }
+</style>

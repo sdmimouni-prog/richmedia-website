@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../components/CaseStudyModel.astro';
+import { SITE } from '../../consts';
+import { articleSchema, breadcrumbs } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/realisations/tbs-master-acquisition-2025`;
+const heroImage = '/assets/richmedia-realizations/tbs-master-acquisition-2025-hero.webp';
+const bachelorImage = '/assets/richmedia-realizations/tbs-master-acquisition-2025-bachelor.png';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'TBS Casablanca — Acquisition Master 2025 | Richmedia';
+const pageDescription =
+  'Découvrez comment Richmedia a généré 3 000 leads pour les Masters TBS Casablanca, avec un CPL de 40–80 MAD et 70 % de qualification.';
+
+const content = {
+  backHref: '/realisations',
+  backLabel: 'Retour aux cas clients',
+  eyebrow: 'Une campagne d’acquisition Master pensée pour générer du volume qualifié et accompagner les candidats jusqu’au rendez-vous.',
+  client: 'TBS Education',
+  clientLong: 'TBS Education Casablanca',
+  category: 'Éducation / Enseignement supérieur',
+  period: '2025',
+  scope: 'Meta Ads / Google Search / Performance Max / LinkedIn Ads / TikTok Ads / WhatsApp / Emailing / CRM',
+  title: 'Le Résultat',
+  subtitle:
+    'En 2025, TBS Education Casablanca a confié à Richmedia une campagne d’acquisition dédiée aux programmes Master afin d’augmenter le volume de leads, améliorer la qualité des candidats et accélérer les candidatures avant la rentrée. Le dispositif combinait acquisition média, ciblage par profils et spécialisations, landing page dédiée, retargeting, WhatsApp, emailing et CRM.',
+  heroImage,
+  heroAlt: 'Visuel réel Masters of Science TBS Casablanca',
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'TBS Education Casablanca' },
+    { label: 'Projet', value: 'Campagne d’acquisition Master' },
+    { label: 'Secteur', value: 'Éducation / Enseignement supérieur' },
+    { label: 'Période', value: '2025' },
+    { label: 'Zone', value: 'Maroc + International' },
+    { label: 'Cibles', value: 'Bac+3 / Bac+4 / jeunes diplômés / jeunes actifs / business / data / finance / internationaux' },
+    { label: 'Canaux', value: 'Meta Ads / Google Search / Performance Max / LinkedIn Ads / TikTok Ads / WhatsApp / Emailing / Landing Page / Retargeting / Lookalike / CRM / RDV' },
+  ],
+  metrics: [
+    { value: '3 000', label: 'leads générés', icon: 'ph ph-users' },
+    { value: '40–80 MAD', label: 'CPL', icon: 'ph ph-tag' },
+    { value: '70 %', label: 'taux de qualification', icon: 'ph ph-check-circle' },
+    { value: '4 000', label: 'candidatures totales TBS', note: 'tous canaux confondus', noteTrend: false, icon: 'ph ph-graduation-cap' },
+  ],
+  deliverables: [
+    'Stratégie d’acquisition',
+    'Segmentation Bac+3 / Bac+4',
+    'Plan média multicanal',
+    'Meta Ads',
+    'Google Search',
+    'Performance Max',
+    'LinkedIn Ads',
+    'TikTok Ads',
+    'Landing page dédiée',
+    'Retargeting',
+    'Lookalike',
+    'WhatsApp',
+    'Emailing',
+    'CRM & qualification',
+    'Prise de rendez-vous',
+    'Reporting',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Audience & spécialisations',
+      text: 'Un ciblage adapté aux profils post-Bac+3 et aux spécialisations Master.',
+      bullets: [
+        'Ciblage de profils Bac+3 / Bac+4, jeunes diplômés et jeunes actifs.',
+        'Messages adaptés selon les spécialisations.',
+        'Valorisation de l’employabilité, de la dimension internationale et de l’excellence académique.',
+      ],
+      icon: 'ph ph-target',
+    },
+    {
+      eyebrow: '02',
+      title: 'Media mix',
+      text: 'Une orchestration multicanale avec un rôle clair pour chaque levier.',
+      bullets: [
+        'Meta Ads pour générer du volume.',
+        'Google Search pour capter les intentions fortes.',
+        'Performance Max pour renforcer couverture et conversion.',
+        'LinkedIn pour toucher les jeunes actifs et profils premium.',
+        'TikTok pour les audiences jeunes et les formats vidéo.',
+      ],
+      icon: 'ph ph-megaphone',
+    },
+    {
+      eyebrow: '03',
+      title: 'Landing & retargeting',
+      text: 'Un parcours adapté au niveau de maturité du candidat.',
+      bullets: [
+        'Landing page dédiée.',
+        'Lookalike pour développer les audiences.',
+        'Retargeting des visiteurs et prospects non convertis.',
+        'Parcours adapté au niveau de maturité du candidat.',
+      ],
+      icon: 'ph ph-map-trifold',
+    },
+    {
+      eyebrow: '04',
+      title: 'CRM & conversion',
+      text: 'Qualification, nurturing et accompagnement jusqu’au rendez-vous / entretien.',
+      bullets: [
+        'WhatsApp pour la relance.',
+        'Emailing pour le nurturing.',
+        'CRM pour suivre et qualifier les leads.',
+        'Prise de rendez-vous / entretien pour accompagner la conversion.',
+      ],
+      icon: 'ph ph-chats-circle',
+    },
+  ],
+  proof: {
+    eyebrow: 'Bloc 3',
+    title: 'Les Preuves',
+    intro:
+      'Les visuels réels TBS illustrent l’univers académique : Masters of Science, spécialisations, excellence, campus Casablanca et cohérence de marque.',
+    items: [
+      { image: heroImage, label: 'Masters of Science — TBS Casablanca', format: 'Visuel réel Master', size: 'banner' as const },
+      { image: bachelorImage, label: 'Bachelor in Management', format: 'Univers créatif TBS', size: 'story' as const },
+    ],
+    kpi: {
+      value: '3 000',
+      label: 'leads',
+      breakdown: ['40–80 MAD CPL', '70 % leads qualifiés', '4 000 candidatures TBS tous canaux confondus'],
+      note: 'Les 4 000 candidatures correspondent aux candidatures totales TBS sur la période, tous canaux confondus.',
+    },
+    funnel: {
+      items: [
+        { value: 'Meta', label: 'volume' },
+        { value: 'Search / PMAX', label: 'intention + couverture' },
+        { value: 'LinkedIn / TikTok', label: 'profils premium + vidéo' },
+        { value: 'WhatsApp / Emailing / CRM', label: 'relance, nurturing et qualification' },
+      ],
+      note: 'Aucune performance par canal n’est extrapolée : le bloc décrit le rôle des leviers dans le dispositif.',
+    },
+    conclusion:
+      'La performance du dispositif repose sur une acquisition multicanale capable de générer du volume tout en préservant la qualité : ciblage par profil et spécialisation, Search pour l’intention, Social pour le volume, puis CRM, WhatsApp et emailing pour qualifier et accompagner les candidats.',
+    links: [
+      { href: '/secteurs/education/', label: 'Secteur Éducation' },
+      { href: '/expertises/generation-leads-maroc/', label: 'Génération de leads' },
+      { href: '/expertises/meta-ads-maroc/', label: 'Meta Ads' },
+      { href: '/expertises/google-ads-maroc/', label: 'Google Ads' },
+      { href: '/expertises/tiktok-ads-maroc/', label: 'TikTok Ads' },
+      { href: '/expertises/whatsapp-marketing-maroc/', label: 'WhatsApp Marketing' },
+      { href: '/expertises/media-performance/', label: 'Media Performance' },
+      { href: '/expertises/marketing-automation-crm-maroc/', label: 'Marketing Automation & CRM' },
+    ],
+  },
+  quote:
+    'Vous souhaitez générer davantage de candidatures qualifiées pour vos programmes ?',
+  ctaLabel: 'Parler à un expert',
+  ctaHref: '/contact',
+  secondaryLabel: 'Découvrir nos expertises Éducation',
+  secondaryHref: '/secteurs/education/',
+  ui: {
+    resultLabel: 'Résultats du cas client',
+    metaLabel: 'Résumé du cas client',
+    workLabel: 'Bloc 2',
+    workTitle: 'Ce Qu’on A Fait',
+    proofLabel: 'Preuves visuelles',
+    quoteLabel: 'Maillage du cas client',
+    deliverablesTitle: 'Livrables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Cas clients', url: `${SITE.url}/realisations` },
+    { name: 'TBS Casablanca — Acquisition Master 2025', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../components/CaseStudyModel.astro';
+import { SITE } from '../../consts';
+import { articleSchema, breadcrumbs } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/realisations/universite-euromed-refonte-site-web-2025`;
+const heroImage = '/assets/richmedia-realizations/euromed-refonte-site-web-2025.webp';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Université Euromed — Site Drupal 2025 | Richmedia';
+const pageDescription =
+  'Découvrez la refonte Drupal de l’Université Euromed par Richmedia : UX/UI, 4 langues, SEO, performance, +40 % trafic organique et +20 % candidatures.';
+
+const content = {
+  backHref: '/realisations',
+  backLabel: 'Retour aux cas clients',
+  eyebrow: 'Une refonte Drupal multilingue pensée pour l’expérience candidat, la performance et la visibilité organique.',
+  client: 'Université Euromed',
+  clientLong: 'Université Euromed de Fès',
+  category: 'Éducation / Enseignement supérieur',
+  period: '2025',
+  scope: 'Drupal / UX / UI / Multilingue / SEO / Performance / Tracking / Mise en production',
+  title: 'Le Résultat',
+  subtitle:
+    'En 2025, l’Université Euromed de Fès a confié à Richmedia la refonte complète de son écosystème web afin de moderniser son image digitale, simplifier l’accès à son offre académique et améliorer le parcours des candidats. Richmedia a conçu et développé un nouveau site institutionnel Drupal, multilingue et orienté expérience utilisateur, SEO et conversion.',
+  heroImage,
+  heroAlt: 'Screenshot réel de la nouvelle homepage Université Euromed',
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'Université Euromed de Fès' },
+    { label: 'Projet', value: 'Création / refonte du nouveau site web' },
+    { label: 'Secteur', value: 'Éducation / Enseignement supérieur' },
+    { label: 'Période', value: '2025' },
+    { label: 'CMS', value: 'Drupal' },
+    { label: 'Langues', value: 'Français / Anglais / Arabe / Espagnol' },
+    { label: 'Zone', value: 'Maroc + International' },
+    { label: 'Cibles', value: 'Bacheliers / Bac+2-Bac+3 / Master / parents / internationaux / partenaires / chercheurs / alumni' },
+  ],
+  metrics: [
+    { value: '+40 %', label: 'trafic organique', icon: 'ph ph-trend-up' },
+    { value: '+80 %', label: 'amélioration du temps de chargement', icon: 'ph ph-gauge' },
+    { value: '+50 %', label: 'demandes d’information', icon: 'ph ph-chat-circle-text' },
+    { value: '+20 %', label: 'candidatures', icon: 'ph ph-file-text' },
+    { value: '+30', label: 'positions gagnées sur Google', icon: 'ph ph-magnifying-glass' },
+  ],
+  deliverables: [
+    'Audit & arborescence UX',
+    'UI Design',
+    'Design System web',
+    'Développement Front-end',
+    'Développement Back-end',
+    'CMS Drupal',
+    'Migration de contenus',
+    'Gestion multilingue',
+    'Formulaires candidats',
+    'SEO technique',
+    'Analytics & tracking',
+    'Responsive mobile',
+    'Hébergement',
+    'Mise en production',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Architecture & parcours',
+      text: 'Refonte de l’arborescence pour simplifier l’accès à l’information académique.',
+      bullets: [
+        'Refonte de l’arborescence du site.',
+        'Navigation pensée par écoles, programmes et profils utilisateurs.',
+        'Simplification de l’accès à l’information académique.',
+      ],
+      icon: 'ph ph-tree-structure',
+    },
+    {
+      eyebrow: '02',
+      title: 'Design & expérience',
+      text: 'Une expérience candidat plus lisible, plus rapide et mieux orientée conversion.',
+      bullets: [
+        'Refonte UI complète.',
+        'Accès rapide aux candidatures.',
+        'Formulaires simplifiés.',
+        'Mise en avant de la vie de campus et des contenus institutionnels.',
+      ],
+      icon: 'ph ph-layout',
+    },
+    {
+      eyebrow: '03',
+      title: 'Développement Drupal',
+      text: 'Développement front-end et back-end sur un CMS Drupal multilingue.',
+      bullets: [
+        'Développement front-end et back-end.',
+        'CMS Drupal.',
+        'Migration des contenus.',
+        'Gestion de 4 langues : FR / EN / AR / ES.',
+        'Responsive mobile.',
+      ],
+      icon: 'ph ph-code',
+    },
+    {
+      eyebrow: '04',
+      title: 'SEO & performance',
+      text: 'Architecture technique pensée pour la visibilité organique et la rapidité.',
+      bullets: [
+        'Architecture pensée SEO.',
+        'SEO technique.',
+        'Optimisation du temps de chargement.',
+        'Analytics & tracking.',
+        'Hébergement et mise en production.',
+      ],
+      icon: 'ph ph-rocket-launch',
+    },
+  ],
+  proof: {
+    eyebrow: 'Bloc 3',
+    title: 'Les Preuves',
+    intro:
+      'Screenshot réel de la nouvelle homepage Euromed : hero institutionnel, chiffres clés, pôles de formation, parcours candidat, actualités, événements et contenus institutionnels.',
+    items: [
+      { image: heroImage, label: 'Nouvelle homepage Université Euromed', format: 'Screenshot réel', size: 'banner' as const },
+    ],
+    kpi: {
+      value: '+40 %',
+      label: 'trafic organique',
+      breakdown: ['+80 % performance de chargement', '+50 % demandes d’information', '+20 % candidatures', '+30 positions Google'],
+      note: 'Les KPI présentés sont limités aux données validées.',
+    },
+    funnel: {
+      items: [
+        { value: 'Découvrir', label: 'Écoles, programmes et contenus institutionnels' },
+        { value: 'Comprendre', label: 'Information claire par profil utilisateur' },
+        { value: 'Choisir', label: 'Parcours académique plus lisible' },
+        { value: 'Candidater', label: 'Formulaires et demandes d’information' },
+      ],
+      note: 'Ce schéma représente le parcours UX, pas un funnel chiffré.',
+    },
+    conclusion:
+      'La refonte a permis de transformer un site institutionnel complexe en plateforme digitale plus rapide, plus lisible et plus efficace pour les candidats, tout en renforçant la visibilité organique de l’Université Euromed.',
+    links: [
+      { href: '/secteurs/education/', label: 'Secteur Éducation' },
+      { href: '/expertises/web-si/', label: 'Expertise Web' },
+      { href: '/expertises/referencement-seo/', label: 'SEO / GEO' },
+      { href: '/expertises/strategie-digitale/', label: 'Stratégie digitale' },
+    ],
+  },
+  quote:
+    'Vous souhaitez transformer votre site institutionnel en véritable levier d’acquisition ?',
+  ctaLabel: 'Parler à un expert',
+  ctaHref: '/contact',
+  secondaryLabel: 'Découvrir nos expertises Web',
+  secondaryHref: '/expertises/web-si/',
+  ui: {
+    resultLabel: 'Résultats du cas client',
+    metaLabel: 'Résumé du cas client',
+    workLabel: 'Bloc 2',
+    workTitle: 'Ce Qu’on A Fait',
+    proofLabel: 'Preuves visuelles',
+    quoteLabel: 'Maillage du cas client',
+    deliverablesTitle: 'Livrables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Cas clients', url: `${SITE.url}/realisations` },
+    { name: 'Université Euromed — Refonte Site Web Drupal 2025', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

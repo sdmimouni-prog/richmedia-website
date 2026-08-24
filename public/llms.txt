@@ -16,6 +16,9 @@
 - [Références](https://richmedia.ma/references/)
 - [Équipe](https://richmedia.ma/equipe/)
 - [Insights](https://richmedia.ma/insights/)
+- [Outils & ressources](https://richmedia.ma/outils/)
+- [Template Dashboard KPI Marketing 2026](https://richmedia.ma/outils/template-dashboard-kpi-marketing/)
+- [Template Brief de Campagne Digitale](https://richmedia.ma/outils/template-brief-campagne-digitale/)
 - [Réserver un audit](https://richmedia.ma/reserver-un-audit/)
 - [Contact](https://richmedia.ma/contact/)
 
@@ -84,6 +87,9 @@
 - [References](https://richmedia.ma/en/references/)
 - [Team](https://richmedia.ma/en/team/)
 - [Insights](https://richmedia.ma/en/insights/)
+- [Tools & resources](https://richmedia.ma/en/tools/)
+- [Marketing KPI Dashboard Template 2026](https://richmedia.ma/en/tools/marketing-kpi-dashboard-template/)
+- [Digital Campaign Brief Template](https://richmedia.ma/en/tools/digital-campaign-brief-template/)
 - [Book an audit](https://richmedia.ma/en/book-audit/)
 - [Contact](https://richmedia.ma/en/contact/)
 

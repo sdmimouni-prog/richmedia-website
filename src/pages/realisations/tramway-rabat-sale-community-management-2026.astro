@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../components/CaseStudyModel.astro';
+import { SITE } from '../../consts';
+import { articleSchema, breadcrumbs } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/realisations/tramway-rabat-sale-community-management-2026`;
+const heroImage = '/assets/richmedia-realizations/tramway-rabat-sale-community-management-2026-blassty.jpg';
+const summerImage = '/assets/richmedia-realizations/tramway-rabat-sale-community-management-2026-summer.webp';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Tramway Rabat-Salé — Social Media 2026 | Richmedia';
+const pageDescription =
+  'Découvrez comment Richmedia accompagne le Tramway Rabat-Salé en contenu et community management : 500 K vues vidéo, 339 K interactions et +5 K abonnés.';
+
+const content = {
+  backHref: '/realisations',
+  backLabel: 'Retour aux cas clients',
+  eyebrow: 'Une stratégie social media pensée pour informer, accompagner et rapprocher le Tramway de ses usagers.',
+  client: 'Tramway Rabat-Salé',
+  clientLong: 'Tramway Rabat-Salé',
+  category: 'Mobilité / Service public',
+  period: '2026',
+  scope: 'Facebook / Instagram / Reels / Stories / Carrousels / Infographies / Social Care',
+  title: 'Le Résultat',
+  subtitle:
+    'En 2026, Richmedia accompagne le Tramway Rabat-Salé dans la création de contenu, l’animation de ses communautés et la gestion de la relation digitale avec les usagers. L’objectif : moderniser la présence sociale du Tramway, produire une information utile et réactive, renforcer la proximité avec les voyageurs et faire des réseaux sociaux un véritable canal de service au quotidien.',
+  heroImage,
+  heroAlt: 'Visuel réel Blassty Rabat à portée de main pour Tramway Rabat-Salé',
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'Tramway Rabat-Salé' },
+    { label: 'Projet', value: 'Création de contenu & Community Management' },
+    { label: 'Secteur', value: 'Mobilité / Service public' },
+    { label: 'Période', value: '2026' },
+    { label: 'Zone', value: 'Rabat-Salé' },
+    { label: 'Cibles', value: 'Usagers quotidiens / étudiants / salariés / familles / touristes / habitants / jeunes publics' },
+    { label: 'Canaux', value: 'Facebook / Instagram' },
+    { label: 'Formats', value: 'Reels / vidéos courtes / carrousels / posts statiques / stories / infographies / temps réel' },
+  ],
+  metrics: [
+    { value: '+5 000', label: 'abonnés', icon: 'ph ph-users' },
+    { value: '500 000', label: 'vues vidéo', icon: 'ph ph-play-circle' },
+    { value: '339 000', label: 'interactions', icon: 'ph ph-chats-circle' },
+    { value: '2,4 %', label: 'taux d’engagement', icon: 'ph ph-trend-up' },
+    { value: '300 000', label: 'reach / impressions', icon: 'ph ph-broadcast' },
+  ],
+  deliverables: [
+    'Stratégie Social Media',
+    'Ligne éditoriale',
+    'Planning éditorial',
+    'Création graphique',
+    'Reels & vidéos',
+    'Stories',
+    'Carrousels',
+    'Infographies',
+    'Community Management',
+    'Social Care',
+    'Modération',
+    'Veille réputationnelle',
+    'Couverture temps réel',
+    'Reporting',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Ligne éditoriale',
+      text: 'Une présence sociale cohérente, identifiable et utile aux différents profils d’usagers.',
+      bullets: [
+        'Construction d’une ligne éditoriale cohérente et identifiable.',
+        'Équilibre entre information de service, pédagogie et contenus de marque.',
+        'Adaptation aux différents profils d’usagers.',
+      ],
+      icon: 'ph ph-pencil-line',
+    },
+    {
+      eyebrow: '02',
+      title: 'Content factory',
+      text: 'Un volume éditorial important sans perte de cohérence graphique ou éditoriale.',
+      bullets: [
+        '30 posts par mois.',
+        '15 Reels / vidéos courtes.',
+        '30 stories.',
+        '5 carrousels.',
+        'Infographies et contenus pratiques.',
+      ],
+      icon: 'ph ph-stack',
+    },
+    {
+      eyebrow: '03',
+      title: 'Information usagers',
+      text: 'Des contenus pensés comme un média de service au quotidien.',
+      bullets: [
+        'Information trafic et perturbations.',
+        'Pédagogie sur l’usage du Tramway.',
+        'Sécurité, services et mobilité.',
+        'Actualités, événements et couverture temps réel.',
+      ],
+      icon: 'ph ph-train',
+    },
+    {
+      eyebrow: '04',
+      title: 'Social Care',
+      text: 'Une gestion communautaire opérationnelle, réactive et orientée service.',
+      bullets: [
+        'Modération quotidienne.',
+        'Réponses aux messages privés.',
+        'Traitement des réclamations.',
+        'Escalade vers les équipes Tramway.',
+        'Réponses lors des perturbations.',
+        'Veille réputationnelle et reporting des irritants.',
+      ],
+      icon: 'ph ph-headset',
+    },
+  ],
+  proof: {
+    eyebrow: 'Bloc 3',
+    title: 'Les Preuves',
+    intro:
+      'Deux visuels réels illustrent l’écosystème de contenu : services de mobilité, information usagers, contenu saisonnier, lifestyle et mobilité quotidienne.',
+    items: [
+      { image: heroImage, label: 'Blassty — Rabat à portée de main', format: 'Visuel réel', size: 'banner' as const },
+      { image: summerImage, label: 'Été avec le Tramway', format: 'Visuel réel', size: 'feed' as const },
+    ],
+    kpi: {
+      value: '500 K',
+      label: 'vues vidéo',
+      breakdown: ['339 K interactions', '+5 K abonnés', '2,4 % engagement', '300 K reach / impressions'],
+      note: 'La production mensuelle combine 30 posts, 15 Reels, 30 stories et 5 carrousels.',
+    },
+    funnel: {
+      items: [
+        { value: 'Information', label: 'trafic, perturbations, services' },
+        { value: 'Pédagogie', label: 'usages, sécurité, mobilité' },
+        { value: 'Proximité', label: 'réponses, modération, social care' },
+        { value: 'Image de marque', label: 'contenus pratiques et temps forts' },
+      ],
+      note: 'Piliers : information trafic, pédagogie, services, vie urbaine, sécurité, coulisses, institutionnel, contenus pratiques et événements.',
+    },
+    conclusion:
+      'Richmedia a transformé les réseaux sociaux du Tramway en un véritable média de service : capable d’informer, de rassurer, d’accompagner les usagers et de construire une relation de proximité, tout en conservant une production éditoriale forte et cohérente.',
+    links: [
+      { href: '/expertises/social-media-maroc/', label: 'Social Media' },
+      { href: '/expertises/social-listening-maroc/', label: 'Social Listening' },
+      { href: '/expertises/brand-content/', label: 'Brand Content' },
+      { href: '/expertises/strategie-digitale/', label: 'Stratégie digitale' },
+    ],
+  },
+  quote:
+    'Vous souhaitez transformer vos réseaux sociaux en véritable canal de service et de proximité ?',
+  ctaLabel: 'Parler à un expert',
+  ctaHref: '/contact',
+  secondaryLabel: 'Découvrir nos expertises Social Media',
+  secondaryHref: '/expertises/social-media-maroc/',
+  ui: {
+    resultLabel: 'Résultats du cas client',
+    metaLabel: 'Résumé du cas client',
+    workLabel: 'Bloc 2',
+    workTitle: 'Ce Qu’on A Fait',
+    proofLabel: 'Preuves visuelles',
+    quoteLabel: 'Maillage du cas client',
+    deliverablesTitle: 'Livrables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Cas clients', url: `${SITE.url}/realisations` },
+    { name: 'Tramway Rabat-Salé — Social Media 2026', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

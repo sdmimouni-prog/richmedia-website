@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../components/CaseStudyModel.astro';
+import { SITE } from '../../consts';
+import { articleSchema, breadcrumbs } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/realisations/don-simon-back-to-school-2025`;
+const caseAssets = '/assets/richmedia-case-study/don-simon-back-to-school-2025';
+const heroImage = '/assets/richmedia-home/campaign-wide-donsimon.webp';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Don Simon — Back to School 2025 | Case Study Richmedia';
+const pageDescription =
+  'Découvrez la campagne Back to School 2025 de Don Simon orchestrée par Richmedia : 25 M d’impressions, 2 M de vues vidéo, 200 K engagements et 30 K clics.';
+
+const content = {
+  backHref: '/realisations',
+  backLabel: 'Retour aux cas clients',
+  eyebrow: 'Une orchestration multicanale pensée pour installer Don Simon au cœur du temps fort de la rentrée.',
+  client: 'Don Simon',
+  clientLong: 'Don Simon',
+  category: 'FMCG / Boissons',
+  period: '2025',
+  scope: 'Meta Ads / TikTok Ads / YouTube / Influence / Display',
+  title: 'Le Résultat',
+  subtitle:
+    'Pour la rentrée 2025, Richmedia a accompagné Don Simon avec un dispositif digital national combinant vidéo, social media, influence et display afin d’installer la marque comme compagnon de la rentrée, renforcer sa visibilité auprès des familles et générer du trafic vers les points de vente.',
+  heroImage,
+  metaItems: [
+    { label: 'Client', value: 'Don Simon' },
+    { label: 'Campagne', value: 'Back to School 2025' },
+    { label: 'Secteur', value: 'FMCG / Boissons' },
+    { label: 'Période', value: '2025' },
+    { label: 'Zone', value: 'Maroc — couverture nationale' },
+    { label: 'Cibles', value: 'Parents, familles, jeunes, acheteurs GMS' },
+    { label: 'Canaux', value: 'Meta / TikTok / YouTube / Influence / Display' },
+    { label: 'Budget', value: 'Confidentiel' },
+  ],
+  metrics: [
+    { value: '25 M', label: 'impressions', icon: 'ph ph-eye' },
+    { value: '2 M', label: 'vues vidéo', icon: 'ph ph-video-camera' },
+    { value: '200 K', label: 'engagements', icon: 'ph ph-heart' },
+    { value: '30 K', label: 'clics', icon: 'ph ph-cursor-click' },
+  ],
+  deliverables: [
+    'Stratégie digitale',
+    'Concept Back to School',
+    'Plan média multicanal',
+    'Social Media activation',
+    'TikTok / vidéo',
+    'YouTube',
+    'Display',
+    'Influence',
+    'Optimisation média',
+    'Reporting de performance',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Territoire & audiences',
+      text: 'Positionner Don Simon comme compagnon de la rentrée.',
+      bullets: [
+        'Positionner Don Simon comme le compagnon de la rentrée.',
+        'Toucher simultanément parents, familles, jeunes et acheteurs GMS.',
+        'Construire une couverture nationale autour d’un temps fort de consommation.',
+      ],
+      icon: 'ph ph-strategy',
+    },
+    {
+      eyebrow: '02',
+      title: 'Social amplification',
+      text: 'Développer présence, reach et engagement sur les plateformes sociales.',
+      bullets: [
+        'Meta pour développer reach et engagement.',
+        'TikTok pour toucher les audiences plus jeunes avec une logique vidéo.',
+        'Contenus adaptés aux usages des différentes plateformes.',
+      ],
+      icon: 'ph ph-share-network',
+    },
+    {
+      eyebrow: '03',
+      title: 'Vidéo & couverture',
+      text: 'Renforcer mémorisation et répétition à l’échelle nationale.',
+      bullets: [
+        'YouTube pour amplifier la présence vidéo.',
+        'Display pour étendre la couverture de campagne.',
+        'Approche pensée pour maximiser visibilité, mémorisation et répétition.',
+      ],
+      icon: 'ph ph-video-camera',
+    },
+    {
+      eyebrow: '04',
+      title: 'Influence & proximité',
+      text: 'Rapprocher le produit des usages et des communautés.',
+      bullets: [
+        'Influence utilisée pour donner une dimension plus humaine à la campagne.',
+        'Créateurs comme relais de crédibilité auprès des communautés.',
+        'Dispositif pensé pour soutenir à la fois notoriété et trafic.',
+      ],
+      icon: 'ph ph-handshake',
+    },
+  ],
+  proof: {
+    eyebrow: 'Bloc 3',
+    title: 'Les Preuves',
+    intro: 'Le visuel réel Don Simon et des déclinaisons créatives Back to School utilisées pour illustrer le dispositif.',
+    items: [
+      { image: heroImage, label: 'Visuel Don Simon Back to School', format: 'Visuel réel', size: 'banner' as const },
+      { image: `${caseAssets}/don-simon-proof-social-feed.png`, label: 'La pause fruitée', format: 'Social feed', size: 'feed' as const },
+      { image: `${caseAssets}/don-simon-proof-story.png`, label: 'Une rentrée pleine de goût', format: 'Story verticale', size: 'story' as const },
+      { image: `${caseAssets}/don-simon-proof-wide-banner.png`, label: 'Des jus pour la rentrée', format: 'Bannière', size: 'landing' as const },
+    ],
+    kpi: {
+      value: '25 M',
+      label: 'impressions',
+      breakdown: ['2 M vues vidéo', '200 K engagements', '30 K clics'],
+      note: 'Meta + TikTok + YouTube + Influence + Display.',
+    },
+    conclusion:
+      'La force du dispositif a reposé sur la complémentarité des canaux : social media pour créer la présence et l’engagement, vidéo pour renforcer la mémorisation, influence pour apporter de la proximité et display pour étendre la couverture à l’échelle nationale.',
+    links: [
+      { href: '/secteurs/fmcg/', label: 'Secteur FMCG' },
+      { href: '/expertises/meta-ads-maroc/', label: 'Meta Ads' },
+      { href: '/expertises/tiktok-ads-maroc/', label: 'TikTok Ads' },
+      { href: '/expertises/influence-marketing-maroc/', label: 'Influence marketing' },
+      { href: '/expertises/media-performance/', label: 'Média & performance' },
+    ],
+  },
+  quote:
+    'La campagne a combiné visibilité et mémorisation avec engagement et trafic, en donnant à chaque canal un rôle précis dans le temps fort Back to School.',
+  ctaLabel: 'Parler à un expert',
+  ctaHref: '/contact',
+  secondaryLabel: 'Découvrir nos expertises FMCG',
+  secondaryHref: '/secteurs/fmcg/',
+  ui: {
+    resultLabel: 'Résultats du cas client',
+    metaLabel: 'Résumé du cas client',
+    workLabel: 'Bloc 2',
+    workTitle: 'Ce Qu’on A Fait',
+    proofLabel: 'Preuves visuelles',
+    quoteLabel: 'Maillage du cas client',
+    deliverablesTitle: 'Livrables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Cas clients', url: `${SITE.url}/realisations` },
+    { name: 'Don Simon — Back to School 2025', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

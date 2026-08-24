@@ -3,6 +3,7 @@ interface Metric {
   value: string;
   label: string;
   note?: string;
+  noteTrend?: boolean;
   icon?: string;
 }
 
@@ -38,6 +39,8 @@ interface CaseStudyContent {
   title: string;
   subtitle: string;
   heroImage: string;
+  heroAlt?: string;
+  heroCompact?: boolean;
   metrics: Metric[];
   metaItems?: MetaItem[];
   deliverables?: string[];
@@ -47,6 +50,24 @@ interface CaseStudyContent {
     title: string;
     intro: string;
     items: ProofItem[];
+    kpi?: {
+      value: string;
+      label: string;
+      breakdown: string[];
+      note?: string;
+    };
+    funnel?: {
+      items: {
+        value: string;
+        label: string;
+      }[];
+      note?: string;
+    };
+    conclusion?: string;
+    links?: {
+      href: string;
+      label: string;
+    }[];
   };
   quote: string;
   ctaLabel: string;
@@ -60,6 +81,7 @@ interface CaseStudyContent {
     workTitle?: string;
     proofLabel?: string;
     quoteLabel?: string;
+    deliverablesTitle?: string;
   };
 }
 
@@ -124,9 +146,10 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
   delay: index * 105,
   duration: 1120 + index * 95,
 }));
+const isProofCompact = content.proof.items.length <= 4 && !content.proof.funnel;
 ---
 
-<article class="case-study-model">
+<article class:list={['case-study-model', content.heroCompact && 'is-hero-compact']}>
   <section class="case-section case-result-block" aria-labelledby="case-title">
     <div class="section-rail" aria-hidden="true">
       <strong>01</strong>
@@ -153,7 +176,7 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
       <figure class="result-visual">
         <img
           src={content.heroImage}
-          alt={`${content.client} - campagne inscriptions 2024`}
+          alt={content.heroAlt ?? `${content.client} - campagne Richmedia`}
           width="2154"
           height="1338"
           loading="eager"
@@ -180,7 +203,7 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
                 <span class="result-metric-label">{metric.label}</span>
                 {metric.note && (
                   <small class="result-metric-note">
-                    <span class="trend-arrow" aria-hidden="true">▲</span>
+                    {metric.noteTrend !== false && <span class="trend-arrow" aria-hidden="true">▲</span>}
                     {metric.noteCount ? (
                       <span
                         data-counter
@@ -246,7 +269,7 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
           <aside class="deliverables-card">
             <header>
               <i class="ph ph-briefcase" aria-hidden="true"></i>
-              <h3>Livrables</h3>
+              <h3>{content.ui?.deliverablesTitle ?? 'Livrables'}</h3>
             </header>
             <ul>
               {deliverables.map((item) => (
@@ -268,7 +291,7 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
       <span></span>
     </div>
 
-    <div class="proof-shell">
+    <div class:list={['proof-shell', `proof-count-${content.proof.items.length}`, content.proof.funnel && 'is-proof-funnel', isProofCompact && 'is-proof-compact']}>
       <header class="proof-head">
         <span class="block-kicker">{content.proof.eyebrow}</span>
         <h2 id="proof-title">{content.proof.title}</h2>
@@ -283,6 +306,47 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
           </article>
         ))}
       </div>
+
+      {(content.proof.kpi || content.proof.funnel || content.proof.conclusion || content.proof.links?.length) && (
+        <div class:list={['proof-insight-row', content.proof.funnel && 'has-funnel']}>
+          {content.proof.kpi && (
+            <aside class="proof-kpi-card">
+              <strong>{content.proof.kpi.value}</strong>
+              <span>{content.proof.kpi.label}</span>
+              <ul>
+                {content.proof.kpi.breakdown.map((item) => <li>{item}</li>)}
+              </ul>
+              {content.proof.kpi.note && <small>{content.proof.kpi.note}</small>}
+            </aside>
+          )}
+
+          {content.proof.funnel && (
+            <aside class="proof-funnel-card">
+              <ol>
+                {content.proof.funnel.items.map((item, index) => (
+                  <li>
+                    <strong>{item.value}</strong>
+                    <span>{item.label}</span>
+                    {index < content.proof.funnel!.items.length - 1 && <i class="ph ph-arrow-down" aria-hidden="true"></i>}
+                  </li>
+                ))}
+              </ol>
+              {content.proof.funnel.note && <small>{content.proof.funnel.note}</small>}
+            </aside>
+          )}
+
+          {(content.proof.conclusion || content.proof.links?.length) && (
+            <div class="proof-conclusion-card">
+              {content.proof.conclusion && <p>{content.proof.conclusion}</p>}
+              {content.proof.links?.length && (
+                <nav aria-label={content.ui?.quoteLabel ?? 'Liens associés'}>
+                  {content.proof.links.map((link) => <a href={link.href}>{link.label}</a>)}
+                </nav>
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   </section>
 </article>
@@ -430,10 +494,10 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
     padding-left: var(--left-pad);
   }
 
-  .result-copy {
-    max-width: 27.3rem;
-    padding-top: 3.55rem;
-  }
+	  .result-copy {
+	    max-width: 27.3rem;
+	    padding-top: 2.65rem;
+	  }
 
   .result-copy h1,
   .work-head h2,
@@ -453,52 +517,52 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
     white-space: nowrap;
   }
 
-  .result-copy p {
-    max-width: 26.8rem;
-    margin: 2.05rem 0 0;
-    color: rgba(255, 255, 255, 0.78);
-    font-size: clamp(1.02rem, 1.12vw, 1.18rem);
-    font-weight: 400;
-    line-height: 1.72;
-  }
+	  .result-copy p {
+	    max-width: 26.8rem;
+	    margin: 1.55rem 0 0;
+	    color: rgba(255, 255, 255, 0.78);
+	    font-size: clamp(0.98rem, 1.04vw, 1.1rem);
+	    font-weight: 400;
+	    line-height: 1.58;
+	  }
 
-  .case-meta {
-    display: grid;
-    gap: 0;
-    max-width: 26.2rem;
-    margin: 4.55rem 0 0;
-  }
+	  .case-meta {
+	    display: grid;
+	    gap: 0;
+	    max-width: 26.2rem;
+	    margin: 2.55rem 0 0;
+	  }
 
-  .case-meta div {
-    display: grid;
-    grid-template-columns: 8.8rem minmax(0, 1fr);
-    gap: 1.1rem;
-    min-height: 2.55rem;
-    align-items: start;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 0.28rem 0 0.62rem;
-  }
+	  .case-meta div {
+	    display: grid;
+	    grid-template-columns: 7.45rem minmax(0, 1fr);
+	    gap: 0.85rem;
+	    min-height: 2.18rem;
+	    align-items: start;
+	    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	    padding: 0.2rem 0 0.45rem;
+	  }
 
   .case-meta dt,
   .case-meta dd {
     margin: 0;
   }
 
-  .case-meta dt {
-    color: var(--purple);
-    font-size: 0.8rem;
-    font-weight: 900;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-  }
+	  .case-meta dt {
+	    color: var(--purple);
+	    font-size: 0.72rem;
+	    font-weight: 900;
+	    letter-spacing: 0.3em;
+	    text-transform: uppercase;
+	  }
 
-  .case-meta dd {
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 800;
-    line-height: 1.28;
-    letter-spacing: 0.02em;
-  }
+	  .case-meta dd {
+	    color: #fff;
+	    font-size: 0.92rem;
+	    font-weight: 800;
+	    line-height: 1.18;
+	    letter-spacing: 0.02em;
+	  }
 
   .result-visual {
     position: relative;
@@ -529,10 +593,10 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
   .result-metrics {
     position: absolute;
     top: 2.38%;
-    right: 6.4%;
+    right: 4.2%;
     z-index: 3;
     display: grid;
-    width: min(28.05%, 18.45rem);
+    width: min(32.5%, 20.75rem);
     gap: clamp(0.58rem, 0.78vw, 0.82rem);
     perspective: 980px;
   }
@@ -541,8 +605,8 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
     position: relative;
     isolation: isolate;
     display: grid;
-    grid-template-columns: minmax(3.15rem, 4.35rem) minmax(0, 1fr);
-    gap: clamp(0.6rem, 1vw, 1.05rem);
+    grid-template-columns: minmax(2.65rem, 3.55rem) minmax(0, 1fr);
+    gap: clamp(0.5rem, 0.82vw, 0.78rem);
     align-items: center;
     min-height: clamp(5.85rem, 7.62vw, 8.68rem);
     overflow: hidden;
@@ -622,7 +686,7 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
 
   .result-metric-icon {
     color: var(--purple);
-    font-size: clamp(2rem, 2.92vw, 2.92rem);
+    font-size: clamp(1.85rem, 2.55vw, 2.55rem);
     line-height: 1;
     text-shadow: 0 0 1rem rgba(166, 92, 255, 0.68);
     transform: translateZ(2.2rem);
@@ -637,11 +701,12 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
     display: block;
     color: #fff;
     font-family: var(--font-numeric);
-    font-size: clamp(2.08rem, 3.3vw, 3.48rem);
+    font-size: clamp(1.9rem, 2.68vw, 2.92rem);
     font-variant-numeric: lining-nums tabular-nums;
     font-weight: 900;
     letter-spacing: 0;
     line-height: 0.92;
+    white-space: nowrap;
     text-shadow: 0 0 1.45rem rgba(255, 255, 255, 0.14);
   }
 
@@ -667,7 +732,109 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
     font-weight: 850;
     letter-spacing: 0;
     line-height: 1;
+    white-space: nowrap;
     text-shadow: 0 0 0.9rem rgba(81, 241, 138, 0.28);
+  }
+
+  .case-study-model.is-hero-compact .case-result-block {
+    min-height: min(100vh, 45rem);
+    padding-top: clamp(4.7rem, 5vw, 5.45rem);
+    padding-bottom: 1.2rem;
+  }
+
+  .case-study-model.is-hero-compact .case-result-block .section-rail {
+    top: clamp(4.45rem, 4.7vw, 5.15rem);
+  }
+
+  .case-study-model.is-hero-compact .result-grid {
+    grid-template-columns: minmax(23rem, 27rem) minmax(0, 54rem);
+    gap: clamp(2.2rem, 3.2vw, 3.6rem);
+  }
+
+  .case-study-model.is-hero-compact .result-copy {
+    padding-top: 1rem;
+  }
+
+  .case-study-model.is-hero-compact .result-copy h1 {
+    margin-top: 1.25rem;
+    font-size: clamp(3.35rem, 4vw, 4.25rem) !important;
+  }
+
+  .case-study-model.is-hero-compact .heading-stroke {
+    width: 14.8rem;
+    margin-top: 0.7rem;
+  }
+
+  .case-study-model.is-hero-compact .result-copy p {
+    margin-top: 1.05rem;
+    font-size: clamp(0.88rem, 0.92vw, 0.98rem);
+    line-height: 1.44;
+  }
+
+  .case-study-model.is-hero-compact .case-meta {
+    margin-top: 1.4rem;
+  }
+
+  .case-study-model.is-hero-compact .case-meta div {
+    grid-template-columns: 6.35rem minmax(0, 1fr);
+    min-height: 1.7rem;
+    padding: 0.12rem 0 0.32rem;
+  }
+
+  .case-study-model.is-hero-compact .case-meta dt {
+    font-size: 0.63rem;
+  }
+
+  .case-study-model.is-hero-compact .case-meta dd {
+    font-size: 0.79rem;
+    line-height: 1.08;
+  }
+
+  .case-study-model.is-hero-compact .result-visual {
+    justify-self: end;
+    width: min(55vw, 54rem);
+  }
+
+  .case-study-model.is-hero-compact .result-visual::before {
+    bottom: 0.2rem;
+  }
+
+  .case-study-model.is-hero-compact .result-visual img {
+    height: clamp(27rem, calc(100vh - 8.2rem), 34rem);
+    min-height: 0;
+    object-position: center 44%;
+  }
+
+  .case-study-model.is-hero-compact .result-metrics {
+    top: 3.8%;
+    right: 3.2%;
+    width: min(31%, 16.8rem);
+    gap: clamp(0.45rem, 0.58vw, 0.6rem);
+  }
+
+  .case-study-model.is-hero-compact .result-metric-card {
+    grid-template-columns: minmax(2rem, 2.55rem) minmax(0, 1fr);
+    min-height: clamp(4.25rem, 5.35vw, 5.65rem);
+    border-radius: 13px;
+    padding: clamp(0.62rem, 0.86vw, 0.82rem) clamp(0.7rem, 0.96vw, 0.98rem);
+  }
+
+  .case-study-model.is-hero-compact .result-metric-icon {
+    font-size: clamp(1.45rem, 1.9vw, 1.9rem);
+  }
+
+  .case-study-model.is-hero-compact .result-metric-value {
+    font-size: clamp(1.58rem, 2.08vw, 2.28rem);
+  }
+
+  .case-study-model.is-hero-compact .result-metric-label {
+    margin-top: 0.35rem;
+    font-size: clamp(0.68rem, 0.72vw, 0.78rem);
+  }
+
+  .case-study-model.is-hero-compact .result-metric-note {
+    margin-top: 0.36rem;
+    font-size: clamp(0.64rem, 0.68vw, 0.72rem);
   }
 
   .trend-arrow {
@@ -954,10 +1121,10 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
     box-shadow: 0 0 1.1rem rgba(166, 92, 255, 0.58);
   }
 
-  .process-card {
-    height: 19.65rem;
-    padding: 1.55rem 1.2rem 1.2rem;
-  }
+	  .process-card {
+	    height: 21.65rem;
+	    padding: 1.55rem 1.2rem 1.2rem;
+	  }
 
   .process-card > i {
     display: block;
@@ -1098,6 +1265,241 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
     margin-top: -1.05rem;
   }
 
+  .proof-shell.is-proof-funnel .proof-stage {
+    aspect-ratio: 16 / 5.7;
+    margin-top: 1.15rem;
+  }
+
+  .proof-shell.is-proof-funnel .proof-banner {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .proof-shell.is-proof-compact .proof-stage {
+    aspect-ratio: 1498 / 500;
+    margin-top: 0.7rem;
+  }
+
+  .proof-shell.is-proof-compact .proof-insight-row {
+    margin-top: 0.75rem;
+  }
+
+  .proof-shell.is-proof-compact .proof-feed,
+  .proof-shell.is-proof-compact .proof-story {
+    top: 0;
+    height: 100%;
+  }
+
+  .proof-shell.is-proof-compact .proof-banner {
+    top: 0;
+    height: 48%;
+  }
+
+  .proof-shell.is-proof-compact .proof-dashboard,
+  .proof-shell.is-proof-compact .proof-landing,
+  .proof-shell.is-proof-compact .proof-quote {
+    top: 52%;
+    height: 48%;
+  }
+
+  .proof-shell.is-proof-compact.proof-count-4 .proof-stage {
+    aspect-ratio: 1498 / 620;
+  }
+
+  .proof-shell.is-proof-compact.proof-count-4 .proof-feed {
+    top: 3%;
+    left: 0;
+    width: 24.9%;
+    height: 88%;
+  }
+
+  .proof-shell.is-proof-compact.proof-count-4 .proof-story {
+    top: 3%;
+    left: 26%;
+    width: 16.6%;
+    height: 88%;
+  }
+
+  .proof-shell.is-proof-compact.proof-count-4 .proof-banner {
+    top: 3%;
+    left: 44.2%;
+    width: 55.8%;
+    height: 41%;
+  }
+
+  .proof-shell.is-proof-compact.proof-count-4 .proof-landing,
+  .proof-shell.is-proof-compact.proof-count-4 .proof-dashboard,
+  .proof-shell.is-proof-compact.proof-count-4 .proof-quote {
+    top: 48%;
+    left: 44.2%;
+    width: 55.8%;
+    height: 41%;
+  }
+
+  .proof-insight-row {
+    display: grid;
+    grid-template-columns: minmax(14rem, 22rem) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+    margin: 1.1rem 0 2.4rem;
+  }
+
+  .proof-insight-row.has-funnel {
+    grid-template-columns: minmax(13rem, 18rem) minmax(15rem, 20rem) minmax(0, 1fr);
+  }
+
+  .proof-kpi-card,
+  .proof-funnel-card,
+  .proof-conclusion-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid rgba(177, 103, 255, 0.34);
+    border-radius: 13px;
+    background:
+      radial-gradient(circle at 18% 14%, rgba(166, 92, 255, 0.25), transparent 36%),
+      linear-gradient(145deg, rgba(29, 16, 61, 0.78), rgba(3, 6, 16, 0.92));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 1rem 2.3rem rgba(0, 0, 0, 0.26);
+  }
+
+  .proof-kpi-card {
+    padding: 1.35rem 1.35rem 1.25rem;
+  }
+
+  .proof-kpi-card strong {
+    display: block;
+    color: #fff;
+    font-family: var(--font-numeric);
+    font-size: clamp(2.2rem, 3.1vw, 3.3rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 0.92;
+  }
+
+  .proof-kpi-card > span {
+    display: block;
+    margin-top: 0.46rem;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 0.92rem;
+    font-weight: 850;
+  }
+
+  .proof-kpi-card ul {
+    display: grid;
+    gap: 0.42rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .proof-kpi-card li,
+  .proof-kpi-card small {
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.82rem;
+    font-weight: 650;
+    line-height: 1.28;
+  }
+
+  .proof-kpi-card small {
+    display: block;
+    margin-top: 0.95rem;
+    color: #51f18a;
+  }
+
+  .proof-funnel-card {
+    padding: 1.15rem 1.2rem;
+  }
+
+  .proof-funnel-card ol {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .proof-funnel-card li {
+    display: grid;
+    justify-items: start;
+    gap: 0.16rem;
+  }
+
+  .proof-funnel-card strong {
+    color: #fff;
+    font-family: var(--font-numeric);
+    font-size: clamp(1.22rem, 1.62vw, 1.78rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 0.94;
+  }
+
+  .proof-funnel-card span {
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.72rem;
+    font-weight: 760;
+    line-height: 1.12;
+  }
+
+  .proof-funnel-card i {
+    margin: 0.08rem 0 0.02rem 0.24rem;
+    color: var(--purple);
+    font-size: 0.92rem;
+    line-height: 1;
+  }
+
+  .proof-funnel-card small {
+    display: block;
+    margin-top: 0.78rem;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.72rem;
+    font-weight: 640;
+    line-height: 1.36;
+  }
+
+  .proof-conclusion-card {
+    display: grid;
+    align-content: center;
+    gap: 1.1rem;
+    padding: 1.3rem 1.45rem;
+  }
+
+  .proof-conclusion-card p {
+    max-width: 52rem;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: clamp(0.96rem, 1.02vw, 1.08rem);
+    line-height: 1.62;
+  }
+
+  .proof-conclusion-card nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .proof-conclusion-card a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.1rem;
+    border: 1px solid rgba(177, 103, 255, 0.42);
+    border-radius: 999px;
+    padding: 0 0.78rem;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.78rem;
+    font-weight: 750;
+    text-decoration: none;
+    transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+  }
+
+  .proof-conclusion-card a:hover {
+    border-color: rgba(177, 103, 255, 0.82);
+    background: rgba(166, 92, 255, 0.13);
+    color: #fff;
+  }
+
   .proof-asset {
     position: absolute;
     isolation: isolate;
@@ -1174,14 +1576,26 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
     animation: proofAssetSweep 760ms ease both;
   }
 
-  .proof-asset img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1);
-    transition: transform 520ms cubic-bezier(0.18, 1, 0.24, 1), filter 320ms ease;
-    will-change: transform;
-  }
+	  .proof-asset img {
+	    width: 100%;
+	    height: 100%;
+	    object-fit: cover;
+	    transform: scale(1);
+	    transition: transform 520ms cubic-bezier(0.18, 1, 0.24, 1), filter 320ms ease;
+	    will-change: transform;
+	  }
+
+	  .proof-dashboard,
+	  .proof-landing,
+	  .proof-quote {
+	    background: rgba(3, 7, 18, 0.94);
+	  }
+
+	  .proof-dashboard img,
+	  .proof-landing img,
+	  .proof-quote img {
+	    object-fit: contain;
+	  }
 
   .proof-asset:hover img {
     filter: saturate(1.08) contrast(1.05) brightness(1.04);
@@ -1298,6 +1712,10 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
       margin-top: 1.25rem;
     }
 
+    .proof-insight-row {
+      grid-template-columns: 1fr;
+    }
+
     .proof-asset {
       position: relative;
       inset: auto;
@@ -1323,12 +1741,13 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
       grid-column: span 3;
     }
 
-    .proof-engineering,
-    .proof-parcours,
-    .proof-ready {
-      grid-column: span 2;
-    }
-  }
+	    .proof-engineering,
+	    .proof-parcours,
+	    .proof-ready {
+	      grid-column: span 2;
+	    }
+
+	  }
 
   @media (max-width: 900px) {
     :global(body:has(.case-study-model) .site-footer) {

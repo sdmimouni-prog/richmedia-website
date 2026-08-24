@@ -49,7 +49,8 @@ const caseStudies = [
     visibility: '100 000 envois',
     engagement: '80% taux d’ouverture',
     year: 'Maserati Levante',
-    status: '',
+    status: 'Cas client disponible',
+    href: '/realisations/maserati-levante-whatsapp-leads-2025',
     accent: 'sand',
   },
   {
@@ -88,10 +89,11 @@ const caseStudies = [
     type: 'Campagne digitale & activation personnalisée',
     image: `${realizationAssets}/nescafe-nadi-nescafe.webp`,
     format: 'creative',
-    visibility: '19,8M impressions',
-    engagement: '5,8% engagement',
-    year: 'Activation marque',
-    status: '',
+    visibility: '100 K visites',
+    engagement: '5 K membres',
+    year: '2019',
+    status: 'Cas client disponible',
+    href: '/realisations/nescafe-nadi-nescafe-2019',
     accent: 'red',
   },
   {
@@ -120,21 +122,37 @@ const caseStudies = [
     engagement: '+20K étudiants touchés',
     year: 'Partenariat long terme',
     status: 'Cas client disponible',
-    href: '/realisations/uir-campagnes-digitales',
+    href: '/realisations/uir-campagne-acquisition-2023-2024',
     accent: 'blue',
+  },
+  {
+    slug: 'universite-euromed-refonte-site-web-2025',
+    client: 'Université Euromed',
+    title: 'Refonte du site web Drupal',
+    category: 'Éducation',
+    type: 'UX/UI, Drupal, SEO & performance',
+    image: `${realizationAssets}/euromed-refonte-site-web-2025.webp`,
+    format: 'wide',
+    visibility: '+40 % trafic organique',
+    engagement: '+20 % candidatures',
+    year: '2025',
+    status: 'Cas client disponible',
+    href: '/realisations/universite-euromed-refonte-site-web-2025',
+    accent: 'green',
   },
   {
     slug: 'amana-tramway-wrapping',
     client: 'Amana',
-    title: 'Habillage du tramway de Casablanca',
-    category: 'Retail',
-    type: 'Campagne 360°',
+    title: 'Tramway & activation phygitale',
+    category: 'Logistique / e-commerce',
+    type: 'OOH, QR code & lead generation',
     image: `${homeAssets}/campaign-wide-amana-tram.webp`,
     format: 'wide',
-    visibility: '20M impressions',
-    engagement: '7,4% engagement',
-    year: 'Novembre 2024',
-    status: '',
+    visibility: '29 M audience estimée',
+    engagement: '4 183 leads',
+    year: '2022',
+    status: 'Cas client disponible',
+    href: '/realisations/amana-tramway-phygital-2022',
     accent: 'orange',
   },
   {
@@ -162,12 +180,13 @@ const caseStudies = [
     visibility: '14M vues',
     engagement: '8,1% engagement',
     year: 'Food & beverage',
-    status: '',
+    status: 'Cas client disponible',
+    href: '/realisations/don-simon-back-to-school-2025',
     accent: 'yellow',
   },
   {
     slug: 'ada-produits-locaux',
-    client: 'ADA',
+    client: 'Agence de développement agricole',
     title: 'Valorisation des produits locaux',
     category: 'Produits locaux',
     type: 'Campagne digitale',
@@ -208,6 +227,21 @@ const caseStudies = [
     accent: 'cyan',
   },
   {
+    slug: 'tramway-rabat-sale-community-management-2026',
+    client: 'Tramway Rabat-Salé',
+    title: 'Social Media & Community Management',
+    category: 'Mobilité / Service public',
+    type: 'Création de contenu & Social Care',
+    image: `${realizationAssets}/tramway-rabat-sale-community-management-2026-blassty.jpg`,
+    format: 'wide',
+    visibility: '500 K vues vidéo',
+    engagement: '339 K interactions',
+    year: '2026',
+    status: 'Cas client disponible',
+    href: '/realisations/tramway-rabat-sale-community-management-2026',
+    accent: 'magenta',
+  },
+  {
     slug: 'moul-pounj-world-cup',
     client: 'Moul Pounj',
     title: 'Coupe du Monde 2026',
@@ -222,17 +256,18 @@ const caseStudies = [
     accent: 'orange',
   },
   {
-    slug: 'tbs-casablanca-master',
+    slug: 'tbs-master-acquisition-2025',
     client: 'TBS Education',
-    title: 'Masters of Science',
+    title: 'Campagne d’acquisition Master',
     category: 'Éducation',
-    type: 'Campagne formation',
-    image: `${realizationAssets}/tbs-casablanca.webp`,
+    type: 'Acquisition multicanale & qualification',
+    image: `${realizationAssets}/tbs-master-acquisition-2025-hero.webp`,
     format: 'wide',
-    visibility: 'Admissions qualifiées',
-    engagement: 'Performance leads',
-    year: 'Casablanca',
-    status: '',
+    visibility: '3 000 leads',
+    engagement: '70 % qualifiés',
+    year: '2025',
+    status: 'Cas client disponible',
+    href: '/realisations/tbs-master-acquisition-2025',
     accent: 'red',
   },
   {
@@ -261,6 +296,21 @@ const caseStudies = [
     engagement: 'Notoriété premium',
     year: 'Prestigia',
     status: '',
+    accent: 'sand',
+  },
+  {
+    slug: 'prestigia-riad-al-andalous-acquisition-2026',
+    client: 'Prestigia',
+    title: 'Riad Al Andalous',
+    category: 'Immobilier premium',
+    type: 'Acquisition multicanale & qualification',
+    image: `${realizationAssets}/prestigia-riad-al-andalous-acquisition-2026-hero.png`,
+    format: 'wide',
+    visibility: '800 leads',
+    engagement: '45 MAD CPL',
+    year: '2026',
+    status: 'Cas client disponible',
+    href: '/realisations/prestigia-riad-al-andalous-acquisition-2026',
     accent: 'sand',
   },
   {
@@ -303,6 +353,7 @@ const caseImageDimensions: Record<string, { width: number; height: number }> = {
   [`${realizationAssets}/oreo-back-to-school-kv.webp`]: { width: 1522, height: 1134 },
   [`${realizationAssets}/nescafe-nadi-nescafe.webp`]: { width: 1572, height: 1162 },
   [`${realizationAssets}/milka-back-to-school.webp`]: { width: 1556, height: 1158 },
+  [`${realizationAssets}/euromed-refonte-site-web-2025.webp`]: { width: 1920, height: 1080 },
   [`${homeAssets}/campaign-wide-uir.webp`]: { width: 1600, height: 900 },
   [`${homeAssets}/campaign-wide-amana-tram.webp`]: { width: 1600, height: 900 },
   [`${homeAssets}/campaign-wide-amana-social.webp`]: { width: 1600, height: 900 },
@@ -310,10 +361,13 @@ const caseImageDimensions: Record<string, { width: number; height: number }> = {
   [`${homeAssets}/campaign-wide-ada.webp`]: { width: 1600, height: 900 },
   [`${realizationAssets}/ryad-al-andalous-square.webp`]: { width: 1200, height: 1200 },
   [`${realizationAssets}/tramway-summer-square.webp`]: { width: 1080, height: 1350 },
+  [`${realizationAssets}/tramway-rabat-sale-community-management-2026-blassty.jpg`]: { width: 6001, height: 2313 },
   [`${realizationAssets}/moul-pounj-world-cup.webp`]: { width: 1600, height: 887 },
   [`${realizationAssets}/tbs-casablanca.webp`]: { width: 1536, height: 1024 },
+  [`${realizationAssets}/tbs-master-acquisition-2025-hero.webp`]: { width: 1536, height: 1024 },
   [`${realizationAssets}/cmr-retirement.webp`]: { width: 1108, height: 502 },
-  [`${realizationAssets}/rabat-riviera-wide.webp`]: { width: 1111, height: 504 },
+  [`${realizationAssets}/rabat-riviera-wide.webp`]: { width: 1862, height: 1056 },
+  [`${realizationAssets}/prestigia-riad-al-andalous-acquisition-2026-hero.png`]: { width: 1862, height: 1056 },
   [`${realizationAssets}/beed-wide.webp`]: { width: 1099, height: 507 },
   [`${realizationAssets}/tramway-mobile-app.webp`]: { width: 1121, height: 511 },
 };
@@ -352,7 +406,7 @@ const quickLinks = [
       </div>
 
       <div class="hero-showcase" data-featured-slider aria-label="Aperçu des réalisations Richmedia">
-        <article class="featured-work">
+        <a class="featured-work" href={featuredCase.href ?? `#${featuredCase.slug}`} data-featured-link>
           <div
             class="featured-work-frame"
             data-featured-frame
@@ -391,14 +445,15 @@ const quickLinks = [
               </dl>
             </div>
           </div>
-        </article>
+        </a>
 
         <div class="hero-mini-grid" aria-label="Aperçu des cas clients mis en avant">
           {heroSliderCases.map((item) => (
-            <button
-              type="button"
+            <a
+              href={item.href ?? `#${item.slug}`}
               class:list={['hero-mini-card', item.slug === featuredCase.slug && 'is-active']}
               data-featured-trigger
+              data-featured-href={item.href ?? `#${item.slug}`}
               data-featured-src={item.image}
               data-featured-alt={`${item.client} — ${item.title}`}
               data-featured-width={getCaseImageDimensions(item.image).width}
@@ -409,7 +464,7 @@ const quickLinks = [
               data-featured-client={item.client}
               data-featured-visibility={item.visibility}
               data-featured-engagement={item.engagement}
-              aria-pressed={item.slug === featuredCase.slug ? 'true' : 'false'}
+              aria-current={item.slug === featuredCase.slug ? 'true' : undefined}
               style={`--case-image-position: ${getCaseImagePosition(item)};`}
             >
               <img
@@ -424,7 +479,7 @@ const quickLinks = [
                 <strong>{item.client}</strong>
                 <span>{item.category}</span>
               </span>
-            </button>
+            </a>
           ))}
         </div>
       </div>
@@ -478,7 +533,7 @@ const quickLinks = [
             data-case-category={item.category}
             style={`--case-image-position: ${getCaseImagePosition(item)};`}
           >
-            <div class="work-card-body">
+            <a class="work-card-body" href={item.href} aria-label={item.href ? `Voir le cas client ${item.client} — ${item.title}` : undefined}>
               <div class="work-media">
                 <img
                   class="media-main"
@@ -513,7 +568,7 @@ const quickLinks = [
                 </dl>
                 {item.status && <strong class="case-status">{item.status}</strong>}
               </div>
-            </div>
+            </a>
           </article>
         ))}
       </div>
@@ -616,6 +671,7 @@ const quickLinks = [
       slider.dataset.featuredReady = 'true';
 
       const featured = slider.querySelector('.featured-work');
+      const featuredLink = slider.querySelector('[data-featured-link]');
       const frame = slider.querySelector('[data-featured-frame]');
       const image = slider.querySelector('[data-featured-image]');
       const triggers = [...slider.querySelectorAll('[data-featured-trigger]')];
@@ -633,7 +689,11 @@ const quickLinks = [
           const isActive = item === trigger;
           item.classList.toggle('is-active', isActive);
           if (item instanceof HTMLElement) {
-            item.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            if (isActive) {
+              item.setAttribute('aria-current', 'true');
+            } else {
+              item.removeAttribute('aria-current');
+            }
           }
         });
 
@@ -652,6 +712,10 @@ const quickLinks = [
         updateText('[data-featured-visibility]', data.featuredVisibility);
         updateText('[data-featured-engagement]', data.featuredEngagement);
 
+        if (featuredLink instanceof HTMLAnchorElement && data.featuredHref) {
+          featuredLink.href = data.featuredHref;
+        }
+
         if (frame instanceof HTMLElement && data.featuredClient && data.featuredTitle) {
           frame.setAttribute('aria-label', `${data.featuredClient} - ${data.featuredTitle}`);
           frame.style.setProperty('--case-image-position', data.featuredPosition || 'center');
@@ -661,7 +725,8 @@ const quickLinks = [
       };
 
       triggers.forEach((trigger) => {
-        trigger.addEventListener('click', () => setActiveCase(trigger));
+        trigger.addEventListener('mouseenter', () => setActiveCase(trigger));
+        trigger.addEventListener('focus', () => setActiveCase(trigger));
       });
     });
   };
@@ -825,6 +890,8 @@ const quickLinks = [
 
   .featured-work {
     position: relative;
+    color: inherit;
+    text-decoration: none;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 10px;
@@ -970,6 +1037,7 @@ const quickLinks = [
     color: inherit;
     cursor: pointer;
     font: inherit;
+    text-decoration: none;
     text-align: left;
     transition: border-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
   }
@@ -1209,6 +1277,7 @@ const quickLinks = [
     grid-template-rows: auto auto;
     height: 100%;
     color: inherit;
+    text-decoration: none;
   }
 
   .work-media {
@@ -1290,6 +1359,11 @@ const quickLinks = [
     font-size: clamp(1.42rem, 1.86vw, 1.9rem);
     font-weight: 850;
     line-height: 0.98;
+  }
+
+  .work-card[data-case-slug="ada-produits-locaux"] .work-copy h3 {
+    white-space: nowrap;
+    font-size: clamp(1rem, 1.18vw, 1.24rem);
   }
 
   .work-copy p {

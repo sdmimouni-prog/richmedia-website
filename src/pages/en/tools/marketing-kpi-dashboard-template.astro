@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TemplateDashboardKpiPage from '../../../components/TemplateDashboardKpiPage.astro';
+import { SITE } from '../../../consts';
+import { breadcrumbs, localBusiness } from '../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/tools/marketing-kpi-dashboard-template/`;
+const pageDescription =
+  'Download the free Richmedia Excel dashboard to track budget, CPL, lead quality, CAC, revenue and ROAS.';
+const downloadHref = '/downloads/template_dashboard_kpi_marketing_2026_richmedia.xlsx';
+const downloadFilename = 'template_dashboard_kpi_marketing_2026_richmedia.xlsx';
+const ogImage = '/assets/richmedia-tools/template-dashboard-kpi-marketing/hero-dashboard-kpi.webp';
+
+const schema = [
+  {
+    ...localBusiness(),
+    url: pageUrl,
+    inLanguage: 'en',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    '@id': `${pageUrl}#template`,
+    name: 'Marketing KPI Dashboard Template 2026 — Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    encodingFormat: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    inLanguage: 'en',
+    publisher: { '@id': `${SITE.url}/#organization` },
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'MAD',
+      availability: 'https://schema.org/InStock',
+    },
+  },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Tools & resources', url: `${SITE.url}/en/tools` },
+    { name: 'Marketing KPI Dashboard Template 2026', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  lang="en"
+  title="Marketing KPI Dashboard Excel Template | Richmedia"
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={ogImage}
+  schema={schema}
+>
+  <TemplateDashboardKpiPage lang="en" downloadHref={downloadHref} downloadFilename={downloadFilename} />
+</BaseLayout>

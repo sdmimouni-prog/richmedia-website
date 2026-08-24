@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ChecklistMetaAds2026Page from '../../components/ChecklistMetaAds2026Page.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, localBusiness } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/outils/checklist-meta-ads-2026/`;
+const pageDescription =
+  'Téléchargez la checklist Richmedia : 40 contrôles pour optimiser tracking, audiences, créatifs, Lead Ads, CRM et performance Meta Ads.';
+const downloadHref = '/downloads/checklist_meta_ads_2026_richmedia.pdf';
+const downloadFilename = 'checklist_meta_ads_2026_richmedia.pdf';
+const ogImage = '/assets/richmedia-tools/checklist-meta-ads-2026/checklist-meta-ads-page-1.webp';
+
+const schema = [
+  localBusiness(),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    '@id': `${pageUrl}#checklist`,
+    name: 'Checklist Meta Ads 2026 — Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    encodingFormat: 'application/pdf',
+    inLanguage: 'fr',
+    publisher: { '@id': `${SITE.url}/#organization` },
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'MAD',
+      availability: 'https://schema.org/InStock',
+    },
+  },
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Outils & ressources', url: `${SITE.url}/outils` },
+    { name: 'Checklist Meta Ads 2026', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Checklist Meta Ads 2026 | Facebook & Instagram | Richmedia"
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={ogImage}
+  schema={schema}
+>
+  <ChecklistMetaAds2026Page lang="fr" downloadHref={downloadHref} downloadFilename={downloadFilename} />
+</BaseLayout>

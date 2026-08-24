@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ChecklistTrackingDigitalPage from '../../components/ChecklistTrackingDigitalPage.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, localBusiness } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/outils/checklist-tracking-digital/`;
+const pageDescription =
+  'Téléchargez la checklist Richmedia : 30 contrôles pour vérifier GA4, GTM, pixels, conversions, formulaires, CRM et tracking avant lancement.';
+const downloadHref = '/downloads/checklist_tracking_digital_avant_lancement_richmedia.pdf';
+const downloadFilename = 'checklist_tracking_digital_avant_lancement_richmedia.pdf';
+const ogImage = '/assets/richmedia-tools/checklist-tracking-digital/checklist-tracking-page-1.webp';
+
+const schema = [
+  localBusiness(),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    '@id': `${pageUrl}#checklist`,
+    name: 'Checklist Tracking Digital avant lancement — Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    encodingFormat: 'application/pdf',
+    inLanguage: 'fr',
+    publisher: { '@id': `${SITE.url}/#organization` },
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'MAD',
+      availability: 'https://schema.org/InStock',
+    },
+  },
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Outils & ressources', url: `${SITE.url}/outils` },
+    { name: 'Checklist Tracking Digital avant lancement', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Checklist Tracking Digital avant Campagne | Richmedia"
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={ogImage}
+  schema={schema}
+>
+  <ChecklistTrackingDigitalPage lang="fr" downloadHref={downloadHref} downloadFilename={downloadFilename} />
+</BaseLayout>

@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../../components/CaseStudyModel.astro';
+import { SITE } from '../../../consts';
+import { articleSchema, breadcrumbs } from '../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/case-studies/maserati-levante-whatsapp-leads-2025`;
+const caseAssets = '/assets/richmedia-case-study/maserati-levante-push-whatsapp';
+const heroImage = '/assets/richmedia-realizations/maserati-levante-push-whatsapp.webp';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Maserati Levante WhatsApp Leads | Richmedia';
+const pageDescription =
+  'See how Richmedia generated 1,200 leads, 244 test-drive requests and 112 showroom appointments for Maserati Levante through media and WhatsApp.';
+
+const content = {
+  backHref: '/en/case-studies',
+  backLabel: 'Case studies',
+  eyebrow: 'A media, WhatsApp, chatbot and CRM orchestration designed to convert a premium audience.',
+  client: 'Maserati',
+  clientLong: 'Maserati / Auto Hall Luxury Motors',
+  category: 'Premium automotive / luxury',
+  period: '2025',
+  scope: 'WhatsApp Push / Meta Ads / Google Search / LinkedIn Ads / Landing Page / Chatbot / Appointments',
+  title: 'The Result',
+  subtitle:
+    'For Maserati Levante, Richmedia designed a premium acquisition system combining digital media, landing page, WhatsApp, chatbot and appointment booking to turn vehicle interest into qualified leads, test-drive requests and showroom visits.',
+  heroImage,
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'Maserati / Auto Hall Luxury Motors' },
+    { label: 'Project', value: 'Maserati Levante — WhatsApp & Leads' },
+    { label: 'Sector', value: 'Premium automotive / luxury' },
+    { label: 'Period', value: '2025' },
+    { label: 'Region', value: 'Morocco' },
+    { label: 'Target', value: 'Premium prospects, executives, entrepreneurs, CSP+' },
+    { label: 'Channels', value: 'WhatsApp / Meta / Search / LinkedIn / Landing page / Chatbot / Appointments' },
+    { label: 'Budget', value: 'Confidential' },
+  ],
+  metrics: [
+    { value: '1,200', label: 'leads generated', icon: 'ph ph-users' },
+    { value: '244', label: 'test-drive requests', note: '20.3% of leads', noteTrend: false, icon: 'ph ph-car-profile' },
+    { value: '112', label: 'showroom appointments', note: '9.3% of leads', noteTrend: false, icon: 'ph ph-storefront' },
+    { value: '62 MAD', label: 'CPL', icon: 'ph ph-tag' },
+  ],
+  deliverables: [
+    'Acquisition strategy',
+    'Multichannel media plan',
+    'Premium targeting',
+    'Dedicated landing page',
+    'WhatsApp campaign',
+    'Qualification chatbot',
+    'Appointment booking journey',
+    'Prospect follow-up',
+    'Tracking & reporting',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Audience & acquisition',
+      text: 'Premium targeting and qualified volume generation.',
+      bullets: [
+        'Targeting new premium and CSP+ prospects.',
+        'Meta Ads to generate volume.',
+        'LinkedIn Ads to reach executives and entrepreneurs.',
+      ],
+      icon: 'ph ph-crosshair',
+    },
+    {
+      eyebrow: '02',
+      title: 'Intent & journey',
+      text: 'Intent capture and conversion centralization.',
+      bullets: [
+        'Google Search to capture high-intent demand.',
+        'Richmedia landing page to centralize leads.',
+        'Journey focused on test-drive requests and appointment booking.',
+      ],
+      icon: 'ph ph-map-trifold',
+    },
+    {
+      eyebrow: '03',
+      title: 'Conversational qualification',
+      text: 'WhatsApp as a qualification and conversion environment.',
+      bullets: [
+        'WhatsApp used as both entry point and conversion channel.',
+        'Chatbot to qualify prospects.',
+        'Routing toward a test-drive request or appointment.',
+      ],
+      icon: 'ph ph-chat-circle-dots',
+    },
+    {
+      eyebrow: '04',
+      title: 'Follow-up & conversion',
+      text: 'Turning leads into test drives and showroom appointments.',
+      bullets: [
+        'Follow-up with prospects who had not converted.',
+        'Transfer of high-intent leads to a sales advisor.',
+        'Conversion from lead to test drive and then showroom appointment.',
+      ],
+      icon: 'ph ph-rocket-launch',
+    },
+  ],
+  proof: {
+    eyebrow: 'Block 3',
+    title: 'The Proof',
+    intro: 'A selection of the real Maserati Levante campaign visual and creative variations used to illustrate the acquisition system.',
+    items: [
+      { image: heroImage, label: 'Experience Maserati Levante', format: 'Real campaign visual', size: 'feed' as const },
+      { image: `${caseAssets}/maserati-levante-proof-private-drive.png`, label: 'Private Levante test drive', format: 'Vertical creative', size: 'story' as const },
+      { image: `${caseAssets}/maserati-levante-proof-wide-banner.png`, label: 'Targeted WhatsApp push', format: 'Banner', size: 'banner' as const },
+      { image: `${caseAssets}/maserati-levante-proof-whatsapp-invitation.png`, label: 'WhatsApp invitation', format: 'Social feed', size: 'dashboard' as const },
+    ],
+    kpi: {
+      value: '1,200',
+      label: 'leads',
+      breakdown: ['244 test-drive requests', '112 showroom appointments', '62 MAD CPL'],
+      note: '20.3% of leads generated a test-drive request.',
+    },
+    conclusion:
+      'The system turned WhatsApp into a true conversion channel: chatbot qualification, appointment booking, follow-up and handoff to sales teams, inside a media strategy combining volume, intent and premium targeting.',
+    links: [
+      { href: '/en/sectors/automotive/', label: 'Automotive sector' },
+      { href: '/en/expertises/whatsapp-marketing-morocco/', label: 'WhatsApp Marketing' },
+      { href: '/en/expertises/lead-generation-morocco/', label: 'Lead generation' },
+      { href: '/en/expertises/meta-ads-morocco/', label: 'Meta Ads' },
+      { href: '/en/expertises/google-ads-morocco/', label: 'Google Ads' },
+    ],
+  },
+  quote:
+    'Media generated the audience, WhatsApp and the chatbot structured qualification, and CRM turned intent into showroom appointments.',
+  ctaLabel: 'Speak to an expert',
+  ctaHref: '/en/contact',
+  secondaryLabel: 'Explore Automotive expertise',
+  secondaryHref: '/en/sectors/automotive/',
+  ui: {
+    resultLabel: 'Case study results',
+    metaLabel: 'Case study summary',
+    workLabel: 'Block 2',
+    workTitle: 'What We Did',
+    proofLabel: 'Visual proof',
+    quoteLabel: 'Case study internal links',
+    deliverablesTitle: 'Deliverables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Case studies', url: `${SITE.url}/en/case-studies` },
+    { name: 'Maserati Levante WhatsApp & Leads 2025', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  lang="en"
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

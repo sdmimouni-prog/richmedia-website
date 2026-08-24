@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../../components/CaseStudyModel.astro';
+import { SITE } from '../../../consts';
+import { articleSchema, breadcrumbs } from '../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/case-studies/prestigia-riad-al-andalous-acquisition-2026`;
+const heroImage = '/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-hero.png';
+const triptychImage = '/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-triptych.png';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Prestigia Riad Al Andalous Acquisition 2026 | Richmedia';
+const pageDescription =
+  'See how Richmedia generated 800 leads for Riad Al Andalous with a 45 MAD average CPL, 66% qualification rate and 331 sales appointments.';
+
+const content = {
+  backHref: '/en/case-studies',
+  backLabel: 'Case studies',
+  eyebrow: 'A premium acquisition system to generate qualified leads and accelerate project visits.',
+  client: 'Prestigia',
+  clientLong: 'Prestigia',
+  category: 'Premium real estate',
+  period: '2026',
+  scope: 'Meta Ads / Google Search / Performance Max / LinkedIn Ads / WhatsApp / CRM',
+  title: 'The Result',
+  subtitle:
+    'For Riad Al Andalous, Prestigia entrusted Richmedia with a premium acquisition system designed to generate qualified leads, accelerate project visits and support prospects through to commercial appointments. The strategy combined media acquisition, premium targeting, sales qualification, WhatsApp follow-up and CRM management.',
+  heroImage,
+  heroAlt: 'Real Riad Al Andalous Prestigia campaign visual',
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'Prestigia' },
+    { label: 'Project', value: 'Riad Al Andalous — Acquisition campaign' },
+    { label: 'Sector', value: 'Premium real estate' },
+    { label: 'Period', value: '2026' },
+    { label: 'Region', value: 'Morocco' },
+    { label: 'Targets', value: 'CSP+ families / executives / decision-makers / investors / MRE / premium first-time buyers' },
+    { label: 'Channels', value: 'Meta Ads / Google Search / Performance Max / LinkedIn Ads / WhatsApp' },
+    { label: 'Budget', value: 'Confidential' },
+  ],
+  metrics: [
+    { value: '800', label: 'leads generated', icon: 'ph ph-users' },
+    { value: '45 MAD', label: 'average CPL', icon: 'ph ph-tag' },
+    { value: '331', label: 'sales appointments', note: '41.4% of leads', noteTrend: false, icon: 'ph ph-calendar-check' },
+    { value: '311', label: 'visit requests', note: '38.9% of leads', noteTrend: false, icon: 'ph ph-map-pin' },
+    { value: '66%', label: 'qualification rate', icon: 'ph ph-check-circle' },
+  ],
+  deliverables: [
+    'Acquisition strategy',
+    'Multichannel media plan',
+    'Premium segmentation',
+    'Meta Ads',
+    'Google Search',
+    'Performance Max',
+    'LinkedIn Ads',
+    'WhatsApp',
+    'CRM & qualification',
+    'Sales follow-up',
+    'Appointment booking',
+    'Performance reporting',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Targeting & positioning',
+      text: 'A strategy designed for a high-value real estate audience.',
+      bullets: [
+        'Targeting CSP+ families, executives, decision-makers, investors and MRE.',
+        'Messages adapted to premium residence and patrimonial investment drivers.',
+        'Focus on comfort, location and standing.',
+      ],
+      icon: 'ph ph-crosshair',
+    },
+    {
+      eyebrow: '02',
+      title: 'Media mix',
+      text: 'A complementary media mix to work volume, intent and coverage.',
+      bullets: [
+        'Meta Ads to generate volume.',
+        'Google Search to capture strong intent.',
+        'Performance Max to reinforce coverage and conversion.',
+        'LinkedIn Ads to reach executive and CSP+ audiences.',
+      ],
+      icon: 'ph ph-megaphone',
+    },
+    {
+      eyebrow: '03',
+      title: 'Sales qualification',
+      text: 'Performance did not stop at the form: prospect quality was monitored in the CRM.',
+      bullets: [
+        'Leads sent to the CRM.',
+        'Qualification by the sales team.',
+        'Intent level follow-up.',
+        'Prioritization of the most advanced prospects.',
+      ],
+      icon: 'ph ph-funnel',
+    },
+    {
+      eyebrow: '04',
+      title: 'WhatsApp & conversion',
+      text: 'Follow-up, appointment booking and support through to the project visit.',
+      bullets: [
+        'WhatsApp follow-up.',
+        'Appointment booking.',
+        'Project visit request.',
+        'Follow-up with prospects who had not converted.',
+      ],
+      icon: 'ph ph-whatsapp-logo',
+    },
+  ],
+  proof: {
+    eyebrow: 'Block 3',
+    title: 'The Proof',
+    intro:
+      'The real campaign visuals show the Riad Al Andalous creative territory: premium architecture, residential lifestyle, environment and wellbeing.',
+    items: [
+      { image: heroImage, label: 'Riad Al Andalous — main visual', format: 'Real campaign visual', size: 'banner' as const },
+      { image: triptychImage, label: 'Architecture / Lifestyle / Environment', format: 'Real triptych', size: 'banner' as const },
+    ],
+    kpi: {
+      value: '800',
+      label: 'leads',
+      breakdown: ['45 MAD average CPL', '66% qualified leads', '331 appointments', '311 visit requests'],
+      note: 'Appointments and visit requests are presented as commercial outcomes from the funnel.',
+    },
+    funnel: {
+      items: [
+        { value: 'Acquisition', label: '800 leads' },
+        { value: 'Qualification', label: '66%' },
+        { value: 'Appointments', label: '331' },
+        { value: 'Visit requests', label: '311' },
+      ],
+      note: 'This block summarizes commercial outcomes without presenting them as a strict sequential equation.',
+    },
+    conclusion:
+      'The performance of the system came from combining a media mix able to generate volume and intent with a commercial journey structured around CRM, qualification and WhatsApp follow-up through to the project visit.',
+    links: [
+      { href: '/en/sectors/real-estate/', label: 'Real estate sector' },
+      { href: '/en/expertises/lead-generation-morocco/', label: 'Lead generation' },
+      { href: '/en/expertises/meta-ads-morocco/', label: 'Meta Ads' },
+      { href: '/en/expertises/google-ads-morocco/', label: 'Google Ads' },
+      { href: '/en/expertises/whatsapp-marketing-morocco/', label: 'WhatsApp Marketing' },
+      { href: '/en/expertises/media-performance/', label: 'Media Performance' },
+    ],
+  },
+  quote:
+    'Want to generate qualified real estate leads and accelerate visits for your projects?',
+  ctaLabel: 'Speak to an expert',
+  ctaHref: '/en/contact',
+  secondaryLabel: 'Explore Real Estate expertise',
+  secondaryHref: '/en/sectors/real-estate/',
+  ui: {
+    resultLabel: 'Case study results',
+    metaLabel: 'Case study summary',
+    workLabel: 'Block 2',
+    workTitle: 'What We Did',
+    proofLabel: 'Visual proof',
+    quoteLabel: 'Case study internal links',
+    deliverablesTitle: 'Deliverables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Case studies', url: `${SITE.url}/en/case-studies` },
+    { name: 'Prestigia Riad Al Andalous Acquisition 2026', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  lang="en"
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

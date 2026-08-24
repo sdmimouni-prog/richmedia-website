@@ -1,25 +1,27 @@
-# richmedia.ma — squelette Astro (contenu-as-code, SEO/GEO)
+# richmedia.ma — site Astro (contenu-as-code, SEO/GEO)
 
-Stack : **Astro 5** (Content Layer) + **MDX** + **Tailwind v4** + **sitemap**.
+Stack : **Astro 7** (Content Layer) + **MDX** + **Tailwind v4** + **sitemap**.
 Pas de CMS : le contenu vit dans `src/content/**.mdx` et s'édite via prompt sur Codex.
+Node recommandé : **24.x** (`.node-version` et `.nvmrc`).
 
 ## Démarrer
 ```bash
-npm install
-npm run dev            # environnement dev : http://localhost:4321
-npm run env:check      # vérifie les variables dev + prod locales
-npm run prod           # build production vers dist/
-npm run prod:preview   # build + preview prod locale : http://localhost:4322
-npm run preview        # preview prod sur http://localhost:4321 si le dev est arrêté
-npm run check          # vérifie les types + le frontmatter
-npm run verify         # check + build, à lancer avant livraison
+npm ci                  # installation reproductible
+npm run dev             # dev local : http://localhost:4321
+npm run prod            # build production vers dist/
+npm run prod:preview    # build + preview prod locale : http://localhost:4322
+npm run contact:dev     # API contact locale : http://127.0.0.1:8787/api/contact
+npm run contact:prod    # API contact avec .env.production
+npm run env:check       # vérifie les variables dev + prod locales
+npm run verify          # env:check + astro check + build
 ```
 
 Le port `4321` est réservé au développement local. La preview production utilise `4322`
 pour pouvoir comparer dev/prod en parallèle sans couper le serveur Astro actif.
 
 ## Environnements
-Les variables locales sont dans `.env.development` et `.env.production` :
+Les variables locales sont dans `.env.development` et `.env.production`. Ces fichiers
+sont ignorés par Git ; `.env.example` sert de base pour une nouvelle machine.
 
 ```bash
 ASTRO_HOST=127.0.0.1
@@ -40,17 +42,19 @@ Pour les formulaires et tags marketing, garder en local :
 CONTACT_TO_EMAIL=sd.mimouni@richmedia.ma
 CONTACT_FROM_EMAIL="Richmedia <noreply@richmedia.ma>"
 RESEND_API_KEY=
-CONTACT_LEADS_FILE=
+CONTACT_LEADS_FILE=./tmp/contact-leads.ndjson
 PUBLIC_GTM_ID=
 PUBLIC_GA4_ID=
 PUBLIC_META_PIXEL_ID=
 PUBLIC_LINKEDIN_PARTNER_ID=
 ```
 
-En production Vercel, ces valeurs doivent être ajoutées dans les variables
-d'environnement du projet, car `.env.*` est volontairement exclu du déploiement.
-Le projet contient aussi un script de synchronisation qui pousse les valeurs locales
-vers Vercel sans afficher les secrets :
+`PUBLIC_SITE_URL` alimente les URLs canoniques, le sitemap et le JSON-LD. En prod, il
+doit rester `https://richmedia.ma`.
+
+En production Vercel, les variables doivent être ajoutées dans le projet Vercel, car
+`.env.*` est volontairement exclu du déploiement. Le script de synchronisation pousse les
+valeurs locales vers Vercel sans afficher les secrets :
 
 ```bash
 npm run env:sync:vercel        # development + preview + production
@@ -58,8 +62,10 @@ npm run env:sync:vercel:prod   # production uniquement
 npm exec vercel -- env add RESEND_API_KEY production --sensitive
 ```
 
-`npm run env:check:prod` reste strict : il échoue tant que `RESEND_API_KEY` est vide,
-car le formulaire de contact serveur en dépend.
+`npm run env:check:prod` accepte deux modes :
+- `RESEND_API_KEY` configuré : les leads sont envoyés par email.
+- `CONTACT_LEADS_FILE` configuré : les leads sont enregistrés localement ou sur le VPS
+  jusqu'à l'ajout de la clé Resend.
 
 Sur le VPS, le workflow GitHub Actions déploie aussi `/api/contact` comme service Node
 `richmedia-contact-api.service`, proxifié par Nginx sur `location = /api/contact`.
@@ -70,6 +76,7 @@ par email. Si elle est absente, le service reste actif et enregistre les demande
 ```bash
 npm run contact:check              # vérifie que /api/contact ne redirige plus
 npm run contact:check -- --send-smoke # envoie une soumission test
+npm run contact:check:local        # vérifie http://127.0.0.1:8787/api/contact
 ```
 
 ## Production

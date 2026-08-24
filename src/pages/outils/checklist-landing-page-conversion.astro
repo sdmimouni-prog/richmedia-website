@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ChecklistLandingPageConversionPage from '../../components/ChecklistLandingPageConversionPage.astro';
+import { SITE } from '../../consts';
+import { breadcrumbs, localBusiness } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/outils/checklist-landing-page-conversion/`;
+const pageDescription =
+  'Téléchargez la checklist Richmedia : 35 points pour optimiser votre landing page, formulaire, CTA, mobile, tracking et conversion.';
+const downloadHref = '/downloads/checklist_landing_page_conversion_richmedia.pdf';
+const downloadFilename = 'checklist_landing_page_conversion_richmedia.pdf';
+const ogImage = '/assets/richmedia-tools/checklist-landing-page-conversion/checklist-landing-page-page-1.webp';
+
+const schema = [
+  localBusiness(),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    '@id': `${pageUrl}#checklist`,
+    name: 'Checklist Landing Page Conversion — Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    encodingFormat: 'application/pdf',
+    inLanguage: 'fr',
+    publisher: { '@id': `${SITE.url}/#organization` },
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'MAD',
+      availability: 'https://schema.org/InStock',
+    },
+  },
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Outils & ressources', url: `${SITE.url}/outils` },
+    { name: 'Checklist Landing Page Conversion', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Checklist Landing Page Conversion | Richmedia"
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={ogImage}
+  schema={schema}
+>
+  <ChecklistLandingPageConversionPage lang="fr" downloadHref={downloadHref} downloadFilename={downloadFilename} />
+</BaseLayout>

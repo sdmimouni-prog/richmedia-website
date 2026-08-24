@@ -9,7 +9,7 @@ const pageTitle = 'Morocco Digital Marketing Barometer 2026';
 const metaTitle = 'Morocco Digital Marketing Barometer 2026 | Richmedia';
 const metaDescription =
   '400 campaigns, 25M MAD in media spend and 553,000 leads analyzed. Benchmarks for Meta, Google, WhatsApp and acquisition in Morocco.';
-const image = '/assets/richmedia-case-study/proof-dashboard.webp';
+const image = '/assets/richmedia-barometre/barometre-2026-book-render.webp';
 const absoluteImage = `${SITE.url}${image}`;
 const barometerPdfHref = '/downloads/barometre-marketing-digital-maroc-2026-richmedia.pdf';
 const barometerPdfFilename = 'Morocco Digital Marketing Barometer 2026 - Richmedia.pdf';
@@ -200,6 +200,7 @@ const schema = [
     date={publishedDate}
     readingTime={12}
     image={image}
+    imageFit="contain"
     quickAnswer="The Morocco Digital Marketing Barometer 2026 summarizes 400 campaigns managed by Richmedia between 2022 and 2026. It provides practical benchmarks for budgets, channels, acquisition costs, leads, WhatsApp, Google Ads, Meta Ads and performance measurement."
     tags={['digital marketing Morocco', 'acquisition benchmark', 'Meta Ads Morocco', 'Google Ads Morocco']}
     recentArticles={relatedArticles}
@@ -1025,6 +1026,42 @@ const schema = [
     color: rgba(255, 255, 255, 0.72);
   }
 
+  :global(.article-detail-page .article-hero-media.article-hero-media-contain) {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  :global(.article-detail-page .article-hero-media.article-hero-media-contain img) {
+    width: min(100%, 520px);
+    aspect-ratio: auto;
+    height: auto;
+    margin-inline: auto;
+    padding: 0;
+    object-fit: contain;
+    filter: drop-shadow(0 1.4rem 2.8rem rgba(0, 0, 0, 0.4));
+    transform-origin: 50% 70%;
+    transition:
+      transform 260ms ease,
+      filter 260ms ease;
+    will-change: transform;
+  }
+
+  @media (hover: hover) {
+    :global(.article-detail-page .article-hero-media.article-hero-media-contain:hover img) {
+      transform: translateY(-8px) scale(1.035) rotate(-1deg);
+      filter: drop-shadow(0 2rem 3.4rem rgba(0, 0, 0, 0.5));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.article-detail-page .article-hero-media.article-hero-media-contain img) {
+      transition: none;
+    }
+  }
+
   @media (max-width: 800px) {
     .barometer-download,
     .benchmark-stat-grid,
@@ -1044,6 +1081,10 @@ const schema = [
 
     .donut-wrap {
       grid-template-columns: 1fr;
+    }
+
+    :global(.article-detail-page .article-hero-media.article-hero-media-contain img) {
+      width: min(78vw, 320px);
     }
   }
 </style>

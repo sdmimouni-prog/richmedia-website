@@ -32,12 +32,12 @@ const profiles = {
       'PUBLIC_OG_IMAGE_URL',
       'CONTACT_TO_EMAIL',
       'CONTACT_FROM_EMAIL',
-      'RESEND_API_KEY',
     ],
     optional: [
       'ASTRO_HOST',
       'ASTRO_PORT',
       'CONTACT_LEADS_FILE',
+      'RESEND_API_KEY',
       'PUBLIC_GTM_ID',
       'PUBLIC_GA4_ID',
       'PUBLIC_META_PIXEL_ID',
@@ -96,6 +96,19 @@ const missing = profile.required.filter((key) => !values[key]);
 const invalid = Object.entries(profile.checks || {})
   .filter(([key, check]) => values[key] && !check(values[key]))
   .map(([key]) => key);
+const warnings = [];
+
+if (profileName === 'production' && !values.RESEND_API_KEY && !values.CONTACT_LEADS_FILE) {
+  missing.push('RESEND_API_KEY or CONTACT_LEADS_FILE');
+}
+
+if (profileName === 'production' && !values.RESEND_API_KEY && values.CONTACT_LEADS_FILE) {
+  warnings.push('RESEND_API_KEY is empty; contact leads will be saved to CONTACT_LEADS_FILE until email delivery is configured.');
+}
+
+if (profileName === 'development' && !values.RESEND_API_KEY && !values.CONTACT_LEADS_FILE) {
+  warnings.push('RESEND_API_KEY is empty and CONTACT_LEADS_FILE is not set; local contact submissions will return a configuration error.');
+}
 
 if (missing.length || invalid.length) {
   if (missing.length) console.error(`Missing required values: ${missing.join(', ')}`);
@@ -105,3 +118,4 @@ if (missing.length || invalid.length) {
 
 const configured = [...profile.required, ...profile.optional].filter((key) => values[key]);
 console.log(`${profileName} environment OK: ${configured.length} variable(s) configured in ${profile.file}.`);
+warnings.forEach((warning) => console.warn(`${profileName} warning: ${warning}`));

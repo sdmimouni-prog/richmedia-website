@@ -35,6 +35,9 @@ interface Props {
   date: Date | string;
   readingTime: number;
   image: string;
+  imageFit?: 'cover' | 'contain';
+  heroCtaLabel?: string;
+  heroCtaHref?: string;
   quickAnswer: string;
   tags: string[];
   recentArticles: ArticleCard[];
@@ -69,6 +72,9 @@ const {
   date,
   readingTime,
   image,
+  imageFit = 'cover',
+  heroCtaLabel,
+  heroCtaHref,
   quickAnswer,
   tags,
   recentArticles,
@@ -111,6 +117,14 @@ const formatDate = (value: Date | string) =>
       <span class="section-kicker">{categoryLabel}</span>
       <h1>{title}</h1>
       <p>{description}</p>
+      {heroCtaLabel && heroCtaHref && (
+        <div class="article-hero-actions">
+          <a class="primary-btn article-hero-download" href={heroCtaHref}>
+            {heroCtaLabel}
+            <i class="ph ph-download-simple" aria-hidden="true"></i>
+          </a>
+        </div>
+      )}
       <div class="article-meta">
         {authorUrl ? (
           <a class="author-chip" href={authorUrl} aria-label={authorLinkLabel}>
@@ -145,7 +159,7 @@ const formatDate = (value: Date | string) =>
         <span><i class="ph ph-clock" aria-hidden="true"></i>{readingTime} {readLabel}</span>
       </div>
     </div>
-    <figure class="article-hero-media">
+    <figure class:list={['article-hero-media', imageFit === 'contain' && 'article-hero-media-contain']}>
       <img src={image} alt="" width="720" height="430" loading="eager" decoding="async" fetchpriority="high" />
     </figure>
   </header>
@@ -386,6 +400,12 @@ const formatDate = (value: Date | string) =>
     font-weight: 750;
   }
 
+  .article-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
   .article-meta > span,
   .author-chip {
     display: inline-flex;
@@ -479,6 +499,17 @@ const formatDate = (value: Date | string) =>
     aspect-ratio: 16 / 9;
     height: auto;
     object-fit: cover;
+  }
+
+  .article-hero-media-contain {
+    background:
+      radial-gradient(circle at 58% 48%, rgba(124, 60, 255, 0.3), transparent 40%),
+      linear-gradient(135deg, rgba(13, 14, 22, 0.92), rgba(4, 5, 10, 0.98));
+  }
+
+  .article-hero-media-contain img {
+    padding: clamp(1rem, 3vw, 2rem);
+    object-fit: contain;
   }
 
   .article-layout {
@@ -876,6 +907,13 @@ const formatDate = (value: Date | string) =>
     white-space: nowrap;
   }
 
+  .article-hero-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.48rem;
+    width: fit-content;
+  }
+
   .related-articles {
     display: grid;
     gap: 1rem;
@@ -1050,6 +1088,15 @@ const formatDate = (value: Date | string) =>
     .article-cta .cta-actions {
       display: grid;
       grid-template-columns: 1fr;
+    }
+
+    .article-hero-actions,
+    .article-hero-download {
+      width: 100%;
+    }
+
+    .article-hero-download {
+      justify-content: center;
     }
 
     .article-cta .primary-btn,

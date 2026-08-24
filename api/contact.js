@@ -1,4 +1,5 @@
-import { appendFile } from 'node:fs/promises';
+import { appendFile, mkdir } from 'node:fs/promises';
+import { dirname } from 'node:path';
 
 const DEFAULT_TO_EMAIL = 'sd.mimouni@richmedia.ma';
 const DEFAULT_FROM_EMAIL = 'Richmedia <noreply@richmedia.ma>';
@@ -159,6 +160,7 @@ async function saveLeadToFile({ subject, text, replyTo, reason }) {
   const leadsFile = process.env.CONTACT_LEADS_FILE;
   if (!leadsFile) return false;
 
+  await mkdir(dirname(leadsFile), { recursive: true });
   await appendFile(
     leadsFile,
     `${JSON.stringify({

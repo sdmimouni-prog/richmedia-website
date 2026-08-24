@@ -2,54 +2,43 @@
 - No P0/P1/P2 issues remaining.
 
 **Source Visual Truth**
-- Path: `/var/folders/0c/xkrqjtv17ss72wnz_qd97zd80000gn/T/TemporaryItems/NSIRD_screencaptureui_9e9ET6/Screenshot 2026-08-17 at 19.03.34.png`
-- Pixels: 2946 x 1026
-- State: attached reference block for the Richmedia WhatsApp landing page.
+- Current disliked rendering: `/var/folders/0c/xkrqjtv17ss72wnz_qd97zd80000gn/T/TemporaryItems/NSIRD_screencaptureui_CA4vzZ/Screenshot 2026-08-23 at 21.38.10.png`
+- Desired reference: `/Users/salaheddinemimouni/Downloads/post3.png`
+- User request: make the homepage Baromètre visual read as a physical book, similar to the desired reference.
+- Follow-up request: keep the homepage box at max 60% of its previous height and remove the benchmark paragraph if needed.
+- Current request: replace the generated/CSS book with the supplied rendered book image on the right.
+- Supplied book render: `/Users/salaheddinemimouni/Downloads/ChatGPT Image Aug 23, 2026, 09_46_33 PM.png`
 
 **Implementation Evidence**
-- URL FR: `http://localhost:4321/produits/whatsapp`
-- URL EN: `http://localhost:4321/en/products/whatsapp`
-- Desktop screenshot: `/tmp/whatsapp-story-fr-desktop-final.png`
-- Desktop viewport: 1440 x 1040 CSS px, deviceScaleFactor 1
-- Desktop screenshot pixels: 1440 x 586
-- Mobile screenshot: `/tmp/whatsapp-story-fr-mobile-final-v2.png`
-- Mobile viewport: 390 x 844 CSS px, deviceScaleFactor 1
-- Mobile screenshot pixels: 390 x 638
-- EN desktop screenshot: `/tmp/whatsapp-story-en-desktop-final.png`
-- EN mobile focused screenshot: `/tmp/whatsapp-story-en-mobile-card3-final.png`
-- Console errors checked: 0
-- Primary interactions checked: mobile horizontal scroll rail and desktop hover-safe card layout.
+- URL: `http://127.0.0.1:4322/`
+- Component: `src/pages/index.astro`, homepage Baromètre download band.
+- New source asset: `public/assets/richmedia-barometre/barometre-2026-book-render.webp`
+- Desktop screenshot: `audit-screenshots/barometer-book-2026-08-23/desktop-new-render.png`
+- Mobile screenshot: `audit-screenshots/barometer-book-2026-08-23/mobile.png`
+- Console/blocking visual issues checked during browser inspection: none observed.
 
-**Full-View Comparison Evidence**
-- Comparison image: `/tmp/whatsapp-story-source-vs-implementation.png`
-- Result: implementation preserves the reference structure: six vertical story cards, progress bars, Richmedia avatar row, large numeric markers, purple circular icons, dark image overlay, and white proof panels.
+**Comparison Result**
+- The old tablet/card-like baked mockup was removed from the homepage visual.
+- The homepage now uses the supplied transparent PNG book render directly, positioned in the right visual column.
+- The physical-book cues remain visible on desktop and mobile.
+- The benchmark paragraph under the title was removed to reduce the box height.
+- CTA, text hierarchy, link target, and existing homepage layout are preserved.
 
-**Focused Region Comparison Evidence**
-- Desktop block inspected as a full component because all six cards are visible in one viewport.
-- Mobile rail inspected at the first card and mid-rail performance card; scroll behavior is intentional and no horizontal page overflow was detected.
+**Responsive QA**
+- Desktop 1280px: card height is 305px versus the previous 521px baseline, about 58.5% of the previous height. Supplied book asset sits on the right side, does not overlap copy or CTA, and no horizontal overflow was observed.
+- Mobile CSS check: the image is capped at 150px wide under 720px viewports, matching the previous compact mobile visual height envelope. CTA stays full width and the removed paragraph cannot re-expand the card.
 
-**Required Fidelity Surfaces**
-- Fonts and typography: existing site typography is preserved. Card titles use heavy display weights, tight line height, and non-negative letter spacing. Long EN copy was reduced to prevent cramped wrapping.
-- Spacing and layout rhythm: desktop shows six aligned cards with consistent gaps, radii, shadow, and bottom proof panels. Mobile uses scroll-snap with one dominant card and a small next-card preview.
-- Colors and visual tokens: the reference's white surface, black card overlay, purple icon circles, green WhatsApp proof, and blue CNDP accent are retained while using the site's existing tokens.
-- Image quality and asset fidelity: all backgrounds are local Richmedia assets, cropped with CSS and no placeholder art. Icons use the existing Phosphor icon library.
-- Copy and content: FR and EN variants are implemented for the six story cards: data, reach, performance, conversation, compliance, and interface.
+**Insight Hero Update**
+- Source screenshot to replace: `/var/folders/0c/xkrqjtv17ss72wnz_qd97zd80000gn/T/TemporaryItems/NSIRD_screencaptureui_zBmD5i/Screenshot 2026-08-23 at 21.42.29.png`, 1416 x 834.
+- Desired book reference: `/Users/salaheddinemimouni/Downloads/post3.png`, 1122 x 1402.
+- Implementation URL: `http://127.0.0.1:4322/insights/barometre-marketing-digital-maroc-2026/`.
+- Implementation screenshot: `audit-screenshots/barometer-insight-2026-08-23/hero-book.png`, 1280 x 720, desktop viewport.
+- The FR and EN barometer article hero images now use `public/assets/richmedia-barometre/barometre-2026-book-render.webp` instead of `public/assets/richmedia-case-study/proof-dashboard.webp`.
+- `ArticleDetailPage` keeps existing article images as cover by default, with `imageFit="contain"` only for the barometer hero so the vertical book is not cropped.
+- Browser evidence: hero image source is `/assets/richmedia-barometre/barometre-2026-book-render.webp`, object-fit is `contain`, and `proof-dashboard.webp` is absent from the rendered FR and EN article HTML.
 
-**Comparison History**
-- Earlier issue: icon circles overlapped too much with story numbers and titles.
-  Fix: reduced icon size and shifted icons right/up.
-  Post-fix evidence: `/tmp/whatsapp-story-fr-desktop-final.png`.
-- Earlier issue: mobile showed too much of the next card, causing clipped text to dominate.
-  Fix: enlarged mobile card width and maintained a smaller next-card preview.
-  Post-fix evidence: `/tmp/whatsapp-story-fr-mobile-final-v2.png`.
-
-**Implementation Checklist**
-- Add the six-card visual story block to `src/components/WhatsAppLanding.astro`.
-- Localize content for FR and EN.
-- Use local image assets and existing icon library.
-- Verify production build, desktop/mobile screenshots, horizontal overflow, and console errors.
-
-**Follow-up Polish**
-- Optional P3: replace card backgrounds later with exact campaign photography if the source creative pack becomes available.
+**Build Verification**
+- `npm run check`: passed with 0 errors, 1 existing Zod deprecation hint.
+- `npm run build`: passed, 236 pages generated.
 
 final result: passed

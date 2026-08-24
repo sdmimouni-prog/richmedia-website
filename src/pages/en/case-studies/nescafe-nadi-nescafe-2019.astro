@@ -1,0 +1,185 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../../components/CaseStudyModel.astro';
+import { SITE } from '../../../consts';
+import { articleSchema, breadcrumbs } from '../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/case-studies/nescafe-nadi-nescafe-2019`;
+const heroImage = '/assets/richmedia-realizations/nescafe-nadi-nescafe.webp';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Nescafé Nadi Nescafé 2019 Case Study | Richmedia';
+const pageDescription =
+  'Discover Nadi Nescafé, the community platform designed by Richmedia: 100,000 visits, 5,000 members and 2,500 coupons.';
+
+const content = {
+  backHref: '/en/case-studies',
+  backLabel: 'Case studies',
+  eyebrow: 'A community platform built to recruit, engage and retain a young audience around Nescafé.',
+  client: 'Nescafé',
+  clientLong: 'Nestlé / Nescafé',
+  category: 'FMCG / Beverages',
+  period: '2019',
+  scope: 'Web platform / Member area / Social Media / Gamification / Coupons / Vouchers / Field activation',
+  title: 'The Result',
+  subtitle:
+    'For Nescafé, Richmedia developed Nadi Nescafé in 2019, a community platform designed to recruit, engage and retain a young audience around the brand. The system combined a member area, gamification, rewards, coupons and field activations to connect digital engagement with product experience and point-of-sale purchase.',
+  heroImage,
+  heroAlt: 'Real Nadi Nescafé campaign visual with personalized mug',
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'Nestlé / Nescafé' },
+    { label: 'Project', value: 'Nadi Nescafé' },
+    { label: 'Sector', value: 'FMCG / Beverages' },
+    { label: 'Period', value: '2019' },
+    { label: 'Region', value: 'Morocco' },
+    { label: 'Target', value: '18–25 / students / young professionals / coffee consumers / men & women / all CSP' },
+    { label: 'System', value: 'Web platform / member area / social media / gamification / coupons / field activation' },
+  ],
+  metrics: [
+    { value: '100K', label: 'platform visits', icon: 'ph ph-browser' },
+    { value: '5K', label: 'registered members', icon: 'ph ph-users' },
+    { value: '2,500', label: 'coupons downloaded / used', icon: 'ph ph-ticket' },
+  ],
+  deliverables: [
+    'Community strategy',
+    'Web platform',
+    'Member area',
+    'UX / user journey',
+    'Gamification',
+    'Points system',
+    'Games & contests',
+    'Coupons / vouchers',
+    'Social Media activation',
+    'Field activation',
+    'Sampling',
+    'Reporting',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Platform & community',
+      text: 'Creating a proprietary digital space around Nescafé.',
+      bullets: [
+        'Creation of a proprietary digital space around Nescafé.',
+        'Member recruitment and animation of a young community.',
+        'Direct relationship between the brand and its consumers.',
+      ],
+      icon: 'ph ph-users-three',
+    },
+    {
+      eyebrow: '02',
+      title: 'Engagement through play',
+      text: 'Gamification to create recurring engagement.',
+      bullets: [
+        'Games integrated into the platform.',
+        'Points system.',
+        'Rewards to unlock.',
+        'Contests to sustain engagement over time.',
+      ],
+      icon: 'ph ph-game-controller',
+    },
+    {
+      eyebrow: '03',
+      title: 'Rewards & coupons',
+      text: 'Connecting digital activity to a concrete commercial action.',
+      bullets: [
+        'Coupons / vouchers designed to trigger purchase at point of sale.',
+        'Rewarding member engagement.',
+        'Moving from digital interaction to commercial action.',
+      ],
+      icon: 'ph ph-ticket',
+    },
+    {
+      eyebrow: '04',
+      title: 'Digital → field',
+      text: 'Connecting the digital platform with physical product experience.',
+      bullets: [
+        'Social Media to support community animation.',
+        'Coupon distribution.',
+        'Stands and sampling.',
+        'Linking the digital platform with physical product experience.',
+      ],
+      icon: 'ph ph-storefront',
+    },
+  ],
+  proof: {
+    eyebrow: 'Block 3',
+    title: 'The Proof',
+    intro:
+      'The real Nadi Nescafé visual and validated indicators from the system, without invented web interfaces, coupons or dashboards.',
+    items: [
+      { image: heroImage, label: 'Nadi Nescafé', format: 'Real campaign visual', size: 'banner' as const },
+    ],
+    kpi: {
+      value: '100K',
+      label: 'platform visits',
+      breakdown: ['5K registered members', '2,500 coupons downloaded / used'],
+      note: 'The KPIs shown are limited to validated data.',
+    },
+    funnel: {
+      items: [
+        { value: 'Discovery', label: 'First contact with the brand' },
+        { value: 'Registration', label: 'Member account creation' },
+        { value: 'Games', label: 'Participation mechanics' },
+        { value: 'Points', label: 'Engagement rewarded' },
+        { value: 'Rewards', label: 'Benefits unlocked' },
+        { value: 'Coupons', label: 'Vouchers downloaded / used' },
+        { value: 'Point of sale', label: 'Offline purchase encouraged' },
+      ],
+      note: 'This journey represents the campaign mechanic, not a quantified funnel.',
+    },
+    conclusion:
+      'Nadi Nescafé helped the brand move beyond social audience logic to build a proprietary community, animated through gamification and connected to point-of-sale purchase through coupons and field activations.',
+    links: [
+      { href: '/en/sectors/fmcg/', label: 'FMCG sector' },
+      { href: '/en/expertises/phygital/', label: 'Phygital' },
+      { href: '/en/expertises/social-media-morocco/', label: 'Social Media' },
+      { href: '/en/expertises/crm-marketing-automation-morocco/', label: 'CRM & Automation' },
+    ],
+  },
+  quote:
+    'Want to transform your audience into a proprietary and engaged community?',
+  ctaLabel: 'Speak to an expert',
+  ctaHref: '/en/contact',
+  secondaryLabel: 'Explore Phygital expertise',
+  secondaryHref: '/en/expertises/phygital/',
+  ui: {
+    resultLabel: 'Case study results',
+    metaLabel: 'Case study summary',
+    workLabel: 'Block 2',
+    workTitle: 'What We Did',
+    proofLabel: 'Visual proof',
+    quoteLabel: 'Case study internal links',
+    deliverablesTitle: 'Deliverables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Case studies', url: `${SITE.url}/en/case-studies` },
+    { name: 'Nescafé — Nadi Nescafé 2019', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  lang="en"
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

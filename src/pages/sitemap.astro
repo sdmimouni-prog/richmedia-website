@@ -27,7 +27,21 @@ const staticGroups = [
       { href: '/outils/calculateur-budget-media-leads', label: 'Calculateur Budget Média & Leads', text: 'Estimation du budget média ou du volume de leads par secteur et canal.' },
       { href: '/outils/estimateur-campagne-whatsapp', label: 'Estimateur Campagne WhatsApp', text: 'Estimation des pushes, lectures, clics et conversions d’une campagne WhatsApp.' },
       { href: '/outils/template-plan-media-digital', label: 'Template Plan Média Digital 2026', text: 'Template Excel pour planifier les budgets média et comparer forecast et résultats réels.' },
+      { href: '/outils/template-dashboard-kpi-marketing', label: 'Template Dashboard KPI Marketing 2026', text: 'Dashboard Excel pour suivre budget, CPL, qualité des leads, CAC, chiffre d’affaires et ROAS.' },
+      { href: '/outils/template-brief-campagne-digitale', label: 'Template Brief de Campagne Digitale', text: 'Template Word pour cadrer objectifs, audience, message, budget, tracking et validation.' },
+      { href: '/outils/checklist-tracking-digital', label: 'Checklist Tracking Digital avant lancement', text: 'PDF pour vérifier GA4, GTM, pixels, conversions, formulaires, CRM et tracking avant campagne.' },
+      { href: '/outils/checklist-landing-page-conversion', label: 'Checklist Landing Page Conversion', text: 'PDF pour optimiser landing page, formulaire, CTA, mobile, tracking et conversion.' },
+      { href: '/outils/checklist-meta-ads-2026', label: 'Checklist Meta Ads 2026', text: 'PDF pour vérifier tracking, audiences, créatifs, Lead Ads, CRM et performance Meta Ads.' },
       { href: '/realisations', label: 'Réalisations', text: 'Portfolio et cas clients.' },
+      { href: '/realisations/maserati-levante-whatsapp-leads-2025', label: 'Maserati Levante — WhatsApp & Leads 2025', text: 'Case study automobile : 1 200 leads, 244 demandes d’essai et 112 rendez-vous showroom.' },
+      { href: '/realisations/don-simon-back-to-school-2025', label: 'Don Simon — Back to School 2025', text: 'Case study FMCG : 25 M d’impressions, 2 M de vues vidéo, 200 K engagements et 30 K clics.' },
+      { href: '/realisations/amana-tramway-phygital-2022', label: 'Amana — Tramway & Activation Phygitale 2022', text: 'Case study phygital : 29 M d’audience estimée, 8 418 scans QR et 4 183 leads.' },
+      { href: '/realisations/nescafe-nadi-nescafe-2019', label: 'Nescafé — Nadi Nescafé 2019', text: 'Case study communauté : 100 K visites plateforme, 5 K membres et 2 500 coupons.' },
+      { href: '/realisations/universite-euromed-refonte-site-web-2025', label: 'Université Euromed — Refonte Site Web Drupal 2025', text: 'Case study web éducation : +40 % trafic organique, +80 % performance et +20 % candidatures.' },
+      { href: '/realisations/prestigia-riad-al-andalous-acquisition-2026', label: 'Prestigia Riad Al Andalous — Acquisition 2026', text: 'Case study immobilier : 800 leads, 45 MAD de CPL moyen et 331 rendez-vous commerciaux.' },
+      { href: '/realisations/tramway-rabat-sale-community-management-2026', label: 'Tramway Rabat-Salé — Social Media 2026', text: 'Case study social media : 500 K vues vidéo, 339 K interactions et +5 K abonnés.' },
+      { href: '/realisations/tbs-master-acquisition-2025', label: 'TBS Casablanca — Acquisition Master 2025', text: 'Case study éducation : 3 000 leads, 40–80 MAD de CPL et 70 % de qualification.' },
+      { href: '/realisations/uir-campagne-acquisition-2023-2024', label: 'UIR — Campagne d’acquisition 2023/2024', text: 'Case study full-funnel UIR : 70 000 leads générés sur Bacheliers, Master et Formation Continue.' },
       { href: '/references', label: 'Références', text: 'Clients, secteurs et accréditations.' },
       { href: '/equipe', label: 'Équipe', text: 'Profils et organisation.' },
       { href: '/carrieres', label: 'Carrières', text: 'Candidatures spontanées et culture Richmedia.' },
@@ -88,7 +102,7 @@ const cases = (await getCollection('cas', ({ data }) => !data.draft)).map((entry
   text: entry.data.resume,
 }));
 
-const articles = (await getCollection('articles', ({ data }) => !data.draft)).map((entry) => ({
+const articles = (await getCollection('articles', ({ data }) => !data.draft && data.lang === 'fr')).map((entry) => ({
   href: `/insights/${entry.data.slug ?? entry.id}`,
   label: entry.data.title,
   text: entry.data.metaDescription,

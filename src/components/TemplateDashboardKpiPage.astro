@@ -1,0 +1,923 @@
+---
+import { CONTACT_FORM } from '../consts';
+
+interface Props {
+  lang?: 'fr' | 'en';
+  downloadHref: string;
+  downloadFilename: string;
+}
+
+const { lang = 'fr', downloadHref, downloadFilename } = Astro.props;
+const isEnglish = lang === 'en';
+const assetBase = '/assets/richmedia-tools/template-dashboard-kpi-marketing';
+
+const t = isEnglish
+  ? {
+      eyebrow: 'Richmedia resource',
+      title: 'Marketing KPI Dashboard Template 2026',
+      subtitle:
+        'Manage campaigns from media to sales: budget, CPL, lead quality, CAC, revenue and ROAS in one Excel dashboard.',
+      badge: 'Excel • Free • Editable',
+      primaryCta: 'Download the dashboard',
+      secondaryCta: 'View all tools',
+      secondaryHref: '/en/tools/',
+      heroAlt: 'Composition of real Excel previews from the Marketing KPI Dashboard Template 2026',
+      previewEyebrow: 'File preview',
+      previewTitle: 'Real Excel views, not a fake interface.',
+      previewText: 'These visuals are generated from the exact Excel file used for download, without editing its content.',
+      tabsEyebrow: 'Inside the template',
+      tabsTitle: 'Seven tabs to connect media, acquisition, quality and business.',
+      tabsText:
+        'The file keeps the reporting logic readable from channel performance to sales value, with settings and instructions included.',
+      funnelEyebrow: 'Reporting logic',
+      keyMessage: 'Good reporting does not stop at lead volume. It measures the value actually generated.',
+      audienceEyebrow: 'Who is it for?',
+      audienceTitle: 'Built for teams that need one shared view of marketing performance.',
+      downloadEyebrow: 'Download',
+      downloadTitle: 'Download the free Excel file',
+      downloadText:
+        'Fill in the form. After validation, the exact Excel file attached to this project starts downloading automatically.',
+      submit: 'Download the free Excel file',
+      loading: 'Validation in progress...',
+      success: 'Your download has started. The Excel dashboard is ready.',
+      error: 'The download could not be started. Please try again.',
+      trapSuccess: 'Download started. Thank you.',
+      subject: '[Richmedia] Marketing KPI Dashboard Template 2026 download',
+      formName: 'Marketing KPI Dashboard Template 2026 download',
+      requestedResource: 'Marketing KPI Dashboard Template 2026 — Richmedia',
+      crmMarker: 'lead_download_marketing_kpi_dashboard_template_2026',
+      fields: {
+        name: 'Full name *',
+        email: 'Professional email *',
+        company: 'Company *',
+        job: 'Job title *',
+      },
+      fieldNames: {
+        name: 'Full name',
+        email: 'Professional email',
+        company: 'Company',
+        job: 'Job title',
+      },
+      internalLabel: 'Related resources',
+      internalLinks: [
+        { href: '/en/tools/', label: 'Tools & resources' },
+        { href: '/en/tools/digital-media-plan-template/', label: 'Digital Media Plan Template' },
+        { href: '/en/tools/media-budget-leads-calculator/', label: 'Media Budget & Leads Calculator' },
+        { href: '/en/insights/morocco-digital-marketing-barometer-2026/', label: 'Morocco Digital Marketing Barometer 2026' },
+      ],
+      previews: [
+        { title: 'Dashboard', image: `${assetBase}/dashboard.webp`, alt: 'Real preview of the Dashboard sheet in the Richmedia Excel dashboard template' },
+        { title: 'Channel performance', image: `${assetBase}/performance-canal.webp`, alt: 'Real preview of the Channel performance sheet in the Richmedia Excel dashboard template' },
+        { title: 'Lead quality', image: `${assetBase}/qualite-leads.webp`, alt: 'Real preview of the Lead quality sheet in the Richmedia Excel dashboard template' },
+        { title: 'Forecast vs Actual', image: `${assetBase}/forecast-vs-reel.webp`, alt: 'Real preview of the Forecast vs Actual sheet in the Richmedia Excel dashboard template' },
+        { title: 'Richmedia 2026 benchmarks', image: `${assetBase}/benchmarks-2026.webp`, alt: 'Real preview of the Richmedia 2026 benchmarks sheet in the Excel dashboard template' },
+      ],
+      tabs: [
+        { name: '01 Dashboard', text: 'A consolidated control view for campaign, budget, leads, CPL, sales and ROAS.' },
+        { name: '02 Channel performance', text: 'Media inputs and channel KPIs used to compare acquisition efficiency.' },
+        { name: '03 Lead quality', text: 'Lead follow-up indicators connecting media performance with commercial reality.' },
+        { name: '04 Forecast vs Actual', text: 'A simple view to compare planned KPIs with real campaign results.' },
+        { name: '05 2026 Benchmarks', text: 'Richmedia benchmark ranges included in the workbook as reference points.' },
+        { name: '06 Settings', text: 'Editable assumptions for campaign, sector, currency and channel setup.' },
+        { name: '07 How to use', text: 'Step-by-step guidance for using the workbook without overwriting calculated cells.' },
+      ],
+      audiences: [
+        'Marketing Director',
+        'Digital Manager',
+        'Performance / Growth Manager',
+        'Media Manager',
+        'Sales Manager',
+        'Agency / Consultant',
+      ],
+      funnel: [
+        { title: 'MEDIA', text: 'CPM · CTR · CPC' },
+        { title: 'ACQUISITION', text: 'Leads · CPL · CPA' },
+        { title: 'QUALITY', text: 'Contact · MQL · SQL' },
+        { title: 'BUSINESS', text: 'Sales · CAC · Revenue · ROAS' },
+      ],
+    }
+  : {
+      eyebrow: 'Ressource Richmedia',
+      title: 'Template Dashboard KPI Marketing 2026',
+      subtitle:
+        'Pilotez vos campagnes du média jusqu’à la vente : budget, CPL, qualité des leads, CAC, chiffre d’affaires et ROAS dans un seul dashboard Excel.',
+      badge: 'Excel • Gratuit • Modifiable',
+      primaryCta: 'Télécharger le dashboard',
+      secondaryCta: 'Voir tous les outils',
+      secondaryHref: '/outils/',
+      heroAlt: 'Montage réalisé à partir de previews réelles du fichier Excel Template Dashboard KPI Marketing 2026',
+      previewEyebrow: 'Aperçu du fichier',
+      previewTitle: 'Des vues Excel réelles, pas une fausse interface.',
+      previewText: 'Ces visuels sont générés depuis le fichier Excel exact proposé au téléchargement, sans modification de son contenu.',
+      tabsEyebrow: 'Contenu du template',
+      tabsTitle: 'Sept onglets pour relier média, acquisition, qualité et business.',
+      tabsText:
+        'Le fichier garde une logique de reporting lisible, de la performance par canal jusqu’à la valeur commerciale, avec paramètres et mode d’emploi.',
+      funnelEyebrow: 'Logique de pilotage',
+      keyMessage: 'Le bon reporting ne s’arrête pas au nombre de leads. Il mesure la valeur réellement générée.',
+      audienceEyebrow: 'Pour qui ?',
+      audienceTitle: 'Pensé pour les équipes qui veulent une lecture partagée de la performance marketing.',
+      downloadEyebrow: 'Téléchargement',
+      downloadTitle: 'Télécharger gratuitement le fichier Excel',
+      downloadText:
+        'Remplissez le formulaire. Après validation, le fichier Excel exact joint au projet se télécharge automatiquement.',
+      submit: 'Télécharger gratuitement le fichier Excel',
+      loading: 'Validation en cours...',
+      success: 'Votre téléchargement est lancé. Le dashboard Excel est prêt.',
+      error: "Le téléchargement n'a pas pu être lancé. Merci de réessayer.",
+      trapSuccess: 'Téléchargement lancé. Merci.',
+      subject: '[Richmedia] Téléchargement Template Dashboard KPI Marketing 2026',
+      formName: 'Téléchargement Template Dashboard KPI Marketing 2026',
+      requestedResource: 'Template Dashboard KPI Marketing 2026 — Richmedia',
+      crmMarker: 'lead_download_template_dashboard_kpi_marketing_2026',
+      fields: {
+        name: 'Nom et prénom *',
+        email: 'Email professionnel *',
+        company: 'Entreprise *',
+        job: 'Fonction *',
+      },
+      fieldNames: {
+        name: 'Nom et prénom',
+        email: 'Email professionnel',
+        company: 'Entreprise',
+        job: 'Fonction',
+      },
+      internalLabel: 'Ressources liées',
+      internalLinks: [
+        { href: '/outils/', label: 'Outils & ressources' },
+        { href: '/outils/template-plan-media-digital/', label: 'Template Plan Média Digital' },
+        { href: '/outils/calculateur-budget-media-leads/', label: 'Calculateur Budget Média & Leads' },
+        { href: '/insights/barometre-marketing-digital-maroc-2026/', label: 'Baromètre Richmedia 2026' },
+      ],
+      previews: [
+        { title: 'Dashboard', image: `${assetBase}/dashboard.webp`, alt: 'Preview réelle de l’onglet Dashboard du template Excel Richmedia' },
+        { title: 'Performance par canal', image: `${assetBase}/performance-canal.webp`, alt: 'Preview réelle de l’onglet Performance par canal du template Excel Richmedia' },
+        { title: 'Qualité des leads', image: `${assetBase}/qualite-leads.webp`, alt: 'Preview réelle de l’onglet Qualité des leads du template Excel Richmedia' },
+        { title: 'Forecast vs Réel', image: `${assetBase}/forecast-vs-reel.webp`, alt: 'Preview réelle de l’onglet Forecast vs Réel du template Excel Richmedia' },
+        { title: 'Benchmarks Richmedia 2026', image: `${assetBase}/benchmarks-2026.webp`, alt: 'Preview réelle de l’onglet Benchmarks Richmedia 2026 du template Excel Richmedia' },
+      ],
+      tabs: [
+        { name: '01 Dashboard', text: 'Vue consolidée pour campagne, budget, leads, CPL, ventes et ROAS.' },
+        { name: '02 Performance par canal', text: 'Entrées média et KPI par canal pour comparer l’efficacité d’acquisition.' },
+        { name: '03 Qualité des leads', text: 'Indicateurs de suivi commercial pour relier média et réalité terrain.' },
+        { name: '04 Forecast vs Réel', text: 'Lecture simple des écarts entre les objectifs prévus et les résultats observés.' },
+        { name: '05 Benchmarks 2026', text: 'Repères Richmedia intégrés dans le classeur comme points de comparaison.' },
+        { name: '06 Paramètres', text: 'Hypothèses éditables pour campagne, secteur, devise et canaux.' },
+        { name: '07 Mode d’emploi', text: 'Guide d’utilisation pour compléter le fichier sans écraser les cellules calculées.' },
+      ],
+      audiences: [
+        'Directeur Marketing',
+        'Digital Manager',
+        'Performance / Growth Manager',
+        'Media Manager',
+        'Responsable commercial',
+        'Agence / Consultant',
+      ],
+      funnel: [
+        { title: 'MÉDIA', text: 'CPM · CTR · CPC' },
+        { title: 'ACQUISITION', text: 'Leads · CPL · CPA' },
+        { title: 'QUALITÉ', text: 'Contact · MQL · SQL' },
+        { title: 'BUSINESS', text: 'Ventes · CAC · CA · ROAS' },
+      ],
+    };
+---
+
+<div class="template-dashboard-page" data-dashboard-download-page>
+  <section class="template-hero" aria-labelledby="dashboard-template-title">
+    <div class="hero-copy">
+      <span class="section-kicker">{t.eyebrow}</span>
+      <h1 id="dashboard-template-title">{t.title}</h1>
+      <p>{t.subtitle}</p>
+      <span class="file-badge">{t.badge}</span>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#download-dashboard">
+          {t.primaryCta}
+          <i class="ph ph-download-simple" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href={t.secondaryHref}>
+          {t.secondaryCta}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+    <figure class="hero-visual">
+      <img
+        src={`${assetBase}/hero-dashboard-kpi.webp`}
+        alt={t.heroAlt}
+        width="1600"
+        height="920"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </figure>
+  </section>
+
+  <section class="preview-section" aria-labelledby="dashboard-preview-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.previewEyebrow}</span>
+      <h2 id="dashboard-preview-title">{t.previewTitle}</h2>
+      <p>{t.previewText}</p>
+    </div>
+    <div class="preview-grid">
+      {t.previews.map((preview) => (
+        <article class="preview-card">
+          <figure>
+            <img src={preview.image} alt={preview.alt} width="980" height="660" loading="lazy" decoding="async" />
+          </figure>
+          <h3>{preview.title}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="tabs-section" aria-labelledby="dashboard-tabs-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.tabsEyebrow}</span>
+      <h2 id="dashboard-tabs-title">{t.tabsTitle}</h2>
+      <p>{t.tabsText}</p>
+    </div>
+    <div class="tabs-and-funnel">
+      <div class="tab-grid">
+        {t.tabs.map((tab) => (
+          <article>
+            <span>{tab.name}</span>
+            <p>{tab.text}</p>
+          </article>
+        ))}
+      </div>
+      <aside class="funnel-panel" aria-labelledby="dashboard-funnel-title">
+        <span class="section-kicker">{t.funnelEyebrow}</span>
+        <div class="funnel-list">
+          {t.funnel.map((step, index) => (
+            <div class="funnel-step">
+              <strong>{step.title}</strong>
+              <span>{step.text}</span>
+              {index < t.funnel.length - 1 && <i class="ph ph-arrow-down" aria-hidden="true"></i>}
+            </div>
+          ))}
+        </div>
+        <p id="dashboard-funnel-title">{t.keyMessage}</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="audience-section" aria-labelledby="dashboard-audience-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.audienceEyebrow}</span>
+      <h2 id="dashboard-audience-title">{t.audienceTitle}</h2>
+    </div>
+    <div class="audience-grid">
+      {t.audiences.map((audience) => (
+        <article>
+          <i class="ph ph-users" aria-hidden="true"></i>
+          <span>{audience}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="download-section" id="download-dashboard" aria-labelledby="dashboard-download-title">
+    <div class="download-copy">
+      <span class="section-kicker">{t.downloadEyebrow}</span>
+      <h2 id="dashboard-download-title">{t.downloadTitle}</h2>
+      <p>{t.downloadText}</p>
+      <nav class="internal-links" aria-label={t.internalLabel}>
+        {t.internalLinks.map((link) => (
+          <a href={link.href}>{link.label}</a>
+        ))}
+      </nav>
+    </div>
+
+    <form
+      class="download-form"
+      action={CONTACT_FORM.action}
+      method="post"
+      data-dashboard-download-form
+      data-download-url={downloadHref}
+      data-contact-endpoint={CONTACT_FORM.ajaxAction}
+      data-file-name={downloadFilename}
+      data-subject={t.subject}
+      data-email-field={t.fieldNames.email}
+      data-loading-message={t.loading}
+      data-success-message={t.success}
+      data-error-message={t.error}
+      data-trap-success-message={t.trapSuccess}
+    >
+      <input type="hidden" name="_form" value={t.formName} />
+      <input type="hidden" name={isEnglish ? 'Requested resource' : 'Ressource demandée'} value={t.requestedResource} />
+      <input type="hidden" name={isEnglish ? 'CRM preparation' : 'Préparation CRM'} value={t.crmMarker} />
+      <input type="hidden" name="resource_slug" value="template-dashboard-kpi-marketing-2026" />
+      <input type="hidden" name="hubspot_ready" value="true" />
+      <label class="form-honeypot" aria-hidden="true">
+        Website
+        <input type="text" name="company_url" tabindex="-1" autocomplete="off" />
+      </label>
+      <label>
+        <span>{t.fields.name}</span>
+        <input type="text" name={t.fieldNames.name} autocomplete="name" required />
+      </label>
+      <label>
+        <span>{t.fields.email}</span>
+        <input type="email" name={t.fieldNames.email} autocomplete="email" required />
+      </label>
+      <label>
+        <span>{t.fields.company}</span>
+        <input type="text" name={t.fieldNames.company} autocomplete="organization" required />
+      </label>
+      <label>
+        <span>{t.fields.job}</span>
+        <input type="text" name={t.fieldNames.job} autocomplete="organization-title" required />
+      </label>
+      <button type="submit">
+        {t.submit}
+        <i class="ph ph-download-simple" aria-hidden="true"></i>
+      </button>
+      <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</div>
+
+<script is:inline>
+  (() => {
+    const form = document.querySelector('[data-dashboard-download-form]');
+    if (!form) return;
+
+    const status = form.querySelector('[data-form-status]');
+    const submit = form.querySelector('button[type="submit"]');
+    const setStatus = (state, message) => {
+      status.textContent = message;
+      status.dataset.state = state;
+    };
+
+    const triggerDownload = () => {
+      const link = document.createElement('a');
+      link.href = form.dataset.downloadUrl;
+      link.download = form.dataset.fileName || '';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(form);
+      if (String(formData.get('company_url') || '').trim()) {
+        form.reset();
+        triggerDownload();
+        setStatus('success', form.dataset.trapSuccessMessage || '');
+        return;
+      }
+
+      const body = new URLSearchParams();
+      formData.forEach((value, key) => body.append(key, String(value)));
+      body.set('_page', window.location.href);
+      body.set('_subject', form.dataset.subject || '');
+      body.set('_template', 'table');
+      body.set('_captcha', 'false');
+      const emailField = form.dataset.emailField || '';
+      const email = String(formData.get(emailField) || '').trim();
+      if (email) body.set('_replyto', email);
+
+      submit.disabled = true;
+      submit.setAttribute('aria-busy', 'true');
+      setStatus('loading', form.dataset.loadingMessage || '');
+
+      try {
+        const response = await fetch(form.dataset.contactEndpoint, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          },
+          body,
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || result.error || result.success === false || result.success === 'false') {
+          throw new Error(result.message || form.dataset.errorMessage || '');
+        }
+
+        triggerDownload();
+        form.reset();
+        setStatus('success', form.dataset.successMessage || '');
+      } catch (error) {
+        setStatus('error', error.message || form.dataset.errorMessage || '');
+      } finally {
+        submit.disabled = false;
+        submit.removeAttribute('aria-busy');
+      }
+    });
+  })();
+</script>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .template-dashboard-page {
+    --purple: #7c3cff;
+    --purple-soft: #aa7cff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(255, 255, 255, 0.66);
+    width: min(100% - 3rem, 1240px);
+    margin: 0 auto;
+    padding: clamp(7rem, 10vw, 9rem) 0 clamp(3rem, 6vw, 5.5rem);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  .template-dashboard-page,
+  .template-dashboard-page * {
+    box-sizing: border-box;
+  }
+
+  .template-dashboard-page::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 72% 8%, rgba(124, 60, 255, 0.15), transparent 26rem),
+      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: auto, 84px 84px, 84px 84px;
+    content: '';
+    pointer-events: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--purple-soft);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2.1rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-soft));
+    content: '';
+  }
+
+  .template-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(430px, 1.04fr);
+    gap: clamp(1.4rem, 4vw, 4rem);
+    align-items: center;
+    min-height: 560px;
+  }
+
+  .hero-copy,
+  .section-heading,
+  .download-copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .hero-copy h1 {
+    max-width: 790px;
+    font-size: clamp(3rem, 5.8vw, 5.45rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: 0;
+  }
+
+  .hero-copy p,
+  .section-heading p,
+  .download-copy p,
+  .funnel-panel p {
+    max-width: 66ch;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.62;
+  }
+
+  .file-badge {
+    width: fit-content;
+    border: 1px solid rgba(170, 124, 255, 0.38);
+    border-radius: 999px;
+    padding: 0.52rem 0.72rem;
+    background: rgba(124, 60, 255, 0.12);
+    color: #dfd3ff;
+    font-size: 0.84rem;
+    font-weight: 900;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 0.25rem;
+  }
+
+  .button,
+  .download-form button {
+    display: inline-flex;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 1.15rem;
+    color: #fff;
+    font: inherit;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .download-form button:hover,
+  .download-form button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary,
+  .download-form button {
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1.2rem 2.8rem rgba(124, 60, 255, 0.28);
+  }
+
+  .button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .hero-visual,
+  .preview-card,
+  .tabs-section,
+  .audience-section,
+  .download-section,
+  .funnel-panel {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 16% 0%, rgba(124, 60, 255, 0.13), transparent 14rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.92), rgba(7, 8, 12, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  }
+
+  .hero-visual {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    aspect-ratio: 1.68;
+    background: #05060a;
+    box-shadow: 0 2rem 5.5rem rgba(0, 0, 0, 0.34);
+  }
+
+  .hero-visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .preview-section,
+  .tabs-section,
+  .audience-section,
+  .download-section {
+    margin-top: clamp(1.7rem, 4vw, 3.4rem);
+  }
+
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin-top: 1rem;
+  }
+
+  .preview-card {
+    display: grid;
+    gap: 0.9rem;
+    padding: 0.85rem;
+  }
+
+  .preview-card figure {
+    display: grid;
+    overflow: hidden;
+    min-height: 9.8rem;
+    margin: 0;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .preview-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .preview-card h3 {
+    font-size: 1rem;
+    line-height: 1.16;
+  }
+
+  .tabs-section,
+  .audience-section,
+  .download-section {
+    padding: clamp(1.15rem, 3vw, 2rem);
+  }
+
+  .tabs-and-funnel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(310px, 0.42fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .tab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .tab-grid article,
+  .audience-grid article {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .tab-grid article {
+    display: grid;
+    gap: 0.45rem;
+    min-height: 7.4rem;
+    align-content: start;
+    padding: 1rem;
+  }
+
+  .tab-grid span {
+    color: #d9ccff;
+    font-size: 0.82rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .tab-grid p {
+    color: var(--muted);
+    line-height: 1.48;
+  }
+
+  .funnel-panel {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    padding: 1rem;
+  }
+
+  .funnel-list {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .funnel-step {
+    display: grid;
+    gap: 0.28rem;
+    justify-items: start;
+  }
+
+  .funnel-step strong {
+    color: #fff;
+    font-size: 0.92rem;
+    font-weight: 950;
+    letter-spacing: 0.14em;
+  }
+
+  .funnel-step span {
+    color: #d7ccff;
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  .funnel-step i {
+    color: var(--purple-soft);
+    font-size: 1.1rem;
+  }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .audience-grid article {
+    display: grid;
+    gap: 0.75rem;
+    min-height: 8.2rem;
+    place-items: center;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .audience-grid i {
+    display: inline-grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid rgba(155, 124, 255, 0.35);
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.16);
+    color: var(--purple-soft);
+    font-size: 1.4rem;
+  }
+
+  .audience-grid span {
+    font-weight: 900;
+  }
+
+  .download-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(360px, 0.62fr);
+    gap: clamp(1.2rem, 3vw, 2rem);
+    align-items: start;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(124, 60, 255, 0.2), transparent 20rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.94), rgba(7, 8, 12, 0.96));
+  }
+
+  .download-copy h2,
+  .section-heading h2 {
+    font-size: clamp(2rem, 4vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .internal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .internal-links a {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.5rem 0.7rem;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.82rem;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus-visible {
+    border-color: rgba(170, 124, 255, 0.62);
+    color: #fff;
+  }
+
+  .download-form {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .download-form label {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .download-form span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.84rem;
+    font-weight: 900;
+  }
+
+  .download-form input {
+    min-width: 0;
+    min-height: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    padding: 0 0.9rem;
+    background: rgba(255, 255, 255, 0.045);
+    color: #fff;
+    font: inherit;
+  }
+
+  .download-form input:focus {
+    border-color: rgba(170, 124, 255, 0.72);
+    outline: 2px solid rgba(124, 60, 255, 0.24);
+    outline-offset: 0;
+  }
+
+  .download-form button {
+    width: 100%;
+    margin-top: 0.15rem;
+  }
+
+  .download-form button:disabled {
+    cursor: wait;
+    opacity: 0.72;
+  }
+
+  .form-honeypot {
+    position: absolute;
+    left: -999rem;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-status {
+    min-height: 1.25rem;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.88rem;
+    font-weight: 800;
+  }
+
+  .form-status[data-state='success'] {
+    color: #73e38a;
+  }
+
+  .form-status[data-state='error'] {
+    color: #ff8f8f;
+  }
+
+  @media (max-width: 1120px) {
+    .template-hero,
+    .download-section,
+    .tabs-and-funnel {
+      grid-template-columns: 1fr;
+    }
+
+    .preview-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .audience-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .template-dashboard-page {
+      width: min(100% - 1rem, 1240px);
+      padding-top: 6.2rem;
+    }
+
+    .template-hero {
+      min-height: 0;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.45rem, 12vw, 3.45rem);
+    }
+
+    .hero-actions,
+    .button {
+      width: 100%;
+    }
+
+    .hero-visual {
+      aspect-ratio: 1.2;
+    }
+
+    .preview-grid,
+    .tab-grid,
+    .audience-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .preview-card figure {
+      min-height: 12rem;
+    }
+
+    .download-copy h2,
+    .section-heading h2 {
+      font-size: clamp(2rem, 10vw, 2.8rem);
+    }
+
+    .download-section,
+    .tabs-section,
+    .audience-section {
+      padding: 1rem;
+    }
+  }
+</style>

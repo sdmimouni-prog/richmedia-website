@@ -5,6 +5,7 @@ import Seo from '../components/Seo.astro';
 import JsonLd from '../components/JsonLd.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import BarometerDownloadBox from '../components/BarometerDownloadBox.astro';
 import ContactFormHandler from '../components/ContactFormHandler.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 
@@ -41,6 +42,16 @@ const {
   schema,
 } = Astro.props;
 const fontStylesheet = 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap';
+const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const showBarometerBox =
+  normalizedPath === '/expertises' ||
+  normalizedPath.startsWith('/expertises/') ||
+  normalizedPath === '/en/expertises' ||
+  normalizedPath.startsWith('/en/expertises/') ||
+  normalizedPath === '/secteurs' ||
+  normalizedPath.startsWith('/secteurs/') ||
+  normalizedPath === '/en/sectors' ||
+  normalizedPath.startsWith('/en/sectors/');
 ---
 <!doctype html>
 <html lang={lang}>
@@ -117,6 +128,7 @@ const fontStylesheet = 'https://fonts.googleapis.com/css2?family=Manrope:wght@40
     <main>
       <slot />
     </main>
+    {showBarometerBox && <BarometerDownloadBox lang={lang} />}
     <Footer />
     <ContactFormHandler />
     <CookieConsent lang={lang} />

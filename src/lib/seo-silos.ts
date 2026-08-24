@@ -226,7 +226,7 @@ export const enSiloLinks = {
   ],
   casesHub: [
     { href: "/en/case-studies/model-case-study", label: "Digital marketing case study format", text: "See the structure used to document context, system and results." },
-    { href: "/en/case-studies/uir-digital-campaigns", label: "Richmedia UIR case study", text: "Open a complete education growth system." },
+    { href: "/en/case-studies/uir-acquisition-campaign-2023-2024", label: "Richmedia UIR acquisition case study", text: "Open a complete education growth system." },
     { href: "/en/expertises/brand-content", label: "Richmedia case study", text: "Connect proof to brand content and creative campaigns." },
     { href: "/en/expertises/achat-media", label: "Digital campaign in Morocco", text: "Connect proof to media buying and performance." },
     { href: "/en/expertises/ia-automation", label: "Growth system", text: "Connect proof to WhatsApp, CRM and measurement." },
@@ -250,8 +250,9 @@ export const sectorSiloLinksFr = {
     { href: "/expertises/ia-automation", label: "WhatsApp & CRM", text: "Relancer les prospects et suivre les inscriptions." },
     { href: "/expertises/web-si", label: "Landing pages admissions", text: "Créer des parcours mobiles rapides pour transformer les demandes." },
     { href: "/expertises/brand-content", label: "Contenus preuve", text: "Rassurer étudiants et parents avec des contenus utiles." },
-    { href: "/realisations#uir-campagnes-digitales", label: "Réalisation UIR", text: "Voir une campagne admissions full-funnel." },
-    { href: "/realisations#tbs-casablanca-master", label: "Réalisation TBS", text: "Voir une activation éducation orientée inscriptions." },
+    { href: "/realisations/uir-campagne-acquisition-2023-2024", label: "Case study UIR acquisition", text: "Voir une campagne admissions full-funnel." },
+    { href: "/realisations/universite-euromed-refonte-site-web-2025", label: "Case study Euromed Drupal", text: "Voir une refonte web éducation multilingue." },
+    { href: "/realisations/tbs-master-acquisition-2025", label: "Case study TBS Master", text: "Voir une campagne d’acquisition Master multicanale." },
   ],
   immobilier: [
     { href: "/expertises/achat-media", label: "Leads immobiliers", text: "Acquérir des demandes qualifiées pour projets et visites." },
@@ -259,6 +260,7 @@ export const sectorSiloLinksFr = {
     { href: "/expertises/referencement-seo", label: "SEO local", text: "Travailler les requêtes résidence, ville et quartier." },
     { href: "/expertises/ia-automation", label: "CRM & reporting", text: "Suivre les leads jusqu’à la visite commerciale." },
     { href: "/expertises/strategie-digitale", label: "Stratégie digitale immobilière", text: "Cadrer audiences, preuves, canaux et saisonnalité commerciale." },
+    { href: "/realisations/prestigia-riad-al-andalous-acquisition-2026", label: "Case study Prestigia", text: "Voir une campagne d’acquisition immobilière premium." },
     { href: "/realisations#ryad-al-andalous-rabat", label: "Réalisation Ryad Al Andalous", text: "Voir une référence immobilière premium." },
     { href: "/realisations#rabat-riviera-golf-living", label: "Réalisation Rabat Riviera", text: "Voir une campagne immobilier et lifestyle." },
   ],
@@ -269,7 +271,7 @@ export const sectorSiloLinksFr = {
     { href: "/expertises/ia-automation", label: "Automation IA retail", text: "Segmenter, relancer et piloter le lead nurturing selon le comportement client." },
     { href: "/expertises/web-si", label: "Parcours e-commerce", text: "Optimiser landing pages, tracking, catalogue et conversion." },
     { href: "/realisations#moul-pounj-world-cup", label: "Réalisation Moul Pounj", text: "Voir une campagne retail et commerce connecté." },
-    { href: "/realisations#amana-tramway-wrapping", label: "Réalisation Amana", text: "Voir une activation retail et mobilité visible." },
+    { href: "/realisations/amana-tramway-phygital-2022", label: "Réalisation Amana", text: "Voir une activation phygitale tramway mesurable." },
   ],
   gms: [
     { href: "/expertises/achat-media", label: "Promotions média", text: "Booster catalogues, coupons et offres retail." },
@@ -277,7 +279,7 @@ export const sectorSiloLinksFr = {
     { href: "/expertises/phygital", label: "Activation magasin", text: "Connecter rayon, QR, WhatsApp et mesure." },
     { href: "/expertises/ia-automation", label: "CRM marketing GMS", text: "Automatiser coupons, audiences, lead nurturing et conversion WhatsApp." },
     { href: "/expertises/influence", label: "Influence retail", text: "Amplifier lancements et promotions avec les bons créateurs." },
-    { href: "/realisations#don-simon-product-photoshoot", label: "Réalisation Don Simon", text: "Voir une campagne produit et réseaux sociaux." },
+    { href: "/realisations/don-simon-back-to-school-2025", label: "Réalisation Don Simon", text: "Voir une campagne produit et réseaux sociaux." },
     { href: "/realisations#oreo-back-to-school-kv", label: "Réalisation Oreo", text: "Voir une campagne FMCG orientée visibilité." },
   ],
   institutionnel: [
@@ -287,7 +289,7 @@ export const sectorSiloLinksFr = {
     { href: "/expertises/referencement-seo", label: "SEO / GEO", text: "Rendre les informations visibles et retrouvables." },
     { href: "/expertises/web-si", label: "Plateformes web", text: "Structurer les parcours d’information et les contenus publics." },
     { href: "/realisations#cmr-retraite-digitale", label: "Réalisation CMR", text: "Voir une campagne institutionnelle digitale." },
-    { href: "/realisations#ada-produits-locaux", label: "Réalisation ADA", text: "Voir une prise de parole produits locaux et institutionnelle." },
+    { href: "/realisations#ada-produits-locaux", label: "Réalisation Agence de développement agricole", text: "Voir une prise de parole produits locaux et institutionnelle." },
   ],
   "tourisme-hotellerie": [
     { href: "/expertises/referencement-seo", label: "SEO destination", text: "Capter les recherches séjour, hôtel et expérience." },
@@ -303,7 +305,7 @@ export const sectorSiloLinksFr = {
     { href: "/expertises/ia-automation", label: "WhatsApp Business Maroc", text: "Qualifier, relancer et transmettre les leads avec automation IA." },
     { href: "/expertises/phygital", label: "Showroom connecté", text: "Relier terrain, digital et CRM commercial." },
     { href: "/expertises/web-si", label: "Landing pages essais", text: "Créer des parcours rapides pour demandes d’essai et showroom." },
-    { href: "/realisations#maserati-levante-push-whatsapp", label: "Réalisation Maserati", text: "Voir l’activation WhatsApp autour de l’essai privé." },
+    { href: "/realisations/maserati-levante-whatsapp-leads-2025", label: "Réalisation Maserati", text: "Voir l’activation WhatsApp autour de l’essai privé." },
   ],
   fmcg: [
     { href: "/expertises/brand-content", label: "Brand content Maroc", text: "Créer des KV, lancements et contenus social-first pour les marques FMCG." },
@@ -312,7 +314,7 @@ export const sectorSiloLinksFr = {
     { href: "/expertises/achat-media", label: "Achat média FMCG", text: "Booster visibilité, reach, lancement produit et engagement." },
     { href: "/expertises/phygital", label: "Activation retail", text: "Connecter rayon, événement, couponing et mesure." },
     { href: "/realisations#milka-back-to-school", label: "Réalisation Milka", text: "Voir un lancement FMCG back to school." },
-    { href: "/realisations#nescafe-nadi-nescafe", label: "Réalisation Nescafé", text: "Voir une activation de marque personnalisée." },
+    { href: "/realisations/nescafe-nadi-nescafe-2019", label: "Réalisation Nescafé", text: "Voir une plateforme communautaire et phygitale." },
   ],
 } satisfies Record<string, readonly SiloLink[]>;
 
@@ -323,7 +325,9 @@ export const sectorSiloLinksEn = {
     { href: "/en/expertises/ia-automation", label: "WhatsApp & CRM", text: "Follow up prospects and track registrations." },
     { href: "/en/expertises/web-si", label: "Admissions landing pages", text: "Create fast mobile journeys that convert requests." },
     { href: "/en/expertises/brand-content", label: "Proof content", text: "Reassure students and families with useful content." },
-    { href: "/en/case-studies/uir-digital-campaigns", label: "UIR case study", text: "See a full-funnel admissions campaign." },
+    { href: "/en/case-studies/uir-acquisition-campaign-2023-2024", label: "UIR acquisition case study", text: "See a full-funnel admissions campaign." },
+    { href: "/en/case-studies/euromed-university-drupal-website-redesign-2025", label: "Euromed Drupal case study", text: "See a multilingual education web redesign." },
+    { href: "/en/case-studies/tbs-master-acquisition-2025", label: "TBS Master case study", text: "See a multichannel Master acquisition campaign." },
   ],
   "real-estate": [
     { href: "/en/expertises/achat-media", label: "Real estate leads", text: "Acquire qualified requests for projects and visits." },
@@ -331,6 +335,7 @@ export const sectorSiloLinksEn = {
     { href: "/en/expertises/seo-geo", label: "Local SEO", text: "Work residence, city and neighborhood queries." },
     { href: "/en/expertises/ia-automation", label: "CRM & reporting", text: "Track leads up to the commercial visit." },
     { href: "/en/expertises/strategie-digitale", label: "Real estate digital strategy", text: "Frame audiences, proof, channels and commercial seasonality." },
+    { href: "/en/case-studies/prestigia-riad-al-andalous-acquisition-2026", label: "Prestigia case study", text: "See a premium real estate acquisition campaign." },
     { href: "/en/case-studies#ryad-al-andalous-rabat", label: "Ryad Al Andalous case", text: "See a premium real estate reference." },
     { href: "/en/case-studies#rabat-riviera-golf-living", label: "Rabat Riviera case", text: "See a real estate and lifestyle campaign." },
   ],
@@ -341,7 +346,7 @@ export const sectorSiloLinksEn = {
     { href: "/en/expertises/ia-automation", label: "Retail AI automation", text: "Segment, follow up and manage lead nurturing based on customer behavior." },
     { href: "/en/expertises/web-si", label: "E-commerce journeys", text: "Optimize landing pages, tracking, catalogue and conversion." },
     { href: "/en/case-studies#moul-pounj-world-cup", label: "Moul Pounj case", text: "See a retail and connected commerce campaign." },
-    { href: "/en/case-studies#amana-tramway-wrapping", label: "Amana case", text: "See a visible retail and mobility activation." },
+    { href: "/en/case-studies/amana-tramway-phygital-2022", label: "Amana case", text: "See a measurable tramway phygital activation." },
   ],
   "grocery-retail": [
     { href: "/en/expertises/achat-media", label: "Retail promotions", text: "Boost catalogues, coupons and offers." },
@@ -349,7 +354,7 @@ export const sectorSiloLinksEn = {
     { href: "/en/expertises/phygital", label: "In-store activation", text: "Connect shelves, QR, WhatsApp and measurement." },
     { href: "/en/expertises/ia-automation", label: "Grocery retail marketing CRM", text: "Automate coupons, audiences, lead nurturing and WhatsApp conversion." },
     { href: "/en/expertises/influence", label: "Retail influence", text: "Amplify launches and promotions with the right creators." },
-    { href: "/en/case-studies#don-simon-product-photoshoot", label: "Don Simon case", text: "See a product and social media campaign." },
+    { href: "/en/case-studies/don-simon-back-to-school-2025", label: "Don Simon case", text: "See a product and social media campaign." },
     { href: "/en/case-studies#oreo-back-to-school-kv", label: "Oreo case", text: "See an FMCG visibility campaign." },
   ],
   institutional: [
@@ -359,7 +364,7 @@ export const sectorSiloLinksEn = {
     { href: "/en/expertises/seo-geo", label: "SEO / GEO", text: "Make information visible and discoverable." },
     { href: "/en/expertises/web-si", label: "Web platforms", text: "Structure public information journeys and content." },
     { href: "/en/case-studies#cmr-retraite-digitale", label: "CMR case", text: "See a digital institutional campaign." },
-    { href: "/en/case-studies#ada-produits-locaux", label: "ADA case", text: "See a local products and institutional narrative." },
+    { href: "/en/case-studies#ada-produits-locaux", label: "Agence de développement agricole case", text: "See a local products and institutional narrative." },
   ],
   "tourism-hospitality": [
     { href: "/en/expertises/seo-geo", label: "Destination SEO", text: "Capture stay, hotel and experience searches." },
@@ -375,7 +380,7 @@ export const sectorSiloLinksEn = {
     { href: "/en/expertises/ia-automation", label: "WhatsApp Business Morocco", text: "Qualify, follow up and route leads with AI automation." },
     { href: "/en/expertises/phygital", label: "Connected showroom", text: "Link field, digital and commercial CRM." },
     { href: "/en/expertises/web-si", label: "Test-drive landing pages", text: "Create fast journeys for test-drive and showroom requests." },
-    { href: "/en/case-studies#maserati-levante-whatsapp-push", label: "Maserati case", text: "See the WhatsApp activation around the private test drive." },
+    { href: "/en/case-studies/maserati-levante-whatsapp-leads-2025", label: "Maserati case", text: "See the WhatsApp activation around the private test drive." },
   ],
   fmcg: [
     { href: "/en/expertises/brand-content", label: "Brand content in Morocco", text: "Create key visuals, launches and social-first content for FMCG brands." },
@@ -384,7 +389,7 @@ export const sectorSiloLinksEn = {
     { href: "/en/expertises/achat-media", label: "FMCG media buying", text: "Boost visibility, reach, product launches and engagement." },
     { href: "/en/expertises/phygital", label: "Retail activation", text: "Connect shelves, events, couponing and measurement." },
     { href: "/en/case-studies#milka-back-to-school", label: "Milka case", text: "See a back-to-school FMCG launch." },
-    { href: "/en/case-studies#nescafe-nadi-nescafe", label: "Nescafé case", text: "See a personalized brand activation." },
+    { href: "/en/case-studies/nescafe-nadi-nescafe-2019", label: "Nescafé case", text: "See a community and phygital platform." },
   ],
 } satisfies Record<string, readonly SiloLink[]>;
 
@@ -394,7 +399,7 @@ export const proofCaseLinksFr = [
     campaign: "Push WhatsApp - essai privé Levante",
     category: "Automobile",
     links: [
-      { href: "#maserati-levante-push-whatsapp", label: "Réalisation Richmedia", text: "Repérer la référence Maserati dans la page." },
+      { href: "/realisations/maserati-levante-whatsapp-leads-2025", label: "Réalisation Richmedia", text: "Voir le case study Maserati Levante." },
       { href: "/secteurs/automobile", label: "Campagne digitale au Maroc", text: "Relier ce cas au secteur automobile." },
       { href: "/expertises/ia-automation", label: "Dispositif de croissance", text: "Approfondir WhatsApp, CRM et automation IA." },
       { href: "/contact", label: "Créer un dispositif de croissance", text: "Cadrer une activation WhatsApp similaire." },
@@ -427,7 +432,7 @@ export const proofCaseLinksFr = [
     campaign: "Campagne Nadi Nescafé",
     category: "FMCG",
     links: [
-      { href: "#nescafe-nadi-nescafe", label: "Réalisation Richmedia", text: "Repérer la référence Nescafé dans la page." },
+      { href: "/realisations/nescafe-nadi-nescafe-2019", label: "Réalisation Richmedia", text: "Lire le cas client Nadi Nescafé complet." },
       { href: "/secteurs/fmcg", label: "Campagne digitale au Maroc", text: "Relier ce cas au secteur FMCG." },
       { href: "/expertises/brand-content", label: "Dispositif de croissance", text: "Approfondir activation de marque et contenu social-first." },
       { href: "/contact", label: "Créer un dispositif de croissance", text: "Cadrer une activation personnalisée." },
@@ -449,7 +454,7 @@ export const proofCaseLinksFr = [
     campaign: "Campagnes digitales",
     category: "Éducation",
     links: [
-      { href: "/realisations/uir-campagnes-digitales", label: "Cas client marketing digital", text: "Lire le cas client UIR complet." },
+      { href: "/realisations/uir-campagne-acquisition-2023-2024", label: "Cas client marketing digital", text: "Lire le cas client UIR acquisition complet." },
       { href: "/secteurs/education", label: "Campagne digitale au Maroc", text: "Relier ce cas au secteur éducation." },
       { href: "/expertises/achat-media", label: "Dispositif de croissance", text: "Approfondir acquisition, média et admissions." },
       { href: "/contact", label: "Créer un dispositif de croissance", text: "Cadrer une campagne admissions." },
@@ -460,7 +465,7 @@ export const proofCaseLinksFr = [
     campaign: "Tramway wrapping",
     category: "Retail & mobilité",
     links: [
-      { href: "#amana-tramway-wrapping", label: "Réalisation Richmedia", text: "Repérer la référence Amana dans la page." },
+      { href: "/realisations/amana-tramway-phygital-2022", label: "Réalisation Richmedia", text: "Lire le cas client Amana phygital complet." },
       { href: "/secteurs/retail-ecommerce", label: "Campagne digitale au Maroc", text: "Relier ce cas au retail et commerce connecté." },
       { href: "/expertises/phygital", label: "Dispositif de croissance", text: "Approfondir activation phygitale et visibilité terrain." },
       { href: "/contact", label: "Créer un dispositif de croissance", text: "Cadrer une activation retail." },
@@ -482,18 +487,18 @@ export const proofCaseLinksFr = [
     campaign: "Product photoshoot",
     category: "FMCG",
     links: [
-      { href: "#don-simon-product-photoshoot", label: "Réalisation Richmedia", text: "Repérer la référence Don Simon dans la page." },
+      { href: "/realisations/don-simon-back-to-school-2025", label: "Réalisation Richmedia", text: "Voir le case study Don Simon Back to School." },
       { href: "/secteurs/fmcg", label: "Campagne digitale au Maroc", text: "Relier ce cas au secteur FMCG." },
       { href: "/expertises/brand-content", label: "Dispositif de croissance", text: "Approfondir contenus produits et social-first." },
       { href: "/contact", label: "Créer un dispositif de croissance", text: "Cadrer une campagne produit." },
     ],
   },
   {
-    client: "ADA",
+    client: "Agence de développement agricole",
     campaign: "Produits locaux",
     category: "Institutionnel",
     links: [
-      { href: "#ada-produits-locaux", label: "Réalisation Richmedia", text: "Repérer la référence ADA dans la page." },
+      { href: "#ada-produits-locaux", label: "Réalisation Richmedia", text: "Repérer la référence Agence de développement agricole dans la page." },
       { href: "/secteurs/institutionnel", label: "Campagne digitale au Maroc", text: "Relier ce cas aux campagnes institutionnelles." },
       { href: "/expertises/brand-content", label: "Dispositif de croissance", text: "Approfondir narration, contenu et pédagogie." },
       { href: "/contact", label: "Créer un dispositif de croissance", text: "Cadrer une campagne publique ou produit local." },
@@ -515,9 +520,9 @@ export const proofCaseLinksFr = [
     campaign: "Summer",
     category: "Mobilité",
     links: [
-      { href: "#tramway-rabat-summer", label: "Réalisation Richmedia", text: "Repérer la référence Tramway Rabat." },
+      { href: "/realisations/tramway-rabat-sale-community-management-2026", label: "Réalisation Richmedia", text: "Lire le cas client Tramway Social Media complet." },
       { href: "/secteurs/institutionnel", label: "Campagne digitale au Maroc", text: "Relier ce cas aux campagnes publiques et mobilité." },
-      { href: "/expertises/phygital", label: "Dispositif de croissance", text: "Approfondir activation phygitale et terrain." },
+      { href: "/expertises/social-media-maroc", label: "Dispositif de croissance", text: "Approfondir social media, community management et social care." },
       { href: "/contact", label: "Créer un dispositif de croissance", text: "Cadrer une activation mobilité." },
     ],
   },
@@ -537,7 +542,7 @@ export const proofCaseLinksFr = [
     campaign: "Master Casablanca",
     category: "Éducation",
     links: [
-      { href: "#tbs-casablanca-master", label: "Réalisation Richmedia", text: "Repérer la référence TBS." },
+      { href: "/realisations/tbs-master-acquisition-2025", label: "Réalisation Richmedia", text: "Lire le cas client TBS Master complet." },
       { href: "/secteurs/education", label: "Campagne digitale au Maroc", text: "Relier ce cas au secteur éducation." },
       { href: "/expertises/achat-media", label: "Dispositif de croissance", text: "Approfondir acquisition, média et inscriptions." },
       { href: "/contact", label: "Créer un dispositif de croissance", text: "Cadrer une campagne formation." },
@@ -595,7 +600,7 @@ export const proofCaseLinksEn = [
     campaign: "WhatsApp push - private Levante test drive",
     category: "Automotive",
     links: [
-      { href: "#maserati-levante-whatsapp-push", label: "Richmedia case study", text: "Find the Maserati reference on this page." },
+      { href: "/en/case-studies/maserati-levante-whatsapp-leads-2025", label: "Richmedia case study", text: "Open the Maserati Levante case study." },
       { href: "/en/sectors/automotive", label: "Digital campaign in Morocco", text: "Connect this case to the automotive sector." },
       { href: "/en/expertises/ia-automation", label: "Growth system", text: "Explore WhatsApp, CRM and AI automation." },
       { href: "/en/contact", label: "Create a growth system", text: "Frame a similar WhatsApp activation." },
@@ -628,7 +633,7 @@ export const proofCaseLinksEn = [
     campaign: "Nadi Nescafé campaign",
     category: "FMCG",
     links: [
-      { href: "#nescafe-nadi-nescafe", label: "Richmedia case study", text: "Find the Nescafé reference on this page." },
+      { href: "/en/case-studies/nescafe-nadi-nescafe-2019", label: "Richmedia case study", text: "Open the full Nadi Nescafé case study." },
       { href: "/en/sectors/fmcg", label: "Digital campaign in Morocco", text: "Connect this case to FMCG." },
       { href: "/en/expertises/brand-content", label: "Growth system", text: "Explore brand activation and social-first content." },
       { href: "/en/contact", label: "Create a growth system", text: "Frame a personalized activation." },
@@ -650,7 +655,7 @@ export const proofCaseLinksEn = [
     campaign: "Digital campaigns",
     category: "Education",
     links: [
-      { href: "/en/case-studies/uir-digital-campaigns", label: "Digital marketing case study", text: "Read the full UIR case study." },
+      { href: "/en/case-studies/uir-acquisition-campaign-2023-2024", label: "Digital marketing case study", text: "Read the full UIR acquisition case study." },
       { href: "/en/sectors/education", label: "Digital campaign in Morocco", text: "Connect this case to education." },
       { href: "/en/expertises/achat-media", label: "Growth system", text: "Explore acquisition, media and admissions." },
       { href: "/en/contact", label: "Create a growth system", text: "Frame an admissions campaign." },
@@ -661,7 +666,7 @@ export const proofCaseLinksEn = [
     campaign: "Tramway wrapping",
     category: "Retail & mobility",
     links: [
-      { href: "#amana-tramway-wrapping", label: "Richmedia case study", text: "Find the Amana reference on this page." },
+      { href: "/en/case-studies/amana-tramway-phygital-2022", label: "Richmedia case study", text: "Open the full Amana phygital case study." },
       { href: "/en/sectors/retail-ecommerce", label: "Digital campaign in Morocco", text: "Connect this case to retail and connected commerce." },
       { href: "/en/expertises/phygital", label: "Growth system", text: "Explore phygital activation and field visibility." },
       { href: "/en/contact", label: "Create a growth system", text: "Frame a retail activation." },
@@ -683,18 +688,18 @@ export const proofCaseLinksEn = [
     campaign: "Product photoshoot",
     category: "FMCG",
     links: [
-      { href: "#don-simon-product-photoshoot", label: "Richmedia case study", text: "Find the Don Simon reference on this page." },
+      { href: "/en/case-studies/don-simon-back-to-school-2025", label: "Richmedia case study", text: "Open the Don Simon Back to School case study." },
       { href: "/en/sectors/fmcg", label: "Digital campaign in Morocco", text: "Connect this case to FMCG." },
       { href: "/en/expertises/brand-content", label: "Growth system", text: "Explore product content and social-first creative." },
       { href: "/en/contact", label: "Create a growth system", text: "Frame a product campaign." },
     ],
   },
   {
-    client: "ADA",
+    client: "Agence de développement agricole",
     campaign: "Local products",
     category: "Institutional",
     links: [
-      { href: "#ada-produits-locaux", label: "Richmedia case study", text: "Find the ADA reference on this page." },
+      { href: "#ada-produits-locaux", label: "Richmedia case study", text: "Find the Agence de développement agricole reference on this page." },
       { href: "/en/sectors/institutional", label: "Digital campaign in Morocco", text: "Connect this case to institutional campaigns." },
       { href: "/en/expertises/brand-content", label: "Growth system", text: "Explore narrative, content and education." },
       { href: "/en/contact", label: "Create a growth system", text: "Frame a public or local-product campaign." },
@@ -716,9 +721,9 @@ export const proofCaseLinksEn = [
     campaign: "Summer",
     category: "Mobility",
     links: [
-      { href: "#tramway-rabat-summer", label: "Richmedia case study", text: "Find the Tramway Rabat reference." },
+      { href: "/en/case-studies/tramway-rabat-sale-community-management-2026", label: "Richmedia case study", text: "Open the full Tramway Social Media case study." },
       { href: "/en/sectors/institutional", label: "Digital campaign in Morocco", text: "Connect this case to public and mobility campaigns." },
-      { href: "/en/expertises/phygital", label: "Growth system", text: "Explore phygital and field activation." },
+      { href: "/en/expertises/social-media-morocco", label: "Growth system", text: "Explore social media, community management and social care." },
       { href: "/en/contact", label: "Create a growth system", text: "Frame a mobility activation." },
     ],
   },
@@ -738,7 +743,7 @@ export const proofCaseLinksEn = [
     campaign: "Casablanca Master",
     category: "Education",
     links: [
-      { href: "#tbs-casablanca-master", label: "Richmedia case study", text: "Find the TBS reference." },
+      { href: "/en/case-studies/tbs-master-acquisition-2025", label: "Richmedia case study", text: "Open the full TBS Master case study." },
       { href: "/en/sectors/education", label: "Digital campaign in Morocco", text: "Connect this case to education." },
       { href: "/en/expertises/achat-media", label: "Growth system", text: "Explore acquisition, media and registrations." },
       { href: "/en/contact", label: "Create a growth system", text: "Frame a training campaign." },

@@ -41,32 +41,12 @@ const toArticleCard = (entry: any) => {
 };
 
 export async function getStaticPaths() {
-  const englishInsightAliases: Record<string, string> = {
-    'creators-brands-durable-collaborations': '/en/insights/creators-brands-durable-collaborations/',
-    'crm-automation-marketing-sales-alignment': '/en/insights/crm-automation-marketing-sales-alignment/',
-    'data-for-decisions-performance-strategy': '/en/insights/data-for-decisions-performance-strategy/',
-    'digital-acquisition-plan-2026': '/en/insights/digital-acquisition-plan-2026/',
-    'digital-priorities-2026-profitable-growth': '/en/insights/digital-priorities-2026-profitable-growth/',
-    'employer-brand-digital-attractiveness': '/en/insights/employer-brand-digital-attractiveness/',
-    'google-ads-campaign-cost-morocco': '/en/insights/google-ads-campaign-cost-morocco/',
-    'meta-campaigns-2026-best-practices': '/en/insights/meta-campaigns-2026-best-practices/',
-    'quality-content-durable-seo': '/en/insights/quality-content-durable-seo/',
-    'seo-vs-geo-2026': '/en/insights/seo-vs-geo-2026/',
-    'whatsapp-business-conversion-channel': '/en/insights/whatsapp-business-conversion-channel/',
-  };
   const entries = await getCollection('articles', ({ data }) => !data.draft && data.lang === 'fr');
-  return [
-    ...entries.map((entry) => ({ params: { slug: entry.data.slug ?? entry.id }, props: { entry } })),
-    ...Object.entries(englishInsightAliases).map(([slug, redirectTo]) => ({
-      params: { slug },
-      props: { redirectTo },
-    })),
-  ];
+  return entries.map((entry) => ({ params: { slug: entry.data.slug ?? entry.id }, props: { entry } }));
 }
 
-const { entry, redirectTo } = Astro.props;
+const { entry } = Astro.props;
 const pageEntry = entry!;
-const redirectUrl = redirectTo ? `${SITE.url}${redirectTo}` : undefined;
 
 let Content: any;
 let slug = '';
@@ -79,115 +59,94 @@ let schemaImage = '';
 let schema: object[] = [];
 let authorProfile = getEditorialAuthor();
 
-if (!redirectTo) {
-  if (!pageEntry) throw new Error('Missing article entry');
-  const rendered = await render(pageEntry);
-  Content = rendered.Content;
-  slug = pageEntry.data.slug ?? pageEntry.id;
-  url = `${SITE.url}/insights/${slug}`;
-  image = articleImages[slug] ?? pageEntry.data.ogImage ?? '/og-default.jpg';
-  const allEntries = (await getCollection('articles', ({ data }) => !data.draft && data.lang === 'fr'))
-    .sort((a, b) => b.data.datePublication.getTime() - a.data.datePublication.getTime());
-  const otherEntries = allEntries.filter((article) => (article.data.slug ?? article.id) !== slug);
-  recentArticles = otherEntries.slice(0, 4).map(toArticleCard);
-  const relatedArticles = otherEntries
-    .filter((article) => article.data.categorie === pageEntry.data.categorie)
-    .slice(0, 4)
-    .map(toArticleCard);
-  fallbackRelated = relatedArticles.length > 0 ? relatedArticles : recentArticles.slice(0, 4);
-  categoryLabel = categoryLabels[pageEntry.data.categorie] ?? pageEntry.data.categorie;
-  schemaImage = image.startsWith('/') ? `${SITE.url}${image}` : image;
-  authorProfile = getEditorialAuthorStrict(pageEntry.data.auteur, `article "${slug}"`) ?? getEditorialAuthor();
-  const authorImage = authorProfile.image.startsWith('/') ? `${SITE.url}${authorProfile.image}` : authorProfile.image;
-  schema = [
-    articleSchema({
-      title: pageEntry.data.title,
-      description: pageEntry.data.metaDescription,
-      url,
-      author: {
-        '@type': 'Person',
-        '@id': authorPersonId(authorProfile.slug),
-        name: authorProfile.name,
-        url: authorCanonicalUrl(authorProfile.slug),
-        image: authorImage,
-      },
-      datePublished: pageEntry.data.datePublication,
-      dateModified: pageEntry.data.dateModification,
-      image: schemaImage,
-      citation: pageEntry.data.sources.map((source) => source.url),
-    }),
-    breadcrumbs([
-      { name: 'Accueil', url: SITE.url },
-      { name: 'Insights', url: `${SITE.url}/insights` },
-      { name: pageEntry.data.title, url },
-    ]),
-  ];
-}
+if (!pageEntry) throw new Error('Missing article entry');
+const rendered = await render(pageEntry);
+Content = rendered.Content;
+slug = pageEntry.data.slug ?? pageEntry.id;
+url = `${SITE.url}/insights/${slug}`;
+image = articleImages[slug] ?? pageEntry.data.ogImage ?? '/og-default.jpg';
+const allEntries = (await getCollection('articles', ({ data }) => !data.draft && data.lang === 'fr'))
+  .sort((a, b) => b.data.datePublication.getTime() - a.data.datePublication.getTime());
+const otherEntries = allEntries.filter((article) => (article.data.slug ?? article.id) !== slug);
+recentArticles = otherEntries.slice(0, 4).map(toArticleCard);
+const relatedArticles = otherEntries
+  .filter((article) => article.data.categorie === pageEntry.data.categorie)
+  .slice(0, 4)
+  .map(toArticleCard);
+fallbackRelated = relatedArticles.length > 0 ? relatedArticles : recentArticles.slice(0, 4);
+categoryLabel = categoryLabels[pageEntry.data.categorie] ?? pageEntry.data.categorie;
+schemaImage = image.startsWith('/') ? `${SITE.url}${image}` : image;
+authorProfile = getEditorialAuthorStrict(pageEntry.data.auteur, `article "${slug}"`) ?? getEditorialAuthor();
+const authorImage = authorProfile.image.startsWith('/') ? `${SITE.url}${authorProfile.image}` : authorProfile.image;
+schema = [
+  articleSchema({
+    title: pageEntry.data.title,
+    description: pageEntry.data.metaDescription,
+    url,
+    author: {
+      '@type': 'Person',
+      '@id': authorPersonId(authorProfile.slug),
+      name: authorProfile.name,
+      url: authorCanonicalUrl(authorProfile.slug),
+      image: authorImage,
+    },
+    datePublished: pageEntry.data.datePublication,
+    dateModified: pageEntry.data.dateModification,
+    image: schemaImage,
+    citation: pageEntry.data.sources.map((source) => source.url),
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Insights', url: `${SITE.url}/insights` },
+    { name: pageEntry.data.title, url },
+  ]),
+];
 ---
 
-{redirectTo ? (
-  <html lang="en">
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="robots" content="noindex, follow" />
-      <meta http-equiv="refresh" content={`0; url=${redirectTo}`} />
-      <link rel="canonical" href={redirectUrl} />
-      <title>Redirecting to English insight | Richmedia</title>
-      <script is:inline define:vars={{ redirectTo }}>
-        window.location.replace(redirectTo);
-      </script>
-    </head>
-    <body>
-      <p>Redirecting to <a href={redirectTo}>the English insight</a>.</p>
-    </body>
-  </html>
-) : (
-  <BaseLayout
-    title={pageEntry.data.metaTitle ?? pageEntry.data.title}
+<BaseLayout
+  title={pageEntry.data.metaTitle ?? pageEntry.data.title}
+  description={pageEntry.data.metaDescription}
+  canonical={url}
+  ogImage={schemaImage}
+  ogType="article"
+  articlePublishedTime={pageEntry.data.datePublication}
+  articleModifiedTime={pageEntry.data.dateModification}
+  articleAuthor={authorProfile.name}
+  articleSection={pageEntry.data.categorie}
+  schema={schema}
+>
+  <ArticleDetailPage
+    breadcrumbLabel="Insights"
+    breadcrumbHref="/insights"
+    categoryLabel={categoryLabel}
+    title={pageEntry.data.title}
     description={pageEntry.data.metaDescription}
-    canonical={url}
-    ogImage={schemaImage}
-    ogType="article"
-    articlePublishedTime={pageEntry.data.datePublication}
-    articleModifiedTime={pageEntry.data.dateModification}
-    articleAuthor={authorProfile.name}
-    articleSection={pageEntry.data.categorie}
-    schema={schema}
+    author={authorProfile.name}
+    authorRole={authorProfile.role.fr}
+    authorBio={authorProfile.bio.fr}
+    authorImage={authorProfile.image}
+    authorUrl={getEditorialAuthorPath(pageEntry.data.auteur, 'fr')}
+    date={pageEntry.data.datePublication}
+    readingTime={pageEntry.data.tempsLecture ?? 6}
+    image={image}
+    quickAnswer={pageEntry.data.quickAnswer}
+    tags={[pageEntry.data.keywordPrincipal, ...pageEntry.data.keywordsSecondaires].slice(0, 4)}
+    recentArticles={recentArticles}
+    relatedArticles={fallbackRelated}
+    faq={pageEntry.data.faq}
+    sources={pageEntry.data.sources}
+    ctaTitle="Des questions sur votre stratégie digitale ? Échangeons avec nos experts."
+    ctaPrimary="Discuter d'un projet"
+    ctaPrimaryHref="/contact"
+    ctaSecondary="Découvrir nos expertises"
+    ctaSecondaryHref="/expertises"
+    newsletterTitle="Restez à la page"
+    newsletterDescription="Recevez nos derniers insights, tendances et études de cas."
+    newsletterButton="S’abonner"
+    relatedTitle="Articles associés"
+    recentTitle="Articles récents"
+    authorTitle="À propos de l’auteur"
   >
-    <ArticleDetailPage
-      breadcrumbLabel="Insights"
-      breadcrumbHref="/insights"
-      categoryLabel={categoryLabel}
-      title={pageEntry.data.title}
-      description={pageEntry.data.metaDescription}
-      author={authorProfile.name}
-      authorRole={authorProfile.role.fr}
-      authorBio={authorProfile.bio.fr}
-      authorImage={authorProfile.image}
-      authorUrl={getEditorialAuthorPath(pageEntry.data.auteur, 'fr')}
-      date={pageEntry.data.datePublication}
-      readingTime={pageEntry.data.tempsLecture ?? 6}
-      image={image}
-      quickAnswer={pageEntry.data.quickAnswer}
-      tags={[pageEntry.data.keywordPrincipal, ...pageEntry.data.keywordsSecondaires].slice(0, 4)}
-      recentArticles={recentArticles}
-      relatedArticles={fallbackRelated}
-      faq={pageEntry.data.faq}
-      sources={pageEntry.data.sources}
-      ctaTitle="Des questions sur votre stratégie digitale ? Échangeons avec nos experts."
-      ctaPrimary="Discuter d'un projet"
-      ctaPrimaryHref="/contact"
-      ctaSecondary="Découvrir nos expertises"
-      ctaSecondaryHref="/expertises"
-      newsletterTitle="Restez à la page"
-      newsletterDescription="Recevez nos derniers insights, tendances et études de cas."
-      newsletterButton="S’abonner"
-      relatedTitle="Articles associés"
-      recentTitle="Articles récents"
-      authorTitle="À propos de l’auteur"
-    >
-      <Content />
-    </ArticleDetailPage>
-  </BaseLayout>
-)}
+    <Content />
+  </ArticleDetailPage>
+</BaseLayout>

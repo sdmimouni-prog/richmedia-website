@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ChecklistTrackingDigitalPage from '../../../components/ChecklistTrackingDigitalPage.astro';
+import { SITE } from '../../../consts';
+import { breadcrumbs, localBusiness } from '../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/tools/pre-launch-tracking-checklist/`;
+const pageDescription =
+  'Download the free Richmedia checklist: 30 checks for GA4, GTM, pixels, conversions, forms, CRM and tracking before launch.';
+const downloadHref = '/downloads/checklist_tracking_digital_avant_lancement_richmedia.pdf';
+const downloadFilename = 'checklist_tracking_digital_avant_lancement_richmedia.pdf';
+const ogImage = '/assets/richmedia-tools/checklist-tracking-digital/checklist-tracking-page-1.webp';
+
+const schema = [
+  {
+    ...localBusiness(),
+    url: pageUrl,
+    inLanguage: 'en',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    '@id': `${pageUrl}#checklist`,
+    name: 'Pre-launch Digital Tracking Checklist — Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    encodingFormat: 'application/pdf',
+    inLanguage: 'en',
+    publisher: { '@id': `${SITE.url}/#organization` },
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'MAD',
+      availability: 'https://schema.org/InStock',
+    },
+  },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Tools & resources', url: `${SITE.url}/en/tools` },
+    { name: 'Pre-launch Digital Tracking Checklist', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  lang="en"
+  title="Pre-launch Digital Tracking Checklist | Richmedia"
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={ogImage}
+  schema={schema}
+>
+  <ChecklistTrackingDigitalPage lang="en" downloadHref={downloadHref} downloadFilename={downloadFilename} />
+</BaseLayout>

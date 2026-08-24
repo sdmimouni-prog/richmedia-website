@@ -100,6 +100,7 @@ const cases = [
     campaignType: 'KV & lancement Back to School',
     visibility: '24,2M impressions',
     engagement: '7,2%',
+    href: '/realisations#milka-back-to-school',
   },
   {
     image: `${realizationAssets}/maserati-levante-push-whatsapp.webp`,
@@ -111,6 +112,7 @@ const cases = [
     visibility: '100 000 envois',
     engagement: '80% ouverture',
     objectPosition: 'center 58%',
+    href: '/realisations/maserati-levante-whatsapp-leads-2025',
   },
   {
     image: `${assetBase}/campaign-wide-donsimon.webp`,
@@ -121,6 +123,7 @@ const cases = [
     campaignType: 'Campagne réseaux sociaux',
     visibility: '14M vues',
     engagement: '8,1%',
+    href: '/realisations/don-simon-back-to-school-2025',
   },
   {
     image: `${realizationAssets}/nescafe-nadi-nescafe.webp`,
@@ -129,8 +132,9 @@ const cases = [
     category: 'Brand content',
     client: 'Nescafé',
     campaignType: 'Campagne Nadi Nescafé',
-    visibility: '19,8M impressions',
-    engagement: '5,8%',
+    visibility: '100 K visites',
+    engagement: '5 K membres',
+    href: '/realisations/nescafe-nadi-nescafe-2019',
   },
 ];
 
@@ -356,7 +360,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
       </div>
       <div class="case-grid">
         {cases.map((item) => (
-          <article class="case-card">
+          <a class="case-card" href={item.href} aria-label={`Voir le case study ${item.client}`}>
             <img
               src={resolveAsset(item.image)}
               alt={`Campagne ${item.client}`}
@@ -389,7 +393,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
                 </div>
               </div>
             </div>
-          </article>
+          </a>
         ))}
       </div>
       <div class="work-more">
@@ -559,7 +563,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
         <div class="barometer-download-copy">
           <span class="barometer-download-kicker">Baromètre Richmedia 2026</span>
           <h2 id="barometer-download-title">Télécharger le Baromètre Marketing Digital au Maroc</h2>
-          <p>
+          <p class="barometer-download-summary">
             Benchmarks Richmedia sur les budgets, CPL, canaux, WhatsApp, Meta Ads et Google Ads pour cadrer vos campagnes avec des repères concrets.
           </p>
           <span class="barometer-download-cta">
@@ -569,13 +573,14 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
         </div>
         <div class="barometer-download-visual">
           <img
-            src="/assets/richmedia-barometre/barometre-2026-cover-book.webp"
+            class="barometer-book-image"
+            src="/assets/richmedia-barometre/barometre-2026-book-render.webp"
             alt="Couverture du Baromètre Marketing Digital au Maroc 2026"
-            width="1040"
-            height="760"
+            width="1122"
+            height="1402"
             loading="lazy"
             decoding="async"
-            sizes="(max-width: 720px) 92vw, 460px"
+            sizes="(max-width: 720px) 46vw, 215px"
           />
         </div>
       </a>
@@ -1349,7 +1354,8 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     .barometer-download-card::after,
     .barometer-download-cta,
     .barometer-download-visual::before,
-    .barometer-download-visual img {
+    .barometer-download-visual::after,
+    .barometer-book-image {
       transition: none;
     }
 
@@ -1393,6 +1399,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   .case-card {
     --case-panel-height: 7rem;
     position: relative;
+    display: block;
     min-height: 326px;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.11);
@@ -1400,6 +1407,13 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     background:
       radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.055), transparent 14rem),
       #050609;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .case-card:focus-visible {
+    outline: 2px solid rgba(124, 60, 255, 0.95);
+    outline-offset: 3px;
   }
 
   .case-card-large {
@@ -2112,20 +2126,22 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   }
 
   .barometer-download-band {
-    margin-bottom: clamp(2.6rem, 5vw, 5.6rem);
+    margin-block: 0;
   }
 
   .barometer-download-card {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(300px, 0.68fr);
-    gap: clamp(1.2rem, 4vw, 3.4rem);
+    grid-template-columns: minmax(0, 1fr) minmax(190px, 0.34fr);
+    gap: clamp(0.75rem, 2vw, 1.4rem);
     align-items: center;
-    min-height: 330px;
+    min-height: 140px;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.13);
     border-radius: 8px;
-    padding: clamp(1.55rem, 3vw, 2.6rem);
+    padding: clamp(0.48rem, 0.75vw, 0.64rem);
+    padding-left: 60px;
+    padding-right: 25px;
     background:
       radial-gradient(circle at 15% 24%, rgba(124, 60, 255, 0.28), transparent 24rem),
       linear-gradient(135deg, rgba(26, 16, 55, 0.92), rgba(5, 6, 10, 0.98) 55%, rgba(12, 8, 28, 0.94));
@@ -2186,7 +2202,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   .barometer-download-copy {
     position: relative;
     z-index: 2;
-    max-width: 680px;
+    max-width: 960px;
   }
 
   .barometer-download-kicker {
@@ -2209,30 +2225,31 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   }
 
   .barometer-download-copy h2 {
-    max-width: 700px;
-    margin: 0.85rem 0 0;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    line-height: 0.98;
+    max-width: none;
+    margin: 0.42rem 0 0;
+    font-size: clamp(1.45rem, 2.25vw, 1.98rem);
+    line-height: 1;
     letter-spacing: 0;
+    white-space: nowrap;
   }
 
-  .barometer-download-copy p {
-    max-width: 620px;
-    margin: 1.15rem 0 0;
-    color: rgba(255, 255, 255, 0.72);
-    font-size: clamp(0.96rem, 1.28vw, 1.12rem);
-    line-height: 1.55;
+  .barometer-download-summary {
+    max-width: 900px;
+    margin: 0.32rem 0 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: clamp(0.76rem, 0.92vw, 0.88rem);
+    line-height: 1.28;
   }
 
   .barometer-download-cta {
     display: inline-flex;
     align-items: center;
     gap: 0.48rem;
-    min-height: 3.2rem;
-    margin-top: 1.55rem;
+    min-height: 2.28rem;
+    margin-top: 0.52rem;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 6px;
-    padding: 0 1.15rem;
+    padding: 0 1rem;
     background: linear-gradient(135deg, #8c52ff, #6224ec);
     box-shadow: 0 1rem 2.4rem rgba(124, 60, 255, 0.3);
     color: #fff;
@@ -2249,29 +2266,47 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     position: relative;
     z-index: 1;
     display: grid;
-    min-height: 286px;
+    min-height: 140px;
     place-items: center;
+    transform: translateX(-1.35rem);
   }
 
   .barometer-download-visual::before {
     position: absolute;
-    inset: 12% 2% 7%;
+    inset: 4% -4% -2%;
     border-radius: 999px;
-    background: radial-gradient(circle, rgba(124, 60, 255, 0.26), transparent 68%);
+    background:
+      radial-gradient(circle at 52% 42%, rgba(166, 114, 255, 0.33), transparent 46%),
+      radial-gradient(circle at 70% 74%, rgba(54, 24, 138, 0.52), transparent 58%);
     content: '';
-    filter: blur(28px);
+    filter: blur(30px);
     opacity: 0.85;
     transition: opacity 240ms ease, transform 320ms ease;
   }
 
-  .barometer-download-visual img {
+  .barometer-download-visual::after {
+    position: absolute;
+    right: 0;
+    bottom: 2%;
+    width: min(88%, 300px);
+    height: 1.75rem;
+    border-radius: 999px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.58), transparent 72%);
+    content: '';
+    filter: blur(11px);
+    opacity: 0.88;
+    transform: rotate(-2deg);
+    transition: opacity 240ms ease, transform 320ms ease;
+  }
+
+  .barometer-book-image {
     position: relative;
+    z-index: 1;
     display: block;
-    width: min(100%, 460px);
+    width: min(100%, 164px);
     height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 1.2rem 2.8rem rgba(0, 0, 0, 0.42));
-    transform: translateY(0.4rem) rotate(-1deg);
+    filter: drop-shadow(0 1.1rem 2.4rem rgba(0, 0, 0, 0.48));
+    transform: translateX(-0.2rem);
     transition: filter 260ms ease, transform 360ms ease;
     will-change: transform;
   }
@@ -2281,9 +2316,14 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     transform: scale(1.08);
   }
 
-  .barometer-download-card:hover .barometer-download-visual img {
-    filter: drop-shadow(0 1.45rem 3.2rem rgba(0, 0, 0, 0.5));
-    transform: translateY(-0.1rem) rotate(0.5deg) scale(1.025);
+  .barometer-download-card:hover .barometer-download-visual::after {
+    opacity: 1;
+    transform: translateY(0.2rem) rotate(-2deg) scale(1.08);
+  }
+
+  .barometer-download-card:hover .barometer-book-image {
+    filter: drop-shadow(0 1.35rem 2.8rem rgba(0, 0, 0, 0.54));
+    transform: translate(-0.15rem, -0.16rem) scale(1.02);
   }
 
   .cert-grid {
@@ -2453,11 +2493,13 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .barometer-download-visual {
-      min-height: 245px;
+      min-height: 150px;
+      place-items: center;
+      transform: translateX(0);
     }
 
-    .barometer-download-visual img {
-      width: min(100%, 420px);
+    .barometer-book-image {
+      width: min(42vw, 170px);
     }
 
     .hero-visual {
@@ -2683,15 +2725,18 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .barometer-download-card {
-      padding: 1.1rem;
+      padding: 0.78rem;
     }
 
     .barometer-download-copy h2 {
-      font-size: clamp(1.75rem, 9.5vw, 2.55rem);
+      font-size: clamp(1.28rem, 6.4vw, 1.72rem);
+      white-space: normal;
     }
 
-    .barometer-download-copy p {
-      font-size: 0.95rem;
+    .barometer-download-cta {
+      min-height: 2.45rem;
+      margin-top: 0.75rem;
+      padding-inline: 0.9rem;
     }
 
     .barometer-download-cta {
@@ -2700,12 +2745,13 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .barometer-download-visual {
-      min-height: 210px;
-      margin-top: 0.2rem;
+      min-height: 128px;
+      margin-top: 0;
     }
 
-    .barometer-download-visual img {
-      width: min(100%, 330px);
+    .barometer-book-image {
+      width: min(40vw, 128px);
+      transform: translateY(0.1rem);
     }
   }
 

@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../components/CaseStudyModel.astro';
+import { SITE } from '../../consts';
+import { articleSchema, breadcrumbs } from '../../lib/schema';
+
+const pageUrl = `${SITE.url}/realisations/amana-tramway-phygital-2022`;
+const heroImage = '/assets/richmedia-home/campaign-wide-amana-tram.webp';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Amana — Tramway & Activation Phygitale 2022 | Richmedia';
+const pageDescription =
+  'Découvrez comment Richmedia a transformé l’habillage tramway Amana en activation phygitale mesurable : 29 M d’audience estimée, 8 418 scans QR et 4 183 leads.';
+
+const content = {
+  backHref: '/realisations',
+  backLabel: 'Retour aux cas clients',
+  eyebrow: 'Une orchestration phygitale reliant visibilité urbaine, QR code, expérience digitale et acquisition mesurable.',
+  client: 'Amana',
+  clientLong: 'Amana',
+  category: 'Logistique / E-commerce',
+  period: '2022',
+  scope: 'Tramway / QR Code / Landing Page / Jeu-concours / Meta Ads / Display / Emailing / Relations Presse / Activation terrain',
+  title: 'Le Résultat',
+  subtitle:
+    'Pour promouvoir son offre e-commerce, Amana a confié à Richmedia un dispositif phygital combinant forte visibilité urbaine et activation digitale mesurable. L’habillage du tramway devenait un véritable point d’entrée vers une expérience digitale : QR code, landing page dédiée, jeu-concours et formulaire d’acquisition.',
+  heroImage,
+  heroAlt: 'Habillage tramway Amana pour une activation phygitale e-commerce',
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'Amana' },
+    { label: 'Projet', value: 'Habillage Tramway & Activation Phygitale' },
+    { label: 'Secteur', value: 'Logistique / E-commerce' },
+    { label: 'Période', value: '2022' },
+    { label: 'Zone', value: 'Maroc' },
+    { label: 'Service', value: 'E-commerce' },
+    { label: 'Cibles', value: 'E-commerçants / TPE-PME / particuliers vendeurs / jeunes actifs / grand public' },
+    { label: 'Budget', value: 'Confidentiel' },
+  ],
+  metrics: [
+    { value: '29 M', label: 'audience estimée tramway', icon: 'ph ph-train' },
+    { value: '14 881', label: 'visites landing page', icon: 'ph ph-browser' },
+    { value: '8 418', label: 'scans QR', icon: 'ph ph-qr-code' },
+    { value: '4 183', label: 'leads générés', icon: 'ph ph-users' },
+    { value: '3 181', label: 'participations au jeu', icon: 'ph ph-trophy' },
+  ],
+  deliverables: [
+    'Stratégie phygitale',
+    'Concept & parcours d’activation',
+    'Habillage tramway',
+    'QR code',
+    'Landing page dédiée',
+    'Jeu-concours',
+    'Formulaire d’acquisition',
+    'Meta Ads',
+    'Display',
+    'Emailing',
+    'Relations presse',
+    'Activation terrain',
+    'Tracking & reporting',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'OOH à fort impact',
+      text: 'Habillage tramway pour créer une visibilité urbaine forte.',
+      bullets: [
+        'Habillage tramway pour créer une visibilité urbaine forte.',
+        'Présence de marque massive autour de l’offre e-commerce Amana.',
+        'Dispositif pensé pour moderniser l’image de la marque.',
+      ],
+      icon: 'ph ph-train',
+    },
+    {
+      eyebrow: '02',
+      title: 'Offline → Digital',
+      text: 'Transformation du support urbain en point d’entrée digital mesurable.',
+      bullets: [
+        'QR code directement intégré au support tramway.',
+        'Transformation d’un support OOH en point d’entrée digital.',
+        'Parcours mesurable du scan vers la landing page.',
+      ],
+      icon: 'ph ph-qr-code',
+    },
+    {
+      eyebrow: '03',
+      title: 'Jeu & lead generation',
+      text: 'Interaction, jeu-concours et formulaire d’acquisition.',
+      bullets: [
+        'Landing page dédiée.',
+        'Jeu-concours pour inciter au scan.',
+        'Formulaire pour convertir l’interaction en lead.',
+        'Découverte de l’offre e-commerce Amana.',
+      ],
+      icon: 'ph ph-users-three',
+    },
+    {
+      eyebrow: '04',
+      title: 'Amplification multicanale',
+      text: 'Prolonger la visibilité du tramway et soutenir la campagne nationale.',
+      bullets: ['Meta Ads.', 'Display.', 'Emailing.', 'Relations presse.', 'Activation terrain.'],
+      icon: 'ph ph-megaphone',
+    },
+  ],
+  proof: {
+    eyebrow: 'Bloc 3',
+    title: 'Les Preuves',
+    intro:
+      'Le visuel réel du tramway Amana et les indicateurs validés du dispositif phygital, sans faux dashboard ni faux screenshot.',
+    items: [
+      { image: heroImage, label: 'Habillage tramway Amana', format: 'Visuel réel campagne', size: 'banner' as const },
+    ],
+    kpi: {
+      value: '29 M',
+      label: 'audience estimée',
+      breakdown: ['8 418 scans QR', '14 881 visites LP', '4 183 leads', '3 181 participations'],
+      note: 'Les visites landing page incluent aussi l’amplification digitale.',
+    },
+    funnel: {
+      items: [
+        { value: '29 M', label: 'Audience estimée tramway' },
+        { value: '8 418', label: 'Scans QR' },
+        { value: '14 881', label: 'Visites landing page' },
+        { value: '4 183', label: 'Leads générés' },
+        { value: '3 181', label: 'Participations au jeu' },
+      ],
+      note: 'La landing page a également bénéficié des campagnes d’amplification digitale.',
+    },
+    conclusion:
+      'La campagne a transformé un support urbain traditionnel en véritable point d’entrée digital mesurable, en combinant visibilité OOH, interaction via QR code, expérience digitale et acquisition de leads.',
+    links: [
+      { href: '/expertises/phygital/', label: 'Activation phygitale' },
+      { href: '/expertises/generation-leads-maroc/', label: 'Génération de leads' },
+      { href: '/expertises/media-performance/', label: 'Media Performance' },
+      { href: '/secteurs/retail-ecommerce/', label: 'Retail & e-commerce' },
+    ],
+  },
+  quote:
+    'Vous souhaitez transformer vos activations physiques en expériences digitales mesurables ?',
+  ctaLabel: 'Parler à un expert',
+  ctaHref: '/contact',
+  secondaryLabel: 'Découvrir nos expertises Phygital',
+  secondaryHref: '/expertises/phygital/',
+  ui: {
+    resultLabel: 'Résultats du cas client',
+    metaLabel: 'Résumé du cas client',
+    workLabel: 'Bloc 2',
+    workTitle: 'Ce Qu’on A Fait',
+    proofLabel: 'Preuves visuelles',
+    quoteLabel: 'Maillage du cas client',
+    deliverablesTitle: 'Livrables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Accueil', url: SITE.url },
+    { name: 'Cas clients', url: `${SITE.url}/realisations` },
+    { name: 'Amana — Tramway & Activation Phygitale 2022', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

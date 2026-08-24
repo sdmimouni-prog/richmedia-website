@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TemplateBriefCampaignPage from '../../../components/TemplateBriefCampaignPage.astro';
+import { SITE } from '../../../consts';
+import { breadcrumbs, localBusiness } from '../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/tools/digital-campaign-brief-template/`;
+const pageDescription =
+  'Download the free Richmedia Word template to frame objectives, audience, budget, KPIs, tracking, CRM and planning for your digital campaign.';
+const downloadHref = '/downloads/template_brief_campagne_digitale_richmedia.docx';
+const downloadFilename = 'template_brief_campagne_digitale_richmedia.docx';
+const ogImage = '/assets/richmedia-tools/template-brief-campagne-digitale/hero-brief-campagne.webp';
+
+const schema = [
+  {
+    ...localBusiness(),
+    url: pageUrl,
+    inLanguage: 'en',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    '@id': `${pageUrl}#template`,
+    name: 'Digital Campaign Brief Template — Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    encodingFormat: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    inLanguage: 'en',
+    publisher: { '@id': `${SITE.url}/#organization` },
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'MAD',
+      availability: 'https://schema.org/InStock',
+    },
+  },
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Tools & resources', url: `${SITE.url}/en/tools` },
+    { name: 'Digital Campaign Brief Template', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  lang="en"
+  title="Free Digital Campaign Brief Template | Richmedia"
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={ogImage}
+  schema={schema}
+>
+  <TemplateBriefCampaignPage lang="en" downloadHref={downloadHref} downloadFilename={downloadFilename} />
+</BaseLayout>

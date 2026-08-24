@@ -1,0 +1,837 @@
+---
+import { CONTACT_FORM } from '../consts';
+
+interface Props {
+  lang?: 'fr' | 'en';
+  downloadHref: string;
+  downloadFilename: string;
+}
+
+const { lang = 'fr', downloadHref, downloadFilename } = Astro.props;
+const isEnglish = lang === 'en';
+const assetBase = '/assets/richmedia-tools/template-brief-campagne-digitale';
+
+const t = isEnglish
+  ? {
+      eyebrow: 'Richmedia resource',
+      title: 'Digital Campaign Brief Template',
+      positioning: 'The document to complete before spending your first dirham on media.',
+      subtitle:
+        'Frame your objectives, audiences, messages, budgets, KPIs, tracking and conversion journey before launching your campaign.',
+      badge: 'Word • Free • Editable',
+      primaryCta: 'Download the template',
+      secondaryCta: 'View all tools',
+      secondaryHref: '/en/tools/',
+      heroAlt: 'Real previews from the Richmedia Digital Campaign Brief Word template',
+      previewEyebrow: 'Document preview',
+      previewTitle: 'Real excerpts from the Word template.',
+      previewText: 'These previews are generated from the exact DOCX file used for download.',
+      cardsEyebrow: 'What it frames',
+      cardsTitle: 'Everything teams need to align before campaign launch.',
+      keyMessage:
+        'A strong brief aligns business, creative, media, data and sales teams before launch.',
+      workflowEyebrow: 'Richmedia workflow',
+      workflowTitle: 'From brief to measurable optimization.',
+      downloadEyebrow: 'Download',
+      downloadTitle: 'Download the free Word template',
+      downloadText:
+        'Fill in the form. After validation, the exact DOCX file attached to this project starts downloading automatically.',
+      submit: 'Download the free Word template',
+      loading: 'Validation in progress...',
+      success: 'Your download has started. The Word template is ready.',
+      error: 'The download could not be started. Please try again.',
+      trapSuccess: 'Download started. Thank you.',
+      subject: '[Richmedia] Digital Campaign Brief Template download',
+      formName: 'Digital Campaign Brief Template download',
+      requestedResource: 'Digital Campaign Brief Template — Richmedia',
+      crmMarker: 'lead_download_digital_campaign_brief_template',
+      fields: {
+        name: 'Full name *',
+        email: 'Professional email *',
+        company: 'Company *',
+        job: 'Job title *',
+      },
+      fieldNames: {
+        name: 'Full name',
+        email: 'Professional email',
+        company: 'Company',
+        job: 'Job title',
+      },
+      previews: [
+        { title: 'Context & objectives', image: `${assetBase}/extrait-contexte-objectifs.webp`, alt: 'Real excerpt of the context and objectives page from the Richmedia campaign brief template' },
+        { title: 'Audience', image: `${assetBase}/extrait-audience.webp`, alt: 'Real excerpt of the audience section from the Richmedia campaign brief template' },
+        { title: 'Offer & message', image: `${assetBase}/extrait-offre-message.webp`, alt: 'Real excerpt of the offer and message section from the Richmedia campaign brief template' },
+        { title: 'Channels & budget', image: `${assetBase}/extrait-canaux-budget.webp`, alt: 'Real excerpt of the channels and budget page from the Richmedia campaign brief template' },
+        { title: 'CRM & tracking', image: `${assetBase}/extrait-crm-tracking.webp`, alt: 'Real excerpt of the CRM and tracking page from the Richmedia campaign brief template' },
+        { title: 'Planning & validation', image: `${assetBase}/extrait-planning-validation.webp`, alt: 'Real excerpt of the planning and validation page from the Richmedia campaign brief template' },
+      ],
+      scopeCards: [
+        '01 Business context',
+        '02 Objectives & KPIs',
+        '03 Audience',
+        '04 Offer & value proposition',
+        '05 Message & creative',
+        '06 Channels',
+        '07 Budget',
+        '08 Landing page & conversion',
+        '09 CRM & lead handling',
+        '10 Tracking & measurement',
+        '11 Planning',
+        '12 Final validation',
+      ],
+      workflow: ['BRIEF', 'MEDIA PLAN', 'ACTIVATION', 'MEASUREMENT', 'OPTIMIZATION'],
+      relatedLinks: [
+        { href: '/en/tools/digital-media-plan-template/', label: 'Digital Media Plan Template' },
+        { href: '/en/tools/marketing-kpi-dashboard-template/', label: 'Marketing KPI Dashboard Template' },
+        { href: '/en/tools/media-budget-leads-calculator/', label: 'Media Budget & Leads Calculator' },
+      ],
+      internalLabel: 'Related resources',
+    }
+  : {
+      eyebrow: 'Ressource Richmedia',
+      title: 'Template Brief de Campagne Digitale',
+      positioning: 'Le document à remplir avant de dépenser votre premier dirham en média.',
+      subtitle:
+        'Cadrez vos objectifs, audiences, messages, budgets, KPI, tracking et parcours de conversion avant le lancement de votre campagne.',
+      badge: 'Word • Gratuit • Modifiable',
+      primaryCta: 'Télécharger le template',
+      secondaryCta: 'Voir tous les outils',
+      secondaryHref: '/outils/',
+      heroAlt: 'Aperçus réels du template Word Brief de Campagne Digitale Richmedia',
+      previewEyebrow: 'Aperçu du document',
+      previewTitle: 'Des extraits réels du template Word.',
+      previewText: 'Ces visuels sont générés depuis le fichier DOCX exact proposé au téléchargement.',
+      cardsEyebrow: 'Ce que le brief cadre',
+      cardsTitle: 'Tout ce qu’il faut aligner avant le lancement.',
+      keyMessage:
+        'Un bon brief aligne le business, la création, le média, la data et les équipes commerciales avant le lancement.',
+      workflowEyebrow: 'Workflow Richmedia',
+      workflowTitle: 'Du brief à l’optimisation mesurable.',
+      downloadEyebrow: 'Téléchargement',
+      downloadTitle: 'Télécharger gratuitement le template Word',
+      downloadText:
+        'Remplissez le formulaire. Après validation, le fichier DOCX exact joint au projet se télécharge automatiquement.',
+      submit: 'Télécharger gratuitement le template Word',
+      loading: 'Validation en cours...',
+      success: 'Votre téléchargement est lancé. Le template Word est prêt.',
+      error: "Le téléchargement n'a pas pu être lancé. Merci de réessayer.",
+      trapSuccess: 'Téléchargement lancé. Merci.',
+      subject: '[Richmedia] Téléchargement Template Brief de Campagne Digitale',
+      formName: 'Téléchargement Template Brief de Campagne Digitale',
+      requestedResource: 'Template Brief de Campagne Digitale — Richmedia',
+      crmMarker: 'lead_download_template_brief_campagne_digitale',
+      fields: {
+        name: 'Nom et prénom *',
+        email: 'Email professionnel *',
+        company: 'Entreprise *',
+        job: 'Fonction *',
+      },
+      fieldNames: {
+        name: 'Nom et prénom',
+        email: 'Email professionnel',
+        company: 'Entreprise',
+        job: 'Fonction',
+      },
+      previews: [
+        { title: 'Contexte & objectifs', image: `${assetBase}/extrait-contexte-objectifs.webp`, alt: 'Extrait réel de la page contexte et objectifs du template brief Richmedia' },
+        { title: 'Audience', image: `${assetBase}/extrait-audience.webp`, alt: 'Extrait réel de la section audience du template brief Richmedia' },
+        { title: 'Offre & message', image: `${assetBase}/extrait-offre-message.webp`, alt: 'Extrait réel de la section offre et message du template brief Richmedia' },
+        { title: 'Canaux & budget', image: `${assetBase}/extrait-canaux-budget.webp`, alt: 'Extrait réel de la page canaux et budget du template brief Richmedia' },
+        { title: 'CRM & tracking', image: `${assetBase}/extrait-crm-tracking.webp`, alt: 'Extrait réel de la page CRM et tracking du template brief Richmedia' },
+        { title: 'Planning & validation', image: `${assetBase}/extrait-planning-validation.webp`, alt: 'Extrait réel de la page planning et validation du template brief Richmedia' },
+      ],
+      scopeCards: [
+        '01 Contexte business',
+        '02 Objectifs & KPI',
+        '03 Audience',
+        '04 Offre & proposition de valeur',
+        '05 Message & créations',
+        '06 Canaux',
+        '07 Budget',
+        '08 Landing page & conversion',
+        '09 CRM & traitement des leads',
+        '10 Tracking & mesure',
+        '11 Planning',
+        '12 Validation finale',
+      ],
+      workflow: ['BRIEF', 'PLAN MÉDIA', 'ACTIVATION', 'MESURE', 'OPTIMISATION'],
+      relatedLinks: [
+        { href: '/outils/template-plan-media-digital/', label: 'Template Plan Média Digital' },
+        { href: '/outils/template-dashboard-kpi-marketing/', label: 'Template Dashboard KPI Marketing' },
+        { href: '/outils/calculateur-budget-media-leads/', label: 'Calculateur Budget Média & Leads' },
+      ],
+      internalLabel: 'Ressources liées',
+    };
+---
+
+<div class="brief-template-page">
+  <section class="brief-hero" aria-labelledby="brief-template-title">
+    <div class="hero-copy">
+      <span class="section-kicker">{t.eyebrow}</span>
+      <h1 id="brief-template-title">{t.title}</h1>
+      <p class="positioning">{t.positioning}</p>
+      <p>{t.subtitle}</p>
+      <span class="file-badge">{t.badge}</span>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#download-brief">
+          {t.primaryCta}
+          <i class="ph ph-download-simple" aria-hidden="true"></i>
+        </a>
+        <a class="button button-secondary" href={t.secondaryHref}>
+          {t.secondaryCta}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+    <figure class="hero-visual">
+      <img
+        src={`${assetBase}/hero-brief-campagne.webp`}
+        alt={t.heroAlt}
+        width="1600"
+        height="920"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </figure>
+  </section>
+
+  <section class="preview-section" aria-labelledby="brief-preview-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.previewEyebrow}</span>
+      <h2 id="brief-preview-title">{t.previewTitle}</h2>
+      <p>{t.previewText}</p>
+    </div>
+    <div class="preview-grid">
+      {t.previews.map((preview) => (
+        <article class="preview-card">
+          <figure>
+            <img src={preview.image} alt={preview.alt} width="1020" height="660" loading="lazy" decoding="async" />
+          </figure>
+          <h3>{preview.title}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="scope-section" aria-labelledby="brief-scope-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.cardsEyebrow}</span>
+      <h2 id="brief-scope-title">{t.cardsTitle}</h2>
+      <p>{t.keyMessage}</p>
+    </div>
+    <div class="scope-grid">
+      {t.scopeCards.map((card) => (
+        <article>{card}</article>
+      ))}
+    </div>
+  </section>
+
+  <section class="workflow-section" aria-labelledby="brief-workflow-title">
+    <div class="section-heading">
+      <span class="section-kicker">{t.workflowEyebrow}</span>
+      <h2 id="brief-workflow-title">{t.workflowTitle}</h2>
+    </div>
+    <div class="workflow-list">
+      {t.workflow.map((step, index) => (
+        <div class="workflow-step">
+          <strong>{step}</strong>
+          {index < t.workflow.length - 1 && <i class="ph ph-arrow-down" aria-hidden="true"></i>}
+        </div>
+      ))}
+    </div>
+    <nav class="internal-links" aria-label={t.internalLabel}>
+      {t.relatedLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+  </section>
+
+  <section class="download-section" id="download-brief" aria-labelledby="brief-download-title">
+    <div class="download-copy">
+      <span class="section-kicker">{t.downloadEyebrow}</span>
+      <h2 id="brief-download-title">{t.downloadTitle}</h2>
+      <p>{t.downloadText}</p>
+    </div>
+
+    <form
+      class="download-form"
+      action={CONTACT_FORM.action}
+      method="post"
+      data-brief-download-form
+      data-download-url={downloadHref}
+      data-contact-endpoint={CONTACT_FORM.ajaxAction}
+      data-file-name={downloadFilename}
+      data-subject={t.subject}
+      data-email-field={t.fieldNames.email}
+      data-loading-message={t.loading}
+      data-success-message={t.success}
+      data-error-message={t.error}
+      data-trap-success-message={t.trapSuccess}
+    >
+      <input type="hidden" name="_form" value={t.formName} />
+      <input type="hidden" name={isEnglish ? 'Requested resource' : 'Ressource demandée'} value={t.requestedResource} />
+      <input type="hidden" name={isEnglish ? 'CRM preparation' : 'Préparation CRM'} value={t.crmMarker} />
+      <input type="hidden" name="resource_slug" value="template-brief-campagne-digitale" />
+      <input type="hidden" name="hubspot_ready" value="true" />
+      <label class="form-honeypot" aria-hidden="true">
+        Website
+        <input type="text" name="company_url" tabindex="-1" autocomplete="off" />
+      </label>
+      <label>
+        <span>{t.fields.name}</span>
+        <input type="text" name={t.fieldNames.name} autocomplete="name" required />
+      </label>
+      <label>
+        <span>{t.fields.email}</span>
+        <input type="email" name={t.fieldNames.email} autocomplete="email" required />
+      </label>
+      <label>
+        <span>{t.fields.company}</span>
+        <input type="text" name={t.fieldNames.company} autocomplete="organization" required />
+      </label>
+      <label>
+        <span>{t.fields.job}</span>
+        <input type="text" name={t.fieldNames.job} autocomplete="organization-title" required />
+      </label>
+      <button type="submit">
+        {t.submit}
+        <i class="ph ph-download-simple" aria-hidden="true"></i>
+      </button>
+      <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</div>
+
+<script is:inline>
+  (() => {
+    const form = document.querySelector('[data-brief-download-form]');
+    if (!form) return;
+
+    const status = form.querySelector('[data-form-status]');
+    const submit = form.querySelector('button[type="submit"]');
+    const setStatus = (state, message) => {
+      status.textContent = message;
+      status.dataset.state = state;
+    };
+
+    const triggerDownload = () => {
+      const link = document.createElement('a');
+      link.href = form.dataset.downloadUrl;
+      link.download = form.dataset.fileName || '';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(form);
+      if (String(formData.get('company_url') || '').trim()) {
+        form.reset();
+        triggerDownload();
+        setStatus('success', form.dataset.trapSuccessMessage || '');
+        return;
+      }
+
+      const body = new URLSearchParams();
+      formData.forEach((value, key) => body.append(key, String(value)));
+      body.set('_page', window.location.href);
+      body.set('_subject', form.dataset.subject || '');
+      body.set('_template', 'table');
+      body.set('_captcha', 'false');
+      const emailField = form.dataset.emailField || '';
+      const email = String(formData.get(emailField) || '').trim();
+      if (email) body.set('_replyto', email);
+
+      submit.disabled = true;
+      submit.setAttribute('aria-busy', 'true');
+      setStatus('loading', form.dataset.loadingMessage || '');
+
+      try {
+        const response = await fetch(form.dataset.contactEndpoint, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          },
+          body,
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || result.error || result.success === false || result.success === 'false') {
+          throw new Error(result.message || form.dataset.errorMessage || '');
+        }
+
+        triggerDownload();
+        form.reset();
+        setStatus('success', form.dataset.successMessage || '');
+      } catch (error) {
+        setStatus('error', error.message || form.dataset.errorMessage || '');
+      } finally {
+        submit.disabled = false;
+        submit.removeAttribute('aria-busy');
+      }
+    });
+  })();
+</script>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  .brief-template-page {
+    --purple: #7c3cff;
+    --purple-soft: #aa7cff;
+    --line: rgba(255, 255, 255, 0.13);
+    --muted: rgba(255, 255, 255, 0.66);
+    width: min(100% - 3rem, 1240px);
+    margin: 0 auto;
+    padding: clamp(7rem, 10vw, 9rem) 0 clamp(3rem, 6vw, 5.5rem);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  .brief-template-page,
+  .brief-template-page * {
+    box-sizing: border-box;
+  }
+
+  .brief-template-page::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 72% 8%, rgba(124, 60, 255, 0.15), transparent 26rem),
+      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: auto, 84px 84px, 84px 84px;
+    content: '';
+    pointer-events: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--purple-soft);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    width: 2.1rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-soft));
+    content: '';
+  }
+
+  .brief-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(430px, 1.04fr);
+    gap: clamp(1.4rem, 4vw, 4rem);
+    align-items: center;
+    min-height: 560px;
+  }
+
+  .hero-copy,
+  .section-heading,
+  .download-copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .hero-copy h1 {
+    max-width: 770px;
+    font-size: clamp(3rem, 5.4vw, 5.1rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: 0;
+  }
+
+  .hero-copy p,
+  .section-heading p,
+  .download-copy p {
+    max-width: 66ch;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.62;
+  }
+
+  .hero-copy .positioning {
+    max-width: 48ch;
+    color: #fff;
+    font-size: clamp(1.08rem, 1.55vw, 1.32rem);
+    font-weight: 900;
+    line-height: 1.32;
+  }
+
+  .file-badge {
+    width: fit-content;
+    border: 1px solid rgba(170, 124, 255, 0.38);
+    border-radius: 999px;
+    padding: 0.52rem 0.72rem;
+    background: rgba(124, 60, 255, 0.12);
+    color: #dfd3ff;
+    font-size: 0.84rem;
+    font-weight: 900;
+  }
+
+  .hero-actions,
+  .internal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .button,
+  .download-form button {
+    display: inline-flex;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 1.15rem;
+    color: #fff;
+    font: inherit;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .download-form button:hover,
+  .download-form button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button-primary,
+  .download-form button {
+    background: linear-gradient(135deg, #9c5cff, #6729ef);
+    box-shadow: 0 1.2rem 2.8rem rgba(124, 60, 255, 0.28);
+  }
+
+  .button-secondary {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .hero-visual,
+  .preview-card,
+  .scope-section,
+  .workflow-section,
+  .download-section {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 16% 0%, rgba(124, 60, 255, 0.13), transparent 14rem),
+      linear-gradient(145deg, rgba(20, 21, 31, 0.92), rgba(7, 8, 12, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  }
+
+  .hero-visual {
+    overflow: hidden;
+    margin: 0;
+    aspect-ratio: 1.68;
+    background: #05060a;
+    box-shadow: 0 2rem 5.5rem rgba(0, 0, 0, 0.34);
+  }
+
+  .hero-visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .preview-section,
+  .scope-section,
+  .workflow-section,
+  .download-section {
+    margin-top: clamp(1.7rem, 4vw, 3.4rem);
+  }
+
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin-top: 1rem;
+  }
+
+  .preview-card {
+    display: grid;
+    gap: 0.85rem;
+    padding: 0.85rem;
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .preview-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(170, 124, 255, 0.56);
+    box-shadow: 0 1.2rem 3rem rgba(75, 38, 180, 0.18);
+  }
+
+  .preview-card figure {
+    display: grid;
+    overflow: hidden;
+    min-height: 10.5rem;
+    margin: 0;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .preview-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .preview-card h3 {
+    font-size: 1rem;
+    line-height: 1.16;
+  }
+
+  .scope-section,
+  .workflow-section,
+  .download-section {
+    padding: clamp(1.15rem, 3vw, 2rem);
+  }
+
+  .scope-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.72rem;
+    margin-top: 1rem;
+  }
+
+  .scope-grid article {
+    min-height: 4.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.9rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: #e7defe;
+    font-weight: 900;
+    line-height: 1.24;
+  }
+
+  .workflow-list {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .workflow-step {
+    display: grid;
+    gap: 0.42rem;
+    place-items: center;
+    min-height: 6rem;
+    border: 1px solid rgba(170, 124, 255, 0.26);
+    border-radius: 8px;
+    background: rgba(124, 60, 255, 0.11);
+    text-align: center;
+  }
+
+  .workflow-step strong {
+    font-size: 0.9rem;
+    font-weight: 950;
+    letter-spacing: 0.12em;
+  }
+
+  .workflow-step i {
+    color: var(--purple-soft);
+    font-size: 1.1rem;
+  }
+
+  .internal-links {
+    margin-top: 1rem;
+  }
+
+  .internal-links a {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.5rem 0.7rem;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.82rem;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus-visible {
+    border-color: rgba(170, 124, 255, 0.62);
+    color: #fff;
+  }
+
+  .download-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(360px, 0.62fr);
+    gap: clamp(1.2rem, 3vw, 2rem);
+    align-items: start;
+    scroll-margin-top: 7rem;
+  }
+
+  .download-copy h2,
+  .section-heading h2 {
+    font-size: clamp(2rem, 4vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .download-form {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .download-form label {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .download-form span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.84rem;
+    font-weight: 900;
+  }
+
+  .download-form input {
+    min-width: 0;
+    min-height: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 7px;
+    padding: 0 0.9rem;
+    background: rgba(255, 255, 255, 0.045);
+    color: #fff;
+    font: inherit;
+  }
+
+  .download-form input:focus {
+    border-color: rgba(170, 124, 255, 0.72);
+    outline: 2px solid rgba(124, 60, 255, 0.24);
+    outline-offset: 0;
+  }
+
+  .download-form button {
+    width: 100%;
+    margin-top: 0.15rem;
+  }
+
+  .download-form button:disabled {
+    cursor: wait;
+    opacity: 0.72;
+  }
+
+  .form-honeypot {
+    position: absolute;
+    left: -999rem;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-status {
+    min-height: 1.25rem;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.88rem;
+    font-weight: 800;
+  }
+
+  .form-status[data-state='success'] {
+    color: #73e38a;
+  }
+
+  .form-status[data-state='error'] {
+    color: #ff8f8f;
+  }
+
+  @media (max-width: 1120px) {
+    .brief-hero,
+    .download-section {
+      grid-template-columns: 1fr;
+    }
+
+    .preview-grid,
+    .scope-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .workflow-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .brief-template-page {
+      width: min(100% - 1rem, 1240px);
+      padding-top: 6.2rem;
+    }
+
+    .brief-hero {
+      min-height: 0;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.45rem, 12vw, 3.45rem);
+    }
+
+    .hero-actions,
+    .button {
+      width: 100%;
+    }
+
+    .hero-visual {
+      aspect-ratio: 1.2;
+    }
+
+    .preview-grid,
+    .scope-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .preview-card figure {
+      min-height: 12rem;
+    }
+
+    .download-copy h2,
+    .section-heading h2 {
+      font-size: clamp(2rem, 10vw, 2.8rem);
+    }
+
+    .download-section,
+    .scope-section,
+    .workflow-section {
+      padding: 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../../components/CaseStudyModel.astro';
+import { SITE } from '../../../consts';
+import { articleSchema, breadcrumbs } from '../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/case-studies/euromed-university-drupal-website-redesign-2025`;
+const heroImage = '/assets/richmedia-realizations/euromed-refonte-site-web-2025.webp';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Euromed University Drupal Website Redesign 2025 | Richmedia';
+const pageDescription =
+  'See the Drupal redesign of Euromed University by Richmedia: UX/UI, 4 languages, SEO, performance, +40% organic traffic and +20% applications.';
+
+const content = {
+  backHref: '/en/case-studies',
+  backLabel: 'Case studies',
+  eyebrow: 'A multilingual Drupal redesign built around candidate experience, performance and organic visibility.',
+  client: 'Euromed University',
+  clientLong: 'Université Euromed de Fès',
+  category: 'Education / Higher education',
+  period: '2025',
+  scope: 'Drupal / UX / UI / Multilingual / SEO / Performance / Tracking / Production launch',
+  title: 'The Result',
+  subtitle:
+    'In 2025, Université Euromed de Fès entrusted Richmedia with the complete redesign of its web ecosystem to modernize its digital image, simplify access to its academic offer and improve the candidate journey. Richmedia designed and developed a new institutional Drupal website, multilingual and focused on user experience, SEO and conversion.',
+  heroImage,
+  heroAlt: 'Real screenshot of the new Euromed University homepage',
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'Université Euromed de Fès' },
+    { label: 'Project', value: 'Creation / redesign of the new website' },
+    { label: 'Sector', value: 'Education / Higher education' },
+    { label: 'Period', value: '2025' },
+    { label: 'CMS', value: 'Drupal' },
+    { label: 'Languages', value: 'French / English / Arabic / Spanish' },
+    { label: 'Region', value: 'Morocco + International' },
+    { label: 'Targets', value: 'High school graduates / Bac+2-Bac+3 / Master candidates / parents / international students / partners / researchers / alumni' },
+  ],
+  metrics: [
+    { value: '+40%', label: 'organic traffic', icon: 'ph ph-trend-up' },
+    { value: '+80%', label: 'loading time improvement', icon: 'ph ph-gauge' },
+    { value: '+50%', label: 'information requests', icon: 'ph ph-chat-circle-text' },
+    { value: '+20%', label: 'applications', icon: 'ph ph-file-text' },
+    { value: '+30', label: 'Google positions gained', icon: 'ph ph-magnifying-glass' },
+  ],
+  deliverables: [
+    'UX audit & information architecture',
+    'UI Design',
+    'Web Design System',
+    'Front-end development',
+    'Back-end development',
+    'Drupal CMS',
+    'Content migration',
+    'Multilingual management',
+    'Candidate forms',
+    'Technical SEO',
+    'Analytics & tracking',
+    'Responsive mobile',
+    'Hosting',
+    'Production launch',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Architecture & journeys',
+      text: 'Information architecture redesign to simplify access to academic content.',
+      bullets: [
+        'Website tree structure redesign.',
+        'Navigation designed around schools, programmes and user profiles.',
+        'Simplified access to academic information.',
+      ],
+      icon: 'ph ph-tree-structure',
+    },
+    {
+      eyebrow: '02',
+      title: 'Design & experience',
+      text: 'A clearer, faster candidate experience built around conversion.',
+      bullets: [
+        'Full UI redesign.',
+        'Fast access to applications.',
+        'Simplified forms.',
+        'Promotion of campus life and institutional content.',
+      ],
+      icon: 'ph ph-layout',
+    },
+    {
+      eyebrow: '03',
+      title: 'Drupal development',
+      text: 'Front-end and back-end development on a multilingual Drupal CMS.',
+      bullets: [
+        'Front-end and back-end development.',
+        'Drupal CMS.',
+        'Content migration.',
+        'Management of 4 languages: FR / EN / AR / ES.',
+        'Responsive mobile.',
+      ],
+      icon: 'ph ph-code',
+    },
+    {
+      eyebrow: '04',
+      title: 'SEO & performance',
+      text: 'Technical architecture designed for organic visibility and speed.',
+      bullets: [
+        'SEO-focused architecture.',
+        'Technical SEO.',
+        'Loading time optimization.',
+        'Analytics & tracking.',
+        'Hosting and production launch.',
+      ],
+      icon: 'ph ph-rocket-launch',
+    },
+  ],
+  proof: {
+    eyebrow: 'Block 3',
+    title: 'The Proof',
+    intro:
+      'Real screenshot of the new Euromed homepage: institutional hero, key figures, training areas, candidate journey, news, events and institutional content.',
+    items: [
+      { image: heroImage, label: 'New Euromed University homepage', format: 'Real screenshot', size: 'banner' as const },
+    ],
+    kpi: {
+      value: '+40%',
+      label: 'organic traffic',
+      breakdown: ['+80% loading performance', '+50% information requests', '+20% applications', '+30 Google positions'],
+      note: 'The KPIs shown are limited to validated data.',
+    },
+    funnel: {
+      items: [
+        { value: 'Discover', label: 'Schools, programmes and institutional content' },
+        { value: 'Understand', label: 'Clear information by user profile' },
+        { value: 'Choose', label: 'A clearer academic journey' },
+        { value: 'Apply', label: 'Forms and information requests' },
+      ],
+      note: 'This scheme represents the UX journey, not a quantified funnel.',
+    },
+    conclusion:
+      'The redesign turned a complex institutional website into a faster, clearer and more effective digital platform for candidates, while strengthening the organic visibility of Université Euromed.',
+    links: [
+      { href: '/en/sectors/education/', label: 'Education sector' },
+      { href: '/en/expertises/web-si/', label: 'Web expertise' },
+      { href: '/en/expertises/seo-geo/', label: 'SEO / GEO' },
+      { href: '/en/expertises/strategie-digitale/', label: 'Digital strategy' },
+    ],
+  },
+  quote:
+    'Want to turn your institutional website into a true acquisition lever?',
+  ctaLabel: 'Speak to an expert',
+  ctaHref: '/en/contact',
+  secondaryLabel: 'Explore Web expertise',
+  secondaryHref: '/en/expertises/web-si/',
+  ui: {
+    resultLabel: 'Case study results',
+    metaLabel: 'Case study summary',
+    workLabel: 'Block 2',
+    workTitle: 'What We Did',
+    proofLabel: 'Visual proof',
+    quoteLabel: 'Case study internal links',
+    deliverablesTitle: 'Deliverables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Case studies', url: `${SITE.url}/en/case-studies` },
+    { name: 'Euromed University Drupal Website Redesign 2025', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  lang="en"
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>
