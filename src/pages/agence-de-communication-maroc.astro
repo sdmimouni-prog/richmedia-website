@@ -82,7 +82,7 @@ const whyRichmedia = [
     text: 'La création doit servir des objectifs business mesurables.',
   },
   {
-    icon: 'ph ph-circles-three-plus',
+    icon: 'ph ph-users-three',
     title: 'Une équipe intégrée',
     text: 'Stratégie, création, media, influence, technologie et data travaillent ensemble.',
   },
@@ -92,7 +92,7 @@ const whyRichmedia = [
     text: 'Compréhension des audiences, usages, plateformes et comportements locaux.',
   },
   {
-    icon: 'ph ph-brain',
+    icon: 'ph ph-cpu',
     title: 'Data & technologie',
     text: "Utilisation de la data, de l'automatisation et de l'IA pour améliorer la performance.",
   },
@@ -893,26 +893,137 @@ const schema = [
 
   .method-grid li {
     min-height: 14rem;
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .method-grid li::after {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(circle at 18% 12%, rgba(185, 137, 255, 0.18), transparent 12rem),
+      linear-gradient(135deg, rgba(140, 82, 255, 0.12), transparent 55%);
+    content: "";
+    opacity: 0;
+    transform: translateY(0.55rem);
+    transition: opacity 220ms ease, transform 260ms ease;
+  }
+
+  .method-grid li > * {
+    position: relative;
+    z-index: 1;
   }
 
   .method-grid span {
+    display: inline-block;
     color: var(--purple-soft);
     font-size: 0.96rem;
     font-weight: 900;
     letter-spacing: 0.18em;
+    transition: color 180ms ease, transform 180ms ease;
+  }
+
+  .method-grid li:hover,
+  .method-grid li:focus-within {
+    transform: translateY(-5px);
+    border-color: rgba(185, 137, 255, 0.48);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 1.1rem 2.8rem rgba(0, 0, 0, 0.25),
+      0 0 2rem rgba(140, 82, 255, 0.12);
+  }
+
+  .method-grid li:hover::after,
+  .method-grid li:focus-within::after {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .method-grid li:hover span,
+  .method-grid li:focus-within span {
+    color: #fff;
+    transform: translateY(-2px);
   }
 
   .final-cta {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 1.5rem;
     align-items: center;
     margin-top: clamp(3.5rem, 7vw, 6rem);
     padding: clamp(1.35rem, 4vw, 3rem);
+    overflow: hidden;
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .final-cta::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 84% 50%, rgba(140, 82, 255, 0.24), transparent 17rem),
+      radial-gradient(circle at 10% 20%, rgba(185, 137, 255, 0.22), transparent 19rem);
+    content: "";
+    opacity: 0;
+    transform: translateX(-8%) scale(1.04);
+    transition: opacity 220ms ease, transform 280ms ease;
+  }
+
+  .final-cta:hover,
+  .final-cta:focus-within {
+    transform: translateY(-4px);
+    border-color: rgba(185, 137, 255, 0.44);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 1.4rem 3.5rem rgba(0, 0, 0, 0.28),
+      0 0 2.5rem rgba(140, 82, 255, 0.14);
+  }
+
+  .final-cta:hover::before,
+  .final-cta:focus-within::before {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  .final-cta .button i {
+    transition: transform 180ms ease;
+  }
+
+  .final-cta:hover .button i,
+  .final-cta:focus-within .button i {
+    transform: translate(3px, -3px);
   }
 
   .final-cta p {
     max-width: 44rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .method-grid li,
+    .method-grid li::after,
+    .method-grid span,
+    .final-cta,
+    .final-cta::before,
+    .final-cta .button i {
+      transition: none;
+    }
+
+    .method-grid li:hover,
+    .method-grid li:focus-within,
+    .method-grid li:hover::after,
+    .method-grid li:focus-within::after,
+    .method-grid li:hover span,
+    .method-grid li:focus-within span,
+    .final-cta:hover,
+    .final-cta:focus-within,
+    .final-cta:hover::before,
+    .final-cta:focus-within::before,
+    .final-cta:hover .button i,
+    .final-cta:focus-within .button i {
+      transform: none;
+    }
   }
 
   @media (max-width: 1100px) {
