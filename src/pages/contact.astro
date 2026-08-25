@@ -53,29 +53,6 @@ const contactHighlights = [
   },
 ];
 
-const heroCards = [
-  {
-    icon: 'ph-envelope-simple',
-    title: 'Email',
-    lines: [BUSINESS.email],
-  },
-  {
-    icon: 'ph-phone-call',
-    title: 'Téléphone',
-    lines: [formatPhone(BUSINESS.tels[0]), formatPhone(BUSINESS.tels[1])],
-  },
-  {
-    icon: 'ph-clock',
-    title: 'Réponse sous 24h',
-    lines: ['jours ouvrés'],
-  },
-  {
-    icon: 'ph-map-pin',
-    title: 'Casablanca',
-    lines: ['Dubaï / Montréal', 'Strasbourg'],
-  },
-];
-
 const officeMarkers = [
   { city: 'Montréal', country: 'Canada', x: 33.79, y: 24.44, heroX: 34.7, heroY: 24.6, className: 'office-montreal' },
   { city: 'Strasbourg', country: 'France', x: 51.68, y: 22.8, heroX: 59.2, heroY: 22.2, className: 'office-strasbourg' },
@@ -202,19 +179,6 @@ const faqs = [
           <div class="hero-platform"></div>
         </div>
 
-        <div class="hero-contact-cards">
-          {heroCards.map((card) => (
-            <article class="hero-contact-card">
-              <span class="icon-box">
-                <i class:list={['ph', card.icon]} aria-hidden="true"></i>
-              </span>
-              <div>
-                <strong>{card.title}</strong>
-                {card.lines.map((line) => <span>{line}</span>)}
-              </div>
-            </article>
-          ))}
-        </div>
       </div>
     </section>
 
@@ -848,86 +812,6 @@ const faqs = [
     bottom: 20%;
     min-width: 200px;
     animation-delay: 1s;
-  }
-
-  .hero-contact-cards {
-    position: absolute;
-    top: 5%;
-    right: 0;
-    bottom: 8%;
-    z-index: 5;
-    display: grid;
-    width: min(340px, 43%);
-    gap: 0.78rem;
-    align-content: center;
-  }
-
-  .hero-contact-card {
-    display: flex;
-    align-items: center;
-    gap: 0.72rem;
-    min-height: 92px;
-    border: 1px solid rgba(255, 255, 255, 0.17);
-    border-radius: 8px;
-    padding: 0.82rem 0.92rem;
-    background:
-      linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.02)),
-      rgba(14, 13, 29, 0.84);
-    box-shadow: 0 1.1rem 2.4rem rgba(0, 0, 0, 0.28);
-    backdrop-filter: blur(18px);
-    transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
-  }
-
-  .hero-contact-card:hover {
-    transform: translateX(-8px);
-    border-color: rgba(176, 132, 255, 0.58);
-    box-shadow: 0 1.4rem 3rem rgba(0, 0, 0, 0.34), 0 0 2.2rem rgba(138, 77, 255, 0.16);
-  }
-
-  .hero-contact-card .icon-box {
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.18rem;
-  }
-
-  .hero-contact-card .icon-box i {
-    display: grid;
-    width: 1em;
-    height: 1em;
-    place-items: center;
-    line-height: 1;
-  }
-
-  .hero-contact-card .icon-box i::before {
-    display: block;
-    line-height: 1;
-  }
-
-  .hero-contact-card > div {
-    min-width: 0;
-  }
-
-  .hero-contact-card strong,
-  .hero-contact-card span {
-    display: block;
-  }
-
-  .hero-contact-card strong {
-    font-size: 0.9rem;
-  }
-
-  .hero-contact-card span {
-    margin-top: 0.25rem;
-    color: var(--soft);
-    font-size: clamp(0.74rem, 0.74vw, 0.82rem);
-    line-height: 1.36;
-    white-space: nowrap;
-    word-break: normal;
-    overflow-wrap: normal;
-  }
-
-  .hero-contact-card:first-child span {
-    font-size: clamp(0.72rem, 0.68vw, 0.78rem);
   }
 
   .contact-strip {
@@ -1705,23 +1589,23 @@ const faqs = [
     }
 
     .hero-visual {
-      min-height: 365px;
-      margin-top: -2.25rem;
+      min-height: 302px;
+      margin-top: 0.85rem;
     }
 
     .hero-map-stage {
-      inset: -1.75rem 0 0;
-      min-height: 355px;
+      inset: 0;
+      min-height: 302px;
     }
 
     .hero-map-stage img {
-      inset: 0.5rem;
-      width: calc(100% - 1rem);
-      height: 345px;
+      inset: 0.35rem;
+      width: calc(100% - 0.7rem);
+      height: calc(100% - 0.7rem);
     }
 
     .hero-platform {
-      bottom: 20%;
+      bottom: 14%;
       width: 72%;
     }
 
@@ -1758,20 +1642,6 @@ const faqs = [
 
     .hero-pin.office-casablanca .hero-pin-label {
       left: -5rem;
-    }
-
-    .hero-contact-cards {
-      display: none;
-    }
-
-    .hero-contact-card {
-      min-height: 84px;
-      padding: 0.8rem;
-    }
-
-    .hero-contact-card .icon-box {
-      width: 2.8rem;
-      height: 2.8rem;
     }
 
     .contact-strip,

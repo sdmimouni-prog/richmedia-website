@@ -16,12 +16,30 @@ const schema = [
 ];
 
 const heroPeople = [
-  { image: 'salah.webp', name: 'Salah-Eddine Mimouni', className: 'portrait-a' },
-  { image: 'amal.webp', name: 'Amal Amazouz', className: 'portrait-b' },
-  { image: 'ikram.webp', name: 'Ikram Dehiri', className: 'portrait-c' },
-  { image: 'tarik.webp', name: 'Tarik El Abbadi', className: 'portrait-d' },
-  { image: 'rachid.webp', name: 'Rachid Hlalma', className: 'portrait-e' },
-  { image: 'oussama.webp', name: 'Oussama TAHTAH', className: 'portrait-f' },
+  { image: 'amal.webp', name: 'Amal Amazouz' },
+  { image: 'tarik.webp', name: 'Tarik El Abbadi' },
+  { image: 'oussama.webp', name: 'Oussama TAHTAH' },
+  { image: 'halima-felloui.webp', name: 'FELLIOUI Halima' },
+  { image: 'oumaima-lassri.webp', name: 'Oumaima LASSRI' },
+  { image: 'elhoussine-bw.webp', name: 'Elhoussine Essmami' },
+  { image: 'ikram-bw.webp', name: 'Ikram Dehiri' },
+  { image: 'safwane.webp', name: 'Safwane MOUSTAINE' },
+  { image: 'malak-billaore.webp', name: 'Malak BILLAORE' },
+  { image: 'salah.webp', name: 'Salah-Eddine Mimouni', className: 'mosaic-feature' },
+  { image: 'rachid-oualla.webp?v=black-d71ec18', name: 'Rachid OUALLA' },
+  { image: 'rachid.webp', name: 'Rachid Hlalma' },
+  { image: 'abdelkader.webp', name: 'Abdelkader El Bouhaddouti' },
+  { image: 'youssef.webp', name: 'Youssef Amazouz' },
+  { image: 'wail.webp', name: 'Wail El Asri' },
+  { image: 'ghita-mimouni.webp', name: 'Ghita MIMOUNI' },
+  { image: 'marwane.webp', name: 'Marwane Jouay', className: 'portrait-focus-low' },
+  { image: 'soukaina-sammouni.webp', name: 'Soukaina SAMMOUNI' },
+  { image: 'zakaria.webp', name: 'Zakaria Mouchtati' },
+  { image: 'zouhair-bw.webp', name: 'Zouhair Lyzouli' },
+  { image: 'yasmine-ouazzani-touhamy.webp?v=black-yasmine-ab487fe', name: 'Yasmine Ouazzani Touhamy' },
+  { image: 'wafaa.webp', name: 'Yassmine Boudial' },
+  { image: 'ayoub.webp', name: 'Ayoub Es-Samlali' },
+  { image: 'yassine.webp', name: 'Mohamed Yassine Dargal' },
 ];
 
 const poles = [
@@ -129,8 +147,6 @@ const team = [
       </div>
 
       <div class="hero-portraits" aria-label="Portraits de l’équipe Richmedia">
-        <span class="orbit orbit-one"></span>
-        <span class="orbit orbit-two"></span>
         {heroPeople.map((person, index) => (
           <figure class:list={['hero-portrait', person.className]}>
             <img
@@ -138,11 +154,16 @@ const team = [
               alt={person.name}
               width="420"
               height="520"
-              loading={index < 3 ? 'eager' : 'lazy'}
+              loading={index < 8 ? 'eager' : 'lazy'}
               decoding="async"
             />
+            <figcaption>{person.name}</figcaption>
           </figure>
         ))}
+        <a class="hero-portrait hero-join-card" href="/contact" aria-label="Join us">
+          <span class="join-plus" aria-hidden="true">+</span>
+          <span class="join-label">Join us</span>
+        </a>
       </div>
     </section>
 
@@ -387,56 +408,51 @@ const team = [
 
   .hero-portraits {
     position: relative;
-    min-height: 520px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-auto-rows: clamp(86px, 7.2vw, 112px);
+    gap: 5px;
+    align-self: center;
+    min-height: 0;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    background:
+      linear-gradient(145deg, rgba(124, 60, 255, 0.12), transparent 34%),
+      rgba(255, 255, 255, 0.028);
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
     isolation: isolate;
   }
 
   .hero-portraits::before {
     position: absolute;
-    inset: 9% 8% 7% 10%;
+    inset: 0;
     z-index: 0;
-    background-image: radial-gradient(rgba(140, 72, 255, 0.9) 1.5px, transparent 1.5px);
-    background-size: 24px 24px;
-    mask-image: radial-gradient(circle at 62% 48%, #000 0 38%, transparent 70%);
-    opacity: 0.74;
+    border-radius: inherit;
+    background: radial-gradient(circle at 50% 42%, rgba(124, 60, 255, 0.16), transparent 48%);
+    opacity: 0.9;
     content: "";
-  }
-
-  .orbit {
-    position: absolute;
-    z-index: 0;
-    border: 1px solid rgba(165, 107, 255, 0.58);
-    border-radius: 999px;
     pointer-events: none;
   }
 
-  .orbit-one {
-    inset: 16% 17% 18% 20%;
-    transform: rotate(-18deg);
-  }
-
-  .orbit-two {
-    inset: 22% 22% 25% 26%;
-    transform: rotate(26deg);
-  }
-
   .hero-portrait {
-    position: absolute;
+    position: relative;
     z-index: 1;
     overflow: hidden;
     margin: 0;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5);
-    transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
+    min-width: 0;
+    border: 1px solid rgba(124, 60, 255, 0.22);
+    border-radius: 4px;
+    background: #08090f;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+    transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease, filter 260ms ease;
   }
 
   .hero-portrait:hover {
-    z-index: 3;
-    transform: translateY(-10px) scale(1.03);
-    border-color: rgba(165, 107, 255, 0.72);
-    box-shadow: 0 30px 90px rgba(124, 60, 255, 0.28);
+    z-index: 10;
+    transform: translateY(-6px) scale(1.045);
+    border-color: rgba(165, 107, 255, 0.82);
+    box-shadow: 0 18px 54px rgba(124, 60, 255, 0.3);
   }
 
   .hero-portrait img {
@@ -444,55 +460,114 @@ const team = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 22%;
-    filter: saturate(1.04) contrast(1.04);
+    object-position: center top;
+    filter: grayscale(1) contrast(1.08);
+    transform: scale(1.01);
+    transition: filter 300ms ease, transform 300ms ease;
   }
 
-  .portrait-e img,
-  .portrait-f img {
-    object-position: center 14%;
+  .hero-portrait:hover img {
+    filter: grayscale(0.18) saturate(1.08) contrast(1.04);
+    transform: scale(1.08);
   }
 
-  .portrait-a {
-    top: 0;
-    left: 22%;
-    width: 170px;
-    height: 215px;
+  .hero-portrait figcaption {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.45rem;
+    left: 0.5rem;
+    z-index: 2;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    line-height: 1.06;
+    opacity: 0;
+    transform: translateY(0.35rem);
+    transition: opacity 240ms ease, transform 240ms ease;
   }
 
-  .portrait-b {
-    top: 12%;
-    right: 5%;
-    width: 190px;
-    height: 230px;
+  .hero-portrait::after {
+    position: absolute;
+    inset: auto 0 0;
+    height: 58%;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.78));
+    opacity: 0;
+    transition: opacity 240ms ease;
+    content: "";
   }
 
-  .portrait-c {
-    top: 18%;
-    left: 39%;
-    width: 280px;
-    height: 210px;
+  .hero-portrait:hover::after,
+  .hero-portrait:hover figcaption {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .portrait-d {
-    top: 40%;
-    right: 2%;
-    width: 205px;
-    height: 225px;
+  .mosaic-feature {
+    border-color: rgba(165, 107, 255, 0.58);
   }
 
-  .portrait-e {
-    bottom: 4%;
-    left: 30%;
-    width: 230px;
-    height: 145px;
+  .portrait-focus-low img {
+    object-fit: contain;
+    object-position: center;
+    transform: scale(1);
   }
 
-  .portrait-f {
-    bottom: 2%;
-    left: 55%;
-    width: 240px;
-    height: 170px;
+  .portrait-focus-low:hover img {
+    transform: scale(1.04);
+  }
+
+  .hero-join-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #fff;
+    text-decoration: none;
+    background:
+      radial-gradient(circle at 50% 22%, rgba(165, 107, 255, 0.36), transparent 48%),
+      linear-gradient(145deg, rgba(124, 60, 255, 0.2), rgba(255, 255, 255, 0.035));
+  }
+
+  .hero-join-card::after {
+    inset: 0;
+    height: auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(124, 60, 255, 0.18));
+    opacity: 0.34;
+  }
+
+  .join-plus {
+    position: relative;
+    z-index: 2;
+    color: #a56bff;
+    font-size: clamp(3.25rem, 5.3vw, 5.2rem);
+    font-weight: 300;
+    line-height: 0.72;
+    text-shadow: 0 0 28px rgba(124, 60, 255, 0.64);
+    transition: color 260ms ease, transform 260ms ease;
+  }
+
+  .join-label {
+    position: relative;
+    z-index: 2;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    text-transform: uppercase;
+    transition: color 260ms ease, transform 260ms ease;
+  }
+
+  .hero-join-card:hover .join-plus {
+    color: #fff;
+    transform: rotate(90deg) scale(1.08);
+  }
+
+  .hero-join-card:hover .join-label {
+    color: #c5a4ff;
+    transform: translateY(-0.1rem);
   }
 
   .why-team,
@@ -977,7 +1052,8 @@ const team = [
     }
 
     .hero-portraits {
-      min-height: 560px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-auto-rows: clamp(74px, 12vw, 104px);
     }
 
     .why-grid,
@@ -1029,47 +1105,23 @@ const team = [
     }
 
     .hero-portraits {
-      min-height: 430px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: clamp(82px, 23vw, 108px);
+      gap: 4px;
+      padding: 4px;
     }
 
-    .portrait-a {
-      left: 2%;
-      width: 32%;
-      height: 38%;
+    .hero-portrait:nth-child(n + 16):not(.hero-join-card) {
+      display: none;
     }
 
-    .portrait-b {
-      right: 0;
-      width: 34%;
-      height: 40%;
+    .hero-portrait:hover {
+      transform: none;
     }
 
-    .portrait-c {
-      top: 24%;
-      left: 24%;
-      width: 56%;
-      height: 34%;
-    }
-
-    .portrait-d {
-      top: 50%;
-      right: 2%;
-      width: 36%;
-      height: 38%;
-    }
-
-    .portrait-e {
-      bottom: 2%;
-      left: 5%;
-      width: 42%;
-      height: 28%;
-    }
-
-    .portrait-f {
-      bottom: 0;
-      left: 48%;
-      width: 44%;
-      height: 30%;
+    .hero-portrait figcaption,
+    .hero-portrait::after {
+      display: none;
     }
 
     .why-grid,

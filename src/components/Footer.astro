@@ -46,6 +46,12 @@ const agencyLinks = isEnglish
       { label: 'Carrières', href: '/carrieres' },
     ];
 
+const expertiseColumnSize = Math.ceil(expertiseLinks.length / 2);
+const expertiseLinkColumns = [
+  expertiseLinks.slice(0, expertiseColumnSize),
+  expertiseLinks.slice(expertiseColumnSize),
+];
+
 const footerDescription = isEnglish
   ? 'Digital marketing and performance agency in Casablanca: strategy, media performance, web development and AI. We generate measurable growth.'
   : SITE.description;
@@ -93,9 +99,15 @@ const labels = isEnglish
     <p>{footerDescription}</p>
   </div>
 
-  <nav aria-label={isEnglish ? 'Expertise' : 'Expertises'}>
+  <nav class="footer-expertise" aria-label={isEnglish ? 'Expertise' : 'Expertises'}>
     <h2>Expertise</h2>
-    {expertiseLinks.map((item) => <a href={item.href}>{item.label}</a>)}
+    <div class="footer-link-columns">
+      {expertiseLinkColumns.map((column) => (
+        <div class="footer-link-column">
+          {column.map((item) => <a href={item.href}>{item.label}</a>)}
+        </div>
+      ))}
+    </div>
   </nav>
 
   <nav aria-label={labels.agency}>

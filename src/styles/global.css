@@ -816,8 +816,8 @@ main {
 
 .site-footer {
   display: grid;
-  grid-template-columns: minmax(220px, 1.1fr) repeat(4, minmax(130px, 0.55fr));
-  gap: 2rem;
+  grid-template-columns: minmax(230px, 1fr) minmax(360px, 1.55fr) minmax(180px, 0.72fr) minmax(170px, 0.66fr) minmax(185px, 0.72fr);
+  gap: 2rem 2.4rem;
   width: min(100% - 3rem, 1320px);
   margin: 0 auto;
   padding: 2rem 0 1.5rem;
@@ -851,6 +851,22 @@ main {
 .site-footer nav,
 .site-footer address,
 .footer-offices {
+  display: grid;
+  align-content: start;
+  gap: 0.52rem;
+}
+
+.footer-expertise {
+  min-width: 0;
+}
+
+.footer-link-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.52rem 1.35rem;
+}
+
+.footer-link-column {
   display: grid;
   align-content: start;
   gap: 0.52rem;
@@ -1347,6 +1363,10 @@ main {
   .site-footer {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .footer-expertise {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 1220px) and (min-width: 1081px) {
@@ -1449,6 +1469,14 @@ form.is-submitting button[type='submit'] {
   .site-footer {
     grid-template-columns: 1fr;
     width: min(100% - 1.25rem, 1320px);
+  }
+
+  .footer-expertise {
+    grid-column: auto;
+  }
+
+  .footer-link-columns {
+    grid-template-columns: 1fr;
   }
 
   .footer-bottom {

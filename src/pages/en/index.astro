@@ -512,7 +512,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
       <div class="proof-intro">
         <div>
           <span class="proof-kicker">Proof & partners</span>
-          <h2 id="proof-title">References and accreditations.</h2>
+          <h2 id="proof-title">References and accreditations</h2>
         </div>
       </div>
       <div class="proof-panels">
@@ -2114,7 +2114,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
   .proof-intro {
     display: grid;
-    grid-template-columns: minmax(270px, 0.58fr) minmax(420px, 1fr);
+    grid-template-columns: 1fr;
     gap: 1.5rem;
     align-items: end;
   }
@@ -2139,6 +2139,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     --h2-size: clamp(1.75rem, 3vw, 2.7rem);
     font-size: var(--h2-size);
     line-height: 1;
+    white-space: nowrap;
   }
 
   .proof-intro p {
@@ -2672,7 +2673,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     }
 
     .proof-intro h2 {
-      --h2-size: clamp(1.65rem, 8vw, 2.15rem);
+      --h2-size: clamp(1.45rem, 5.8vw, 2.15rem);
       font-size: var(--h2-size);
     }
 

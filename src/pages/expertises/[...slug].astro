@@ -11,7 +11,7 @@ import { serviceLandings } from '../../lib/service-landings';
 import { SITE } from '../../consts';
 
 export async function getStaticPaths() {
-  const staticExpertiseSlugs = new Set(['referencement-seo']);
+  const staticExpertiseSlugs = new Set(['referencement-seo', 'media-performance']);
   const entries = await getCollection('expertises', ({ data, id }) => {
     const slug = data.slug ?? id;
     return !data.draft && !staticExpertiseSlugs.has(slug);

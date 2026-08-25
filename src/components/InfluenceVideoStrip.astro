@@ -8,9 +8,13 @@ const { lang = 'fr' } = Astro.props;
 const copy = {
   fr: {
     aria: "Campagnes d'influence réussies",
+    eyebrow: 'Influence',
+    title: "Nos campagnes d'influence",
   },
   en: {
     aria: 'Successful influence campaigns',
+    eyebrow: 'Influence',
+    title: 'Our influencer campaigns',
   },
 };
 
@@ -56,6 +60,10 @@ const reels = [
 ---
 
 <section class="influence-video-section" aria-label={t.aria}>
+  <div class="influence-video-heading">
+    <span>{t.eyebrow}</span>
+    <h2>{t.title}</h2>
+  </div>
   <div class="influence-video-strip" aria-label={t.aria}>
     {reels.map((reel) => (
       <article class="influence-video-card">
@@ -152,14 +160,46 @@ const reels = [
     position: relative;
     width: 100%;
     content-visibility: auto;
-    contain-intrinsic-size: auto 35rem;
+    contain-intrinsic-size: auto 43rem;
     overflow: hidden;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 0;
+    padding: clamp(2.8rem, 5vw, 4.5rem) 0 0;
     background:
       radial-gradient(circle at 78% 100%, rgba(111, 48, 255, 0.24), transparent 24rem),
       linear-gradient(180deg, #050508 0%, #07060c 68%, #130623 100%);
+  }
+
+  .influence-video-heading {
+    width: min(100% - 3rem, 1360px);
+    margin: 0 auto clamp(1.4rem, 3vw, 2.1rem);
+  }
+
+  .influence-video-heading span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #a977ff;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .influence-video-heading span::before {
+    content: '';
+    width: 3.4rem;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #7c3cff, transparent);
+  }
+
+  .influence-video-heading h2 {
+    margin: 0.85rem 0 0;
+    color: #fff;
+    font-size: clamp(2rem, 4.2vw, 4.2rem);
+    line-height: 1;
+    letter-spacing: 0;
   }
 
   .influence-video-strip {
@@ -224,6 +264,18 @@ const reels = [
   }
 
   @media (max-width: 720px) {
+    .influence-video-section {
+      padding-top: 3rem;
+    }
+
+    .influence-video-heading {
+      width: min(100% - 1.25rem, 100%);
+    }
+
+    .influence-video-heading h2 {
+      font-size: clamp(2rem, 9vw, 3rem);
+    }
+
     .influence-video-strip {
       display: grid;
       grid-auto-columns: minmax(17rem, 78vw);

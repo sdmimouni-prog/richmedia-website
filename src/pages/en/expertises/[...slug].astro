@@ -29,6 +29,7 @@ type ExpertisePage = {
 };
 
 export function getStaticPaths() {
+  const staticExpertiseSlugs = new Set(['media-performance']);
   const expertisePages: ExpertisePage[] = [
     {
       slug: 'media-performance',
@@ -126,7 +127,9 @@ export function getStaticPaths() {
       ],
     },
   ];
-  return [...expertisePages, ...enServiceLandingPages].map((page) => ({ params: { slug: page.slug }, props: { page } }));
+  return [...expertisePages, ...enServiceLandingPages]
+    .filter((page) => !staticExpertiseSlugs.has(page.slug))
+    .map((page) => ({ params: { slug: page.slug }, props: { page } }));
 }
 
 const { page } = Astro.props;

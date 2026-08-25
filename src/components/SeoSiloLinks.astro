@@ -12,6 +12,7 @@ interface Props {
   intro?: string;
   links: readonly SiloLink[];
   variant?: "default" | "compact";
+  columns?: "auto" | "three";
 }
 
 const {
@@ -20,12 +21,13 @@ const {
   intro,
   links,
   variant = "default",
+  columns = "auto",
 } = Astro.props;
 ---
 
 {
   links.length > 0 && (
-    <section class:list={["seo-silo-links", `seo-silo-links-${variant}`]} aria-label={title}>
+    <section class:list={["seo-silo-links", `seo-silo-links-${variant}`, columns === "three" && "seo-silo-links-three"]} aria-label={title}>
       <div class="silo-heading">
         {eyebrow && <span class="silo-kicker">{eyebrow}</span>}
         <h2>{title}</h2>
@@ -113,6 +115,10 @@ const {
     margin-top: clamp(1rem, 2.4vw, 1.65rem);
   }
 
+  .seo-silo-links-three .silo-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .silo-card {
     display: grid;
     gap: 0.45rem;
@@ -156,6 +162,12 @@ const {
     color: rgba(255, 255, 255, 0.62);
     font-size: 1.0625rem;
     line-height: 1.45;
+  }
+
+  @media (max-width: 980px) {
+    .seo-silo-links-three .silo-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (max-width: 720px) {
