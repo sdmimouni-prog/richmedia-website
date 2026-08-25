@@ -1035,8 +1035,11 @@ const faqs = [
 
   .office-map-panel {
     display: grid;
+    align-self: start;
+    align-content: start;
+    gap: clamp(0.85rem, 1.5vw, 1.25rem);
     overflow: hidden;
-    min-height: 500px;
+    min-height: 0;
     padding: clamp(1.1rem, 2vw, 1.8rem);
   }
 
@@ -1057,10 +1060,10 @@ const faqs = [
 
   .office-map-stage {
     position: relative;
-    align-self: end;
+    align-self: start;
     overflow: hidden;
-    min-height: 340px;
-    margin: 1rem -1.8rem -1.8rem;
+    min-height: clamp(280px, 25vw, 340px);
+    margin: 0 -1.8rem -1.8rem;
     background:
       radial-gradient(circle at 50% 48%, rgba(138, 77, 255, 0.18), transparent 20rem),
       linear-gradient(180deg, rgba(2, 4, 10, 0), rgba(2, 4, 10, 0.4));
@@ -1734,12 +1737,12 @@ const faqs = [
     }
 
     .office-map-panel {
-      min-height: 430px;
+      min-height: 0;
     }
 
     .office-map-stage {
-      min-height: 310px;
-      margin: 0.8rem -0.86rem -0.86rem;
+      min-height: 270px;
+      margin: 0 -0.86rem -0.86rem;
     }
 
     .office-map-stage img {

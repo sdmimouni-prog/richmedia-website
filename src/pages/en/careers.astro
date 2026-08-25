@@ -21,6 +21,7 @@ const schema = [
 ];
 
 const heroPeople = [
+  { image: 'salah.webp', name: 'Salah Eddine MIMOUNI' },
   { image: 'amal.webp', name: 'Amal Amazouz' },
   { image: 'tarik.webp', name: 'Tarik El Abbadi' },
   { image: 'oussama.webp', name: 'Oussama TAHTAH' },
@@ -30,7 +31,6 @@ const heroPeople = [
   { image: 'ikram-bw.webp', name: 'Ikram Dehiri' },
   { image: 'safwane.webp', name: 'Safwane MOUSTAINE' },
   { image: 'malak-billaore.webp', name: 'Malak BILLAORE' },
-  { image: 'salah.webp', name: 'Salah-Eddine Mimouni', className: 'mosaic-feature' },
   { image: 'rachid-oualla.webp?v=black-d71ec18', name: 'Rachid OUALLA' },
   { image: 'rachid.webp', name: 'Rachid Hlalma' },
   { image: 'abdelkader.webp', name: 'Abdelkader El Bouhaddouti' },
@@ -46,6 +46,7 @@ const heroPeople = [
   { image: 'ayoub.webp', name: 'Ayoub Es-Samlali' },
   { image: 'yassine.webp', name: 'Mohamed Yassine Dargal' },
 ];
+const heroGridPeople = heroPeople.slice(0, 19);
 
 const team = [
   { image: 'salah.webp', name: 'Salah-Eddine Mimouni', role: 'CEO & CTO', group: 'Executive' },
@@ -127,14 +128,14 @@ const quickLinks = [
       </div>
 
       <div class="hero-portraits" aria-label="Richmedia team portraits">
-        {heroPeople.map((person, index) => (
+        {heroGridPeople.map((person) => (
           <figure class:list={['hero-portrait', person.className]}>
             <img
               src={`${assetBase}/${person.image}`}
               alt={person.name}
               width="420"
               height="520"
-              loading={index < 8 ? 'eager' : 'lazy'}
+              loading="eager"
               decoding="async"
             />
             <figcaption>{person.name}</figcaption>
@@ -303,8 +304,9 @@ const quickLinks = [
     grid-template-columns: minmax(380px, 0.82fr) minmax(560px, 1fr);
     gap: clamp(2rem, 5vw, 5rem);
     align-items: center;
-    min-height: 760px;
-    padding: 9rem 0 4rem;
+    margin-top: 30px;
+    min-height: auto;
+    padding: 7.25rem 0 2.75rem;
   }
 
   .section-kicker {
@@ -376,7 +378,7 @@ const quickLinks = [
     position: relative;
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    grid-auto-rows: clamp(86px, 7.2vw, 112px);
+    grid-auto-rows: clamp(88px, 7.2vw, 118px);
     gap: 5px;
     align-self: center;
     min-height: 0;
@@ -409,7 +411,9 @@ const quickLinks = [
     min-width: 0;
     border: 1px solid rgba(124, 60, 255, 0.22);
     border-radius: 4px;
-    background: #08090f;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(124, 60, 255, 0.12), transparent 58%),
+      #08090f;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
     transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease, filter 260ms ease;
   }
@@ -425,16 +429,16 @@ const quickLinks = [
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center top;
+    object-fit: contain;
+    object-position: center;
     filter: grayscale(1) contrast(1.08);
-    transform: scale(1.01);
+    transform: scale(0.94);
     transition: filter 300ms ease, transform 300ms ease;
   }
 
   .hero-portrait:hover img {
     filter: grayscale(0.18) saturate(1.08) contrast(1.04);
-    transform: scale(1.08);
+    transform: scale(0.99);
   }
 
   .hero-portrait figcaption {
@@ -469,18 +473,13 @@ const quickLinks = [
     transform: translateY(0);
   }
 
-  .mosaic-feature {
-    border-color: rgba(165, 107, 255, 0.58);
-  }
-
   .portrait-focus-low img {
-    object-fit: contain;
     object-position: center;
-    transform: scale(1);
+    transform: scale(0.94);
   }
 
   .portrait-focus-low:hover img {
-    transform: scale(1.04);
+    transform: scale(0.99);
   }
 
   .hero-join-card {
@@ -665,9 +664,35 @@ const quickLinks = [
   }
 
   .team-stats article {
+    position: relative;
+    overflow: hidden;
     min-height: 120px;
     padding: 1.4rem;
     background: rgba(0,0,0,0.34);
+    transition: background 280ms ease, box-shadow 280ms ease;
+  }
+
+  .team-stats article::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(110deg, transparent 0%, rgba(165, 107, 255, 0.18) 45%, transparent 72%),
+      radial-gradient(circle at 20% 50%, rgba(124, 60, 255, 0.2), transparent 58%);
+    content: "";
+    opacity: 0;
+    transform: translateX(-80%);
+    transition: opacity 280ms ease, transform 560ms cubic-bezier(0.19, 1, 0.22, 1);
+    pointer-events: none;
+  }
+
+  .team-stats article:hover {
+    background: rgba(124,60,255,0.1);
+    box-shadow: inset 0 0 0 1px rgba(165, 107, 255, 0.28), 0 0 2rem rgba(124, 60, 255, 0.14);
+  }
+
+  .team-stats article:hover::before {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .team-stats article + article {
@@ -675,18 +700,33 @@ const quickLinks = [
   }
 
   .team-stats strong {
+    position: relative;
+    z-index: 1;
     display: block;
     font-size: clamp(2rem, 4vw, 3.4rem);
     font-weight: 800;
     line-height: 0.95;
+    transition: color 260ms ease, transform 320ms ease;
   }
 
   .team-stats span {
+    position: relative;
+    z-index: 1;
     display: block;
     margin-top: 0.5rem;
     color: var(--muted);
     font-size: 1.0625rem;
     line-height: 1.35;
+    transition: color 260ms ease;
+  }
+
+  .team-stats article:hover strong {
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  .team-stats article:hover span {
+    color: rgba(255,255,255,0.88);
   }
 
   .team-marquee {
@@ -751,7 +791,7 @@ const quickLinks = [
   }
 
   .marquee-row strong {
-    font-size: 1.0625rem;
+    font-size: 0.875rem;
     font-weight: 800;
     line-height: 1.1;
   }
@@ -759,9 +799,9 @@ const quickLinks = [
   .marquee-row span {
     margin-top: 0.18rem;
     color: var(--purple-2);
-    font-size: 1.0625rem;
+    font-size: 0.8125rem;
     font-weight: 900;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
@@ -931,24 +971,24 @@ const quickLinks = [
 
   .member-info span {
     color: var(--purple-2);
-    font-size: 1.0625rem;
+    font-size: 0.8125rem;
     font-weight: 900;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   .member-info h3 {
     margin: 0.5rem 0 0;
-    font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
+    font-size: 0.875rem;
     font-weight: 800;
-    line-height: 1.05;
+    line-height: 1.12;
   }
 
   .member-info p {
     margin: 0.35rem 0 0;
     color: rgba(255,255,255,0.62);
-    font-size: 1.0625rem;
-    line-height: 1.35;
+    font-size: 0.875rem;
+    line-height: 1.28;
   }
 
   .team-closing {
@@ -980,7 +1020,7 @@ const quickLinks = [
 
     .hero-portraits {
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      grid-auto-rows: clamp(74px, 12vw, 104px);
+      grid-auto-rows: clamp(76px, 10vw, 96px);
     }
 
     .founder-copy h2 {
@@ -1047,13 +1087,9 @@ const quickLinks = [
 
     .hero-portraits {
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      grid-auto-rows: clamp(82px, 23vw, 108px);
+      grid-auto-rows: clamp(68px, 18vw, 92px);
       gap: 4px;
       padding: 4px;
-    }
-
-    .hero-portrait:nth-child(n + 16):not(.hero-join-card) {
-      display: none;
     }
 
     .hero-portrait:hover {
@@ -1218,11 +1254,11 @@ const quickLinks = [
     }
 
     .marquee-row strong {
-      font-size: 1.0625rem;
+      font-size: 0.875rem;
     }
 
     .marquee-row span {
-      font-size: 1.0625rem;
+      font-size: 0.8125rem;
     }
 
     .team-poles {
@@ -1316,20 +1352,20 @@ const quickLinks = [
     }
 
     .member-info span {
-      font-size: 1.0625rem;
+      font-size: 0.8125rem;
       line-height: 1.15;
       overflow-wrap: anywhere;
     }
 
     .member-info h3 {
       margin-top: 0.36rem;
-      font-size: 1.0625rem;
+      font-size: 0.875rem;
       line-height: 1.05;
       overflow-wrap: anywhere;
     }
 
     .member-info p {
-      font-size: 1.0625rem;
+      font-size: 0.875rem;
       line-height: 1.28;
     }
 
