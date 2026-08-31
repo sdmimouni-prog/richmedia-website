@@ -3,8 +3,9 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { loadEnv } from 'vite';
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const modeFlagIndex = process.argv.indexOf('--mode');
 const modeFlag = process.argv.find((arg) => arg.startsWith('--mode='));
@@ -19,10 +20,25 @@ Object.entries(fileEnv).forEach(([key, value]) => {
 
 const env = (key, fallback) => process.env[key] ?? fileEnv[key] ?? fallback;
 const site = env('PUBLIC_SITE_URL', 'https://www.richmedia.ma');
+const siteOrigin = new URL(site).origin;
 const host = env('ASTRO_HOST', '127.0.0.1');
 const parsedPort = Number.parseInt(env('ASTRO_PORT', '4321'), 10);
 const port = Number.isFinite(parsedPort) ? parsedPort : 4321;
 const contactApiUrl = new URL('./api/contact.js', import.meta.url);
+const hasFileExtension = (pathname) => /\/[^/?#]+\.[^/?#]+$/.test(pathname);
+const withTrailingSlash = (pathname) => {
+  if (pathname === '/' || pathname === '/404' || pathname.endsWith('/') || hasFileExtension(pathname)) return pathname;
+  return `${pathname}/`;
+};
+const shouldSkipInternalPath = (pathname) =>
+  pathname.startsWith('/_astro/') || pathname.startsWith('/assets/') || pathname.startsWith('/api/') || pathname.startsWith('/cdn-cgi/');
+const toPageUrl = (source) => {
+  const parsed = new URL(source, site);
+  if (parsed.origin === siteOrigin) {
+    parsed.pathname = withTrailingSlash(parsed.pathname);
+  }
+  return parsed.href;
+};
 const redirectedEnglishInsightSlugs = [
   'creators-brands-durable-collaborations',
   'crm-automation-marketing-sales-alignment',
@@ -39,7 +55,7 @@ const redirectedEnglishInsightSlugs = [
   'whatsapp-business-conversion-channel',
 ];
 const redirectedEnglishInsightUrls = new Set(
-  redirectedEnglishInsightSlugs.map((slug) => `${site}/insights/${slug}/`)
+  redirectedEnglishInsightSlugs.map((slug) => toPageUrl(`/insights/${slug}/`))
 );
 const collectionRouteTranslations = {
   expertises: {
@@ -83,7 +99,7 @@ const toSitemapLastmod = (value) => {
   const date = value ? new Date(value) : null;
   return date && !Number.isNaN(date.getTime()) ? date.toISOString() : undefined;
 };
-const toAbsoluteUrl = (pathname) => new URL(pathname, site).toString();
+const toAbsoluteUrl = (pathname) => toPageUrl(pathname);
 const addLastmodUrl = (map, pathname, lastmod) => {
   if (!lastmod) return;
   const url = toAbsoluteUrl(pathname);
@@ -208,6 +224,94 @@ const contactApiDevPlugin = () => ({
   },
 });
 
+const normalizeInternalHref = (href) => {
+  if (!href.startsWith('/') || href.startsWith('//')) return href;
+  if (shouldSkipInternalPath(href)) return href;
+
+  const match = href.match(/^([^?#]*)(\?[^#]*)?(#.*)?$/);
+  if (!match) return href;
+
+  const [, pathname, query = '', hash = ''] = match;
+  if (!pathname || pathname === '/' || pathname.endsWith('/') || hasFileExtension(pathname)) return href;
+
+  return `${pathname}/${query}${hash}`;
+};
+const routeExists = (rootDir, pathname) => {
+  if (pathname === '/') return true;
+  return existsSync(join(rootDir, pathname.replace(/^\/+|\/+$/g, ''), 'index.html'));
+};
+const normalizeInternalAbsoluteUrl = (source, rootDir) => {
+  try {
+    const parsed = new URL(source);
+    if (parsed.origin !== siteOrigin || shouldSkipInternalPath(parsed.pathname)) return source;
+
+    const pathname = withTrailingSlash(parsed.pathname);
+    if (pathname === parsed.pathname || !routeExists(rootDir, pathname)) return source;
+
+    parsed.pathname = pathname;
+    return parsed.href;
+  } catch {
+    return source;
+  }
+};
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const normalizeBuiltHtmlLinksPlugin = () => ({
+  name: 'richmedia-normalize-built-html-links',
+  hooks: {
+    'astro:build:done': ({ dir }) => {
+      const rootDir = fileURLToPath(dir);
+      const exactSiteOriginPattern = new RegExp(`${escapeRegExp(siteOrigin)}(?=["'<>,}])`, 'g');
+      const absoluteInternalUrlPattern = new RegExp(`${escapeRegExp(siteOrigin)}\\/[^"'<>\\\\\\s)]*`, 'g');
+      let fileCount = 0;
+      let relativeHrefCount = 0;
+      let absoluteUrlCount = 0;
+      let siteOriginCount = 0;
+
+      const walk = (directory) => {
+        for (const entry of readdirSync(directory)) {
+          const entryPath = join(directory, entry);
+          const stats = statSync(entryPath);
+          if (stats.isDirectory()) {
+            walk(entryPath);
+            continue;
+          }
+          if (!stats.isFile() || !entryPath.endsWith('.html')) continue;
+
+          const html = readFileSync(entryPath, 'utf8');
+          const nextHtml = html
+            .replace(/\bhref=(["'])(\/(?!\/)[^"']*)\1/g, (_full, quote, href) => {
+              const nextHref = normalizeInternalHref(href);
+              if (nextHref !== href) relativeHrefCount += 1;
+              return `href=${quote}${nextHref}${quote}`;
+            })
+            .replace(absoluteInternalUrlPattern, (url) => {
+              const nextUrl = normalizeInternalAbsoluteUrl(url, rootDir);
+              if (nextUrl !== url) absoluteUrlCount += 1;
+              return nextUrl;
+            })
+            .replace(exactSiteOriginPattern, (url) => {
+              siteOriginCount += 1;
+              return `${url}/`;
+            });
+
+          if (nextHtml !== html) {
+            writeFileSync(entryPath, nextHtml);
+            fileCount += 1;
+          }
+        }
+      };
+
+      walk(rootDir);
+      if (fileCount > 0) {
+        console.log(
+          `[richmedia] normalized ${relativeHrefCount} relative hrefs, ${absoluteUrlCount} absolute internal URLs and ${siteOriginCount} root URLs in ${fileCount} HTML files`
+        );
+      }
+    },
+  },
+});
+
 // Domaine actif — sert au sitemap, aux URLs canoniques et au JSON-LD.
 export default defineConfig({
   site,
@@ -219,15 +323,20 @@ export default defineConfig({
     locales: ['fr', 'en'],
     routing: { prefixDefaultLocale: false },
   },
+  vite: { plugins: [tailwindcss(), contactApiDevPlugin()] },
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !redirectedEnglishInsightUrls.has(page),
-      serialize: (item) => ({
-        ...item,
-        lastmod: collectionLastmodByUrl.get(item.url) ?? staticLastmodByUrl.get(item.url) ?? item.lastmod,
-      }),
+      filter: (page) => !redirectedEnglishInsightUrls.has(toPageUrl(page)),
+      serialize: (item) => {
+        const url = toPageUrl(item.url);
+        return {
+          ...item,
+          url,
+          lastmod: collectionLastmodByUrl.get(url) ?? staticLastmodByUrl.get(url) ?? item.lastmod,
+        };
+      },
     }),
+    normalizeBuiltHtmlLinksPlugin(),
   ],
-  vite: { plugins: [tailwindcss(), contactApiDevPlugin()] },
 });

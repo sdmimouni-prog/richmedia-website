@@ -36,7 +36,24 @@ const {
   articleAuthor,
   articleSection,
 } = Astro.props;
-const url = canonical ?? new URL(Astro.url.pathname, SITE.url).href;
+const siteOrigin = new URL(SITE.url).origin;
+const hasFileExtension = (pathname: string) => /\/[^/?#]+\.[^/?#]+$/.test(pathname);
+const withTrailingSlash = (pathname: string) => {
+  if (pathname === '/' || pathname === '/404' || pathname.endsWith('/') || hasFileExtension(pathname)) return pathname;
+  return `${pathname}/`;
+};
+const toPageUrl = (source: string) => {
+  try {
+    const parsed = new URL(source, SITE.url);
+    if (parsed.origin === siteOrigin) {
+      parsed.pathname = withTrailingSlash(parsed.pathname);
+    }
+    return parsed.href;
+  } catch {
+    return source;
+  }
+};
+const url = toPageUrl(canonical ?? new URL(Astro.url.pathname, SITE.url).href);
 const defaultImage = import.meta.env.PUBLIC_OG_IMAGE_URL ?? `${SITE.url}/og-default.jpg`;
 const makeAbsoluteUrl = (source: string) => (source.startsWith('/') ? `${SITE.url}${source}` : source);
 const image = makeAbsoluteUrl(ogImage ?? defaultImage);
@@ -240,7 +257,7 @@ const bilingualRoutes = [
   ['/secteurs/tourisme-hotellerie', '/en/sectors/tourism-hospitality'],
   ['/sitemap', '/en/sitemap'],
 ] as const;
-const absoluteUrl = (pathname: string) => (pathname === '/' ? SITE.url : `${SITE.url}${pathname}`);
+const absoluteUrl = (pathname: string) => toPageUrl(pathname === '/' ? SITE.url : `${SITE.url}${pathname}`);
 const glossaryRoutePair =
   normalizedPath === '/glossaire' || normalizedPath === '/en/glossary'
     ? (['/glossaire', '/en/glossary'] as const)
