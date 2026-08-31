@@ -14,6 +14,24 @@ const description =
 
 const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4');
 
+const marketSignals = [
+  {
+    number: '01',
+    title: 'Lire le marché',
+    text: 'Identifier les audiences, les usages et les moments de décision propres à Casablanca.',
+  },
+  {
+    number: '02',
+    title: 'Aligner les messages',
+    text: 'Relier identité, social media, influence, web et média dans une même direction.',
+  },
+  {
+    number: '03',
+    title: "Mesurer l'impact",
+    text: 'Piloter les budgets, les leads et les signaux de confiance avec des indicateurs utiles.',
+  },
+];
+
 const metrics = [
   { icon: 'ph ph-chart-line-up', value: '+156', label: 'projets réalisés', text: 'pour des marques locales, nationales et internationales.' },
   { icon: 'ph ph-users-three', value: '+117', label: 'clients accompagnés', text: 'dans des secteurs exigeants.' },
@@ -274,25 +292,36 @@ const schema = [
       </a>
     </section>
 
-    <section class="editorial-section" aria-labelledby="local-title">
-      <div>
+    <section id="marche-local" class="editorial-section" aria-labelledby="local-title">
+      <div class="market-heading">
         <span class="section-kicker">Marché local</span>
-        <h2 id="local-title">Communiquer à Casablanca : un marché aussi stratégique que concurrentiel</h2>
+        <h2 id="local-title">Communiquer à Casablanca avec clarté et impact</h2>
+        <p class="market-lead">
+          Casablanca réunit sièges sociaux, enseignes, startups et institutions. Dans ce marché dense, l'enjeu
+          n'est pas d'en dire plus, mais de dire juste.
+        </p>
         <div class="editorial-particle-logo" aria-hidden="true">
           <ParticleLogoSlide />
         </div>
       </div>
-      <p>
-        Casablanca concentre une grande partie des sièges sociaux, enseignes, startups, institutions et directions
-        marketing du Maroc. Dans cet environnement dense, capter l'attention ne dépend plus seulement d'une bonne idée :
-        il faut une stratégie capable de relier la création, la connaissance des audiences, le ciblage, les canaux média
-        et la mesure des résultats. Une campagne efficace doit comprendre les usages réels des consommateurs, adapter les
-        messages aux plateformes, produire des contenus utiles et piloter les budgets avec précision. Pour une marque qui
-        cherche à émerger, la cohérence entre identité, social media, influence, web, data et performance devient un
-        avantage décisif. C'est dans cette logique que Richmedia construit ses dispositifs : partir du marché, clarifier
-        les objectifs, choisir les bons leviers, puis optimiser en continu ce qui crée de la visibilité, de la confiance
-        et des opportunités commerciales.
-      </p>
+      <div class="market-content">
+        <div class="market-copy">
+          <p>
+            Pour émerger, une marque doit relier création, ciblage, canaux média, data et performance autour d'objectifs
+            précis. Richmedia part du marché, clarifie les priorités, choisit les bons leviers, puis optimise ce qui
+            crée de la visibilité, de la confiance et des opportunités commerciales.
+          </p>
+        </div>
+        <ul class="market-points" aria-label="Approche Richmedia pour communiquer à Casablanca">
+          {marketSignals.map((signal) => (
+            <li>
+              <span>{signal.number}</span>
+              <strong>{signal.title}</strong>
+              <p>{signal.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
 
     <section class="method-section" aria-labelledby="method-title">
@@ -778,24 +807,107 @@ const schema = [
 
   .editorial-section {
     display: grid;
-    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-    gap: clamp(1.5rem, 4vw, 3rem);
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1.8rem, 4vw, 3.8rem);
+    align-items: start;
+    scroll-margin-top: 7.5rem;
     margin-top: clamp(3.5rem, 7vw, 6rem);
     padding: clamp(1.35rem, 4vw, 3rem);
   }
 
-  .editorial-section p {
+  .editorial-section h2 {
+    max-width: 12ch;
+    font-size: clamp(2.1rem, 3.8vw, 3.9rem);
+    line-height: 1;
+  }
+
+  .market-heading {
+    display: grid;
+    align-content: start;
+  }
+
+  .market-lead {
+    max-width: 34rem;
+    margin-top: clamp(1.1rem, 2vw, 1.35rem);
+    color: rgba(232, 237, 245, 0.78);
+    font-size: clamp(1rem, 1.3vw, 1.16rem);
+    line-height: 1.68;
+    text-wrap: pretty;
+  }
+
+  .market-content {
+    display: grid;
+    gap: clamp(1.2rem, 2.4vw, 1.8rem);
+    align-self: center;
+  }
+
+  .market-copy {
+    border-left: 1px solid rgba(185, 137, 255, 0.48);
+    padding-left: clamp(1rem, 2vw, 1.4rem);
+  }
+
+  .market-copy p {
+    max-width: 48rem;
     margin: 0;
+    color: rgba(232, 237, 245, 0.76);
+    font-size: clamp(1rem, 1.22vw, 1.12rem);
+    line-height: 1.84;
+    text-align: justify;
+    text-align-last: left;
+    text-wrap: pretty;
+    hyphens: manual;
+  }
+
+  .market-points {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.85rem, 1.8vw, 1.25rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .market-points li {
+    min-width: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    padding-top: 0.95rem;
+  }
+
+  .market-points span {
+    display: inline-flex;
+    color: var(--purple-soft);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+  }
+
+  .market-points strong {
+    display: block;
+    margin-top: 0.45rem;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: clamp(1.08rem, 1.5vw, 1.28rem);
+    line-height: 1.1;
+  }
+
+  .market-points p {
+    max-width: 18rem;
+    margin: 0.55rem 0 0;
+    color: rgba(232, 237, 245, 0.62);
+    font-size: 0.92rem;
+    line-height: 1.55;
   }
 
   .editorial-particle-logo {
     position: relative;
-    min-height: clamp(9rem, 16vw, 13rem);
+    width: min(100%, 28rem);
+    min-height: clamp(7.8rem, 11vw, 10rem);
     margin-top: clamp(1.15rem, 2.4vw, 1.8rem);
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
     background: #000;
+    opacity: 0.82;
   }
 
   .method-grid {
@@ -1005,6 +1117,19 @@ const schema = [
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .editorial-section h2 {
+      max-width: 14ch;
+    }
+
+    .market-content {
+      align-self: stretch;
+    }
+
+    .editorial-particle-logo {
+      width: 100%;
+      max-width: 34rem;
+    }
+
   }
 
   @media (max-width: 720px) {
@@ -1068,8 +1193,48 @@ const schema = [
     .expertise-grid,
     .why-grid,
     .work-grid,
-    .method-grid {
+    .method-grid,
+    .market-points {
       grid-template-columns: 1fr;
+    }
+
+    .market-lead {
+      margin-top: 0.95rem;
+      font-size: 1rem;
+      line-height: 1.58;
+    }
+
+    .market-copy {
+      border-top: 1px solid rgba(185, 137, 255, 0.42);
+      border-left: 0;
+      padding-top: 1rem;
+      padding-left: 0;
+    }
+
+    .market-copy p {
+      line-height: 1.68;
+      text-align: left;
+      hyphens: manual;
+    }
+
+    .market-points {
+      gap: 0.9rem;
+    }
+
+    .market-points li {
+      padding-top: 0.8rem;
+    }
+
+    .market-points p {
+      max-width: none;
+      margin-top: 0.45rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .editorial-particle-logo {
+      min-height: 7rem;
+      margin-top: 1rem;
     }
 
     .proof-section,
@@ -1083,7 +1248,7 @@ const schema = [
     .section-intro h2,
     .editorial-section h2,
     .final-cta h2 {
-      font-size: clamp(2rem, 10vw, 3rem);
+      font-size: clamp(2rem, 9vw, 2.75rem);
       line-height: 1;
     }
 
