@@ -18,7 +18,7 @@ Object.entries(fileEnv).forEach(([key, value]) => {
 });
 
 const env = (key, fallback) => process.env[key] ?? fileEnv[key] ?? fallback;
-const site = env('PUBLIC_SITE_URL', 'https://www.richmedia.ma');
+const site = env('PUBLIC_SITE_URL', 'https://richmedia.ma');
 const host = env('ASTRO_HOST', '127.0.0.1');
 const parsedPort = Number.parseInt(env('ASTRO_PORT', '4321'), 10);
 const port = Number.isFinite(parsedPort) ? parsedPort : 4321;

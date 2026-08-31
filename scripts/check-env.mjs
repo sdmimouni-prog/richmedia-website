@@ -1,6 +1,11 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+function isValidPort(value) {
+  const port = Number.parseInt(value, 10);
+  return String(port) === value && port > 0 && port <= 65535;
+}
+
 const profiles = {
   development: {
     file: '.env.development',
@@ -14,6 +19,8 @@ const profiles = {
     ],
     optional: [
       'CONTACT_LEADS_FILE',
+      'CONTACT_API_HOST',
+      'CONTACT_API_PORT',
       'RESEND_API_KEY',
       'PUBLIC_GTM_ID',
       'PUBLIC_GA4_ID',
@@ -22,6 +29,7 @@ const profiles = {
     ],
     checks: {
       ASTRO_PORT: (value) => value === '4321',
+      CONTACT_API_PORT: isValidPort,
       PUBLIC_SITE_URL: (value) => value === 'http://localhost:4321',
     },
   },
@@ -37,6 +45,8 @@ const profiles = {
       'ASTRO_HOST',
       'ASTRO_PORT',
       'CONTACT_LEADS_FILE',
+      'CONTACT_API_HOST',
+      'CONTACT_API_PORT',
       'RESEND_API_KEY',
       'PUBLIC_GTM_ID',
       'PUBLIC_GA4_ID',
@@ -44,6 +54,7 @@ const profiles = {
       'PUBLIC_LINKEDIN_PARTNER_ID',
     ],
     checks: {
+      CONTACT_API_PORT: isValidPort,
       PUBLIC_SITE_URL: (value) => value === 'https://richmedia.ma',
       PUBLIC_OG_IMAGE_URL: (value) => value.startsWith('https://richmedia.ma/'),
     },

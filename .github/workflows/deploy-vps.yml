@@ -34,7 +34,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          PUBLIC_SITE_URL: https://www.richmedia.ma
+          PUBLIC_SITE_URL: https://richmedia.ma
 
       - name: Configure SSH
         env:
@@ -108,7 +108,7 @@ jobs:
             -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/purge_cache" \
             -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
             -H "Content-Type: application/json" \
-            --data '{"files":["https://www.richmedia.ma/robots.txt","https://www.richmedia.ma/sitemap-index.xml","https://www.richmedia.ma/sitemap-0.xml"]}'
+            --data '{"files":["https://richmedia.ma/robots.txt","https://richmedia.ma/sitemap-index.xml","https://richmedia.ma/sitemap-0.xml","https://www.richmedia.ma/robots.txt","https://www.richmedia.ma/sitemap-index.xml","https://www.richmedia.ma/sitemap-0.xml"]}'
 
       - name: Configure contact API
         continue-on-error: true

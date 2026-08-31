@@ -39,6 +39,8 @@ et `ASTRO_PORT` pilotent `astro dev` et `astro preview`.
 Pour les formulaires et tags marketing, garder en local :
 
 ```bash
+CONTACT_API_HOST=127.0.0.1
+CONTACT_API_PORT=8787
 CONTACT_TO_EMAIL=sd.mimouni@richmedia.ma
 CONTACT_FROM_EMAIL="Richmedia <noreply@richmedia.ma>"
 RESEND_API_KEY=
@@ -72,6 +74,27 @@ Sur le VPS, le workflow GitHub Actions déploie aussi `/api/contact` comme servi
 La clé `RESEND_API_KEY` doit être ajoutée dans les secrets GitHub pour envoyer les leads
 par email. Si elle est absente, le service reste actif et enregistre les demandes dans
 `$VPS_WEBROOT/shared/contact-leads.ndjson` afin de ne pas perdre les conversions.
+
+Secrets GitHub requis pour la production VPS :
+
+```bash
+VPS_SSH_KEY
+VPS_HOST
+VPS_PORT
+VPS_USER
+VPS_WEBROOT
+```
+
+Secrets/variables GitHub recommandés :
+
+```bash
+RESEND_API_KEY              # secret, pour l'envoi email
+CONTACT_API_PORT=8787       # variable, optionnelle
+CONTACT_TO_EMAIL=sd.mimouni@richmedia.ma
+CONTACT_FROM_EMAIL="Richmedia <noreply@richmedia.ma>"
+CLOUDFLARE_API_TOKEN        # secret, optionnel pour purger robots/sitemaps
+CLOUDFLARE_ZONE_ID          # variable ou secret, optionnel
+```
 
 ```bash
 npm run contact:check              # vérifie que /api/contact ne redirige plus
