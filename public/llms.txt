@@ -53,7 +53,6 @@
 ## Réalisations
 - [Réalisations](https://www.richmedia.ma/realisations/)
 - [UIR — campagnes digitales](https://www.richmedia.ma/realisations/uir-campagnes-digitales/)
-- [Modèle de case study](https://www.richmedia.ma/realisations/modele-case-study/)
 
 ## Insights en français
 - [Baromètre Marketing Digital Maroc 2026](https://www.richmedia.ma/insights/barometre-marketing-digital-maroc-2026/)

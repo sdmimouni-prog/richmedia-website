@@ -483,6 +483,7 @@ export const serviceLandings = [
       { href: '/secteurs/retail-ecommerce', label: 'Retail & e-commerce' },
     ],
     relatedServices: [
+      { href: '/agence-ia-maroc', label: 'Agence IA au Maroc' },
       { href: '/expertises/ia-automation', label: 'IA & automation' },
       { href: '/expertises/marketing-automation-crm-maroc', label: 'Marketing Automation & CRM' },
       { href: '/expertises/generation-leads-maroc', label: 'Génération de leads' },
@@ -555,6 +556,7 @@ export const serviceLandings = [
       { href: '/secteurs/automobile', label: 'Automobile' },
     ],
     relatedServices: [
+      { href: '/agence-ia-maroc', label: 'Agence IA au Maroc' },
       { href: '/expertises/ia-automation', label: 'IA & automation' },
       { href: '/expertises/whatsapp-marketing-maroc', label: 'WhatsApp Marketing Maroc' },
       { href: '/expertises/generation-leads-maroc', label: 'Génération de leads' },

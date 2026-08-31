@@ -67,6 +67,7 @@ export const frSiloLinks = {
     { href: "/contact", label: "Créer une activation de marque", text: "Cadrer une campagne brand content, influence ou UGC avec Richmedia." },
   ],
   conversion: [
+    { href: "/agence-ia-maroc", label: "Agence IA au Maroc", text: "Concevoir agents IA, CRM, WhatsApp et automatisations autour des processus métier." },
     { href: "/expertises/whatsapp-marketing-maroc", label: "WhatsApp Marketing Maroc", text: "Structurer opt-in, templates, scénarios, CRM et reporting conversationnel." },
     { href: "/expertises/marketing-automation-crm-maroc", label: "Marketing Automation & CRM", text: "Relier capture, scoring, routing, relances et conversion commerciale." },
     { href: "/produits/whatsapp", label: "WhatsApp Business Maroc", text: "Activer conversations, notifications, relances et conversion WhatsApp." },
@@ -189,6 +190,7 @@ export const enSiloLinks = {
     { href: "/en/contact", label: "Create a brand activation", text: "Frame a brand content, influence or UGC campaign with Richmedia." },
   ],
   conversion: [
+    { href: "/en/ai-agency-morocco", label: "AI Agency Morocco", text: "Design AI agents, CRM, WhatsApp and automation around business processes." },
     { href: "/en/products/whatsapp", label: "WhatsApp Business Morocco", text: "Activate conversations, notifications, reminders and WhatsApp conversion." },
     { href: "/en/insights/whatsapp-business-conversion-channel", label: "WhatsApp conversion", text: "Understand how WhatsApp becomes a qualification and sales channel." },
     { href: "/en/insights/crm-automation-marketing-sales-alignment", label: "Marketing CRM", text: "Align marketing, sales, lead nurturing, scoring and commercial reporting." },
@@ -237,7 +239,6 @@ export const enSiloLinks = {
     { href: "/en/sectors/fmcg", label: "FMCG", text: "Brand content, retail activation, influence and launches." },
   ],
   casesHub: [
-    { href: "/en/case-studies/model-case-study", label: "Digital marketing case study format", text: "See the structure used to document context, system and results." },
     { href: "/en/case-studies/uir-acquisition-campaign-2023-2024", label: "Richmedia UIR acquisition case study", text: "Open a complete education growth system." },
     { href: "/en/expertises/brand-content", label: "Richmedia case study", text: "Connect proof to brand content and creative campaigns." },
     { href: "/en/expertises/achat-media", label: "Digital campaign in Morocco", text: "Connect proof to media buying and performance." },

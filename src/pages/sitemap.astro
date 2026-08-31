@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LegalPage from '../components/LegalPage.astro';
 import { SITE } from '../consts';
 import { breadcrumbs } from '../lib/schema';
+import { serviceLandings } from '../lib/service-landings';
 
 const pageUrl = `${SITE.url}/sitemap`;
 const schema = [
@@ -19,9 +20,12 @@ const staticGroups = [
     links: [
       { href: '/', label: 'Accueil', text: 'Présentation de Richmedia, expertises, références et contact.' },
       { href: '/agence', label: 'Agence', text: 'Agence digitale à Casablanca : approche, vision, bureaux et preuves.' },
+      { href: '/agence-de-communication-maroc', label: 'Agence de communication au Maroc', text: 'Landing nationale pour présenter Richmedia, ses expertises et son approche au Maroc.' },
+      { href: '/agence-de-communication-casablanca', label: 'Agence de communication à Casablanca', text: 'Page locale dédiée aux entreprises qui cherchent une agence de communication à Casablanca.' },
       { href: '/expertises', label: 'Expertises', text: 'Vue d’ensemble des expertises Richmedia.' },
       { href: '/secteurs', label: 'Secteurs', text: 'Pages par marché : éducation, immobilier, retail, GMS, institutionnel et plus.' },
       { href: '/insights', label: 'Insights', text: 'Guides, analyses et méthodes marketing digital.' },
+      { href: '/glossaire', label: 'Glossaire', text: 'Définitions marketing digital, SEO/GEO, média, CRM, data et growth.' },
       { href: '/insights/barometre-marketing-digital-maroc-2026', label: 'Baromètre Marketing Digital Maroc 2026', text: 'Benchmark propriétaire Richmedia basé sur 400 campagnes digitales au Maroc.' },
       { href: '/outils', label: 'Outils & ressources', text: 'Calculateurs, templates et checklists pour piloter le marketing digital.' },
       { href: '/outils/calculateur-budget-media-leads', label: 'Calculateur Budget Média & Leads', text: 'Estimation du budget média ou du volume de leads par secteur et canal.' },
@@ -35,6 +39,7 @@ const staticGroups = [
       { href: '/realisations', label: 'Réalisations', text: 'Portfolio et cas clients.' },
       { href: '/realisations/maserati-levante-whatsapp-leads-2025', label: 'Maserati Levante — WhatsApp & Leads 2025', text: 'Case study automobile : 1 200 leads, 244 demandes d’essai et 112 rendez-vous showroom.' },
       { href: '/realisations/don-simon-back-to-school-2025', label: 'Don Simon — Back to School 2025', text: 'Case study FMCG : 25 M d’impressions, 2 M de vues vidéo, 200 K engagements et 30 K clics.' },
+      { href: '/realisations/chergui-packaging-2021', label: 'Chergui — Conception Packaging 2021', text: 'Case study packaging : conception graphique, direction artistique, visibilité rayon et perception premium.' },
       { href: '/realisations/milka-packaging-key-visual-2019', label: 'Milka — Packaging & Key Visual 2019', text: 'Case study packaging : univers Muffins & Donuts, cohérence de gamme, gourmandise et impact rayon.' },
       { href: '/realisations/amana-tramway-phygital-2022', label: 'Amana — Tramway & Activation Phygitale 2022', text: 'Case study phygital : 29 M d’audience estimée, 8 418 scans QR et 4 183 leads.' },
       { href: '/realisations/nescafe-nadi-nescafe-2019', label: 'Nescafé — Nadi Nescafé 2019', text: 'Case study communauté : 100 K visites plateforme, 5 K membres et 2 500 coupons.' },
@@ -63,10 +68,17 @@ const staticGroups = [
       { href: '/expertises/referencement-seo', label: 'SEO / GEO', text: 'Référencement naturel, SEO local et visibilité IA.' },
       { href: '/agence-seo-maroc', label: 'Agence SEO au Maroc', text: 'Landing SEO nationale : audit, SEO technique, contenu, maillage, reporting et visibilité Google.' },
       { href: '/gestion-reseaux-sociaux-maroc', label: 'Gestion des réseaux sociaux au Maroc', text: 'Landing SEO social media : stratégie, contenu, community management, modération et reporting.' },
+      { href: '/marketing-influence-maroc', label: 'Marketing d’influence au Maroc', text: 'Landing influence nationale : créateurs, UGC, campagnes social-first, amplification et mesure.' },
+      ...serviceLandings.map(({ slug, title, metaDescription }) => ({
+        href: `/expertises/${slug}`,
+        label: title,
+        text: metaDescription,
+      })),
       { href: '/expertises/influence', label: 'Influence', text: 'Créateurs, UGC, activation et reporting.' },
       { href: '/expertises/phygital', label: 'Phygital', text: 'Activation terrain, retail et expériences connectées.' },
       { href: '/expertises/evenementiel', label: 'Événementiel', text: 'Conception, production et amplification événementielle.' },
       { href: '/expertises/ia-automation', label: 'IA & automation', text: 'CRM, WhatsApp, agents IA et workflows.' },
+      { href: '/agence-ia-maroc', label: 'Agence IA au Maroc', text: 'Landing IA nationale : agents IA, chatbots, CRM, WhatsApp, data et automatisation des processus métier.' },
     ],
   },
   {
@@ -79,14 +91,32 @@ const staticGroups = [
     ],
   },
   {
+    title: 'Auteurs',
+    links: [
+      { href: '/auteurs/amal-amazouz', label: 'Amal Amazouz', text: 'Profil auteure Richmedia et contenus associés.' },
+      { href: '/auteurs/salah-eddine-mimouni', label: 'Salah Eddine Mimouni', text: 'Profil auteur Richmedia et contenus associés.' },
+      { href: '/auteurs/tarik-el-abbadi', label: 'Tarik El Abbadi', text: 'Profil auteur Richmedia et contenus associés.' },
+    ],
+  },
+  {
     title: 'English',
     links: [
       { href: '/en', label: 'Home', text: 'English homepage.' },
+      { href: '/rich-media-agency-morocco', label: 'Rich Media Agency Morocco', text: 'English landing page for Richmedia agency services in Morocco.' },
+      { href: '/influencer-marketing-morocco', label: 'Influencer Marketing Morocco', text: 'English landing page for creator campaigns, UGC and influence in Morocco.' },
       { href: '/en/expertises', label: 'Expertise', text: 'English expertise hub.' },
       { href: '/en/case-studies', label: 'Case studies', text: 'English case studies hub.' },
       { href: '/en/team', label: 'Team', text: 'English team page.' },
+      { href: '/en/authors/amal-amazouz', label: 'Amal Amazouz', text: 'English Richmedia author profile.' },
+      { href: '/en/authors/salah-eddine-mimouni', label: 'Salah Eddine Mimouni', text: 'English Richmedia author profile.' },
+      { href: '/en/authors/tarik-el-abbadi', label: 'Tarik El Abbadi', text: 'English Richmedia author profile.' },
+      { href: '/en/products/whatsapp', label: 'WhatsApp', text: 'English product page for WhatsApp campaigns, follow-up and reporting.' },
+      { href: '/en/products/hypeo', label: 'Hypeo.ai', text: 'English product page for Richmedia’s influence and AI platform.' },
+      { href: '/en/products/in-talks', label: 'In Talks', text: 'English product page for social listening and reputation.' },
+      { href: '/en/products/carter-blake', label: 'Carter & Blake', text: 'English product page for political marketing and public communication.' },
       { href: '/en/contact', label: 'Contact', text: 'English contact page.' },
       { href: '/en/book-audit', label: 'Book audit', text: 'English audit request page.' },
+      { href: '/en/ai-agency-morocco', label: 'AI Agency Morocco', text: 'English AI landing page for agents, chatbots, CRM, WhatsApp, data and automation.' },
     ],
   },
   {
@@ -113,6 +143,12 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft && d
   text: entry.data.metaDescription,
 }));
 
+const glossaryTerms = (await getCollection('glossaire', ({ data }) => !data.draft && data.lang === 'fr')).map((entry) => ({
+  href: `/glossaire/${entry.data.slug ?? entry.id}`,
+  label: entry.data.title,
+  text: entry.data.metaDescription,
+}));
+
 const sectors = (await getCollection('secteurs', ({ data }) => !data.draft)).map((entry) => ({
   href: `/secteurs/${entry.data.slug ?? entry.id}`,
   label: entry.data.title,
@@ -122,6 +158,7 @@ const sectors = (await getCollection('secteurs', ({ data }) => !data.draft)).map
 const contentGroups = [
   { title: 'Cas clients publiés', links: cases },
   { title: 'Insights', links: articles },
+  { title: 'Glossaire', links: glossaryTerms },
   { title: 'Secteurs', links: sectors },
 ].filter((group) => group.links.length);
 ---

@@ -1,8 +1,10 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegalPage from '../../components/LegalPage.astro';
 import { SITE } from '../../consts';
 import { breadcrumbs } from '../../lib/schema';
+import { enServiceLandingPages } from '../../lib/en-service-landings';
 
 const pageUrl = `${SITE.url}/en/sitemap`;
 const schema = [breadcrumbs([
@@ -10,17 +12,33 @@ const schema = [breadcrumbs([
   { name: 'Sitemap', url: pageUrl },
 ])];
 
+const articles = (await getCollection('articles', ({ data }) => !data.draft && data.lang === 'en')).map((entry) => ({
+  href: `/en/insights/${entry.data.slug ?? entry.id}`,
+  label: entry.data.title,
+  text: entry.data.metaDescription,
+}));
+
+const publicGlossarySlug = (slug: string) => slug.replace(/^en\//, '');
+
+const glossaryTerms = (await getCollection('glossaire', ({ data }) => !data.draft && data.lang === 'en')).map((entry) => ({
+  href: `/en/glossary/${publicGlossarySlug(entry.data.slug ?? entry.id)}`,
+  label: entry.data.title,
+  text: entry.data.metaDescription,
+}));
+
 const groups = [
   {
     title: 'Main pages',
     links: [
       { href: '/en', label: 'Home', text: 'Richmedia overview, expertise, references and contact.' },
       { href: '/en/agency', label: 'Agency', text: 'About Richmedia, approach, history and offices.' },
+      { href: '/rich-media-agency-morocco', label: 'Rich Media Agency Morocco', text: 'National English landing page for Richmedia agency services in Morocco.' },
+      { href: '/influencer-marketing-morocco', label: 'Influencer Marketing Morocco', text: 'National English landing page for creator campaigns, UGC and influence in Morocco.' },
       { href: '/en/expertises', label: 'Expertise', text: 'Strategy, content, media, web, influence, phygital, events and AI.' },
       { href: '/en/sectors', label: 'Sectors', text: 'Sector pages for education, retail, real estate, institutions and more.' },
       { href: '/en/insights', label: 'Insights', text: 'Guides, analysis and digital marketing methods.' },
+      { href: '/en/glossary', label: 'Glossary', text: 'Definitions for digital marketing, SEO/GEO, media, CRM, data and growth.' },
       { href: '/en/insights/morocco-digital-marketing-barometer-2026', label: 'Morocco Digital Marketing Barometer 2026', text: 'Richmedia benchmark based on campaigns managed in Morocco.' },
-      { href: '/en/insights/how-to-choose-communication-agency', label: 'How to Choose a Communication Agency', text: 'Criteria and scorecard to compare agencies and choose the right partner.' },
       { href: '/en/tools', label: 'Tools & resources', text: 'Calculators, templates and checklists for digital marketing planning.' },
       { href: '/en/tools/media-budget-leads-calculator', label: 'Media Budget & Leads Calculator', text: 'Estimate media budget or lead volume by sector and channel.' },
       { href: '/en/tools/whatsapp-campaign-estimator', label: 'WhatsApp Campaign Estimator', text: 'Estimate pushes, reads, clicks and conversions for a WhatsApp campaign.' },
@@ -33,6 +51,7 @@ const groups = [
       { href: '/en/case-studies', label: 'Case studies', text: 'Portfolio and client cases.' },
       { href: '/en/case-studies/maserati-levante-whatsapp-leads-2025', label: 'Maserati Levante WhatsApp & Leads 2025', text: 'Automotive case study: 1,200 leads, 244 test-drive requests and 112 showroom appointments.' },
       { href: '/en/case-studies/don-simon-back-to-school-2025', label: 'Don Simon Back to School 2025', text: 'FMCG case study: 25M impressions, 2M video views, 200K engagements and 30K clicks.' },
+      { href: '/en/case-studies/chergui-packaging-2021', label: 'Chergui Packaging Design 2021', text: 'Packaging case study: graphic design, art direction, shelf visibility and premium perception.' },
       { href: '/en/case-studies/amana-tramway-phygital-2022', label: 'Amana Tramway & Phygital Activation 2022', text: 'Phygital case study: 29M estimated audience, 8,418 QR scans and 4,183 leads.' },
       { href: '/en/case-studies/nescafe-nadi-nescafe-2019', label: 'Nescafé Nadi Nescafé 2019', text: 'Community case study: 100K platform visits, 5K members and 2,500 coupons.' },
       { href: '/en/case-studies/euromed-university-drupal-website-redesign-2025', label: 'Euromed University Drupal Website Redesign 2025', text: 'Education web case study: +40% organic traffic, +80% performance and +20% applications.' },
@@ -48,6 +67,22 @@ const groups = [
     ],
   },
   {
+    title: 'Authors',
+    links: [
+      { href: '/en/authors/amal-amazouz', label: 'Amal Amazouz', text: 'Richmedia author profile and related content.' },
+      { href: '/en/authors/salah-eddine-mimouni', label: 'Salah Eddine Mimouni', text: 'Richmedia author profile and related content.' },
+      { href: '/en/authors/tarik-el-abbadi', label: 'Tarik El Abbadi', text: 'Richmedia author profile and related content.' },
+    ],
+  },
+  {
+    title: 'Insights',
+    links: articles,
+  },
+  {
+    title: 'Glossary',
+    links: glossaryTerms,
+  },
+  {
     title: 'Expertise',
     links: [
       { href: '/en/expertises/strategie-digitale', label: 'Digital strategy', text: 'Positioning, targeting and measurable action plan.' },
@@ -59,21 +94,26 @@ const groups = [
       { href: '/online-advertising-morocco', label: 'Online Advertising Morocco', text: 'Online advertising landing page: Google Ads, Meta Ads, TikTok, display, tracking, reporting and performance.' },
       { href: '/en/expertises/seo-geo', label: 'SEO / GEO', text: 'Organic search, local SEO and AI visibility.' },
       { href: '/seo-agency-morocco', label: 'SEO Agency Morocco', text: 'National SEO landing page: audit, technical SEO, content, internal linking, reporting and Google visibility.' },
-      { href: '/en/expertises/google-ads-morocco', label: 'Google Ads Morocco', text: 'Search, Performance Max, tracking and landing pages.' },
-      { href: '/en/expertises/meta-ads-morocco', label: 'Meta Ads Morocco', text: 'Facebook, Instagram, creative testing, Pixel and CAPI.' },
-      { href: '/en/expertises/lead-generation-morocco', label: 'Lead generation Morocco', text: 'Connect media, landing pages, WhatsApp, CRM and qualification.' },
-      { href: '/en/expertises/social-media-morocco', label: 'Social media Morocco', text: 'Editorial strategy, content, communities and reporting.' },
+      ...enServiceLandingPages.map(({ slug, title, description }) => ({
+        href: `/en/expertises/${slug}`,
+        label: title,
+        text: description,
+      })),
       { href: '/social-media-management-morocco', label: 'Social Media Management Morocco', text: 'SEO landing page for social strategy, content, community management, moderation and reporting.' },
-      { href: '/en/expertises/tiktok-ads-morocco', label: 'TikTok Ads Morocco', text: 'Native creative, Spark Ads, UGC and retargeting.' },
-      { href: '/en/expertises/whatsapp-marketing-morocco', label: 'WhatsApp marketing Morocco', text: 'Opt-in, templates, automation, CRM and reporting.' },
-      { href: '/en/expertises/crm-marketing-automation-morocco', label: 'CRM & marketing automation Morocco', text: 'Lead scoring, routing, workflows and commercial follow-up.' },
-      { href: '/en/expertises/influencer-marketing-morocco', label: 'Influencer marketing Morocco', text: 'Creator selection, UGC, briefs, rights and amplification.' },
-      { href: '/en/expertises/social-listening-morocco', label: 'Social listening Morocco', text: 'Conversation monitoring, reputation, competitors and trends.' },
-      { href: '/en/expertises/geofencing-drive-to-store-morocco', label: 'Geofencing & drive-to-store Morocco', text: 'Local media and physical conversion journeys.' },
       { href: '/en/expertises/influence', label: 'Influence', text: 'Creators, UGC, activation and reporting.' },
       { href: '/en/expertises/phygital', label: 'Phygital', text: 'Field activation, retail and connected experiences.' },
       { href: '/en/expertises/evenementiel', label: 'Events', text: 'Event concept, production and amplification.' },
       { href: '/en/expertises/ia-automation', label: 'AI & automation', text: 'CRM, WhatsApp, AI agents and workflows.' },
+      { href: '/en/ai-agency-morocco', label: 'AI Agency Morocco', text: 'National AI landing page: AI agents, chatbots, CRM, WhatsApp, data and business process automation.' },
+    ],
+  },
+  {
+    title: 'Products',
+    links: [
+      { href: '/en/products/whatsapp', label: 'WhatsApp', text: 'WhatsApp campaigns, follow-up, targeting and reporting.' },
+      { href: '/en/products/hypeo', label: 'Hypeo.ai', text: 'Influence and AI platform.' },
+      { href: '/en/products/in-talks', label: 'In Talks', text: 'Social listening and reputation.' },
+      { href: '/en/products/carter-blake', label: 'Carter & Blake', text: 'Political marketing and public communication.' },
     ],
   },
   {

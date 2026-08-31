@@ -74,6 +74,7 @@ const glossaryLanguagePairs = Object.fromEntries(
   Object.entries(glossarySlugPairs).map(([frSlug, enSlug]) => [`/glossaire/${frSlug}`, `/en/glossary/${enSlug}`])
 );
 const languagePairs: Record<string, string> = {
+  '/agence-ia-maroc': '/en/ai-agency-morocco',
   '/agence-de-communication-maroc': '/rich-media-agency-morocco',
   '/marketing-influence-maroc': '/influencer-marketing-morocco',
   '/gestion-reseaux-sociaux-maroc': '/social-media-management-morocco',
@@ -116,6 +117,7 @@ const languagePairs: Record<string, string> = {
   '/glossaire': '/en/glossary',
   ...glossaryLanguagePairs,
   '/realisations/maserati-levante-whatsapp-leads-2025': '/en/case-studies/maserati-levante-whatsapp-leads-2025',
+  '/realisations/chergui-packaging-2021': '/en/case-studies/chergui-packaging-2021',
   '/realisations/don-simon-back-to-school-2025': '/en/case-studies/don-simon-back-to-school-2025',
   '/realisations/amana-tramway-phygital-2022': '/en/case-studies/amana-tramway-phygital-2022',
   '/realisations/nescafe-nadi-nescafe-2019': '/en/case-studies/nescafe-nadi-nescafe-2019',
@@ -158,8 +160,6 @@ const languageHref = isEnglish
     ? '/equipe'
     : normalizedPath === '/en/case-studies'
     ? '/realisations'
-    : normalizedPath === '/en/case-studies/model-case-study'
-    ? '/realisations/modele-case-study'
     : normalizedPath === '/en/contact'
     ? '/contact'
     : normalizedPath === '/en/book-audit'
@@ -191,8 +191,6 @@ const languageHref = isEnglish
     : Astro.url.pathname.replace(/^\/en(?=\/|$)/, '') || '/')
   : languagePairs[normalizedPath] ?? (normalizedPath === '/equipe'
     ? '/en/team'
-    : normalizedPath === '/realisations/modele-case-study'
-    ? '/en/case-studies/model-case-study'
     : normalizedPath === '/realisations' || Astro.url.pathname.startsWith('/realisations/')
     ? '/en/case-studies'
     : normalizedPath === '/expertises/strategie-digitale'

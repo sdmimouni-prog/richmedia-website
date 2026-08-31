@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CaseStudyModel from '../../../components/CaseStudyModel.astro';
+import { SITE } from '../../../consts';
+import { articleSchema, breadcrumbs } from '../../../lib/schema';
+
+const pageUrl = `${SITE.url}/en/case-studies/chergui-packaging-2021`;
+const heroImage = '/assets/richmedia-realizations/chergui-conception-emballage.webp';
+const publishedAt = new Date('2026-08-24T00:00:00.000Z');
+const pageTitle = 'Chergui Packaging Design 2021 Case Study | Richmedia';
+const pageDescription =
+  'See the Chergui packaging designed by Richmedia: creative concept, art direction and graphic design for stronger shelf visibility and a more premium perception.';
+
+const content = {
+  backHref: '/en/case-studies',
+  backLabel: 'Case studies',
+  eyebrow: 'A branding and packaging approach designed to help the product stand out in retail environments.',
+  client: 'Chergui',
+  clientLong: 'Chergui',
+  category: 'Food & Beverage / Dairy products',
+  period: '2021',
+  scope: 'Packaging concept & design',
+  title: 'The Result',
+  subtitle:
+    'In 2021, Chergui entrusted Richmedia with the graphic design of a new packaging system built to strengthen product impact on shelves and move perception toward a more premium universe. The work covered the creative concept, art direction, graphic design, color choices and typography.',
+  heroImage,
+  heroAlt: 'Chergui Le Nature packaging designed by Richmedia in 2021',
+  heroCompact: true,
+  metaItems: [
+    { label: 'Client', value: 'Chergui' },
+    { label: 'Project', value: 'Packaging concept & design' },
+    { label: 'Sector', value: 'Food & Beverage / Dairy products' },
+    { label: 'Period', value: '2021' },
+    { label: 'Format', value: 'Cup' },
+    { label: 'References', value: '1 reference' },
+    { label: 'Distribution', value: 'Grocery retail / supermarkets / local stores / nationwide Morocco' },
+  ],
+  metrics: [
+    {
+      value: 'More visible',
+      label: 'Stronger shelf presence',
+      note: 'Observed commercial impact: sales increase',
+      noteTrend: false,
+      qualitative: true,
+      icon: 'ph ph-eye',
+    },
+    {
+      value: 'More premium',
+      label: 'Stronger quality perception',
+      qualitative: true,
+      icon: 'ph ph-sparkle',
+    },
+    {
+      value: 'More desirable',
+      label: 'Improved preference and product pick-up',
+      qualitative: true,
+      icon: 'ph ph-heart',
+    },
+    {
+      value: 'Well received',
+      label: 'Positive distributor feedback',
+      qualitative: true,
+      icon: 'ph ph-handshake',
+    },
+  ],
+  deliverables: [
+    'Creative concept',
+    'Art direction',
+    'Packaging graphic design',
+    'Color choices',
+    'Typography choices',
+    'Information hierarchy',
+    'Premium visual territory',
+    'Retail design',
+  ],
+  work: [
+    {
+      eyebrow: '01',
+      title: 'Creative territory',
+      text: 'Define a more premium visual universe.',
+      bullets: [
+        'Define a more premium visual universe.',
+        'Modernize the packaging while preserving brand codes.',
+        'Create stronger impact in retail environments.',
+      ],
+      icon: 'ph ph-lightbulb',
+    },
+    {
+      eyebrow: '02',
+      title: 'Art direction',
+      text: 'Build a cleaner and more readable expression.',
+      bullets: [
+        'Build a cleaner and more readable expression.',
+        'Clarify the visual hierarchy.',
+        'Make the brand and product immediately visible.',
+      ],
+      icon: 'ph ph-palette',
+    },
+    {
+      eyebrow: '03',
+      title: 'Visual codes',
+      text: 'Design a palette with stronger shelf visibility.',
+      bullets: [
+        'Design a palette with stronger shelf visibility.',
+        'Choose typography that improves readability.',
+        'Balance modernity, quality and brand recognition.',
+      ],
+      icon: 'ph ph-text-aa',
+    },
+    {
+      eyebrow: '04',
+      title: 'Built for the shelf',
+      text: 'Create a design that works in supermarkets and local stores.',
+      bullets: [
+        'Create a design that works in supermarkets and local stores.',
+        'Improve the packaging ability to stand out against competing products.',
+        'Simplify the message to support faster reading at the moment of choice.',
+      ],
+      icon: 'ph ph-storefront',
+    },
+  ],
+  proof: {
+    eyebrow: 'Block 3',
+    title: 'The Proof',
+    intro:
+      'The real Chergui visual shows the final packaging, logo, typography treatment, brand universe and product identity.',
+    items: [
+      { image: heroImage, label: 'Final Chergui packaging', format: 'Real packaging visual', size: 'banner' as const },
+      { image: heroImage, label: 'Brand identity detail', format: 'Real visual crop', size: 'feed' as const },
+      { image: heroImage, label: 'Product universe detail', format: 'Real visual crop', size: 'story' as const },
+      { image: heroImage, label: 'Typography and cup detail', format: 'Real visual crop', size: 'quote' as const },
+    ],
+    kpi: {
+      value: 'Observed commercial impact',
+      label: 'sales increase',
+      breakdown: [
+        'Stronger shelf presence',
+        'Improved quality perception',
+        'Positive distributor feedback',
+      ],
+      note: 'Qualitative observation, without public percentage.',
+    },
+    conclusion:
+      'The redesign strengthened Chergui presence on shelves by combining a more premium look, clearer readability and respect for existing brand codes, with a design built specifically for supermarkets and local grocery environments.',
+    links: [
+      { href: '/en/expertises/brand-content/', label: 'Brand content' },
+      { href: '/en/sectors/fmcg/', label: 'FMCG sector' },
+      { href: '/en/sectors/grocery-retail/', label: 'Grocery retail' },
+      { href: '/en/case-studies/', label: 'Other case studies' },
+    ],
+  },
+  quote:
+    'Want to make your brand more visible and more desirable on the shelf?',
+  ctaLabel: 'Speak to an expert',
+  ctaHref: '/en/contact',
+  secondaryLabel: 'Explore brand content expertise',
+  secondaryHref: '/en/expertises/brand-content/',
+  ui: {
+    resultLabel: 'Packaging project qualitative results',
+    metaLabel: 'Packaging project summary',
+    workLabel: 'Block 2',
+    workTitle: 'What We Did',
+    proofLabel: 'Chergui packaging visual proof',
+    quoteLabel: 'Case study internal links',
+    deliverablesTitle: 'Deliverables',
+  },
+};
+
+const schema = [
+  articleSchema({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    author: 'Richmedia',
+    authorType: 'Organization',
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    image: `${SITE.url}${heroImage}`,
+  }),
+  breadcrumbs([
+    { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Case studies', url: `${SITE.url}/en/case-studies` },
+    { name: 'Chergui Packaging Design 2021', url: pageUrl },
+  ]),
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${heroImage}`}
+  lang="en"
+  schema={schema}
+>
+  <CaseStudyModel content={content} />
+</BaseLayout>

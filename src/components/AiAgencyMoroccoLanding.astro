@@ -1,0 +1,1335 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeoSiloLinks from './SeoSiloLinks.astro';
+import { SITE } from '../consts';
+import { breadcrumbs, faqSchema, serviceSchema } from '../lib/schema';
+import { enSiloLinks, frSiloLinks } from '../lib/seo-silos';
+
+type Lang = 'fr' | 'en';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'fr' } = Astro.props;
+const isEnglish = lang === 'en';
+const assetBase = '/assets/richmedia-ia-automation';
+const pagePath = isEnglish ? '/en/ai-agency-morocco' : '/agence-ia-maroc';
+const pageUrl = `${SITE.url}${pagePath}`;
+
+const links = isEnglish
+  ? {
+      contact: '/en/contact',
+      tech: '/en/expertises/ia-automation',
+      whatsapp: '/en/products/whatsapp',
+      crm: '/en/glossary/crm',
+      automation: '/en/expertises/crm-marketing-automation-morocco',
+      web: '/website-development-morocco',
+      cases: '/en/case-studies',
+    }
+  : {
+      contact: '/contact',
+      tech: '/expertises/ia-automation',
+      whatsapp: '/produits/whatsapp',
+      crm: '/glossaire/crm',
+      automation: '/expertises/marketing-automation-crm-maroc',
+      web: '/creation-site-web-maroc',
+      cases: '/realisations',
+    };
+
+const copy = isEnglish
+  ? {
+      metaTitle: 'AI Agency in Morocco | AI Agents & Automation | Richmedia',
+      metaDescription:
+        'Richmedia helps companies in Morocco deploy AI agents, chatbots, intelligent automation and AI solutions connected to CRM, data, websites and business tools.',
+      serviceName: 'AI Agency in Morocco',
+      eyebrow: 'AI · Marketing · CRM',
+      h1: 'AI Agency in Morocco',
+      heroTitle: 'AI that actually works for your business.',
+      heroText:
+        'Richmedia designs and deploys AI agents, automations and intelligent solutions connected to your tools, data and business processes.',
+      signature: 'AI Agents · Automation · Chatbots · CRM · WhatsApp · Data',
+      primaryCta: 'Talk to an AI expert',
+      secondaryCta: 'Explore Tech, AI & Experience',
+      problemTitle: 'AI should not become another gadget',
+      problemIntro:
+        'A useful AI project starts with operational friction: slow response, scattered data, repetitive tasks and time lost by teams.',
+      responseTitle: 'The right role for AI',
+      responses: ['Automate', 'Reply', 'Qualify', 'Analyze'],
+      solutionTitle: 'AI solutions designed around your processes',
+      useCaseTitle: 'Where can AI create value in your company?',
+      ecosystemTitle: 'AI connected to your digital ecosystem',
+      ecosystemText:
+        'Richmedia does not treat AI as an isolated technology. It can be connected to acquisition, the website, CRM, WhatsApp and data.',
+      comparisonTitle: 'Chatbot, automation or AI agent: what is the difference?',
+      comparisonNote: 'The best solution is not necessarily the most complex one.',
+      methodTitle: 'From idea to an AI solution people actually use',
+      safetyTitle: 'Automate without losing control',
+      safetyIntro:
+        'Every AI project needs rules, responsibilities and human supervision before it reaches customers or business-critical workflows.',
+      safetyNote: 'Not every task should be automated.',
+      faqTitle: 'Frequently asked questions about AI agencies and automation',
+      linkTitle: 'Connect the rest of the system',
+      ctaTitle: 'Which process could AI improve first?',
+      ctaText:
+        'Let’s identify the use cases that can create real value for your marketing, sales, customer service or operations.',
+      finalCta: 'Talk to an AI expert',
+      breadcrumb: [
+        { name: 'Home', url: `${SITE.url}/en` },
+        { name: 'AI Agency in Morocco', url: pageUrl },
+      ],
+    }
+  : {
+      metaTitle: 'Agence IA au Maroc | Agents IA & Automatisation | Richmedia',
+      metaDescription:
+        'Richmedia accompagne les entreprises au Maroc dans le déploiement d’agents IA, chatbots, automatisations, CRM intelligents et solutions d’intelligence artificielle connectées à leurs outils.',
+      serviceName: 'Agence IA au Maroc',
+      eyebrow: 'IA · Marketing · CRM',
+      h1: 'Agence IA au Maroc',
+      heroTitle: 'L’intelligence artificielle qui travaille réellement pour votre entreprise.',
+      heroText:
+        'Richmedia conçoit et déploie des agents IA, automatisations et solutions intelligentes connectés à vos outils, vos données et vos processus métier.',
+      signature: 'Agents IA · Automation · Chatbots · CRM · WhatsApp · Data',
+      primaryCta: 'Parler à un expert IA',
+      secondaryCta: 'Explorer Tech, IA & Expérience',
+      problemTitle: 'L’IA ne doit pas être un gadget de plus',
+      problemIntro:
+        'Un projet IA utile part des frictions opérationnelles : réponse lente, données dispersées, tâches répétitives et temps perdu par les équipes.',
+      responseTitle: 'Le bon rôle de l’IA',
+      responses: ['Automatiser', 'Répondre', 'Qualifier', 'Analyser'],
+      solutionTitle: 'Des solutions IA conçues autour de vos processus',
+      useCaseTitle: 'Où l’IA peut-elle créer de la valeur dans votre entreprise ?',
+      ecosystemTitle: 'L’IA connectée à votre écosystème digital',
+      ecosystemText:
+        'Richmedia ne traite pas l’IA comme une technologie isolée. Elle peut être connectée à l’acquisition, au site web, au CRM, à WhatsApp et aux données.',
+      comparisonTitle: 'Chatbot, automatisation ou agent IA : quelle différence ?',
+      comparisonNote: 'La meilleure solution n’est pas nécessairement la plus complexe.',
+      methodTitle: 'De l’idée à une solution IA réellement utilisée',
+      safetyTitle: 'Automatiser sans perdre le contrôle',
+      safetyIntro:
+        'Chaque projet IA doit définir des règles, des responsabilités et une supervision humaine avant de toucher les clients ou les processus sensibles.',
+      safetyNote: 'Toutes les tâches ne doivent pas être automatisées.',
+      faqTitle: 'Questions fréquentes sur les agences IA et l’automatisation',
+      linkTitle: 'Relier le reste du système',
+      ctaTitle: 'Quel processus pourriez-vous améliorer avec l’IA ?',
+      ctaText:
+        'Identifions ensemble les cas d’usage capables de créer une vraie valeur pour votre marketing, vos ventes, votre service client ou vos opérations.',
+      finalCta: 'Parler à un expert IA',
+      breadcrumb: [
+        { name: 'Accueil', url: SITE.url },
+        { name: 'Agence IA au Maroc', url: pageUrl },
+      ],
+    };
+
+const problems = isEnglish
+  ? [
+      { title: 'Repetitive tasks', text: 'Teams spend time copying, sorting, replying or updating the same information.' },
+      { title: 'Leads handled too slowly', text: 'A lead loses value when it waits before being qualified, routed or followed up.' },
+      { title: 'Scattered data', text: 'Forms, inboxes, CRM, WhatsApp and dashboards do not always share the same context.' },
+      { title: 'Team time lost', text: 'People handle low-value coordination instead of focusing on decisions and relationships.' },
+    ]
+  : [
+      { title: 'Tâches répétitives', text: 'Les équipes passent du temps à copier, trier, répondre ou mettre à jour les mêmes informations.' },
+      { title: 'Leads traités trop lentement', text: 'Un lead perd de la valeur lorsqu’il attend avant d’être qualifié, orienté ou relancé.' },
+      { title: 'Données dispersées', text: 'Formulaires, inbox, CRM, WhatsApp et dashboards ne partagent pas toujours le même contexte.' },
+      { title: 'Temps perdu par les équipes', text: 'Les personnes gèrent de la coordination faible valeur au lieu de se concentrer sur la décision et la relation.' },
+    ];
+
+const solutions = isEnglish
+  ? [
+      {
+        label: '01',
+        title: 'AI agents',
+        text: 'Supervised agents for lead qualification, sales assistance, support and document search.',
+        items: ['Lead qualification', 'Sales assistant', 'Support', 'Document search'],
+      },
+      {
+        label: '02',
+        title: 'AI chatbots & WhatsApp',
+        text: 'Conversational journeys that reply, qualify, book appointments, transfer to humans and update CRM context.',
+        items: ['Replies', 'Qualification', 'Appointments', 'Human handoff', 'CRM'],
+      },
+      {
+        label: '03',
+        title: 'Process automation',
+        text: 'Workflows connecting forms, CRM, email, WhatsApp, APIs and dashboards around clear business rules.',
+        items: ['Forms', 'CRM', 'Email', 'WhatsApp', 'APIs', 'Dashboards'],
+      },
+      {
+        label: '04',
+        title: 'AI marketing & CRM',
+        text: 'Segmentation, scoring, personalization, reporting, campaign analysis and follow-up scenarios.',
+        items: ['Segmentation', 'Scoring', 'Personalization', 'Reporting', 'Campaign analysis', 'Follow-ups'],
+      },
+      {
+        label: '05',
+        title: 'AI consulting & integration',
+        text: 'Audit, prioritization, prototype, integration and measurement to move from idea to a usable system.',
+        items: ['Audit', 'Prioritization', 'Prototype', 'Integration', 'Measurement'],
+      },
+    ]
+  : [
+      {
+        label: '01',
+        title: 'Agents IA',
+        text: 'Agents supervisés pour qualifier les leads, assister les commerciaux, soutenir le support et rechercher dans la documentation.',
+        items: ['Qualification de leads', 'Assistant commercial', 'Support', 'Recherche documentaire'],
+      },
+      {
+        label: '02',
+        title: 'Chatbots IA & WhatsApp',
+        text: 'Parcours conversationnels capables de répondre, qualifier, prendre rendez-vous, transférer à l’humain et enrichir le CRM.',
+        items: ['Réponse', 'Qualification', 'Prise de rendez-vous', 'Transfert humain', 'CRM'],
+      },
+      {
+        label: '03',
+        title: 'Automatisation des processus',
+        text: 'Workflows reliant formulaires, CRM, email, WhatsApp, APIs et dashboards autour de règles métier claires.',
+        items: ['Formulaires', 'CRM', 'Email', 'WhatsApp', 'APIs', 'Dashboards'],
+      },
+      {
+        label: '04',
+        title: 'IA Marketing & CRM',
+        text: 'Segmentation, scoring, personnalisation, reporting, analyse de campagnes et scénarios de relance.',
+        items: ['Segmentation', 'Scoring', 'Personnalisation', 'Reporting', 'Analyse de campagnes', 'Relances'],
+      },
+      {
+        label: '05',
+        title: 'Conseil & intégration IA',
+        text: 'Audit, priorisation, prototype, intégration et mesure pour passer d’une idée à un système réellement utilisé.',
+        items: ['Audit', 'Priorisation', 'Prototype', 'Intégration', 'Mesure'],
+      },
+    ];
+
+const useCases = isEnglish
+  ? [
+      { title: 'Marketing', text: 'Campaign analysis, segmentation, content support, landing page signals and reporting.' },
+      { title: 'Sales', text: 'Lead qualification, routing, appointment preparation, CRM updates and follow-up alerts.' },
+      { title: 'Customer service', text: 'First replies, FAQ, ticket preparation, human handoff and quality tracking.' },
+      { title: 'Operations', text: 'Document search, internal requests, task creation, approvals and process dashboards.' },
+    ]
+  : [
+      { title: 'Marketing', text: 'Analyse de campagnes, segmentation, aide au contenu, signaux landing page et reporting.' },
+      { title: 'Commercial', text: 'Qualification de leads, routing, préparation de rendez-vous, mise à jour CRM et alertes de relance.' },
+      { title: 'Service client', text: 'Premières réponses, FAQ, préparation de tickets, transfert humain et suivi qualité.' },
+      { title: 'Opérations', text: 'Recherche documentaire, demandes internes, création de tâches, validations et dashboards process.' },
+    ];
+
+const ecosystem = isEnglish
+  ? ['Acquisition', 'Website / Landing Page', 'AI Agent', 'CRM', 'WhatsApp / Email', 'Sales team', 'Data & Reporting']
+  : ['Acquisition', 'Site / Landing Page', 'Agent IA', 'CRM', 'WhatsApp / Email', 'Équipe commerciale', 'Data & Reporting'];
+
+const comparisons = isEnglish
+  ? [
+      { solution: 'Classic chatbot', role: 'Follows predefined scenarios' },
+      { solution: 'AI chatbot', role: 'Understands and generates responses' },
+      { solution: 'Automation', role: 'Executes a defined workflow' },
+      { solution: 'AI agent', role: 'Analyzes context and uses authorized tools or actions' },
+    ]
+  : [
+      { solution: 'Chatbot classique', role: 'Scénarios prédéfinis' },
+      { solution: 'Chatbot IA', role: 'Comprend et génère des réponses' },
+      { solution: 'Automatisation', role: 'Exécute un workflow défini' },
+      { solution: 'Agent IA', role: 'Analyse un contexte et utilise des outils/actions autorisés' },
+    ];
+
+const method = isEnglish
+  ? [
+      { step: '01', title: 'Identify', text: 'Map processes, recurring requests, data sources and manual friction.' },
+      { step: '02', title: 'Prioritize', text: 'Choose use cases by usefulness, feasibility, risk and operational ownership.' },
+      { step: '03', title: 'Prototype', text: 'Build a controlled version before exposing the system to real users.' },
+      { step: '04', title: 'Integrate', text: 'Connect the agent or workflow to the right tools, content and CRM data.' },
+      { step: '05', title: 'Test and secure', text: 'Validate answers, edge cases, permissions, logs, escalation and fallback rules.' },
+      { step: '06', title: 'Measure and improve', text: 'Track usage, quality, errors, response time and business contribution.' },
+    ]
+  : [
+      { step: '01', title: 'Identifier', text: 'Cartographier les processus, demandes récurrentes, sources de données et frictions manuelles.' },
+      { step: '02', title: 'Prioriser', text: 'Choisir les cas d’usage selon utilité, faisabilité, risque et responsabilité opérationnelle.' },
+      { step: '03', title: 'Prototyper', text: 'Créer une version contrôlée avant d’exposer le système à de vrais utilisateurs.' },
+      { step: '04', title: 'Intégrer', text: 'Connecter l’agent ou le workflow aux bons outils, contenus et données CRM.' },
+      { step: '05', title: 'Tester et sécuriser', text: 'Valider réponses, cas limites, permissions, logs, escalade et fallback humain.' },
+      { step: '06', title: 'Mesurer et améliorer', text: 'Suivre usage, qualité, erreurs, délai de réponse et contribution business.' },
+    ];
+
+const safety = isEnglish
+  ? ['Permissions', 'Data', 'Human validation', 'Human fallback', 'Quality control', 'Confidentiality']
+  : ['Permissions', 'Données', 'Validation humaine', 'Fallback humain', 'Contrôle qualité', 'Confidentialité'];
+
+const faq = isEnglish
+  ? [
+      {
+        question: 'What is an AI agency?',
+        answer:
+          'An AI agency helps companies identify, design, integrate and manage AI solutions such as AI agents, chatbots, process automation and connected workflows. The goal is to connect AI to real tools, data and business processes.',
+      },
+      {
+        question: 'What can AI automate in a company?',
+        answer:
+          'AI can assist repetitive tasks, lead qualification, first replies, CRM updates, reporting, document search or follow-up scenarios. The scope depends on the available data, tools, risk level and human supervision required.',
+      },
+      {
+        question: 'What is the difference between a chatbot and an AI agent?',
+        answer:
+          'A chatbot mainly manages conversation. An AI agent can analyze context and use authorized tools or actions, for example qualifying a request, preparing a CRM update or escalating to a person under defined rules.',
+      },
+      {
+        question: 'How much does an AI project cost in Morocco?',
+        answer:
+          'The cost depends on the use case, data quality, integrations, security requirements, interfaces, testing and support. Richmedia frames the scope before discussing budget so the project stays realistic.',
+      },
+      {
+        question: 'How long does it take to deploy an AI solution?',
+        answer:
+          'Timing depends on the complexity of the workflow, the tools to connect, the validation process and the testing required. A controlled prototype is usually the safest way to clarify effort before deployment.',
+      },
+      {
+        question: 'Can an AI agent connect to WhatsApp or a CRM?',
+        answer:
+          'Yes, when the tools, permissions and data flows allow it. Richmedia can design journeys that connect WhatsApp, CRM, forms, email, dashboards and human handoff rules.',
+      },
+    ]
+  : [
+      {
+        question: 'Qu’est-ce qu’une agence IA ?',
+        answer:
+          'Une agence IA aide les entreprises à identifier, concevoir, intégrer et piloter des solutions d’intelligence artificielle : agents IA, chatbots, automatisations et workflows connectés. L’objectif est de relier l’IA aux outils, aux données et aux processus réels.',
+      },
+      {
+        question: 'Que peut automatiser l’IA dans une entreprise ?',
+        answer:
+          'L’IA peut assister les tâches répétitives, la qualification de leads, les premières réponses, les mises à jour CRM, le reporting, la recherche documentaire ou certains scénarios de relance. Le périmètre dépend des données, des outils, du risque et de la supervision humaine nécessaire.',
+      },
+      {
+        question: 'Quelle différence entre chatbot et agent IA ?',
+        answer:
+          'Un chatbot gère principalement une conversation. Un agent IA peut analyser un contexte et utiliser des outils ou actions autorisés, par exemple qualifier une demande, préparer une mise à jour CRM ou escalader vers une personne selon des règles définies.',
+      },
+      {
+        question: 'Combien coûte un projet IA au Maroc ?',
+        answer:
+          'Le coût dépend du cas d’usage, de la qualité des données, des intégrations, des exigences de sécurité, des interfaces, des tests et du support. Richmedia cadre le périmètre avant de parler budget pour garder un projet réaliste.',
+      },
+      {
+        question: 'Combien de temps faut-il pour déployer une solution IA ?',
+        answer:
+          'Le délai dépend de la complexité du workflow, des outils à connecter, du processus de validation et des tests nécessaires. Un prototype contrôlé est souvent la meilleure manière de clarifier l’effort avant le déploiement.',
+      },
+      {
+        question: 'Peut-on connecter un agent IA à WhatsApp ou à un CRM ?',
+        answer:
+          'Oui, lorsque les outils, permissions et flux de données le permettent. Richmedia peut concevoir des parcours reliant WhatsApp, CRM, formulaires, email, dashboards et règles de transfert humain.',
+      },
+    ];
+
+const outboundLinks = isEnglish
+  ? [
+      { href: links.tech, label: 'Tech, AI & Experience', text: 'The global expertise page for AI, CRM, data and automation.' },
+      { href: links.whatsapp, label: 'WhatsApp Business', text: 'Campaigns, messages, follow-ups and conversational conversion.' },
+      { href: links.crm, label: 'CRM', text: 'Understand the role of CRM in qualification and follow-up.' },
+      { href: links.automation, label: 'CRM & Marketing Automation', text: 'Workflows, scoring, routing and commercial follow-up.' },
+      { href: links.web, label: 'Website Development Morocco', text: 'Websites, landing pages, forms and connected experiences.' },
+      { href: links.contact, label: 'Contact', text: 'Frame a first AI use case with Richmedia.' },
+    ]
+  : [
+      { href: links.tech, label: 'Tech, IA & Expérience', text: 'La page expertise globale sur IA, CRM, data et automation.' },
+      { href: links.whatsapp, label: 'WhatsApp Business', text: 'Campagnes, messages, relances et conversion conversationnelle.' },
+      { href: links.crm, label: 'CRM', text: 'Comprendre le rôle du CRM dans la qualification et la relance.' },
+      { href: links.automation, label: 'Marketing Automation & CRM', text: 'Workflows, scoring, routing et suivi commercial.' },
+      { href: links.web, label: 'Création de site web', text: 'Sites, landing pages, formulaires et expériences connectées.' },
+      { href: links.contact, label: 'Contact', text: 'Cadrer un premier cas d’usage IA avec Richmedia.' },
+    ];
+
+const schema = [
+  serviceSchema({
+    name: copy.serviceName,
+    description: copy.metaDescription,
+    url: pageUrl,
+  }),
+  faqSchema(faq),
+  breadcrumbs(copy.breadcrumb),
+];
+---
+
+<BaseLayout
+  title={copy.metaTitle}
+  description={copy.metaDescription}
+  canonical={pageUrl}
+  ogImage={`${SITE.url}${assetBase}/ia-automation-hero.webp`}
+  lang={lang}
+  schema={schema}
+>
+  <article class="ai-agency-page">
+    <section class="ai-hero" aria-labelledby="ai-agency-title">
+      <div class="ai-hero-copy">
+        <span class="ai-kicker">{copy.eyebrow}</span>
+        <h1 id="ai-agency-title">{copy.h1}</h1>
+        <h2>{copy.heroTitle}</h2>
+        <p>{copy.heroText}</p>
+        <div class="ai-signature" aria-label={copy.signature}>
+          {copy.signature.split(' · ').map((item) => <span>{item}</span>)}
+        </div>
+        <div class="ai-actions">
+          <a class="ai-button ai-button-primary" href={links.contact}>
+            {copy.primaryCta}
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <a class="ai-button ai-button-secondary" href={links.tech}>
+            {copy.secondaryCta}
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <figure class="ai-hero-visual">
+        <img
+          src={`${assetBase}/ia-automation-hero.webp`}
+          alt={isEnglish ? 'Marketing and CRM team managing AI agents and automation workflows' : 'Équipe marketing et CRM pilotant des agents IA et des workflows automatisés'}
+          width="1713"
+          height="918"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <figcaption>
+          <span>{isEnglish ? 'Growth system' : 'Système de croissance'}</span>
+          <strong>{isEnglish ? 'Acquisition to automation' : 'De l’acquisition à l’automatisation'}</strong>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="ai-problem ai-section" aria-labelledby="ai-problem-title">
+      <div class="ai-section-heading">
+        <span class="ai-kicker">{isEnglish ? 'Problem' : 'Problème'}</span>
+        <h2 id="ai-problem-title">{copy.problemTitle}</h2>
+        <p>{copy.problemIntro}</p>
+      </div>
+      <div class="problem-grid">
+        {problems.map((problem) => (
+          <article>
+            <i class="ph ph-warning-circle" aria-hidden="true"></i>
+            <h3>{problem.title}</h3>
+            <p>{problem.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="response-strip" aria-label={copy.responseTitle}>
+        <strong>{copy.responseTitle}</strong>
+        {copy.responses.map((response) => <span>{response}</span>)}
+      </div>
+    </section>
+
+    <section class="ai-section" aria-labelledby="ai-solutions-title">
+      <div class="ai-section-heading split">
+        <div>
+          <span class="ai-kicker">{isEnglish ? 'Solutions' : 'Solutions IA'}</span>
+          <h2 id="ai-solutions-title">{copy.solutionTitle}</h2>
+        </div>
+        <p>
+          {isEnglish
+            ? 'The scope is chosen after understanding the process, the tools already in place and the level of human control needed.'
+            : 'Le périmètre se choisit après avoir compris le processus, les outils déjà en place et le niveau de contrôle humain nécessaire.'}
+        </p>
+      </div>
+      <div class="solution-grid">
+        {solutions.map((solution) => (
+          <article>
+            <span>{solution.label}</span>
+            <h3>{solution.title}</h3>
+            <p>{solution.text}</p>
+            <ul>
+              {solution.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="ai-section usecase-section" aria-labelledby="ai-usecases-title">
+      <div class="ai-section-heading">
+        <span class="ai-kicker">{isEnglish ? 'Use cases' : 'Cas d’usage'}</span>
+        <h2 id="ai-usecases-title">{copy.useCaseTitle}</h2>
+      </div>
+      <div class="usecase-grid">
+        {useCases.map((item) => (
+          <article>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="ai-section ecosystem-section" aria-labelledby="ai-ecosystem-title">
+      <div class="ecosystem-copy">
+        <span class="ai-kicker">{isEnglish ? 'Differentiation' : 'Différenciation Richmedia'}</span>
+        <h2 id="ai-ecosystem-title">{copy.ecosystemTitle}</h2>
+        <p>{copy.ecosystemText}</p>
+        <a href={links.cases}>
+          {isEnglish ? 'See connected case studies' : 'Voir les cas clients connectés'}
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+      <ol class="ecosystem-flow">
+        {ecosystem.map((step) => <li>{step}</li>)}
+      </ol>
+    </section>
+
+    <section class="ai-section compare-section" aria-labelledby="ai-comparison-title">
+      <div class="ai-section-heading compact">
+        <span class="ai-kicker">GEO</span>
+        <h2 id="ai-comparison-title">{copy.comparisonTitle}</h2>
+      </div>
+      <div class="comparison-table" role="table" aria-label={copy.comparisonTitle}>
+        <div role="row" class="comparison-head">
+          <span role="columnheader">{isEnglish ? 'Solution' : 'Solution'}</span>
+          <span role="columnheader">{isEnglish ? 'Function' : 'Fonction'}</span>
+        </div>
+        {comparisons.map((row) => (
+          <div role="row">
+            <strong role="cell">{row.solution}</strong>
+            <span role="cell">{row.role}</span>
+          </div>
+        ))}
+      </div>
+      <p class="comparison-note">{copy.comparisonNote}</p>
+    </section>
+
+    <section class="ai-section method-section" aria-labelledby="ai-method-title">
+      <div class="ai-section-heading split">
+        <div>
+          <span class="ai-kicker">{isEnglish ? 'Method' : 'Méthode'}</span>
+          <h2 id="ai-method-title">{copy.methodTitle}</h2>
+        </div>
+        <p>
+          {isEnglish
+            ? 'Richmedia starts with focused use cases, then extends the system only when the process is clear and measurable.'
+            : 'Richmedia démarre par des cas d’usage ciblés, puis étend le système lorsque le processus est clair et mesurable.'}
+        </p>
+      </div>
+      <div class="method-rail">
+        {method.map((step) => (
+          <article>
+            <span>{step.step}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="ai-section safety-section" aria-labelledby="ai-safety-title">
+      <figure>
+        <img
+          src={`${assetBase}/agent-workflows.webp`}
+          alt={isEnglish ? 'AI workflows connected to CRM, WhatsApp and reporting' : 'Workflows IA connectés au CRM, à WhatsApp et au reporting'}
+          width="1024"
+          height="1536"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div class="safety-copy">
+        <span class="ai-kicker">{isEnglish ? 'Security' : 'Sécurité'}</span>
+        <h2 id="ai-safety-title">{copy.safetyTitle}</h2>
+        <p>{copy.safetyIntro}</p>
+        <div class="safety-grid">
+          {safety.map((item) => <span>{item}</span>)}
+        </div>
+        <strong>{copy.safetyNote}</strong>
+      </div>
+    </section>
+
+    <section class="ai-section links-section" aria-labelledby="ai-links-title">
+      <div class="ai-section-heading compact">
+        <span class="ai-kicker">{isEnglish ? 'Internal links' : 'Maillage interne'}</span>
+        <h2 id="ai-links-title">{copy.linkTitle}</h2>
+      </div>
+      <div class="outbound-grid">
+        {outboundLinks.map((item) => (
+          <a href={item.href}>
+            <strong>{item.label}</strong>
+            <span>{item.text}</span>
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="ai-section faq-section" aria-labelledby="ai-faq-title">
+      <div class="ai-section-heading compact">
+        <span class="ai-kicker">FAQ</span>
+        <h2 id="ai-faq-title">{copy.faqTitle}</h2>
+      </div>
+      <div class="faq-list">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="ai-section ai-cta" aria-labelledby="ai-final-cta-title">
+      <div>
+        <span class="ai-kicker">{isEnglish ? 'Next step' : 'Prochaine étape'}</span>
+        <h2 id="ai-final-cta-title">{copy.ctaTitle}</h2>
+        <p>{copy.ctaText}</p>
+      </div>
+      <a class="ai-button ai-button-primary" href={links.contact}>
+        {copy.finalCta}
+        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </section>
+  </article>
+
+  <SeoSiloLinks
+    title={isEnglish ? 'Connect AI, CRM and conversion' : 'Relier IA, CRM et conversion'}
+    intro={isEnglish ? 'AI becomes useful when it is connected to media, websites, WhatsApp, CRM and reporting.' : 'L’IA devient utile lorsqu’elle se connecte au média, au site web, à WhatsApp, au CRM et au reporting.'}
+    links={isEnglish ? enSiloLinks.conversion : frSiloLinks.conversion}
+    variant="compact"
+  />
+</BaseLayout>
+
+<style>
+  :global(main) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ai-agency-page {
+    --container: min(100% - 3rem, 1360px);
+    --purple: #7c3cff;
+    --purple-soft: #a977ff;
+    --line: rgba(255, 255, 255, 0.13);
+    --panel: rgba(7, 8, 16, 0.82);
+    --text: rgba(255, 255, 255, 0.72);
+    min-height: 100vh;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 82% 8%, rgba(124, 60, 255, 0.2), transparent 28rem),
+      radial-gradient(circle at 12% 34%, rgba(124, 60, 255, 0.11), transparent 24rem),
+      linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px),
+      #030407;
+    background-size: auto, auto, 88px 88px, 88px 88px, auto;
+    color: #fff;
+  }
+
+  .ai-hero,
+  .ai-section {
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .ai-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.8fr);
+    gap: clamp(1.5rem, 4vw, 4.25rem);
+    align-items: center;
+    min-height: 94vh;
+    padding: clamp(7rem, 11vw, 10rem) 0 4.5rem;
+  }
+
+  .ai-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--purple-soft);
+    font-size: 1.0625rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .ai-kicker::before {
+    width: 2.1rem;
+    height: 2px;
+    content: "";
+    background: var(--purple-soft);
+  }
+
+  .ai-hero h1,
+  .ai-hero h2,
+  .ai-section-heading h2,
+  .ecosystem-copy h2,
+  .safety-copy h2,
+  .ai-cta h2 {
+    margin: 0;
+    color: #fff;
+    font-family: var(--font-display);
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+  .ai-hero h1 {
+    margin-top: 1.1rem;
+    font-size: clamp(3.3rem, 7vw, 6.6rem);
+    line-height: 0.88;
+  }
+
+  .ai-hero h2 {
+    max-width: 780px;
+    margin-top: 1.35rem;
+    color: #f5f0ff;
+    font-size: clamp(2rem, 3.6vw, 3.1rem);
+    line-height: 1.02;
+  }
+
+  .ai-hero p,
+  .ai-section-heading p,
+  .ecosystem-copy p,
+  .safety-copy p,
+  .ai-cta p {
+    color: var(--text);
+    font-size: clamp(1.0625rem, 1.15vw, 1.14rem);
+    line-height: 1.7;
+  }
+
+  .ai-hero p {
+    max-width: 720px;
+    margin: 1.15rem 0 0;
+  }
+
+  .ai-signature {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    max-width: 760px;
+    margin-top: 1.4rem;
+  }
+
+  .ai-signature span,
+  .safety-grid span,
+  .response-strip span,
+  .solution-grid li {
+    border: 1px solid rgba(169, 119, 255, 0.28);
+    border-radius: 999px;
+    background: rgba(124, 60, 255, 0.1);
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 1rem;
+    font-weight: 850;
+  }
+
+  .ai-signature span {
+    padding: 0.5rem 0.72rem;
+  }
+
+  .ai-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  .ai-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3.1rem;
+    border-radius: 8px;
+    padding: 0.9rem 1.25rem;
+    color: #fff;
+    font-size: 1.0625rem;
+    font-weight: 900;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .ai-button:hover,
+  .ai-button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .ai-button-primary {
+    background: linear-gradient(135deg, #9655ff, #6425f4);
+    box-shadow: 0 1.1rem 2.8rem rgba(124, 60, 255, 0.32);
+  }
+
+  .ai-button-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .ai-hero-visual {
+    position: relative;
+    isolation: isolate;
+    justify-self: end;
+    overflow: hidden;
+    width: min(100%, 760px);
+    min-height: clamp(420px, 35vw, 560px);
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    background: #07080d;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.42);
+  }
+
+  .ai-hero-visual::after {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    content: "";
+    background:
+      linear-gradient(180deg, transparent 45%, rgba(3, 4, 7, 0.78)),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.11) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: auto, 44px 44px, 44px 44px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .ai-hero-visual img {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    object-fit: cover;
+    object-position: center;
+    filter: saturate(1.05) contrast(1.04);
+  }
+
+  .ai-hero-visual figcaption {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 2;
+    display: grid;
+    gap: 0.25rem;
+    width: min(21rem, calc(100% - 2rem));
+    border: 1px solid rgba(169, 119, 255, 0.34);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(4, 6, 14, 0.74);
+    backdrop-filter: blur(12px);
+  }
+
+  .ai-hero-visual figcaption span {
+    color: var(--purple-soft);
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .ai-hero-visual figcaption strong {
+    font-size: clamp(1.08rem, 1.4vw, 1.3rem);
+    line-height: 1.15;
+  }
+
+  .ai-section {
+    padding-top: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  .ai-section-heading {
+    max-width: 860px;
+    margin-bottom: 1.5rem;
+  }
+
+  .ai-section-heading.split {
+    display: grid;
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    gap: clamp(1rem, 4vw, 3rem);
+    max-width: none;
+    align-items: end;
+  }
+
+  .ai-section-heading.compact {
+    max-width: 780px;
+  }
+
+  .ai-section-heading h2,
+  .ecosystem-copy h2,
+  .safety-copy h2,
+  .ai-cta h2 {
+    margin-top: 0.9rem;
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    line-height: 1.02;
+  }
+
+  .ai-section-heading p {
+    margin: 0.95rem 0 0;
+  }
+
+  .problem-grid,
+  .solution-grid,
+  .usecase-grid,
+  .outbound-grid,
+  .faq-list,
+  .safety-grid {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .problem-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .problem-grid article,
+  .solution-grid article,
+  .usecase-grid article,
+  .comparison-table,
+  .method-rail article,
+  .faq-list details,
+  .outbound-grid a,
+  .ai-cta {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+  }
+
+  .problem-grid article {
+    min-height: 15rem;
+    padding: 1.2rem;
+  }
+
+  .problem-grid i {
+    display: grid;
+    width: 2.6rem;
+    height: 2.6rem;
+    place-items: center;
+    border: 1px solid rgba(169, 119, 255, 0.3);
+    border-radius: 999px;
+    color: var(--purple-soft);
+    font-size: 1.35rem;
+  }
+
+  .problem-grid h3,
+  .solution-grid h3,
+  .usecase-grid h3,
+  .method-rail h3 {
+    margin: 1rem 0 0;
+    color: #fff;
+    font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+
+  .problem-grid p,
+  .solution-grid p,
+  .usecase-grid p,
+  .method-rail p,
+  .faq-list p,
+  .outbound-grid span,
+  .comparison-table span {
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  .problem-grid p,
+  .solution-grid p,
+  .usecase-grid p,
+  .method-rail p {
+    margin: 0.75rem 0 0;
+  }
+
+  .response-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    align-items: center;
+    margin-top: 0.9rem;
+    border: 1px solid rgba(169, 119, 255, 0.24);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(4, 6, 14, 0.72);
+  }
+
+  .response-strip strong {
+    margin-right: 0.4rem;
+    color: #fff;
+    font-size: 1.0625rem;
+  }
+
+  .response-strip span {
+    padding: 0.42rem 0.68rem;
+  }
+
+  .solution-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .solution-grid article {
+    display: flex;
+    min-height: 25rem;
+    flex-direction: column;
+    padding: 1.15rem;
+  }
+
+  .solution-grid article > span {
+    color: var(--purple-soft);
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-weight: 900;
+    line-height: 0.9;
+  }
+
+  .solution-grid ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: auto 0 0;
+    padding: 1.15rem 0 0;
+    list-style: none;
+  }
+
+  .solution-grid li {
+    padding: 0.36rem 0.58rem;
+  }
+
+  .usecase-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .usecase-grid article {
+    position: relative;
+    min-height: 17rem;
+    overflow: hidden;
+    padding: 1.25rem;
+    background: rgba(6, 7, 13, 0.84);
+  }
+
+  .usecase-grid article::before {
+    position: absolute;
+    inset: auto 1rem 1rem auto;
+    color: rgba(169, 119, 255, 0.2);
+    content: "AI";
+    font-family: var(--font-display);
+    font-size: 4.4rem;
+    font-weight: 900;
+    line-height: 0.8;
+  }
+
+  .ecosystem-section,
+  .safety-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(1rem, 4vw, 3rem);
+    align-items: center;
+  }
+
+  .ecosystem-copy p,
+  .safety-copy p {
+    margin: 1rem 0 0;
+  }
+
+  .ecosystem-copy a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+    color: var(--purple-soft);
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .ecosystem-flow {
+    display: grid;
+    gap: 0.8rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ecosystem-flow li {
+    position: relative;
+    border: 1px solid rgba(169, 119, 255, 0.25);
+    border-radius: 8px;
+    padding: 1rem 1.15rem;
+    background:
+      linear-gradient(90deg, rgba(124, 60, 255, 0.16), rgba(255, 255, 255, 0.03)),
+      rgba(6, 7, 13, 0.84);
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .ecosystem-flow li:not(:last-child)::after {
+    position: absolute;
+    left: 1.35rem;
+    bottom: -0.83rem;
+    width: 2px;
+    height: 0.83rem;
+    content: "";
+    background: var(--purple-soft);
+    opacity: 0.7;
+  }
+
+  .comparison-table {
+    overflow: hidden;
+  }
+
+  .comparison-table > div {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.38fr) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 1.2rem;
+  }
+
+  .comparison-table > div + div {
+    border-top: 1px solid var(--line);
+  }
+
+  .comparison-head {
+    background: rgba(124, 60, 255, 0.15);
+  }
+
+  .comparison-head span,
+  .comparison-table strong {
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .comparison-note {
+    margin: 1rem 0 0;
+    color: #fff;
+    font-size: clamp(1.18rem, 2vw, 1.45rem);
+    font-weight: 900;
+  }
+
+  .method-rail {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .method-rail article {
+    min-height: 17rem;
+    padding: 1rem;
+  }
+
+  .method-rail article > span {
+    color: var(--purple-soft);
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 900;
+    line-height: 0.9;
+  }
+
+  .safety-section figure {
+    position: relative;
+    overflow: hidden;
+    min-height: clamp(25rem, 44vw, 34rem);
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #080914;
+  }
+
+  .safety-section figure::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background: linear-gradient(180deg, transparent 42%, rgba(3, 4, 7, 0.72));
+  }
+
+  .safety-section img {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    object-fit: cover;
+  }
+
+  .safety-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 1.25rem;
+  }
+
+  .safety-grid span {
+    border-radius: 8px;
+    padding: 0.85rem;
+  }
+
+  .safety-copy > strong {
+    display: block;
+    margin-top: 1.25rem;
+    color: #fff;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    line-height: 1.18;
+  }
+
+  .outbound-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .outbound-grid a {
+    position: relative;
+    display: grid;
+    min-height: 11rem;
+    padding: 1.1rem;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .outbound-grid strong {
+    padding-right: 2rem;
+    font-size: 1.18rem;
+    line-height: 1.18;
+  }
+
+  .outbound-grid span {
+    margin-top: 0.65rem;
+  }
+
+  .outbound-grid i {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--purple-soft);
+  }
+
+  .faq-list {
+    gap: 0.65rem;
+  }
+
+  .faq-list details {
+    padding: 1.05rem 1.2rem;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.12rem;
+    font-weight: 900;
+    line-height: 1.25;
+  }
+
+  .faq-list p {
+    margin: 0.75rem 0 0;
+  }
+
+  .ai-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+    padding: clamp(1.3rem, 3vw, 2rem);
+    background:
+      radial-gradient(circle at 8% 12%, rgba(124, 60, 255, 0.24), transparent 18rem),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.018));
+  }
+
+  .ai-cta p {
+    max-width: 760px;
+    margin: 0.9rem 0 0;
+  }
+
+  @media (max-width: 1180px) {
+    .problem-grid,
+    .usecase-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .solution-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .solution-grid article {
+      min-height: 20rem;
+    }
+
+    .method-rail {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .ai-agency-page {
+      --container: min(100% - 2rem, 1360px);
+    }
+
+    .ai-hero,
+    .ai-section-heading.split,
+    .ecosystem-section,
+    .safety-section,
+    .ai-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-hero {
+      min-height: auto;
+      padding-top: 7.5rem;
+    }
+
+    .ai-hero-visual {
+      justify-self: stretch;
+      min-height: 24rem;
+    }
+
+    .outbound-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ai-cta .ai-button {
+      justify-self: start;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .ai-agency-page {
+      --container: min(100% - 1.25rem, 1360px);
+    }
+
+    .ai-hero {
+      padding-top: 6.6rem;
+      padding-bottom: 2.4rem;
+    }
+
+    .ai-hero h1 {
+      font-size: clamp(2.65rem, 16vw, 4.2rem);
+    }
+
+    .ai-hero h2,
+    .ai-section-heading h2,
+    .ecosystem-copy h2,
+    .safety-copy h2,
+    .ai-cta h2 {
+      font-size: clamp(1.85rem, 9vw, 2.35rem);
+    }
+
+    .ai-kicker {
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+    }
+
+    .ai-kicker::before {
+      width: 1.35rem;
+    }
+
+    .problem-grid,
+    .solution-grid,
+    .usecase-grid,
+    .method-rail,
+    .outbound-grid,
+    .safety-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .problem-grid article,
+    .solution-grid article,
+    .usecase-grid article,
+    .method-rail article,
+    .outbound-grid a {
+      min-height: auto;
+    }
+
+    .comparison-table > div {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .ai-actions,
+    .ai-button {
+      width: 100%;
+    }
+
+    .ai-hero-visual,
+    .safety-section figure {
+      min-height: 20rem;
+    }
+  }
+</style>
