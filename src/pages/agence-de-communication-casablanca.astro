@@ -1,5 +1,6 @@
 ---
 import Faq from '../components/Faq.astro';
+import HeroFilmSlider from '../components/HeroFilmSlider.astro';
 import ParticleLogoSlide from '../components/ParticleLogoSlide.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BUSINESS, BUSINESS_ADDRESS, SITE } from '../consts';
@@ -12,27 +13,6 @@ const description =
   'Richmedia, agence de communication à Casablanca : stratégie, branding, social media, influence, media, web, data et IA. Découvrez nos réalisations.';
 
 const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4');
-
-const heroImages = [
-  {
-    src: '/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-triptych.webp',
-    alt: 'Campagne Prestigia Riad Al Andalous par Richmedia',
-    width: 1894,
-    height: 1074,
-  },
-  {
-    src: '/assets/richmedia-home/campaign-wide-donsimon.webp',
-    alt: 'Campagne Don Simon par Richmedia',
-    width: 1600,
-    height: 900,
-  },
-  {
-    src: '/assets/richmedia-realizations/maserati-levante-push-whatsapp.webp',
-    alt: 'Campagne Maserati Levante WhatsApp par Richmedia',
-    width: 960,
-    height: 1200,
-  },
-];
 
 const metrics = [
   { icon: 'ph ph-chart-line-up', value: '+156', label: 'projets réalisés', text: 'pour des marques locales, nationales et internationales.' },
@@ -205,22 +185,7 @@ const schema = [
         </div>
       </div>
 
-      <div class="hero-gallery" aria-label="Réalisations Richmedia">
-        {heroImages.map((image, index) => (
-          <figure class:list={['hero-card', index === 0 && 'hero-card-main']}>
-            <img
-              src={image.src}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              loading={index === 0 ? 'eager' : 'lazy'}
-              decoding="async"
-              fetchpriority={index === 0 ? 'high' : 'low'}
-              sizes="(max-width: 760px) 88vw, (max-width: 1100px) 42vw, 360px"
-            />
-          </figure>
-        ))}
-      </div>
+      <HeroFilmSlider ariaLabel="Film vertical des réalisations Richmedia à Casablanca" />
     </section>
 
     <section class="proof-section" aria-labelledby="proof-title">
@@ -518,31 +483,6 @@ const schema = [
     transform: translateY(-2px);
   }
 
-  .hero-gallery {
-    display: grid;
-    grid-template-columns: 1fr 0.78fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 1rem;
-    min-width: 0;
-  }
-
-  .hero-card {
-    position: relative;
-    min-height: 13rem;
-    margin: 0;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 8px;
-    background: #050609;
-    box-shadow: 0 1.4rem 4rem rgba(0, 0, 0, 0.35);
-  }
-
-  .hero-card-main {
-    grid-row: span 2;
-    min-height: 29rem;
-  }
-
-  .hero-card img,
   .work-card img {
     display: block;
     width: 100%;
@@ -550,7 +490,6 @@ const schema = [
     object-fit: cover;
   }
 
-  .hero-card::after,
   .work-card::after {
     position: absolute;
     inset: 0;
@@ -1055,7 +994,6 @@ const schema = [
       grid-template-columns: 1fr;
     }
 
-    .hero-gallery,
     .expertise-grid,
     .why-grid,
     .work-grid,
@@ -1067,9 +1005,6 @@ const schema = [
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .hero-card-main {
-      min-height: 22rem;
-    }
   }
 
   @media (max-width: 720px) {
@@ -1129,18 +1064,12 @@ const schema = [
       text-align: center;
     }
 
-    .hero-gallery,
     .metrics-grid,
     .expertise-grid,
     .why-grid,
     .work-grid,
     .method-grid {
       grid-template-columns: 1fr;
-    }
-
-    .hero-card,
-    .hero-card-main {
-      min-height: 14rem;
     }
 
     .proof-section,

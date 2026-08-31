@@ -1,0 +1,203 @@
+---
+interface FilmItem {
+  image: string;
+  label: string;
+  width: number;
+  height: number;
+}
+
+interface Props {
+  class?: string;
+  ariaLabel?: string;
+}
+
+const {
+  class: className,
+  ariaLabel = 'Film vertical des réalisations Richmedia',
+} = Astro.props;
+
+const assetBase = '/assets/richmedia-home';
+const realizationAssets = '/assets/richmedia-realizations';
+const resolveAsset = (image: string) => (image.startsWith('/') ? image : `${assetBase}/${image}`);
+
+const heroFilm: FilmItem[] = [
+  { image: 'optimized/hero-film-01.webp', label: 'Ryad Al Andalous', width: 640, height: 640 },
+  { image: 'optimized/hero-film-02.webp', label: 'Tramway de Rabat', width: 640, height: 800 },
+  { image: 'optimized/hero-film-03.webp', label: 'Moul Pounj', width: 640, height: 355 },
+  { image: `${realizationAssets}/maserati-levante-push-whatsapp.webp`, label: 'Maserati Levante', width: 960, height: 1200 },
+  { image: `${realizationAssets}/oreo-back-to-school-kv.webp`, label: 'Oreo Back to School', width: 1522, height: 1134 },
+  { image: 'optimized/hero-film-04.webp', label: 'TBS Education Casablanca', width: 640, height: 426 },
+  { image: `${realizationAssets}/milka-back-to-school.webp`, label: 'Milka Back to School', width: 1556, height: 1158 },
+  { image: `${realizationAssets}/nescafe-nadi-nescafe.webp`, label: 'Nescafé Nadi Nescafé', width: 1572, height: 1162 },
+  { image: 'optimized/hero-film-05.webp', label: 'Caisse Marocaine des Retraites', width: 640, height: 290 },
+  { image: 'optimized/hero-film-06.webp', label: 'Moul Pounj Coupe du Monde 2026', width: 640, height: 290 },
+  { image: 'optimized/hero-film-07.webp', label: 'Ryad Al Andalous Prestige', width: 640, height: 289 },
+  { image: 'optimized/hero-film-08.webp', label: 'Rabat Riviera', width: 640, height: 291 },
+  { image: 'optimized/hero-film-09.webp', label: 'BED Luxury Comfort', width: 640, height: 295 },
+  { image: 'optimized/hero-film-10.webp', label: 'Tramway mobile app', width: 640, height: 292 },
+];
+
+const heroFilmLeft = heroFilm.filter((_, index) => index % 2 === 0);
+const heroFilmRight = heroFilm.filter((_, index) => index % 2 === 1);
+---
+
+<div class:list={['hero-film-slider', className]} aria-label={ariaLabel}>
+  <div class="film-lane film-lane-left" aria-hidden="true">
+    <div class="film-stack">
+      {heroFilmLeft.map((item, index) => (
+        <figure class="film-frame">
+          <img
+            src={resolveAsset(item.image)}
+            alt={item.label}
+            width={item.width}
+            height={item.height}
+            loading="eager"
+            decoding="async"
+            fetchpriority={index === 0 ? 'high' : 'low'}
+            sizes="(max-width: 720px) 44vw, (max-width: 1060px) 44vw, 24vw"
+          />
+        </figure>
+      ))}
+    </div>
+    <div class="film-stack">
+      {heroFilmLeft.map((item) => (
+        <figure class="film-frame">
+          <img
+            src={resolveAsset(item.image)}
+            alt={item.label}
+            width={item.width}
+            height={item.height}
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+            sizes="(max-width: 720px) 44vw, (max-width: 1060px) 44vw, 24vw"
+          />
+        </figure>
+      ))}
+    </div>
+  </div>
+  <div class="film-lane film-lane-right" aria-hidden="true">
+    <div class="film-stack">
+      {heroFilmRight.map((item, index) => (
+        <figure class="film-frame">
+          <img
+            src={resolveAsset(item.image)}
+            alt={item.label}
+            width={item.width}
+            height={item.height}
+            loading="eager"
+            decoding="async"
+            fetchpriority={index === 0 ? 'high' : 'low'}
+            sizes="(max-width: 720px) 44vw, (max-width: 1060px) 44vw, 24vw"
+          />
+        </figure>
+      ))}
+    </div>
+    <div class="film-stack">
+      {heroFilmRight.map((item) => (
+        <figure class="film-frame">
+          <img
+            src={resolveAsset(item.image)}
+            alt={item.label}
+            width={item.width}
+            height={item.height}
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+            sizes="(max-width: 720px) 44vw, (max-width: 1060px) 44vw, 24vw"
+          />
+        </figure>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero-film-slider {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+    gap: 0.85rem;
+    height: 560px;
+    min-height: 560px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    padding: 0.85rem;
+    background: #050609;
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.34);
+  }
+
+  .film-lane {
+    min-width: 0;
+    animation: film-roll 24s linear infinite;
+    will-change: transform;
+  }
+
+  .film-lane-right {
+    animation-duration: 31s;
+    animation-delay: -10s;
+  }
+
+  .hero-film-slider:hover .film-lane {
+    animation-play-state: paused;
+  }
+
+  .film-stack {
+    display: grid;
+    gap: 0.85rem;
+    padding-bottom: 0.85rem;
+  }
+
+  .film-frame {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    background: #08090d;
+  }
+
+  .film-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: saturate(1.03) contrast(1.02);
+    opacity: 1;
+  }
+
+  @keyframes film-roll {
+    to {
+      transform: translateY(-50%);
+    }
+  }
+
+  @media (max-width: 1060px) {
+    .hero-film-slider {
+      height: 500px;
+      min-height: 500px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .hero-film-slider {
+      height: 292px;
+      min-height: 292px;
+      gap: 0.45rem;
+      padding: 0.45rem;
+      border-radius: 8px;
+      box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.28);
+    }
+
+    .film-stack {
+      gap: 0.45rem;
+      padding-bottom: 0.45rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .film-lane {
+      animation: none;
+    }
+  }
+</style>
