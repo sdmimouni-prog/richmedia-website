@@ -380,18 +380,20 @@ const schema = [
 
 <style>
   :global(main) {
-    width: 100%;
-    max-width: none;
-    padding: 0;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .casablanca-page {
+    --container: min(100% - 3rem, 1320px);
     --purple: #8c52ff;
     --purple-soft: #b985ff;
     --line: rgba(255, 255, 255, 0.13);
     --muted: rgba(232, 237, 245, 0.72);
-    width: min(100% - 3rem, 1320px);
-    margin: 0 auto;
+    width: var(--container);
+    margin-inline: auto;
     padding: clamp(8rem, 9vw, 9.8rem) 0 clamp(3rem, 6vw, 5rem);
     color: #fff;
   }
@@ -1134,7 +1136,7 @@ const schema = [
 
   @media (max-width: 720px) {
     .casablanca-page {
-      width: min(100% - 1rem, 1320px);
+      --container: min(100% - 1rem, 1320px);
       padding-top: 5.9rem;
     }
 
@@ -1258,10 +1260,6 @@ const schema = [
   }
 
   @media (max-width: 420px) {
-    .casablanca-page {
-      width: min(100% - 0.75rem, 1320px);
-    }
-
     .casablanca-hero,
     .proof-section,
     .why-section,
