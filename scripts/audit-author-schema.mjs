@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const distDir = path.join(root, 'dist');
-const siteUrl = process.env.PUBLIC_SITE_URL ?? 'https://richmedia.ma';
+const siteUrl = process.env.PUBLIC_SITE_URL ?? 'https://www.richmedia.ma';
 const organizationId = `${siteUrl}/#organization`;
 
 const typeIncludes = (node, type) => {

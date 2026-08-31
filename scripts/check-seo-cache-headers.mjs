@@ -1,7 +1,7 @@
 const soft = process.argv.includes('--soft');
 const maxAllowedAge = Number(process.env.SEO_CACHE_MAX_AGE ?? 3600);
 const baseUrlArg = process.argv.find((arg) => !arg.startsWith('--') && arg !== process.argv[0] && arg !== process.argv[1]);
-const baseUrl = new URL(process.env.SEO_CACHE_BASE_URL ?? baseUrlArg ?? 'https://richmedia.ma');
+const baseUrl = new URL(process.env.SEO_CACHE_BASE_URL ?? baseUrlArg ?? 'https://www.richmedia.ma');
 
 const targetPaths = ['/robots.txt', '/sitemap-index.xml', '/sitemap-0.xml'];
 const targets = targetPaths.map((path) => new URL(path, baseUrl).toString());

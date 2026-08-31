@@ -34,7 +34,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          PUBLIC_SITE_URL: https://richmedia.ma
+          PUBLIC_SITE_URL: https://www.richmedia.ma
 
       - name: Configure SSH
         env:

@@ -55,8 +55,8 @@ const profiles = {
     ],
     checks: {
       CONTACT_API_PORT: isValidPort,
-      PUBLIC_SITE_URL: (value) => value === 'https://richmedia.ma',
-      PUBLIC_OG_IMAGE_URL: (value) => value.startsWith('https://richmedia.ma/'),
+      PUBLIC_SITE_URL: (value) => value === 'https://www.richmedia.ma',
+      PUBLIC_OG_IMAGE_URL: (value) => value.startsWith('https://www.richmedia.ma/'),
     },
   },
 };

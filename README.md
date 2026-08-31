@@ -29,8 +29,8 @@ ASTRO_PORT=4321                            # dev
 ASTRO_PORT=4322                            # preview prod locale
 PUBLIC_SITE_URL=http://localhost:4321        # dev
 PUBLIC_OG_IMAGE_URL=http://localhost:4321/og-default.jpg
-PUBLIC_SITE_URL=https://richmedia.ma         # prod
-PUBLIC_OG_IMAGE_URL=https://richmedia.ma/og-default.jpg
+PUBLIC_SITE_URL=https://www.richmedia.ma     # prod
+PUBLIC_OG_IMAGE_URL=https://www.richmedia.ma/og-default.jpg
 ```
 
 `PUBLIC_SITE_URL` alimente les URLs canoniques, le sitemap et le JSON-LD. `ASTRO_HOST`
@@ -52,7 +52,7 @@ PUBLIC_LINKEDIN_PARTNER_ID=
 ```
 
 `PUBLIC_SITE_URL` alimente les URLs canoniques, le sitemap et le JSON-LD. En prod, il
-doit rester `https://richmedia.ma`.
+doit rester `https://www.richmedia.ma`, car l'apex `https://richmedia.ma` redirige vers `www`.
 
 En production Vercel, les variables doivent être ajoutées dans le projet Vercel, car
 `.env.*` est volontairement exclu du déploiement. Le script de synchronisation pousse les
