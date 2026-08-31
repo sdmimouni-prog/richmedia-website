@@ -31,6 +31,8 @@ const redirectedEnglishInsightSlugs = [
   'digital-priorities-2026-profitable-growth',
   'employer-brand-digital-attractiveness',
   'google-ads-campaign-cost-morocco',
+  'how-much-does-an-influencer-cost-in-morocco',
+  'cost-per-lead-morocco-industry-benchmarks',
   'meta-campaigns-2026-best-practices',
   'quality-content-durable-seo',
   'seo-vs-geo-2026',

@@ -21,9 +21,11 @@ const articleImages: Record<string, string> = {
   'campagnes-meta-2026-bonnes-pratiques': '/assets/richmedia-achat-media/media-creative-tests.webp',
   'whatsapp-business-canal-conversion': '/assets/richmedia-ia-automation/whatsapp-agent.webp',
   'createurs-marques-collaborations-durables': '/assets/richmedia-influence/creator-lifestyle.webp',
+  'combien-coute-influenceur-maroc': '/assets/richmedia-influence/influence-hero.webp',
   'plan-acquisition-digital-2026': '/assets/richmedia-digital-strategy/strategy-hero.webp',
   'marque-employeur-attractivite-digitale': '/assets/richmedia-agence/agence-collaboration.webp',
   'cout-campagne-google-ads-maroc': '/assets/richmedia-achat-media/achat-media-hero.webp',
+  'cout-lead-maroc-benchmarks-cpl': '/assets/richmedia-tools/hero-dashboard.webp',
   'contenu-qualite-seo-perenne': '/assets/richmedia-brand-content/brand-content-hero.webp',
   'crm-automation-aligner-marketing-sales': '/assets/richmedia-ia-automation/crm-automation.webp',
 };
@@ -77,6 +79,14 @@ const relatedArticles = otherEntries
 fallbackRelated = relatedArticles.length > 0 ? relatedArticles : recentArticles.slice(0, 4);
 categoryLabel = categoryLabels[pageEntry.data.categorie] ?? pageEntry.data.categorie;
 schemaImage = image.startsWith('/') ? `${SITE.url}${image}` : image;
+const influenceCostArticle = slug === 'combien-coute-influenceur-maroc';
+const ctaTitle = influenceCostArticle
+  ? 'Vous préparez une campagne d’influence au Maroc ?'
+  : 'Des questions sur votre stratégie digitale ? Échangeons avec nos experts.';
+const ctaPrimary = influenceCostArticle ? 'Découvrir notre expertise Influence' : 'Discuter d\'un projet';
+const ctaPrimaryHref = influenceCostArticle ? '/marketing-influence-maroc' : '/contact';
+const ctaSecondary = influenceCostArticle ? 'Parler à un expert' : 'Découvrir nos expertises';
+const ctaSecondaryHref = influenceCostArticle ? '/contact' : '/expertises';
 authorProfile = getEditorialAuthorStrict(pageEntry.data.auteur, `article "${slug}"`) ?? getEditorialAuthor();
 const authorImage = authorProfile.image.startsWith('/') ? `${SITE.url}${authorProfile.image}` : authorProfile.image;
 schema = [
@@ -136,11 +146,11 @@ schema = [
     relatedArticles={fallbackRelated}
     faq={pageEntry.data.faq}
     sources={pageEntry.data.sources}
-    ctaTitle="Des questions sur votre stratégie digitale ? Échangeons avec nos experts."
-    ctaPrimary="Discuter d'un projet"
-    ctaPrimaryHref="/contact"
-    ctaSecondary="Découvrir nos expertises"
-    ctaSecondaryHref="/expertises"
+    ctaTitle={ctaTitle}
+    ctaPrimary={ctaPrimary}
+    ctaPrimaryHref={ctaPrimaryHref}
+    ctaSecondary={ctaSecondary}
+    ctaSecondaryHref={ctaSecondaryHref}
     newsletterTitle="Restez à la page"
     newsletterDescription="Recevez nos derniers insights, tendances et études de cas."
     newsletterButton="S’abonner"

@@ -318,6 +318,11 @@ const formatDate = (value: Date | string) =>
     padding-top: clamp(1rem, 3vw, 2.4rem);
   }
 
+  .article-detail-page,
+  .article-detail-page * {
+    box-sizing: border-box;
+  }
+
   h1,
   h2,
   h3,
@@ -521,7 +526,11 @@ const formatDate = (value: Date | string) =>
 
   .article-main {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.6rem;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
   }
 
   .article-body-card,
@@ -535,6 +544,9 @@ const formatDate = (value: Date | string) =>
   }
 
   .article-body-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     padding: clamp(1.3rem, 3vw, 2rem);
   }
 
@@ -547,7 +559,9 @@ const formatDate = (value: Date | string) =>
 
   .article-body {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.05rem;
+    min-width: 0;
     color: rgba(255, 255, 255, 0.72);
     font-size: 1.0625rem;
     line-height: 1.78;

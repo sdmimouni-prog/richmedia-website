@@ -24,6 +24,9 @@ const mediaHref = isEnglish ? '/en/expertises/media-performance' : '/expertises/
 const socialListeningHref = isEnglish ? '/en/expertises/social-listening-morocco' : '/expertises/social-listening-maroc';
 const brandContentHref = isEnglish ? '/en/expertises/brand-content' : '/expertises/brand-content';
 const fmcgHref = isEnglish ? '/en/sectors/fmcg' : '/secteurs/fmcg';
+const influencerCostHref = isEnglish
+  ? '/en/insights/how-much-does-an-influencer-cost-in-morocco'
+  : '/insights/combien-coute-influenceur-maroc';
 
 const copy = isEnglish
   ? {
@@ -525,6 +528,13 @@ const siloLinks = isEnglish ? enSiloLinks.influence : frSiloLinks.influence;
     intro={copy.siloIntro}
     links={[
       ...siloLinks,
+      {
+        href: influencerCostHref,
+        label: isEnglish ? 'Influencer costs in Morocco' : 'Tarifs des influenceurs au Maroc',
+        text: isEnglish
+          ? 'Understand the variables that shape a campaign budget.'
+          : 'Comprendre les variables qui structurent un budget de campagne.',
+      },
       { href: fmcgHref, label: isEnglish ? 'FMCG campaigns' : 'Campagnes FMCG', text: isEnglish ? 'Adapt influence to product launches and retail moments.' : 'Adapter l’influence aux lancements produit et temps forts retail.' },
       { href: workHref, label: isEnglish ? 'Case studies' : 'Réalisations', text: isEnglish ? 'See real Richmedia campaigns.' : 'Voir des campagnes réelles Richmedia.' },
     ]}

@@ -21,11 +21,13 @@ const articleImages: Record<string, string> = {
   'seo-vs-geo-2026': '/assets/richmedia-digital-strategy/strategy-hero.webp',
   'whatsapp-business-conversion-channel': '/assets/richmedia-ia-automation/whatsapp-agent.webp',
   'creators-brands-durable-collaborations': '/assets/richmedia-influence/creator-lifestyle.webp',
+  'how-much-does-an-influencer-cost-in-morocco': '/assets/richmedia-influence/influence-hero.webp',
   'data-for-decisions-performance-strategy': '/assets/richmedia-achat-media/media-traffic-manager.webp',
   'employer-brand-digital-attractiveness': '/assets/richmedia-agence/agence-collaboration.webp',
   'quality-content-durable-seo': '/assets/richmedia-brand-content/brand-content-hero.webp',
   'crm-automation-marketing-sales-alignment': '/assets/richmedia-ia-automation/crm-automation.webp',
   'google-ads-campaign-cost-morocco': '/assets/richmedia-achat-media/achat-media-hero.webp',
+  'cost-per-lead-morocco-industry-benchmarks': '/assets/richmedia-tools/hero-dashboard.webp',
 };
 
 const toArticleCard = (entry: any) => {
@@ -62,6 +64,14 @@ const relatedArticles = otherEntries
 const fallbackRelated = relatedArticles.length > 0 ? relatedArticles : recentArticles.slice(0, 4);
 const categoryLabel = categoryLabels[entry.data.categorie] ?? entry.data.categorie;
 const schemaImage = image.startsWith('/') ? `${SITE.url}${image}` : image;
+const influenceCostArticle = slug === 'how-much-does-an-influencer-cost-in-morocco';
+const ctaTitle = influenceCostArticle
+  ? 'Planning an influencer campaign in Morocco?'
+  : 'Questions about your digital strategy? Let’s talk with our experts.';
+const ctaPrimary = influenceCostArticle ? 'Explore our Influence expertise' : 'Discuss a project';
+const ctaPrimaryHref = influenceCostArticle ? '/influencer-marketing-morocco' : '/en/contact';
+const ctaSecondary = influenceCostArticle ? 'Talk to an expert' : 'Explore our expertise';
+const ctaSecondaryHref = influenceCostArticle ? '/en/contact' : '/en/expertises';
 const authorProfile = getEditorialAuthorStrict(entry.data.auteur, `article "${slug}"`) ?? getEditorialAuthor();
 const authorImage = authorProfile.image.startsWith('/') ? `${SITE.url}${authorProfile.image}` : authorProfile.image;
 const schema = [
@@ -123,11 +133,11 @@ const schema = [
     relatedArticles={fallbackRelated}
     faq={entry.data.faq}
     sources={entry.data.sources}
-    ctaTitle="Questions about your digital strategy? Let’s talk with our experts."
-    ctaPrimary="Discuss a project"
-    ctaPrimaryHref="/en/contact"
-    ctaSecondary="Explore our expertise"
-    ctaSecondaryHref="/en/expertises"
+    ctaTitle={ctaTitle}
+    ctaPrimary={ctaPrimary}
+    ctaPrimaryHref={ctaPrimaryHref}
+    ctaSecondary={ctaSecondary}
+    ctaSecondaryHref={ctaSecondaryHref}
     newsletterTitle="Stay in the loop"
     newsletterDescription="Receive our latest insights, trends and case studies."
     newsletterButton="Subscribe"
