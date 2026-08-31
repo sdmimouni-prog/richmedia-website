@@ -1,5 +1,7 @@
 ---
 import Faq from '../components/Faq.astro';
+import HeroFilmSlider from '../components/HeroFilmSlider.astro';
+import ParticleLogoSlide from '../components/ParticleLogoSlide.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BUSINESS, SITE } from '../consts';
 import { breadcrumbs, faqSchema, localBusiness, serviceSchema } from '../lib/schema';
@@ -9,27 +11,6 @@ const pageUrl = `${SITE.url}${pagePath}`;
 const title = 'Agence de communication au Maroc | Richmedia';
 const description =
   'Richmedia est une agence de communication au Maroc spécialisée en stratégie, branding, social media, influence, media, performance, technologie, data et IA.';
-
-const heroImages = [
-  {
-    src: '/assets/richmedia-realizations/prestigia-riad-al-andalous-acquisition-2026-triptych.webp',
-    alt: 'Campagne Prestigia Riad Al Andalous au Maroc par Richmedia',
-    width: 1894,
-    height: 1074,
-  },
-  {
-    src: '/assets/richmedia-home/campaign-wide-donsimon.webp',
-    alt: 'Campagne Don Simon au Maroc par Richmedia',
-    width: 1600,
-    height: 900,
-  },
-  {
-    src: '/assets/richmedia-home/campaign-wide-amana-tram.webp',
-    alt: 'Campagne Amana Tramway par Richmedia',
-    width: 1600,
-    height: 900,
-  },
-];
 
 const proofs = [
   { icon: 'ph ph-chart-line-up', value: '+156', label: 'projets réalisés', text: 'pour des marques locales, nationales et internationales.' },
@@ -73,6 +54,24 @@ const nationalLevers = [
   'drive-to-store',
   'génération de leads',
   'contenus & social media',
+];
+
+const marketSignals = [
+  {
+    number: '01',
+    title: 'Lire les audiences',
+    text: 'Comprendre les usages, les langues, les villes et les moments de décision au Maroc.',
+  },
+  {
+    number: '02',
+    title: 'Adapter les messages',
+    text: 'Relier identité, social media, influence, web et média aux codes locaux.',
+  },
+  {
+    number: '03',
+    title: "Mesurer l'impact",
+    text: 'Piloter les budgets, les leads, les visites et les signaux de confiance avec des indicateurs utiles.',
+  },
 ];
 
 const whyRichmedia = [
@@ -229,22 +228,7 @@ const schema = [
         </div>
       </div>
 
-      <div class="hero-gallery" aria-label="Réalisations Richmedia au Maroc">
-        {heroImages.map((image, index) => (
-          <figure class:list={['hero-card', index === 0 && 'hero-card-main']}>
-            <img
-              src={image.src}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              loading={index === 0 ? 'eager' : 'lazy'}
-              decoding="async"
-              fetchpriority={index === 0 ? 'high' : 'low'}
-              sizes="(max-width: 760px) 88vw, (max-width: 1100px) 42vw, 360px"
-            />
-          </figure>
-        ))}
-      </div>
+      <HeroFilmSlider ariaLabel="Film vertical des réalisations Richmedia au Maroc" />
     </section>
 
     <section class="proof-section" aria-labelledby="positioning-title">
@@ -287,21 +271,39 @@ const schema = [
       </div>
     </section>
 
-    <section class="editorial-section" aria-labelledby="market-title">
-      <div>
+    <section id="marche-marocain" class="editorial-section" aria-labelledby="market-title">
+      <div class="market-heading">
         <span class="section-kicker">Lecture du marché</span>
-        <h2 id="market-title">Comprendre le Maroc pour mieux communiquer</h2>
+        <h2 id="market-title">
+          <span>Communiquer au Maroc</span>
+          <span>avec clarté et impact</span>
+        </h2>
+        <p class="market-lead">
+          Le Maroc est un marché culturellement riche, multilingue et mobile-first. L'enjeu n'est pas d'adapter un
+          message général, mais de construire une présence juste.
+        </p>
+        <div class="editorial-particle-logo" aria-hidden="true">
+          <ParticleLogoSlide />
+        </div>
       </div>
-      <p>
-        Le Maroc est un marché culturellement riche, multilingue et mobile-first, où les comportements varient selon les
-        audiences, les villes, les usages et les moments de consommation. Les marques doivent composer avec des parcours
-        hybrides : découverte sur les réseaux sociaux, influence des créateurs, recherche d’avis, conversations WhatsApp,
-        visites en magasin et décisions souvent nourries par la proximité. Une stratégie efficace ne peut donc pas se
-        limiter à adapter un message général. Elle doit comprendre les codes locaux, choisir les bons canaux, produire des
-        contenus crédibles et mesurer ce qui génère réellement de l’attention, de la confiance et de la conversion.
-        Richmedia combine connaissance locale, créativité, technologie, data et performance pour construire des campagnes
-        utiles aux marques comme aux audiences.
-      </p>
+      <div class="market-content">
+        <div class="market-copy">
+          <p>
+            Pour émerger, une marque doit relier codes locaux, canaux média, influence, social media, data et performance
+            autour d'objectifs précis. Richmedia analyse les audiences, adapte les messages aux villes et aux plateformes,
+            puis optimise les leviers qui créent attention, confiance et conversion.
+          </p>
+        </div>
+        <ul class="market-points" aria-label="Approche Richmedia pour communiquer au Maroc">
+          {marketSignals.map((signal) => (
+            <li>
+              <span>{signal.number}</span>
+              <strong>{signal.title}</strong>
+              <p>{signal.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
 
     <section class="coverage-section" aria-labelledby="coverage-title">
@@ -436,18 +438,20 @@ const schema = [
 
 <style>
   :global(main) {
-    width: 100%;
-    max-width: none;
-    padding: 0;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .national-page {
+    --container: min(100% - 3rem, 1320px);
     --purple: #8c52ff;
     --purple-soft: #b985ff;
     --line: rgba(255, 255, 255, 0.13);
     --muted: rgba(232, 237, 245, 0.72);
-    width: min(100% - 3rem, 1320px);
-    margin: 0 auto;
+    width: var(--container);
+    margin-inline: auto;
     padding: clamp(8rem, 9vw, 9.8rem) 0 clamp(3rem, 6vw, 5rem);
     color: #fff;
   }
@@ -569,31 +573,6 @@ const schema = [
     transform: translateY(-2px);
   }
 
-  .hero-gallery {
-    display: grid;
-    grid-template-columns: 1fr 0.78fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 1rem;
-    min-width: 0;
-  }
-
-  .hero-card {
-    position: relative;
-    min-height: 13rem;
-    margin: 0;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 8px;
-    background: #050609;
-    box-shadow: 0 1.4rem 4rem rgba(0, 0, 0, 0.35);
-  }
-
-  .hero-card-main {
-    grid-row: span 2;
-    min-height: 29rem;
-  }
-
-  .hero-card img,
   .work-card img {
     display: block;
     width: 100%;
@@ -601,7 +580,6 @@ const schema = [
     object-fit: cover;
   }
 
-  .hero-card::after,
   .work-card::after {
     position: absolute;
     inset: 0;
@@ -853,14 +831,121 @@ const schema = [
 
   .editorial-section {
     display: grid;
-    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-    gap: clamp(1.5rem, 4vw, 3rem);
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1.8rem, 4vw, 3.8rem);
+    align-items: start;
+    scroll-margin-top: 7.5rem;
     margin-top: clamp(3.5rem, 7vw, 6rem);
     padding: clamp(1.35rem, 4vw, 3rem);
   }
 
+  .editorial-section h2 {
+    max-width: 12ch;
+    font-size: clamp(2.1rem, 3.8vw, 3.9rem);
+    line-height: 1;
+  }
+
   .editorial-section p {
     margin: 0;
+  }
+
+  #market-title {
+    max-width: 100%;
+    font-size: clamp(1.95rem, 2.2vw, 2rem) !important;
+    line-height: 1.04;
+  }
+
+  #market-title span {
+    display: block;
+  }
+
+  .market-heading {
+    display: grid;
+    align-content: start;
+  }
+
+  .market-lead {
+    max-width: 34rem;
+    margin-top: clamp(1.1rem, 2vw, 1.35rem);
+    color: rgba(232, 237, 245, 0.78);
+    font-size: clamp(1rem, 1.3vw, 1.16rem);
+    line-height: 1.68;
+    text-wrap: pretty;
+  }
+
+  .market-content {
+    display: grid;
+    gap: clamp(1.2rem, 2.4vw, 1.8rem);
+    align-self: center;
+  }
+
+  .market-copy {
+    border-left: 1px solid rgba(185, 137, 255, 0.48);
+    padding-left: clamp(1rem, 2vw, 1.4rem);
+  }
+
+  .market-copy p {
+    max-width: 48rem;
+    margin: 0;
+    color: rgba(232, 237, 245, 0.76);
+    font-size: clamp(1rem, 1.22vw, 1.12rem);
+    line-height: 1.84;
+    text-align: justify;
+    text-align-last: left;
+    text-wrap: pretty;
+    hyphens: manual;
+  }
+
+  .market-points {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.85rem, 1.8vw, 1.25rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .market-points li {
+    min-width: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    padding-top: 0.95rem;
+  }
+
+  .market-points span {
+    display: inline-flex;
+    color: var(--purple-soft);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+  }
+
+  .market-points strong {
+    display: block;
+    margin-top: 0.45rem;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: clamp(1.08rem, 1.5vw, 1.28rem);
+    line-height: 1.1;
+  }
+
+  .market-points p {
+    max-width: 18rem;
+    margin: 0.55rem 0 0;
+    color: rgba(232, 237, 245, 0.62);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .editorial-particle-logo {
+    position: relative;
+    width: min(100%, 28rem);
+    min-height: clamp(7.8rem, 11vw, 10rem);
+    margin-top: clamp(1.15rem, 2.4vw, 1.8rem);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #000;
+    opacity: 0.82;
   }
 
   .coverage-panel {
@@ -1135,7 +1220,6 @@ const schema = [
       grid-template-columns: 1fr;
     }
 
-    .hero-gallery,
     .expertise-grid,
     .why-grid,
     .activation-grid,
@@ -1148,14 +1232,27 @@ const schema = [
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .hero-card-main {
-      min-height: 22rem;
+    .editorial-section h2 {
+      max-width: 14ch;
+    }
+
+    #market-title {
+      max-width: 100%;
+    }
+
+    .market-content {
+      align-self: stretch;
+    }
+
+    .editorial-particle-logo {
+      width: 100%;
+      max-width: 34rem;
     }
   }
 
   @media (max-width: 720px) {
     .national-page {
-      width: min(100% - 1rem, 1320px);
+      --container: min(100% - 1rem, 1320px);
       padding-top: 5.9rem;
     }
 
@@ -1208,19 +1305,53 @@ const schema = [
       text-align: center;
     }
 
-    .hero-gallery,
     .metrics-grid,
     .expertise-grid,
     .why-grid,
     .activation-grid,
     .work-grid,
-    .method-grid {
+    .method-grid,
+    .market-points {
       grid-template-columns: 1fr;
     }
 
-    .hero-card,
-    .hero-card-main {
-      min-height: 14rem;
+    .market-lead {
+      margin-top: 0.95rem;
+      font-size: 1rem;
+      line-height: 1.58;
+    }
+
+    .market-copy {
+      border-top: 1px solid rgba(185, 137, 255, 0.42);
+      border-left: 0;
+      padding-top: 1rem;
+      padding-left: 0;
+    }
+
+    .market-copy p {
+      line-height: 1.68;
+      text-align: left;
+      hyphens: manual;
+    }
+
+    .market-points {
+      gap: 0.9rem;
+    }
+
+    .market-points li {
+      padding-top: 0.8rem;
+    }
+
+    .market-points p {
+      max-width: none;
+      margin-top: 0.45rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .editorial-particle-logo {
+      min-height: 7rem;
+      margin-top: 1rem;
     }
 
     .proof-section,
@@ -1235,8 +1366,13 @@ const schema = [
     .section-intro h2,
     .editorial-section h2,
     .final-cta h2 {
-      font-size: clamp(2rem, 10vw, 3rem);
+      font-size: clamp(2rem, 9vw, 2.75rem);
       line-height: 1;
+    }
+
+    #market-title {
+      font-size: clamp(1.55rem, 6.35vw, 2.05rem) !important;
+      line-height: 1.06;
     }
 
     .work-card {
@@ -1245,10 +1381,6 @@ const schema = [
   }
 
   @media (max-width: 420px) {
-    .national-page {
-      width: min(100% - 0.75rem, 1320px);
-    }
-
     .national-hero,
     .proof-section,
     .coverage-section,
