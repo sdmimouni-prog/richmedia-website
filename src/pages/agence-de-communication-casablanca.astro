@@ -295,7 +295,10 @@ const schema = [
     <section id="marche-local" class="editorial-section" aria-labelledby="local-title">
       <div class="market-heading">
         <span class="section-kicker">Marché local</span>
-        <h2 id="local-title">Communiquer à Casablanca avec clarté et impact</h2>
+        <h2 id="local-title">
+          <span>Communiquer à Casablanca</span>
+          <span>avec clarté et impact</span>
+        </h2>
         <p class="market-lead">
           Casablanca réunit sièges sociaux, enseignes, startups et institutions. Dans ce marché dense, l'enjeu
           n'est pas d'en dire plus, mais de dire juste.
@@ -823,6 +826,16 @@ const schema = [
     line-height: 1;
   }
 
+  #local-title {
+    max-width: 100%;
+    font-size: clamp(1.95rem, 2.2vw, 2rem) !important;
+    line-height: 1.04;
+  }
+
+  #local-title span {
+    display: block;
+  }
+
   .market-heading {
     display: grid;
     align-content: start;
@@ -1123,6 +1136,10 @@ const schema = [
       max-width: 14ch;
     }
 
+    #local-title {
+      max-width: 100%;
+    }
+
     .market-content {
       align-self: stretch;
     }
@@ -1252,6 +1269,11 @@ const schema = [
     .final-cta h2 {
       font-size: clamp(2rem, 9vw, 2.75rem);
       line-height: 1;
+    }
+
+    #local-title {
+      font-size: clamp(1.55rem, 6.35vw, 2.05rem) !important;
+      line-height: 1.06;
     }
 
     .work-card {
