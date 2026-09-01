@@ -87,6 +87,15 @@
   ],
   "headers": [
     {
+      "source": "/((?!_astro/|assets/|downloads/|api/|cdn-cgi/|robots\\.txt|sitemap-index\\.xml|sitemap-.*\\.xml|favicon\\.ico).*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate, no-transform"
+        }
+      ]
+    },
+    {
       "source": "/robots.txt",
       "headers": [
         {
