@@ -1,5 +1,6 @@
 ---
 import { BUSINESS, SITE } from '../consts';
+import EmailLink from './EmailLink.astro';
 
 const englishRootPaths = ['/rich-media-agency-morocco', '/influencer-marketing-morocco', '/social-media-management-morocco', '/seo-agency-morocco', '/online-advertising-morocco', '/website-development-morocco'];
 const isEnglish = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/') || englishRootPaths.includes(Astro.url.pathname.replace(/\/$/, ''));
@@ -124,7 +125,7 @@ const labels = isEnglish
 
   <address>
     <h2>{labels.contact}</h2>
-    <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
+    <EmailLink fallbackHref={isEnglish ? '/en/contact/' : '/contact/'} />
     {BUSINESS.tels.map((tel) => <a href={`tel:${tel.replaceAll(' ', '')}`}>{tel}</a>)}
     <div class="footer-socials" aria-label={labels.socials}>
       {socialLinks.map((item) => (

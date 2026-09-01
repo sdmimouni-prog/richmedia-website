@@ -1,5 +1,6 @@
 ---
 import Faq from '../components/Faq.astro';
+import EmailLink from '../components/EmailLink.astro';
 import HeroFilmSlider from '../components/HeroFilmSlider.astro';
 import ParticleLogoSlide from '../components/ParticleLogoSlide.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -359,7 +360,7 @@ const schema = [
         <strong>{SITE.name}</strong>
         <span>{BUSINESS_ADDRESS.street}</span>
         <span>{BUSINESS_ADDRESS.city} {BUSINESS_ADDRESS.postalCode} — Maroc</span>
-        <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
+        <EmailLink />
         <a href={`tel:${BUSINESS.tels[0]}`}>{formatPhone(BUSINESS.tels[0])}</a>
       </address>
       <a class="button button-primary" href="/contact">

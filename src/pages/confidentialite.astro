@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailLink from '../components/EmailLink.astro';
 import LegalPage from '../components/LegalPage.astro';
 import { BUSINESS, SITE } from '../consts';
 import { breadcrumbs, localBusiness } from '../lib/schema';
@@ -29,7 +30,7 @@ const schema = [
       <h2>Responsable du traitement</h2>
       <p>
         Le responsable du traitement des données collectées via ce site est {BUSINESS.legalName}, joignable à
-        <a href={`mailto:${BUSINESS.email}`}> {BUSINESS.email}</a>.
+        <EmailLink />.
       </p>
       <p>
         Richmedia s'inscrit dans le cadre de la loi marocaine n° 09-08 relative à la protection des personnes
@@ -114,7 +115,7 @@ const schema = [
         ainsi que vous opposer à certains traitements lorsque les conditions applicables sont réunies.
       </p>
       <p>
-        Pour exercer vos droits, écrivez à <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a> en précisant votre
+        Pour exercer vos droits, écrivez à <EmailLink /> en précisant votre
         demande. Une vérification d'identité peut être demandée si nécessaire.
       </p>
       <p>

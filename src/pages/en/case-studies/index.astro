@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import EmailLink from '../../../components/EmailLink.astro';
 import ParticleLogoSlide from '../../../components/ParticleLogoSlide.astro';
 import SeoSiloLinks from '../../../components/SeoSiloLinks.astro';
 import CaseProofLinks from '../../../components/CaseProofLinks.astro';
@@ -593,7 +594,7 @@ const quickLinks = [
             Contact the Richmedia team
             <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
-          <a class="button button-secondary" href="mailto:contact@richmedia.ma">contact@richmedia.ma</a>
+          <EmailLink class="button button-secondary" fallbackHref="/en/contact/" />
         </div>
       </div>
       <div class="case-cta-visual" aria-hidden="true">

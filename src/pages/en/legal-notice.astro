@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import EmailLink from '../../components/EmailLink.astro';
 import LegalPage from '../../components/LegalPage.astro';
 import { BUSINESS, SITE } from '../../consts';
 import { breadcrumbs, localBusiness, webPageSchema } from '../../lib/schema';
@@ -39,7 +40,7 @@ const schema = [
       <dl>
         <div><dt>Commercial name</dt><dd>{BUSINESS.legalName}</dd></div>
         <div><dt>Address</dt><dd>{BUSINESS.adresse}</dd></div>
-        <div><dt>Email</dt><dd><a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></dd></div>
+        <div><dt>Email</dt><dd><EmailLink fallbackHref="/en/contact/" /></dd></div>
         <div><dt>Phone</dt><dd>{BUSINESS.tels.join(' / ')}</dd></div>
         <div><dt>Publication director</dt><dd>Richmedia management.</dd></div>
       </dl>
@@ -79,7 +80,7 @@ const schema = [
 
     <article>
       <h2>Contact</h2>
-      <p>For any question about the website or its content, write to <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>.</p>
+      <p>For any question about the website or its content, write to <EmailLink fallbackHref="/en/contact/" />.</p>
     </article>
   </LegalPage>
 </BaseLayout>

@@ -132,5 +132,28 @@ const showBarometerBox =
     <Footer />
     <ContactFormHandler />
     <CookieConsent lang={lang} />
+    <script is:inline>
+      (() => {
+        const hydrateEmailLinks = () => {
+          document.querySelectorAll('[data-email-link]').forEach((link) => {
+            const user = link.getAttribute('data-email-user');
+            const domain = link.getAttribute('data-email-domain');
+            if (!user || !domain) return;
+
+            const email = `${user}@${domain}`;
+            link.setAttribute('href', `mailto:${email}`);
+            link.querySelectorAll('[data-email-address]').forEach((node) => {
+              node.textContent = email;
+            });
+          });
+        };
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', hydrateEmailLinks, { once: true });
+        } else {
+          hydrateEmailLinks();
+        }
+      })();
+    </script>
   </body>
 </html>

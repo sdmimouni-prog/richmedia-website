@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import InfluenceVideoStrip from '../components/InfluenceVideoStrip.astro';
+import EmailLink from '../components/EmailLink.astro';
 import { localBusiness, webPageSchema, webSiteSchema } from '../lib/schema';
 import { BUSINESS, SITE } from '../consts';
 
@@ -462,10 +463,10 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
         </div>
       </div>
       <address class="contact-card" aria-label="Coordonnées Richmedia">
-        <a class="contact-line" href={`mailto:${BUSINESS.email}`}>
+        <EmailLink class="contact-line">
           <span class="contact-icon"><i class="ph ph-envelope" aria-hidden="true"></i></span>
-          <span><small>Email direct</small><strong>{BUSINESS.email}</strong></span>
-        </a>
+          <span><small>Email direct</small><strong data-email-address>{BUSINESS.email.replace('@', ' [at] ')}</strong></span>
+        </EmailLink>
         {BUSINESS.tels.map((tel, index) => (
           <a class="contact-line" href={`tel:${tel}`}>
             <span class="contact-icon"><i class="ph ph-phone" aria-hidden="true"></i></span>

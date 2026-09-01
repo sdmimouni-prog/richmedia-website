@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import EmailLink from '../../../components/EmailLink.astro';
 import { BUSINESS, CONTACT_FORM, SITE } from '../../../consts';
 import { breadcrumbs, localBusiness, webPageSchema } from '../../../lib/schema';
 
@@ -40,8 +41,9 @@ const contactHighlights = [
   {
     icon: 'ph-envelope-simple',
     title: 'Email',
-    lines: [BUSINESS.email],
-    href: `mailto:${BUSINESS.email}`,
+    lines: [BUSINESS.email.replace('@', ' [at] ')],
+    href: '/en/contact/',
+    email: BUSINESS.email,
   },
   {
     icon: 'ph-phone-call',
@@ -195,16 +197,29 @@ const faqs = [
 
     <section class="contact-strip" aria-label="Quick contact details">
       {contactHighlights.map((item) => (
-        <a class="contact-strip-card hover-card" href={item.href}>
-          <span class="icon-box">
-            <i class:list={['ph', item.icon]} aria-hidden="true"></i>
-          </span>
-          <span class="strip-content">
-            <strong>{item.title}</strong>
-            {item.lines.map((line) => <span>{line}</span>)}
-          </span>
-          <i class="ph ph-arrow-right strip-arrow" aria-hidden="true"></i>
-        </a>
+        'email' in item && item.email ? (
+          <EmailLink class="contact-strip-card hover-card" fallbackHref="/en/contact/">
+            <span class="icon-box">
+              <i class:list={['ph', item.icon]} aria-hidden="true"></i>
+            </span>
+            <span class="strip-content">
+              <strong>{item.title}</strong>
+              {item.lines.map((line) => <span data-email-address>{line}</span>)}
+            </span>
+            <i class="ph ph-arrow-right strip-arrow" aria-hidden="true"></i>
+          </EmailLink>
+        ) : (
+          <a class="contact-strip-card hover-card" href={item.href}>
+            <span class="icon-box">
+              <i class:list={['ph', item.icon]} aria-hidden="true"></i>
+            </span>
+            <span class="strip-content">
+              <strong>{item.title}</strong>
+              {item.lines.map((line) => <span>{line}</span>)}
+            </span>
+            <i class="ph ph-arrow-right strip-arrow" aria-hidden="true"></i>
+          </a>
+        )
       ))}
     </section>
 

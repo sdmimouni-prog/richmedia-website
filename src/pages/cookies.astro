@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailLink from '../components/EmailLink.astro';
 import LegalPage from '../components/LegalPage.astro';
-import { BUSINESS, SITE } from '../consts';
+import { SITE } from '../consts';
 import { breadcrumbs, localBusiness } from '../lib/schema';
 
 const pageUrl = `${SITE.url}/cookies`;
@@ -102,7 +103,7 @@ const schema = [
       <h2>Contact</h2>
       <p>
         Pour toute question concernant les cookies ou vos données personnelles, contactez Richmedia à
-        <a href={`mailto:${BUSINESS.email}`}> {BUSINESS.email}</a>.
+        <EmailLink />.
       </p>
     </article>
   </LegalPage>

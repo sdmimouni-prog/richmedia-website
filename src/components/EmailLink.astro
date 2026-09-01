@@ -1,0 +1,30 @@
+---
+import { BUSINESS } from '../consts';
+
+interface Props {
+  email?: string;
+  class?: string;
+  fallbackHref?: string;
+  'aria-label'?: string;
+}
+
+const {
+  email = BUSINESS.email,
+  class: className,
+  fallbackHref = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/') ? '/en/contact/' : '/contact/',
+  ...attrs
+} = Astro.props;
+const [user, domain = ''] = email.split('@');
+const fallbackLabel = `${user} [at] ${domain}`;
+---
+
+<a
+  {...attrs}
+  class={className}
+  href={fallbackHref}
+  data-email-link
+  data-email-user={user}
+  data-email-domain={domain}
+>
+  <slot><span data-email-address>{fallbackLabel}</span></slot>
+</a>

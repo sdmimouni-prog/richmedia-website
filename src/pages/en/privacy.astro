@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import EmailLink from '../../components/EmailLink.astro';
 import LegalPage from '../../components/LegalPage.astro';
 import { BUSINESS, SITE } from '../../consts';
 import { breadcrumbs, localBusiness, webPageSchema } from '../../lib/schema';
@@ -36,7 +37,7 @@ const schema = [
   >
     <article>
       <h2>Data controller</h2>
-      <p>The data controller for data collected through this website is {BUSINESS.legalName}, reachable at <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>.</p>
+      <p>The data controller for data collected through this website is {BUSINESS.legalName}, reachable at <EmailLink fallbackHref="/en/contact/" />.</p>
       <p>Richmedia operates within the framework of Moroccan law no. 09-08 on personal data protection.</p>
     </article>
 
@@ -79,7 +80,7 @@ const schema = [
       <h2>Your rights</h2>
       <p>
         You may request access, rectification, update, deletion or restriction of your data and object to certain
-        processing operations where applicable. To exercise your rights, write to <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>.
+        processing operations where applicable. To exercise your rights, write to <EmailLink fallbackHref="/en/contact/" />.
       </p>
     </article>
   </LegalPage>

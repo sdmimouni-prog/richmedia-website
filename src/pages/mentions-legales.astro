@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailLink from '../components/EmailLink.astro';
 import LegalPage from '../components/LegalPage.astro';
 import { BUSINESS, SITE } from '../consts';
 import { breadcrumbs, localBusiness } from '../lib/schema';
@@ -38,7 +39,7 @@ const schema = [
         </div>
         <div>
           <dt>Email</dt>
-          <dd><a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></dd>
+          <dd><EmailLink /></dd>
         </div>
         <div>
           <dt>Téléphone</dt>
@@ -113,7 +114,7 @@ const schema = [
       <h2>Contact</h2>
       <p>
         Pour toute question relative au site, à ses contenus ou à une demande de correction, vous pouvez écrire à
-        <a href={`mailto:${BUSINESS.email}`}> {BUSINESS.email}</a>.
+        <EmailLink />.
       </p>
     </article>
   </LegalPage>
