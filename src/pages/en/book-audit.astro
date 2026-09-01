@@ -2,29 +2,28 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AuditLanding from '../../components/AuditLanding.astro';
 import { SITE } from '../../consts';
-import { breadcrumbs, localBusiness, serviceSchema } from '../../lib/schema';
+import { breadcrumbs, localBusiness, serviceSchema, webPageSchema } from '../../lib/schema';
 
+const pageUrl = `${SITE.url}/en/book-audit/`;
 const pageDescription =
   'Book a 360 digital audit with Richmedia: social media, website, SEO, campaigns, conversion, data and online reputation.';
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: `${SITE.url}/en/book-audit`,
+  localBusiness(),
+  webPageSchema({
+    name: '360 Digital Audit in Morocco | Richmedia',
     description: pageDescription,
+    url: pageUrl,
     inLanguage: 'en',
-  },
-  {
-    ...serviceSchema({
-      name: '360 digital audit',
-      description: pageDescription,
-      url: `${SITE.url}/en/book-audit`,
-    }),
-    inLanguage: 'en',
-  },
+  }),
+  serviceSchema({
+    name: '360 digital audit',
+    description: pageDescription,
+    url: pageUrl,
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
-    { name: 'Book your audit', url: `${SITE.url}/en/book-audit` },
+    { name: 'Book your audit', url: pageUrl },
   ]),
 ];
 ---
@@ -32,7 +31,7 @@ const schema = [
 <BaseLayout
   title="360 Digital Audit in Morocco | Richmedia"
   description={pageDescription}
-  canonical={`${SITE.url}/en/book-audit`}
+  canonical={pageUrl}
   lang="en"
   schema={schema}
 >

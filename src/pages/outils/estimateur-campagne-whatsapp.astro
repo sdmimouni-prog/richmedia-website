@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WhatsAppCampaignEstimator from '../../components/WhatsAppCampaignEstimator.astro';
 import { SITE } from '../../consts';
-import { breadcrumbs, localBusiness } from '../../lib/schema';
+import { breadcrumbs, localBusiness, webApplicationSchema } from '../../lib/schema';
 
 const pageUrl = `${SITE.url}/outils/estimateur-campagne-whatsapp/`;
 const pageDescription =
@@ -10,28 +10,18 @@ const pageDescription =
 
 const schema = [
   localBusiness(),
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    '@id': `${pageUrl}#estimator`,
+  webApplicationSchema({
+    id: 'estimator',
     name: 'Estimateur Campagne WhatsApp',
     description: pageDescription,
     url: pageUrl,
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web',
     inLanguage: 'fr',
-    publisher: { '@id': `${SITE.url}/#organization` },
     featureList: [
       'Estimation du budget WhatsApp',
       'Estimation du nombre de pushes',
       'Projection des lectures, clics, réponses, conversions et opt-out',
     ],
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'MAD',
-    },
-  },
+  }),
   breadcrumbs([
     { name: 'Accueil', url: SITE.url },
     { name: 'Outils & ressources', url: `${SITE.url}/outils` },

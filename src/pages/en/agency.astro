@@ -1,14 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { localBusiness, breadcrumbs } from '../../lib/schema';
+import { breadcrumbs, localBusiness, webPageSchema } from '../../lib/schema';
 import { SITE } from '../../consts';
 
-const pageUrl = `${SITE.url}/en/agency`;
+const pageUrl = `${SITE.url}/en/agency/`;
 const pageDescription =
   'Discover Richmedia, a Casablanca-based digital agency combining strategy, creative, media, SEO/GEO, web, CRM and AI for brands in Morocco.';
 
 const schema = [
-  { ...localBusiness(), url: pageUrl, description: pageDescription, inLanguage: 'en' },
+  localBusiness(),
+  webPageSchema({
+    name: 'Digital Agency in Morocco | Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    inLanguage: 'en',
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
     { name: 'Agency', url: pageUrl },

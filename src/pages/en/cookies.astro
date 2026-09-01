@@ -2,11 +2,19 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegalPage from '../../components/LegalPage.astro';
 import { BUSINESS, SITE } from '../../consts';
-import { breadcrumbs, localBusiness } from '../../lib/schema';
+import { breadcrumbs, localBusiness, webPageSchema } from '../../lib/schema';
 
-const pageUrl = `${SITE.url}/en/cookies`;
+const pageUrl = `${SITE.url}/en/cookies/`;
+const pageDescription =
+  'Richmedia cookie policy: cookie categories, purposes, retention, consent management and browser settings.';
 const schema = [
-  { ...localBusiness(), url: pageUrl, inLanguage: 'en' },
+  localBusiness(),
+  webPageSchema({
+    name: 'Cookie Policy | Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    inLanguage: 'en',
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
     { name: 'Cookie policy', url: pageUrl },
@@ -16,7 +24,7 @@ const schema = [
 
 <BaseLayout
   title="Cookie Policy | Richmedia"
-  description="Richmedia cookie policy: cookie categories, purposes, retention, consent management and browser settings."
+  description={pageDescription}
   canonical={pageUrl}
   lang="en"
   schema={schema}

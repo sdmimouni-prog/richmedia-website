@@ -4,9 +4,9 @@ import HeroFilmSlider from '../components/HeroFilmSlider.astro';
 import ParticleLogoSlide from '../components/ParticleLogoSlide.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BUSINESS, SITE } from '../consts';
-import { breadcrumbs, faqSchema, localBusiness, serviceSchema } from '../lib/schema';
+import { breadcrumbs, faqSchema, localBusiness, serviceSchema, webPageSchema } from '../lib/schema';
 
-const pagePath = '/agence-de-communication-maroc';
+const pagePath = '/agence-de-communication-maroc/';
 const pageUrl = `${SITE.url}${pagePath}`;
 const title = 'Agence de communication au Maroc | Richmedia';
 const description =
@@ -188,7 +188,8 @@ const faq = [
 ];
 
 const schema = [
-  { ...localBusiness(), url: pageUrl, description, inLanguage: 'fr' },
+  localBusiness(),
+  webPageSchema({ name: title, description, url: pageUrl, inLanguage: 'fr' }),
   serviceSchema({ name: 'Agence de communication au Maroc', description, url: pageUrl }),
   faqSchema(faq),
   breadcrumbs([

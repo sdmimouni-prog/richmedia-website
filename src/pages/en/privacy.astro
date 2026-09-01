@@ -2,11 +2,19 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegalPage from '../../components/LegalPage.astro';
 import { BUSINESS, SITE } from '../../consts';
-import { breadcrumbs, localBusiness } from '../../lib/schema';
+import { breadcrumbs, localBusiness, webPageSchema } from '../../lib/schema';
 
-const pageUrl = `${SITE.url}/en/privacy`;
+const pageUrl = `${SITE.url}/en/privacy/`;
+const pageDescription =
+  'Richmedia privacy policy: collected data, purposes, retention periods, recipients, rights and contact.';
 const schema = [
-  { ...localBusiness(), url: pageUrl, inLanguage: 'en' },
+  localBusiness(),
+  webPageSchema({
+    name: 'Privacy Policy | Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    inLanguage: 'en',
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
     { name: 'Privacy policy', url: pageUrl },
@@ -16,7 +24,7 @@ const schema = [
 
 <BaseLayout
   title="Privacy Policy | Richmedia"
-  description="Richmedia privacy policy: collected data, purposes, retention periods, recipients, rights and contact."
+  description={pageDescription}
   canonical={pageUrl}
   lang="en"
   schema={schema}

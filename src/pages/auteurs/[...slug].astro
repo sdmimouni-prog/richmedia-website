@@ -127,7 +127,9 @@ const schema = [
         </div>
 
         <div class="author-socials" aria-label="Liens auteur">
-          <a href={author.linkedIn} target="_blank" rel="noreferrer" aria-label={`LinkedIn ${author.name}`}><i class="ph ph-linkedin-logo" aria-hidden="true"></i></a>
+          {author.linkedIn && (
+            <a href={author.linkedIn} target="_blank" rel="noreferrer" aria-label={`LinkedIn ${author.name}`}><i class="ph ph-linkedin-logo" aria-hidden="true"></i></a>
+          )}
           <a href="/" aria-label="Site Richmedia"><i class="ph ph-house-line" aria-hidden="true"></i></a>
           <a href={`mailto:${author.email}`} aria-label={`Contacter ${author.name}`}><i class="ph ph-envelope-simple" aria-hidden="true"></i></a>
         </div>

@@ -497,11 +497,8 @@ const caseMetrics = page.levers.slice(0, 3);
 const schema = [
   {
     ...serviceSchema({ name: page.title, description: page.quick || page.description, url: pageUrl }),
-    '@id': `${pageUrl}#service`,
-    inLanguage: 'en',
     serviceType: page.label,
     category: 'Sector digital marketing',
-    keywords: page.levers,
   },
   faqSchema(page.faq),
   breadcrumbs([

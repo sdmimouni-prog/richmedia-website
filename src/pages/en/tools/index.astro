@@ -135,11 +135,7 @@ const resourceItems = categories.flatMap((category) =>
 );
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: pageUrl,
-    inLanguage: 'en',
-  },
+  localBusiness(),
   collectionPageSchema({
     name: 'Digital marketing tools and resources by Richmedia',
     description:

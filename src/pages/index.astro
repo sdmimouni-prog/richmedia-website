@@ -1,14 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import InfluenceVideoStrip from '../components/InfluenceVideoStrip.astro';
-import { localBusiness, webSiteSchema } from '../lib/schema';
+import { localBusiness, webPageSchema, webSiteSchema } from '../lib/schema';
 import { BUSINESS, SITE } from '../consts';
 
 const assetBase = '/assets/richmedia-home';
 const realizationAssets = '/assets/richmedia-realizations';
 const brochureHref = '/assets/documents/plaquette-richmedia-agency.pdf';
 const resolveAsset = (image: string) => image.startsWith('/') ? image : `${assetBase}/${image}`;
-const schema = [localBusiness(), webSiteSchema()];
+const schema = [
+  localBusiness(),
+  webSiteSchema(),
+  webPageSchema({
+    name: SITE.name,
+    description: SITE.description,
+    url: SITE.url,
+    inLanguage: 'fr',
+  }),
+];
 
 const stats = [
   { icon: 'ph-chart-pie-slice', value: '+156', target: 156, prefix: '+', suffix: '', label: 'Projets réalisés' },
@@ -155,7 +164,7 @@ const team = [
   { image: 'optimized/team-carousel-yassine.webp', width: 360, height: 450, name: 'Mohamed Yassine Dargal', role: 'Chef de projet' },
   { image: 'optimized/team-carousel-ayoub.webp', width: 360, height: 450, name: 'Ayoub Es-Samlali', role: 'Chef de projet' },
   { image: 'optimized/team-carousel-wafaa.webp', width: 360, height: 450, name: 'Yassmine Boudial', role: 'Cheffe de projet' },
-  { image: 'optimized/team-carousel-safwane.webp', width: 360, height: 450, name: 'Safwane MOUSTAINE', role: 'Senior Traffic Manager' },
+  { image: 'optimized/team-carousel-safwane.webp', width: 360, height: 450, name: 'Safwane MOUSTAINE', role: 'Trafic Manager senior' },
   { image: 'optimized/team-carousel-malak-billaore.webp', width: 360, height: 450, name: 'Malak BILLAORE', role: 'Responsable administrative' },
   { image: 'optimized/team-carousel-rachid-oualla.webp?v=black-d71ec18', width: 360, height: 450, name: 'Rachid OUALLA', role: 'Directeur artistique' },
   { image: 'optimized/team-carousel-rachid.webp', width: 360, height: 450, name: 'Rachid Hlalma', role: 'Directeur artistique' },

@@ -2,30 +2,28 @@
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import CarterBlakeLanding from '../../../../components/CarterBlakeLanding.astro';
 import { SITE } from '../../../../consts';
-import { breadcrumbs, localBusiness, serviceSchema } from '../../../../lib/schema';
+import { breadcrumbs, localBusiness, serviceSchema, webPageSchema } from '../../../../lib/schema';
 
+const pageUrl = `${SITE.url}/en/products/carter-blake/`;
 const pageDescription =
   'Discover Carter & Blake, the political strategy and marketing firm for campaigns, opinion, social listening, influence and crisis communication.';
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: `${SITE.url}/en/products/carter-blake`,
+  localBusiness(),
+  webPageSchema({
+    name: 'Carter & Blake | Political Marketing',
     description: pageDescription,
+    url: pageUrl,
     inLanguage: 'en',
-  },
-  {
-    ...serviceSchema({
-      name: 'Carter & Blake - Political marketing',
-      description: pageDescription,
-      url: `${SITE.url}/en/products/carter-blake`,
-    }),
-    inLanguage: 'en',
-  },
+  }),
+  serviceSchema({
+    name: 'Carter & Blake - Political marketing',
+    description: pageDescription,
+    url: pageUrl,
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
-    { name: 'Products', url: `${SITE.url}/en/products/carter-blake` },
-    { name: 'Carter & Blake', url: `${SITE.url}/en/products/carter-blake` },
+    { name: 'Carter & Blake', url: pageUrl },
   ]),
 ];
 ---
@@ -33,7 +31,7 @@ const schema = [
 <BaseLayout
   title="Carter & Blake | Political Marketing"
   description={pageDescription}
-  canonical={`${SITE.url}/en/products/carter-blake`}
+  canonical={pageUrl}
   lang="en"
   schema={schema}
 >

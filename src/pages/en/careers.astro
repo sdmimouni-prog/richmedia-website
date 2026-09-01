@@ -1,22 +1,24 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { breadcrumbs, localBusiness } from '../../lib/schema';
+import { breadcrumbs, localBusiness, webPageSchema } from '../../lib/schema';
 import { SITE } from '../../consts';
 
 const assetBase = '/assets/richmedia-home/team-carousel';
+const pageUrl = `${SITE.url}/en/careers/`;
 const pageDescription =
   'Join Richmedia in Casablanca across digital strategy, creative, media, SEO/GEO, web, CRM, WhatsApp, AI and production roles.';
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: `${SITE.url}/en/careers`,
+  localBusiness(),
+  webPageSchema({
+    name: 'Digital Agency Careers in Casablanca | Richmedia',
     description: pageDescription,
+    url: pageUrl,
     inLanguage: 'en',
-  },
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
-    { name: 'Careers', url: `${SITE.url}/en/careers` },
+    { name: 'Careers', url: pageUrl },
   ]),
 ];
 
@@ -102,7 +104,7 @@ const quickLinks = [
 <BaseLayout
   title="Digital Agency Careers in Casablanca | Richmedia"
   description={pageDescription}
-  canonical={`${SITE.url}/en/careers`}
+  canonical={pageUrl}
   lang="en"
   schema={schema}
 >

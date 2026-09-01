@@ -3,9 +3,9 @@ import Faq from '../components/Faq.astro';
 import ParticleLogoSlide from '../components/ParticleLogoSlide.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BUSINESS, SITE } from '../consts';
-import { breadcrumbs, faqSchema, localBusiness, serviceSchema } from '../lib/schema';
+import { breadcrumbs, faqSchema, localBusiness, serviceSchema, webPageSchema } from '../lib/schema';
 
-const pagePath = '/rich-media-agency-morocco';
+const pagePath = '/rich-media-agency-morocco/';
 const pageUrl = `${SITE.url}${pagePath}`;
 const title = 'Rich Media Agency in Morocco | Richmedia';
 const description =
@@ -190,7 +190,8 @@ const faq = [
 ];
 
 const schema = [
-  { ...localBusiness(), url: pageUrl, description, inLanguage: 'en' },
+  localBusiness(),
+  webPageSchema({ name: title, description, url: pageUrl, inLanguage: 'en' }),
   serviceSchema({ name: 'Rich Media Agency in Morocco', description, url: pageUrl }),
   faqSchema(faq),
   breadcrumbs([

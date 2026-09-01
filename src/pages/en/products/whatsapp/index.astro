@@ -3,30 +3,28 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import WhatsAppLegacyLandingEn from '../../../../components/WhatsAppLegacyLandingEn.astro';
 import whatsappLegacyStylesheet from '../../../../styles/whatsapp-legacy.css?url';
 import { SITE } from '../../../../consts';
-import { breadcrumbs, localBusiness, serviceSchema } from '../../../../lib/schema';
+import { breadcrumbs, localBusiness, serviceSchema, webPageSchema } from '../../../../lib/schema';
 
+const pageUrl = `${SITE.url}/en/products/whatsapp/`;
 const pageDescription =
   'Discover Richmedia WhatsApp push solution: campaigns, follow-ups, data targeting, chatbots, reporting and compliant activation to convert faster.';
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: `${SITE.url}/en/products/whatsapp`,
+  localBusiness(),
+  webPageSchema({
+    name: 'WhatsApp Campaign Push Solution | Richmedia',
     description: pageDescription,
+    url: pageUrl,
     inLanguage: 'en',
-  },
-  {
-    ...serviceSchema({
-      name: 'WhatsApp push solution',
-      description: pageDescription,
-      url: `${SITE.url}/en/products/whatsapp`,
-    }),
-    inLanguage: 'en',
-  },
+  }),
+  serviceSchema({
+    name: 'WhatsApp push solution',
+    description: pageDescription,
+    url: pageUrl,
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
-    { name: 'Products', url: `${SITE.url}/en/products/whatsapp` },
-    { name: 'WhatsApp push solution', url: `${SITE.url}/en/products/whatsapp` },
+    { name: 'WhatsApp push solution', url: pageUrl },
   ]),
 ];
 ---
@@ -34,7 +32,7 @@ const schema = [
 <BaseLayout
   title="WhatsApp Campaign Push Solution | Richmedia"
   description={pageDescription}
-  canonical={`${SITE.url}/en/products/whatsapp`}
+  canonical={pageUrl}
   lang="en"
   extraStylesheets={[whatsappLegacyStylesheet]}
   schema={schema}

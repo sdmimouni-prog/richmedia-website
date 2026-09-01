@@ -32,11 +32,8 @@ const schema = [
       description: entry.data.quickAnswer || entry.data.metaDescription,
       url,
     }),
-    '@id': `${url}#service`,
-    inLanguage: 'fr-MA',
     serviceType: entry.data.keywordPrincipal,
     category: 'Marketing digital sectoriel',
-    keywords: [entry.data.keywordPrincipal, ...entry.data.keywordsSecondaires],
   },
   faqSchema(entry.data.faq),
   breadcrumbs([
@@ -113,7 +110,7 @@ const educationChallenges = [
   {
     icon: 'ph ph-clock',
     title: 'Gérer les temps forts',
-    text: 'Admissions, JPO, concours, rentrée, executive education…',
+    text: 'Admissions, JPO, concours, rentrée, formation exécutive…',
   },
 ];
 
@@ -179,7 +176,7 @@ const educationCampaigns = [
     image: '/assets/richmedia-sector-education/campaigns/programmes-bachelor-master.webp',
   },
   {
-    title: 'Formation continue & Executive education',
+    title: 'Formation continue & formation exécutive',
     text: 'Toucher les professionnels et booster les inscriptions.',
     icon: 'ph ph-briefcase',
     image: '/assets/richmedia-sector-education/campaigns/formation-continue-executive.webp',

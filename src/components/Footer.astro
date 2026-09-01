@@ -58,6 +58,11 @@ const footerDescription = isEnglish
   ? 'Digital marketing and performance agency in Casablanca: strategy, media performance, web development and AI. We generate measurable growth.'
   : SITE.description;
 
+const socialLinks = [
+  { href: BUSINESS.sameAs[0], label: 'LinkedIn', content: 'in' },
+  { href: BUSINESS.sameAs[1], label: 'Instagram', icon: 'ph ph-instagram-logo' },
+];
+
 const labels = isEnglish
   ? {
       brandHome: 'Richmedia — Home',
@@ -122,9 +127,11 @@ const labels = isEnglish
     <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
     {BUSINESS.tels.map((tel) => <a href={`tel:${tel.replaceAll(' ', '')}`}>{tel}</a>)}
     <div class="footer-socials" aria-label={labels.socials}>
-      <a href={BUSINESS.sameAs[0]} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
-      <a href={BUSINESS.sameAs[1]} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
-      <a href={BUSINESS.sameAs[2]} target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ph ph-facebook-logo" aria-hidden="true"></i></a>
+      {socialLinks.map((item) => (
+        <a href={item.href} target="_blank" rel="noopener noreferrer" aria-label={item.label}>
+          {item.icon ? <i class={item.icon} aria-hidden="true"></i> : item.content}
+        </a>
+      ))}
     </div>
   </address>
 

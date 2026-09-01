@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BudgetLeadsCalculator from '../../components/BudgetLeadsCalculator.astro';
 import { SITE } from '../../consts';
-import { breadcrumbs, localBusiness } from '../../lib/schema';
+import { breadcrumbs, localBusiness, webApplicationSchema } from '../../lib/schema';
 
 const pageUrl = `${SITE.url}/outils/calculateur-budget-media-leads/`;
 const pageDescription =
@@ -10,23 +10,18 @@ const pageDescription =
 
 const schema = [
   localBusiness(),
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    '@id': `${pageUrl}#calculator`,
+  webApplicationSchema({
+    id: 'calculator',
     name: 'Calculateur Budget Média & Leads',
     description: pageDescription,
     url: pageUrl,
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web',
     inLanguage: 'fr',
-    publisher: { '@id': `${SITE.url}/#organization` },
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'MAD',
-    },
-  },
+    featureList: [
+      'Estimation du budget média',
+      'Projection du volume de leads',
+      'Simulation par secteur et canaux marketing',
+    ],
+  }),
   breadcrumbs([
     { name: 'Accueil', url: SITE.url },
     { name: 'Outils & ressources', url: `${SITE.url}/outils` },

@@ -45,9 +45,8 @@ export const BUSINESS = {
   priceRange: '$$$',
   areaServed: ['Casablanca', 'Dubaï', 'Montréal', 'Strasbourg'],
   sameAs: [
-    'https://linkedin.com/company/richmediadigitalagency',
-    'https://instagram.com/richmedia.agency/',
-    'https://www.facebook.com/richmedia.ma/?locale=fr_FR',
+    'https://www.linkedin.com/company/richmediadigitalagency/',
+    'https://www.instagram.com/richmedia.agency/',
   ],
   accreditations: [
     { name: 'Google Partner', category: 'Certification', issuer: 'Google' },
@@ -142,7 +141,7 @@ export const EDITORIAL_AUTHORS = {
     slug: 'amal-amazouz',
     image: '/assets/richmedia-home/team-carousel/amal.webp',
     portrait: '/assets/richmedia-home/team-carousel/amal.webp',
-    linkedIn: 'https://www.linkedin.com/in/amal-amazouz-40a67b14a/',
+    linkedIn: undefined,
     email: BUSINESS.email,
     role: {
       fr: 'COO & CDO de Richmedia',
@@ -191,7 +190,7 @@ export const EDITORIAL_AUTHORS = {
     slug: 'tarik-el-abbadi',
     image: '/assets/richmedia-home/team-carousel/tarik.webp',
     portrait: '/assets/richmedia-home/team-carousel/tarik.webp',
-    linkedIn: 'https://www.linkedin.com/in/tarik-el-abbadi-68b47b34/',
+    linkedIn: undefined,
     email: BUSINESS.email,
     role: {
       fr: 'Directeur Communication & Event de Richmedia',

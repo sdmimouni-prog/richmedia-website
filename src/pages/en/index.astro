@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import InfluenceVideoStrip from '../../components/InfluenceVideoStrip.astro';
-import { localBusiness, webSiteSchema } from '../../lib/schema';
+import { localBusiness, webPageSchema, webSiteSchema } from '../../lib/schema';
 import { BUSINESS, SITE } from '../../consts';
 
 const assetBase = '/assets/richmedia-home';
@@ -11,14 +11,14 @@ const resolveAsset = (image: string) => image.startsWith('/') ? image : `${asset
 const pageDescription =
   'Richmedia is a digital marketing and performance agency based in Casablanca, building measurable growth through strategy, media, content, web platforms and AI.';
 const schema = [
-  {
-    ...localBusiness(),
-    description: pageDescription,
-    url: `${SITE.url}/en`,
-    areaServed: ['Casablanca', 'Dubai', 'Montreal', 'Strasbourg'],
-    inLanguage: 'en',
-  },
+  localBusiness(),
   webSiteSchema(),
+  webPageSchema({
+    name: 'Richmedia Digital Agency',
+    description: pageDescription,
+    url: `${SITE.url}/en/`,
+    inLanguage: 'en',
+  }),
 ];
 
 const stats = [

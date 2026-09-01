@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TemplateDashboardKpiPage from '../../components/TemplateDashboardKpiPage.astro';
 import { SITE } from '../../consts';
-import { breadcrumbs, localBusiness } from '../../lib/schema';
+import { breadcrumbs, digitalDocumentSchema, localBusiness } from '../../lib/schema';
 
 const pageUrl = `${SITE.url}/outils/template-dashboard-kpi-marketing/`;
 const pageDescription =
@@ -13,24 +13,16 @@ const ogImage = '/assets/richmedia-tools/template-dashboard-kpi-marketing/hero-d
 
 const schema = [
   localBusiness(),
-  {
-    '@context': 'https://schema.org',
-    '@type': 'DigitalDocument',
-    '@id': `${pageUrl}#template`,
+  digitalDocumentSchema({
+    id: 'template',
     name: 'Template Dashboard KPI Marketing 2026 — Richmedia',
     description: pageDescription,
     url: pageUrl,
     encodingFormat: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     inLanguage: 'fr',
-    publisher: { '@id': `${SITE.url}/#organization` },
-    isAccessibleForFree: true,
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'MAD',
-      availability: 'https://schema.org/InStock',
-    },
-  },
+    downloadUrl: downloadHref,
+    image: ogImage,
+  }),
   breadcrumbs([
     { name: 'Accueil', url: SITE.url },
     { name: 'Outils & ressources', url: `${SITE.url}/outils` },

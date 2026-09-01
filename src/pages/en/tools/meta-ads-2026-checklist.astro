@@ -2,7 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ChecklistMetaAds2026Page from '../../../components/ChecklistMetaAds2026Page.astro';
 import { SITE } from '../../../consts';
-import { breadcrumbs, localBusiness } from '../../../lib/schema';
+import { breadcrumbs, digitalDocumentSchema, localBusiness } from '../../../lib/schema';
 
 const pageUrl = `${SITE.url}/en/tools/meta-ads-2026-checklist/`;
 const pageDescription =
@@ -12,29 +12,17 @@ const downloadFilename = 'checklist_meta_ads_2026_richmedia.pdf';
 const ogImage = '/assets/richmedia-tools/checklist-meta-ads-2026/checklist-meta-ads-page-1.webp';
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: pageUrl,
-    inLanguage: 'en',
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'DigitalDocument',
-    '@id': `${pageUrl}#checklist`,
+  localBusiness(),
+  digitalDocumentSchema({
+    id: 'checklist',
     name: 'Meta Ads 2026 Checklist — Richmedia',
     description: pageDescription,
     url: pageUrl,
     encodingFormat: 'application/pdf',
     inLanguage: 'en',
-    publisher: { '@id': `${SITE.url}/#organization` },
-    isAccessibleForFree: true,
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'MAD',
-      availability: 'https://schema.org/InStock',
-    },
-  },
+    downloadUrl: downloadHref,
+    image: ogImage,
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
     { name: 'Tools & resources', url: `${SITE.url}/en/tools` },

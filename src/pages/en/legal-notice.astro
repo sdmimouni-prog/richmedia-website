@@ -2,11 +2,19 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegalPage from '../../components/LegalPage.astro';
 import { BUSINESS, SITE } from '../../consts';
-import { breadcrumbs, localBusiness } from '../../lib/schema';
+import { breadcrumbs, localBusiness, webPageSchema } from '../../lib/schema';
 
-const pageUrl = `${SITE.url}/en/legal-notice`;
+const pageUrl = `${SITE.url}/en/legal-notice/`;
+const pageDescription =
+  'Legal notice for the Richmedia website: publisher, hosting, intellectual property, liability and contact information.';
 const schema = [
-  { ...localBusiness(), url: pageUrl, inLanguage: 'en' },
+  localBusiness(),
+  webPageSchema({
+    name: 'Legal Notice & Publisher | Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    inLanguage: 'en',
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
     { name: 'Legal notice', url: pageUrl },
@@ -16,7 +24,7 @@ const schema = [
 
 <BaseLayout
   title="Legal Notice & Publisher | Richmedia"
-  description="Legal notice for the Richmedia website: publisher, hosting, intellectual property, liability and contact information."
+  description={pageDescription}
   canonical={pageUrl}
   lang="en"
   schema={schema}

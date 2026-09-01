@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../consts';
-import { breadcrumbs, localBusiness } from '../../lib/schema';
+import { breadcrumbs, localBusiness, webPageSchema } from '../../lib/schema';
 
-const pageUrl = `${SITE.url}/en/references`;
+const pageUrl = `${SITE.url}/en/references/`;
 const pageDescription =
   'Explore Richmedia references across education, retail, real estate, FMCG, institutions and mobility in Morocco and international markets.';
 const assetBase = '/assets/richmedia-home';
@@ -95,7 +95,13 @@ const featuredCases = [
 ];
 
 const schema = [
-  { ...localBusiness(), url: pageUrl, description: pageDescription, inLanguage: 'en' },
+  localBusiness(),
+  webPageSchema({
+    name: 'Client References & Brands | Richmedia',
+    description: pageDescription,
+    url: pageUrl,
+    inLanguage: 'en',
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
     { name: 'References', url: pageUrl },

@@ -6,7 +6,7 @@ import { breadcrumbs, collectionPageSchema } from '../../lib/schema';
 import { frSiloLinks } from '../../lib/seo-silos';
 import { SITE } from '../../consts';
 
-const pageUrl = `${SITE.url}/secteurs`;
+const pageUrl = `${SITE.url}/secteurs/`;
 const pageTitle = 'Secteurs marketing digital au Maroc | Richmedia';
 const pageDescription =
   'Explorez les secteurs accompagnés par Richmedia : éducation, immobilier, retail, GMS, institutionnel, tourisme, automobile et FMCG.';
@@ -55,7 +55,7 @@ const schema = [
     name: pageTitle,
     description: pageDescription,
     url: pageUrl,
-    inLanguage: 'fr-MA',
+    inLanguage: 'fr',
     items: sectors.map((sector) => ({
       name: sector.title,
       url: `${SITE.url}/secteurs/${sector.slug}`,

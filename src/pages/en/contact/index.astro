@@ -1,21 +1,22 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { BUSINESS, CONTACT_FORM, SITE } from '../../../consts';
-import { breadcrumbs, localBusiness } from '../../../lib/schema';
+import { breadcrumbs, localBusiness, webPageSchema } from '../../../lib/schema';
 
 const assetBase = '/assets/richmedia-home';
 const pageDescription =
   'Contact Richmedia to scope a campaign, digital system, media, web or AI project. Casablanca, Dubai, Montreal and Strasbourg.';
 
-const pageUrl = `${SITE.url}/en/contact`;
+const pageUrl = `${SITE.url}/en/contact/`;
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: pageUrl,
+  localBusiness(),
+  webPageSchema({
+    name: 'Contact Richmedia',
     description: pageDescription,
+    url: pageUrl,
     inLanguage: 'en',
-  },
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
     { name: 'Contact', url: pageUrl },

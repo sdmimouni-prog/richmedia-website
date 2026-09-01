@@ -2,30 +2,28 @@
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import InTalksLanding from '../../../../components/InTalksLanding.astro';
 import { SITE } from '../../../../consts';
-import { breadcrumbs, localBusiness, serviceSchema } from '../../../../lib/schema';
+import { breadcrumbs, localBusiness, serviceSchema, webPageSchema } from '../../../../lib/schema';
 
+const pageUrl = `${SITE.url}/en/products/in-talks/`;
 const pageDescription =
   'Discover In Talks, the Moroccan social listening platform to monitor mentions, analyze sentiment, track competitors and protect your online reputation.';
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: `${SITE.url}/en/products/in-talks`,
+  localBusiness(),
+  webPageSchema({
+    name: 'In Talks | Social Listening Platform',
     description: pageDescription,
+    url: pageUrl,
     inLanguage: 'en',
-  },
-  {
-    ...serviceSchema({
-      name: 'In Talks - Social listening platform',
-      description: pageDescription,
-      url: `${SITE.url}/en/products/in-talks`,
-    }),
-    inLanguage: 'en',
-  },
+  }),
+  serviceSchema({
+    name: 'In Talks - Social listening platform',
+    description: pageDescription,
+    url: pageUrl,
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
-    { name: 'Products', url: `${SITE.url}/en/products/in-talks` },
-    { name: 'In Talks', url: `${SITE.url}/en/products/in-talks` },
+    { name: 'In Talks', url: pageUrl },
   ]),
 ];
 ---
@@ -33,7 +31,7 @@ const schema = [
 <BaseLayout
   title="In Talks | Social Listening Platform"
   description={pageDescription}
-  canonical={`${SITE.url}/en/products/in-talks`}
+  canonical={pageUrl}
   lang="en"
   schema={schema}
 >

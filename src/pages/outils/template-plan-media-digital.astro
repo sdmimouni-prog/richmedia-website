@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { CONTACT_FORM, SITE } from '../../consts';
-import { breadcrumbs, localBusiness } from '../../lib/schema';
+import { breadcrumbs, digitalDocumentSchema, localBusiness } from '../../lib/schema';
 
 const pageUrl = `${SITE.url}/outils/template-plan-media-digital/`;
 const pageDescription =
@@ -29,23 +29,16 @@ const audiences = ['Directeur Marketing', 'Digital Manager', 'Media Manager', 'G
 
 const schema = [
   localBusiness(),
-  {
-    '@context': 'https://schema.org',
-    '@type': 'DigitalDocument',
-    '@id': `${pageUrl}#template`,
+  digitalDocumentSchema({
+    id: 'template',
     name: 'Template Plan Média Digital 2026 — Richmedia',
     description: pageDescription,
     url: pageUrl,
     encodingFormat: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     inLanguage: 'fr',
-    publisher: { '@id': `${SITE.url}/#organization` },
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'MAD',
-      availability: 'https://schema.org/InStock',
-    },
-  },
+    downloadUrl: downloadHref,
+    image: `${assetBase}/hero-template-plan-media.webp`,
+  }),
   breadcrumbs([
     { name: 'Accueil', url: SITE.url },
     { name: 'Outils & ressources', url: `${SITE.url}/outils` },

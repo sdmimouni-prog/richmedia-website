@@ -1,22 +1,24 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { breadcrumbs, localBusiness } from '../../../lib/schema';
+import { breadcrumbs, localBusiness, webPageSchema } from '../../../lib/schema';
 import { SITE } from '../../../consts';
 
 const assetBase = '/assets/richmedia-home/team-carousel';
+const pageUrl = `${SITE.url}/en/team/`;
 const pageDescription =
   'Meet the Richmedia team in Casablanca: strategy, creative, media, development, project management and production profiles building measurable growth.';
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: `${SITE.url}/en/team`,
+  localBusiness(),
+  webPageSchema({
+    name: 'Digital Growth Team in Casablanca | Richmedia',
     description: pageDescription,
+    url: pageUrl,
     inLanguage: 'en',
-  },
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
-    { name: 'Team', url: `${SITE.url}/en/team` },
+    { name: 'Team', url: pageUrl },
   ]),
 ];
 
@@ -89,7 +91,7 @@ const quickLinks = [
 <BaseLayout
   title="Digital Growth Team in Casablanca | Richmedia"
   description={pageDescription}
-  canonical={`${SITE.url}/en/team`}
+  canonical={pageUrl}
   lang="en"
   schema={schema}
 >

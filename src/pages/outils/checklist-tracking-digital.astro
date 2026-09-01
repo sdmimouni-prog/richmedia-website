@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ChecklistTrackingDigitalPage from '../../components/ChecklistTrackingDigitalPage.astro';
 import { SITE } from '../../consts';
-import { breadcrumbs, localBusiness } from '../../lib/schema';
+import { breadcrumbs, digitalDocumentSchema, localBusiness } from '../../lib/schema';
 
 const pageUrl = `${SITE.url}/outils/checklist-tracking-digital/`;
 const pageDescription =
@@ -13,24 +13,16 @@ const ogImage = '/assets/richmedia-tools/checklist-tracking-digital/checklist-tr
 
 const schema = [
   localBusiness(),
-  {
-    '@context': 'https://schema.org',
-    '@type': 'DigitalDocument',
-    '@id': `${pageUrl}#checklist`,
+  digitalDocumentSchema({
+    id: 'checklist',
     name: 'Checklist Tracking Digital avant lancement — Richmedia',
     description: pageDescription,
     url: pageUrl,
     encodingFormat: 'application/pdf',
     inLanguage: 'fr',
-    publisher: { '@id': `${SITE.url}/#organization` },
-    isAccessibleForFree: true,
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'MAD',
-      availability: 'https://schema.org/InStock',
-    },
-  },
+    downloadUrl: downloadHref,
+    image: ogImage,
+  }),
   breadcrumbs([
     { name: 'Accueil', url: SITE.url },
     { name: 'Outils & ressources', url: `${SITE.url}/outils` },

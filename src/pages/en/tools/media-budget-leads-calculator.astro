@@ -2,38 +2,29 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BudgetLeadsCalculator from '../../../components/BudgetLeadsCalculator.astro';
 import { SITE } from '../../../consts';
-import { breadcrumbs, localBusiness } from '../../../lib/schema';
+import { breadcrumbs, localBusiness, webApplicationSchema } from '../../../lib/schema';
 
 const pageUrl = `${SITE.url}/en/tools/media-budget-leads-calculator/`;
 const pageDescription =
   'Estimate your media budget or expected lead volume by sector and channel, using ranges observed by Richmedia.';
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: pageUrl,
-    description: pageDescription,
-    inLanguage: 'en',
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    '@id': `${pageUrl}#calculator`,
+  localBusiness(),
+  webApplicationSchema({
+    id: 'calculator',
     name: 'Media Budget & Leads Calculator',
     description: pageDescription,
     url: pageUrl,
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web',
     inLanguage: 'en',
-    publisher: { '@id': `${SITE.url}/#organization` },
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'MAD',
-    },
-  },
+    featureList: [
+      'Media budget estimate',
+      'Lead volume projection',
+      'Simulation by sector and marketing channels',
+    ],
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
+    { name: 'Tools & resources', url: `${SITE.url}/en/tools` },
     { name: 'Media Budget & Leads Calculator', url: pageUrl },
   ]),
 ];

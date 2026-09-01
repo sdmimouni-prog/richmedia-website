@@ -2,41 +2,26 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import WhatsAppCampaignEstimator from '../../../components/WhatsAppCampaignEstimator.astro';
 import { SITE } from '../../../consts';
-import { breadcrumbs, localBusiness } from '../../../lib/schema';
+import { breadcrumbs, localBusiness, webApplicationSchema } from '../../../lib/schema';
 
 const pageUrl = `${SITE.url}/en/tools/whatsapp-campaign-estimator/`;
 const pageDescription =
   'Estimate the budget, push volume, reads, clicks and potential conversions of a WhatsApp campaign with Richmedia.';
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: pageUrl,
-    description: pageDescription,
-    inLanguage: 'en',
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    '@id': `${pageUrl}#estimator`,
+  localBusiness(),
+  webApplicationSchema({
+    id: 'estimator',
     name: 'WhatsApp Campaign Estimator',
     description: pageDescription,
     url: pageUrl,
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web',
     inLanguage: 'en',
-    publisher: { '@id': `${SITE.url}/#organization` },
     featureList: [
       'WhatsApp budget estimate',
       'WhatsApp push volume estimate',
       'Projection of reads, clicks, replies, conversions and opt-out',
     ],
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'MAD',
-    },
-  },
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
     { name: 'Tools & resources', url: `${SITE.url}/en/tools` },

@@ -2,30 +2,28 @@
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import HypeoLanding from '../../../../components/HypeoLanding.astro';
 import { SITE } from '../../../../consts';
-import { breadcrumbs, localBusiness, serviceSchema } from '../../../../lib/schema';
+import { breadcrumbs, localBusiness, serviceSchema, webPageSchema } from '../../../../lib/schema';
 
+const pageUrl = `${SITE.url}/en/products/hypeo/`;
 const pageDescription =
   'Discover Hypeo.ai, the AI influencer platform to match the right creators, generate briefs, manage campaigns and measure performance.';
 
 const schema = [
-  {
-    ...localBusiness(),
-    url: `${SITE.url}/en/products/hypeo`,
+  localBusiness(),
+  webPageSchema({
+    name: 'Hypeo.ai | AI Influencer Platform',
     description: pageDescription,
+    url: pageUrl,
     inLanguage: 'en',
-  },
-  {
-    ...serviceSchema({
-      name: 'Hypeo.ai - AI influencer platform',
-      description: pageDescription,
-      url: `${SITE.url}/en/products/hypeo`,
-    }),
-    inLanguage: 'en',
-  },
+  }),
+  serviceSchema({
+    name: 'Hypeo.ai - AI influencer platform',
+    description: pageDescription,
+    url: pageUrl,
+  }),
   breadcrumbs([
     { name: 'Home', url: `${SITE.url}/en` },
-    { name: 'Products', url: `${SITE.url}/en/products/hypeo` },
-    { name: 'Hypeo.ai', url: `${SITE.url}/en/products/hypeo` },
+    { name: 'Hypeo.ai', url: pageUrl },
   ]),
 ];
 ---
@@ -33,7 +31,7 @@ const schema = [
 <BaseLayout
   title="Hypeo.ai | AI Influencer Platform"
   description={pageDescription}
-  canonical={`${SITE.url}/en/products/hypeo`}
+  canonical={pageUrl}
   lang="en"
   schema={schema}
 >
