@@ -52,6 +52,11 @@ const expertiseMap = {
 } as const;
 const expertiseId = entry.data.expertiseLiee?.id as keyof typeof expertiseMap | undefined;
 const expertise = expertiseId ? expertiseMap[expertiseId] : undefined;
+const expertiseCtaLabel = expertiseId === 'referencement-seo'
+  ? 'Explore SEO / GEO expertise'
+  : expertiseId === 'media-performance'
+    ? 'Explore media performance expertise'
+    : 'Explore related expertise';
 const formattedDate = entry.data.dateModification.toLocaleDateString('en-US', {
   month: 'long',
   day: 'numeric',
@@ -172,7 +177,7 @@ const schema = [
             <h2>{expertise.title}</h2>
             <p>Connect this definition to a Richmedia service page, with methods, channels and practical use cases.</p>
             <a href={expertise.href}>
-              View expertise
+              {expertiseCtaLabel}
               <i class="ph ph-arrow-right" aria-hidden="true"></i>
             </a>
           </aside>
@@ -194,7 +199,7 @@ const schema = [
           <i class="ph ph-arrow-right" aria-hidden="true"></i>
         </a>
         <a class="ghost-btn" href="/en/expertises">
-          View expertise
+          View all expertises
           <i class="ph ph-arrow-right" aria-hidden="true"></i>
         </a>
       </div>

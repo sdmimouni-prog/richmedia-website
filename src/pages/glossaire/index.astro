@@ -104,6 +104,7 @@ const schema = [
                 <tr data-glossary-row data-category={categorie} data-search={searchText}>
                   <th scope="row">
                     <a class="term-name" href={`/glossaire/${slug}`}>
+                      <span class="sr-only">Définition </span>
                       {title}
                       {acronyme && <span>{acronyme}</span>}
                     </a>
@@ -112,7 +113,7 @@ const schema = [
                   <td><p>{definition}</p></td>
                   <td>
                     <a class="read-link" href={`/glossaire/${slug}`} aria-label={`Lire la définition : ${title}`}>
-                      Lire <i class="ph ph-arrow-right" aria-hidden="true"></i>
+                      Lire <span class="sr-only">la définition de {title}</span> <i class="ph ph-arrow-right" aria-hidden="true"></i>
                     </a>
                   </td>
                 </tr>
@@ -128,6 +129,7 @@ const schema = [
                 <span class="category-pill">{categorie}</span>
                 <h2>
                   <a href={`/glossaire/${slug}`}>
+                    <span class="sr-only">Définition </span>
                     {title}
                     {acronyme && <span>{acronyme}</span>}
                   </a>
@@ -135,7 +137,7 @@ const schema = [
               </div>
               <p>{teaser}</p>
               <a class="read-link" href={`/glossaire/${slug}`} aria-label={`Lire la définition : ${title}`}>
-                Lire la définition <i class="ph ph-arrow-right" aria-hidden="true"></i>
+                Lire la définition <span class="sr-only">de {title}</span> <i class="ph ph-arrow-right" aria-hidden="true"></i>
               </a>
             </article>
           ))}

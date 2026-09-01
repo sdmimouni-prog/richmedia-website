@@ -135,7 +135,7 @@ export const frSiloLinks = {
     { href: "/expertises/brand-content", label: "Brand content Maroc", text: "Transformer l’insight en contenu social-first activable." },
     { href: "/expertises/achat-media", label: "Paid social & achat média", text: "Amplifier les contenus et convertir les audiences sociales." },
     { href: "/expertises/referencement-seo", label: "SEO / GEO", text: "Structurer la visibilité organique." },
-    { href: "/contact", label: "Parler à un expert", text: "Relier le sujet à votre contexte business." },
+    { href: "/contact", label: "Contacter l’équipe Richmedia", text: "Relier le sujet à votre contexte business." },
   ],
 } satisfies Record<string, readonly SiloLink[]>;
 
@@ -252,7 +252,7 @@ export const enSiloLinks = {
     { href: "/en/expertises/achat-media", label: "Paid social & media buying", text: "Amplify content and convert social audiences." },
     { href: "/en/expertises/seo-geo", label: "SEO / GEO", text: "Structure organic visibility." },
     { href: "/en/case-studies", label: "Richmedia case studies", text: "Move from article to proof and business results." },
-    { href: "/en/contact", label: "Talk to an expert", text: "Connect the topic to your business context." },
+    { href: "/en/contact", label: "Contact the Richmedia team", text: "Connect the topic to your business context." },
   ],
 } satisfies Record<string, readonly SiloLink[]>;
 

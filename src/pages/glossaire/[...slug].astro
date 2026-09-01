@@ -32,6 +32,11 @@ const expertiseHref = entry.data.expertiseLiee
   ? `/expertises/${expertiseEntry?.data.slug ?? entry.data.expertiseLiee.id}`
   : undefined;
 const expertiseTitle = expertiseEntry?.data.title ?? 'Expertise Richmedia';
+const expertiseCtaLabel = expertiseHref?.includes('/referencement-seo')
+  ? 'Découvrir notre expertise SEO'
+  : expertiseHref?.includes('/media-performance')
+    ? 'Découvrir notre expertise media performance'
+    : `Découvrir l’expertise ${expertiseTitle}`;
 const formattedDate = entry.data.dateModification.toLocaleDateString('fr-FR', {
   day: 'numeric',
   month: 'long',
@@ -136,7 +141,7 @@ const schema = [
             <h2>{expertiseTitle}</h2>
             <p>Reliez cette définition à une page métier Richmedia, avec méthode, leviers et cas d’usage.</p>
             <a href={expertiseHref}>
-              Voir notre expertise
+              {expertiseCtaLabel}
               <i class="ph ph-arrow-right" aria-hidden="true"></i>
             </a>
           </aside>

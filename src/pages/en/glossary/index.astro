@@ -123,6 +123,7 @@ const schema = [
                 <tr data-glossary-row data-category={categorie} data-search={searchText}>
                   <th scope="row">
                     <a class="term-name" href={`/en/glossary/${slug}`}>
+                      <span class="sr-only">Definition: </span>
                       {title}
                       {acronyme && <span>{acronyme}</span>}
                     </a>
@@ -131,7 +132,7 @@ const schema = [
                   <td><p>{definition}</p></td>
                   <td>
                     <a class="read-link" href={`/en/glossary/${slug}`} aria-label={`Read definition: ${title}`}>
-                      Read <i class="ph ph-arrow-right" aria-hidden="true"></i>
+                      Read <span class="sr-only">the {title} definition</span> <i class="ph ph-arrow-right" aria-hidden="true"></i>
                     </a>
                   </td>
                 </tr>
@@ -147,6 +148,7 @@ const schema = [
                 <span class="category-pill">{categoryLabel}</span>
                 <h2>
                   <a href={`/en/glossary/${slug}`}>
+                    <span class="sr-only">Definition: </span>
                     {title}
                     {acronyme && <span>{acronyme}</span>}
                   </a>
@@ -154,7 +156,7 @@ const schema = [
               </div>
               <p>{teaser}</p>
               <a class="read-link" href={`/en/glossary/${slug}`} aria-label={`Read definition: ${title}`}>
-                Read definition <i class="ph ph-arrow-right" aria-hidden="true"></i>
+                Read definition <span class="sr-only">for {title}</span> <i class="ph ph-arrow-right" aria-hidden="true"></i>
               </a>
             </article>
           ))}

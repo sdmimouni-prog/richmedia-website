@@ -138,6 +138,23 @@ const animatedMetrics = content.metrics.map((metric, index) => ({
   duration: 1120 + index * 95,
 }));
 const isProofCompact = content.proof.items.length <= 4 && !content.proof.funnel;
+const proofLinkLabelsByHref = new Map([
+  ['/expertises/google-ads-maroc', 'Expertise Google Ads Maroc'],
+  ['/expertises/meta-ads-maroc', 'Expertise Meta Ads Maroc'],
+  ['/expertises/influence-marketing-maroc', 'Expertise influence marketing Maroc'],
+  ['/expertises/marketing-automation-crm-maroc', 'Expertise CRM & automation Maroc'],
+  ['/en/expertises/google-ads-morocco', 'Google Ads agency in Morocco'],
+  ['/en/expertises/meta-ads-morocco', 'Meta Ads agency in Morocco'],
+  ['/en/expertises/influencer-marketing-morocco', 'Influencer marketing agency in Morocco'],
+  ['/en/expertises/crm-marketing-automation-morocco', 'CRM automation agency in Morocco'],
+]);
+const proofLinks = (content.proof.links ?? []).map((link) => {
+  const normalizedHref = link.href.replace(/\/$/, '');
+  return {
+    ...link,
+    label: proofLinkLabelsByHref.get(normalizedHref) ?? link.label,
+  };
+});
 ---
 
 <article class:list={['case-study-model', content.heroCompact && 'is-hero-compact']}>
@@ -302,7 +319,7 @@ const isProofCompact = content.proof.items.length <= 4 && !content.proof.funnel;
         ))}
       </div>
 
-      {(content.proof.kpi || content.proof.funnel || content.proof.conclusion || content.proof.links?.length) && (
+      {(content.proof.kpi || content.proof.funnel || content.proof.conclusion || proofLinks.length) && (
         <div class:list={['proof-insight-row', content.proof.funnel && 'has-funnel']}>
           {content.proof.kpi && (
             <aside class="proof-kpi-card">
@@ -330,12 +347,12 @@ const isProofCompact = content.proof.items.length <= 4 && !content.proof.funnel;
             </aside>
           )}
 
-          {(content.proof.conclusion || content.proof.links?.length) && (
+          {(content.proof.conclusion || proofLinks.length) && (
             <div class="proof-conclusion-card">
               {content.proof.conclusion && <p>{content.proof.conclusion}</p>}
-              {content.proof.links?.length && (
+              {proofLinks.length > 0 && (
                 <nav aria-label={content.ui?.quoteLabel ?? 'Liens associés'}>
-                  {content.proof.links.map((link) => <a href={link.href}>{link.label}</a>)}
+                  {proofLinks.map((link) => <a href={link.href}>{link.label}</a>)}
                 </nav>
               )}
             </div>
