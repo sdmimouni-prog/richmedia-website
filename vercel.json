@@ -30,6 +30,26 @@
       "permanent": true
     },
     {
+      "source": "/en/glossary/reporting",
+      "destination": "/en/glossary/marketing-reporting/",
+      "permanent": true
+    },
+    {
+      "source": "/en/glossary/reporting/",
+      "destination": "/en/glossary/marketing-reporting/",
+      "permanent": true
+    },
+    {
+      "source": "/en/glossary/pixel",
+      "destination": "/en/glossary/tracking-pixel/",
+      "permanent": true
+    },
+    {
+      "source": "/en/glossary/pixel/",
+      "destination": "/en/glossary/tracking-pixel/",
+      "permanent": true
+    },
+    {
       "source": "/insights/creators-brands-durable-collaborations",
       "destination": "/en/insights/creators-brands-durable-collaborations",
       "permanent": true
