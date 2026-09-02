@@ -336,7 +336,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
         </div>
       </div>
 
-      <div class="stories-rail" data-stories-rail tabindex="0" aria-label="Expertises en stories défilantes">
+      <div class="stories-rail" data-stories-rail data-touch-surface tabindex="0" aria-label="Expertises en stories défilantes">
         {stories.map((story, index) => (
           <article class:list={['story-card', index === 0 && 'is-active']} data-story-card>
             <div class="phone-shell">
@@ -519,7 +519,7 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
             <h3>Nos références</h3>
             <p>Des campagnes menées au Maroc et à l’international.</p>
           </div>
-          <div class="reference-logo-slider" aria-label="Clients Richmedia en défilement">
+          <div class="reference-logo-slider" data-touch-surface aria-label="Clients Richmedia en défilement">
             <div class="reference-logo-track">
               {referenceLogoLoop.map((logo, index) => (
               <figure class="reference-logo-card" aria-hidden={index >= referenceLogos.length ? 'true' : 'false'}>
@@ -725,6 +725,20 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
         restartStories();
       }
     }
+
+    document.querySelectorAll('[data-touch-surface]').forEach((surface) => {
+      surface.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse') return;
+
+        const rect = surface.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'touch-ripple';
+        ripple.style.left = `${event.clientX - rect.left}px`;
+        ripple.style.top = `${event.clientY - rect.top}px`;
+        surface.append(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+      });
+    });
 
   </script>
 </BaseLayout>
@@ -1131,12 +1145,15 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   }
 
   .stories-rail {
+    position: relative;
     display: grid;
     grid-auto-columns: clamp(245px, 23vw, 320px);
     grid-auto-flow: column;
     gap: clamp(0.95rem, 1.6vw, 1.35rem);
     overflow-x: auto;
     padding: 0.55rem 0 1rem;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
     scroll-padding-inline: 0;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -2400,6 +2417,13 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
     position: relative;
     min-width: 0;
     overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  .reference-logo-slider::-webkit-scrollbar {
+    display: none;
   }
 
   .reference-logo-slider::before,
@@ -2434,6 +2458,31 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
   .reference-logo-slider:hover .reference-logo-track,
   .reference-logo-slider:focus-within .reference-logo-track {
     animation-play-state: paused;
+  }
+
+  .touch-ripple {
+    position: absolute;
+    z-index: 6;
+    width: 5.25rem;
+    height: 5.25rem;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(169, 120, 255, 0.4), rgba(124, 60, 255, 0.18) 42%, rgba(124, 60, 255, 0) 72%);
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.22);
+    animation: touch-ripple 560ms ease-out forwards;
+    mix-blend-mode: screen;
+  }
+
+  @keyframes touch-ripple {
+    0% {
+      opacity: 0.9;
+      transform: translate(-50%, -50%) scale(0.22);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.35);
+    }
   }
 
   .cert-grid {
@@ -2934,12 +2983,30 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
       margin-bottom: 1rem;
     }
 
+    .story-heading,
+    .story-heading > div {
+      width: 100%;
+      min-width: 0;
+    }
+
     .story-heading h2 {
       --h2-size: clamp(1.72rem, 8.4vw, 2.35rem);
+      max-width: 100%;
       line-height: 1.06;
+      white-space: normal;
+    }
+
+    .story-heading h2 span {
+      display: inline-block;
+    }
+
+    .story-heading p {
+      max-width: 100%;
+      overflow-wrap: break-word;
     }
 
     .text-link {
+      max-width: 100%;
       min-height: 2.7rem;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 999px;
@@ -2957,6 +3024,32 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
       margin-inline: -0.5rem;
       padding-inline: 0.5rem;
       scroll-padding-inline: 0.5rem;
+    }
+
+    .reference-logo-slider {
+      margin-inline: -0.25rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.12rem 0.25rem 0.45rem;
+      scroll-padding-inline: 0.25rem;
+      scroll-snap-type: x mandatory;
+    }
+
+    .reference-logo-slider::before,
+    .reference-logo-slider::after {
+      width: 1.7rem;
+    }
+
+    .reference-logo-track {
+      gap: 0.55rem;
+      animation: none;
+      transform: none;
+      will-change: auto;
+    }
+
+    .reference-logo-card {
+      flex-basis: clamp(150px, 48vw, 210px);
+      scroll-snap-align: start;
     }
 
     .phone-shell {
@@ -3113,8 +3206,25 @@ const formatPhone = (tel: string) => tel.replace(/(\+212)(\d{3})(\d{3})(\d{3})/,
 
   @media (max-width: 380px) {
     .story-heading h2 {
-      --h2-size: 1.12rem;
+      --h2-size: clamp(1.55rem, 8vw, 1.9rem);
       font-size: var(--h2-size);
+    }
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .story-card:active {
+      transform: translateY(-0.18rem) scale(0.985);
+    }
+
+    .reference-logo-card:active {
+      border-color: rgba(169, 120, 255, 0.62);
+      transform: scale(0.985);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .touch-ripple {
+      animation-duration: 1ms;
     }
   }
 </style>
