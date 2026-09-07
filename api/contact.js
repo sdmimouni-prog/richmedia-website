@@ -2,6 +2,7 @@ import { appendFile, mkdir } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
 const DEFAULT_TO_EMAIL = 'sd.mimouni@richmedia.ma';
+const BAROMETER_EXTRA_TO_EMAILS = ['a.amazouz@richmedia.ma'];
 const DEFAULT_FROM_EMAIL = 'Richmedia <noreply@richmedia.ma>';
 const MAX_BODY_BYTES = 64 * 1024;
 const HONEYPOT_FIELD = 'company_url';
@@ -115,6 +116,37 @@ function findField(fields, candidates) {
   return '';
 }
 
+function parseEmailList(value) {
+  return String(value || '')
+    .split(',')
+    .map((email) => email.trim())
+    .filter(Boolean);
+}
+
+function mergeEmailLists(...lists) {
+  const seen = new Set();
+  const emails = [];
+
+  lists.flat().forEach((email) => {
+    const normalizedEmail = String(email || '').trim();
+    const key = normalizedEmail.toLowerCase();
+    if (!normalizedEmail || seen.has(key)) return;
+    seen.add(key);
+    emails.push(normalizedEmail);
+  });
+
+  return emails;
+}
+
+function getExtraRecipients(fields) {
+  const formName = normalizeValue(fields._form).toLowerCase();
+  if (formName.includes('baromètre') || formName.includes('barometre') || formName.includes('barometer')) {
+    return BAROMETER_EXTRA_TO_EMAILS;
+  }
+
+  return [];
+}
+
 function buildEmail(fields, req) {
   const submittedAt = new Date().toISOString();
   const formName = normalizeValue(fields._form) || 'Formulaire site web';
@@ -177,7 +209,7 @@ async function saveLeadToFile({ subject, text, replyTo, reason }) {
   return true;
 }
 
-async function sendEmail({ subject, html, text, replyTo }) {
+async function sendEmail({ subject, html, text, replyTo, extraTo = [] }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     if (await saveLeadToFile({ subject, text, replyTo, reason: 'RESEND_API_KEY_MISSING' })) {
@@ -187,10 +219,7 @@ async function sendEmail({ subject, html, text, replyTo }) {
     throw new Error('RESEND_API_KEY_MISSING');
   }
 
-  const to = (process.env.CONTACT_TO_EMAIL || DEFAULT_TO_EMAIL)
-    .split(',')
-    .map((email) => email.trim())
-    .filter(Boolean);
+  const to = mergeEmailLists(parseEmailList(process.env.CONTACT_TO_EMAIL || DEFAULT_TO_EMAIL), extraTo);
   const from = process.env.CONTACT_FROM_EMAIL || DEFAULT_FROM_EMAIL;
 
   const payload = {
@@ -264,6 +293,7 @@ export default async function handler(req, res) {
       html,
       text: message ? `${text}\n\nMessage principal:\n${message}` : text,
       replyTo,
+      extraTo: getExtraRecipients(fields),
     });
 
     sendResponse(req, res, 200, { ok: true, message: 'Votre demande a bien été envoyée.' });
