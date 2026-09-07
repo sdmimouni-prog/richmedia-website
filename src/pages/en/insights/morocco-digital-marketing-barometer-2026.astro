@@ -2,7 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ArticleDetailPage from '../../../components/ArticleDetailPage.astro';
 import { articleSchema, authorCanonicalUrl, authorPersonId, breadcrumbs } from '../../../lib/schema';
-import { CONTACT_FORM, getEditorialAuthor, getEditorialAuthorPath, SITE } from '../../../consts';
+import { BUSINESS, CONTACT_FORM, getEditorialAuthor, getEditorialAuthorPath, SITE } from '../../../consts';
 
 const pageUrl = `${SITE.url}/en/insights/morocco-digital-marketing-barometer-2026/`;
 const pageTitle = 'Morocco Digital Marketing Barometer 2026';
@@ -13,6 +13,9 @@ const image = '/assets/richmedia-barometre/barometre-2026-book-render.webp';
 const absoluteImage = `${SITE.url}${image}`;
 const barometerPdfHref = '/downloads/barometre-marketing-digital-maroc-2026-richmedia.pdf';
 const barometerPdfFilename = 'Morocco Digital Marketing Barometer 2026 - Richmedia.pdf';
+const barometerCallHref = `tel:${BUSINESS.tels[0]}`;
+const barometerCallLabel = BUSINESS.tels[0].replace(/(\+212)(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4');
+const barometerCopyRecipients = ['a.amazouz@richmedia.ma', 't.elabbadi@richmedia.ma'].join(',');
 const publishedDate = new Date('2026-08-23');
 const modifiedDate = new Date('2026-08-23');
 const authorProfile = getEditorialAuthor('Salah Eddine MIMOUNI');
@@ -280,6 +283,7 @@ const schema = [
         <input type="hidden" name="_subject" value="[Richmedia] Morocco Digital Marketing Barometer 2026 download" />
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_cc" value={barometerCopyRecipients} />
         <input type="hidden" name="Source" value={pageUrl} />
         <label class="form-honeypot" aria-hidden="true">
           Website
@@ -306,6 +310,13 @@ const schema = [
         <a class="barometer-download-link" href={barometerPdfHref} download={barometerPdfFilename} hidden data-download-link>
           Download the PDF again
         </a>
+        <div class="barometer-next-step" hidden data-next-step-cta aria-live="polite">
+          <p>Want to interpret these benchmarks for your brand? Book a 15-minute diagnostic.</p>
+          <a class="barometer-call-link" href={barometerCallHref} aria-label={`Call Richmedia at ${barometerCallLabel}`}>
+            <i class="ph ph-phone-call" aria-hidden="true"></i>
+            <span>Call now</span>
+          </a>
+        </div>
       </form>
     </section>
 
@@ -528,6 +539,7 @@ const schema = [
     const emailInput = form.querySelector('[data-business-email]');
     const companyInput = form.querySelector('[data-company-input]');
     const downloadLink = form.querySelector('[data-download-link]');
+    const nextStepCta = form.querySelector('[data-next-step-cta]');
     const pdfHref = form.dataset.pdfHref;
     const pdfName = form.dataset.pdfName || 'Richmedia Barometer 2026.pdf';
 
@@ -535,6 +547,14 @@ const schema = [
       if (!status) return;
       status.dataset.state = state;
       status.textContent = message;
+    };
+
+    const showNextStepCta = () => {
+      if (nextStepCta) nextStepCta.hidden = false;
+    };
+
+    const hideNextStepCta = () => {
+      if (nextStepCta) nextStepCta.hidden = true;
     };
 
     const getEmailDomain = (email) => {
@@ -562,6 +582,7 @@ const schema = [
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       setStatus('', '');
+      hideNextStepCta();
 
       if (!companyInput.value.trim()) {
         companyInput.setCustomValidity('Please enter your company.');
@@ -621,6 +642,7 @@ const schema = [
         companyInput.setCustomValidity('');
         setStatus('success', 'Thank you, the download is starting.');
         triggerDownload();
+        showNextStepCta();
       } catch (error) {
         setStatus('error', error.message || 'The form could not be sent. Please try again.');
       } finally {
@@ -787,6 +809,52 @@ const schema = [
   .barometer-download-link {
     border: 1px solid rgba(255, 255, 255, 0.14);
     background: rgba(255, 255, 255, 0.045);
+  }
+
+  .barometer-next-step[hidden] {
+    display: none;
+  }
+
+  .barometer-next-step {
+    display: grid;
+    gap: 0.75rem;
+    border: 1px solid rgba(53, 229, 139, 0.22);
+    border-radius: 8px;
+    padding: 0.9rem;
+    background:
+      radial-gradient(circle at 12% 10%, rgba(53, 229, 139, 0.12), transparent 8rem),
+      rgba(53, 229, 139, 0.055);
+  }
+
+  .barometer-next-step p {
+    margin: 0;
+    color: #fff;
+    font-size: 1.0625rem;
+    font-weight: 900;
+    line-height: 1.45;
+  }
+
+  .barometer-call-link {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(53, 229, 139, 0.45);
+    border-radius: 7px;
+    background: linear-gradient(135deg, rgba(53, 229, 139, 0.2), rgba(124, 60, 255, 0.24));
+    color: #fff;
+    font: inherit;
+    font-weight: 900;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .barometer-call-link:hover,
+  .barometer-call-link:focus-visible {
+    border-color: rgba(53, 229, 139, 0.7);
+    box-shadow: 0 1rem 2.2rem rgba(53, 229, 139, 0.14);
+    transform: translateY(-2px);
   }
 
   .barometer-form-status {

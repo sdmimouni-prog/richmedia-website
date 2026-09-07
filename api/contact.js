@@ -2,7 +2,7 @@ import { appendFile, mkdir } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
 const DEFAULT_TO_EMAIL = 'sd.mimouni@richmedia.ma';
-const BAROMETER_EXTRA_TO_EMAILS = ['a.amazouz@richmedia.ma'];
+const BAROMETER_CC_EMAILS = ['a.amazouz@richmedia.ma', 't.elabbadi@richmedia.ma'];
 const DEFAULT_FROM_EMAIL = 'Richmedia <noreply@richmedia.ma>';
 const MAX_BODY_BYTES = 64 * 1024;
 const HONEYPOT_FIELD = 'company_url';
@@ -138,10 +138,10 @@ function mergeEmailLists(...lists) {
   return emails;
 }
 
-function getExtraRecipients(fields) {
+function getCcRecipients(fields) {
   const formName = normalizeValue(fields._form).toLowerCase();
   if (formName.includes('baromètre') || formName.includes('barometre') || formName.includes('barometer')) {
-    return BAROMETER_EXTRA_TO_EMAILS;
+    return BAROMETER_CC_EMAILS;
   }
 
   return [];
@@ -209,7 +209,7 @@ async function saveLeadToFile({ subject, text, replyTo, reason }) {
   return true;
 }
 
-async function sendEmail({ subject, html, text, replyTo, extraTo = [] }) {
+async function sendEmail({ subject, html, text, replyTo, cc = [] }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     if (await saveLeadToFile({ subject, text, replyTo, reason: 'RESEND_API_KEY_MISSING' })) {
@@ -219,12 +219,14 @@ async function sendEmail({ subject, html, text, replyTo, extraTo = [] }) {
     throw new Error('RESEND_API_KEY_MISSING');
   }
 
-  const to = mergeEmailLists(parseEmailList(process.env.CONTACT_TO_EMAIL || DEFAULT_TO_EMAIL), extraTo);
+  const to = mergeEmailLists(parseEmailList(process.env.CONTACT_TO_EMAIL || DEFAULT_TO_EMAIL));
   const from = process.env.CONTACT_FROM_EMAIL || DEFAULT_FROM_EMAIL;
+  const copyRecipients = mergeEmailLists(cc);
 
   const payload = {
     from,
     to,
+    ...(copyRecipients.length ? { cc: copyRecipients } : {}),
     subject,
     html,
     text,
@@ -293,7 +295,7 @@ export default async function handler(req, res) {
       html,
       text: message ? `${text}\n\nMessage principal:\n${message}` : text,
       replyTo,
-      extraTo: getExtraRecipients(fields),
+      cc: getCcRecipients(fields),
     });
 
     sendResponse(req, res, 200, { ok: true, message: 'Votre demande a bien été envoyée.' });
