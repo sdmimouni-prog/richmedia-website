@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleDetailPage from '../../components/ArticleDetailPage.astro';
 import { articleSchema, authorCanonicalUrl, authorPersonId, breadcrumbs } from '../../lib/schema';
-import { BUSINESS, CONTACT_FORM, getEditorialAuthor, getEditorialAuthorPath, SITE } from '../../consts';
+import { BUSINESS, getEditorialAuthor, getEditorialAuthorPath, SITE } from '../../consts';
 
 const pageUrl = `${SITE.url}/insights/barometre-marketing-digital-maroc-2026/`;
 const pageTitle = 'Baromètre du Marketing Digital au Maroc 2026';
@@ -15,7 +15,7 @@ const barometerPdfHref = '/downloads/barometre-marketing-digital-maroc-2026-rich
 const barometerPdfFilename = 'Barometre Marketing Digital Maroc 2026 - Richmedia.pdf';
 const barometerCallHref = `tel:${BUSINESS.tels[0]}`;
 const barometerCallLabel = BUSINESS.tels[0].replace(/(\+212)(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4');
-const barometerCopyRecipients = ['a.amazouz@richmedia.ma', 't.elabbadi@richmedia.ma'].join(',');
+const barometerFormAction = '/api/contact';
 const publishedDate = new Date('2026-08-23');
 const modifiedDate = new Date('2026-08-23');
 const authorProfile = getEditorialAuthor('Salah Eddine MIMOUNI');
@@ -289,9 +289,9 @@ const schema = [
 
       <form
         class="barometer-download-form"
-        action={CONTACT_FORM.action}
+        action={barometerFormAction}
         method="post"
-        data-contact-endpoint={CONTACT_FORM.ajaxAction}
+        data-contact-endpoint={barometerFormAction}
         data-barometer-download-form
         data-pdf-href={barometerPdfHref}
         data-pdf-name={barometerPdfFilename}
@@ -299,9 +299,7 @@ const schema = [
       >
         <input type="hidden" name="_form" value="Téléchargement Baromètre Marketing Digital Maroc 2026" />
         <input type="hidden" name="_subject" value="[Richmedia] Téléchargement Baromètre Marketing Digital Maroc 2026" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_cc" value={barometerCopyRecipients} />
+        <input type="hidden" name="_language" value="fr" />
         <input type="hidden" name="Source" value={pageUrl} />
         <label class="form-honeypot" aria-hidden="true">
           Site web

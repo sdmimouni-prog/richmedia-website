@@ -1,11 +1,18 @@
-import { appendFile, mkdir } from 'node:fs/promises';
-import { dirname } from 'node:path';
+import { randomInt, randomUUID } from 'node:crypto';
+import {
+  BAROMETER_FOLLOW_UP_TEMPLATE_ID,
+  getBarometerFollowUpIdempotencyKey,
+} from './barometer-follow-up-email.js';
+import { appendLeadRecord } from './lead-store.js';
 
 const DEFAULT_TO_EMAIL = 'sd.mimouni@richmedia.ma';
 const BAROMETER_CC_EMAILS = ['a.amazouz@richmedia.ma', 't.elabbadi@richmedia.ma'];
 const DEFAULT_FROM_EMAIL = 'Richmedia <noreply@richmedia.ma>';
 const MAX_BODY_BYTES = 64 * 1024;
 const HONEYPOT_FIELD = 'company_url';
+const FOLLOW_UP_TIME_ZONE = 'Africa/Casablanca';
+const FOLLOW_UP_WINDOW_START_HOUR = 10;
+const FOLLOW_UP_WINDOW_END_HOUR = 18;
 
 const FIELD_LABELS = {
   _form: 'Formulaire',
@@ -25,6 +32,16 @@ function normalizeValue(value) {
   if (Array.isArray(value)) return value.map(normalizeValue).filter(Boolean).join(', ');
   if (value === null || value === undefined) return '';
   return String(value).trim().slice(0, 4000);
+}
+
+function normalizeSearchText(value) {
+  return String(value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 async function readRawBody(req) {
@@ -102,18 +119,25 @@ function sendResponse(req, res, statusCode, payload) {
 }
 
 function findField(fields, candidates) {
+  const normalizedCandidates = candidates.map(normalizeSearchText).filter(Boolean);
   const normalized = Object.entries(fields).map(([key, value]) => [
-    key.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''),
+    normalizeSearchText(key),
     normalizeValue(value),
   ]);
 
-  for (const candidate of candidates) {
-    const normalizedCandidate = candidate.toLowerCase();
+  for (const normalizedCandidate of normalizedCandidates) {
     const match = normalized.find(([key, value]) => key.includes(normalizedCandidate) && value);
     if (match) return match[1];
   }
 
   return '';
+}
+
+function getVisibleFieldEntries(fields) {
+  return Object.entries(fields)
+    .map(([key, value]) => [key, normalizeValue(value)])
+    .filter(([key, value]) => value && key !== HONEYPOT_FIELD)
+    .filter(([key]) => !key.startsWith('_'));
 }
 
 function parseEmailList(value) {
@@ -138,31 +162,208 @@ function mergeEmailLists(...lists) {
   return emails;
 }
 
+function isBarometerForm(fields) {
+  const formName = normalizeSearchText(fields._form);
+  return formName.includes('barometre') || formName.includes('barometer');
+}
+
 function getCcRecipients(fields) {
-  const formName = normalizeValue(fields._form).toLowerCase();
-  if (formName.includes('baromètre') || formName.includes('barometre') || formName.includes('barometer')) {
+  if (isBarometerForm(fields)) {
     return BAROMETER_CC_EMAILS;
   }
 
   return [];
 }
 
-function buildEmail(fields, req) {
-  const submittedAt = new Date().toISOString();
+function getSourcePage(fields, req) {
+  return (
+    normalizeValue(fields._page)
+    || normalizeValue(fields.Source)
+    || normalizeValue(fields.source)
+    || String(req.headers.referer || '')
+  );
+}
+
+function detectLanguage(fields, sourcePage) {
+  const explicitLanguage = normalizeSearchText(fields._language || fields.language || fields.Langue);
+  if (explicitLanguage.startsWith('en')) return 'en';
+  if (explicitLanguage.startsWith('fr')) return 'fr';
+
+  try {
+    const pathname = new URL(sourcePage).pathname;
+    if (pathname === '/en' || pathname.startsWith('/en/')) return 'en';
+  } catch {
+    if (String(sourcePage || '').includes('/en/')) return 'en';
+  }
+
+  const formName = normalizeSearchText(fields._form);
+  if (formName.includes('morocco') || formName.includes('download')) return 'en';
+
+  return 'fr';
+}
+
+function splitFullName(fullName) {
+  const cleanedName = normalizeValue(fullName).replace(/\s+/g, ' ');
+  if (!cleanedName) return { firstName: '', lastName: '' };
+
+  if (cleanedName.includes(',')) {
+    const [lastName, ...firstNameParts] = cleanedName.split(',').map((part) => part.trim()).filter(Boolean);
+    return {
+      firstName: firstNameParts.join(' '),
+      lastName: lastName || '',
+    };
+  }
+
+  const parts = cleanedName.split(' ');
+  return {
+    firstName: parts[0] || '',
+    lastName: parts.slice(1).join(' '),
+  };
+}
+
+function getTimeZoneParts(date, timeZone) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(date);
+
+  return Object.fromEntries(
+    parts
+      .filter((part) => part.type !== 'literal')
+      .map((part) => [part.type, Number.parseInt(part.value, 10)]),
+  );
+}
+
+function padNumber(value) {
+  return String(value).padStart(2, '0');
+}
+
+function formatLocalDateTime(date, timeZone) {
+  const parts = getTimeZoneParts(date, timeZone);
+  return `${parts.year}-${padNumber(parts.month)}-${padNumber(parts.day)}T${padNumber(parts.hour)}:${padNumber(parts.minute)}:${padNumber(parts.second)}`;
+}
+
+function addDaysToPlainDate({ year, month, day }, days) {
+  const date = new Date(Date.UTC(year, month - 1, day + days));
+  return {
+    year: date.getUTCFullYear(),
+    month: date.getUTCMonth() + 1,
+    day: date.getUTCDate(),
+  };
+}
+
+function getTimeZoneOffsetMs(date, timeZone) {
+  const parts = getTimeZoneParts(date, timeZone);
+  const localAsUtc = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second);
+  return localAsUtc - date.getTime();
+}
+
+function zonedTimeToUtc({ year, month, day, hour, minute, second }, timeZone) {
+  let utcTimestamp = Date.UTC(year, month - 1, day, hour, minute, second);
+
+  for (let index = 0; index < 3; index += 1) {
+    const offset = getTimeZoneOffsetMs(new Date(utcTimestamp), timeZone);
+    utcTimestamp = Date.UTC(year, month - 1, day, hour, minute, second) - offset;
+  }
+
+  return new Date(utcTimestamp);
+}
+
+function getRandomFollowUpLocalTime() {
+  const windowStartMinute = FOLLOW_UP_WINDOW_START_HOUR * 60;
+  const windowEndMinute = FOLLOW_UP_WINDOW_END_HOUR * 60;
+  const scheduledMinute = randomInt(windowStartMinute, windowEndMinute);
+
+  return {
+    hour: Math.floor(scheduledMinute / 60),
+    minute: scheduledMinute % 60,
+    second: randomInt(0, 60),
+  };
+}
+
+function getFollowUpSchedule(submittedAt, leadId) {
+  const submittedLocalDate = getTimeZoneParts(submittedAt, FOLLOW_UP_TIME_ZONE);
+  const scheduledPlainDate = addDaysToPlainDate(submittedLocalDate, 1);
+  const scheduledLocalTime = getRandomFollowUpLocalTime();
+  const scheduledAt = zonedTimeToUtc(
+    {
+      ...scheduledPlainDate,
+      ...scheduledLocalTime,
+    },
+    FOLLOW_UP_TIME_ZONE,
+  );
+
+  return {
+    status: 'scheduled',
+    templateId: BAROMETER_FOLLOW_UP_TEMPLATE_ID,
+    idempotencyKey: getBarometerFollowUpIdempotencyKey(leadId),
+    scheduledAt: scheduledAt.toISOString(),
+    scheduledLocal: `${scheduledPlainDate.year}-${padNumber(scheduledPlainDate.month)}-${padNumber(scheduledPlainDate.day)}T${padNumber(scheduledLocalTime.hour)}:${padNumber(scheduledLocalTime.minute)}:${padNumber(scheduledLocalTime.second)}`,
+    windowStart: `${padNumber(FOLLOW_UP_WINDOW_START_HOUR)}:00`,
+    windowEnd: `${padNumber(FOLLOW_UP_WINDOW_END_HOUR)}:00`,
+    timeZone: FOLLOW_UP_TIME_ZONE,
+    randomized: true,
+  };
+}
+
+function buildLeadRecord(fields, req, { submittedAt, sourcePage, replyTo, cc }) {
+  const id = randomUUID();
+  const fullName = findField(fields, ['nom et prenom', 'nom complet', 'full name', 'name']);
+  const { firstName, lastName } = splitFullName(fullName);
+  const email = findField(fields, ['email professionnel', 'professional email', 'email', 'e mail', 'courriel']);
+  const company = findField(fields, ['societe', 'company', 'organisation', 'organization']);
+  const language = detectLanguage(fields, sourcePage);
+  const barometerLead = isBarometerForm(fields);
+
+  return {
+    type: 'lead',
+    schemaVersion: 1,
+    id,
+    formName: normalizeValue(fields._form) || 'Formulaire site web',
+    language,
+    submittedAt: submittedAt.toISOString(),
+    submittedAtLocal: formatLocalDateTime(submittedAt, FOLLOW_UP_TIME_ZONE),
+    sourcePage,
+    fullName,
+    firstName,
+    lastName,
+    email,
+    company,
+    replyTo,
+    followUp: barometerLead
+      ? getFollowUpSchedule(submittedAt, id)
+      : { status: 'not_applicable', reason: 'NOT_BAROMETER_FORM' },
+    internalAlert: {
+      to: mergeEmailLists(parseEmailList(process.env.CONTACT_TO_EMAIL || DEFAULT_TO_EMAIL)),
+      cc: mergeEmailLists(cc),
+      status: 'pending',
+    },
+    fields: Object.fromEntries(getVisibleFieldEntries(fields)),
+    userAgent: String(req.headers['user-agent'] || ''),
+    ip: String(req.headers['x-forwarded-for'] || '').split(',')[0].trim(),
+  };
+}
+
+function buildEmail(fields, req, { submittedAt, sourcePage }) {
+  const submittedAtIso = submittedAt.toISOString();
   const formName = normalizeValue(fields._form) || 'Formulaire site web';
-  const page = normalizeValue(fields._page) || String(req.headers.referer || '');
+  const subject = normalizeValue(fields._subject) || `[Richmedia] Nouvelle demande - ${formName}`;
+  const page = sourcePage;
   const userAgent = String(req.headers['user-agent'] || '');
   const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
 
-  const visibleFields = Object.entries(fields)
-    .map(([key, value]) => [key, normalizeValue(value)])
-    .filter(([key, value]) => value && key !== HONEYPOT_FIELD)
-    .filter(([key]) => !key.startsWith('_'));
+  const visibleFields = getVisibleFieldEntries(fields);
 
   const systemFields = [
     ['Formulaire', formName],
     ['Page', page],
-    ['Date', submittedAt],
+    ['Date', submittedAtIso],
     ['IP', ip],
     ['User-Agent', userAgent],
   ].filter(([, value]) => value);
@@ -179,6 +380,7 @@ function buildEmail(fields, req) {
 
   return {
     formName,
+    subject,
     html: `<div style="font-family:Inter,Arial,sans-serif;color:#171421;">
       <h1 style="margin:0 0 12px;font-size:22px;">Nouvelle demande Richmedia</h1>
       <p style="margin:0 0 20px;color:#5b5570;">Un formulaire du site vient d’être soumis.</p>
@@ -188,34 +390,26 @@ function buildEmail(fields, req) {
   };
 }
 
-async function saveLeadToFile({ subject, text, replyTo, reason }) {
-  const leadsFile = process.env.CONTACT_LEADS_FILE;
-  if (!leadsFile) return false;
+async function saveLeadToFile(leadRecord) {
+  const saved = await appendLeadRecord(leadRecord);
+  if (!saved) return false;
 
-  await mkdir(dirname(leadsFile), { recursive: true });
-  await appendFile(
-    leadsFile,
-    `${JSON.stringify({
-      createdAt: new Date().toISOString(),
-      subject,
-      replyTo,
-      reason,
-      text,
-    })}\n`,
-    { mode: 0o600 },
-  );
-
-  console.warn(`[contact-form] lead saved to CONTACT_LEADS_FILE: ${reason}`);
+  console.warn('[contact-form] lead saved to CONTACT_LEADS_FILE');
   return true;
+}
+
+async function trySaveLeadToFile(leadRecord) {
+  try {
+    return await saveLeadToFile(leadRecord);
+  } catch (error) {
+    console.error('[contact-form] lead persistence failed', error);
+    return false;
+  }
 }
 
 async function sendEmail({ subject, html, text, replyTo, cc = [] }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    if (await saveLeadToFile({ subject, text, replyTo, reason: 'RESEND_API_KEY_MISSING' })) {
-      return;
-    }
-
     throw new Error('RESEND_API_KEY_MISSING');
   }
 
@@ -244,10 +438,6 @@ async function sendEmail({ subject, html, text, replyTo, cc = [] }) {
 
   if (!response.ok) {
     const detail = await response.text();
-    if (await saveLeadToFile({ subject, text, replyTo, reason: `RESEND_ERROR: ${detail}` })) {
-      return;
-    }
-
     throw new Error(`RESEND_ERROR: ${detail}`);
   }
 }
@@ -288,15 +478,47 @@ export default async function handler(req, res) {
     }
 
     const replyTo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : '';
-    const { formName, html, text } = buildEmail(fields, req);
+    const submittedAt = new Date();
+    const sourcePage = getSourcePage(fields, req);
+    const cc = getCcRecipients(fields);
+    const leadRecord = buildLeadRecord(fields, req, { submittedAt, sourcePage, replyTo, cc });
+    const { subject, html, text } = buildEmail(fields, req, { submittedAt, sourcePage });
+    const emailText = message ? `${text}\n\nMessage principal:\n${message}` : text;
+    let internalAlertError = null;
 
-    await sendEmail({
-      subject: `[Richmedia] Nouvelle demande - ${formName}`,
-      html,
-      text: message ? `${text}\n\nMessage principal:\n${message}` : text,
-      replyTo,
-      cc: getCcRecipients(fields),
-    });
+    leadRecord.internalAlert.subject = subject;
+
+    try {
+      await sendEmail({
+        subject,
+        html,
+        text: emailText,
+        replyTo,
+        cc,
+      });
+
+      leadRecord.internalAlert.status = 'sent';
+    } catch (emailError) {
+      leadRecord.internalAlert.status = 'failed';
+      leadRecord.internalAlert.reason = emailError?.message || 'EMAIL_SEND_FAILED';
+      internalAlertError = emailError;
+    }
+
+    const leadSaved = await trySaveLeadToFile(leadRecord);
+
+    if (internalAlertError) {
+      if (leadSaved) {
+        console.error('[contact-form] internal alert failed, lead persisted', internalAlertError);
+        sendResponse(req, res, 200, { ok: true, message: 'Votre demande a bien été envoyée.' });
+        return;
+      }
+
+      throw internalAlertError;
+    }
+
+    if (!leadSaved) {
+      console.warn('[contact-form] CONTACT_LEADS_FILE is not configured; lead was not persisted.');
+    }
 
     sendResponse(req, res, 200, { ok: true, message: 'Votre demande a bien été envoyée.' });
   } catch (error) {

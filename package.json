@@ -25,6 +25,8 @@
     "contact:check:local": "node scripts/check-contact-endpoint.mjs http://127.0.0.1:8787/api/contact",
     "contact:dev": "node --env-file=.env.development server/contact-api.mjs",
     "contact:prod": "node --env-file=.env.production server/contact-api.mjs",
+    "follow-up:dev": "node --env-file=.env.development server/follow-up-scheduler.mjs",
+    "follow-up:once": "node --env-file=.env.development server/follow-up-scheduler.mjs --once",
     "seo:check-cache": "node scripts/check-seo-cache-headers.mjs",
     "seo:audit": "node scripts/audit-seo-meta.mjs",
     "insights:audit": "node scripts/audit-insight-content.mjs",

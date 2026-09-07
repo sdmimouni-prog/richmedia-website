@@ -12,6 +12,8 @@ npm run prod            # build production vers dist/
 npm run prod:preview    # build + preview prod locale : http://localhost:4322
 npm run contact:dev     # API contact locale : http://127.0.0.1:8787/api/contact
 npm run contact:prod    # API contact avec .env.production
+npm run follow-up:dev   # scheduler de relance local
+npm run follow-up:once  # exécute une passe de relance locale
 npm run env:check       # vérifie les variables dev + prod locales
 npm run verify          # env:check + astro check + build
 ```
@@ -45,6 +47,11 @@ CONTACT_TO_EMAIL=sd.mimouni@richmedia.ma
 CONTACT_FROM_EMAIL="Richmedia <noreply@richmedia.ma>"
 RESEND_API_KEY=
 CONTACT_LEADS_FILE=./tmp/contact-leads.ndjson
+FOLLOW_UP_SCHEDULER_INTERVAL_MS=300000
+FOLLOW_UP_BATCH_SIZE=10
+FOLLOW_UP_IDEMPOTENCY_RETRY_WINDOW_MS=82800000
+FOLLOW_UP_FROM_EMAIL="Salah Eddine MIMOUNI <sd.mimouni@richmedia.ma>"
+FOLLOW_UP_REPLY_TO_EMAIL=sd.mimouni@richmedia.ma
 PUBLIC_GTM_ID=
 PUBLIC_GA4_ID=
 PUBLIC_META_PIXEL_ID=
@@ -75,6 +82,29 @@ La clé `RESEND_API_KEY` doit être ajoutée dans les secrets GitHub pour envoye
 par email. Si elle est absente, le service reste actif et enregistre les demandes dans
 `$VPS_WEBROOT/shared/contact-leads.ndjson` afin de ne pas perdre les conversions.
 
+Chaque soumission acceptée peut aussi être journalisée dans `CONTACT_LEADS_FILE`, même
+quand l'email interne est bien envoyé. Le fichier est au format NDJSON : une ligne JSON
+par lead avec `fullName`, `firstName`, `lastName`, `email`, `company`, `sourcePage`,
+`submittedAt`, `language` et `followUp.status`. Les leads baromètre reçoivent en plus
+`followUp.scheduledAt`, `followUp.idempotencyKey` et un horaire de relance J+1
+aléatoire dans la fenêtre `10:00-18:00` sur le fuseau `Africa/Casablanca`.
+
+La relance baromètre utilise le template `barometer-follow-up-v1` dans
+`api/barometer-follow-up-email.js`. Il personnalise `Bonjour {Prénom}`, utilise la
+photo `/assets/richmedia-email/salah-eddine-mimouni.jpg`, la signature Salah Eddine
+MIMOUNI, le lien vers la plaquette `/assets/documents/plaquette-richmedia-agency.pdf`
+et les CTA `Appeler maintenant` + `Réserver un échange`.
+
+Le workflow VPS installe aussi `richmedia-follow-up-scheduler.service`. Ce service
+tourne toutes les 5 minutes par défaut, lit les leads `followUp.status = scheduled`,
+envoie le template quand `followUp.scheduledAt` est atteint avec un header Resend
+`Idempotency-Key`, puis marque le lead en `sent` avec `sentAt` et l'identifiant Resend.
+Si le serveur redémarre après un envoi mais avant l'écriture du statut `sent`, le
+scheduler retente avec la même clé tant que `FOLLOW_UP_IDEMPOTENCY_RETRY_WINDOW_MS`
+n'est pas expiré. Par défaut, cette fenêtre vaut `82800000` ms, soit 23h. Au-delà, le
+lead passe en `review_required` pour éviter un doublon impossible à garantir. Si
+`RESEND_API_KEY` est absente, le service reste actif mais n'envoie rien.
+
 Secrets GitHub requis pour la production VPS :
 
 ```bash
@@ -92,6 +122,11 @@ RESEND_API_KEY              # secret, pour l'envoi email
 CONTACT_API_PORT=8787       # variable, optionnelle
 CONTACT_TO_EMAIL=sd.mimouni@richmedia.ma
 CONTACT_FROM_EMAIL="Richmedia <noreply@richmedia.ma>"
+FOLLOW_UP_SCHEDULER_INTERVAL_MS=300000
+FOLLOW_UP_BATCH_SIZE=10
+FOLLOW_UP_IDEMPOTENCY_RETRY_WINDOW_MS=82800000
+FOLLOW_UP_FROM_EMAIL="Salah Eddine MIMOUNI <sd.mimouni@richmedia.ma>"
+FOLLOW_UP_REPLY_TO_EMAIL=sd.mimouni@richmedia.ma
 CLOUDFLARE_API_TOKEN        # secret, optionnel pour purger robots/sitemaps
 CLOUDFLARE_ZONE_ID          # variable ou secret, optionnel
 ```

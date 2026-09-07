@@ -6,6 +6,11 @@ function isValidPort(value) {
   return String(port) === value && port > 0 && port <= 65535;
 }
 
+function isPositiveInteger(value) {
+  const number = Number.parseInt(value, 10);
+  return String(number) === value && number > 0;
+}
+
 const profiles = {
   development: {
     file: '.env.development',
@@ -22,6 +27,11 @@ const profiles = {
       'CONTACT_API_HOST',
       'CONTACT_API_PORT',
       'RESEND_API_KEY',
+      'FOLLOW_UP_SCHEDULER_INTERVAL_MS',
+      'FOLLOW_UP_BATCH_SIZE',
+      'FOLLOW_UP_IDEMPOTENCY_RETRY_WINDOW_MS',
+      'FOLLOW_UP_FROM_EMAIL',
+      'FOLLOW_UP_REPLY_TO_EMAIL',
       'PUBLIC_GTM_ID',
       'PUBLIC_GA4_ID',
       'PUBLIC_META_PIXEL_ID',
@@ -30,6 +40,9 @@ const profiles = {
     checks: {
       ASTRO_PORT: (value) => value === '4321',
       CONTACT_API_PORT: isValidPort,
+      FOLLOW_UP_SCHEDULER_INTERVAL_MS: isPositiveInteger,
+      FOLLOW_UP_BATCH_SIZE: isPositiveInteger,
+      FOLLOW_UP_IDEMPOTENCY_RETRY_WINDOW_MS: isPositiveInteger,
       PUBLIC_SITE_URL: (value) => value === 'http://localhost:4321',
     },
   },
@@ -48,6 +61,11 @@ const profiles = {
       'CONTACT_API_HOST',
       'CONTACT_API_PORT',
       'RESEND_API_KEY',
+      'FOLLOW_UP_SCHEDULER_INTERVAL_MS',
+      'FOLLOW_UP_BATCH_SIZE',
+      'FOLLOW_UP_IDEMPOTENCY_RETRY_WINDOW_MS',
+      'FOLLOW_UP_FROM_EMAIL',
+      'FOLLOW_UP_REPLY_TO_EMAIL',
       'PUBLIC_GTM_ID',
       'PUBLIC_GA4_ID',
       'PUBLIC_META_PIXEL_ID',
@@ -55,6 +73,9 @@ const profiles = {
     ],
     checks: {
       CONTACT_API_PORT: isValidPort,
+      FOLLOW_UP_SCHEDULER_INTERVAL_MS: isPositiveInteger,
+      FOLLOW_UP_BATCH_SIZE: isPositiveInteger,
+      FOLLOW_UP_IDEMPOTENCY_RETRY_WINDOW_MS: isPositiveInteger,
       PUBLIC_SITE_URL: (value) => value === 'https://www.richmedia.ma',
       PUBLIC_OG_IMAGE_URL: (value) => value.startsWith('https://www.richmedia.ma/'),
     },

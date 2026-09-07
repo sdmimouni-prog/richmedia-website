@@ -110,7 +110,7 @@ jobs:
             -H "Content-Type: application/json" \
             --data '{"files":["https://richmedia.ma/robots.txt","https://richmedia.ma/sitemap-index.xml","https://richmedia.ma/sitemap-0.xml","https://www.richmedia.ma/robots.txt","https://www.richmedia.ma/sitemap-index.xml","https://www.richmedia.ma/sitemap-0.xml"]}'
 
-      - name: Configure contact API
+      - name: Configure contact API and follow-up scheduler
         continue-on-error: true
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
@@ -121,6 +121,12 @@ jobs:
           CONTACT_TO_EMAIL: ${{ vars.CONTACT_TO_EMAIL || 'sd.mimouni@richmedia.ma' }}
           CONTACT_FROM_EMAIL: ${{ vars.CONTACT_FROM_EMAIL || 'Richmedia <noreply@richmedia.ma>' }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          PUBLIC_SITE_URL: https://www.richmedia.ma
+          FOLLOW_UP_SCHEDULER_INTERVAL_MS: ${{ vars.FOLLOW_UP_SCHEDULER_INTERVAL_MS || '300000' }}
+          FOLLOW_UP_BATCH_SIZE: ${{ vars.FOLLOW_UP_BATCH_SIZE || '10' }}
+          FOLLOW_UP_IDEMPOTENCY_RETRY_WINDOW_MS: ${{ vars.FOLLOW_UP_IDEMPOTENCY_RETRY_WINDOW_MS || '82800000' }}
+          FOLLOW_UP_FROM_EMAIL: ${{ vars.FOLLOW_UP_FROM_EMAIL || 'Salah Eddine MIMOUNI <sd.mimouni@richmedia.ma>' }}
+          FOLLOW_UP_REPLY_TO_EMAIL: ${{ vars.FOLLOW_UP_REPLY_TO_EMAIL || 'sd.mimouni@richmedia.ma' }}
         run: |
           set -euo pipefail
           ssh_opts="-i $HOME/.ssh/vps_deploy_key -p $VPS_PORT -o IdentitiesOnly=yes"
@@ -144,9 +150,15 @@ jobs:
             printf 'CONTACT_FROM_EMAIL=%s\n' "$(quote_env "$CONTACT_FROM_EMAIL")"
             printf 'RESEND_API_KEY=%s\n' "$(quote_env "$RESEND_API_KEY")"
             printf 'CONTACT_LEADS_FILE=%s/shared/contact-leads.ndjson\n' "$VPS_WEBROOT"
+            printf 'PUBLIC_SITE_URL=%s\n' "$(quote_env "$PUBLIC_SITE_URL")"
+            printf 'FOLLOW_UP_SCHEDULER_INTERVAL_MS=%s\n' "$FOLLOW_UP_SCHEDULER_INTERVAL_MS"
+            printf 'FOLLOW_UP_BATCH_SIZE=%s\n' "$FOLLOW_UP_BATCH_SIZE"
+            printf 'FOLLOW_UP_IDEMPOTENCY_RETRY_WINDOW_MS=%s\n' "$FOLLOW_UP_IDEMPOTENCY_RETRY_WINDOW_MS"
+            printf 'FOLLOW_UP_FROM_EMAIL=%s\n' "$(quote_env "$FOLLOW_UP_FROM_EMAIL")"
+            printf 'FOLLOW_UP_REPLY_TO_EMAIL=%s\n' "$(quote_env "$FOLLOW_UP_REPLY_TO_EMAIL")"
           } > "$env_file"
 
-          ssh $ssh_opts "$VPS_USER@$VPS_HOST" "install -d -m 750 '$VPS_WEBROOT/shared' && chown root:www-data '$VPS_WEBROOT/shared' && chmod 750 '$VPS_WEBROOT/shared'"
+          ssh $ssh_opts "$VPS_USER@$VPS_HOST" "install -d -m 770 '$VPS_WEBROOT/shared' && chown root:www-data '$VPS_WEBROOT/shared' && chmod 770 '$VPS_WEBROOT/shared'"
           ssh $ssh_opts "$VPS_USER@$VPS_HOST" "cat > '$VPS_WEBROOT/shared/contact-api.env.tmp'" < "$env_file"
 
           ssh $ssh_opts "$VPS_USER@$VPS_HOST" \
@@ -222,9 +234,33 @@ jobs:
           WantedBy=multi-user.target
           EOF
 
+          cat > /etc/systemd/system/richmedia-follow-up-scheduler.service <<EOF
+          [Unit]
+          Description=Richmedia barometer follow-up scheduler
+          After=network-online.target richmedia-contact-api.service
+          Wants=network-online.target
+
+          [Service]
+          Type=simple
+          User=www-data
+          Group=www-data
+          WorkingDirectory=${VPS_WEBROOT}/current
+          EnvironmentFile=${VPS_WEBROOT}/shared/contact-api.env
+          ExecStart=/usr/bin/env node ${VPS_WEBROOT}/current/server/follow-up-scheduler.mjs
+          Restart=always
+          RestartSec=10
+          NoNewPrivileges=true
+          PrivateTmp=true
+
+          [Install]
+          WantedBy=multi-user.target
+          EOF
+
           systemctl daemon-reload
           systemctl enable richmedia-contact-api.service
+          systemctl enable richmedia-follow-up-scheduler.service
           systemctl restart richmedia-contact-api.service
+          systemctl restart richmedia-follow-up-scheduler.service
 
           health_status=""
           for attempt in $(seq 1 20); do
@@ -240,6 +276,11 @@ jobs:
           if [ "$health_status" != "200" ]; then
             cat /tmp/richmedia-contact-health.json || true
             journalctl -u richmedia-contact-api.service --no-pager -n 80
+            exit 1
+          fi
+
+          if ! systemctl is-active --quiet richmedia-follow-up-scheduler.service; then
+            journalctl -u richmedia-follow-up-scheduler.service --no-pager -n 80
             exit 1
           fi
 
