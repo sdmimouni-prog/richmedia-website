@@ -93,8 +93,8 @@ const authors = authorSlugs.map((slug) => {
   };
 });
 
-if (authors.length !== 3) {
-  errors.push(`Expected 3 author pages, found ${authors.length}`);
+if (authors.length !== 4) {
+  errors.push(`Expected 4 author pages, found ${authors.length}`);
 }
 
 const authorsByPersonId = new Map(authors.filter((author) => author.personId).map((author) => [author.personId, author]));
@@ -109,7 +109,11 @@ for (const { slug, file } of articleFiles) {
 
   if (!article.mainEntityOfPage?.['@id']) errors.push(`Missing mainEntityOfPage on article ${slug}`);
   if (article.publisher?.['@id'] !== organizationId) errors.push(`Invalid publisher on article ${slug}`);
-  if (article.image && !String(article.image).startsWith('http')) errors.push(`Relative image on article ${slug}`);
+  const images = Array.isArray(article.image) ? article.image : article.image ? [article.image] : [];
+  for (const image of images) {
+    const imageUrl = typeof image === 'string' ? image : image.url ?? image.contentUrl;
+    if (!imageUrl || !/^https?:\/\//.test(imageUrl)) errors.push(`Invalid or relative image on article ${slug}`);
+  }
 
   const author = article.author;
   const personId = author?.['@id'];

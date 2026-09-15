@@ -135,6 +135,75 @@ export const EDITORIAL_AUTHOR = {
 } as const;
 
 export const EDITORIAL_AUTHORS = {
+  'Rachid OUALLA': {
+    "name": "Rachid OUALLA",
+    "slug": "rachid-oualla",
+    "image": "/assets/richmedia-home/team-carousel/rachid-oualla.webp",
+    "portrait": "/assets/richmedia-home/team-carousel/rachid-oualla.webp",
+    "linkedIn": undefined,
+    "email": BUSINESS.email,
+    "role": {
+        "fr": "Directeur Artistique de Richmedia",
+        "en": "Art Director at Richmedia"
+    },
+    "hero": {
+        "fr": "Relier intention stratégique, clarté visuelle et performance créative.",
+        "en": "Connecting strategic intent, visual clarity and creative performance."
+    },
+    "bio": {
+        "fr": "Rachid OUALLA est Directeur Artistique chez Richmedia. Il partage sa réflexion sur la création, la hiérarchie visuelle et la performance.",
+        "en": "Rachid OUALLA is Art Director at Richmedia. He shares his perspective on creativity, visual hierarchy and performance."
+    },
+    "about": {
+        "fr": [
+            "Directeur Artistique chez Richmedia, Rachid OUALLA signe une réflexion sur le rôle du design en 2026.",
+            "Il y aborde la hiérarchie visuelle, les codes culturels marocains, la collaboration avec les équipes média et la place de l’intelligence artificielle dans la création."
+        ],
+        "en": [
+            "Art Director at Richmedia, Rachid OUALLA writes about the role of design in 2026.",
+            "His article explores visual hierarchy, Moroccan cultural context, collaboration with media teams and artificial intelligence in creative work."
+        ]
+    },
+    "credentials": {
+        "fr": [
+            "Direction artistique",
+            "Création publicitaire",
+            "Hiérarchie visuelle"
+        ],
+        "en": [
+            "Art direction",
+            "Advertising design",
+            "Visual hierarchy"
+        ]
+    },
+    "expertise": {
+        "fr": [
+            "Direction artistique",
+            "Brand content",
+            "Design publicitaire",
+            "Hiérarchie visuelle"
+        ],
+        "en": [
+            "Art direction",
+            "Brand content",
+            "Advertising design",
+            "Visual hierarchy"
+        ]
+    },
+    "topics": {
+        "fr": [
+            "Stratégie",
+            "Brand content",
+            "Direction artistique"
+        ],
+        "en": [
+            "Strategy",
+            "Brand content",
+            "Art direction"
+        ]
+    },
+    "experience": ""
+},
   [EDITORIAL_AUTHOR.name]: EDITORIAL_AUTHOR,
   'Amal AMAZOUZ': {
     name: 'Amal AMAZOUZ',

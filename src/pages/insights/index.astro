@@ -24,6 +24,7 @@ const articleBySlug = new Map(
     ].join(' '),
     date: entry.data.datePublication,
     readingTime: entry.data.tempsLecture ?? 6,
+    image: entry.data.ogImage,
   }])
 );
 
@@ -53,6 +54,7 @@ const categoryLabels = {
 };
 
 const articleOrder = [
+  "design-performance-directeur-artistique-2026",
   'comment-choisir-agence-communication',
   'priorites-digitales-2026-croissance-rentable',
   'data-decision-strategie-performance',
@@ -75,7 +77,7 @@ const articles = articleOrder
   .map((article) => ({
     ...article,
     href: `/insights/${article.slug}`,
-    image: articleImages[article.slug] ?? '/og-default.jpg',
+    image: articleImages[article.slug] ?? article.image ?? '/og-default.jpg',
     displayCategory: categoryLabels[article.category] ?? article.category,
   }));
 

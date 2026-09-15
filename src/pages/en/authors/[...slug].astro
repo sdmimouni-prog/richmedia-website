@@ -121,11 +121,13 @@ const schema = [
             <strong>{categoryCount}</strong>
             <span>{categoryCount === 1 ? 'topic covered' : 'topics covered'}</span>
           </article>
+          {author.experience && (
           <article>
             <i class="ph ph-calendar-blank" aria-hidden="true"></i>
             <strong>{author.experience}</strong>
             <span>years of experience</span>
           </article>
+          )}
         </div>
 
         <div class="author-socials" aria-label="Author links">
