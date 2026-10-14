@@ -34,7 +34,7 @@ export const BUSINESS_ADDRESS = {
 export const BUSINESS = {
   legalName: 'Richmedia',
   email: 'contact@richmedia.ma',
-  tels: ['+212661172885', '+212661768009'],
+  tels: ['+212661172885'],
   adresse: `${BUSINESS_ADDRESS.street}, ${BUSINESS_ADDRESS.city} ${BUSINESS_ADDRESS.postalCode}, ${BUSINESS_ADDRESS.country}`,
   address: BUSINESS_ADDRESS,
   geo: {
