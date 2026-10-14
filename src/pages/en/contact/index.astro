@@ -48,7 +48,7 @@ const contactHighlights = [
   {
     icon: 'ph-phone-call',
     title: 'Phone',
-    lines: [formatPhone(BUSINESS.tels[0]), formatPhone(BUSINESS.tels[1])],
+    lines: BUSINESS.tels.map(formatPhone),
     href: `tel:${BUSINESS.tels[0]}`,
   },
   {
